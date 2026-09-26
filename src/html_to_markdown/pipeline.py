@@ -106,8 +106,8 @@ class Pipeline:
                 extracted.html,
             )
             rendered = render_html(extracted.html, fetched.final_url)
-            relative_path = stable_path(adapter.source_id, fetched.final_url)
-            page_dir = self.output / "content" / adapter.source_id / relative_path
+            page_dir = self.output / "content" / adapter.source_id
+            page_dir /= stable_path(adapter.source_id, fetched.final_url)
             page_dir.mkdir(parents=True, exist_ok=True)
             asset_hashes: list[str] = []
             for asset in rendered.assets:
