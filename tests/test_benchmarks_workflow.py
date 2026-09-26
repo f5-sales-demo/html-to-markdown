@@ -39,6 +39,7 @@ def test_release_workflow_is_artifact_first_and_change_gated() -> None:
         "manifest.json",
         "quality-report.json",
         "quality-report.md",
+        "publication.json",
     ):
         assert name in uploaded
     publish = next(step for step in steps if step.get("name") == "Publish changed snapshot")
@@ -46,3 +47,11 @@ def test_release_workflow_is_artifact_first_and_change_gated() -> None:
     text = path.read_text(encoding="utf-8")
     assert "acknowledge_page_drop" not in text
     assert "full-prototype-inventory.json" in text
+    assert "repository_dispatch" in text
+    assert "documentation_snapshot_published" in text
+    assert "release_tag" in text
+    assert "receipt_sha256" in text
+    assert "releases/latest" not in text
+    assert 'gh release create "$release_tag" --draft' in text
+    assert "verify-publication" in text
+    assert 'gh release edit "$release_tag" --draft=false' in text

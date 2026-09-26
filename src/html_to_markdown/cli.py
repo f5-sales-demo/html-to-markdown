@@ -10,6 +10,12 @@ from typing import Annotated
 import typer
 
 from .logging import configure_logging
+from .package import (
+    sha256_file,
+    verify_archive,
+    verify_publication_receipt,
+    write_publication_receipt,
+)
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
 from .state import StateStore
@@ -139,6 +145,48 @@ def quality(
     """Write deterministic advisory JSON and Markdown quality reports."""
     json_path, markdown_path = write_quality_reports(candidate, reference, benchmark)
     typer.echo(f"{json_path}\n{markdown_path}")
+
+
+@app.command("publication")
+def publication_command(
+    output: Output = Path("build"),
+    release_tag: Annotated[str, typer.Option()] = "",
+    source_commit: Annotated[str, typer.Option()] = "",
+    created_at: Annotated[str, typer.Option()] = "",
+    published_at: Annotated[str, typer.Option()] = "",
+) -> None:
+    """Write the immutable release publication receipt."""
+    typer.echo(
+        write_publication_receipt(
+            output,
+            tag=release_tag,
+            source_commit=source_commit,
+            created_at=created_at,
+            published_at=published_at,
+        )
+    )
+
+
+@app.command("verify-publication")
+def verify_publication_command(
+    output: Output = Path("build"),
+    release_tag: Annotated[str, typer.Option()] = "",
+) -> None:
+    """Verify a downloaded release and its closed publication asset set."""
+    receipt = json.loads((output / "publication.json").read_text(encoding="utf-8"))
+    verify_publication_receipt(
+        output,
+        receipt,
+        expected_tag=release_tag,
+        actual_asset_names={path.name for path in output.iterdir() if path.is_file()},
+    )
+    archive = output / "html-to-markdown-content.tar.gz"
+    checksum = output / "html-to-markdown-content.tar.gz.sha256"
+    expected_checksum = f"{sha256_file(archive)}  {archive.name}\n"
+    if checksum.read_text(encoding="utf-8") != expected_checksum:
+        raise ValueError("outer archive checksum mismatch")
+    verify_archive(archive)
+    typer.echo("valid")
 
 
 if __name__ == "__main__":

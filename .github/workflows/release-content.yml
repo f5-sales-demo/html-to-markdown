@@ -14,6 +14,7 @@ concurrency:
 jobs:
   snapshot:
     name: Build and publish snapshot
+    environment: repository-settings
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     permissions:
@@ -31,11 +32,19 @@ jobs:
       - name: Download previous manifest
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           mkdir -p previous
-          gh release download --pattern manifest.json \
-            --pattern html-to-markdown-content.tar.gz --dir previous || true
-          if test -f previous/html-to-markdown-content.tar.gz; then
+          previous_tag="$(
+            gh api --method GET --paginate \
+              "repos/$REPOSITORY/releases" -f per_page=100 \
+              --jq '.[] | select(.draft == false and .prerelease == false) | .tag_name' |
+              grep -E '^content-[0-9]{8}T[0-9]{6}Z$' |
+              head -n 1
+          )"
+          if test -n "$previous_tag"; then
+            gh release download "$previous_tag" --pattern manifest.json \
+              --pattern html-to-markdown-content.tar.gz --dir previous
             tar -xzf previous/html-to-markdown-content.tar.gz -C previous
           fi
       - name: Build artifact-first snapshot
@@ -54,8 +63,8 @@ jobs:
         run: |
           if test -f previous/manifest.json &&
              diff -q \
-               <(jq -S '{documents: [.documents[] | {url,path,sha256}],assets,removals}' previous/manifest.json) \
-               <(jq -S '{documents: [.documents[] | {url,path,sha256}],assets,removals}' build/manifest.json); then
+               <(jq -S '{documents: [.documents[] | {url,path,body_sha256,file_sha256,size_bytes}],assets,removals}' previous/manifest.json) \
+               <(jq -S '{documents: [.documents[] | {url,path,body_sha256,file_sha256,size_bytes}],assets,removals}' build/manifest.json); then
             echo "value=false" >> "$GITHUB_OUTPUT"
           else
             echo "value=true" >> "$GITHUB_OUTPUT"
@@ -63,6 +72,18 @@ jobs:
       - name: Verify archive checksum
         working-directory: build
         run: sha256sum --check html-to-markdown-content.tar.gz.sha256
+      - name: Build immutable publication receipt
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          tag="content-$(date -u +%Y%m%dT%H%M%SZ)"
+          created_at="$(jq -r .ended_at build/manifest.json)"
+          published_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          uv run html-to-markdown publication --output build \
+            --release-tag "$tag" --source-commit "$SOURCE_COMMIT" \
+            --created-at "$created_at" --published-at "$published_at"
+          echo "release_tag=$tag" >> "$GITHUB_ENV"
+          echo "receipt_sha256=$(sha256sum build/publication.json | cut -d ' ' -f 1)" >> "$GITHUB_ENV"
       - name: Upload completed-run artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -74,15 +95,41 @@ jobs:
             build/manifest.json
             build/quality-report.json
             build/quality-report.md
+            build/publication.json
       - name: Publish changed snapshot
         if: steps.changed.outputs.value == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
         run: |
-          tag="content-$(date -u +%Y%m%dT%H%M%SZ)"
-          gh release create "$tag" --title "$tag" --generate-notes \
+          release_created=false
+          cleanup_draft() {
+            if [[ "$release_created" == true ]]; then
+              gh release delete "$release_tag" --cleanup-tag --yes || true
+            fi
+          }
+          trap cleanup_draft EXIT
+          gh release create "$release_tag" --draft --title "$release_tag" --generate-notes \
             build/html-to-markdown-content.tar.gz \
             build/html-to-markdown-content.tar.gz.sha256 \
             build/manifest.json \
             build/quality-report.json \
-            build/quality-report.md
+            build/quality-report.md \
+            build/publication.json
+          release_created=true
+          mkdir verify-release
+          gh release download "$release_tag" --dir verify-release
+          uv run html-to-markdown verify-publication \
+            --output verify-release --release-tag "$release_tag"
+          gh release edit "$release_tag" --draft=false
+          release_created=false
+      - name: Dispatch immutable snapshot to xcsh with repository_dispatch
+        if: steps.changed.outputs.value == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          gh api --method POST repos/f5-sales-demo/xcsh/dispatches \
+            -f event_type=documentation_snapshot_published \
+            -F "client_payload[release_tag]=$release_tag" \
+            -F "client_payload[receipt_sha256]=$receipt_sha256" \
+            -F "client_payload[source_commit]=$SOURCE_COMMIT"
