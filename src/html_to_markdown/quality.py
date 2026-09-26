@@ -110,6 +110,8 @@ def _benchmark_urls(path: Path | None) -> set[str] | None:
     return set(urls)
 
 
+# Keep the per-page measurements together so their counters cannot diverge.
+# pylint: disable-next=too-many-locals
 def analyze_quality(
     candidate: Path, reference: Path | None = None, benchmark: Path | None = None
 ) -> dict[str, Any]:

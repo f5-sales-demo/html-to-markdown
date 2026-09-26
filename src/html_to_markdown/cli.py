@@ -12,6 +12,7 @@ import typer
 from .logging import configure_logging
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
+from .state import StateStore
 from .validation import validate_snapshot
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
@@ -26,6 +27,8 @@ def _check_source(source: str) -> str:
 
 
 @app.command()
+# Typer exposes each option as a command function parameter.
+# pylint: disable-next=too-many-arguments
 def run(
     source: Source = "all",
     output: Output = Path("build"),
@@ -107,8 +110,6 @@ def scrape(
 @app.command()
 def status(output: Output = Path("build")) -> None:
     """Show state counts as JSON."""
-    from .state import StateStore
-
     store = StateStore(output / "state.sqlite")
     try:
         typer.echo(json.dumps(store.counts(), sort_keys=True))
@@ -121,8 +122,6 @@ def validate_command(
     output: Output = Path("build"),
 ) -> None:
     """Validate hard document and artifact integrity."""
-    from .state import StateStore
-
     store = StateStore(output / "state.sqlite")
     try:
         validate_snapshot(output, store)

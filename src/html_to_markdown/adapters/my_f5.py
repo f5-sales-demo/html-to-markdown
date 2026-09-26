@@ -159,13 +159,13 @@ class MyF5Adapter(SourceAdapter):
             slug=article_id.casefold(),
             url=page.final_url,
             category=category,
-            publication_date=self._date(text, "Published Date"),
-            modification_date=self._date(text, "Updated Date"),
+            publication_date=self.parse_date(text, "Published Date"),
+            modification_date=self.parse_date(text, "Updated Date"),
             tags=["f5-distributed-cloud", category],
         )
 
     @staticmethod
-    def _date(text: str, label: str) -> str | None:
+    def parse_date(text: str, label: str) -> str | None:
         match = re.search(rf"{re.escape(label)}:\s*([A-Za-z]{{3,9}}\s+\d{{1,2}},\s+\d{{4}})", text)
         if not match:
             return None

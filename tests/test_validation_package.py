@@ -119,7 +119,11 @@ def test_archive_is_deterministic_and_checksummed(tmp_path: Path) -> None:
 def test_manifest_document_mismatch_fails_packaging(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
     manifest = build_manifest(output, store, "start", "end")
-    manifest["documents"][0]["sha256"] = "tampered"
+    documents = manifest["documents"]
+    assert isinstance(documents, list)
+    document = documents[0]
+    assert isinstance(document, dict)
+    document["sha256"] = "tampered"
     with pytest.raises(ValueError, match="manifest document hash mismatch"):
         write_release(output, manifest)
     store.close()
@@ -128,7 +132,11 @@ def test_manifest_document_mismatch_fails_packaging(tmp_path: Path) -> None:
 def test_duplicate_manifest_document_path_fails_packaging(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
     manifest = build_manifest(output, store, "start", "end")
-    manifest["documents"].append(dict(manifest["documents"][0]))
+    documents = manifest["documents"]
+    assert isinstance(documents, list)
+    document = documents[0]
+    assert isinstance(document, dict)
+    documents.append(dict(document))
     with pytest.raises(ValueError, match="duplicate manifest document path"):
         write_release(output, manifest)
     store.close()

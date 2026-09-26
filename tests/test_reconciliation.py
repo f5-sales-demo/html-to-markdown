@@ -70,8 +70,15 @@ def test_transient_failure_carries_document_assets_and_provenance(tmp_path: Path
     assert (output / PATH).exists()
     assert (output / Path(PATH).parent / "assets/image.png").read_bytes() == b"png"
     manifest = build_manifest(output, store, "start", "end")
-    assert manifest["counts"]["carried_forward"] == 1
-    provenance = manifest["documents"][0]["provenance"]
+    counts = manifest["counts"]
+    documents = manifest["documents"]
+    assert isinstance(counts, dict)
+    assert isinstance(documents, list)
+    document = documents[0]
+    assert isinstance(document, dict)
+    provenance = document["provenance"]
+    assert isinstance(provenance, dict)
+    assert counts["carried_forward"] == 1
     assert provenance["freshness"] == "carried_forward"
     assert provenance["current_failure"]["classification"] == "failed"
     assert provenance["consecutive_failure_count"] == 1
@@ -107,7 +114,9 @@ def test_terminal_removal_requires_two_consecutive_crawls(tmp_path: Path) -> Non
     first_manifest = build_manifest(first_output, first_store, "start", "end")
     first_manifest_path = first_output / "manifest.json"
     first_manifest_path.write_text(json.dumps(first_manifest), encoding="utf-8")
-    assert first_manifest["counts"]["removal_candidate"] == 1
+    first_counts = first_manifest["counts"]
+    assert isinstance(first_counts, dict)
+    assert first_counts["removal_candidate"] == 1
     first_store.close()
 
     second_output = tmp_path / "second"
@@ -117,8 +126,12 @@ def test_terminal_removal_requires_two_consecutive_crawls(tmp_path: Path) -> Non
     reconcile_previous(second_output, second_store, first_manifest_path)
     assert second_store.rows()[0]["status"] == PageStatus.CONFIRMED_REMOVAL
     second_manifest = build_manifest(second_output, second_store, "start", "end")
-    assert second_manifest["counts"]["confirmed_removal"] == 1
-    assert second_manifest["documents"] == []
+    second_counts = second_manifest["counts"]
+    second_documents = second_manifest["documents"]
+    assert isinstance(second_counts, dict)
+    assert isinstance(second_documents, list)
+    assert second_counts["confirmed_removal"] == 1
+    assert not second_documents
     second_store.close()
 
 
@@ -131,7 +144,9 @@ def test_first_baseline_failure_is_unavailable_but_packages(tmp_path: Path) -> N
     reconcile_previous(output, store, None)
     assert store.rows()[0]["status"] == PageStatus.UNAVAILABLE
     manifest = build_manifest(output, store, "start", "end")
-    assert manifest["counts"]["unavailable"] == 1
+    counts = manifest["counts"]
+    assert isinstance(counts, dict)
+    assert counts["unavailable"] == 1
     (output / "quality-report.json").write_text("{}\n", encoding="utf-8")
     (output / "quality-report.md").write_text("# Quality\n", encoding="utf-8")
     assert write_release(output, manifest).exists()

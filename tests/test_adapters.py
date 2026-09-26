@@ -65,7 +65,7 @@ def test_docs_auth_missing_container_and_metadata_fallbacks() -> None:
     assert metadata.title == "Index"
     assert metadata.category == "documentation"
     assert metadata.publication_date is None
-    assert adapter._date("Published Noday 99, 2025", r"Published\s+(.+)") is None
+    assert adapter.parse_date("Published Noday 99, 2025", r"Published\s+(.+)") is None
     title_fallback = FetchResult(
         url="https://docs.cloud.f5.com/docs-v2/a",
         final_url="https://docs.cloud.f5.com/docs-v2/a",
@@ -132,7 +132,7 @@ def test_my_f5_metadata_fallbacks_and_no_truncation() -> None:
     assert result.metadata.category == "knowledge"
     assert result.metadata.publication_date is None
     assert "Keep it" in result.html
-    assert adapter._date("Published Date: Invalid 99, 2020", "Published Date") is None
+    assert adapter.parse_date("Published Date: Invalid 99, 2020", "Published Date") is None
 
 
 def test_my_f5_removes_ui_and_promotional_cards_but_keeps_related_content() -> None:

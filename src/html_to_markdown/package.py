@@ -114,6 +114,8 @@ def build_manifest(
     }
 
 
+# Packaging and its final integrity audit intentionally share one transaction.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def write_release(output: Path, manifest: dict[str, object]) -> Path:
     if (
         not (output / "quality-report.json").is_file()

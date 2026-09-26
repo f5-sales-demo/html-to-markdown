@@ -151,6 +151,8 @@ class StateStore:
                 ),
             )
 
+    # This maps the complete reconciliation record to one atomic SQL update.
+    # pylint: disable-next=too-many-arguments
     def reconcile(
         self,
         url: str,
