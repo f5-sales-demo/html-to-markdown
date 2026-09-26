@@ -13,10 +13,12 @@ from bs4 import BeautifulSoup
 
 from .adapters import ADAPTERS
 from .adapters.base import SourceAdapter
-from .errors import AuthenticationWallError, NavigationOnlyError, NotFoundError
+from .errors import AllowlistError, AuthenticationWallError, NavigationOnlyError, NotFoundError
 from .fetcher import Fetcher
 from .models import DiscoveredPage, DocumentRecord, PageStatus, utc_now
 from .package import build_manifest, write_release
+from .quality import write_quality_reports
+from .reconcile import include_inventory_urls, include_previous_urls, reconcile_previous
 from .render import render_html, serialize_document
 from .state import StateStore
 from .urls import stable_path, validate_source_url
@@ -106,12 +108,17 @@ class Pipeline:
                 extracted.html,
             )
             rendered = render_html(extracted.html, fetched.final_url)
+            extracted.metadata.url = url
             page_dir = self.output / "content" / adapter.source_id
-            page_dir /= stable_path(adapter.source_id, fetched.final_url)
+            page_dir /= stable_path(adapter.source_id, url)
             page_dir.mkdir(parents=True, exist_ok=True)
             asset_hashes: list[str] = []
             for asset in rendered.assets:
-                content, media_type = await self.fetcher.fetch_asset(asset.url)
+                try:
+                    content, media_type = await self.fetcher.fetch_asset(asset.url)
+                except AllowlistError:
+                    rendered.body = rendered.body.replace(asset.placeholder, asset.url)
+                    continue
                 digest = hashlib.sha256(content).hexdigest()
                 suffix = self._asset_extension(asset.url, media_type)
                 asset_dir = page_dir / "assets"
@@ -196,19 +203,12 @@ class Pipeline:
         suffix = mimetypes.guess_extension(media) or Path(urlsplit(url).path).suffix.lower()
         return suffix if re_safe_suffix(suffix) else ".bin"
 
-    def validate(
-        self,
-        previous_manifest: Path | None = None,
-        acknowledge_page_drop: bool = False,
-    ) -> None:
-        validate_snapshot(
-            self.output,
-            self.store,
-            previous_manifest=previous_manifest,
-            acknowledge_page_drop=acknowledge_page_drop,
-        )
+    def validate(self) -> None:
+        validate_snapshot(self.output, self.store)
 
     def package(self, started_at: str, ended_at: str) -> Path:
+        if not (self.output / "quality-report.json").is_file():
+            write_quality_reports(self.output)
         manifest = build_manifest(self.output, self.store, started_at, ended_at)
         return write_release(self.output, manifest)
 
@@ -228,7 +228,9 @@ async def run_pipeline(
     headed: bool = False,
     force: bool = False,
     previous_manifest: Path | None = None,
-    acknowledge_page_drop: bool = False,
+    quality_reference: Path | None = None,
+    benchmark: Path | None = None,
+    inventory_only: bool = False,
 ) -> Path:
     # pylint: disable=too-many-arguments
     started = utc_now()
@@ -239,7 +241,25 @@ async def run_pipeline(
         timeout=timeout,
         headed=headed,
     ) as pipeline:
-        await pipeline.discover(source, url)
+        if inventory_only:
+            if benchmark is None:
+                raise ValueError("--inventory-only requires --benchmark")
+            if url is not None:
+                raise ValueError("--inventory-only cannot be combined with --url")
+        else:
+            await pipeline.discover(source, url)
+        include_previous_urls(
+            pipeline.store,
+            previous_manifest,
+            {adapter.source_id for adapter in pipeline.adapters(source)},
+        )
+        include_inventory_urls(
+            pipeline.store,
+            benchmark,
+            {adapter.source_id for adapter in pipeline.adapters(source)},
+        )
         await pipeline.scrape(source, force=force)
-        pipeline.validate(previous_manifest, acknowledge_page_drop)
+        reconcile_previous(output, pipeline.store, previous_manifest)
+        write_quality_reports(output, reference=quality_reference, benchmark=benchmark)
+        pipeline.validate()
         return pipeline.package(started, utc_now())

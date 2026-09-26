@@ -21,6 +21,13 @@ Each browser task gets an isolated context, bounded by one semaphore. Docs-cloud
 
 SQLite records canonical URL, source, status, attempts, timestamps, source last-modified value, output path, content hash, and classified error. It is an optimization and resume mechanism, not an input required for a clean crawl.
 
-The publication validator admits only successful pages and explicit `removed_not_found` or `removed_navigation` terminal removals. Authentication walls, unclassified failures, invalid frontmatter, hash mismatches, broken local assets, and an unacknowledged page-count drop over 5% block packaging.
+The publication validator enforces artifact integrity: valid frontmatter and content hashes,
+resolvable local assets, manifest consistency, checksums, and a readable deterministic archive.
+Source-access failures and quality regressions are advisory. A prior successful document is carried
+forward after a transient failure or first terminal observation; two consecutive terminal
+confirmations remove it. First-baseline failures are recorded as unavailable and omitted.
 
-Archives use sorted members, zero timestamps, numeric ownership, stable JSON, and content-addressed assets. Runtime timestamps are recorded in `manifest.json`; repeat packaging of the same manifest and tree is byte-identical.
+Archives use sorted members, zero timestamps, numeric ownership, stable JSON, and content-addressed
+assets. Runtime timestamps are recorded in `manifest.json`; repeat packaging of the same manifest
+and tree is byte-identical. Every completed run includes the content archive, checksum, manifest,
+and JSON and Markdown quality reports.

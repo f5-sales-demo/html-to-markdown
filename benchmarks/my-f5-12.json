@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "my-f5-com-12",
+  "source": "my-f5-com",
+  "size": 12,
+  "selection": "lowest sha256(url), ascending",
+  "inventory": "live-discovery:2026-09-26",
+  "urls": [
+    "https://my.f5.com/manage/s/article/K000147392",
+    "https://my.f5.com/manage/s/article/K000147070",
+    "https://my.f5.com/manage/s/article/K000147818",
+    "https://my.f5.com/manage/s/article/K000160153",
+    "https://my.f5.com/manage/s/article/K000148173",
+    "https://my.f5.com/manage/s/article/K000163092",
+    "https://my.f5.com/manage/s/article/K000147101",
+    "https://my.f5.com/manage/s/article/K000148213",
+    "https://my.f5.com/manage/s/article/K000147133",
+    "https://my.f5.com/manage/s/article/K000146928",
+    "https://my.f5.com/manage/s/article/K000148156",
+    "https://my.f5.com/manage/s/article/K000147500"
+  ]
+}

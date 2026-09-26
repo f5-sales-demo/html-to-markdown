@@ -27,12 +27,14 @@ class Http:
 class DocsPage:
     def __init__(self) -> None:
         self.select_calls = 0
+        self.expand_calls = 0
 
     async def goto(self, url: str, wait_until: str) -> None:
         return None
 
-    async def evaluate(self, script: str) -> None:
-        return None
+    async def evaluate(self, script: str) -> int:
+        self.expand_calls += 1
+        return 2 if self.expand_calls == 1 else 0
 
     async def eval_on_selector_all(self, selector: str, script: str) -> list[str]:
         self.select_calls += 1
@@ -59,9 +61,13 @@ async def test_docs_discovery_combines_tree_and_openapi() -> None:
         archive.writestr(
             "docs-cloud-f5-com.1.public.ves.io.schema.app.firewall.ves-swagger.json", "{}"
         )
-    pages = await DocsCloudAdapter().discover(DocsFetcher(payload.getvalue()))
+    fetcher = DocsFetcher(payload.getvalue())
+    pages = await DocsCloudAdapter().discover(fetcher)
     urls = {page.url for page in pages}
     assert "https://docs.cloud.f5.com/docs-v2/platform/guide" in urls
+    assert "https://docs.cloud.f5.com/docs-v2/platform" in urls
+    assert DocsCloudAdapter.root_url in urls
+    assert fetcher.page.expand_calls >= 2
     assert any("ves-io-schema-app_firewall-api-create" in url for url in urls)
 
 
@@ -75,7 +81,10 @@ async def test_docs_discovery_handles_empty_tree_and_bad_archive() -> None:
             )
 
     pages = await DocsCloudAdapter().discover(DocsFetcher(b"not a zip", EmptyPage()))
-    assert [page.url for page in pages] == ["https://docs.cloud.f5.com/docs-v2/standalone"]
+    assert [page.url for page in pages] == [
+        "https://docs.cloud.f5.com/docs-v2",
+        "https://docs.cloud.f5.com/docs-v2/standalone",
+    ]
 
 
 @pytest.mark.asyncio
@@ -86,7 +95,10 @@ async def test_docs_discovery_skips_bad_service() -> None:
                 raise RuntimeError("unavailable")
 
     pages = await DocsCloudAdapter().discover(DocsFetcher(b"not a zip", BrokenPage()))
-    assert pages == []
+    assert [page.url for page in pages] == [
+        "https://docs.cloud.f5.com/docs-v2",
+        "https://docs.cloud.f5.com/docs-v2/platform",
+    ]
 
 
 class Locator:

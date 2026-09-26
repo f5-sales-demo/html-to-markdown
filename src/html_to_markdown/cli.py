@@ -11,6 +11,7 @@ import typer
 
 from .logging import configure_logging
 from .pipeline import Pipeline, run_pipeline
+from .quality import write_quality_reports
 from .validation import validate_snapshot
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
@@ -35,7 +36,11 @@ def run(
     headed: Annotated[bool, typer.Option()] = False,
     force: Annotated[bool, typer.Option(help="Refresh successful pages")] = False,
     previous_manifest: Annotated[Path | None, typer.Option()] = None,
-    acknowledge_page_drop: Annotated[bool, typer.Option()] = False,
+    quality_reference: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+    benchmark: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    inventory_only: Annotated[
+        bool, typer.Option(help="Scrape only URLs pinned by --benchmark")
+    ] = False,
     verbose: Annotated[bool, typer.Option()] = False,
 ) -> None:
     """Discover, scrape, validate, and package a snapshot."""
@@ -51,7 +56,9 @@ def run(
             headed=headed,
             force=force,
             previous_manifest=previous_manifest,
-            acknowledge_page_drop=acknowledge_page_drop,
+            quality_reference=quality_reference,
+            benchmark=benchmark,
+            inventory_only=inventory_only,
         )
     )
     typer.echo(archive)
@@ -112,23 +119,27 @@ def status(output: Output = Path("build")) -> None:
 @app.command("validate")
 def validate_command(
     output: Output = Path("build"),
-    previous_manifest: Annotated[Path | None, typer.Option()] = None,
-    acknowledge_page_drop: Annotated[bool, typer.Option()] = False,
 ) -> None:
-    """Validate documents, assets, state, and publication gates."""
+    """Validate hard document and artifact integrity."""
     from .state import StateStore
 
     store = StateStore(output / "state.sqlite")
     try:
-        validate_snapshot(
-            output,
-            store,
-            previous_manifest=previous_manifest,
-            acknowledge_page_drop=acknowledge_page_drop,
-        )
+        validate_snapshot(output, store)
     finally:
         store.close()
     typer.echo("valid")
+
+
+@app.command()
+def quality(
+    candidate: Annotated[Path, typer.Option(file_okay=False)] = Path("build"),
+    reference: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+    benchmark: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+) -> None:
+    """Write deterministic advisory JSON and Markdown quality reports."""
+    json_path, markdown_path = write_quality_reports(candidate, reference, benchmark)
+    typer.echo(f"{json_path}\n{markdown_path}")
 
 
 if __name__ == "__main__":

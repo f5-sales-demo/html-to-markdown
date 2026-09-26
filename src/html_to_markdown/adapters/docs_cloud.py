@@ -21,8 +21,15 @@ class DocsCloudAdapter(SourceAdapter):
     source_id = "docs-cloud-f5-com"
     root_url = "https://docs.cloud.f5.com/docs-v2"
 
+    def needs_browser(self, html: str) -> bool:
+        if super().needs_browser(html):
+            return True
+        soup = BeautifulSoup(html, "html.parser")
+        title = soup.title.get_text(" ", strip=True) if soup.title else ""
+        return " API for " in title and soup.select_one(".api-info") is None
+
     async def discover(self, fetcher: object) -> list[DiscoveredPage]:
-        urls: set[str] = set()
+        urls: set[str] = {self.root_url}
         async with fetcher.browser_page() as page:  # type: ignore[attr-defined]
             await page.goto(self.root_url, wait_until="domcontentloaded")
             service_urls = await page.eval_on_selector_all(
@@ -31,17 +38,29 @@ class DocsCloudAdapter(SourceAdapter):
             for service_url in service_urls:
                 try:
                     service_url = validate_source_url(self.source_id, service_url)
+                    urls.add(service_url)
                     await page.goto(service_url, wait_until="domcontentloaded")
-                    await page.evaluate(
-                        """() => {
+                    for _ in range(20):
+                        expanded = await page.evaluate(
+                            """() => {
+                          let clicked = 0;
                           [...document.querySelectorAll('button')]
                             .filter(b => /Navigation Menu/i.test(
                               b.textContent || b.getAttribute('aria-label') || ''))
-                            .forEach(b => b.click());
+                            .forEach(b => { b.click(); clicked += 1; });
                           [...document.querySelectorAll('[role="treeitem"][aria-expanded="false"]')]
-                            .forEach(i => (i.querySelector(':scope > div') || i).click());
+                            .forEach(i => {
+                              (i.querySelector(':scope > div') || i).click();
+                              clicked += 1;
+                            });
+                          return clicked;
                         }"""
-                    )
+                        )
+                        if not isinstance(expanded, int) or expanded == 0:
+                            break
+                        wait = getattr(page, "wait_for_timeout", None)
+                        if wait is not None:
+                            await wait(100)
                     links = await page.eval_on_selector_all(
                         '[role="tree"] a[href*="/docs-v2/"], main a[href*="/docs-v2/"]',
                         "els => [...new Set(els.map(e => e.href.split('#')[0]))]",

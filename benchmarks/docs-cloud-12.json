@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "docs-cloud-f5-com-12",
+  "source": "docs-cloud-f5-com",
+  "size": 12,
+  "selection": "lowest sha256(url), ascending",
+  "inventory": "prototype:d0aa25d2f6460eca32b132c758709d8e7c3dae07",
+  "urls": [
+    "https://docs.cloud.f5.com/docs-v2/bot-defense/configure-advanced/network-policy",
+    "https://docs.cloud.f5.com/docs-v2/api/data-privacy-geo-config",
+    "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/volt-hw/igw-lcd",
+    "https://docs.cloud.f5.com/docs-v2/api/tenant-management-tenant-profile",
+    "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref/ves-io-schema-observability-synthetic_monitor-v1_http_monitor-customapi-getfilteredhttpmonitorlist",
+    "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/volt-hw/igw-user-manual",
+    "https://docs.cloud.f5.com/docs-v2/api/fleet",
+    "https://docs.cloud.f5.com/docs-v2/api/views-external-connector",
+    "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref/ves-io-schema-views-rate_limiter_policy-api-get",
+    "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref/ves-io-schema-stored_object-api-create",
+    "https://docs.cloud.f5.com/docs-v2/bot-defense/configure/cloudflare",
+    "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref/ves-io-schema-observability-synthetic_monitor-customapi-getcertsummary"
+  ]
+}

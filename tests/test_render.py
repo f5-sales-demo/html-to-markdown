@@ -1,9 +1,39 @@
 from pathlib import Path
 
-from html_to_markdown.models import PageMetadata
+from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.adapters.my_f5 import MyF5Adapter
+from html_to_markdown.models import FetchResult, PageMetadata
 from html_to_markdown.render import content_hash, render_html, serialize_document, split_document
 
 FIXTURES = Path(__file__).parent / "fixtures"
+GOLDEN = Path(__file__).parent / "golden"
+
+
+def test_adapters_match_pinned_prototype_capture_goldens() -> None:
+    cases = (
+        (
+            DocsCloudAdapter(),
+            "docs_page.html",
+            "docs-cloud-prototype.md",
+            "https://docs.cloud.f5.com/docs-v2/platform/how-to/configure",
+        ),
+        (
+            MyF5Adapter(),
+            "my_f5_page.html",
+            "my-f5-prototype.md",
+            "https://my.f5.com/manage/s/article/K000123456",
+        ),
+    )
+    for adapter, fixture, golden, url in cases:
+        fetched = FetchResult(
+            url=url,
+            final_url=url,
+            status_code=200,
+            html=(FIXTURES / fixture).read_text(encoding="utf-8"),
+        )
+        extracted = adapter.extract(fetched)
+        rendered = render_html(extracted.html, url)
+        assert rendered.body == (GOLDEN / golden).read_text(encoding="utf-8")
 
 
 def test_markdown_preserves_semantics_and_removes_chrome() -> None:

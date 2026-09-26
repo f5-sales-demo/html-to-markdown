@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-import json
 import re
 from pathlib import Path
 
 from .errors import PublicationBlockedError, ValidationError
-from .models import PageStatus
 from .render import content_hash, split_document
 from .state import StateStore
 
@@ -59,40 +57,11 @@ def validate_document(path: Path) -> list[str]:
 def validate_snapshot(
     output: Path,
     store: StateStore,
-    *,
-    previous_manifest: Path | None = None,
-    acknowledge_page_drop: bool = False,
 ) -> None:
+    """Validate only artifact integrity; crawl and quality findings are advisory."""
     errors: list[str] = []
     for path in output.glob("content/*/**/index.md"):
         errors.extend(validate_document(path))
-    rows = store.rows()
-    authentication_walls = []
-    for row in rows:
-        if PageStatus(row["status"]) == PageStatus.AUTHENTICATION_WALL:
-            authentication_walls.append(row)
-    if authentication_walls:
-        count = len(authentication_walls)
-        errors.append(f"{count} authentication wall(s) blocked anonymous publication")
-    blocked = [
-        row
-        for row in rows
-        if PageStatus(row["status"])
-        not in {
-            PageStatus.SUCCESS,
-            PageStatus.REMOVED_NOT_FOUND,
-            PageStatus.REMOVED_NAVIGATION,
-            PageStatus.AUTHENTICATION_WALL,
-        }
-    ]
-    if blocked:
-        errors.append(f"{len(blocked)} pages have unclassified or failed status")
-    if previous_manifest and previous_manifest.exists() and not acknowledge_page_drop:
-        previous = json.loads(previous_manifest.read_text(encoding="utf-8"))
-        prior_count = int(previous.get("page_count", 0))
-        current_count = sum(1 for row in rows if row["status"] == PageStatus.SUCCESS)
-        if prior_count and current_count < prior_count * 0.95:
-            errors.append(f"page count dropped from {prior_count} to {current_count} (>5%)")
     if errors:
         raise PublicationBlockedError("snapshot validation failed:\n- " + "\n- ".join(errors))
 

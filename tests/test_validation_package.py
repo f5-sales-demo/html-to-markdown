@@ -1,9 +1,8 @@
-import json
+import tarfile
 from pathlib import Path
 
 import pytest
 
-from html_to_markdown.errors import PublicationBlockedError
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.package import build_manifest, sha256_file, write_release
 from html_to_markdown.render import serialize_document
@@ -39,25 +38,19 @@ def test_document_and_snapshot_validation(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
     assert not validate_document(output / "content/docs-cloud-f5-com/a/index.md")
     validate_snapshot(output, store)
-    previous = output / "previous.json"
-    previous.write_text(json.dumps({"page_count": 100}), encoding="utf-8")
-    with pytest.raises(PublicationBlockedError, match="page count dropped"):
-        validate_snapshot(output, store, previous_manifest=previous)
-    validate_snapshot(output, store, previous_manifest=previous, acknowledge_page_drop=True)
     store.close()
 
 
-def test_failed_state_blocks_publication(tmp_path: Path) -> None:
+def test_failed_state_is_advisory_not_an_integrity_failure(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
     other = "https://docs.cloud.f5.com/docs-v2/failure"
     store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=other)])
     store.mark(other, PageStatus.FAILED, error=RuntimeError("boom"))
-    with pytest.raises(PublicationBlockedError, match="unclassified or failed"):
-        validate_snapshot(output, store)
+    validate_snapshot(output, store)
     store.close()
 
 
-def test_authentication_wall_blocks_publication_clearly(tmp_path: Path) -> None:
+def test_authentication_wall_is_advisory_not_an_integrity_failure(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
     protected = "https://my.f5.com/manage/s/article/K000147377"
     store.discover([DiscoveredPage(source_id="my-f5-com", url=protected)])
@@ -66,8 +59,7 @@ def test_authentication_wall_blocks_publication_clearly(tmp_path: Path) -> None:
         PageStatus.AUTHENTICATION_WALL,
         error=RuntimeError("authentication wall"),
     )
-    with pytest.raises(PublicationBlockedError, match="1 authentication wall"):
-        validate_snapshot(output, store)
+    validate_snapshot(output, store)
     store.close()
 
 
@@ -115,4 +107,28 @@ def test_archive_is_deterministic_and_checksummed(tmp_path: Path) -> None:
     archive = write_release(output, changed_times)
     assert sha256_file(archive) == first
     assert archive.with_name(f"{archive.name}.sha256").exists()
+    with tarfile.open(archive, "r:gz") as packaged:
+        names = packaged.getnames()
+    assert "quality-report.json" in names
+    assert "quality-report.md" in names
+    assert "manifest.json" in names
+    assert "SHA256SUMS" in names
+    store.close()
+
+
+def test_manifest_document_mismatch_fails_packaging(tmp_path: Path) -> None:
+    output, store = prepared_snapshot(tmp_path)
+    manifest = build_manifest(output, store, "start", "end")
+    manifest["documents"][0]["sha256"] = "tampered"
+    with pytest.raises(ValueError, match="manifest document hash mismatch"):
+        write_release(output, manifest)
+    store.close()
+
+
+def test_duplicate_manifest_document_path_fails_packaging(tmp_path: Path) -> None:
+    output, store = prepared_snapshot(tmp_path)
+    manifest = build_manifest(output, store, "start", "end")
+    manifest["documents"].append(dict(manifest["documents"][0]))
+    with pytest.raises(ValueError, match="duplicate manifest document path"):
+        write_release(output, manifest)
     store.close()

@@ -116,6 +116,26 @@ class MyF5Adapter(SourceAdapter):
                     sibling.decompose()
                 heading.decompose()
                 break
+        for anchor in list(container.find_all("a")):
+            if anchor.get_text(" ", strip=True).casefold() != "learn more":
+                continue
+            card = anchor.find_parent(["section", "li", "div"])
+            card_text = card.get_text(" ", strip=True) if card else ""
+            if "related content" not in card_text.casefold():
+                (card or anchor).decompose()
+        ui_patterns = (
+            "published date:",
+            "updated date:",
+            "download article",
+            "show social share buttons",
+            "toggle showing",
+            "applies to:",
+            "was this information helpful",
+        )
+        for element in list(container.find_all(["p", "span", "div"])):
+            text = element.get_text(" ", strip=True).casefold()
+            if len(text) < 200 and any(pattern in text for pattern in ui_patterns):
+                element.decompose()
         return ExtractedPage(
             metadata=self.normalize_metadata(page, str(container)), html=str(container)
         )

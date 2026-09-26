@@ -17,10 +17,18 @@ class PageStatus(StrEnum):
     REMOVED_NOT_FOUND = "removed_not_found"
     REMOVED_NAVIGATION = "removed_navigation"
     AUTHENTICATION_WALL = "authentication_wall"
+    CARRIED_FORWARD = "carried_forward"
+    UNAVAILABLE = "unavailable"
+    REMOVAL_CANDIDATE = "removal_candidate"
+    CONFIRMED_REMOVAL = "confirmed_removal"
 
     @property
     def terminal_removal(self) -> bool:
-        return self in {self.REMOVED_NOT_FOUND, self.REMOVED_NAVIGATION}
+        return self in {
+            self.REMOVED_NOT_FOUND,
+            self.REMOVED_NAVIGATION,
+            self.CONFIRMED_REMOVAL,
+        }
 
 
 class PageMetadata(BaseModel):
