@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "f5-html-to-markdown"
+version = "1.0.0"
+description = "Deterministic F5 HTML-to-Markdown snapshot pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "LICENSE"}
+dependencies = [
+  "beautifulsoup4>=4.13.4",
+  "httpx>=0.28.1",
+  "markdownify>=1.2.0",
+  "playwright>=1.55.0",
+  "pydantic>=2.11.7",
+  "pyyaml>=6.0.2",
+  "structlog>=25.4.0",
+  "typer>=0.16.1",
+]
+
+[project.scripts]
+html-to-markdown = "html_to_markdown.cli:app"
+
+[dependency-groups]
+dev = [
+  "bandit>=1.8.6",
+  "mypy>=1.17.1",
+  "pip-audit>=2.9.0",
+  "pytest>=8.4.1",
+  "pytest-asyncio>=1.1.0",
+  "pytest-cov>=6.2.1",
+  "ruff>=0.12.10",
+  "types-beautifulsoup4>=4.12.0.20250516",
+  "types-pyyaml>=6.0.12.20250516",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/html_to_markdown"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["html_to_markdown"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+branch = true
+source = ["html_to_markdown"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
