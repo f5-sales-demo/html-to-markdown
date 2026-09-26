@@ -97,7 +97,7 @@ def render_html(html: str, base_url: str) -> RenderedPage:
             image.decompose()
             continue
         absolute = urljoin(base_url, source)
-        placeholder = f"asset://{index}"
+        placeholder = f"asset://{index:08d}"
         image["src"] = placeholder
         raw_alt = image.get("alt", "")
         assets.append(AssetReference(url=absolute, placeholder=placeholder, alt=str(raw_alt)))

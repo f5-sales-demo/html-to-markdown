@@ -49,6 +49,34 @@ async def test_discovery_to_document_asset_and_resume(tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
+async def test_multi_digit_asset_placeholders_do_not_collide(tmp_path: Path) -> None:
+    class ManyImageFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            images = "".join(f'<img src="/docs-v2/image-{index}.png">' for index in range(12))
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html=f"<html><head><title>Images</title></head><body><main>{images}</main></body></html>",
+            )
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = ManyImageFetcher()  # type: ignore[assignment]
+    url = "https://docs.cloud.f5.com/docs-v2/images"
+    pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
+
+    records = await pipeline.scrape("docs-cloud-f5-com")
+
+    assert len(records) == 1
+    document = records[0].output_path.read_text()
+    assert document.count("assets/") == 12
+    assert "asset://" not in document
+    assert pipeline.store.rows()[0]["status"] == PageStatus.SUCCESS
+    pipeline.store.close()
+
+
+@pytest.mark.asyncio
 async def test_focused_discovery_enforces_source(tmp_path: Path) -> None:
     pipeline = Pipeline(tmp_path)
     count = await pipeline.discover(
