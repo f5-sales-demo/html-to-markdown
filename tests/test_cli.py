@@ -19,3 +19,10 @@ def test_empty_validation(tmp_path: Path) -> None:
     result = CliRunner().invoke(app, ["validate", "--output", str(tmp_path)])
     assert result.exit_code == 0
     assert "valid" in result.stdout
+
+
+def test_quality_command_writes_both_reports(tmp_path: Path) -> None:
+    result = CliRunner().invoke(app, ["quality", "--candidate", str(tmp_path)])
+    assert result.exit_code == 0
+    assert (tmp_path / "quality-report.json").is_file()
+    assert (tmp_path / "quality-report.md").is_file()

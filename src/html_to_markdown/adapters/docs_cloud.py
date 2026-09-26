@@ -21,8 +21,15 @@ class DocsCloudAdapter(SourceAdapter):
     source_id = "docs-cloud-f5-com"
     root_url = "https://docs.cloud.f5.com/docs-v2"
 
+    def needs_browser(self, html: str) -> bool:
+        if super().needs_browser(html):
+            return True
+        soup = BeautifulSoup(html, "html.parser")
+        title = soup.title.get_text(" ", strip=True) if soup.title else ""
+        return " API for " in title and soup.select_one(".api-info") is None
+
     async def discover(self, fetcher: object) -> list[DiscoveredPage]:
-        urls: set[str] = set()
+        urls: set[str] = {self.root_url}
         async with fetcher.browser_page() as page:  # type: ignore[attr-defined]
             await page.goto(self.root_url, wait_until="domcontentloaded")
             service_urls = await page.eval_on_selector_all(
@@ -31,17 +38,29 @@ class DocsCloudAdapter(SourceAdapter):
             for service_url in service_urls:
                 try:
                     service_url = validate_source_url(self.source_id, service_url)
+                    urls.add(service_url)
                     await page.goto(service_url, wait_until="domcontentloaded")
-                    await page.evaluate(
-                        """() => {
+                    for _ in range(20):
+                        expanded = await page.evaluate(
+                            """() => {
+                          let clicked = 0;
                           [...document.querySelectorAll('button')]
                             .filter(b => /Navigation Menu/i.test(
                               b.textContent || b.getAttribute('aria-label') || ''))
-                            .forEach(b => b.click());
+                            .forEach(b => { b.click(); clicked += 1; });
                           [...document.querySelectorAll('[role="treeitem"][aria-expanded="false"]')]
-                            .forEach(i => (i.querySelector(':scope > div') || i).click());
+                            .forEach(i => {
+                              (i.querySelector(':scope > div') || i).click();
+                              clicked += 1;
+                            });
+                          return clicked;
                         }"""
-                    )
+                        )
+                        if not isinstance(expanded, int) or expanded == 0:
+                            break
+                        wait = getattr(page, "wait_for_timeout", None)
+                        if wait is not None:
+                            await wait(100)
                     links = await page.eval_on_selector_all(
                         '[role="tree"] a[href*="/docs-v2/"], main a[href*="/docs-v2/"]',
                         "els => [...new Set(els.map(e => e.href.split('#')[0]))]",
@@ -49,11 +68,15 @@ class DocsCloudAdapter(SourceAdapter):
                     urls.update(validate_source_url(self.source_id, item) for item in links)
                     if not links:
                         urls.add(service_url)
-                except Exception:  # nosec B112
+                except Exception:  # pylint: disable=broad-exception-caught  # nosec B112
+                    # One unavailable service must not prevent discovery of the others.
                     continue
         try:
             spec_url = f"{self.root_url}/downloads/f5-distributed-cloud-open-api.zip"
-            response = await fetcher._http.get(spec_url)  # type: ignore[attr-defined]  # noqa: SLF001
+            # Discovery owns this trusted, fixed URL rather than an extracted asset URL.
+            response = await fetcher._http.get(  # type: ignore[attr-defined]  # pylint: disable=protected-access
+                spec_url
+            )
             response.raise_for_status()
             with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
                 for name in archive.namelist():
@@ -148,14 +171,16 @@ class DocsCloudAdapter(SourceAdapter):
             category=path[0] if path else "documentation",
             subcategory=path[1] if len(path) > 1 else None,
             breadcrumb=[item.replace("-", " ").title() for item in path] or None,
-            publication_date=self._date(text, r"Published\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})"),
-            modification_date=self._date(text, r"Last modified\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})"),
+            publication_date=self.parse_date(text, r"Published\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})"),
+            modification_date=self.parse_date(
+                text, r"Last modified\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})"
+            ),
             description=str(description_value) if description_value is not None else None,
             tags=path[:2],
         )
 
     @staticmethod
-    def _date(text: str, pattern: str) -> str | None:
+    def parse_date(text: str, pattern: str) -> str | None:
         match = re.search(pattern, text, re.IGNORECASE)
         if not match:
             return None

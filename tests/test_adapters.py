@@ -65,7 +65,7 @@ def test_docs_auth_missing_container_and_metadata_fallbacks() -> None:
     assert metadata.title == "Index"
     assert metadata.category == "documentation"
     assert metadata.publication_date is None
-    assert adapter._date("Published Noday 99, 2025", r"Published\s+(.+)") is None
+    assert adapter.parse_date("Published Noday 99, 2025", r"Published\s+(.+)") is None
     title_fallback = FetchResult(
         url="https://docs.cloud.f5.com/docs-v2/a",
         final_url="https://docs.cloud.f5.com/docs-v2/a",
@@ -87,6 +87,21 @@ def test_docs_auth_missing_container_and_metadata_fallbacks() -> None:
     )
     with pytest.raises(NotFoundError):
         adapter.classify_page(text_soft_404)
+
+
+def test_docs_api_shell_requires_rendered_browser_content() -> None:
+    adapter = DocsCloudAdapter()
+    server_shell = (
+        "<html><head><title>F5 Distributed Cloud Services API for fleet</title></head>"
+        f"<body><main>{'<li>Shared API navigation</li>' * 30}</main></body></html>"
+    )
+    rendered = (
+        "<html><head><title>F5 Distributed Cloud Services API for fleet</title></head>"
+        f"<body><main><div class='api-info'><h1>Fleet</h1><p>{'Fleet configuration. ' * 30}"
+        "</p></div></main></body></html>"
+    )
+    assert adapter.needs_browser(server_shell)
+    assert not adapter.needs_browser(rendered)
 
 
 def test_my_f5_extraction_retains_related_and_removes_recommendations() -> None:
@@ -117,7 +132,30 @@ def test_my_f5_metadata_fallbacks_and_no_truncation() -> None:
     assert result.metadata.category == "knowledge"
     assert result.metadata.publication_date is None
     assert "Keep it" in result.html
-    assert adapter._date("Published Date: Invalid 99, 2020", "Published Date") is None
+    assert adapter.parse_date("Published Date: Invalid 99, 2020", "Published Date") is None
+
+
+def test_my_f5_removes_ui_and_promotional_cards_but_keeps_related_content() -> None:
+    page = FetchResult(
+        url="https://my.f5.com/manage/s/article/K000123456",
+        final_url="https://my.f5.com/manage/s/article/K000123456",
+        status_code=200,
+        html="""<article>
+          <h1>K000123456: Configure a service</h1>
+          <p>Published Date: Sep 1, 2025</p>
+          <section><h2>Resolution</h2><p>Keep these technical steps.</p></section>
+          <section class="promo-card"><h2>Discover F5</h2><a href="/products">Learn More</a></section>
+          <section><h2>Related Content</h2><a href="/manage/s/article/K000654321">Related article</a></section>
+          <p>Was this information helpful?</p>
+        </article>""",
+    )
+    result = MyF5Adapter().extract(page)
+    assert "technical steps" in result.html
+    assert "Related Content" in result.html
+    assert "Related article" in result.html
+    assert "Learn More" not in result.html
+    assert "Published Date" not in result.html
+    assert "Was this information helpful" not in result.html
 
 
 @pytest.mark.parametrize(

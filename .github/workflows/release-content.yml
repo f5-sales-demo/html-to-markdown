@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: "0 03 * * 0"
   workflow_dispatch:
-    inputs:
-      acknowledge_page_drop:
-        description: Acknowledge a page-count drop over five percent
-        required: false
-        type: boolean
-        default: false
 
 permissions: {}
 
@@ -21,6 +15,7 @@ jobs:
   snapshot:
     name: Build and publish snapshot
     runs-on: ubuntu-24.04
+    timeout-minutes: 360
     permissions:
       contents: write # download the prior manifest and publish changed releases
     steps:
@@ -38,33 +33,47 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p previous
-          gh release download --pattern manifest.json --dir previous || true
-      - name: Build strict snapshot
+          gh release download --pattern manifest.json \
+            --pattern html-to-markdown-content.tar.gz --dir previous || true
+          if test -f previous/html-to-markdown-content.tar.gz; then
+            tar -xzf previous/html-to-markdown-content.tar.gz -C previous
+          fi
+      - name: Build artifact-first snapshot
         env:
-          ACKNOWLEDGE_PAGE_DROP: ${{ inputs.acknowledge_page_drop }}
           PREVIOUS_MANIFEST_HASH: ${{ hashFiles('previous/manifest.json') }}
         run: |
-          args=(run --source all --output build)
-          if [[ "$ACKNOWLEDGE_PAGE_DROP" == "true" ]]; then
-            args+=(--acknowledge-page-drop)
-          fi
+          args=(run --source all --output build \
+            --benchmark benchmarks/full-prototype-inventory.json)
           if [[ -n "$PREVIOUS_MANIFEST_HASH" ]]; then
             args+=(--previous-manifest previous/manifest.json)
+            args+=(--quality-reference previous)
           fi
           uv run html-to-markdown "${args[@]}"
       - name: Detect normalized content change
         id: changed
         run: |
           if test -f previous/manifest.json &&
-             diff -q <(jq -S '{documents,removals}' previous/manifest.json) <(jq -S '{documents,removals}' build/manifest.json); then
+             diff -q \
+               <(jq -S '{documents: [.documents[] | {url,path,sha256}],assets,removals}' previous/manifest.json) \
+               <(jq -S '{documents: [.documents[] | {url,path,sha256}],assets,removals}' build/manifest.json); then
             echo "value=false" >> "$GITHUB_OUTPUT"
           else
             echo "value=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Verify archive checksum
-        if: steps.changed.outputs.value == 'true'
         working-directory: build
         run: sha256sum --check html-to-markdown-content.tar.gz.sha256
+      - name: Upload completed-run artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: html-to-markdown-content-${{ github.run_id }}
+          if-no-files-found: error
+          path: |
+            build/html-to-markdown-content.tar.gz
+            build/html-to-markdown-content.tar.gz.sha256
+            build/manifest.json
+            build/quality-report.json
+            build/quality-report.md
       - name: Publish changed snapshot
         if: steps.changed.outputs.value == 'true'
         env:
@@ -74,4 +83,6 @@ jobs:
           gh release create "$tag" --title "$tag" --generate-notes \
             build/html-to-markdown-content.tar.gz \
             build/html-to-markdown-content.tar.gz.sha256 \
-            build/manifest.json
+            build/manifest.json \
+            build/quality-report.json \
+            build/quality-report.md

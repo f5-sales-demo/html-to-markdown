@@ -5,6 +5,7 @@ import pytest
 from html_to_markdown import pipeline as module
 from html_to_markdown.adapters.base import SourceAdapter
 from html_to_markdown.errors import (
+    AllowlistError,
     AuthenticationWallError,
     NavigationOnlyError,
     NotFoundError,
@@ -87,6 +88,75 @@ async def test_multi_digit_asset_placeholders_do_not_collide(tmp_path: Path) -> 
     assert document.count("assets/") == 12
     assert "asset://" not in document
     assert pipeline.store.rows()[0]["status"] == PageStatus.SUCCESS
+    pipeline.store.close()
+
+
+@pytest.mark.asyncio
+async def test_external_image_is_preserved_without_fetching(tmp_path: Path) -> None:
+    class ExternalImageFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html=(
+                    "<html><head><title>External figure</title></head><body><main>"
+                    "<h1>External figure</h1><p>Technical body.</p>"
+                    '<figure><img src="https://example.com/diagram.png" alt="Diagram">'
+                    "</figure></main></body></html>"
+                ),
+            )
+
+        async def fetch_asset(self, url: str) -> tuple[bytes, str]:
+            raise AllowlistError(f"outside allowlist: {url}")
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = ExternalImageFetcher()  # type: ignore[assignment]
+    url = "https://docs.cloud.f5.com/docs-v2/external-figure"
+    pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
+    records = await pipeline.scrape("docs-cloud-f5-com")
+    assert len(records) == 1
+    assert "![Diagram](https://example.com/diagram.png)" in records[0].output_path.read_text()
+    assert records[0].asset_hashes == []
+    pipeline.store.close()
+
+
+@pytest.mark.asyncio
+async def test_redirect_aliases_do_not_overwrite_canonical_documents(tmp_path: Path) -> None:
+    canonical = "https://docs.cloud.f5.com/docs-v2/api/user"
+    alias = "https://docs.cloud.f5.com/docs-v2/docs/api/user"
+
+    class RedirectFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            return FetchResult(
+                url=url,
+                final_url=canonical,
+                status_code=200,
+                html=(
+                    "<html><head><title>User API</title></head><body><main>"
+                    f"<h1>User API</h1><p>Fetched from {url}.</p>"
+                    "</main></body></html>"
+                ),
+            )
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = RedirectFetcher()  # type: ignore[assignment]
+    pipeline.store.discover(
+        [
+            DiscoveredPage(source_id="docs-cloud-f5-com", url=canonical),
+            DiscoveredPage(source_id="docs-cloud-f5-com", url=alias),
+        ]
+    )
+
+    records = await pipeline.scrape("docs-cloud-f5-com")
+
+    assert len({record.output_path for record in records}) == 2
+    for record in records:
+        document = record.output_path.read_text(encoding="utf-8")
+        assert f"url: {record.url}" in document
+        assert record.content_hash in document
     pipeline.store.close()
 
 
@@ -219,4 +289,26 @@ async def test_run_pipeline_orchestration(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr(Pipeline, "discover", no_discover)
     monkeypatch.setattr(Pipeline, "scrape", no_scrape)
     archive = await run_pipeline(source="all", output=tmp_path)
+    assert archive.exists()
+
+
+@pytest.mark.asyncio
+async def test_inventory_only_requires_benchmark_and_skips_discovery(
+    tmp_path: Path, monkeypatch
+) -> None:
+    async def unexpected_discovery(self, source: str, url: str | None = None) -> int:
+        raise AssertionError("live discovery must not run")
+
+    async def no_scrape(self, source: str, force: bool = False) -> list[object]:
+        return []
+
+    monkeypatch.setattr(Pipeline, "discover", unexpected_discovery)
+    monkeypatch.setattr(Pipeline, "scrape", no_scrape)
+    with pytest.raises(ValueError, match="requires --benchmark"):
+        await run_pipeline(source="all", output=tmp_path, inventory_only=True)
+    benchmark = tmp_path / "benchmark.json"
+    benchmark.write_text('{"version": 1, "urls": []}', encoding="utf-8")
+    archive = await run_pipeline(
+        source="all", output=tmp_path, benchmark=benchmark, inventory_only=True
+    )
     assert archive.exists()
