@@ -11,6 +11,7 @@ import re
 import tarfile
 from collections.abc import Iterable
 from pathlib import Path, PurePosixPath
+from sqlite3 import Row
 from typing import Any
 
 from . import __version__
@@ -56,15 +57,10 @@ def _media_type(path: Path) -> str:
 
 def _safe_member_path(value: str) -> PurePosixPath:
     path = PurePosixPath(value)
-    if (
-        not value
-        or value.startswith("/")
-        or "\\" in value
-        or path.is_absolute()
-        or any(part in {"", ".", ".."} for part in path.parts)
-        or "%2f" in value.casefold()
-        or "%5c" in value.casefold()
-    ):
+    raw_invalid = not value or value.startswith("/") or "\\" in value
+    segment_invalid = path.is_absolute() or any(part in {"", ".", ".."} for part in path.parts)
+    encoded = value.casefold()
+    if raw_invalid or segment_invalid or "%2f" in encoded or "%5c" in encoded:
         raise ValueError(f"archive contains an invalid member path: {value}")
     return path
 
@@ -106,6 +102,46 @@ def _parse_sums(value: bytes) -> dict[str, str]:
     return result
 
 
+def _validate_document_entry(document: object, files: dict[str, bytes], seen: set[str]) -> None:
+    if not isinstance(document, dict):
+        raise ValueError("manifest document entry must be an object")
+    path = document.get("path")
+    if isinstance(path, str) and path in seen:
+        raise ValueError(f"duplicate manifest document path: {path}")
+    if not isinstance(path, str) or path not in files or not path.endswith("/index.md"):
+        raise ValueError(f"manifest document is missing: {path}")
+    seen.add(path)
+    data = files[path]
+    try:
+        metadata, body = split_document(data.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError) as error:
+        raise ValueError(f"manifest document is invalid: {path}") from error
+    if metadata.get("url") != document.get("url"):
+        raise ValueError(f"manifest document URL mismatch: {path}")
+    if document.get("body_sha256") != content_hash(body):
+        raise ValueError(f"manifest document body hash mismatch: {path}")
+    if document.get("file_sha256") != hashlib.sha256(data).hexdigest():
+        raise ValueError(f"manifest document file hash mismatch: {path}")
+    if document.get("size_bytes") != len(data):
+        raise ValueError(f"manifest document size mismatch: {path}")
+
+
+def _validate_asset_entry(asset: object, files: dict[str, bytes], seen: set[str]) -> None:
+    if not isinstance(asset, dict):
+        raise ValueError("manifest asset entry must be an object")
+    path = asset.get("path")
+    if not isinstance(path, str) or path in seen or path not in files or "/assets/" not in path:
+        raise ValueError(f"manifest asset is missing or duplicated: {path}")
+    seen.add(path)
+    data = files[path]
+    if asset.get("sha256") != hashlib.sha256(data).hexdigest():
+        raise ValueError(f"manifest asset hash mismatch: {path}")
+    if asset.get("size_bytes") != len(data):
+        raise ValueError(f"manifest asset size mismatch: {path}")
+    if asset.get("media_type") != _media_type(Path(path)):
+        raise ValueError(f"manifest asset media type mismatch: {path}")
+
+
 def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
     if not isinstance(manifest, dict) or manifest.get("schema_version") != MANIFEST_SCHEMA_VERSION:
         raise ValueError("manifest schema version is invalid")
@@ -115,41 +151,9 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
         raise ValueError("manifest documents and assets must be lists")
     seen: set[str] = set()
     for document in documents:
-        if not isinstance(document, dict):
-            raise ValueError("manifest document entry must be an object")
-        path = document.get("path")
-        if isinstance(path, str) and path in seen:
-            raise ValueError(f"duplicate manifest document path: {path}")
-        if not isinstance(path, str) or path not in files or not path.endswith("/index.md"):
-            raise ValueError(f"manifest document is missing: {path}")
-        seen.add(path)
-        data = files[path]
-        try:
-            metadata, body = split_document(data.decode("utf-8"))
-        except (UnicodeDecodeError, ValueError) as error:
-            raise ValueError(f"manifest document is invalid: {path}") from error
-        if metadata.get("url") != document.get("url"):
-            raise ValueError(f"manifest document URL mismatch: {path}")
-        if document.get("body_sha256") != content_hash(body):
-            raise ValueError(f"manifest document body hash mismatch: {path}")
-        if document.get("file_sha256") != hashlib.sha256(data).hexdigest():
-            raise ValueError(f"manifest document file hash mismatch: {path}")
-        if document.get("size_bytes") != len(data):
-            raise ValueError(f"manifest document size mismatch: {path}")
+        _validate_document_entry(document, files, seen)
     for asset in assets:
-        if not isinstance(asset, dict):
-            raise ValueError("manifest asset entry must be an object")
-        path = asset.get("path")
-        if not isinstance(path, str) or path in seen or path not in files or "/assets/" not in path:
-            raise ValueError(f"manifest asset is missing or duplicated: {path}")
-        seen.add(path)
-        data = files[path]
-        if asset.get("sha256") != hashlib.sha256(data).hexdigest():
-            raise ValueError(f"manifest asset hash mismatch: {path}")
-        if asset.get("size_bytes") != len(data):
-            raise ValueError(f"manifest asset size mismatch: {path}")
-        if asset.get("media_type") != _media_type(Path(path)):
-            raise ValueError(f"manifest asset media type mismatch: {path}")
+        _validate_asset_entry(asset, files, seen)
     if manifest.get("page_count") != len(documents) or manifest.get("asset_count") != len(assets):
         raise ValueError("manifest counts do not match entries")
     content_names = {name for name in files if name.startswith("content/")}
@@ -157,19 +161,11 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
         raise ValueError("manifest content member set mismatch")
 
 
-def build_manifest(
-    output: Path, store: StateStore, started_at: str, ended_at: str
-) -> dict[str, object]:
-    rows = store.rows()
-    document_statuses = {
-        PageStatus.SUCCESS,
-        PageStatus.CARRIED_FORWARD,
-        PageStatus.REMOVAL_CANDIDATE,
-    }
-    documents = []
+def _document_entries(output: Path, rows: list[Row]) -> list[dict[str, object]]:
+    accepted = {PageStatus.SUCCESS, PageStatus.CARRIED_FORWARD, PageStatus.REMOVAL_CANDIDATE}
+    documents: list[dict[str, object]] = []
     for row in rows:
-        status = PageStatus(row["status"])
-        if status not in document_statuses:
+        if PageStatus(row["status"]) not in accepted:
             continue
         current_failure = None
         if row["current_failure_classification"]:
@@ -198,16 +194,27 @@ def build_manifest(
                 },
             }
         )
-    assets = list(output.glob("content/*/**/assets/*"))
-    asset_entries = [
+    return documents
+
+
+def _asset_entries(output: Path) -> list[dict[str, object]]:
+    return [
         {
             "path": path.relative_to(output).as_posix(),
             "sha256": sha256_file(path),
             "media_type": _media_type(path),
             "size_bytes": path.stat().st_size,
         }
-        for path in sorted(assets)
+        for path in sorted(output.glob("content/*/**/assets/*"))
     ]
+
+
+def build_manifest(
+    output: Path, store: StateStore, started_at: str, ended_at: str
+) -> dict[str, object]:
+    rows = store.rows()
+    documents = _document_entries(output, rows)
+    asset_entries = _asset_entries(output)
     removals = [
         {"url": row["canonical_url"], "classification": row["status"]}
         for row in rows
@@ -247,7 +254,7 @@ def build_manifest(
         "started_at": started_at,
         "ended_at": ended_at,
         "page_count": len(documents),
-        "asset_count": len(assets),
+        "asset_count": len(asset_entries),
         "assets": asset_entries,
         "counts": counts,
         "quality_status_counts": quality_status_counts,
@@ -324,9 +331,7 @@ def write_release(output: Path, manifest: dict[str, object]) -> Path:
     return archive
 
 
-def verify_archive(archive: Path) -> None:
-    if archive.stat().st_size > MAX_ARCHIVE_BYTES:
-        raise ValueError(f"archive exceeds {MAX_ARCHIVE_BYTES} bytes")
+def _read_archive_files(archive: Path) -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     seen_names: set[str] = set()
     expanded = 0
@@ -358,6 +363,13 @@ def verify_archive(archive: Path) -> None:
             if handle is None:
                 raise ValueError(f"archive member cannot be read: {path}")
             files[member.name] = handle.read()
+    return files
+
+
+def verify_archive(archive: Path) -> None:
+    if archive.stat().st_size > MAX_ARCHIVE_BYTES:
+        raise ValueError(f"archive exceeds {MAX_ARCHIVE_BYTES} bytes")
+    files = _read_archive_files(archive)
     if "SHA256SUMS" not in files or "manifest.json" not in files:
         raise ValueError("archive is missing required metadata")
     sums = _parse_sums(files["SHA256SUMS"])

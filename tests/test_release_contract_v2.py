@@ -2,6 +2,7 @@ import hashlib
 import json
 import tarfile
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 
@@ -52,7 +53,8 @@ def test_manifest_v2_hashes_body_and_complete_file_and_sizes_assets(tmp_path: Pa
     manifest = build_manifest(output, store, "start", "end")
 
     assert manifest["schema_version"] == 2
-    document = manifest["documents"][0]
+    documents = cast(list[dict[str, Any]], manifest["documents"])
+    document = documents[0]
     document_path = output / document["path"]
     _, body = split_document(document_path.read_text(encoding="utf-8"))
     assert document["body_sha256"] == content_hash(body)
@@ -60,7 +62,8 @@ def test_manifest_v2_hashes_body_and_complete_file_and_sizes_assets(tmp_path: Pa
     assert document["size_bytes"] == document_path.stat().st_size
     assert "sha256" not in document
 
-    asset = manifest["assets"][0]
+    assets = cast(list[dict[str, Any]], manifest["assets"])
+    asset = assets[0]
     asset_path = output / asset["path"]
     assert asset["sha256"] == sha256_file(asset_path)
     assert asset["media_type"] == "image/png"
