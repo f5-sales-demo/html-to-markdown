@@ -36,9 +36,10 @@ def validate_document(path: Path) -> list[str]:
     if metadata.get("content_hash") != content_hash(body):
         errors.append(f"{path}: content_hash mismatch")
     tags = metadata.get("tags")
-    if not isinstance(tags, list) or tags != sorted(
-        set(str(tag) for tag in tags), key=str.casefold
-    ):
+    sorted_tags: list[str] = []
+    if isinstance(tags, list):
+        sorted_tags = sorted(set(str(tag) for tag in tags), key=str.casefold)
+    if not isinstance(tags, list) or tags != sorted_tags:
         errors.append(f"{path}: tags are not sorted and deduplicated")
     chrome = re.findall(
         r"(?im)^(?:.*(?:Return to Top|Show social share buttons|Cookie Settings).*)"
@@ -48,10 +49,9 @@ def validate_document(path: Path) -> list[str]:
     if chrome:
         errors.append(f"{path}: site chrome remains")
     for target in re.findall(r"!\[[^]]*]\(([^)]+)\)", body):
-        if (
-            not target.startswith(("http://", "https://"))
-            and not (path.parent / target).resolve().is_file()
-        ):
+        is_remote = target.startswith(("http://", "https://"))
+        asset_exists = (path.parent / target).resolve().is_file()
+        if not is_remote and not asset_exists:
             errors.append(f"{path}: broken local asset: {target}")
     return errors
 
@@ -63,15 +63,27 @@ def validate_snapshot(
     previous_manifest: Path | None = None,
     acknowledge_page_drop: bool = False,
 ) -> None:
-    errors = [
-        error for path in output.glob("content/*/**/index.md") for error in validate_document(path)
-    ]
+    errors: list[str] = []
+    for path in output.glob("content/*/**/index.md"):
+        errors.extend(validate_document(path))
     rows = store.rows()
+    authentication_walls = []
+    for row in rows:
+        if PageStatus(row["status"]) == PageStatus.AUTHENTICATION_WALL:
+            authentication_walls.append(row)
+    if authentication_walls:
+        count = len(authentication_walls)
+        errors.append(f"{count} authentication wall(s) blocked anonymous publication")
     blocked = [
         row
         for row in rows
         if PageStatus(row["status"])
-        not in {PageStatus.SUCCESS, PageStatus.REMOVED_NOT_FOUND, PageStatus.REMOVED_NAVIGATION}
+        not in {
+            PageStatus.SUCCESS,
+            PageStatus.REMOVED_NOT_FOUND,
+            PageStatus.REMOVED_NAVIGATION,
+            PageStatus.AUTHENTICATION_WALL,
+        }
     ]
     if blocked:
         errors.append(f"{len(blocked)} pages have unclassified or failed status")

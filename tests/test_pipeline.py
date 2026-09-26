@@ -123,7 +123,10 @@ async def test_classifies_failures(tmp_path: Path, error: Exception, status: Pag
     url = "https://docs.cloud.f5.com/docs-v2/error"
     pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
     assert await pipeline.scrape("docs-cloud-f5-com") == []
-    assert pipeline.store.rows()[0]["status"] == status
+    row = pipeline.store.rows()[0]
+    assert row["status"] == status
+    assert row["error_class"] == type(error).__name__
+    assert row["error_message"] == str(error)
     pipeline.store.close()
 
 
