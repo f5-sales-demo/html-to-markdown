@@ -1,0 +1,22 @@
+{
+  "threshold": 10,
+  "reporters": ["console"],
+  "ignore": [
+    "**/*.yaml",
+    "**/*.yml",
+    "**/snapshots/**",
+    "**/.github/workflows/**",
+    "**/workflows/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/release/**",
+    "**/.git/**",
+    "**/vendor/**",
+    "**/internal/client/**",
+    "**/internal/provider/**",
+    "**/*_pairs.py",
+    "**/templates/**",
+    "**/docs/**"
+  ]
+}

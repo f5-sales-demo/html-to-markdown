@@ -1,0 +1,1460 @@
+{
+  "schema_version": 5,
+  "docker": {
+    "host_socket": "/run/f5-actions-runner/container-build/docker.sock",
+    "runner_socket": "/run/docker.sock",
+    "data_root": "/data/actions-runners/container-build-docker",
+    "cache_max": "20g",
+    "cgroup_parent": "f5-actions-container-build.slice",
+    "minimum_version": "29.2.1",
+    "target_version": "29.7.2"
+  },
+  "dispatcher": {
+    "repositories": [],
+    "memory": "48g",
+    "cpus": "18",
+    "standard_runners": 3,
+    "container_build_runners": 1,
+    "request_budget": 80
+  },
+  "defaults": {
+    "replicas": 1,
+    "profile": "ubuntu-24.04",
+    "standby_profiles": ["ubuntu-24.04"]
+  },
+  "profiles": {
+    "ubuntu-24.04": {
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "labels": ["ubuntu-24.04"],
+      "memory": "8g",
+      "cpus": "4",
+      "pids_limit": 4096,
+      "stop_timeout": 300,
+      "network": "bridge",
+      "docker_socket": false
+    },
+    "ubuntu-24.04-secondary": {
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "labels": ["ubuntu-24.04"],
+      "memory": "8g",
+      "cpus": "4",
+      "pids_limit": 4096,
+      "stop_timeout": 300,
+      "network": "bridge",
+      "docker_socket": false
+    },
+    "automation": {
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "labels": ["automation"],
+      "memory": "8g",
+      "cpus": "4",
+      "pids_limit": 4096,
+      "stop_timeout": 300,
+      "network": "bridge",
+      "docker_socket": false
+    },
+    "ubuntu-22.04": {
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:f04d6bce9800b97d4abe941d4d42c9c99cc0db6945b868808724fda37f258ec4",
+      "labels": ["ubuntu-22.04"],
+      "memory": "8g",
+      "cpus": "4",
+      "pids_limit": 4096,
+      "stop_timeout": 300,
+      "network": "bridge",
+      "docker_socket": false
+    },
+    "container-build": {
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:676d9ff1789084e33bc92eac08d247c1d9f3be4fa3ed594ba7a68c7644783e9e",
+      "labels": ["container-build"],
+      "memory": "16g",
+      "cpus": "6",
+      "pids_limit": 8192,
+      "stop_timeout": 300,
+      "network": "bridge",
+      "docker_socket": true
+    }
+  },
+  "arc_attestations": {
+    "terraform-provider-xcsh-d8": {
+      "label": "managed-socketless",
+      "runner_profile": "socketless",
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "vm_size": "Standard_D8ads_v5",
+      "cpu_limit": 7,
+      "memory_limit_bytes": 30064771072,
+      "docker_socket": false,
+      "repositories": ["f5-sales-demo/terraform-provider-xcsh"]
+    },
+    "terraform-provider-xcsh-d16": {
+      "label": "terraform-provider-xcsh-compute",
+      "runner_profile": "compute",
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "vm_size": "Standard_D16ads_v5",
+      "cpu_limit": 15,
+      "memory_limit_bytes": 60129542144,
+      "docker_socket": false,
+      "repositories": ["f5-sales-demo/terraform-provider-xcsh"]
+    },
+    "xcsh-compute-16-vcpu-candidate": {
+      "label": "xcsh-compute-16-vcpu-candidate",
+      "runner_profile": "compute-16-vcpu-candidate",
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "vm_size": "Standard_D16ads_v5",
+      "cpu_limit": 15,
+      "memory_limit_bytes": 60129542144,
+      "docker_socket": false,
+      "repositories": ["f5-sales-demo/xcsh"]
+    },
+    "xcsh-compute-f32-candidate": {
+      "label": "xcsh-compute-f32-candidate",
+      "runner_profile": "compute-f32-candidate",
+      "image": "ghcr.io/f5-sales-demo/self-hosted-runner@sha256:1fadcbbdaf80f69c81b028b14cd1238d9a4631d95e035dbfd810a5487cd3e1ca",
+      "vm_size": "Standard_F32s_v2",
+      "cpu_limit": 15,
+      "memory_limit_bytes": 32212254720,
+      "docker_socket": false,
+      "repositories": ["f5-sales-demo/xcsh"]
+    }
+  },
+  "restricted_routes": {
+    "terraform-provider-xcsh-compute": [
+      {
+        "repository": "f5-sales-demo/terraform-provider-xcsh",
+        "workflow": ".github/workflows/workload-benchmark.yml",
+        "job": "benchmark-d16"
+      }
+    ],
+    "xcsh-compute-16-vcpu-candidate": [
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "workload"
+      },
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "dag-control"
+      },
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "dag-candidate-native"
+      },
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "dag-candidate-rust"
+      },
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "dag-candidate-typescript"
+      }
+    ],
+    "xcsh-compute-f32-candidate": [
+      {
+        "repository": "f5-sales-demo/xcsh",
+        "workflow": ".github/workflows/compute-benchmark.yml",
+        "job": "workload"
+      }
+    ]
+  },
+  "hosted_exceptions": {
+    "f5-sales-demo/api-specs-enriched": {
+      ".github/workflows/require-linked-issue.yml": {
+        "check-linked-issues": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only AWS and KVM release-chain pull request policy"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/html-to-markdown": {
+      ".github/workflows/ci.yml": {
+        "quality": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "portable Python validation uses isolated hosted tooling"
+        },
+        "workflow-lint": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "workflow lint is credential-free"
+        }
+      },
+      ".github/workflows/release-content.yml": {
+        "snapshot": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "public-source browser crawl and release packaging use isolated hosted tooling"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/devcontainer": {
+      ".github/workflows/docker-publish.yml": {
+        "build-arm64": {
+          "runs_on": "ubuntu-24.04-arm",
+          "reason": "native ARM64 image build"
+        },
+        "smoke-test-arm64": {
+          "runs_on": "ubuntu-24.04-arm",
+          "reason": "native ARM64 smoke test"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/docs-control": {
+      ".github/workflows/attest-manifest-linked-issue.yml": {
+        "attest": {
+          "runs_on": "ubuntu-latest",
+          "reason": "manifest receipt attestation requires available hosted release automation"
+        }
+      },
+      ".github/workflows/build-managed-files-manifest.yml": {
+        "build": {
+          "runs_on": "ubuntu-latest",
+          "reason": "manifest publication requires available hosted release automation"
+        }
+      },
+      ".github/workflows/require-linked-issue.yml": {
+        "validate-pull-request": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request policy for runner governance changes"
+        }
+      },
+      ".github/workflows/reconcile-fleet-content.yml": {
+        "reconcile": {
+          "runs_on": "ubuntu-latest",
+          "reason": "managed content reconciliation requires available hosted release automation"
+        }
+      },
+      ".github/workflows/super-linter.yml": {
+        "trust-gate": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free trust validation for governance pull requests"
+        },
+        "lint": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "credential-free governance lint with hosted Docker"
+        },
+        "shell-unit-tests": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free governance shell and unit tests"
+        }
+      },
+      ".github/workflows/update-governed-workflow-pins.yml": {
+        "update": {
+          "runs_on": "ubuntu-latest",
+          "reason": "governed pin publication requires available hosted release automation"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/vscode-xcsh": {
+      ".github/workflows/ci.yml": {
+        "test-native": {
+          "runs_on": "matrix",
+          "reason": "extension integration tests require native hosted macOS and Windows platforms"
+        },
+        "release": {
+          "runs_on": "ubuntu-latest",
+          "reason": "extension publication uses GitHub-hosted release credentials"
+        },
+        "stage-spec-delivery": {
+          "runs_on": "ubuntu-latest",
+          "reason": "spec staging uses GitHub-hosted delivery credentials"
+        },
+        "record-spec-delivery": {
+          "runs_on": "ubuntu-latest",
+          "reason": "delivery recording uses GitHub-hosted publication credentials"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/xcsh": {
+      ".github/workflows/api-spec-update.yml": {
+        "update-api-specs": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "release dispatch uses the hosted delivery environment"
+        }
+      },
+      ".github/workflows/ci.yml": {
+        "image-runtime": {
+          "runs_on": "matrix",
+          "reason": "image runtime qualification requires hosted platform-specific environments"
+        },
+        "native": {
+          "runs_on": "matrix",
+          "reason": "native builds require hosted platform-specific toolchains"
+        },
+        "publish-npm": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "npm OIDC publishing requires a GitHub-hosted environment"
+        },
+        "build-sign-macos": {
+          "runs_on": "matrix",
+          "reason": "Apple signing and notarization require macOS"
+        },
+        "verify-homebrew-install": {
+          "runs_on": "matrix",
+          "reason": "Homebrew cask release verification requires Apple silicon and Intel macOS"
+        }
+      },
+      ".github/workflows/release-homebrew-backfill.yml": {
+        "verify-homebrew-install": {
+          "runs_on": "matrix",
+          "reason": "Homebrew cask release verification requires Apple silicon and Intel macOS"
+        }
+      },
+      ".github/workflows/console-catalog-drift.yml": {
+        "drift-guard": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "catalog reconciliation uses the hosted GitHub environment"
+        }
+      },
+      ".github/workflows/console-catalog-update.yml": {
+        "update-console-catalog": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "catalog publishing uses the hosted GitHub environment"
+        }
+      },
+      ".github/workflows/compute-benchmark.yml": {
+        "dag-control-summary": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "DAG control summary uses the hosted GitHub API environment"
+        },
+        "dag-candidate-summary": {
+          "runs_on": "ubuntu-24.04",
+          "reason": "DAG candidate summary uses the hosted GitHub API environment"
+        }
+      },
+      ".github/workflows/deploy-office-pane.yml": {
+        "deploy": {
+          "runs_on": "ubuntu-latest",
+          "reason": "office-pane deployment uses hosted release credentials"
+        }
+      },
+      ".github/workflows/pii-guard.yml": {
+        "pii-guard": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "PII enforcement runs in an isolated hosted environment"
+        }
+      },
+      ".github/workflows/release-npm-backfill.yml": {
+        "backfill": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "npm backfill publication uses the hosted release environment"
+        }
+      },
+      ".github/workflows/release-reconcile.yml": {
+        "reconcile": {
+          "runs_on": "ubuntu-22.04",
+          "reason": "release reconciliation uses hosted registry access"
+        }
+      },
+      ".github/workflows/test-codesign.yml": {
+        "test-codesign": {
+          "runs_on": "matrix",
+          "reason": "Apple code signing requires native macOS"
+        }
+      },
+      ".github/workflows/windows-containment-uat.yml": {
+        "native-two-volume": {
+          "runs_on": "windows-latest",
+          "reason": "multi-volume containment UAT requires native Windows drive discovery"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/xcsh-action": {
+      ".github/workflows/ci.yml": {
+        "test-native": {
+          "runs_on": "matrix",
+          "reason": "action behavior must be validated on macOS and Windows"
+        },
+        "validate-native": {
+          "runs_on": "matrix",
+          "reason": "manifest validation covers native macOS, Windows, and ARM64"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/administration": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/api-protection": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/api-specs": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/apt-repo": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/bot-advanced": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/bot-standard": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/cdn": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/cdn-simulator": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/console": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/csd": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/ddos": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/demo-resource-template": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/demo-resources": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/dns": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/docs": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/docs-builder": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/docs-icons": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/docs-theme": {
+      ".github/workflows/release.yml": {
+        "release": {
+          "runs_on": "ubuntu-latest",
+          "reason": "npm provenance requires a GitHub-hosted publishing environment"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/i18n-core": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/marketplace": {
+      ".github/workflows/herdr-installer.yml": {
+        "unix": {
+          "runs_on": "matrix",
+          "reason": "native Herdr installation requires Linux and macOS hosted environments"
+        },
+        "windows": {
+          "runs_on": "windows-latest",
+          "reason": "native Herdr installation requires a Windows hosted environment"
+        }
+      },
+      ".github/workflows/require-linked-issue.yml": {
+        "check-linked-issues": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only AWS and KVM release-chain pull request policy"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/marketplace-claude-code": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/multi-cloud-networking": {
+      ".github/workflows/require-linked-issue.yml": {
+        "check-linked-issues": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only AWS and KVM release-chain pull request policy"
+        }
+      },
+      ".github/workflows/terraform.yml": {
+        "validate": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free Terraform validation for the AWS and KVM showcase"
+        },
+        "coverage-smsv2": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free provider contract validation for the AWS and KVM showcase"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/nginx": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/observability": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/origin-server": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/starlight-llms-txt": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/starlight-mega-menu": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/traffic-generator": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/waf": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/was": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/webapp-api-protection": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/xcsh-chrome-extension": {
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    },
+    "f5-sales-demo/terraform-provider-xcsh": {
+      ".github/workflows/acc-tests.yml": {
+        "mock-tests": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free provider mock acceptance tests"
+        },
+        "compare-results": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free provider mock result comparison"
+        },
+        "summary": {
+          "runs_on": "ubuntu-latest",
+          "reason": "credential-free provider acceptance result summary"
+        }
+      },
+      ".github/workflows/require-linked-issue.yml": {
+        "check-linked-issues": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only AWS and KVM release-chain pull request policy"
+        }
+      },
+      ".github/workflows/_build-test.yml": {
+        "build": {
+          "runs_on": "ubuntu-latest",
+          "reason": "CGO race tests require the hosted compiler toolchain"
+        },
+        "lint": {
+          "runs_on": "ubuntu-latest",
+          "reason": "repository Go lint uses the hosted toolchain"
+        }
+      },
+      ".github/workflows/_generate-docs.yml": {
+        "generate": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only documentation generation uses hosted Terraform tooling"
+        }
+      },
+      ".github/workflows/_generate-provider.yml": {
+        "generate": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only provider generation uses the hosted Go toolchain"
+        }
+      },
+      ".github/workflows/_tag-release.yml": {
+        "preflight": {
+          "runs_on": "ubuntu-latest",
+          "reason": "release reproducibility verification uses isolated hosted tooling"
+        },
+        "publish": {
+          "runs_on": "ubuntu-latest",
+          "reason": "release signing and publication use isolated hosted execution"
+        },
+        "tag": {
+          "runs_on": "ubuntu-latest",
+          "reason": "release tag signing uses isolated hosted execution"
+        }
+      },
+      ".github/workflows/workflow-security-audit.yml": {
+        "workflow-security-audit": {
+          "runs_on": "ubuntu-latest",
+          "reason": "read-only pull request workflow security audit"
+        }
+      }
+    }
+  },
+  "repositories": {
+    "f5-sales-demo/administration": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/api-protection": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/api-specs": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/api-specs-enriched": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          },
+          "compute": {
+            "label": "api-specs-enriched-compute",
+            "profile": "ubuntu-24.04"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/apt-repo": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/bot-advanced": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/bot-standard": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/cdn": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/cdn-simulator": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/console": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/csd": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/ddos": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/demo-resource-template": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/demo-resources": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/devcontainer": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/dns": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/docs": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/docs-builder": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/docs-control": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/docs-icons": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/docs-theme": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/html-to-markdown": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/i18n-core": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/marketplace": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/marketplace-claude-code": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/multi-cloud-networking": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/nginx": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/observability": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/origin-server": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/starlight-llms-txt": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": { "label": "docs-socketless", "profile": "ubuntu-24.04" },
+          "container-build": { "label": "docs-container-build", "profile": "container-build" }
+        }
+      }
+    },
+    "f5-sales-demo/starlight-mega-menu": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/traffic-generator": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/vscode-xcsh": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/waf": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/was": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/webapp-api-protection": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/xcsh": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "xcsh-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "xcsh-container-build",
+            "profile": "container-build"
+          },
+          "compute": {
+            "label": "xcsh-compute",
+            "profile": "ubuntu-24.04"
+          },
+          "compute-16-vcpu-candidate": {
+            "label": "xcsh-compute-16-vcpu-candidate",
+            "attestation": "xcsh-compute-16-vcpu-candidate"
+          },
+          "compute-f32-candidate": {
+            "label": "xcsh-compute-f32-candidate",
+            "attestation": "xcsh-compute-f32-candidate"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/xcsh-action": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/xcsh-chrome-extension": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "profile": "ubuntu-24.04"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          }
+        }
+      }
+    },
+    "f5-sales-demo/terraform-provider-xcsh": {
+      "runner": {
+        "arc_scale_sets": {
+          "socketless": {
+            "label": "managed-socketless",
+            "attestation": "terraform-provider-xcsh-d8"
+          },
+          "container-build": {
+            "label": "managed-container-build",
+            "profile": "container-build"
+          },
+          "compute": {
+            "label": "terraform-provider-xcsh-compute",
+            "attestation": "terraform-provider-xcsh-d16"
+          }
+        }
+      },
+      ".github/workflows/acc-tests.yml": {
+        "real-api-tests": {
+          "runs_on": "managed-socketless",
+          "environment": "acceptance-tests",
+          "permissions": {
+            "checks": "write",
+            "contents": "read"
+          },
+          "allowed_secrets": ["XCSH_API_TOKEN", "XCSH_API_URL"],
+          "triggers": {
+            "pull_request": {
+              "branches": ["main"],
+              "paths": [
+                "internal/provider/**",
+                "internal/client/**",
+                "internal/acctest/**",
+                "internal/functions/**",
+                "internal/blindfold/**"
+              ]
+            },
+            "schedule": [
+              {
+                "cron": "0 2 * * 1"
+              }
+            ],
+            "workflow_dispatch": {
+              "inputs": {
+                "mode": {
+                  "default": "full",
+                  "description": "Test mode",
+                  "options": ["mock-only", "real-only", "full", "pr-subset"],
+                  "required": true,
+                  "type": "choice"
+                },
+                "parallel": {
+                  "default": "4",
+                  "description": "Parallelism for mock tests",
+                  "required": false,
+                  "type": "string"
+                },
+                "timeout": {
+                  "default": "300",
+                  "description": "Go test suite timeout (minutes)",
+                  "required": false,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "if": "always() &&\ngithub.event_name != 'pull_request' &&\n((github.event_name == 'schedule' &&\n  needs.mock-tests.result == 'success') ||\n (github.event_name == 'workflow_dispatch' &&\n  github.event.inputs.mode == 'full' &&\n  needs.mock-tests.result == 'success') ||\n (github.event_name == 'workflow_dispatch' &&\n  github.event.inputs.mode == 'real-only' &&\n  needs.mock-tests.result == 'skipped'))\n"
+        },
+        "cleanup": {
+          "runs_on": "managed-socketless",
+          "environment": "acceptance-tests",
+          "permissions": {
+            "contents": "read"
+          },
+          "allowed_secrets": ["XCSH_API_TOKEN", "XCSH_API_URL"],
+          "triggers": {
+            "pull_request": {
+              "branches": ["main"],
+              "paths": [
+                "internal/provider/**",
+                "internal/client/**",
+                "internal/acctest/**",
+                "internal/functions/**",
+                "internal/blindfold/**"
+              ]
+            },
+            "schedule": [
+              {
+                "cron": "0 2 * * 1"
+              }
+            ],
+            "workflow_dispatch": {
+              "inputs": {
+                "mode": {
+                  "default": "full",
+                  "description": "Test mode",
+                  "options": ["mock-only", "real-only", "full", "pr-subset"],
+                  "required": true,
+                  "type": "choice"
+                },
+                "parallel": {
+                  "default": "4",
+                  "description": "Parallelism for mock tests",
+                  "required": false,
+                  "type": "string"
+                },
+                "timeout": {
+                  "default": "300",
+                  "description": "Go test suite timeout (minutes)",
+                  "required": false,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "if": "always() &&\ngithub.event_name != 'pull_request' &&\nneeds.real-api-tests.result != 'skipped'\n"
+        }
+      },
+      ".github/workflows/discover-defaults.yml": {
+        "discover": {
+          "runs_on": "managed-socketless",
+          "environment": "default-discovery",
+          "permissions": {},
+          "allowed_secrets": ["REPO_SYNC_TOKEN", "XCSH_API_TOKEN", "XCSH_API_URL"],
+          "triggers": {
+            "schedule": [
+              {
+                "cron": "0 6 1 * *"
+              }
+            ],
+            "workflow_dispatch": {
+              "inputs": {
+                "dry_run": {
+                  "default": false,
+                  "description": "Dry run (no PR creation)",
+                  "required": false,
+                  "type": "boolean"
+                },
+                "mode": {
+                  "default": "discover",
+                  "description": "Discovery mode",
+                  "options": ["discover", "validate", "single"],
+                  "required": true,
+                  "type": "choice"
+                },
+                "resource": {
+                  "default": "",
+                  "description": "Resource name (for single mode only)",
+                  "required": false,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "if": null
+        }
+      }
+    }
+  }
+}

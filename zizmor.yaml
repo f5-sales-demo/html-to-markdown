@@ -1,0 +1,4 @@
+---
+# Every audit remains enabled. CI also passes --no-config and --no-ignores so a future
+# configuration or inline comment cannot weaken the repository-wide security gate.
+rules: {}
