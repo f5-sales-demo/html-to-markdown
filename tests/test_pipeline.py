@@ -2,8 +2,20 @@ from pathlib import Path
 
 import pytest
 
-from html_to_markdown.errors import AuthenticationWallError, NavigationOnlyError, NotFoundError
-from html_to_markdown.models import DiscoveredPage, FetchResult, PageStatus
+from html_to_markdown import pipeline as module
+from html_to_markdown.adapters.base import SourceAdapter
+from html_to_markdown.errors import (
+    AuthenticationWallError,
+    NavigationOnlyError,
+    NotFoundError,
+)
+from html_to_markdown.models import (
+    DiscoveredPage,
+    ExtractedPage,
+    FetchResult,
+    PageMetadata,
+    PageStatus,
+)
 from html_to_markdown.pipeline import Pipeline, re_safe_suffix, run_pipeline
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -22,7 +34,8 @@ class FakeFetcher:
         return b"meaningful image", "image/png"
 
     async def _http_fetch(self, source_id: str, url: str) -> FetchResult:
-        return FetchResult(url=url, final_url=url + "-resolved", status_code=200, html="ok")
+        final_url = url + "-resolved"
+        return FetchResult(url=url, final_url=final_url, status_code=200, html="ok")
 
     async def resolve_redirect(self, source_id: str, url: str) -> str:
         return url + "-resolved"
@@ -52,7 +65,8 @@ async def test_discovery_to_document_asset_and_resume(tmp_path: Path) -> None:
 async def test_multi_digit_asset_placeholders_do_not_collide(tmp_path: Path) -> None:
     class ManyImageFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:
-            images = "".join(f'<img src="/docs-v2/image-{index}.png">' for index in range(12))
+            image_tags = [f'<img src="/i{index}.png">' for index in range(12)]
+            images = "".join(image_tags)
             return FetchResult(
                 url=url,
                 final_url=url,
@@ -124,17 +138,13 @@ def test_pipeline_configuration_and_suffixes(tmp_path: Path) -> None:
     assert len(Pipeline.adapters("all")) == 2
     assert re_safe_suffix(".png")
     assert not re_safe_suffix(".not-a-safe-extension")
-    assert (
-        Pipeline._asset_extension("https://example.test/file.unsafe-long", "unknown/type") == ".bin"
-    )
+    url = "https://example.test/file.unsafe-long"
+    extension = Pipeline._asset_extension(url, "unknown/type")  # pylint: disable=protected-access
+    assert extension == ".bin"
 
 
 @pytest.mark.asyncio
-async def test_pipeline_context_discovery_validate_and_package(tmp_path: Path, monkeypatch) -> None:
-    from html_to_markdown import pipeline as module
-    from html_to_markdown.adapters.base import SourceAdapter
-    from html_to_markdown.models import ExtractedPage, PageMetadata
-
+async def test_pipeline_context_and_package(tmp_path: Path, monkeypatch) -> None:
     class Adapter(SourceAdapter):
         source_id = "fixture"
         root_url = "https://fixture.test/root"
@@ -175,7 +185,9 @@ async def test_pipeline_context_discovery_validate_and_package(tmp_path: Path, m
 
 
 @pytest.mark.asyncio
-async def test_redirect_resolution_keeps_external_and_failed_internal(tmp_path: Path) -> None:
+async def test_redirect_resolution_keeps_external_and_failed_internal(
+    tmp_path: Path,
+) -> None:
     class FailingFetcher(FakeFetcher):
         async def resolve_redirect(self, source_id: str, url: str) -> str:
             raise RuntimeError("no response")
@@ -183,10 +195,10 @@ async def test_redirect_resolution_keeps_external_and_failed_internal(tmp_path: 
     pipeline = Pipeline(tmp_path)
     await pipeline.fetcher.close()
     pipeline.fetcher = FailingFetcher()  # type: ignore[assignment]
-    html = (
-        '<a>none</a><a href="https://example.test/x">external</a><a href="/docs-v2/x">internal</a>'
-    )
-    result = await pipeline._resolve_redirects(
+    external = '<a href="https://example.test/x">external</a>'
+    internal = '<a href="/docs-v2/x">internal</a>'
+    html = f"<a>none</a>{external}{internal}"
+    result = await pipeline._resolve_redirects(  # pylint: disable=protected-access
         Pipeline.adapters("docs-cloud-f5-com")[0],
         "https://docs.cloud.f5.com/docs-v2/base",
         html,
