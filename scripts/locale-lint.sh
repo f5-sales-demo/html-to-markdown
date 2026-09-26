@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Detects hardcoded locale lists that should import from @f5-sales-demo/i18n-core.
+# Run from any repo root: bash scripts/locale-lint.sh
+# Exit 0 = clean, Exit 1 = violations found.
+set -euo pipefail
+
+VIOLATIONS=0
+
+# Patterns that indicate a hardcoded locale list rather than an i18n-core import
+PATTERNS=(
+  # Inline slug arrays containing 3+ locale codes (high confidence)
+  "'pt-br'.*'zh-cn'.*'zh-tw'"
+  '"pt-br".*"zh-cn".*"zh-tw"'
+  # Inline constant definitions that should come from i18n-core
+  'VALID_LOCALE_SLUGS\s*=\s*new\s+Set'
+  '(const|let|var|export)\s+LOCALE_DISPLAY_NAMES'
+  '(const|let|var|export)\s+LANG_TO_SLUG'
+  # Inline langToSlug function definition (not an import alias)
+  'function\s+langToSlug'
+)
+
+check_pattern() {
+  local pattern="$1"
+  local results
+  if [ "${#SOURCE_FILES[@]}" -eq 0 ]; then
+    return 0
+  fi
+  results=$(grep -nE "$pattern" -- "${SOURCE_FILES[@]}" 2>/dev/null |
+    grep -vE "from\s+['\"]@f5-sales-demo/i18n-core" |
+    grep -vE "i18n-core/(src|dist)/" ||
+    true)
+
+  if [ -n "$results" ]; then
+    echo "$results"
+    return 1
+  fi
+  return 0
+}
+
+# The package that owns these definitions cannot import them from itself. The
+# exclusion below matches "i18n-core/src/", which only appears when i18n-core is a
+# dependency; inside its own repository the path is "./src/...", so the check used
+# to flag its own source of truth and could never pass there.
+if [ -f package.json ] && grep -qE '"name"[[:space:]]*:[[:space:]]*"@f5-sales-demo/i18n-core"' package.json; then
+  echo "Locale lint: this is the i18n-core package itself — its locale definitions are canonical."
+  exit 0
+fi
+
+# Search repository files, not the whole working tree. Filtering recursive grep output
+# after the walk still reads every ignored dependency and build artifact first; marketplace
+# measured 98,417 files and more than a minute per pattern that way. `git ls-files` includes
+# tracked edits and staged additions while excluding unrelated untracked files.
+SOURCE_FILES=()
+while IFS= read -r -d '' file; do
+  case "$file" in
+  node_modules/* | */node_modules/* | dist/* | */dist/* | coverage/* | */coverage/* | \
+    .astro/* | */.astro/* | .next/* | */.next/* | out/* | */out/* | build/* | */build/* | \
+    *locale-lint.sh | *.test.* | *.spec.*)
+    continue
+    ;;
+  esac
+  SOURCE_FILES+=("$file")
+done < <(git ls-files -z -- '*.ts' '*.js' '*.tsx' '*.jsx')
+
+echo "Locale lint: checking for hardcoded locale lists..."
+echo ""
+
+for pattern in "${PATTERNS[@]}"; do
+  if ! check_pattern "$pattern"; then
+    VIOLATIONS=$((VIOLATIONS + 1))
+  fi
+done
+
+echo ""
+if [ "$VIOLATIONS" -gt 0 ]; then
+  echo "FAIL: Found $VIOLATIONS pattern(s) with hardcoded locale data."
+  echo "These should import from @f5-sales-demo/i18n-core instead."
+  exit 1
+else
+  echo "PASS: No hardcoded locale lists detected."
+  exit 0
+fi

@@ -1,17 +1,29 @@
-.DS_Store
-.venv/
+# Python caches and environments
 __pycache__/
 *.py[cod]
+.venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .coverage
 htmlcov/
+
+# Build and package output
 build/
 dist/
+*.egg-info/
+
+# Generated scraper content and resumable state
 content/
+*.db
 *.sqlite
-*.sqlite-shm
-*.sqlite-wal
-playwright-report/
+*.sqlite3
 browser-state/
+.browser-state/
+.playwright/
+.playwright-mcp/
+
+# Local configuration and operating-system files
+.env
+.env.*
+.DS_Store
