@@ -11,8 +11,7 @@ on:
         type: boolean
         default: false
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: content-snapshot
@@ -20,9 +19,14 @@ concurrency:
 
 jobs:
   snapshot:
+    name: Build and publish snapshot
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write # download the prior manifest and publish changed releases
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
         with:
           python-version: "3.12"
@@ -36,10 +40,18 @@ jobs:
           mkdir -p previous
           gh release download --pattern manifest.json --dir previous || true
       - name: Build strict snapshot
-        run: >-
-          uv run html-to-markdown run --source all --output build
-          ${{ inputs.acknowledge_page_drop && '--acknowledge-page-drop' || '' }}
-          ${{ hashFiles('previous/manifest.json') != '' && '--previous-manifest previous/manifest.json' || '' }}
+        env:
+          ACKNOWLEDGE_PAGE_DROP: ${{ inputs.acknowledge_page_drop }}
+          PREVIOUS_MANIFEST_HASH: ${{ hashFiles('previous/manifest.json') }}
+        run: |
+          args=(run --source all --output build)
+          if [[ "$ACKNOWLEDGE_PAGE_DROP" == "true" ]]; then
+            args+=(--acknowledge-page-drop)
+          fi
+          if [[ -n "$PREVIOUS_MANIFEST_HASH" ]]; then
+            args+=(--previous-manifest previous/manifest.json)
+          fi
+          uv run html-to-markdown "${args[@]}"
       - name: Detect normalized content change
         id: changed
         run: |
