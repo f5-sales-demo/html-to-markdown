@@ -10,6 +10,7 @@ from typing import Annotated
 import typer
 
 from .logging import configure_logging
+from .package import write_publication_receipt
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
 from .state import StateStore
@@ -139,6 +140,26 @@ def quality(
     """Write deterministic advisory JSON and Markdown quality reports."""
     json_path, markdown_path = write_quality_reports(candidate, reference, benchmark)
     typer.echo(f"{json_path}\n{markdown_path}")
+
+
+@app.command("publication")
+def publication_command(
+    output: Output = Path("build"),
+    release_tag: Annotated[str, typer.Option()] = "",
+    source_commit: Annotated[str, typer.Option()] = "",
+    created_at: Annotated[str, typer.Option()] = "",
+    published_at: Annotated[str, typer.Option()] = "",
+) -> None:
+    """Write the immutable release publication receipt."""
+    typer.echo(
+        write_publication_receipt(
+            output,
+            tag=release_tag,
+            source_commit=source_commit,
+            created_at=created_at,
+            published_at=published_at,
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -6,15 +6,39 @@ import gzip
 import hashlib
 import io
 import json
+import mimetypes
+import re
 import tarfile
-from pathlib import Path
+from collections.abc import Iterable
+from pathlib import Path, PurePosixPath
+from typing import Any
 
 from . import __version__
 from .models import PageStatus
 from .quality import write_quality_reports
-from .render import split_document
+from .render import content_hash, split_document
 from .state import StateStore
 from .urls import SOURCE_ROOTS
+
+MIB = 1024 * 1024
+MAX_ARCHIVE_BYTES = 256 * MIB
+MAX_EXPANDED_BYTES = 512 * MIB
+MAX_MEMBERS = 10_000
+MAX_MARKDOWN_BYTES = 2 * MIB
+MAX_ASSET_BYTES = 20 * MIB
+MANIFEST_SCHEMA_VERSION = 2
+PUBLICATION_SCHEMA_VERSION = 1
+RELEASE_ASSET_NAMES = (
+    "html-to-markdown-content.tar.gz",
+    "html-to-markdown-content.tar.gz.sha256",
+    "manifest.json",
+    "quality-report.json",
+    "quality-report.md",
+)
+SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+TAG_PATTERN = re.compile(r"^content-[0-9]{8}T[0-9]{6}Z$")
+COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+TIMESTAMP_PATTERN = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$")
 
 
 def sha256_file(path: Path) -> str:
@@ -23,6 +47,112 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _media_type(path: Path) -> str:
+    value, _ = mimetypes.guess_type(path.name)
+    return value or "application/octet-stream"
+
+
+def _safe_member_path(value: str) -> PurePosixPath:
+    path = PurePosixPath(value)
+    if (
+        not value
+        or value.startswith("/")
+        or "\\" in value
+        or path.is_absolute()
+        or any(part in {"", ".", ".."} for part in path.parts)
+    ):
+        raise ValueError(f"archive contains an invalid member path: {value}")
+    return path
+
+
+def _is_payload_name(name: str) -> bool:
+    if name in {"manifest.json", "quality-report.json", "quality-report.md", "SHA256SUMS"}:
+        return True
+    parts = PurePosixPath(name).parts
+    if len(parts) < 4 or parts[0] != "content":
+        return False
+    if parts[1] not in SOURCE_ROOTS:
+        return False
+    return name.endswith("/index.md") or ("assets" in parts[2:-1] and len(parts[-1]) > 1)
+
+
+def _validate_payload_size(path: Path, relative: str) -> None:
+    size = path.stat().st_size
+    if relative.endswith("/index.md") and size > MAX_MARKDOWN_BYTES:
+        raise ValueError(f"Markdown member exceeds {MAX_MARKDOWN_BYTES} bytes: {relative}")
+    if "/assets/" in relative and size > MAX_ASSET_BYTES:
+        raise ValueError(f"asset member exceeds {MAX_ASSET_BYTES} bytes: {relative}")
+
+
+def _parse_sums(value: bytes) -> dict[str, str]:
+    result: dict[str, str] = {}
+    try:
+        lines = value.decode("utf-8").splitlines()
+    except UnicodeDecodeError as error:
+        raise ValueError("SHA256SUMS is not UTF-8") from error
+    for line in lines:
+        fields = line.split("  ", 1)
+        if len(fields) != 2 or not SHA256_PATTERN.fullmatch(fields[0]):
+            raise ValueError("SHA256SUMS contains a malformed entry")
+        name = fields[1]
+        _safe_member_path(name)
+        if name in result:
+            raise ValueError(f"SHA256SUMS contains a duplicate entry: {name}")
+        result[name] = fields[0]
+    return result
+
+
+def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
+    if not isinstance(manifest, dict) or manifest.get("schema_version") != MANIFEST_SCHEMA_VERSION:
+        raise ValueError("manifest schema version is invalid")
+    documents = manifest.get("documents")
+    assets = manifest.get("assets")
+    if not isinstance(documents, list) or not isinstance(assets, list):
+        raise ValueError("manifest documents and assets must be lists")
+    seen: set[str] = set()
+    for document in documents:
+        if not isinstance(document, dict):
+            raise ValueError("manifest document entry must be an object")
+        path = document.get("path")
+        if isinstance(path, str) and path in seen:
+            raise ValueError(f"duplicate manifest document path: {path}")
+        if not isinstance(path, str) or path not in files or not path.endswith("/index.md"):
+            raise ValueError(f"manifest document is missing: {path}")
+        seen.add(path)
+        data = files[path]
+        try:
+            metadata, body = split_document(data.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError) as error:
+            raise ValueError(f"manifest document is invalid: {path}") from error
+        if metadata.get("url") != document.get("url"):
+            raise ValueError(f"manifest document URL mismatch: {path}")
+        if document.get("body_sha256") != content_hash(body):
+            raise ValueError(f"manifest document body hash mismatch: {path}")
+        if document.get("file_sha256") != hashlib.sha256(data).hexdigest():
+            raise ValueError(f"manifest document file hash mismatch: {path}")
+        if document.get("size_bytes") != len(data):
+            raise ValueError(f"manifest document size mismatch: {path}")
+    for asset in assets:
+        if not isinstance(asset, dict):
+            raise ValueError("manifest asset entry must be an object")
+        path = asset.get("path")
+        if not isinstance(path, str) or path in seen or path not in files or "/assets/" not in path:
+            raise ValueError(f"manifest asset is missing or duplicated: {path}")
+        seen.add(path)
+        data = files[path]
+        if asset.get("sha256") != hashlib.sha256(data).hexdigest():
+            raise ValueError(f"manifest asset hash mismatch: {path}")
+        if asset.get("size_bytes") != len(data):
+            raise ValueError(f"manifest asset size mismatch: {path}")
+        if asset.get("media_type") != _media_type(Path(path)):
+            raise ValueError(f"manifest asset media type mismatch: {path}")
+    if manifest.get("page_count") != len(documents) or manifest.get("asset_count") != len(assets):
+        raise ValueError("manifest counts do not match entries")
+    content_names = {name for name in files if name.startswith("content/")}
+    if seen != content_names:
+        raise ValueError("manifest content member set mismatch")
 
 
 def build_manifest(
@@ -46,12 +176,17 @@ def build_manifest(
                 "error_class": row["error_class"],
                 "error_message": row["error_message"],
             }
+        path = output / row["output_path"]
+        raw = path.read_bytes()
+        _, body = split_document(raw.decode("utf-8"))
         documents.append(
             {
                 "sourceId": row["source"],
                 "url": row["canonical_url"],
                 "path": row["output_path"],
-                "sha256": row["content_hash"],
+                "body_sha256": content_hash(body),
+                "file_sha256": hashlib.sha256(raw).hexdigest(),
+                "size_bytes": len(raw),
                 "provenance": {
                     "freshness": row["freshness"] or "fresh",
                     "current_failure": current_failure,
@@ -63,7 +198,12 @@ def build_manifest(
         )
     assets = list(output.glob("content/*/**/assets/*"))
     asset_entries = [
-        {"path": path.relative_to(output).as_posix(), "sha256": sha256_file(path)}
+        {
+            "path": path.relative_to(output).as_posix(),
+            "sha256": sha256_file(path),
+            "media_type": _media_type(path),
+            "size_bytes": path.stat().st_size,
+        }
         for path in sorted(assets)
     ]
     removals = [
@@ -99,6 +239,7 @@ def build_manifest(
         else {"not_compared": 0}
     )
     return {
+        "schema_version": MANIFEST_SCHEMA_VERSION,
         "tool_version": __version__,
         "source_roots": SOURCE_ROOTS,
         "started_at": started_at,
@@ -144,7 +285,14 @@ def write_release(output: Path, manifest: dict[str, object]) -> Path:
         for path in (output / "quality-report.json", output / "quality-report.md")
         if path.is_file()
     ]
-    files = content_files + report_files
+    files = content_files + report_files + [manifest_path]
+    if len(files) + 1 > MAX_MEMBERS:
+        raise ValueError(f"archive exceeds {MAX_MEMBERS} members")
+    for path in files:
+        _validate_payload_size(path, path.relative_to(output).as_posix())
+    expanded_size = sum(path.stat().st_size for path in files)
+    if expanded_size > MAX_EXPANDED_BYTES:
+        raise ValueError(f"expanded payload exceeds {MAX_EXPANDED_BYTES} bytes")
     sums = [f"{sha256_file(path)}  {path.relative_to(output).as_posix()}" for path in files]
     sums_path = output / "SHA256SUMS"
     sums_path.write_text("\n".join(sums) + ("\n" if sums else ""), encoding="utf-8")
@@ -152,7 +300,7 @@ def write_release(output: Path, manifest: dict[str, object]) -> Path:
     payload = io.BytesIO()
     with tarfile.open(fileobj=payload, mode="w", format=tarfile.PAX_FORMAT) as tar:
         for path in sorted(
-            [*files, manifest_path, sums_path], key=lambda item: item.relative_to(output).as_posix()
+            [*files, sums_path], key=lambda item: item.relative_to(output).as_posix()
         ):
             info = tar.gettarinfo(str(path), arcname=path.relative_to(output).as_posix())
             info.mtime = 0
@@ -168,39 +316,141 @@ def write_release(output: Path, manifest: dict[str, object]) -> Path:
     archive.with_name(f"{archive.name}.sha256").write_text(
         f"{sha256_file(archive)}  {archive.name}\n", encoding="utf-8"
     )
+    if archive.stat().st_size > MAX_ARCHIVE_BYTES:
+        raise ValueError(f"archive exceeds {MAX_ARCHIVE_BYTES} bytes")
+    verify_archive(archive)
+    return archive
+
+
+def verify_archive(archive: Path) -> None:
+    if archive.stat().st_size > MAX_ARCHIVE_BYTES:
+        raise ValueError(f"archive exceeds {MAX_ARCHIVE_BYTES} bytes")
+    files: dict[str, bytes] = {}
+    seen_names: set[str] = set()
+    expanded = 0
     with tarfile.open(archive, mode="r:gz") as packaged:
         members = packaged.getmembers()
-        if not members or any(
-            Path(member.name).is_absolute() or ".." in Path(member.name).parts for member in members
-        ):
-            raise ValueError("archive contains an invalid member")
-    document_entries = manifest.get("documents", [])
-    if not isinstance(document_entries, list):
-        raise ValueError("manifest documents must be a list")
-    document_paths: set[str] = set()
-    for document in document_entries:
-        if not isinstance(document, dict):
-            raise ValueError("manifest document entry must be an object")
-        path_value = document.get("path")
-        if not isinstance(path_value, str) or not (output / path_value).is_file():
-            raise ValueError(f"manifest document is missing: {path_value}")
-        if path_value in document_paths:
-            raise ValueError(f"duplicate manifest document path: {path_value}")
-        document_paths.add(path_value)
-        metadata, _ = split_document((output / path_value).read_text(encoding="utf-8"))
-        if metadata.get("url") != document.get("url"):
-            raise ValueError(f"manifest document URL mismatch: {path_value}")
-        if metadata.get("content_hash") != document.get("sha256"):
-            raise ValueError(f"manifest document hash mismatch: {path_value}")
-    asset_values = manifest.get("assets", [])
-    if not isinstance(asset_values, list):
-        raise ValueError("manifest assets must be a list")
-    for asset in asset_values:
-        if not isinstance(asset, dict):
-            raise ValueError("manifest asset entry must be an object")
-        path_value = asset.get("path")
-        if not isinstance(path_value, str) or not (output / path_value).is_file():
-            raise ValueError(f"manifest asset is missing: {path_value}")
-        if sha256_file(output / path_value) != asset.get("sha256"):
-            raise ValueError(f"manifest asset hash mismatch: {path_value}")
-    return archive
+        if not members or len(members) > MAX_MEMBERS:
+            raise ValueError("archive member count is invalid")
+        for member in members:
+            path = _safe_member_path(member.name)
+            if member.name in seen_names:
+                raise ValueError(f"archive contains a duplicate member: {member.name}")
+            seen_names.add(member.name)
+            if not member.isfile():
+                if member.isdir():
+                    continue
+                raise ValueError(f"archive member type is not allowed: {member.name}")
+            if not _is_payload_name(member.name):
+                raise ValueError(f"archive contains an unknown member: {member.name}")
+            if member.name.endswith("/index.md") and member.size > MAX_MARKDOWN_BYTES:
+                raise ValueError(
+                    f"Markdown member exceeds {MAX_MARKDOWN_BYTES} bytes: {member.name}"
+                )
+            if "/assets/" in member.name and member.size > MAX_ASSET_BYTES:
+                raise ValueError(f"asset member exceeds {MAX_ASSET_BYTES} bytes: {member.name}")
+            expanded += member.size
+            if expanded > MAX_EXPANDED_BYTES:
+                raise ValueError(f"expanded payload exceeds {MAX_EXPANDED_BYTES} bytes")
+            handle = packaged.extractfile(member)
+            if handle is None:
+                raise ValueError(f"archive member cannot be read: {path}")
+            files[member.name] = handle.read()
+    if "SHA256SUMS" not in files or "manifest.json" not in files:
+        raise ValueError("archive is missing required metadata")
+    sums = _parse_sums(files["SHA256SUMS"])
+    expected = set(files) - {"SHA256SUMS"}
+    if set(sums) != expected:
+        raise ValueError("SHA256SUMS member set mismatch")
+    for name, expected_digest in sums.items():
+        if hashlib.sha256(files[name]).hexdigest() != expected_digest:
+            raise ValueError(f"SHA256SUMS digest mismatch: {name}")
+    try:
+        manifest = json.loads(files["manifest.json"])
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError("manifest is not valid JSON") from error
+    _validate_manifest(manifest, files)
+
+
+def write_publication_receipt(
+    output: Path,
+    *,
+    tag: str,
+    source_commit: str,
+    created_at: str,
+    published_at: str,
+) -> Path:
+    if not TAG_PATTERN.fullmatch(tag):
+        raise ValueError("release tag is invalid")
+    if not COMMIT_PATTERN.fullmatch(source_commit):
+        raise ValueError("source commit is invalid")
+    if not TIMESTAMP_PATTERN.fullmatch(created_at) or not TIMESTAMP_PATTERN.fullmatch(published_at):
+        raise ValueError("publication timestamps must be UTC")
+    assets: list[dict[str, object]] = []
+    for name in RELEASE_ASSET_NAMES:
+        path = output / name
+        if not path.is_file():
+            raise ValueError(f"publication asset is missing: {name}")
+        assets.append(
+            {"name": name, "size_bytes": path.stat().st_size, "sha256": sha256_file(path)}
+        )
+    receipt = {
+        "schema_version": PUBLICATION_SCHEMA_VERSION,
+        "release_tag": tag,
+        "source_commit": source_commit,
+        "created_at": created_at,
+        "published_at": published_at,
+        "assets": assets,
+    }
+    path = output / "publication.json"
+    path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return path
+
+
+def verify_publication_receipt(
+    output: Path,
+    receipt: object,
+    *,
+    expected_tag: str,
+    expected_source_commit: str | None = None,
+    expected_receipt_sha256: str | None = None,
+    actual_asset_names: Iterable[str],
+) -> None:
+    if not isinstance(receipt, dict) or receipt.get("schema_version") != PUBLICATION_SCHEMA_VERSION:
+        raise ValueError("publication receipt schema is invalid")
+    if receipt.get("release_tag") != expected_tag:
+        raise ValueError("publication receipt tag mismatch")
+    source_commit = receipt.get("source_commit")
+    if not isinstance(source_commit, str) or not COMMIT_PATTERN.fullmatch(source_commit):
+        raise ValueError("publication receipt source commit is invalid")
+    if expected_source_commit is not None and source_commit != expected_source_commit:
+        raise ValueError("publication receipt source commit mismatch")
+    receipt_path = output / "publication.json"
+    if expected_receipt_sha256 is not None and (
+        not receipt_path.is_file() or sha256_file(receipt_path) != expected_receipt_sha256
+    ):
+        raise ValueError("publication receipt digest mismatch")
+    expected_names = set(RELEASE_ASSET_NAMES) | {"publication.json"}
+    if set(actual_asset_names) != expected_names:
+        raise ValueError("publication asset set mismatch")
+    assets = receipt.get("assets")
+    if not isinstance(assets, list):
+        raise ValueError("publication assets must be a list")
+    entries: dict[str, dict[str, Any]] = {}
+    for asset in assets:
+        if not isinstance(asset, dict) or not isinstance(asset.get("name"), str):
+            raise ValueError("publication asset entry is invalid")
+        name = asset["name"]
+        if name in entries:
+            raise ValueError(f"publication asset is duplicated: {name}")
+        entries[name] = asset
+    if set(entries) != set(RELEASE_ASSET_NAMES):
+        raise ValueError("publication receipt asset set mismatch")
+    for name in RELEASE_ASSET_NAMES:
+        path = output / name
+        if not path.is_file():
+            raise ValueError(f"publication asset is missing: {name}")
+        if entries[name].get("size_bytes") != path.stat().st_size:
+            raise ValueError(f"publication asset size mismatch: {name}")
+        if entries[name].get("sha256") != sha256_file(path):
+            raise ValueError(f"publication asset digest mismatch: {name}")

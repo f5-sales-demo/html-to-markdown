@@ -123,8 +123,8 @@ def test_manifest_document_mismatch_fails_packaging(tmp_path: Path) -> None:
     assert isinstance(documents, list)
     document = documents[0]
     assert isinstance(document, dict)
-    document["sha256"] = "tampered"
-    with pytest.raises(ValueError, match="manifest document hash mismatch"):
+    document["body_sha256"] = "tampered"
+    with pytest.raises(ValueError, match="manifest document body hash mismatch"):
         write_release(output, manifest)
     store.close()
 

@@ -110,8 +110,7 @@ def test_publication_receipt_binds_closed_asset_set(tmp_path: Path) -> None:
         output,
         receipt,
         expected_tag="content-20260926T200000Z",
-        actual_asset_names={asset["name"] for asset in receipt["assets"]}
-        | {"publication.json"},
+        actual_asset_names={asset["name"] for asset in receipt["assets"]} | {"publication.json"},
     )
 
     augmented = {asset["name"] for asset in receipt["assets"]} | {
@@ -141,9 +140,34 @@ def test_receipt_rejects_tag_size_and_digest_mismatches(tmp_path: Path) -> None:
         ).read_text(encoding="utf-8")
     )
     names = {asset["name"] for asset in receipt["assets"]} | {"publication.json"}
+    receipt_digest = sha256_file(output / "publication.json")
 
     with pytest.raises(ValueError, match="tag"):
         verify_publication_receipt(output, receipt, expected_tag="wrong", actual_asset_names=names)
+    with pytest.raises(ValueError, match="source commit mismatch"):
+        verify_publication_receipt(
+            output,
+            receipt,
+            expected_tag="content-20260926T200000Z",
+            expected_source_commit="f" * 40,
+            actual_asset_names=names,
+        )
+    with pytest.raises(ValueError, match="receipt digest mismatch"):
+        verify_publication_receipt(
+            output,
+            receipt,
+            expected_tag="content-20260926T200000Z",
+            expected_receipt_sha256="0" * 64,
+            actual_asset_names=names,
+        )
+    verify_publication_receipt(
+        output,
+        receipt,
+        expected_tag="content-20260926T200000Z",
+        expected_source_commit="0123456789abcdef0123456789abcdef01234567",
+        expected_receipt_sha256=receipt_digest,
+        actual_asset_names=names,
+    )
     receipt["assets"][0]["size_bytes"] += 1
     with pytest.raises(ValueError, match="size"):
         verify_publication_receipt(
