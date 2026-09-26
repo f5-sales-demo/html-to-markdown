@@ -1,0 +1,65 @@
+name: Release content snapshot
+
+on:
+  schedule:
+    - cron: "0 03 * * 0"
+  workflow_dispatch:
+    inputs:
+      acknowledge_page_drop:
+        description: Acknowledge a page-count drop over five percent
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run playwright install --with-deps chromium
+      - name: Download previous manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p previous
+          gh release download --pattern manifest.json --dir previous || true
+      - name: Build strict snapshot
+        run: >-
+          uv run html-to-markdown run --source all --output build
+          ${{ inputs.acknowledge_page_drop && '--acknowledge-page-drop' || '' }}
+          ${{ hashFiles('previous/manifest.json') != '' && '--previous-manifest previous/manifest.json' || '' }}
+      - name: Detect normalized content change
+        id: changed
+        run: |
+          if test -f previous/manifest.json &&
+             diff -q <(jq -S '{documents,removals}' previous/manifest.json) <(jq -S '{documents,removals}' build/manifest.json); then
+            echo "value=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify archive checksum
+        if: steps.changed.outputs.value == 'true'
+        working-directory: build
+        run: sha256sum --check html-to-markdown-content.tar.gz.sha256
+      - name: Publish changed snapshot
+        if: steps.changed.outputs.value == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="content-$(date -u +%Y%m%dT%H%M%SZ)"
+          gh release create "$tag" --title "$tag" --generate-notes \
+            build/html-to-markdown-content.tar.gz \
+            build/html-to-markdown-content.tar.gz.sha256 \
+            build/manifest.json
