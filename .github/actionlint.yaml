@@ -1,0 +1,71 @@
+---
+self-hosted-runner:
+  labels:
+    - administration
+    - api-protection
+    - api-specs
+    - api-specs-enriched
+    - api-specs-enriched-compute
+    - apt-repo
+    - automation
+    - bot-advanced
+    - bot-standard
+    - cdn
+    - cdn-simulator
+    - console
+    - container-build
+    - csd
+    - ddos
+    - demo-resource-template
+    - demo-resources
+    - devcontainer
+    - dns
+    - docs
+    - docs-builder
+    - docs-container-build
+    - docs-control
+    - docs-icons
+    - docs-socketless
+    - docs-theme
+    - fixture
+    - html-to-markdown
+    - i18n-core
+    - macos-15-intel
+    - managed-container-build
+    - managed-socketless
+    - marketplace
+    - marketplace-claude-code
+    - multi-cloud-networking
+    - nginx
+    - observability
+    - origin-server
+    - starlight-llms-txt
+    - starlight-mega-menu
+    - terraform-provider-xcsh
+    - terraform-provider-xcsh-compute
+    - traffic-generator
+    - ubuntu-24.04-arm
+    - vscode-xcsh
+    - waf
+    - was
+    - webapp-api-protection
+    - xcsh
+    - xcsh-action
+    - xcsh-chrome-extension
+    - xcsh-compute
+    - xcsh-compute-16-vcpu-candidate
+    - xcsh-compute-f32-candidate
+    - xcsh-container-build
+    - xcsh-socketless
+
+config-variables: null
+
+paths:
+  .github/workflows/**/*.{yml,yaml}:
+    ignore:
+      # Embedded workflow shell is also linted by actionlint, which does not
+      # load the repository ShellCheck configuration. Keep style/info findings
+      # in the dedicated shell policy while retaining all error-level checks.
+      - "shellcheck reported issue in this script: SC2002:.+"
+      - "shellcheck reported issue in this script: SC2015:.+"
+      - "shellcheck reported issue in this script: SC2016:.+"
