@@ -93,9 +93,8 @@ async def test_multi_digit_asset_placeholders_do_not_collide(tmp_path: Path) -> 
 @pytest.mark.asyncio
 async def test_focused_discovery_enforces_source(tmp_path: Path) -> None:
     pipeline = Pipeline(tmp_path)
-    count = await pipeline.discover(
-        "docs-cloud-f5-com", "https://docs.cloud.f5.com/docs-v2/platform"
-    )
+    url = "https://docs.cloud.f5.com/docs-v2/platform"
+    count = await pipeline.discover("docs-cloud-f5-com", url)
     assert count == 1
     with pytest.raises(ValueError, match="explicit"):
         await pipeline.discover("all", "https://docs.cloud.f5.com/docs-v2/platform")
@@ -113,9 +112,7 @@ async def test_focused_discovery_enforces_source(tmp_path: Path) -> None:
     ],
 )
 @pytest.mark.asyncio
-async def test_pipeline_classifies_failures(
-    tmp_path: Path, error: Exception, status: PageStatus
-) -> None:
+async def test_classifies_failures(tmp_path: Path, error: Exception, status: PageStatus) -> None:
     class ErrorFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:
             raise error
