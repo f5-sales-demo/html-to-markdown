@@ -1,0 +1,26 @@
+{
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "permissions": {
+    "deny": [
+      "Skill(code-review:code-review)",
+      "Skill(pr-review-toolkit:review-pr)",
+      "Skill(verified-review:verified-code-review)",
+      "Skill(commit-commands:clean_gone)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-managed-files.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

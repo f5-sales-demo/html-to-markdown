@@ -1,0 +1,64 @@
+{
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended"
+    }
+  },
+  "files": {
+    "maxSize": 5242880,
+    "includes": ["**", "!packages/*/icons.json"]
+  },
+  "overrides": [
+    {
+      "includes": [
+        "dist/**",
+        "build/**",
+        "release/**",
+        "vendor/**",
+        "docs/snapshots/**",
+        ".github/config/managed-files-manifest.json",
+        ".github/config/backlog-inventory-*.json",
+        "**/*.svg"
+      ],
+      "formatter": {
+        "enabled": false
+      },
+      "linter": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["docs/specifications/api/**", "docs/api-reference/**", "tools/**"],
+      "formatter": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
+}

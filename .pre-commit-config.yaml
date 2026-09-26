@@ -1,0 +1,316 @@
+---
+# =============================================================================
+# GOVERNANCE CHECKS (fail-fast)
+#
+# These run FIRST. Direct commits to main are forbidden — all changes must
+# go through a pull request linked to a GitHub issue. If this hook fails:
+#
+#   1. Create a GitHub issue describing the change
+#   2. Create a feature branch:  git checkout -b feat/<issue>-description
+#   3. Commit to the feature branch, then open a PR with "Closes #<issue>"
+#
+# See CONTRIBUTING.md for the full workflow.
+# =============================================================================
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: no-commit-to-branch
+        name: "GOVERNANCE: never commit directly to main"
+        args: ["--branch", "main"]
+
+  # ===========================================================================
+  # Repository-specific hooks (escape hatch)
+  #
+  # Runs scripts/pre-commit-local.sh if present and executable. Repos use
+  # this for language-specific checks (ruff, eslint, tsc, etc.) that do not
+  # belong in the universal config.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: local-hooks
+        name: Repository-specific hooks
+        entry: >-
+          bash -c
+          'if [ -x scripts/pre-commit-local.sh ];
+          then scripts/pre-commit-local.sh; fi'
+        language: system
+        always_run: true
+        pass_filenames: false
+
+  # ===========================================================================
+  # Repository hygiene — rejects tracked symlinks with absolute targets and
+  # hardcoded home directories. A `.gitignore` pattern ending in `/` matches
+  # only directories, so a symlink of an ignored name is still staged.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: check-repo-hygiene
+        name: Repository hygiene
+        entry: >-
+          bash -c
+          'if [ -f scripts/check-repo-hygiene.sh ];
+          then bash scripts/check-repo-hygiene.sh; fi'
+        language: system
+        always_run: true
+        pass_filenames: false
+
+  # ===========================================================================
+  # Locale lint — hardcoded locale lists should import from @f5-sales-demo/i18n-core.
+  # The script no-ops in repositories that do not carry it.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: locale-lint
+        name: Locale lint
+        entry: >-
+          bash -c
+          'if [ -f scripts/locale-lint.sh ];
+          then bash scripts/locale-lint.sh; fi'
+        language: system
+        always_run: true
+        pass_filenames: false
+
+  # ===========================================================================
+  # File size guard
+  # ===========================================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+
+  # ===========================================================================
+  # YAML lint — config: .yamllint.yaml
+  # Replaces: VALIDATE_YAML_PRETTIER=false + yamllint in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: yamllint
+        name: YAML lint
+        entry: yamllint
+        args: ["-c", ".yamllint.yaml"]
+        language: system
+        types: [yaml]
+
+  # ===========================================================================
+  # Markdown lint — config: .markdownlint.json
+  # Replaces: VALIDATE_MARKDOWN_PRETTIER=false + markdownlint in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: markdownlint
+        name: Markdown lint
+        # Pinned to the tool AND version Super-Linter v8.7.0 runs in its container
+        # (dependencies/package.json: markdownlint-cli ^0.49.1) so a commit that
+        # passes locally cannot fail in CI. Previously this ran markdownlint-cli2
+        # from whatever happened to be installed globally — a different tool from
+        # the one CI uses. Bump with the Super-Linter SHA, never independently.
+        entry: npx --yes markdownlint-cli@0.49.1
+        language: system
+        types: [markdown]
+        # Parser fixtures intentionally contain noncanonical Markdown so the
+        # renderer's full syntax support remains covered.
+        exclude: ^packages/chat-ui/test/markdown/fixtures/
+
+  # ===========================================================================
+  # MDX prose — configs: .markdownlint.json, .textlintrc
+  # `identify` tags .mdx as `mdx`, not `markdown`, so the hook above never sees
+  # it; Super-Linter routes only the `md` extension into MARKDOWN and
+  # NATURAL_LANGUAGE. Repositories whose documentation is .mdx were passing both
+  # gates unlinted (docs-control#847). One script so the local hook and CI run
+  # exactly the same checks.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: lint-mdx-prose
+        name: MDX prose lint
+        entry: bash scripts/lint-mdx-prose.sh
+        language: system
+        types: [mdx]
+
+      # Plain Markdown prose. CI lints it through Super-Linter's NATURAL_LANGUAGE
+      # (textlint), which had no local equivalent — so a terminology finding only
+      # surfaced after a full Lint Code Base run. pre-commit exists to fail in
+      # seconds instead. Same script and same pinned versions as the MDX hook, so
+      # the two cannot drift apart.
+      - id: textlint-markdown
+        name: Markdown prose lint (textlint)
+        entry: bash scripts/lint-mdx-prose.sh --textlint-only
+        language: system
+        types: [markdown]
+
+  # ===========================================================================
+  # Shell formatting — pinned to Super-Linter's SHELL_SHFMT v3.13.1.
+  # The local Python hook installs the mirror's checksum-verified binary without
+  # requiring a global shfmt. Keeping the dependency under repo: local prevents
+  # pre-commit.ci's weekly autoupdater from advancing it ahead of Super-Linter.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: shfmt
+        name: Shell format
+        entry: shfmt
+        language: python
+        additional_dependencies:
+          - git+https://github.com/scop/pre-commit-shfmt@05c1426671b9237fb5e1444dd63aa5731bec0dfb # v3.13.1-1
+        args: ["--write", "--indent", "2"]
+        types: [shell]
+        exclude_types: [csh, tcsh]
+
+  # ===========================================================================
+  # Shell script analysis — config: .shellcheckrc (SC2016 disabled there)
+  # Replaces: shellcheck in super-linter
+  # (was passing SHELLCHECK_OPTS="-e SC2016")
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: shellcheck
+        name: Shell script lint
+        entry: shellcheck
+        language: system
+        types: [shell]
+
+  # ===========================================================================
+  # GitHub Actions workflow lint
+  # Replaces: actionlint in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: actionlint
+        name: GitHub Actions lint
+        entry: actionlint
+        language: system
+        files: ^\.github/workflows/.*\.ya?ml$
+        pass_filenames: false
+
+  # ===========================================================================
+  # Dockerfile lint
+  # Replaces: hadolint in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: hadolint
+        name: Dockerfile lint
+        entry: hadolint
+        language: system
+        types: [dockerfile]
+
+  # ===========================================================================
+  # JS / TS / JSON lint — config: biome.json
+  # Replaces: VALIDATE_JAVASCRIPT_ES=false, VALIDATE_TYPESCRIPT_ES=false,
+  #           VALIDATE_JSON_PRETTIER=false in super-linter; uses biome instead
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: biome-check
+        name: Biome lint (JS/TS/JSON)
+        entry: biome check --no-errors-on-unmatched
+        language: system
+        types_or: [javascript, jsx, ts, tsx, json]
+
+  # ===========================================================================
+  # Spell check — config: .codespellrc
+  # Replaces: codespell in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: codespell
+        name: Spelling check
+        entry: codespell
+        language: system
+        types: [text]
+        # codespell's own `skip` list only applies during its directory
+        # traversal; when pre-commit passes explicit file paths it is bypassed.
+        # Filter generated artifacts, translation docs, and source catalogs
+        # here so generated identifiers and foreign-language words never reach
+        # codespell. See issues #579, #934, and #1234.
+        exclude: ^(dist/|build/|release/|vendor/|docs/(ar|de|es|fr|hi|it|ja|ko|pt-br|th|zh-cn|zh-tw)/|README\.(ar|de|es|fr|hi|it|ja|ko|pt-br|th|zh-cn|zh-tw)\.md$|src/i18n/.*translations|research/benchmarks/uat-matrix/corpora/i18n\.yaml$)
+
+  # ===========================================================================
+  # EditorConfig conformance — config: .editorconfig-checker.json
+  # Replaces: editorconfig-checker in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: editorconfig-checker
+        name: EditorConfig check
+        entry: editorconfig-checker
+        language: system
+
+  # ===========================================================================
+  # GitHub Actions security scan — config: zizmor.yaml
+  # Replaces: zizmor in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: zizmor
+        name: GitHub Actions security
+        entry: zizmor --config zizmor.yaml .github/workflows/
+        language: system
+        files: ^\.github/workflows/.*\.ya?ml$
+        pass_filenames: false
+
+  # ===========================================================================
+  # Infrastructure / IaC security scan — config: .checkov.yaml
+  # Replaces: checkov in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: checkov
+        name: Infrastructure security scan
+        entry: checkov --config-file .checkov.yaml -d .
+        language: system
+        pass_filenames: false
+        files: ^(\.github/|Dockerfile|.*\.tf|.*\.yaml|.*\.yml)
+
+  # ===========================================================================
+  # Secrets detection
+  # Replaces: gitleaks in super-linter
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: Secrets detection
+        entry: gitleaks protect --staged --redact
+        language: system
+        pass_filenames: false
+
+  # ===========================================================================
+  # Translation validation — deterministic only. English-only source commits
+  # are allowed through so the governed workflow can generate locale output;
+  # any locale file that is staged locally must already match its English hash
+  # and preserve fence shape, links, imports, and MDX component structure.
+  # ===========================================================================
+  - repo: local
+    hooks:
+      - id: validate-translations
+        name: "i18n: validate staged locale output"
+        entry: bash scripts/validate-translations.sh --staged
+        language: system
+        files: ^(docs|src/content/docs)/(en|fr|es|de|pt-br|ja|ko|zh-cn|zh-tw|ar|it|hi|th)/.*\.mdx?$
+        pass_filenames: false
+
+ci:
+  autofix_prs: true
+  autoupdate_schedule: weekly
+  # All language: system hooks require tools installed
+  # in the runner — skip them in pre-commit.ci (cloud)
+  # since the environment lacks these binaries.
+  # They run locally and in GitHub Actions CI where tools are pre-installed.
+  skip:
+    - local-hooks
+    - check-repo-hygiene
+    - locale-lint
+    - yamllint
+    - markdownlint
+    - shellcheck
+    - actionlint
+    - hadolint
+    - biome-check
+    - codespell
+    - editorconfig-checker
+    - zizmor
+    - checkov
+    - gitleaks
+    - validate-translations

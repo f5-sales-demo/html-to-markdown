@@ -1,0 +1,40 @@
+---
+# Governed exact-head caller. Only the trusted docs-control orchestrator dispatches it.
+name: Antigravity AI Review
+run-name: Antigravity review PR ${{ inputs.pr_number }} @ ${{ inputs.expected_head_sha }}
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request number
+        required: true
+        type: string
+      expected_base_sha:
+        description: Exact pull-request base SHA
+        required: true
+        type: string
+      expected_head_sha:
+        description: Exact pull-request head SHA
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.pr_number }}-${{ inputs.expected_head_sha }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: vars.ANTIGRAVITY_REVIEW_ENABLED == 'true'
+    uses: f5-sales-demo/docs-control/.github/workflows/antigravity-review.yml@37b1cf98f29b92bb5f4bf5a727e5fcd025b7899e
+    with:
+      pr_number: ${{ inputs.pr_number }}
+      expected_base_sha: ${{ inputs.expected_base_sha }}
+      expected_head_sha: ${{ inputs.expected_head_sha }}
+    permissions:
+      contents: read
+      pull-requests: write # publish an exact-head review comment
+    secrets:
+      ANTIGRAVITY_TOKEN: ${{ secrets.ANTIGRAVITY_TOKEN }}
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}

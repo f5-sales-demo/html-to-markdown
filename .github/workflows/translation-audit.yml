@@ -1,0 +1,22 @@
+---
+# Reusable read-only policy check. Locale generation is suspended until an
+# explicitly authorized production release; English documentation is the only
+# publishable source during the suspension.
+name: English-only Documentation Policy
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: English-only documentation policy
+    runs-on: managed-socketless
+    steps:
+      - name: Record suspended translation policy
+        run: |
+          set -euo pipefail
+          echo "[i18n] translation generation and locale publication are suspended."
+          echo "[i18n] English documentation remains the governed publishable source."
