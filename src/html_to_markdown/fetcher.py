@@ -12,9 +12,11 @@ import httpx
 from playwright.async_api import Browser, Playwright, async_playwright
 
 from .adapters.base import SourceAdapter
-from .errors import NotFoundError, ScrapeError
+from .errors import AuthenticationWallError, NotFoundError, ScrapeError
 from .models import FetchResult
 from .urls import validate_asset_url, validate_source_url
+
+USER_AGENT_HEADERS = {"User-Agent": "f5-html-to-markdown/1.0"}
 
 
 class Fetcher:
@@ -59,7 +61,11 @@ class Fetcher:
             await context.close()
 
     async def fetch(
-        self, adapter: SourceAdapter, url: str, *, browser: bool = False
+        self,
+        adapter: SourceAdapter,
+        url: str,
+        *,
+        browser: bool = False,
     ) -> FetchResult:
         canonical = validate_source_url(adapter.source_id, url)
         if adapter.browser_only or browser:
@@ -76,9 +82,7 @@ class Fetcher:
         for attempt in range(self.retries):
             try:
                 for _ in range(10):
-                    response = await self._http.get(
-                        current, headers={"User-Agent": "f5-html-to-markdown/1.0"}
-                    )
+                    response = await self._http.get(current, headers=USER_AGENT_HEADERS)
                     if response.status_code in {301, 302, 303, 307, 308}:
                         location = response.headers.get("location")
                         if not location:
@@ -106,9 +110,8 @@ class Fetcher:
                 last_error = error
                 if attempt + 1 < self.retries:
                     await asyncio.sleep(2**attempt)
-        raise ScrapeError(
-            f"HTTP retrieval failed after {self.retries} attempts: {url}"
-        ) from last_error
+        message = f"HTTP retrieval failed after {self.retries} attempts: {url}"
+        raise ScrapeError(message) from last_error
 
     async def _browser_fetch(self, adapter: SourceAdapter, url: str) -> FetchResult:
         last_error: Exception | None = None
@@ -133,21 +136,19 @@ class Fetcher:
                     )
                     adapter.classify_page(result)
                     return result
-            except (NotFoundError, ValueError):
+            except (AuthenticationWallError, NotFoundError, ValueError):
                 raise
-            except Exception as error:  # Playwright exposes several transient subclasses.
+            except Exception as error:  # pylint: disable=broad-exception-caught
+                # Playwright exposes several transient subclasses.
                 last_error = error
                 if attempt + 1 < self.retries:
                     await asyncio.sleep(2**attempt)
-        raise ScrapeError(
-            f"browser retrieval failed after {self.retries} attempts: {url}"
-        ) from last_error
+        message = f"browser retrieval failed after {self.retries} attempts: {url}"
+        raise ScrapeError(message) from last_error
 
     async def fetch_asset(self, url: str) -> tuple[bytes, str]:
         canonical = validate_asset_url(url)
-        response = await self._http.get(
-            canonical, headers={"User-Agent": "f5-html-to-markdown/1.0"}
-        )
+        response = await self._http.get(canonical, headers=USER_AGENT_HEADERS)
         response.raise_for_status()
         return response.content, response.headers.get("content-type", "application/octet-stream")
 
@@ -155,9 +156,7 @@ class Fetcher:
         """Resolve a source link without downloading each destination body."""
         current = validate_source_url(source_id, url)
         for _ in range(10):
-            response = await self._http.head(
-                current, headers={"User-Agent": "f5-html-to-markdown/1.0"}
-            )
+            response = await self._http.head(current, headers=USER_AGENT_HEADERS)
             if response.status_code in {301, 302, 303, 307, 308}:
                 location = response.headers.get("location")
                 if not location:

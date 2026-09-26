@@ -37,7 +37,7 @@ def prepared_snapshot(tmp_path: Path) -> tuple[Path, StateStore]:
 
 def test_document_and_snapshot_validation(tmp_path: Path) -> None:
     output, store = prepared_snapshot(tmp_path)
-    assert validate_document(output / "content/docs-cloud-f5-com/a/index.md") == []
+    assert not validate_document(output / "content/docs-cloud-f5-com/a/index.md")
     validate_snapshot(output, store)
     previous = output / "previous.json"
     previous.write_text(json.dumps({"page_count": 100}), encoding="utf-8")
@@ -53,6 +53,20 @@ def test_failed_state_blocks_publication(tmp_path: Path) -> None:
     store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=other)])
     store.mark(other, PageStatus.FAILED, error=RuntimeError("boom"))
     with pytest.raises(PublicationBlockedError, match="unclassified or failed"):
+        validate_snapshot(output, store)
+    store.close()
+
+
+def test_authentication_wall_blocks_publication_clearly(tmp_path: Path) -> None:
+    output, store = prepared_snapshot(tmp_path)
+    protected = "https://my.f5.com/manage/s/article/K000147377"
+    store.discover([DiscoveredPage(source_id="my-f5-com", url=protected)])
+    store.mark(
+        protected,
+        PageStatus.AUTHENTICATION_WALL,
+        error=RuntimeError("authentication wall"),
+    )
+    with pytest.raises(PublicationBlockedError, match="1 authentication wall"):
         validate_snapshot(output, store)
     store.close()
 
@@ -94,7 +108,9 @@ def test_archive_is_deterministic_and_checksummed(tmp_path: Path) -> None:
     archive = write_release(output, manifest)
     first = sha256_file(archive)
     changed_times = dict(
-        manifest, started_at="2025-02-01T00:00:00Z", ended_at="2025-02-01T00:01:00Z"
+        manifest,
+        started_at="2025-02-01T00:00:00Z",
+        ended_at="2025-02-01T00:01:00Z",
     )
     archive = write_release(output, changed_times)
     assert sha256_file(archive) == first

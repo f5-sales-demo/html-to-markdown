@@ -1,10 +1,19 @@
+"""Fetcher tests."""
+
+# pylint: disable=protected-access
+
 from contextlib import asynccontextmanager
 
 import httpx
 import pytest
 
 from html_to_markdown.adapters.base import SourceAdapter
-from html_to_markdown.errors import AllowlistError, NotFoundError, ScrapeError
+from html_to_markdown.errors import (
+    AllowlistError,
+    AuthenticationWallError,
+    NotFoundError,
+    ScrapeError,
+)
 from html_to_markdown.fetcher import Fetcher
 from html_to_markdown.models import DiscoveredPage, ExtractedPage, FetchResult, PageMetadata
 
@@ -127,6 +136,25 @@ async def test_browser_fetch_uses_readiness_and_rendered_html() -> None:
     result = await fetcher.fetch(Adapter(), page.url, browser=True)
     assert page.waited
     assert "rendered content" in result.html
+    await fetcher.close()
+
+
+@pytest.mark.asyncio
+async def test_browser_fetch_preserves_authentication_wall() -> None:
+    class AuthenticationAdapter(Adapter):
+        def classify_page(self, page: FetchResult) -> None:
+            raise AuthenticationWallError(f"authentication wall: {page.final_url}")
+
+    page = BrowserPage()
+    fetcher = Fetcher(retries=1)
+
+    @asynccontextmanager
+    async def browser_page():
+        yield page
+
+    fetcher.browser_page = browser_page  # type: ignore[method-assign]
+    with pytest.raises(AuthenticationWallError, match="authentication wall"):
+        await fetcher.fetch(AuthenticationAdapter(), page.url, browser=True)
     await fetcher.close()
 
 

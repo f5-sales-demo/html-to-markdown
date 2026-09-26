@@ -95,19 +95,19 @@ class Pipeline:
 
     async def _scrape_one(self, adapter: SourceAdapter, url: str) -> DocumentRecord | None:
         self.store.mark_fetching(url)
+        status: PageStatus
+        failure: Exception
         try:
             fetched = await self.fetcher.fetch(adapter, url)
             extracted = adapter.extract(fetched)
             extracted.html = await self._resolve_redirects(
-                adapter, fetched.final_url, extracted.html
+                adapter,
+                fetched.final_url,
+                extracted.html,
             )
             rendered = render_html(extracted.html, fetched.final_url)
-            page_dir = (
-                self.output
-                / "content"
-                / adapter.source_id
-                / stable_path(adapter.source_id, fetched.final_url)
-            )
+            relative_path = stable_path(adapter.source_id, fetched.final_url)
+            page_dir = self.output / "content" / adapter.source_id / relative_path
             page_dir.mkdir(parents=True, exist_ok=True)
             asset_hashes: list[str] = []
             for asset in rendered.assets:
@@ -141,18 +141,25 @@ class Pipeline:
                 asset_hashes=asset_hashes,
             )
         except NotFoundError as error:
-            self.store.mark(url, PageStatus.REMOVED_NOT_FOUND, error=error)
+            status = PageStatus.REMOVED_NOT_FOUND
+            failure = error
         except NavigationOnlyError as error:
-            self.store.mark(url, PageStatus.REMOVED_NAVIGATION, error=error)
+            status = PageStatus.REMOVED_NAVIGATION
+            failure = error
         except AuthenticationWallError as error:
-            self.store.mark(url, PageStatus.AUTHENTICATION_WALL, error=error)
-        except Exception as error:
-            self.store.mark(url, PageStatus.FAILED, error=error)
+            status = PageStatus.AUTHENTICATION_WALL
+            failure = error
+        except Exception as error:  # pylint: disable=broad-exception-caught
+            status = PageStatus.FAILED
+            failure = error
+        self.store.mark(url, status, error=failure)
         log.error(
             "page_failed",
             source=adapter.source_id,
             url=url,
-            status=self.store.rows([adapter.source_id])[-1]["status"],
+            status=status,
+            error_class=type(failure).__name__,
+            error_message=str(failure),
         )
         return None
 
@@ -166,7 +173,7 @@ class Pipeline:
             candidate = urljoin(base_url, href)
             try:
                 canonical = validate_source_url(adapter.source_id, candidate)
-            except Exception:  # nosec B112
+            except Exception:  # pylint: disable=broad-exception-caught  # nosec B112
                 continue
             if canonical in resolved:
                 anchor["href"] = resolved[canonical]
@@ -178,7 +185,7 @@ class Pipeline:
                 final_url = await self.fetcher.resolve_redirect(adapter.source_id, canonical)
                 resolved[canonical] = final_url
                 anchor["href"] = final_url
-            except Exception:
+            except Exception:  # pylint: disable=broad-exception-caught
                 resolved[canonical] = canonical
                 anchor["href"] = canonical
         return str(soup)
@@ -190,7 +197,9 @@ class Pipeline:
         return suffix if re_safe_suffix(suffix) else ".bin"
 
     def validate(
-        self, previous_manifest: Path | None = None, acknowledge_page_drop: bool = False
+        self,
+        previous_manifest: Path | None = None,
+        acknowledge_page_drop: bool = False,
     ) -> None:
         validate_snapshot(
             self.output,
@@ -200,9 +209,8 @@ class Pipeline:
         )
 
     def package(self, started_at: str, ended_at: str) -> Path:
-        return write_release(
-            self.output, build_manifest(self.output, self.store, started_at, ended_at)
-        )
+        manifest = build_manifest(self.output, self.store, started_at, ended_at)
+        return write_release(self.output, manifest)
 
 
 def re_safe_suffix(suffix: str) -> bool:
@@ -222,9 +230,14 @@ async def run_pipeline(
     previous_manifest: Path | None = None,
     acknowledge_page_drop: bool = False,
 ) -> Path:
+    # pylint: disable=too-many-arguments
     started = utc_now()
     async with Pipeline(
-        output, concurrency=concurrency, retries=retries, timeout=timeout, headed=headed
+        output,
+        concurrency=concurrency,
+        retries=retries,
+        timeout=timeout,
+        headed=headed,
     ) as pipeline:
         await pipeline.discover(source, url)
         await pipeline.scrape(source, force=force)
