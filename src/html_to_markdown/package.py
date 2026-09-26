@@ -62,6 +62,8 @@ def _safe_member_path(value: str) -> PurePosixPath:
         or "\\" in value
         or path.is_absolute()
         or any(part in {"", ".", ".."} for part in path.parts)
+        or "%2f" in value.casefold()
+        or "%5c" in value.casefold()
     ):
         raise ValueError(f"archive contains an invalid member path: {value}")
     return path
@@ -404,6 +406,13 @@ def write_publication_receipt(
     }
     path = output / "publication.json"
     path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    verify_publication_receipt(
+        output,
+        receipt,
+        expected_tag=tag,
+        expected_source_commit=source_commit,
+        actual_asset_names={*RELEASE_ASSET_NAMES, "publication.json"},
+    )
     return path
 
 

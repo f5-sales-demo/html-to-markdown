@@ -52,3 +52,6 @@ def test_release_workflow_is_artifact_first_and_change_gated() -> None:
     assert "release_tag" in text
     assert "receipt_sha256" in text
     assert "releases/latest" not in text
+    assert 'gh release create "$release_tag" --draft' in text
+    assert "verify-publication" in text
+    assert 'gh release edit "$release_tag" --draft=false' in text

@@ -196,6 +196,29 @@ def test_archive_limits_fail_closed(tmp_path: Path, monkeypatch: pytest.MonkeyPa
     store.close()
 
 
+@pytest.mark.parametrize(
+    ("limit", "value", "message"),
+    [
+        ("MAX_ASSET_BYTES", 1, "asset member exceeds"),
+        ("MAX_EXPANDED_BYTES", 1, "expanded payload exceeds"),
+        ("MAX_MEMBERS", 1, "archive exceeds 1 members"),
+        ("MAX_ARCHIVE_BYTES", 1, "archive exceeds 1 bytes"),
+    ],
+)
+def test_each_archive_limit_is_enforced(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    limit: str,
+    value: int,
+    message: str,
+) -> None:
+    output, store = prepared_snapshot(tmp_path)
+    monkeypatch.setattr(package_module, limit, value)
+    with pytest.raises(ValueError, match=message):
+        write_release(output, build_manifest(output, store, "start", "end"))
+    store.close()
+
+
 def test_archive_verification_rejects_links_traversal_and_unknown_members(tmp_path: Path) -> None:
     for name, member in (
         ("link", tarfile.TarInfo("content/docs-cloud-f5-com/a/index.md")),
@@ -215,6 +238,15 @@ def test_archive_verification_rejects_links_traversal_and_unknown_members(tmp_pa
             packaged.addfile(member)
         with pytest.raises(ValueError):
             verify_archive(archive)
+
+    encoded = tmp_path / "encoded.tar.gz"
+    with tarfile.open(encoded, "w:gz") as packaged:
+        payload = b"x"
+        member = tarfile.TarInfo("content/docs-cloud-f5-com/a%2Fescape/index.md")
+        member.size = len(payload)
+        packaged.addfile(member, fileobj=__import__("io").BytesIO(payload))
+    with pytest.raises(ValueError, match="invalid member path"):
+        verify_archive(encoded)
 
 
 def test_outer_checksum_is_canonical(tmp_path: Path) -> None:

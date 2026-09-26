@@ -14,18 +14,11 @@ concurrency:
 jobs:
   snapshot:
     name: Build and publish snapshot
+    environment: repository-settings
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     permissions:
       contents: write # download the prior manifest and publish changed releases
-    env:
-      SNAPSHOT_ASSETS: >-
-        build/html-to-markdown-content.tar.gz
-        build/html-to-markdown-content.tar.gz.sha256
-        build/manifest.json
-        build/quality-report.json
-        build/quality-report.md
-        build/publication.json
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -39,11 +32,12 @@ jobs:
       - name: Download previous manifest
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           mkdir -p previous
           previous_tag="$(
             gh api --method GET --paginate \
-              repos/${{ github.repository }}/releases -f per_page=100 \
+              "repos/$REPOSITORY/releases" -f per_page=100 \
               --jq '.[] | select(.draft == false and .prerelease == false) | .tag_name' |
               grep -E '^content-[0-9]{8}T[0-9]{6}Z$' |
               head -n 1
@@ -107,20 +101,35 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
         run: |
-          gh release create "$release_tag" --title "$release_tag" --generate-notes \
+          release_created=false
+          cleanup_draft() {
+            if [[ "$release_created" == true ]]; then
+              gh release delete "$release_tag" --cleanup-tag --yes || true
+            fi
+          }
+          trap cleanup_draft EXIT
+          gh release create "$release_tag" --draft --title "$release_tag" --generate-notes \
             build/html-to-markdown-content.tar.gz \
             build/html-to-markdown-content.tar.gz.sha256 \
             build/manifest.json \
             build/quality-report.json \
             build/quality-report.md \
             build/publication.json
+          release_created=true
+          mkdir verify-release
+          gh release download "$release_tag" --dir verify-release
+          uv run html-to-markdown verify-publication \
+            --output verify-release --release-tag "$release_tag"
+          gh release edit "$release_tag" --draft=false
+          release_created=false
       - name: Dispatch immutable snapshot to xcsh with repository_dispatch
         if: steps.changed.outputs.value == 'true'
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
+          SOURCE_COMMIT: ${{ github.sha }}
         run: |
           gh api --method POST repos/f5-sales-demo/xcsh/dispatches \
             -f event_type=documentation_snapshot_published \
             -F "client_payload[release_tag]=$release_tag" \
             -F "client_payload[receipt_sha256]=$receipt_sha256" \
-            -F "client_payload[source_commit]=${{ github.sha }}"
+            -F "client_payload[source_commit]=$SOURCE_COMMIT"
