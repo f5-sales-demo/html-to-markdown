@@ -68,5 +68,6 @@ def test_software_version_and_release_are_semver_1_1_0() -> None:
     assert '__version__ = "1.1.0"' in package
     assert "refs/tags/v" in release
     assert "uv build" in release
+    assert "-name '*.whl' -o -name '*.tar.gz'" in release
     assert "gh release create" in release
     assert "--latest" in release
