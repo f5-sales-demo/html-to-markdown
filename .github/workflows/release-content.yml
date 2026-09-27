@@ -108,7 +108,7 @@ jobs:
             fi
           }
           trap cleanup_draft EXIT
-          gh release create "$release_tag" --draft --title "$release_tag" --generate-notes \
+          gh release create "$release_tag" --draft --latest=false --title "$release_tag" --generate-notes \
             build/html-to-markdown-content.tar.gz \
             build/html-to-markdown-content.tar.gz.sha256 \
             build/manifest.json \
@@ -122,14 +122,12 @@ jobs:
             --output verify-release --release-tag "$release_tag"
           gh release edit "$release_tag" --draft=false
           release_created=false
-      - name: Dispatch immutable snapshot to xcsh with repository_dispatch
+      - name: Dispatch immutable snapshot to Pages
         if: steps.changed.outputs.value == 'true'
         env:
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
-          SOURCE_COMMIT: ${{ github.sha }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          gh api --method POST repos/f5-sales-demo/xcsh/dispatches \
-            -f event_type=documentation_snapshot_published \
-            -F "client_payload[release_tag]=$release_tag" \
-            -F "client_payload[receipt_sha256]=$receipt_sha256" \
-            -F "client_payload[source_commit]=$SOURCE_COMMIT"
+          gh workflow run github-pages-deploy.yml --ref main --repo "$REPOSITORY" \
+            -f "snapshot-tag=$release_tag" \
+            -f "publication-sha256=$receipt_sha256"

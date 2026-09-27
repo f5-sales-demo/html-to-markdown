@@ -26,18 +26,26 @@ uv run html-to-markdown validate --output build
 
 Options include `--concurrency`, `--retries`, `--timeout`, `--headed`, `--force`, and `--output`. Focused `--url` runs still enforce the source allowlist.
 
-## Consume a release
+## Consume an exact snapshot release
 
 ```bash
-gh release download --repo f5-sales-demo/html-to-markdown --pattern '*.tar.gz*'
-sha256sum --check html-to-markdown-content.tar.gz.sha256
-tar -xzf html-to-markdown-content.tar.gz
-sha256sum --check SHA256SUMS
+tag=content-YYYYMMDDTHHMMSSZ
+receipt_sha256=<sha256>
+gh release download "$tag" --repo f5-sales-demo/html-to-markdown --dir snapshot-release
+uv run html-to-markdown verify-publication --output snapshot-release \
+  --release-tag "$tag" --publication-sha256 "$receipt_sha256"
 ```
 
-The archive contains `content/docs-cloud-f5-com`, `content/my-f5-com`, `manifest.json`, and `SHA256SUMS`. See [architecture](docs/architecture.md), [requirements](docs/feature-requirements.md), and [provenance](docs/provenance.md).
+Never select GitHub's floating latest release for content. The archive contains
+`content/docs-cloud-f5-com`, `content/my-f5-com`, `manifest.json`, and
+`SHA256SUMS`. See [architecture](engineering/architecture.md),
+[requirements](engineering/feature-requirements.md), and
+[provenance](engineering/provenance.md).
 
 ## Development
+
+See [DEVELOPING.md](DEVELOPING.md) for the complete immutable publication and
+documentation-build contract.
 
 ```bash
 uv run ruff check .

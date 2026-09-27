@@ -1,0 +1,68 @@
+---
+name: Release software
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions: {}
+
+concurrency:
+  group: software-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Validate and publish stable release
+    if: github.repository == 'f5-sales-demo/html-to-markdown'
+    runs-on: ubuntu-24.04
+    environment: repository-settings
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Verify tag and project version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REF" == refs/tags/v* ]]
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::software release tag is not stable SemVer"
+            exit 1
+          fi
+          project_version=$(uv run --no-project python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+          module_version=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' src/html_to_markdown/__init__.py)
+          test "$RELEASE_TAG" = "v$project_version"
+          test "$module_version" = "$project_version"
+      - name: Build and test release
+        run: |
+          set -euo pipefail
+          uv sync --all-groups --locked
+          uv run pytest
+          uv build
+          test "$(find dist -maxdepth 1 -type f | wc -l)" -eq 2
+      - name: Verify wheel in an isolated environment
+        run: |
+          set -euo pipefail
+          wheel=$(find dist -maxdepth 1 -type f -name '*.whl')
+          test -n "$wheel"
+          uv venv "${RUNNER_TEMP}/release-venv"
+          uv pip install --python "${RUNNER_TEMP}/release-venv/bin/python" "$wheel"
+          "${RUNNER_TEMP}/release-venv/bin/html-to-markdown" --help >/dev/null
+      - name: Publish stable GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          sha256sum dist/* > dist/SHA256SUMS
+          gh release create "$RELEASE_TAG" --verify-tag --latest --generate-notes dist/*
