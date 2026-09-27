@@ -1,11 +1,16 @@
 ---
 name: GitHub Pages Deploy
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs/**'
   workflow_dispatch:
+    inputs:
+      snapshot-tag:
+        description: Exact immutable content-* release tag
+        required: true
+        type: string
+      publication-sha256:
+        description: SHA-256 digest of the release publication.json receipt
+        required: true
+        type: string
 
 permissions: {}
 
@@ -18,9 +23,12 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@37b1cf98f29b92bb5f4bf5a727e5fcd025b7899e
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@b718c6297b0d6c31ffb9fa414601e3674af879df
     with:
       content-ref: ${{ github.sha }}
+      builder-image: ghcr.io/f5-sales-demo/docs-builder@sha256:bdd2d1212626c5d2919e7028692bae1ff5a673f27d120815e4731c5b1d9a689f
+      snapshot-tag: ${{ inputs.snapshot-tag }}
+      publication-sha256: ${{ inputs.publication-sha256 }}
       socketless_runner_label: managed-socketless
       container_build_runner_label: managed-container-build
     permissions:

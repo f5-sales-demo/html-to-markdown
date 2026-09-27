@@ -47,8 +47,10 @@ def test_release_workflow_is_artifact_first_and_change_gated() -> None:
     text = path.read_text(encoding="utf-8")
     assert "acknowledge_page_drop" not in text
     assert "full-prototype-inventory.json" in text
-    assert "repository_dispatch" in text
-    assert "documentation_snapshot_published" in text
+    assert "repository_dispatch" not in text
+    assert "gh workflow run github-pages-deploy.yml --ref main" in text
+    assert '"snapshot-tag=$release_tag"' in text
+    assert '"publication-sha256=$receipt_sha256"' in text
     assert "release_tag" in text
     assert "receipt_sha256" in text
     assert "releases/latest" not in text
