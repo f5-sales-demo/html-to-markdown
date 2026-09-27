@@ -10,7 +10,17 @@ def test_pages_content_has_one_human_route_and_engineering_docs_are_external() -
     published = sorted(
         path.relative_to(ROOT / "docs") for path in (ROOT / "docs").rglob("*") if path.is_file()
     )
-    assert published == [Path("index.mdx")]
+    assert published == [Path("index.mdx"), Path("llms-config.json")]
+    llms_config = yaml.safe_load((ROOT / "docs/llms-config.json").read_text(encoding="utf-8"))
+    assert llms_config == {
+        "progressiveCorpus": {
+            "taxonomy": {
+                "levels": ["category", "subcategory"],
+                "collapseSingletonSubcategories": True,
+            },
+            "hints": {"strategy": "first-sentence", "maxCharacters": 240},
+        }
+    }
     assert (ROOT / "engineering/architecture.md").is_file()
     assert (ROOT / "engineering/feature-requirements.md").is_file()
     assert (ROOT / "engineering/provenance.md").is_file()

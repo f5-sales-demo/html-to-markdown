@@ -26,7 +26,7 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@9a2ae498f31b5f3a601574a77216df11569669cd
     with:
       content-ref: ${{ github.sha }}
-      builder-image: ghcr.io/f5-sales-demo/docs-builder@sha256:9aa8a51db351cb98f2b7185ef39b53e4ac26c623c460fce92ff4c0f946bd9985
+      builder-image: ghcr.io/f5-sales-demo/docs-builder@sha256:6c259f9db8d93e7d0674a20a36ca58cb06ab1083ea51a3251274987286cdb5f2
       snapshot-tag: ${{ inputs.snapshot-tag }}
       publication-sha256: ${{ inputs.publication-sha256 }}
       snapshot-verifier-ref: 9a2ae498f31b5f3a601574a77216df11569669cd

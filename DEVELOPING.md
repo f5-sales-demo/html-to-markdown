@@ -74,9 +74,13 @@ The corpus must never be placed under `docs/` or `src/content/docs`.
 - `/html-to-markdown/llms-full.txt` is an exhaustive grouped link manifest; it never embeds
   document bodies.
 - `/html-to-markdown/_llms-txt/<source>/<path>.txt` contains metadata-only intermediate
-  indices and full Markdown at leaf routes.
+  category and shared-subcategory indices plus full Markdown at canonical leaf routes.
 - `/html-to-markdown/snapshot/` exposes the verified manifest, checksums, quality reports,
   provenance, Markdown, and content-addressed assets.
 
 Progressive mode is English-only and does not publish locale routes,
 `llms-small.txt`, a context-dump endpoint, or scraped-document HTML pages.
+Repository `docs/llms-config.json` selects the authoritative `category` then
+`subcategory` taxonomy, collapses missing or singleton subcategories, and caps
+plain first-sentence hints at 240 characters. The builder consumes this file
+before Starlight renders content.
