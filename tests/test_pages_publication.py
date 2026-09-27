@@ -23,6 +23,7 @@ def test_development_contract_requires_immutable_snapshot_inputs() -> None:
         "publication.json",
         "publication-sha256",
         "snapshot-tag",
+        "snapshot-verifier-ref",
         "SHA256SUMS",
         "/_llms-txt/",
         "docs-builder@sha256:",
@@ -40,10 +41,12 @@ def test_pages_and_release_workflows_use_immutable_publication_contract() -> Non
     assert dispatch_inputs["publication-sha256"]["required"] is True
     assert set(pages[True]) == {"workflow_dispatch"}
     job = pages["jobs"]["docs"]
-    assert re.fullmatch(
+    workflow_pin = re.fullmatch(
         r"f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@[0-9a-f]{40}",
         job["uses"],
     )
+    assert workflow_pin
+    assert job["with"]["snapshot-verifier-ref"] == job["uses"].rsplit("@", 1)[1]
     assert re.fullmatch(
         r"ghcr.io/f5-sales-demo/docs-builder@sha256:[0-9a-f]{64}",
         job["with"]["builder-image"],

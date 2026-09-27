@@ -14,7 +14,9 @@ software release such as `v1.1.0` and a timestamped content snapshot are
 independent identities.
 
 The Pages caller also pins `docs-builder@sha256:<digest>` and the reusable
-docs-control workflow commit. A manual rebuild requires the same immutable
+docs-control workflow commit. It passes that same full commit SHA as
+`snapshot-verifier-ref`, ensuring the checked-out verifier is identical to the
+reusable workflow revision. A manual rebuild requires the same immutable
 `snapshot-tag` and `publication-sha256` values as an automatic deployment.
 
 ## Local application checks
