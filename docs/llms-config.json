@@ -1,0 +1,12 @@
+{
+  "progressiveCorpus": {
+    "taxonomy": {
+      "levels": ["category", "subcategory"],
+      "collapseSingletonSubcategories": true
+    },
+    "hints": {
+      "strategy": "first-sentence",
+      "maxCharacters": 240
+    }
+  }
+}
