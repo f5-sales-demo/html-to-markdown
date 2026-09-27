@@ -18,6 +18,10 @@ docs-control workflow commit. It passes that same full commit SHA as
 `snapshot-verifier-ref`, ensuring the checked-out verifier is identical to the
 reusable workflow revision. A manual rebuild requires the same immutable
 `snapshot-tag` and `publication-sha256` values as an automatic deployment.
+Every changed snapshot dispatches both the project Pages site and the
+organization-root machine publisher. The root publisher additionally receives
+the exact protected-main content commit; neither publisher resolves a floating
+release or content branch.
 
 ## Local application checks
 

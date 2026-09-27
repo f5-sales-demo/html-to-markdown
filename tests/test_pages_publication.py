@@ -56,7 +56,9 @@ def test_pages_and_release_workflows_use_immutable_publication_contract() -> Non
 
     content_release = (ROOT / ".github/workflows/release-content.yml").read_text(encoding="utf-8")
     assert 'gh release create "$release_tag" --draft --latest=false' in content_release
-    assert "gh workflow run github-pages-deploy.yml --ref main" in content_release
+    assert content_release.count("gh workflow run github-pages-deploy.yml --ref main") == 2
+    assert "f5-sales-demo/f5-sales-demo.github.io" in content_release
+    assert '"content-ref=$CONTENT_REF"' in content_release
     assert '"snapshot-tag=$release_tag"' in content_release
     assert '"publication-sha256=$receipt_sha256"' in content_release
     assert "repository_dispatch" not in content_release

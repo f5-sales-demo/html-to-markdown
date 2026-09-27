@@ -125,9 +125,15 @@ jobs:
       - name: Dispatch immutable snapshot to Pages
         if: steps.changed.outputs.value == 'true'
         env:
+          CONTENT_REF: ${{ github.sha }}
           GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
           REPOSITORY: ${{ github.repository }}
+          ROOT_PAGES_REPOSITORY: f5-sales-demo/f5-sales-demo.github.io
         run: |
           gh workflow run github-pages-deploy.yml --ref main --repo "$REPOSITORY" \
+            -f "snapshot-tag=$release_tag" \
+            -f "publication-sha256=$receipt_sha256"
+          gh workflow run github-pages-deploy.yml --ref main --repo "$ROOT_PAGES_REPOSITORY" \
+            -f "content-ref=$CONTENT_REF" \
             -f "snapshot-tag=$release_tag" \
             -f "publication-sha256=$receipt_sha256"
