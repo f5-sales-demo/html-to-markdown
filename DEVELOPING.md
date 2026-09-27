@@ -18,10 +18,9 @@ docs-control workflow commit. It passes that same full commit SHA as
 `snapshot-verifier-ref`, ensuring the checked-out verifier is identical to the
 reusable workflow revision. A manual rebuild requires the same immutable
 `snapshot-tag` and `publication-sha256` values as an automatic deployment.
-Every changed snapshot dispatches both the project Pages site and the
-organization-root machine publisher. The root publisher additionally receives
-the exact protected-main content commit; neither publisher resolves a floating
-release or content branch.
+Every changed snapshot dispatches the repository's own Pages workflow. The
+project site receives the exact protected-main content commit from its caller;
+it never resolves a floating release or content branch.
 
 ## Local application checks
 
@@ -71,12 +70,12 @@ The corpus must never be placed under `docs/` or `src/content/docs`.
 ## Route hierarchy
 
 - `/html-to-markdown/` is the only human content route.
-- `/llms.txt` links to one index per source and includes source roots.
-- `/llms-full.txt` is an exhaustive grouped link manifest; it never embeds
+- `/html-to-markdown/llms.txt` links to one index per source and includes source roots.
+- `/html-to-markdown/llms-full.txt` is an exhaustive grouped link manifest; it never embeds
   document bodies.
-- `/_llms-txt/<source>/<path>.txt` contains metadata-only intermediate
+- `/html-to-markdown/_llms-txt/<source>/<path>.txt` contains metadata-only intermediate
   indices and full Markdown at leaf routes.
-- `/snapshot/` exposes the verified manifest, checksums, quality reports,
+- `/html-to-markdown/snapshot/` exposes the verified manifest, checksums, quality reports,
   provenance, Markdown, and content-addressed assets.
 
 Progressive mode is English-only and does not publish locale routes,
