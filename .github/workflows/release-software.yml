@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     environment: repository-settings
     permissions:
-      contents: write
+      contents: write # publish validated software release assets
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -28,7 +28,7 @@ jobs:
       - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
         with:
           python-version: "3.12"
-          enable-cache: true
+          enable-cache: false # release artifacts must not consume mutable caches
       - name: Verify tag and project version
         env:
           RELEASE_TAG: ${{ github.ref_name }}
