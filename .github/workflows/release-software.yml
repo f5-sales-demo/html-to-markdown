@@ -16,7 +16,7 @@ jobs:
   release:
     name: Validate and publish stable release
     if: github.repository == 'f5-sales-demo/html-to-markdown'
-    runs-on: ubuntu-24.04
+    runs-on: managed-socketless
     environment: repository-settings
     permissions:
       contents: write # publish validated software release assets
