@@ -11,7 +11,7 @@ The prototypes remain active and unmodified. This repository is a clean rewrite 
 | Navigation-only detection and hierarchical metadata | `adapters/docs_cloud.py` | navigation and metadata tests |
 | Internal redirect resolution | `pipeline.py` | local integration tests |
 | Product/document filters, pagination, K-number discovery | `adapters/my_f5.py` | discovery contract tests |
-| AJAX markers and recursive Shadow DOM traversal | `adapters/my_f5.py`, `fetcher.py` | script and rendered fixture tests |
+| Ajax markers and recursive Shadow DOM traversal | `adapters/my_f5.py`, `fetcher.py` | script and rendered fixture tests |
 | Figure placement, images, Related Content | `render.py`, `adapters/my_f5.py` | golden Markdown tests |
 | Retry and resumable status | `fetcher.py`, `state.py` | retry and state-transition tests |
 | Frontmatter and content hashing | `models.py`, `render.py` | normalization and YAML tests |
