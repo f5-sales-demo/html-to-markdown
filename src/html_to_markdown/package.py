@@ -15,12 +15,12 @@ from sqlite3 import Row
 from typing import Any
 
 from . import __version__
-from .models import PageStatus
+from .models import PageMetadata, PageStatus
 from .quality import write_quality_reports
 from .render import content_hash, split_document
 from .state import StateStore
 from .urls import SOURCE_ROOTS
-from .validation import validate_enriched_metadata
+from .validation import KnownDocument, validate_enriched_metadata, validate_related_targets
 
 MIB = 1024 * 1024
 MAX_ARCHIVE_BYTES = 256 * MIB
@@ -153,6 +153,8 @@ def _validate_asset_entry(asset: object, files: dict[str, bytes], seen: set[str]
         raise ValueError(f"manifest asset media type mismatch: {path}")
 
 
+# Manifest validation deliberately checks the complete closed archive graph.
+# pylint: disable-next=too-many-branches
 def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
     if not isinstance(manifest, dict) or manifest.get("schema_version") != MANIFEST_SCHEMA_VERSION:
         raise ValueError("manifest schema version is invalid")
@@ -163,6 +165,8 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
     seen: set[str] = set()
     known_urls: set[str] = set()
     metadata_schema_values: list[object] = []
+    parsed_documents: dict[str, PageMetadata] = {}
+    known_documents: dict[str, KnownDocument] = {}
     for document in documents:
         if not isinstance(document, dict):
             continue
@@ -177,6 +181,24 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
         canonical_url = metadata.get("canonical_url")
         if isinstance(canonical_url, str):
             known_urls.add(canonical_url)
+            try:
+                parsed = PageMetadata.model_validate(metadata)
+                source = str(parsed.source_id)
+                stable = (
+                    PurePosixPath(path)
+                    .relative_to(PurePosixPath("content") / source)
+                    .parent.as_posix()
+                )
+                parsed_documents[path] = parsed
+                if parsed.task_type is not None:
+                    known_documents[canonical_url] = (
+                        source,
+                        stable,
+                        parsed.title,
+                        parsed.task_type.value,
+                    )
+            except ValueError:
+                pass
         elif isinstance(document.get("url"), str):
             known_urls.add(str(document["url"]))
     require_enriched = any(value is not None for value in metadata_schema_values)
@@ -184,6 +206,14 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
         raise ValueError("archive mixes enriched and legacy document metadata")
     for document in documents:
         _validate_document_entry(document, files, seen, known_urls, require_enriched)
+        if require_enriched and isinstance(document, dict):
+            path = document.get("path")
+            if isinstance(path, str) and path in parsed_documents:
+                relationship_errors = validate_related_targets(
+                    parsed_documents[path], path, known_documents
+                )
+                if relationship_errors:
+                    raise ValueError(relationship_errors[0])
     for asset in assets:
         _validate_asset_entry(asset, files, seen)
     if manifest.get("page_count") != len(documents) or manifest.get("asset_count") != len(assets):

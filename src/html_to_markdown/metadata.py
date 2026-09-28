@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from .models import ContentType, Lifecycle, PageMetadata, PageStatus, RelatedDocument, TaskType
 from .render import serialize_document, split_document
 from .state import StateStore
-from .urls import canonicalize_url, infer_source, stable_path, validate_source_url
+from .urls import canonicalize_url, infer_source, validate_source_url
 
 
 class ClassificationRule(BaseModel):
@@ -168,7 +168,7 @@ def _accepted(row: Row) -> bool:
 
 
 # The enrichment transaction intentionally retains the complete inventory and policy indexes.
-# pylint: disable-next=too-many-locals,too-many-branches
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | None = None) -> None:
     """Apply reviewed metadata only after the complete snapshot inventory exists."""
     active_policy = policy or load_metadata_policy()
@@ -260,6 +260,7 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
             )
             if canonical_target is None or canonical_target == canonical_url or target_key is None:
                 continue
+            target_path, _, _, _ = documents[target_key]
             target = enriched[target_key]
             if target.task_type is None:
                 raise ValueError(f"related target has no task type: {canonical_target}")
@@ -269,7 +270,9 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
                     title=target.title,
                     canonical_url=target.canonical_url or canonical_target,
                     source_id=target.source_id,
-                    stable_path=stable_path(target.source_id, canonical_target).as_posix(),
+                    stable_path=target_path.relative_to(
+                        output / "content" / target.source_id
+                    ).parent.as_posix(),
                 )
             )
         metadata.related_documents = related
