@@ -100,6 +100,13 @@ def test_checked_in_policy_is_schema_valid_and_rules_are_most_specific() -> None
     assert generic_how_to.product is None
     assert generic_how_to.content_type == "how_to"
     assert generic_how_to.task_type == "configure"
+    marketing_csd = classify_metadata(
+        checked_in,
+        "www-f5-com",
+        "https://www.f5.com/products/distributed-cloud-services/client-side-defense",
+    )
+    assert marketing_csd.product == "client-side-defense"
+    assert marketing_csd.content_type == "product_overview"
 
 
 def test_policy_rejects_conflicting_rules_and_invalid_lifecycle() -> None:
