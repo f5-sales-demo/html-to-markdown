@@ -106,6 +106,7 @@ class WwwF5Adapter(SourceAdapter):
         if not isinstance(main, Tag):
             raise NavigationOnlyError(f"no marketing main content: {page.final_url}")
         clone = BeautifulSoup(str(main), "html.parser")
+        candidate_links = [str(anchor["href"]) for anchor in clone.select("a[href]")]
         for selector in (
             "nav",
             "header",
@@ -158,7 +159,11 @@ class WwwF5Adapter(SourceAdapter):
             raise NavigationOnlyError(
                 f"marketing page has no substantive content: {page.final_url}"
             )
-        return ExtractedPage(metadata=self.normalize_metadata(page, str(clone)), html=str(clone))
+        return ExtractedPage(
+            metadata=self.normalize_metadata(page, str(clone)),
+            html=str(clone),
+            candidate_links=candidate_links,
+        )
 
     def normalize_metadata(self, page: FetchResult, html: str) -> PageMetadata:
         soup = BeautifulSoup(page.html, "html.parser")
