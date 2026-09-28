@@ -24,6 +24,16 @@ def test_benchmark_manifests_are_pinned_unique_and_sized() -> None:
     )
     assert len(full["urls"]) > 900
     assert len(set(full["urls"])) == len(full["urls"])
+    marketing = [url for url in full["urls"] if url.startswith("https://www.f5.com/")]
+    assert len(marketing) == 24
+    assert (
+        sum(
+            url.startswith("https://www.f5.com/products/distributed-cloud-services")
+            for url in marketing
+        )
+        == 21
+    )
+    assert sum(url.startswith("https://www.f5.com/solutions/") for url in marketing) == 3
 
 
 def test_release_workflow_is_artifact_first_and_change_gated() -> None:

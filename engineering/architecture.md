@@ -2,7 +2,7 @@
 
 ## Boundaries
 
-The application is a Python 3.12 `src/` package. `SourceAdapter` is the only site-specific interface and defines discovery, readiness, classification, rendered DOM extraction, content extraction, and metadata normalization. Version 1 registers exactly `docs-cloud-f5-com` and `my-f5-com`; it has no dynamic plugin loading.
+The application is a Python 3.12 `src/` package. `SourceAdapter` is the only site-specific interface and defines discovery, readiness, classification, rendered DOM extraction, content extraction, and metadata normalization. Version 1.2 registers `docs-cloud-f5-com`, `my-f5-com`, and `www-f5-com`; it has no dynamic plugin loading.
 
 `Pipeline` owns the shared lifecycle:
 
@@ -15,7 +15,7 @@ The application is a Python 3.12 `src/` package. `SourceAdapter` is the only sit
 7. write ordered YAML frontmatter and validate it;
 8. validate the complete snapshot and create a reproducible archive.
 
-Each browser task gets an isolated context, bounded by one semaphore. Docs-cloud is HTTP-first and falls back to Chromium when static HTML is insufficient. MyF5 always uses Chromium because Lightning content and Shadow DOM are rendered client-side.
+Each browser task gets an isolated context, bounded by one semaphore. Docs-cloud is HTTP-first and falls back to Chromium when static HTML is insufficient. MyF5 always uses Chromium because Lightning content and Shadow DOM are rendered client-side. The F5 marketing source uses HTTP and extracts the server-rendered `<main>` content.
 
 ## Data and publication
 

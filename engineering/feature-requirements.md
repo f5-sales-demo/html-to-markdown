@@ -2,7 +2,7 @@
 
 ## Sources and access
 
-- Anonymous page retrieval is restricted to HTTPS URLs below `docs.cloud.f5.com/docs-v2` and `my.f5.com/manage/s`.
+- Anonymous page retrieval is restricted to HTTPS URLs below `docs.cloud.f5.com/docs-v2` and `my.f5.com/manage/s`, plus `www.f5.com/products/distributed-cloud-services` and its descendants and three exact reviewed solution URLs.
 - Every redirect is checked against the same source boundary.
 - Authentication walls and HTTP-200 soft 404 pages are explicit failures or removals.
 - Meaningful image assets may be retrieved only from the fixed F5 asset-host allowlist.
@@ -28,6 +28,11 @@ results, waits for Ajax markers, extracts K-number identities, recursively
 flattens Shadow DOM, preserves figures in document order, and retains Related
 Content.
 
+F5 marketing discovery reads `landing-pages-sitemap.xml` and fails if it is unavailable or malformed.
+It selects only the Distributed Cloud product root and descendants, then adds the exact Web App and API Protection, Multicloud Networking, and Hybrid Multicloud Application Delivery solution URLs.
+Extraction keeps substantive `<main>` content and removes navigation and promotional controls.
+Product and solution paths retain their complete URL path under `content/www-f5-com/`.
+
 ## Release gate
 
-Only a complete combined snapshot may ship. A release contains both source directories, `manifest.json`, and `SHA256SUMS`; the workflow publishes `content-YYYYMMDDTHHMMSSZ` only when document/removal hashes differ from the latest release.
+Only a complete combined snapshot may ship. A release contains all three source directories, `manifest.json`, and `SHA256SUMS`; the workflow publishes `content-YYYYMMDDTHHMMSSZ` only when document/removal hashes differ from the latest release.
