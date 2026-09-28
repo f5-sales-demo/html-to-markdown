@@ -45,10 +45,6 @@ packages = ["src/html_to_markdown"]
 target-version = "py312"
 line-length = 100
 
-[tool.ruff.format]
-# Keep the project fallback aligned with .ruff.toml for managed source.
-exclude = ["scripts/workflow_security_validator.py"]
-
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 ignore = ["E501"]
