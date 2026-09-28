@@ -123,7 +123,6 @@ class DocsCloudAdapter(SourceAdapter):
         if not isinstance(container, Tag):
             raise ValueError("no docs-cloud content container")
         clone = BeautifulSoup(str(container), "html.parser")
-        candidate_links = [str(anchor["href"]) for anchor in clone.select("a[href]")]
         for selector in (
             "nav",
             "header",
@@ -149,6 +148,7 @@ class DocsCloudAdapter(SourceAdapter):
             text_without_links = text_without_links.replace(link.get_text(" ", strip=True), "")
         if len(links) >= 3 and len(content_nodes) < 5 and len(text_without_links.strip()) < 300:
             raise NavigationOnlyError(f"navigation-only page: {page.final_url}")
+        candidate_links = [str(anchor["href"]) for anchor in clone.select("a[href]")]
         return ExtractedPage(
             metadata=self.normalize_metadata(page, str(clone)),
             html=str(clone),

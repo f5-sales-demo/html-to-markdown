@@ -93,7 +93,6 @@ class MyF5Adapter(SourceAdapter):
     def extract(self, page: FetchResult) -> ExtractedPage:
         soup = BeautifulSoup(page.html, "html.parser")
         container = soup.select_one("c-site-article-detail-container, article") or soup
-        candidate_links = [str(anchor["href"]) for anchor in container.select("a[href]")]
         for selector in (
             "header",
             "footer",
@@ -137,6 +136,7 @@ class MyF5Adapter(SourceAdapter):
             text = element.get_text(" ", strip=True).casefold()
             if len(text) < 200 and any(pattern in text for pattern in ui_patterns):
                 element.decompose()
+        candidate_links = [str(anchor["href"]) for anchor in container.select("a[href]")]
         return ExtractedPage(
             metadata=self.normalize_metadata(page, str(container)),
             html=str(container),

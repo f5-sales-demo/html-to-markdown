@@ -71,8 +71,8 @@ async def test_relationship_candidates_are_scoped_to_selected_content(tmp_path: 
                 final_url=url,
                 status_code=200,
                 html=(
-                    '<nav><a href="/docs-v2/navigation">Navigation</a></nav>'
-                    "<main><h1>Page</h1><p>Technical content.</p>"
+                    '<main><nav><a href="/docs-v2/navigation">Navigation</a></nav>'
+                    "<h1>Page</h1><p>Technical content.</p>"
                     '<a href="/docs-v2/related">Related</a></main>'
                 ),
             )
