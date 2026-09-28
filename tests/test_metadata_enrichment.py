@@ -216,6 +216,44 @@ def test_source_last_modified_precedes_publication_and_superseded_target_must_ex
     store.close()
 
 
+def test_ambiguous_redirect_targets_are_not_emitted(tmp_path: Path) -> None:
+    output = tmp_path / "snapshot"
+    store = StateStore(output / "state.sqlite")
+    source_url = f"{DOCS_ROOT}/client-side-defense/how-to/new"
+    canonical_target = f"{DOCS_ROOT}/api"
+    source = PageMetadata(
+        sourceId="docs-cloud-f5-com",
+        title="Source",
+        slug="source",
+        url=source_url,
+        category="client-side-defense",
+    )
+    source_path = write_document(output, source.source_id, "source", source, "# Source\n")
+    add_document(store, source_url, source.source_id, source_path, output)
+    for index in (1, 2):
+        alias_url = f"{DOCS_ROOT}/api/alias-{index}"
+        target = PageMetadata(
+            sourceId="docs-cloud-f5-com",
+            title=f"Alias {index}",
+            slug=f"alias-{index}",
+            url=alias_url,
+            category="api",
+            canonical_url=canonical_target,
+        )
+        target_path = write_document(
+            output, target.source_id, f"alias-{index}", target, f"# Alias {index}\n"
+        )
+        add_document(store, alias_url, target.source_id, target_path, output)
+    store.replace_candidate_links(source_url, [canonical_target])
+
+    empty_policy = policy().model_copy(update={"relationships": [], "overrides": []})
+    enrich_snapshot(output, store, empty_policy)
+
+    enriched, _ = split_document(source_path.read_text(encoding="utf-8"))
+    assert enriched["related_documents"] == []
+    store.close()
+
+
 def test_policy_file_is_deterministically_serializable() -> None:
     loaded = load_metadata_policy()
     encoded = json.dumps(loaded.model_dump(mode="json"), sort_keys=True)
