@@ -18,6 +18,7 @@ POLICY_SCHEMA_VERSION = 5
 IMAGE_DIGEST_RE = re.compile(
     r"ghcr\.io/f5-sales-demo/self-hosted-runner@sha256:[0-9a-f]{64}"
 )
+CLOUD_MACHINE_RE = re.compile(r"(?:Standard_[A-Za-z0-9_]+|[a-z][a-z0-9]*[.][a-z0-9]+)")
 DOCKER_POLICY = {
     "host_socket": "/run/f5-actions-runner/container-build/docker.sock",
     "runner_socket": "/run/docker.sock",
@@ -119,6 +120,22 @@ XCSH_CANDIDATE_RESTRICTED_GRANTS = {
 # fmt: off
 XCSH_CANDIDATE_GRANT_IDENTITIES = frozenset().union(*XCSH_CANDIDATE_RESTRICTED_GRANTS.values())
 DOCS_ICONS_REPOSITORY = "f5-sales-demo/docs-icons"
+PROVIDER_REPOSITORY = "f5-sales-demo/terraform-provider-xcsh"
+PROVIDER_BENCHMARK_WORKFLOW = ".github/workflows/workload-benchmark.yml"
+PROVIDER_CANDIDATE_LABEL = "terraform-provider-xcsh-32vcpu-candidate"
+PROVIDER_MANUAL_COMPUTE_ROUTE_EXPRESSION = "${{ needs.validate.outputs.runner_label }}"
+PROVIDER_MANUAL_COMPUTE_ROUTE_LABELS = {
+    "eks-candidate": frozenset({PROVIDER_CANDIDATE_LABEL}),
+}
+# fmt: off
+PROVIDER_CANDIDATE_GRANT_IDENTITIES = frozenset(
+    (PROVIDER_REPOSITORY, PROVIDER_BENCHMARK_WORKFLOW, job_id)
+    for job_id in PROVIDER_MANUAL_COMPUTE_ROUTE_LABELS
+)
+CANDIDATE_GRANT_IDENTITIES = (
+    XCSH_CANDIDATE_GRANT_IDENTITIES | PROVIDER_CANDIDATE_GRANT_IDENTITIES
+)
+# fmt: on
 DOCS_SOCKETLESS_ROUTE_EXPRESSION = "${{ github.repository == 'f5-sales-demo/docs-icons' && 'docs-socketless' || 'managed-socketless' }}"  # fmt: skip
 DOCS_SOCKETLESS_ROUTE_LABELS = {DOCS_ICONS_REPOSITORY: "docs-socketless"}
 BENCHMARK_TRUST_GUARD = (
@@ -129,8 +146,9 @@ BENCHMARK_TRUST_GUARD = (
 )
 TRUSTED_COMPUTE_ROUTE_EXPRESSIONS = {
     "terraform-provider-xcsh-compute": (
-        "${{ github.event.pull_request.head.repo.full_name == github.repository && "
-        "'terraform-provider-xcsh-compute' || 'ubuntu-latest' }}"
+        "${{ github.event_name == 'pull_request' && "
+        "github.event.pull_request.head.repo.full_name != github.repository && "
+        "'ubuntu-latest' || 'terraform-provider-xcsh-compute' }}"
     ),
 }
 REUSABLE_RUNNER_WORKFLOWS = {
@@ -168,7 +186,7 @@ REUSABLE_DEFINITION_ROUTES = {
 DOCS_ARC_COHORT = frozenset(
     f"f5-sales-demo/{name}"
     for name in (
-        "docs",
+        "f5-sales-demo.github.io",
         "docs-builder",
         "docs-icons",
         "docs-theme",
@@ -301,6 +319,12 @@ XCSH_CANDIDATE_SCALE_SETS = {
         "attestation": "xcsh-compute-f32-candidate",
     },
 }
+PROVIDER_CANDIDATE_SCALE_SETS = {
+    "compute-32-vcpu-density-candidate": {
+        "label": "terraform-provider-xcsh-32vcpu-candidate",
+        "attestation": "terraform-provider-xcsh-32vcpu-candidate",
+    },
+}
 RESERVED_ARC_LABELS = frozenset(
     {
         "api-specs-enriched-compute",
@@ -309,6 +333,7 @@ RESERVED_ARC_LABELS = frozenset(
         "managed-container-build",
         "managed-socketless",
         "terraform-provider-xcsh-compute",
+        "terraform-provider-xcsh-32vcpu-candidate",
         "xcsh-container-build",
         "xcsh-compute",
         "xcsh-compute-16-vcpu-candidate",
@@ -331,9 +356,13 @@ def arc_scale_sets_match_contract(repository, scale_sets):
     expected = expected_arc_scale_sets(repository)
     if scale_sets == expected:
         return True
-    if repository != XCSH_REPOSITORY or expected is None:
+    if expected is None:
         return False
-    return scale_sets == {**expected, **XCSH_CANDIDATE_SCALE_SETS}
+    if repository == XCSH_REPOSITORY:
+        return scale_sets == {**expected, **XCSH_CANDIDATE_SCALE_SETS}
+    if repository == PROVIDER_REPOSITORY:
+        return scale_sets == {**expected, **PROVIDER_CANDIDATE_SCALE_SETS}
+    return False
 
 
 def validate_xcsh_candidate_grants(repository, scale_sets, restricted_routes):
@@ -355,6 +384,26 @@ def validate_xcsh_candidate_grants(repository, scale_sets, restricted_routes):
         }
         if actual != expected:
             raise PolicyError(f"xcsh candidate grants are invalid for {label}")
+
+
+def validate_provider_candidate_grants(repository, scale_sets, restricted_routes):
+    expected_scale_sets = expected_arc_scale_sets(repository)
+    candidate_contract = (
+        repository == PROVIDER_REPOSITORY
+        and expected_scale_sets is not None
+        and scale_sets == {**expected_scale_sets, **PROVIDER_CANDIDATE_SCALE_SETS}
+    )
+    if not candidate_contract:
+        return
+    expected = {(PROVIDER_REPOSITORY, PROVIDER_BENCHMARK_WORKFLOW, "eks-candidate")}
+    grants = (restricted_routes or {}).get(PROVIDER_CANDIDATE_LABEL, [])
+    actual = {
+        (grant.get("repository"), grant.get("workflow"), grant.get("job"))
+        for grant in grants
+        if isinstance(grant, dict)
+    }
+    if actual != expected:
+        raise PolicyError("provider candidate grants are invalid")
 
 
 class PolicyError(ValueError):
@@ -459,7 +508,7 @@ def validate_arc_contract(attestations, restricted_routes):
             or not isinstance(spec["image"], str)
             or not IMAGE_DIGEST_RE.fullmatch(spec["image"])
             or not isinstance(spec["vm_size"], str)
-            or not spec["vm_size"].startswith("Standard_")
+            or not CLOUD_MACHINE_RE.fullmatch(spec["vm_size"])
             or not isinstance(spec["cpu_limit"], int)
             or spec["cpu_limit"] <= 0
             or not isinstance(spec["memory_limit_bytes"], int)
@@ -557,6 +606,7 @@ def repository_runner_routes(
         ):
             raise PolicyError(f"{repository} ARC scale-set contract is invalid")
         validate_xcsh_candidate_grants(repository, scale_sets, restricted_routes)
+        validate_provider_candidate_grants(repository, scale_sets, restricted_routes)
         if expected is None:
             leaked = set(profiles_by_label) & RESERVED_ARC_LABELS
             if leaked:
@@ -641,8 +691,16 @@ def canonical_route_label(value, repository):
 
 
 def trusted_dynamic_route_labels(repository, relative, job_id, runs_on, workflow):
-    """Resolve the one manual xcsh route expression in its exact job context."""
+    """Resolve exact manual benchmark route expressions in their job context."""
     triggers = workflow_on(workflow)
+    if (
+        repository == PROVIDER_REPOSITORY
+        and relative == PROVIDER_BENCHMARK_WORKFLOW
+        and runs_on == PROVIDER_MANUAL_COMPUTE_ROUTE_EXPRESSION
+        and isinstance(triggers, dict)
+        and set(triggers) == {"workflow_dispatch"}
+    ):
+        return PROVIDER_MANUAL_COMPUTE_ROUTE_LABELS.get(job_id)
     if (
         repository != XCSH_REPOSITORY
         or relative != XCSH_COMPUTE_WORKFLOW
@@ -1115,15 +1173,16 @@ def inventory(root, repository, policy, default_profile, routes):
                 runs_on,
                 workflow,
             )
-            is_candidate_job = identity in XCSH_CANDIDATE_GRANT_IDENTITIES
-            is_manual_route = runs_on == XCSH_MANUAL_COMPUTE_ROUTE_EXPRESSION
+            is_candidate_job = identity in CANDIDATE_GRANT_IDENTITIES
+            is_manual_route = isinstance(runs_on, str) and runs_on in {
+                XCSH_MANUAL_COMPUTE_ROUTE_EXPRESSION,
+                PROVIDER_MANUAL_COMPUTE_ROUTE_EXPRESSION,
+            }
             if is_candidate_job and not is_manual_route:
-                message = (
-                    "xcsh candidate job requires the exact manual route expression"
-                )
+                message = "candidate job requires the exact manual route expression"
                 raise PolicyError(f"{relative}/{job_id}: {message}")
             if is_manual_route and dynamic_route_labels is None:
-                message = "xcsh manual route requires its workflow_dispatch job context"
+                message = "manual route requires its workflow_dispatch job context"
                 raise PolicyError(f"{relative}/{job_id}: {message}")
             if (
                 any(
