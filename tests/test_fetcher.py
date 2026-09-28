@@ -173,3 +173,30 @@ async def test_redirect_resolution_uses_head_and_rejects_escape() -> None:
         == "https://docs.cloud.f5.com/docs-v2/b"
     )
     await fetcher.close()
+
+
+@pytest.mark.asyncio
+async def test_marketing_redirect_cannot_escape_exact_solution_or_product_prefix() -> None:
+    from html_to_markdown.adapters.www_f5 import WwwF5Adapter
+
+    start = "https://www.f5.com/solutions/web-app-and-api-protection"
+    destinations = [
+        "/solutions/web-app-and-api-protection/other",
+        "/products/other",
+        "https://example.com/",
+    ]
+    for destination in destinations:
+        fetcher = Fetcher(retries=1)
+        await fetcher._http.aclose()
+        fetcher._http = httpx.AsyncClient(
+            transport=httpx.MockTransport(
+                lambda request, location=destination: httpx.Response(
+                    302, headers={"location": location}, request=request
+                )
+            )
+        )
+        with pytest.raises(AllowlistError):
+            await fetcher.fetch(WwwF5Adapter(), start)
+        with pytest.raises(AllowlistError):
+            await fetcher.resolve_redirect("www-f5-com", start)
+        await fetcher.close()

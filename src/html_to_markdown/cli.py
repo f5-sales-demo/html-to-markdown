@@ -22,13 +22,13 @@ from .state import StateStore
 from .validation import validate_snapshot
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
-Source = Annotated[str, typer.Option(help="all, docs-cloud-f5-com, or my-f5-com")]
+Source = Annotated[str, typer.Option(help="all, docs-cloud-f5-com, my-f5-com, or www-f5-com")]
 Output = Annotated[Path, typer.Option(file_okay=False, help="Working/output directory")]
 
 
 def _check_source(source: str) -> str:
-    if source not in {"all", "docs-cloud-f5-com", "my-f5-com"}:
-        raise typer.BadParameter("must be all, docs-cloud-f5-com, or my-f5-com")
+    if source not in {"all", "docs-cloud-f5-com", "my-f5-com", "www-f5-com"}:
+        raise typer.BadParameter("must be all, docs-cloud-f5-com, my-f5-com, or www-f5-com")
     return source
 
 

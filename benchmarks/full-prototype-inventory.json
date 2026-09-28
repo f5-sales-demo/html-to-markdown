@@ -1,10 +1,11 @@
 {
   "version": 1,
   "name": "full-prototype-inventory",
-  "selection": "complete pinned Docs Cloud corpus plus 2026-09-26 MyF5 live discovery",
+  "selection": "complete pinned Docs Cloud corpus, 2026-09-26 MyF5 live discovery, and reviewed Distributed Cloud marketing baseline",
   "source_revisions": {
     "docs-cloud-f5-com": "d0aa25d2f6460eca32b132c758709d8e7c3dae07",
-    "my-f5-com": "live-discovery:2026-09-26"
+    "my-f5-com": "live-discovery:2026-09-26",
+    "www-f5-com": "landing-pages-sitemap:2026-09-27+three-reviewed-solutions"
   },
   "urls": [
     "https://docs.cloud.f5.com/docs-v2/account-protection/concepts/about-account-protection",
@@ -992,6 +993,30 @@
     "https://my.f5.com/manage/s/article/K000163092",
     "https://my.f5.com/manage/s/article/K000163093",
     "https://my.f5.com/manage/s/article/K000163146",
-    "https://my.f5.com/manage/s/article/K000163268"
+    "https://my.f5.com/manage/s/article/K000163268",
+    "https://www.f5.com/products/distributed-cloud-services",
+    "https://www.f5.com/products/distributed-cloud-services/api-security",
+    "https://www.f5.com/products/distributed-cloud-services/app-connect",
+    "https://www.f5.com/products/distributed-cloud-services/appstack",
+    "https://www.f5.com/products/distributed-cloud-services/bot-defense",
+    "https://www.f5.com/products/distributed-cloud-services/cdn",
+    "https://www.f5.com/products/distributed-cloud-services/client-side-defense",
+    "https://www.f5.com/products/distributed-cloud-services/data-intelligence-platform",
+    "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console",
+    "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf",
+    "https://www.f5.com/products/distributed-cloud-services/dns",
+    "https://www.f5.com/products/distributed-cloud-services/dns-load-balancer",
+    "https://www.f5.com/products/distributed-cloud-services/f5-distributed-cloud-mobile-app-shield",
+    "https://www.f5.com/products/distributed-cloud-services/globalnetwork",
+    "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+    "https://www.f5.com/products/distributed-cloud-services/managed-services",
+    "https://www.f5.com/products/distributed-cloud-services/network-connect",
+    "https://www.f5.com/products/distributed-cloud-services/platform-overview",
+    "https://www.f5.com/products/distributed-cloud-services/security-operations-center",
+    "https://www.f5.com/products/distributed-cloud-services/synthetic-monitoring",
+    "https://www.f5.com/products/distributed-cloud-services/web-app-scanning",
+    "https://www.f5.com/solutions/use-cases/hybrid-multicloud-application-delivery",
+    "https://www.f5.com/solutions/use-cases/multi-cloud-networking",
+    "https://www.f5.com/solutions/web-app-and-api-protection"
   ]
 }

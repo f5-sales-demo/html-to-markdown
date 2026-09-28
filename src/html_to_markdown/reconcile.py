@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .models import DiscoveredPage, PageStatus
 from .state import StateStore
-from .urls import SOURCE_ROOTS, validate_source_url
+from .urls import infer_source, validate_source_url
 
 
 def _load(path: Path | None) -> dict[str, object]:
@@ -49,14 +49,7 @@ def include_inventory_urls(store: StateStore, inventory: Path | None, source_ids
         raise ValueError("inventory urls must be a list of strings")
     pages: list[DiscoveredPage] = []
     for url in urls:
-        source = next(
-            (
-                source_id
-                for source_id, root in SOURCE_ROOTS.items()
-                if source_id in source_ids and url.startswith(root)
-            ),
-            None,
-        )
+        source = infer_source(url)
         if source is not None:
             pages.append(DiscoveredPage(source_id=source, url=validate_source_url(source, url)))
     store.discover(pages)

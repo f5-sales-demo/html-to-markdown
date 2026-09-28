@@ -205,7 +205,7 @@ def test_pipeline_configuration_and_suffixes(tmp_path: Path) -> None:
         Pipeline(tmp_path, concurrency=0)
     with pytest.raises(ValueError, match="unknown source"):
         Pipeline.adapters("third-party")
-    assert len(Pipeline.adapters("all")) == 2
+    assert len(Pipeline.adapters("all")) == 3
     assert re_safe_suffix(".png")
     assert not re_safe_suffix(".not-a-safe-extension")
     url = "https://example.test/file.unsafe-long"
