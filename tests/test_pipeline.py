@@ -63,6 +63,32 @@ async def test_discovery_to_document_asset_and_resume(tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
+async def test_relationship_candidates_are_scoped_to_selected_content(tmp_path: Path) -> None:
+    class LinkFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html=(
+                    '<main><nav><a href="/docs-v2/navigation">Navigation</a></nav>'
+                    "<h1>Page</h1><p>Technical content.</p>"
+                    '<a href="/docs-v2/related">Related</a></main>'
+                ),
+            )
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = LinkFetcher()  # type: ignore[assignment]
+    url = "https://docs.cloud.f5.com/docs-v2/page"
+    pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
+
+    assert len(await pipeline.scrape("docs-cloud-f5-com")) == 1
+    assert pipeline.store.candidate_links(url) == ["https://docs.cloud.f5.com/docs-v2/related"]
+    pipeline.store.close()
+
+
+@pytest.mark.asyncio
 async def test_multi_digit_asset_placeholders_do_not_collide(tmp_path: Path) -> None:
     class ManyImageFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:

@@ -133,6 +133,7 @@ class DiscoveredPage(BaseModel):
 class ExtractedPage(BaseModel):
     metadata: PageMetadata
     html: str
+    candidate_links: list[str] = Field(default_factory=list)
 
 
 class AssetReference(BaseModel):

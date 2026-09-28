@@ -148,7 +148,12 @@ class DocsCloudAdapter(SourceAdapter):
             text_without_links = text_without_links.replace(link.get_text(" ", strip=True), "")
         if len(links) >= 3 and len(content_nodes) < 5 and len(text_without_links.strip()) < 300:
             raise NavigationOnlyError(f"navigation-only page: {page.final_url}")
-        return ExtractedPage(metadata=self.normalize_metadata(page, str(clone)), html=str(clone))
+        candidate_links = [str(anchor["href"]) for anchor in clone.select("a[href]")]
+        return ExtractedPage(
+            metadata=self.normalize_metadata(page, str(clone)),
+            html=str(clone),
+            candidate_links=candidate_links,
+        )
 
     def normalize_metadata(self, page: FetchResult, html: str) -> PageMetadata:
         soup = BeautifulSoup(page.html, "html.parser")

@@ -158,7 +158,12 @@ class WwwF5Adapter(SourceAdapter):
             raise NavigationOnlyError(
                 f"marketing page has no substantive content: {page.final_url}"
             )
-        return ExtractedPage(metadata=self.normalize_metadata(page, str(clone)), html=str(clone))
+        candidate_links = [str(anchor["href"]) for anchor in clone.select("a[href]")]
+        return ExtractedPage(
+            metadata=self.normalize_metadata(page, str(clone)),
+            html=str(clone),
+            candidate_links=candidate_links,
+        )
 
     def normalize_metadata(self, page: FetchResult, html: str) -> PageMetadata:
         soup = BeautifulSoup(page.html, "html.parser")

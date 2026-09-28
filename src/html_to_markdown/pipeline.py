@@ -111,10 +111,10 @@ class Pipeline:
         failure: Exception
         try:
             fetched = await self.fetcher.fetch(adapter, url)
-            self.store.replace_candidate_links(
-                url, self._candidate_links(fetched.html, fetched.final_url)
-            )
             extracted = adapter.extract(fetched)
+            self.store.replace_candidate_links(
+                url, self._candidate_links(extracted.candidate_links, fetched.final_url)
+            )
             extracted.metadata.canonical_url = validate_source_url(
                 adapter.source_id, fetched.final_url
             )
@@ -191,12 +191,10 @@ class Pipeline:
         return None
 
     @staticmethod
-    def _candidate_links(html: str, base_url: str) -> list[str]:
-        soup = BeautifulSoup(html, "html.parser")
+    def _candidate_links(hrefs: list[str], base_url: str) -> list[str]:
         candidates: set[str] = set()
-        for anchor in soup.find_all("a"):
-            href = anchor.get("href")
-            if not isinstance(href, str) or not href.strip():
+        for href in hrefs:
+            if not href.strip():
                 continue
             candidate = urljoin(base_url, href)
             try:
