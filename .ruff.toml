@@ -4,3 +4,7 @@ line-length = 100
 [lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 ignore = ["E501"]
+
+[format]
+# Managed by docs-control and formatted at its canonical 88-column width.
+exclude = ["scripts/workflow_security_validator.py"]
