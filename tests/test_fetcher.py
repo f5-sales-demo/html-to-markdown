@@ -8,6 +8,7 @@ import httpx
 import pytest
 
 from html_to_markdown.adapters.base import SourceAdapter
+from html_to_markdown.adapters.www_f5 import WwwF5Adapter
 from html_to_markdown.errors import (
     AllowlistError,
     AuthenticationWallError,
@@ -177,8 +178,6 @@ async def test_redirect_resolution_uses_head_and_rejects_escape() -> None:
 
 @pytest.mark.asyncio
 async def test_marketing_redirect_cannot_escape_exact_solution_or_product_prefix() -> None:
-    from html_to_markdown.adapters.www_f5 import WwwF5Adapter
-
     start = "https://www.f5.com/solutions/web-app-and-api-protection"
     destinations = [
         "/solutions/web-app-and-api-protection/other",

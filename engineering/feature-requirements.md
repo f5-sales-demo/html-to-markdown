@@ -28,7 +28,10 @@ results, waits for Ajax markers, extracts K-number identities, recursively
 flattens Shadow DOM, preserves figures in document order, and retains Related
 Content.
 
-F5 marketing discovery reads `landing-pages-sitemap.xml` and fails if it is unavailable or malformed. It selects only the Distributed Cloud product root and descendants, then adds the exact Web App and API Protection, Multicloud Networking, and Hybrid Multicloud Application Delivery solution URLs. Extraction keeps substantive `<main>` content and removes navigation and promotional controls. Product and solution paths retain their complete URL path under `content/www-f5-com/`.
+F5 marketing discovery reads `landing-pages-sitemap.xml` and fails if it is unavailable or malformed.
+It selects only the Distributed Cloud product root and descendants, then adds the exact Web App and API Protection, Multicloud Networking, and Hybrid Multicloud Application Delivery solution URLs.
+Extraction keeps substantive `<main>` content and removes navigation and promotional controls.
+Product and solution paths retain their complete URL path under `content/www-f5-com/`.
 
 ## Release gate
 

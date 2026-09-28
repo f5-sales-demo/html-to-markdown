@@ -35,7 +35,7 @@ class WwwF5Adapter(SourceAdapter):
 
     async def discover(self, fetcher: Any) -> list[DiscoveredPage]:
         try:
-            response = await fetcher._http.get(
+            response = await fetcher._http.get(  # pylint: disable=protected-access
                 self.sitemap_url, headers={"User-Agent": "f5-html-to-markdown/1.0"}
             )
             if response.status_code != 200 or str(response.url) != self.sitemap_url:

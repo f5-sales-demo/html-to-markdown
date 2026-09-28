@@ -59,9 +59,7 @@ def validate_source_url(source_id: str, url: str) -> str:
         raise AllowlistError(f"URL is outside {source_id}: {url}")
     if source_id == "www-f5-com":
         if (
-            raw.port is not None
-            or raw.username is not None
-            or raw.password is not None
+            raw.netloc.lower() != root.hostname
             or value.query
             or unquote(value.path) != value.path
             or any(segment in {".", ".."} for segment in value.path.split("/"))
