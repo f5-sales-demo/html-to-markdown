@@ -1,8 +1,8 @@
 # html-to-markdown
 
-Deterministic, resumable HTML-to-Markdown snapshots of the public F5 Distributed Cloud documentation at `docs.cloud.f5.com/docs-v2` and `my.f5.com/manage/s`.
+Deterministic, resumable HTML-to-Markdown snapshots of F5 Distributed Cloud documentation at `docs.cloud.f5.com/docs-v2`, support articles at `my.f5.com/manage/s`, and reviewed product and solution pages at `www.f5.com`.
 
-The Python 3.12 application shares fetching, normalization, Markdown rendering, asset storage, SQLite state, validation, and release packaging across two typed source adapters. Generated content and state are release artifacts only; they are not committed to `main`.
+The Python 3.12 application shares fetching, normalization, Markdown rendering, asset storage, SQLite state, validation, and release packaging across three typed source adapters. The `www-f5-com` adapter accepts only the Distributed Cloud product family and three reviewed solution URLs. Generated content and state are release artifacts only; they are not committed to `main`.
 
 ## Install
 
@@ -22,7 +22,7 @@ uv run html-to-markdown status --output build
 uv run html-to-markdown validate --output build
 ```
 
-`run` discovers, scrapes, validates, and creates `dist/html-to-markdown-content.tar.gz`. A snapshot is blocked unless every discovered page and referenced local asset succeeds or has a terminal removal classification. A page-count drop over 5% from a previous manifest requires `--acknowledge-page-drop`.
+`run` discovers, scrapes, validates, and creates `html-to-markdown-content.tar.gz` in the output directory. A snapshot is blocked unless every discovered page and referenced local asset succeeds or is reconciled against a previous snapshot.
 
 Options include `--concurrency`, `--retries`, `--timeout`, `--headed`, `--force`, and `--output`. Focused `--url` runs still enforce the source allowlist.
 
@@ -37,7 +37,7 @@ uv run html-to-markdown verify-publication --output snapshot-release \
 ```
 
 Never select GitHub's floating latest release for content. The archive contains
-`content/docs-cloud-f5-com`, `content/my-f5-com`, `manifest.json`, and
+`content/docs-cloud-f5-com`, `content/my-f5-com`, `content/www-f5-com`, `manifest.json`, and
 `SHA256SUMS`. See [architecture](engineering/architecture.md),
 [requirements](engineering/feature-requirements.md), and
 [provenance](engineering/provenance.md).
