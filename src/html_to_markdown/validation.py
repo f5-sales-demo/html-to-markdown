@@ -5,9 +5,11 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from .errors import PublicationBlockedError, ValidationError
+from .errors import AllowlistError, PublicationBlockedError, ValidationError
+from .models import Lifecycle, PageMetadata
 from .render import content_hash, split_document
 from .state import StateStore
+from .urls import stable_path, validate_source_url
 
 REQUIRED_FIELDS = (
     "sourceId",
@@ -21,8 +23,81 @@ REQUIRED_FIELDS = (
     "tags",
 )
 
+ENRICHED_FIELDS = (
+    "metadata_schema",
+    "product",
+    "content_type",
+    "task_type",
+    "canonical_url",
+    "last_updated",
+    "language",
+    "aliases",
+    "lifecycle",
+    "replacement_url",
+    "related_documents",
+)
 
-def validate_document(path: Path) -> list[str]:
+LANGUAGE_PATTERN = re.compile(r"^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$")
+
+
+# Keep all public metadata invariants in one audit so callers cannot omit a subset.
+# pylint: disable-next=too-many-branches
+def validate_enriched_metadata(
+    metadata: dict[str, object], label: str, known_urls: set[str] | None = None
+) -> list[str]:
+    errors: list[str] = []
+    missing = [field for field in ENRICHED_FIELDS if field not in metadata]
+    if missing:
+        return [f"{label}: missing enriched fields: {', '.join(missing)}"]
+    try:
+        parsed = PageMetadata.model_validate(metadata)
+    except ValueError as error:
+        return [f"{label}: invalid enriched metadata: {error}"]
+    if parsed.metadata_schema != 1:
+        errors.append(f"{label}: metadata_schema must be 1")
+    if parsed.content_type is None or parsed.task_type is None:
+        errors.append(f"{label}: content_type and task_type are required")
+    if not LANGUAGE_PATTERN.fullmatch(parsed.language):
+        errors.append(f"{label}: language is not a normalized BCP-47 tag")
+    if parsed.canonical_url is None:
+        errors.append(f"{label}: canonical_url is required")
+    else:
+        try:
+            canonical = validate_source_url(parsed.source_id, parsed.canonical_url)
+            if canonical != parsed.canonical_url:
+                errors.append(f"{label}: canonical_url is not normalized")
+        except (AllowlistError, ValueError) as error:
+            errors.append(f"{label}: invalid canonical_url: {error}")
+    if parsed.last_updated is not None and not re.fullmatch(
+        r"\d{4}-\d{2}-\d{2}", parsed.last_updated
+    ):
+        errors.append(f"{label}: last_updated must be YYYY-MM-DD or null")
+    if (
+        parsed.lifecycle == Lifecycle.SUPERSEDED
+        and known_urls is not None
+        and parsed.replacement_url not in known_urls
+    ):
+        errors.append(f"{label}: replacement_url is outside the snapshot")
+    for related in parsed.related_documents:
+        if known_urls is not None and related.canonical_url not in known_urls:
+            errors.append(
+                f"{label}: related target is outside the snapshot: {related.canonical_url}"
+            )
+        try:
+            expected = stable_path(related.source_id, related.canonical_url).as_posix()
+        except (AllowlistError, ValueError) as error:
+            errors.append(f"{label}: invalid related target: {error}")
+            continue
+        if related.stable_path != expected:
+            errors.append(f"{label}: related stable_path mismatch: {related.canonical_url}")
+        if related.canonical_url == parsed.canonical_url:
+            errors.append(f"{label}: related document cannot target itself")
+    return errors
+
+
+def validate_document(
+    path: Path, *, require_enriched: bool = False, known_urls: set[str] | None = None
+) -> list[str]:
     errors: list[str] = []
     try:
         metadata, body = split_document(path.read_text(encoding="utf-8"))
@@ -31,6 +106,8 @@ def validate_document(path: Path) -> list[str]:
     missing = [field for field in REQUIRED_FIELDS if field not in metadata]
     if missing:
         errors.append(f"{path}: missing fields: {', '.join(missing)}")
+    if require_enriched:
+        errors.extend(validate_enriched_metadata(metadata, str(path), known_urls))
     if metadata.get("content_hash") != content_hash(body):
         errors.append(f"{path}: content_hash mismatch")
     tags = metadata.get("tags")
@@ -60,8 +137,18 @@ def validate_snapshot(
 ) -> None:
     """Validate only artifact integrity; crawl and quality findings are advisory."""
     errors: list[str] = []
-    for path in output.glob("content/*/**/index.md"):
-        errors.extend(validate_document(path))
+    paths = sorted(output.glob("content/*/**/index.md"))
+    known_urls: set[str] = set()
+    for path in paths:
+        try:
+            metadata, _ = split_document(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        canonical = metadata.get("canonical_url")
+        if isinstance(canonical, str):
+            known_urls.add(canonical)
+    for path in paths:
+        errors.extend(validate_document(path, require_enriched=True, known_urls=known_urls))
     if errors:
         raise PublicationBlockedError("snapshot validation failed:\n- " + "\n- ".join(errors))
 

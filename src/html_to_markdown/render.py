@@ -13,6 +13,7 @@ from markdownify import MarkdownConverter
 from .models import AssetReference, PageMetadata, RenderedPage
 
 FRONTMATTER_ORDER = (
+    "metadata_schema",
     "sourceId",
     "title",
     "slug",
@@ -25,6 +26,16 @@ FRONTMATTER_ORDER = (
     "description",
     "subcategory",
     "breadcrumb",
+    "product",
+    "content_type",
+    "task_type",
+    "canonical_url",
+    "last_updated",
+    "language",
+    "aliases",
+    "lifecycle",
+    "replacement_url",
+    "related_documents",
 )
 
 CHROME_SELECTORS = (
@@ -114,11 +125,22 @@ def render_html(html: str, base_url: str) -> RenderedPage:
 def serialize_document(metadata: PageMetadata, body: str) -> str:
     normalized = normalize_body(body)
     metadata.content_hash = content_hash(normalized)
-    raw = metadata.model_dump(by_alias=True)
+    raw = metadata.model_dump(by_alias=True, mode="json")
     ordered = {
         key: raw[key]
         for key in FRONTMATTER_ORDER
-        if raw.get(key) is not None or key in {"publication_date", "modification_date", "tags"}
+        if raw.get(key) is not None
+        or key
+        in {
+            "publication_date",
+            "modification_date",
+            "tags",
+            "product",
+            "last_updated",
+            "aliases",
+            "replacement_url",
+            "related_documents",
+        }
     }
     frontmatter = yaml.safe_dump(
         ordered, allow_unicode=True, default_flow_style=False, sort_keys=False, width=1000

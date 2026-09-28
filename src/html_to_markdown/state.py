@@ -27,6 +27,12 @@ CREATE TABLE IF NOT EXISTS pages (
   terminal_confirmation_count INTEGER NOT NULL DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS pages_source_status ON pages(source, status);
+CREATE TABLE IF NOT EXISTS candidate_links (
+  document_url TEXT NOT NULL,
+  target_url TEXT NOT NULL,
+  PRIMARY KEY (document_url, target_url),
+  FOREIGN KEY (document_url) REFERENCES pages(canonical_url)
+);
 """
 
 
@@ -88,6 +94,25 @@ class StateStore:
         if force:
             statuses.add(PageStatus.SUCCESS)
         return [row for row in self.rows(source_ids) if PageStatus(row["status"]) in statuses]
+
+    def replace_candidate_links(self, document_url: str, target_urls: list[str]) -> None:
+        with self.connection:
+            self.connection.execute(
+                "DELETE FROM candidate_links WHERE document_url=?", (document_url,)
+            )
+            self.connection.executemany(
+                "INSERT INTO candidate_links (document_url, target_url) VALUES (?, ?)",
+                [(document_url, target) for target in sorted(set(target_urls))],
+            )
+
+    def candidate_links(self, document_url: str) -> list[str]:
+        return [
+            str(row["target_url"])
+            for row in self.connection.execute(
+                "SELECT target_url FROM candidate_links WHERE document_url=? ORDER BY target_url",
+                (document_url,),
+            )
+        ]
 
     def mark_fetching(self, url: str) -> None:
         with self.connection:
