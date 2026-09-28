@@ -6,7 +6,13 @@ from types import SimpleNamespace
 import pytest
 
 from html_to_markdown.adapters.www_f5 import WwwF5Adapter
-from html_to_markdown.errors import AllowlistError, NavigationOnlyError, NotFoundError, ScrapeError
+from html_to_markdown.errors import (
+    AllowlistError,
+    AuthenticationWallError,
+    NavigationOnlyError,
+    NotFoundError,
+    ScrapeError,
+)
 from html_to_markdown.models import FetchResult
 from html_to_markdown.render import render_html
 from html_to_markdown.urls import (
@@ -158,6 +164,7 @@ def test_extraction_matches_golden_and_metadata(kind: str) -> None:
         assert "Try our platform" not in rendered.body
         assert "Accept cookies" not in rendered.body
         assert "Jump links" not in rendered.body
+        assert "Private report" not in rendered.body
     else:
         assert result.metadata.category == "Solutions"
         assert result.metadata.publication_date is None
@@ -174,6 +181,12 @@ def test_soft_404_and_empty_main() -> None:
         WwwF5Adapter().extract(base)
     base.html = "<html><body><nav>Navigation only</nav></body></html>"
     with pytest.raises(NavigationOnlyError):
+        WwwF5Adapter().extract(base)
+    base.html = (
+        "<html><body><main><h1>Access required</h1>"
+        "<p>Sign in to access this content.</p></main></body></html>"
+    )
+    with pytest.raises(AuthenticationWallError):
         WwwF5Adapter().extract(base)
 
 

@@ -13,7 +13,12 @@ from bs4 import BeautifulSoup, Tag
 from defusedxml import ElementTree
 from defusedxml.common import DefusedXmlException
 
-from html_to_markdown.errors import NavigationOnlyError, NotFoundError, ScrapeError
+from html_to_markdown.errors import (
+    AuthenticationWallError,
+    NavigationOnlyError,
+    NotFoundError,
+    ScrapeError,
+)
 from html_to_markdown.models import DiscoveredPage, ExtractedPage, FetchResult, PageMetadata
 from html_to_markdown.urls import WWW_F5_SOLUTION_URLS, validate_source_url
 
@@ -78,6 +83,18 @@ class WwwF5Adapter(SourceAdapter):
             raise NotFoundError(f"not found: {page.final_url}")
         if any(term in text[:1000] for term in ("page not found", "we can't find the page")):
             raise NotFoundError(f"soft 404: {page.final_url}")
+        if (
+            any(
+                term in text[:1000]
+                for term in (
+                    "sign in to access this content",
+                    "register to view this content",
+                    "complete the form to access this content",
+                )
+            )
+            and len(text) < 500
+        ):
+            raise AuthenticationWallError(f"gated marketing page: {page.final_url}")
 
     async def rendered_html(self, playwright_page: Any) -> str:
         return str(await playwright_page.content())
@@ -103,6 +120,8 @@ class WwwF5Adapter(SourceAdapter):
             '[class*="sticky" i]',
             '[class*="breadcrumb" i]',
             '[class*="promo" i]',
+            '[class*="gated" i]',
+            '[data-testid*="gated" i]',
             '[class*="related-resource" i]',
             '[class*="cta-" i]',
             '[data-testid*="cta" i]',
