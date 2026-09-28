@@ -3,7 +3,12 @@ from pathlib import Path
 
 import pytest
 
-from html_to_markdown.metadata import MetadataPolicy, enrich_snapshot, load_metadata_policy
+from html_to_markdown.metadata import (
+    MetadataPolicy,
+    classify_metadata,
+    enrich_snapshot,
+    load_metadata_policy,
+)
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.state import StateStore
@@ -87,6 +92,14 @@ def test_checked_in_policy_is_schema_valid_and_rules_are_most_specific() -> None
     checked_in = load_metadata_policy()
     assert checked_in.schema_version == 1
     assert any(rule.product == "client-side-defense" for rule in checked_in.classification_rules)
+    generic_how_to = classify_metadata(
+        checked_in,
+        "docs-cloud-f5-com",
+        f"{DOCS_ROOT}/dns-management/how-to/configure-dns-load-balancer",
+    )
+    assert generic_how_to.product is None
+    assert generic_how_to.content_type == "how_to"
+    assert generic_how_to.task_type == "configure"
 
 
 def test_policy_rejects_conflicting_rules_and_invalid_lifecycle() -> None:

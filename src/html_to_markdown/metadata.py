@@ -45,6 +45,20 @@ class AliasGroup(BaseModel):
         return aliases
 
 
+class TaskPathRule(BaseModel):
+    source_id: str
+    path_marker: str
+    content_type: ContentType
+    task_type: TaskType
+
+    @field_validator("path_marker")
+    @classmethod
+    def normalized_path_marker(cls, value: str) -> str:
+        if not value.startswith("/") or not value.endswith("/") or ".." in value.split("/"):
+            raise ValueError("path_marker must be a safe slash-delimited path segment")
+        return value
+
+
 class MetadataOverride(BaseModel):
     url: str
     aliases: list[str] = Field(default_factory=list)
@@ -73,6 +87,7 @@ class CuratedRelationship(BaseModel):
 class MetadataPolicy(BaseModel):
     schema_version: int
     classification_rules: list[ClassificationRule]
+    task_path_rules: list[TaskPathRule] = Field(default_factory=list)
     alias_groups: list[AliasGroup] = Field(default_factory=list)
     overrides: list[MetadataOverride] = Field(default_factory=list)
     relationships: list[CuratedRelationship] = Field(default_factory=list)
@@ -94,6 +109,14 @@ class MetadataPolicy(BaseModel):
             if group.product in aliases:
                 raise ValueError(f"conflicting alias group: {group.product}")
             aliases.add(group.product)
+        task_rule_keys: set[tuple[str, str]] = set()
+        for task_rule in self.task_path_rules:
+            key = (task_rule.source_id, task_rule.path_marker)
+            if key in task_rule_keys:
+                raise ValueError(
+                    f"conflicting task path rule: {task_rule.source_id}{task_rule.path_marker}"
+                )
+            task_rule_keys.add(key)
         overrides: set[str] = set()
         for override in self.overrides:
             override.url = _policy_url(override.url)
@@ -138,7 +161,22 @@ def classify_metadata(policy: MetadataPolicy, source_id: str, url: str) -> Class
     ]
     if not matches:
         raise ValueError(f"no reviewed classification rule for {source_id}: {path}")
-    return max(matches, key=lambda rule: len(rule.path_prefix))
+    selected = max(matches, key=lambda rule: len(rule.path_prefix))
+    task_matches = [
+        rule
+        for rule in policy.task_path_rules
+        if rule.source_id == source_id and rule.path_marker in f"{path}/"
+    ]
+    if not task_matches:
+        return selected
+    task = max(task_matches, key=lambda rule: len(rule.path_marker))
+    return ClassificationRule(
+        source_id=selected.source_id,
+        path_prefix=selected.path_prefix,
+        product=selected.product,
+        content_type=task.content_type,
+        task_type=task.task_type,
+    )
 
 
 def normalize_source_date(value: str | None) -> str | None:
