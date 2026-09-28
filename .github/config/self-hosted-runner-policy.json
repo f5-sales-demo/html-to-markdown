@@ -816,20 +816,6 @@
           "reason": "read-only provider generation uses the hosted Go toolchain"
         }
       },
-      ".github/workflows/_tag-release.yml": {
-        "preflight": {
-          "runs_on": "ubuntu-latest",
-          "reason": "release reproducibility verification uses isolated hosted tooling"
-        },
-        "publish": {
-          "runs_on": "ubuntu-latest",
-          "reason": "release signing and publication use isolated hosted execution"
-        },
-        "tag": {
-          "runs_on": "ubuntu-latest",
-          "reason": "release tag signing uses isolated hosted execution"
-        }
-      },
       ".github/workflows/workload-benchmark.yml": {
         "hosted-serial": {
           "runs_on": "ubuntu-latest",
