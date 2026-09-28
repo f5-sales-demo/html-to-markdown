@@ -7,6 +7,7 @@ from html_to_markdown.metadata import MetadataPolicy, enrich_snapshot, load_meta
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.state import StateStore
+from html_to_markdown.validation import validate_snapshot
 
 DOCS_ROOT = "https://docs.cloud.f5.com/docs-v2"
 MYF5_ROOT = "https://my.f5.com/manage/s/article"
@@ -75,7 +76,7 @@ def policy() -> MetadataPolicy:
             "relationships": [
                 {
                     "source_url": f"{DOCS_ROOT}/client-side-defense/how-to/new",
-                    "target_url": f"{MYF5_ROOT}/K000123456",
+                    "target_url": f"{MYF5_ROOT}/K000654321",
                 }
             ],
         }
@@ -121,6 +122,7 @@ def test_enrichment_resolves_metadata_aliases_relationships_and_dates(tmp_path: 
         url=target_url,
         category="support-solution",
         publication_date="2025-01-01",
+        canonical_url=f"{MYF5_ROOT}/K000654321",
     )
     source_path = write_document(
         output,
@@ -137,6 +139,7 @@ def test_enrichment_resolves_metadata_aliases_relationships_and_dates(tmp_path: 
     store.replace_candidate_links(source_url, [target_url, source_url, "https://example.com/no"])
 
     enrich_snapshot(output, store, policy())
+    validate_snapshot(output, store)
 
     enriched, body = split_document(source_path.read_text(encoding="utf-8"))
     assert body == "# Configure\n\nDo it.\n"
@@ -154,7 +157,7 @@ def test_enrichment_resolves_metadata_aliases_relationships_and_dates(tmp_path: 
         {
             "relation": "support",
             "title": "Troubleshooting Client-Side Defense",
-            "canonical_url": target_url,
+            "canonical_url": f"{MYF5_ROOT}/K000654321",
             "source_id": "my-f5-com",
             "stable_path": "K000123456",
         }

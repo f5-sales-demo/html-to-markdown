@@ -9,7 +9,7 @@ from .errors import AllowlistError, PublicationBlockedError, ValidationError
 from .models import Lifecycle, PageMetadata
 from .render import content_hash, split_document
 from .state import StateStore
-from .urls import stable_path, validate_source_url
+from .urls import validate_source_url
 
 REQUIRED_FIELDS = (
     "sourceId",
@@ -38,6 +38,7 @@ ENRICHED_FIELDS = (
 )
 
 LANGUAGE_PATTERN = re.compile(r"^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$")
+KnownDocument = tuple[str, str, str, str]
 
 
 # Keep all public metadata invariants in one audit so callers cannot omit a subset.
@@ -83,15 +84,28 @@ def validate_enriched_metadata(
             errors.append(
                 f"{label}: related target is outside the snapshot: {related.canonical_url}"
             )
-        try:
-            expected = stable_path(related.source_id, related.canonical_url).as_posix()
-        except (AllowlistError, ValueError) as error:
-            errors.append(f"{label}: invalid related target: {error}")
-            continue
-        if related.stable_path != expected:
-            errors.append(f"{label}: related stable_path mismatch: {related.canonical_url}")
+        if any(part in {"", ".", ".."} for part in related.stable_path.split("/")):
+            errors.append(f"{label}: related stable_path is unsafe: {related.stable_path}")
         if related.canonical_url == parsed.canonical_url:
             errors.append(f"{label}: related document cannot target itself")
+    return errors
+
+
+def validate_related_targets(
+    metadata: PageMetadata,
+    label: str,
+    known_documents: dict[str, KnownDocument],
+) -> list[str]:
+    errors: list[str] = []
+    for related in metadata.related_documents:
+        target = known_documents.get(related.canonical_url)
+        if target != (
+            related.source_id,
+            related.stable_path,
+            related.title,
+            related.relation.value,
+        ):
+            errors.append(f"{label}: related target metadata mismatch: {related.canonical_url}")
     return errors
 
 
@@ -139,6 +153,7 @@ def validate_snapshot(
     errors: list[str] = []
     paths = sorted(output.glob("content/*/**/index.md"))
     known_urls: set[str] = set()
+    known_documents: dict[str, KnownDocument] = {}
     for path in paths:
         try:
             metadata, _ = split_document(path.read_text(encoding="utf-8"))
@@ -147,8 +162,20 @@ def validate_snapshot(
         canonical = metadata.get("canonical_url")
         if isinstance(canonical, str):
             known_urls.add(canonical)
+            source_id = metadata.get("sourceId")
+            title = metadata.get("title")
+            task_type = metadata.get("task_type")
+            if all(isinstance(value, str) for value in (source_id, title, task_type)):
+                stable = path.relative_to(output / "content" / str(source_id)).parent.as_posix()
+                known_documents[canonical] = (str(source_id), stable, str(title), str(task_type))
     for path in paths:
         errors.extend(validate_document(path, require_enriched=True, known_urls=known_urls))
+        try:
+            metadata, _ = split_document(path.read_text(encoding="utf-8"))
+            parsed = PageMetadata.model_validate(metadata)
+        except (OSError, ValueError):
+            continue
+        errors.extend(validate_related_targets(parsed, str(path), known_documents))
     if errors:
         raise PublicationBlockedError("snapshot validation failed:\n- " + "\n- ".join(errors))
 
