@@ -225,9 +225,12 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
     for relationship in active_policy.relationships:
         curated.setdefault(relationship.source_url, set()).add(relationship.target_url)
 
+    canonical_groups: dict[str, list[str]] = {}
+    for url, (_, metadata, _, _) in sorted(documents.items()):
+        canonical = validate_source_url(metadata.source_id, metadata.canonical_url or url)
+        canonical_groups.setdefault(canonical, []).append(url)
     canonical_documents = {
-        validate_source_url(metadata.source_id, metadata.canonical_url or url): url
-        for url, (_, metadata, _, _) in sorted(documents.items())
+        canonical: urls[0] for canonical, urls in canonical_groups.items() if len(urls) == 1
     }
     classifications = {
         url: classify_metadata(
@@ -291,11 +294,7 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
                 )
             except ValueError:
                 continue
-            target_key = (
-                canonical_target
-                if canonical_target in enriched
-                else canonical_documents.get(canonical_target or "")
-            )
+            target_key = canonical_documents.get(canonical_target or "")
             if canonical_target is None or canonical_target == canonical_url or target_key is None:
                 continue
             target_path, _, _, _ = documents[target_key]
