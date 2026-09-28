@@ -156,6 +156,7 @@ async def test_redirect_aliases_do_not_overwrite_canonical_documents(tmp_path: P
     for record in records:
         document = record.output_path.read_text(encoding="utf-8")
         assert f"url: {record.url}" in document
+        assert f"canonical_url: {canonical}" in document
         assert record.content_hash in document
     pipeline.store.close()
 

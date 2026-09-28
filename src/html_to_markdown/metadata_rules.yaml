@@ -1,0 +1,129 @@
+schema_version: 1
+classification_rules:
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2
+    product: null
+    content_type: reference
+    task_type: reference
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/platform/concepts
+    product: null
+    content_type: concept
+    task_type: concept
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/platform/how-to
+    product: null
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/platform/reference
+    product: null
+    content_type: reference
+    task_type: reference
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/client-side-defense
+    product: client-side-defense
+    content_type: reference
+    task_type: reference
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/client-side-defense/concepts
+    product: client-side-defense
+    content_type: concept
+    task_type: concept
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/client-side-defense/how-to
+    product: client-side-defense
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/client-side-defense/how-tos
+    product: client-side-defense
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/web-app-and-api-protection
+    product: web-application-firewall
+    content_type: reference
+    task_type: reference
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/web-app-and-api-protection/concepts
+    product: web-application-firewall
+    content_type: concept
+    task_type: concept
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/web-app-and-api-protection/how-to
+    product: web-application-firewall
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/multi-cloud-network-connect
+    product: multi-cloud-networking
+    content_type: reference
+    task_type: reference
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/multi-cloud-network-connect/concepts
+    product: multi-cloud-networking
+    content_type: concept
+    task_type: concept
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/multi-cloud-network-connect/how-to
+    product: multi-cloud-networking
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/multi-cloud-network-connect/how-tos
+    product: multi-cloud-networking
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_prefix: /docs-v2/multi-cloud-network-connect/troubleshooting
+    product: multi-cloud-networking
+    content_type: how_to
+    task_type: troubleshoot
+  - source_id: my-f5-com
+    path_prefix: /manage/s
+    product: null
+    content_type: knowledge_article
+    task_type: support
+  - source_id: www-f5-com
+    path_prefix: /products/distributed-cloud-services
+    product: distributed-cloud-services
+    content_type: product_overview
+    task_type: concept
+  - source_id: www-f5-com
+    path_prefix: /solutions
+    product: null
+    content_type: solution_overview
+    task_type: concept
+  - source_id: www-f5-com
+    path_prefix: /solutions/web-app-and-api-protection
+    product: web-application-firewall
+    content_type: solution_overview
+    task_type: concept
+  - source_id: www-f5-com
+    path_prefix: /solutions/use-cases/multi-cloud-networking
+    product: multi-cloud-networking
+    content_type: solution_overview
+    task_type: concept
+alias_groups:
+  - product: client-side-defense
+    aliases:
+      - Client-Side Defense
+      - CSD
+  - product: distributed-cloud-services
+    aliases:
+      - Distributed Cloud
+      - F5 XC
+  - product: multi-cloud-networking
+    aliases:
+      - MCN
+      - Multi-Cloud Networking
+  - product: web-application-firewall
+    aliases:
+      - application firewall
+      - WAF
+      - web application firewall
+overrides: []
+relationships:
+  - source_url: https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/troubleshooting/troubleshoot-manual-ce-deployment-registration-issues
+    target_url: https://my.f5.com/manage/s/article/K000147284

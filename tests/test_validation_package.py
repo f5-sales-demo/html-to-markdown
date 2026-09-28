@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from html_to_markdown.metadata import enrich_snapshot
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.package import build_manifest, sha256_file, write_release
 from html_to_markdown.render import serialize_document
@@ -31,6 +32,7 @@ def prepared_snapshot(tmp_path: Path) -> tuple[Path, StateStore]:
         output_path="content/docs-cloud-f5-com/a/index.md",
         digest=metadata.content_hash,
     )
+    enrich_snapshot(output, store)
     return output, store
 
 

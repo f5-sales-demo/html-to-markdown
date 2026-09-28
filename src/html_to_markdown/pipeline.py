@@ -6,6 +6,7 @@ import asyncio
 import hashlib
 import mimetypes
 from pathlib import Path
+from sqlite3 import Row
 from urllib.parse import urljoin, urlsplit
 
 import structlog
@@ -15,13 +16,14 @@ from .adapters import ADAPTERS
 from .adapters.base import SourceAdapter
 from .errors import AllowlistError, AuthenticationWallError, NavigationOnlyError, NotFoundError
 from .fetcher import Fetcher
+from .metadata import enrich_snapshot, normalize_source_date
 from .models import DiscoveredPage, DocumentRecord, PageStatus, utc_now
 from .package import build_manifest, write_release
 from .quality import write_quality_reports
 from .reconcile import include_inventory_urls, include_previous_urls, reconcile_previous
 from .render import render_html, serialize_document
 from .state import StateStore
-from .urls import stable_path, validate_source_url
+from .urls import infer_source, stable_path, validate_source_url
 from .validation import require_valid_document, validate_snapshot
 
 log = structlog.get_logger()
@@ -86,22 +88,34 @@ class Pipeline:
         rows = self.store.pending(list(adapters), force=force)
         semaphore = asyncio.Semaphore(self.concurrency)
 
-        async def bounded(row: object) -> DocumentRecord | None:
+        async def bounded(row: Row) -> DocumentRecord | None:
             async with semaphore:
-                return await self._scrape_one(adapters[row["source"]], row["canonical_url"])  # type: ignore[index]
+                return await self._scrape_one(
+                    adapters[row["source"]],
+                    row["canonical_url"],
+                    row["source_last_modified"],
+                )
 
         results = await asyncio.gather(*(bounded(row) for row in rows))
         records = [result for result in results if result is not None]
         log.info("scrape_complete", attempted=len(rows), succeeded=len(records))
         return records
 
-    async def _scrape_one(self, adapter: SourceAdapter, url: str) -> DocumentRecord | None:
+    async def _scrape_one(
+        self, adapter: SourceAdapter, url: str, source_last_modified: str | None = None
+    ) -> DocumentRecord | None:
         self.store.mark_fetching(url)
         status: PageStatus
         failure: Exception
         try:
             fetched = await self.fetcher.fetch(adapter, url)
+            self.store.replace_candidate_links(
+                url, self._candidate_links(fetched.html, fetched.final_url)
+            )
             extracted = adapter.extract(fetched)
+            extracted.metadata.canonical_url = validate_source_url(
+                adapter.source_id, fetched.final_url
+            )
             extracted.html = await self._resolve_redirects(
                 adapter,
                 fetched.final_url,
@@ -109,6 +123,10 @@ class Pipeline:
             )
             rendered = render_html(extracted.html, fetched.final_url)
             extracted.metadata.url = url
+            if extracted.metadata.modification_date is None:
+                extracted.metadata.last_updated = normalize_source_date(
+                    source_last_modified or fetched.headers.get("last-modified")
+                )
             page_dir = self.output / "content" / adapter.source_id
             page_dir /= stable_path(adapter.source_id, url)
             page_dir.mkdir(parents=True, exist_ok=True)
@@ -169,6 +187,23 @@ class Pipeline:
             error_message=str(failure),
         )
         return None
+
+    @staticmethod
+    def _candidate_links(html: str, base_url: str) -> list[str]:
+        soup = BeautifulSoup(html, "html.parser")
+        candidates: set[str] = set()
+        for anchor in soup.find_all("a"):
+            href = anchor.get("href")
+            if not isinstance(href, str) or not href.strip():
+                continue
+            candidate = urljoin(base_url, href)
+            try:
+                source_id = infer_source(candidate)
+                if source_id is not None:
+                    candidates.add(validate_source_url(source_id, candidate))
+            except Exception:  # pylint: disable=broad-exception-caught  # nosec B112
+                continue
+        return sorted(candidates)
 
     async def _resolve_redirects(self, adapter: SourceAdapter, base_url: str, html: str) -> str:
         soup = BeautifulSoup(html, "html.parser")
@@ -260,6 +295,7 @@ async def run_pipeline(
         )
         await pipeline.scrape(source, force=force)
         reconcile_previous(output, pipeline.store, previous_manifest)
+        enrich_snapshot(output, pipeline.store)
         write_quality_reports(output, reference=quality_reference, benchmark=benchmark)
         pipeline.validate()
         return pipeline.package(started, utc_now())

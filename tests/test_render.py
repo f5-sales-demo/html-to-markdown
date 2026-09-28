@@ -62,7 +62,8 @@ def test_frontmatter_order_unicode_null_dates_and_hash() -> None:
     document = serialize_document(metadata, "# Café  \r\n\r\nBody\n")
     parsed, body = split_document(document)
     keys = list(parsed)
-    assert keys[:9] == [
+    assert keys[:10] == [
+        "metadata_schema",
         "sourceId",
         "title",
         "slug",

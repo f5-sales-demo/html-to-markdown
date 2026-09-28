@@ -20,6 +20,7 @@ from .quality import write_quality_reports
 from .render import content_hash, split_document
 from .state import StateStore
 from .urls import SOURCE_ROOTS
+from .validation import validate_enriched_metadata
 
 MIB = 1024 * 1024
 MAX_ARCHIVE_BYTES = 256 * MIB
@@ -102,7 +103,13 @@ def _parse_sums(value: bytes) -> dict[str, str]:
     return result
 
 
-def _validate_document_entry(document: object, files: dict[str, bytes], seen: set[str]) -> None:
+def _validate_document_entry(
+    document: object,
+    files: dict[str, bytes],
+    seen: set[str],
+    known_urls: set[str],
+    require_enriched: bool,
+) -> None:
     if not isinstance(document, dict):
         raise ValueError("manifest document entry must be an object")
     path = document.get("path")
@@ -116,6 +123,10 @@ def _validate_document_entry(document: object, files: dict[str, bytes], seen: se
         metadata, body = split_document(data.decode("utf-8"))
     except (UnicodeDecodeError, ValueError) as error:
         raise ValueError(f"manifest document is invalid: {path}") from error
+    if require_enriched:
+        metadata_errors = validate_enriched_metadata(metadata, path, known_urls)
+        if metadata_errors:
+            raise ValueError(metadata_errors[0])
     if metadata.get("url") != document.get("url"):
         raise ValueError(f"manifest document URL mismatch: {path}")
     if document.get("body_sha256") != content_hash(body):
@@ -150,8 +161,29 @@ def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
     if not isinstance(documents, list) or not isinstance(assets, list):
         raise ValueError("manifest documents and assets must be lists")
     seen: set[str] = set()
+    known_urls: set[str] = set()
+    metadata_schema_values: list[object] = []
     for document in documents:
-        _validate_document_entry(document, files, seen)
+        if not isinstance(document, dict):
+            continue
+        path = document.get("path")
+        if not isinstance(path, str) or path not in files:
+            continue
+        try:
+            metadata, _ = split_document(files[path].decode("utf-8"))
+        except (UnicodeDecodeError, ValueError):
+            continue
+        metadata_schema_values.append(metadata.get("metadata_schema"))
+        canonical_url = metadata.get("canonical_url")
+        if isinstance(canonical_url, str):
+            known_urls.add(canonical_url)
+        elif isinstance(document.get("url"), str):
+            known_urls.add(str(document["url"]))
+    require_enriched = any(value is not None for value in metadata_schema_values)
+    if require_enriched and any(value != 1 for value in metadata_schema_values):
+        raise ValueError("archive mixes enriched and legacy document metadata")
+    for document in documents:
+        _validate_document_entry(document, files, seen, known_urls, require_enriched)
     for asset in assets:
         _validate_asset_entry(asset, files, seen)
     if manifest.get("page_count") != len(documents) or manifest.get("asset_count") != len(assets):

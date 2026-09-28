@@ -24,6 +24,20 @@ uv run html-to-markdown validate --output build
 
 `run` discovers, scrapes, validates, and creates `html-to-markdown-content.tar.gz` in the output directory. A snapshot is blocked unless every discovered page and referenced local asset succeeds or is reconciled against a previous snapshot.
 
+## Enriched metadata contract
+
+Every newly published Markdown document carries additive `metadata_schema: 1` frontmatter. The
+reviewed [`metadata_rules.yaml`](src/html_to_markdown/metadata_rules.yaml) file is the sole authority
+for product slugs, content and task types, aliases, lifecycle overrides, and curated cross-source
+relationships. The most-specific matching path rule wins; uncertain products remain `null`.
+
+`canonical_url` records the normalized final URL while the legacy `url` remains available.
+`last_updated` uses the page modification date, then an authoritative source last-modified date,
+then publication date; crawl time is never substituted. Related documents are emitted only when
+their canonical targets exist in the same complete snapshot. `superseded` overrides require an
+in-snapshot `replacement_url`. Lists and relationships are deduplicated and deterministically
+sorted. Manifest schema v2 is unchanged because document file hashes already cover this metadata.
+
 Options include `--concurrency`, `--retries`, `--timeout`, `--headed`, `--force`, and `--output`. Focused `--url` runs still enforce the source allowlist.
 
 ## Consume an exact snapshot release

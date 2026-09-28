@@ -7,6 +7,7 @@ from typing import Any, cast
 import pytest
 
 from html_to_markdown import package as package_module
+from html_to_markdown.metadata import enrich_snapshot
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.package import (
     build_manifest,
@@ -45,6 +46,7 @@ def prepared_snapshot(tmp_path: Path, *, with_asset: bool = True) -> tuple[Path,
         output_path="content/docs-cloud-f5-com/a/index.md",
         digest=metadata.content_hash,
     )
+    enrich_snapshot(output, store)
     return output, store
 
 
