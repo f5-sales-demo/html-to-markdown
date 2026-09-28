@@ -295,6 +295,10 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
             except ValueError:
                 continue
             target_key = canonical_documents.get(canonical_target or "")
+            if canonical_target in enriched:
+                redirected = enriched[canonical_target].canonical_url or canonical_target
+                if canonical_documents.get(redirected) == canonical_target:
+                    target_key = canonical_target
             if canonical_target is None or canonical_target == canonical_url or target_key is None:
                 continue
             target_path, _, _, _ = documents[target_key]

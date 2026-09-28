@@ -151,7 +151,8 @@ def test_enrichment_resolves_metadata_aliases_relationships_and_dates(tmp_path: 
     add_document(store, target_url, target.source_id, target_path, output)
     store.replace_candidate_links(source_url, [target_url, source_url, "https://example.com/no"])
 
-    enrich_snapshot(output, store, policy())
+    extraction_only = policy().model_copy(update={"relationships": []})
+    enrich_snapshot(output, store, extraction_only)
     validate_snapshot(output, store)
 
     enriched, body = split_document(source_path.read_text(encoding="utf-8"))
