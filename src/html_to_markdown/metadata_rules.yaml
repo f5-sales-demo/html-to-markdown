@@ -105,6 +105,35 @@ classification_rules:
     product: multi-cloud-networking
     content_type: solution_overview
     task_type: concept
+task_path_rules:
+  - source_id: docs-cloud-f5-com
+    path_marker: /concepts/
+    content_type: concept
+    task_type: concept
+  - source_id: docs-cloud-f5-com
+    path_marker: /how-to/
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_marker: /how-tos/
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_marker: /quickstart/
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_marker: /quickstarts/
+    content_type: how_to
+    task_type: configure
+  - source_id: docs-cloud-f5-com
+    path_marker: /troubleshooting/
+    content_type: how_to
+    task_type: troubleshoot
+  - source_id: docs-cloud-f5-com
+    path_marker: /reference/
+    content_type: reference
+    task_type: reference
 alias_groups:
   - product: client-side-defense
     aliases:
