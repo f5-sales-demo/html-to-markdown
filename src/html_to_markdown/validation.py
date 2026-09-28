@@ -40,6 +40,8 @@ ENRICHED_FIELDS = (
 LANGUAGE_PATTERN = re.compile(r"^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$")
 
 
+# Keep all public metadata invariants in one audit so callers cannot omit a subset.
+# pylint: disable-next=too-many-branches
 def validate_enriched_metadata(
     metadata: dict[str, object], label: str, known_urls: set[str] | None = None
 ) -> list[str]:

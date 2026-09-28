@@ -167,6 +167,8 @@ def _accepted(row: Row) -> bool:
     }
 
 
+# The enrichment transaction intentionally retains the complete inventory and policy indexes.
+# pylint: disable-next=too-many-locals,too-many-branches
 def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | None = None) -> None:
     """Apply reviewed metadata only after the complete snapshot inventory exists."""
     active_policy = policy or load_metadata_policy()

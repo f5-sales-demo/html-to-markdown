@@ -101,6 +101,8 @@ class Pipeline:
         log.info("scrape_complete", attempted=len(rows), succeeded=len(records))
         return records
 
+    # Asset and source metadata are committed with the document as one operation.
+    # pylint: disable-next=too-many-locals
     async def _scrape_one(
         self, adapter: SourceAdapter, url: str, source_last_modified: str | None = None
     ) -> DocumentRecord | None:
