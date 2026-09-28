@@ -91,6 +91,11 @@ classification_rules:
     content_type: product_overview
     task_type: concept
   - source_id: www-f5-com
+    path_prefix: /products/distributed-cloud-services/client-side-defense
+    product: client-side-defense
+    content_type: product_overview
+    task_type: concept
+  - source_id: www-f5-com
     path_prefix: /solutions
     product: null
     content_type: solution_overview
