@@ -110,6 +110,8 @@ async def test_discovery_rejects_redirected_sitemap() -> None:
         f"{BASE}/solutions/web-app-and-api-protection/other",
         f"{PRODUCT}/a?campaign=x",
         f"{PRODUCT}/%2e%2e/other",
+        "https://user@www.f5.com/products/distributed-cloud-services",
+        "https://www.f5.com:443/products/distributed-cloud-services",
         "http://www.f5.com/products/distributed-cloud-services",
         "https://example.com/products/distributed-cloud-services",
     ],

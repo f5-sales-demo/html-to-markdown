@@ -50,6 +50,7 @@ def canonicalize_url(url: str) -> str:
 def validate_source_url(source_id: str, url: str) -> str:
     if source_id not in SOURCE_ROOTS:
         raise AllowlistError(f"unknown source: {source_id}")
+    raw = urlsplit(url.strip())
     canonical = canonicalize_url(url)
     root = urlsplit(SOURCE_ROOTS[source_id])
     value = urlsplit(canonical)
@@ -58,10 +59,10 @@ def validate_source_url(source_id: str, url: str) -> str:
         raise AllowlistError(f"URL is outside {source_id}: {url}")
     if source_id == "www-f5-com":
         if (
-            value.query
-            or value.port is not None
-            or value.username is not None
-            or value.password is not None
+            raw.port is not None
+            or raw.username is not None
+            or raw.password is not None
+            or value.query
             or unquote(value.path) != value.path
             or any(segment in {".", ".."} for segment in value.path.split("/"))
         ):
