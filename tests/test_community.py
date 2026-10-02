@@ -775,3 +775,19 @@ async def test_inventory_resume_is_explicit_and_reuses_same_pass(tmp_path):
     resumed = await inventory_pass(client, tmp_path, resume=True)
     assert resumed["started_at"] == first["started_at"]
     assert resumed["topics"] == first["topics"]
+
+
+@pytest.mark.asyncio
+async def test_failed_refresh_cannot_resume_previous_topic_bytes(tmp_path):
+    client = InventoryClient()
+    await inventory_pass(client, tmp_path)
+
+    async def failure(identifier):
+        raise ScrapeError("first post unavailable")
+
+    client.topic = failure
+    with pytest.raises(ScrapeError):
+        await inventory_pass(client, tmp_path)
+    assert not list((tmp_path / "topics").glob("*.json"))
+    with pytest.raises(ScrapeError):
+        await inventory_pass(client, tmp_path, resume=True)

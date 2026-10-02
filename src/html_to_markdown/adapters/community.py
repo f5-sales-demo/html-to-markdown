@@ -498,6 +498,11 @@ async def inventory_pass(
     (output / "inventory.json").unlink(missing_ok=True)
     topic_dir = output / "topics"
     topic_dir.mkdir(exist_ok=True, mode=0o700)
+    if not resume:
+        # Resume may only reuse first posts captured during this pass.
+        for cached_topic in topic_dir.glob("*.json"):
+            cached_topic.unlink()
+        (output / "pass.json").unlink(missing_ok=True)
     started, listings, tagged, sitemap = await capture_inventory(client, output, resume=resume)
     tag_articles = {
         identifier for identifier, item in tagged.items() if item["category_id"] in CATEGORIES
