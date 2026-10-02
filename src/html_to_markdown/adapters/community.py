@@ -49,6 +49,16 @@ PRIVACY_PATTERNS = {
     "credential": re.compile(
         r"\b(?:api[_-]?key|password|secret|token)\s*[:=]\s*[\"']?[A-Za-z0-9+/=_-]{16,}", re.I
     ),
+    "authorization-header": re.compile(
+        r"Authorization[\s\"':]+(?:Bearer|APIToken)\s+(?!EXAMPLE_API_TOKEN)[A-Za-z0-9+/=_-]{16,}",
+        re.I,
+    ),
+    "cloud-account": re.compile(r"\b\d{12}\b"),
+    "resource-id": re.compile(r"\b(?:vpc|subnet|rtb|i|sg)-[a-f0-9]{8,}\b", re.I),
+    "uuid": re.compile(r"\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b", re.I),
+    "tenant-host": re.compile(
+        r"https://(?!example-corp\.)[a-z0-9-]+\.console\.(?:ves\.volterra\.io|ves\.io)", re.I
+    ),
     "ipv4": re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b"),
 }
 
@@ -310,6 +320,8 @@ class CommunityClient:
                 if category_id is not None and item["category_id"] != category_id:
                     raise ScrapeError("community category listing escaped selected category")
                 result[item["id"]] = {key: item[key] for key in ("id", "category_id")}
+                if isinstance(item.get("excerpt"), str):
+                    result[item["id"]]["excerpt"] = item["excerpt"]
             more = listing.get("more_topics_url")
             if more:
                 parts = urlsplit(urljoin(BASE, more))
@@ -496,7 +508,9 @@ async def inventory_pass(client: CommunityClient, output: Path) -> dict[str, Any
                 target.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
                 target.chmod(0o600)
             digest = article_hash(value)
-            decision, reason = relevance(value)
+            decision, reason = relevance(
+                {**value, "excerpt": listings[identifier].get("excerpt", "")}
+            )
             review = reviews.get(str(identifier), {})
             if (
                 review.get("article_hash") == digest
