@@ -1,0 +1,19 @@
+{
+  "id": 70152,
+  "title": "F5 Distributed Cloud routing guide",
+  "slug": "distributed-cloud-routing-guide",
+  "category_id": 21,
+  "visible": true,
+  "tags": ["f5-distributed-cloud", "routing"],
+  "post_stream": {
+    "posts": [
+      {
+        "post_number": 1,
+        "created_at": "2025-01-02T03:04:05Z",
+        "updated_at": "2026-01-03T04:05:06Z",
+        "cooked": "<h2><a class=\"anchor\" href=\"#routing\"></a>Routing</h2><p>Connect private networks with <strong>F5 Distributed Cloud</strong>. BIG-IP can remain an origin.</p><ul><li>Create a site.</li><li>Advertise the route.</li></ul><table><thead><tr><th>Route</th><th>Purpose</th></tr></thead><tbody><tr><td>192.0.2.0/24</td><td>Documentation network</td></tr></tbody></table><pre><code class=\"language-sh\">printf 'example\\n'\n</code></pre><p><a href=\"https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect\">Network Connect documentation</a></p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://d20hrnpixdzcsd.cloudfront.net/original/routing-diagram.png\"><img src=\"/small.png\" alt=\"Routing diagram\"></a></div><img class=\"emoji\" src=\"/emoji/smile.png\"><span class=\"mention\">@synthetic-profile</span><button>React</button>"
+      },
+      {"post_number": 2, "cooked": "<p>Discussion reply that must not be published.</p>"}
+    ]
+  }
+}

@@ -76,7 +76,13 @@ def _restore(output: Path, previous_manifest: Path, document: dict[str, object])
         shutil.copytree(source_assets, destination.parent / "assets", dirs_exist_ok=True)
 
 
-def reconcile_previous(output: Path, store: StateStore, previous_manifest: Path | None) -> None:
+def reconcile_previous(
+    output: Path,
+    store: StateStore,
+    previous_manifest: Path | None,
+    *,
+    retain_previous: bool = False,
+) -> None:
     prior_manifest = _load(previous_manifest)
     prior_documents = {
         str(item["url"]): item
@@ -118,7 +124,9 @@ def reconcile_previous(output: Path, store: StateStore, previous_manifest: Path 
         if status in raw_terminal:
             terminal += 1
             reconciled = (
-                PageStatus.CONFIRMED_REMOVAL if terminal >= 2 else PageStatus.REMOVAL_CANDIDATE
+                PageStatus.CONFIRMED_REMOVAL
+                if terminal >= 2 and not retain_previous
+                else PageStatus.REMOVAL_CANDIDATE
             )
             if reconciled == PageStatus.CONFIRMED_REMOVAL:
                 store.reconcile(

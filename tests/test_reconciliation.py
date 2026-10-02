@@ -161,3 +161,18 @@ def test_inventory_urls_are_seeded_for_explicit_reconciliation(tmp_path: Path) -
     include_inventory_urls(store, inventory, {"docs-cloud-f5-com", "my-f5-com"})
     assert [row["canonical_url"] for row in store.rows()] == sorted(urls)
     store.close()
+
+
+def test_explicit_prior_retention_preserves_confirmed_unavailable_body(tmp_path):
+    previous = previous_snapshot(tmp_path, freshness="removal_candidate", terminal=1)
+    output = tmp_path / "candidate-retained"
+    store = StateStore(output / "state.sqlite")
+    include_previous_urls(store, previous, {"docs-cloud-f5-com"})
+    store.mark(URL, PageStatus.REMOVED_NOT_FOUND)
+    reconcile_previous(output, store, previous, retain_previous=True)
+    row = store.rows()[0]
+    assert row["status"] == PageStatus.REMOVAL_CANDIDATE
+    assert row["terminal_confirmation_count"] == 2
+    assert (output / PATH).is_file()
+    assert "Last known good body" in (output / PATH).read_text()
+    store.close()
