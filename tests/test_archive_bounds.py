@@ -30,3 +30,15 @@ def test_read_archive_boundary(tmp_path, monkeypatch, field, bound):
     monkeypatch.setattr(package, field, bound - 1)
     with pytest.raises(ValueError):
         package._read_archive_files(path)
+
+
+def test_compressed_boundary_accepts_then_one_over_rejects(tmp_path, monkeypatch):
+    path = tmp_path / "bounds.tar.gz"
+    path.write_bytes(b"1234567")
+    monkeypatch.setattr(package, "MAX_ARCHIVE_BYTES", 7)
+    monkeypatch.setattr(package, "_read_archive_files", lambda archive: {})
+    with pytest.raises(ValueError, match="missing required metadata"):
+        package.verify_archive(path)
+    monkeypatch.setattr(package, "MAX_ARCHIVE_BYTES", 6)
+    with pytest.raises(ValueError, match="archive exceeds"):
+        package.verify_archive(path)
