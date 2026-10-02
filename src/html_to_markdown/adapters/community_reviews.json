@@ -1,0 +1,2286 @@
+{
+  "63295": {
+    "article_hash": "b7a7bd4d4695859eb55f63e4f4c5fcb089b5ff402d41040bf8d6ae07996fc37c",
+    "decision": "exclude",
+    "reason": "Legacy TMOS remote-access architecture; XC only redirected reference link"
+  },
+  "63775": {
+    "article_hash": "7656f08e08f91fd08b641b5a35ef46c79bd33a37f36c5c7e39a0549c6270ba38",
+    "decision": "exclude",
+    "reason": "Legacy F5 Cloud Services release-note index; globally distributed infrastructure phrase is generic"
+  },
+  "64802": {
+    "article_hash": "c1535eecd1bca5c6efd3770333c77ded0cddb160985ed92fd7623216e66051fe",
+    "decision": "exclude",
+    "reason": "Legacy ARX and BIG-IP WAN optimization guide; XC only modern related marketing link"
+  },
+  "65170": {
+    "article_hash": "98894d0ee97ee6e9ea1db86217df3b2632e172918616f1e1d82e70b2cd194892",
+    "decision": "include",
+    "reason": "Volterra API discovery, schema learning and Swagger export walkthrough"
+  },
+  "65215": {
+    "article_hash": "9a4670e1bceb85c3b1ddc49be20c73f6f7f27918f193b2bc4c2e6c415b488df6",
+    "decision": "exclude",
+    "reason": "Live-stream show announcement; no substantive XC article content"
+  },
+  "65235": {
+    "article_hash": "19dd7ae02e50961ac1ecad33b925f54d5badc047afc4fe30f2e476e34eca5f96",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Volterra guided walkthroughs for connecting Kubernetes clusters and distributed workloads",
+    "text_replacements": {
+      "nodes": {
+        "0fada7d66d429344ee5540685ae81225d0d9349b6725f1c3a78d0ac83ed5dcb0": "F5 believes that it is necessary to deliver the capabilities of this MCN approach - and go further and provide a truly scalable application fabric that extends networking and security capabilities up to and including the Application Layer 7. This allows for multi-layer security, improved observability, analytics, and multi-tenancy and self-serve not just for NetOps, but also for developers, DevOps and SecOps teams. One of the challenges of MCN is the difficulty of building and maintaining a consistent and standard networking approach across different clouds. We see the opportunity to solve this by shifting towards a Distributed Cloud model, discussed by F5 leadership in a recent "
+      },
+      "output_sha256": "9a3df1f2567910346f8abd9d001f3dedb243b3bff843ed0c05a9adcf562fd474"
+    }
+  },
+  "65531": {
+    "article_hash": "1fc85e3b84431b5cbbb7c03e486e44e29ed3b60aa054e7093f90e3c63d9d515a",
+    "decision": "exclude",
+    "reason": "General cloud architecture video introduction; XC only related marketing resource"
+  },
+  "66432": {
+    "article_hash": "7a4fed1ac72a9bb24ce3cc43663075dbadf5c4fd17175e7ca66003356ae74e15",
+    "decision": "include",
+    "reason": "Distributed Cloud MCN demonstrations address overlap, observability, security and transit routing"
+  },
+  "67249": {
+    "article_hash": "7153ea4b9ecff7b1c25c2923dcf9b0edc61201aa33904a415495769b9643ea30",
+    "decision": "exclude",
+    "reason": "Legacy Shape architecture overview; Distributed Cloud only updated related-resource links"
+  },
+  "67357": {
+    "article_hash": "7e7782badee558cd8f99170276cd4f9545c4cc34de71099b96284eb930c32b30",
+    "assets": {},
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected first-post prose and code; synthetic placeholders and private example addresses only",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "1b8b1d5de75e52636863fe6ad86836c5212f5964d2bc26d1db9cdea5c6736510": "resource \"volterra_aws_vpc_site\" \"aws-vpc-example\" {\n  name      = \"aws-vpc-example\"\n  namespace = \"system\"\n  aws_region = \"<desired-aws-region>\"\n  \n  assisted = false\n  instance_type = \"t3.xlarge\"\n  \n  //AWS credentials entered in the Volterra Console\n    aws_cred {\n      name      = \"<name-of-your-aws-credentials>\"\n      namespace = \"system\"\n      tenant    = \"<name-of-your-tenant>\"\n    }\n\n  vpc {\n    vpc_id = \"<vpc-id>\"\n  }\n\n  ingress_egress_gw {\n    aws_certified_hw = \"aws-byol-multi-nic-voltmesh\"\n    no_forward_proxy = true\n    no_global_network = true\n    no_inside_static_routes = true\n    no_outside_static_routes = true\n    no_network_policy = true    \n    }\n   \n    //Availability zones and subnet options for the Volterra Node\n    az_nodes {\n      //AWS AZ\n      aws_az_name = \"<availability-zone>\"\n      \n      //Site local outside subnet\n      outside_subnet {\n        existing_subnet_id = \"<subnet-id>\"\n      }\n\n      //Site local inside subnet\n      inside_subnet {\n        existing_subnet_id = \"<subnet-id>\"\n      }\n\n      //Workload subnet\n      workload_subnet {    \n        existing_subnet_id = \"<subnet-id>\"\n      }\n    }\n  \n  //Mandatory\n  logs_streaming_disabled = true\n  \n  //Mandatory\n  no_worker_nodes = true\n}\n"
+      },
+      "output_sha256": "7376a400a6849fd1f3e0f887c6cdcfe7ed6275ab1343baf37575fd9fa49175ab"
+    }
+  },
+  "67361": {
+    "article_hash": "44ccfa729075ccfa4c63a55ef0de6c6632984849ed9db50fabc9116858066115",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "d0826ebc1cdb1ed17643a59c27d93f890319f4d2bdda2a64cba68a2514812386": "resource \"volterra_origin_pool\" \"origin-ip\" {\n  name                   = \"origin-ip\"\n  namespace              = \"mynamespace\"\n \n   origin_servers {\n\n     public_ip {\n      ip = \"192.0.2.1\"\n     }\n\n    labels = {\n    }\n  }\n\n  use_tls {\n    use_host_header_as_sni = true\n  tls_config {\n    default_security = true\n  }\n  skip_server_verification = true\n  no_mtls = true\n  }\n\n  no_tls = false\n  port = \"443\"\n  endpoint_selection     = \"LOCALPREFERED\"\n  loadbalancer_algorithm = \"LB_OVERRIDE\"\n}\n"
+      },
+      "output_sha256": "708b7934ec6a658150a2885c4c5497c7c89306e7bc97f5483de819c29eda4b1e"
+    }
+  },
+  "67364": {
+    "article_hash": "97f84d0978f1bf3e0e5901db418246bde3e3964f0751814073bb8256106adb11",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "3dd7ad99c490142a1401553225ae10947c8954d20186060a1a781d59c059593f": "resource \"volterra_origin_pool\" \"origin-dns\" {\n  name                   = \"origin-dns\"\n  namespace              = \"mynamespace\"\n \n   origin_servers {\n\n    public_name {\n      dns_name = \"origin.example.com\"\n    }\n\n    labels = {\n    }\n  }\n\n  use_tls {\n    use_host_header_as_sni = true\n  tls_config {\n    default_security = true\n  }\n  skip_server_verification = true\n  no_mtls = true\n  }\n\n  no_tls = false\n  port = \"443\"\n  endpoint_selection     = \"LOCALPREFERED\"\n  loadbalancer_algorithm = \"LB_OVERRIDE\"\n}\n"
+      },
+      "output_sha256": "30c683f1aa8dfe1a3b43796dbaeed8bebc8076c70fcb41f08d40ba85f0a66d6b"
+    }
+  },
+  "67365": {
+    "article_hash": "bbd5bc6b2d297a835d82716a414e6f133a61f2dfa25065c83b476eb7e4bb057c",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "67368": {
+    "article_hash": "f3c7f85a4c987162bb1f869925f2070f2b22e4642c19781f418aaa48b5e31206",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "38a1873a7bbdccfdfca182ce39b71da1993633736b920abded14d6deac6401fd": "resource \"volterra_ip_prefix_set\" \"ip-prefixes-example\" {\n  name      = \"ip-prefixes-example\"\n  //namespace can be: system, or shared or your application namespace depending on where you want to create the ip prefix set\n  namespace = \"system\"\n  prefix = [\"192.0.2.1/32\", \"198.51.100.2/32\", \"203.0.113.0/24\"]\n}\n"
+      },
+      "output_sha256": "d283633b3f3f903bcfb46bf267e1b8b8982d61f186d150cffbb3f297aa2b2e23"
+    }
+  },
+  "67372": {
+    "article_hash": "4c33c8970512f27b5f8e2f330693473bc496fa32e853581194cba83d677f27c8",
+    "assets": {},
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected first-post prose and code; synthetic placeholders and private example addresses only",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "db3cb9524b75ff18d90f4ecd984d06ca617b1118cc63a135b3ffc9fa07e3fa9d": "//==========================================================================\n//Definition of the Origin, 1-origin.tf\n//Start of the TF file\nresource \"volterra_origin_pool\" \"sample-https-origin-pool\" {\n  name                   = \"sample-https-origin-pool\"\n  //Name of the namespace where the origin pool must be deployed\n  namespace              = \"mynamespace\"\n \n   origin_servers {\n\n    private_ip {\n      ip = \"10.17.20.13\"\n\n      //From which interface of the node onsite the IP of the service is reachable. Value are inside_network / outside_network or both.\n      outside_network = true\n     \n     //Site definition\n      site_locator {\n        site {\n          name      = \"name-of-the-site\"\n          namespace = \"system\"\n          tenant    = \"name-of-the-tenant\"\n        }\n      }\n    }\n\n    labels = {\n    }\n  }\n\n  no_tls = true\n  port = \"80\"\n  endpoint_selection     = \"LOCALPREFERED\"\n  loadbalancer_algorithm = \"LB_OVERRIDE\"\n}\n//End of the file\n//==========================================================================\n\n//==========================================================================\n//Definition of the Load-Balancer, 2-https-lb.tf\n//Start of the TF file\nresource \"volterra_http_loadbalancer\" \"sample-https-lb\" {\ndepends_on = [volterra_origin_pool.sample-https-origin-pool]\n//Mandatory \"Metadata\"\nname      = \"sample-https-lb\"\n//Name of the namespace where the origin pool must be deployed\nnamespace = \"mynamespace\"\n//End of mandatory \"Metadata\" \n\n//Mandatory \"Basic configuration\"\n  domains = [\"app.example.com\"]\n  https {\n    add_hsts = true\n    http_redirect = true\n    tls_parameters {\n      no_mtls = true\n      tls_config {\n        default_security = true  \n      }\n      tls_certificates {\n        certificate_url = \"string:///<base64-encoded-tls-certificate-public-key>\"\n          }\n          secret_encoding_type = \"EncodingNone\"\n        }\n      }    \n    }\n  }\n\ndefault_route_pools {\n    pool {\n      name = \"sample-https-origin-pool\"\n      namespace = \"mynamespace\"\n    }\n    weight = 1\n  }\n\n//Mandatory \"VIP configuration\"\nadvertise_on_public_default_vip = true\n//End of mandatory \"VIP configuration\"\n\n//Mandatory \"Security configuration\"\nno_service_policies = true\nno_challenge = true\ndisable_rate_limit = true\ndisable_waf = true\n//End of mandatory \"Security configuration\"\n\n//Mandatory \"Load Balancing Control\"\nsource_ip_stickiness = true\n//End of mandatory \"Load Balancing Control\"\n  \n}\n//End of the file\n//==========================================================================\n"
+      },
+      "output_sha256": "c0068f118c39070471a765456f464ccc462a1b887867e04e35df41a9e256bfba"
+    }
+  },
+  "67374": {
+    "article_hash": "009e8c5bdd0087f46e2644660855d7349271172c491be817efa42764f5c2bee6",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "f77b38b5c9d705ab31293ef3c770ab1c55735b35fdd5890f74122bbccb13da9c": "//==========================================================================\n//Definition of the Origin, 1-origin.tf\n//Start of the TF file\nresource \"volterra_origin_pool\" \"sample-http-origin-pool\" {\n  name                   = \"sample-http-origin-pool\"\n  //Name of the namespace where the origin pool must be deployed\n  namespace              = \"mynamespace\"\n \n   origin_servers {\n\n    private_ip {\n      ip = \"10.17.20.13\"\n\n      //From which interface of the node onsite the IP of the service is reachable. Value are inside_network / outside_network or both.\n      outside_network = true\n     \n     //Site definition\n      site_locator {\n        site {\n          name      = \"name-of-the-site\"\n          namespace = \"system\"\n          tenant    = \"name-of-the-tenant\"\n        }\n      }\n    }\n\n    labels = {\n    }\n  }\n\n  no_tls = true\n  port = \"80\"\n  endpoint_selection     = \"LOCALPREFERED\"\n  loadbalancer_algorithm = \"LB_OVERRIDE\"\n}\n//End of the file\n//==========================================================================\n\n//==========================================================================\n//Definition of the Load-Balancer, 2-http-lb.tf\n//Start of the TF file\nresource \"volterra_http_loadbalancer\" \"sample-http-lb\" {\ndepends_on = [volterra_origin_pool.sample-http-origin-pool]\n//Mandatory \"Metadata\"\nname      = \"sample-http-lb\"\n//Name of the namespace where the origin pool must be deployed\nnamespace = \"mynamespace\"\n//End of mandatory \"Metadata\" \n\n//Mandatory \"Basic configuration\"\n  domains = [\"app.example.com\"]\n  http {\n    dns_volterra_managed = false\n  }\n//End of mandatory \"Basic configuration\"\n\n//Optional \"Default Origin server\"\ndefault_route_pools {\n    pool {\n      name = \"sample-http-origin-pool\"\n      namespace = \"mynamespace\"\n    }\n    weight = 1\n  }\n//End of optional \"Default Origin server\"\n\n//Mandatory \"VIP configuration\"\nadvertise_on_public_default_vip = true\n//End of mandatory \"VIP configuration\"\n\n//Mandatory \"Security configuration\"\nno_service_policies = true\nno_challenge = true\ndisable_rate_limit = true\ndisable_waf = true\n//End of mandatory \"Security configuration\"\n\n//Mandatory \"Load Balancing Control\"\nsource_ip_stickiness = true\n//End of mandatory \"Load Balancing Control\"\n  \n}\n//End of the file\n//==========================================================================\n"
+      },
+      "output_sha256": "b112366bab7ff9580ef0f8205da384c4b48a34ef3f8b7f97ff946662beabd0c2"
+    }
+  },
+  "67468": {
+    "article_hash": "843816ceb9a2bbc180cb592022bb3f79b64c16150fad898af748521cb09327c6",
+    "decision": "exclude",
+    "reason": "General edge-computing concept; Volterra appears only closing product context and resource links"
+  },
+  "67974": {
+    "article_hash": "0d14ec84e17b4a22a113b4996c4c16a678683324b03f0498ca491605c2340067",
+    "decision": "exclude",
+    "reason": "General bot and fraud threat overview; Distributed Cloud appears only in related-content link"
+  },
+  "68570": {
+    "article_hash": "1e0a1d9ddf89df42b89c3934597cea144e26fd59de82464cf556e000645647d9",
+    "decision": "exclude",
+    "reason": "Legacy Shape Integrated Bot Defense via BIG-IP and Cloud Services portal, not Distributed Cloud focused"
+  },
+  "68813": {
+    "article_hash": "f15b9791db907f534929193ffc6856007a80362b7dc9eaca4446b22d33f8b096",
+    "decision": "exclude",
+    "reason": "Legacy Mirai/Silverline overview; XC only redirected resource link"
+  },
+  "68887": {
+    "article_hash": "9f2a5390dbf8a42250a5359368776021f2d8470ef796a09e58735c97c493d20b",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "69226": {
+    "article_hash": "09fd9552845509eb2367212f759b85382c31f639d64ea184581b06dc94b91378",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Authoritative product-name migration table explains Volterra to Distributed Cloud aliases"
+  },
+  "69234": {
+    "article_hash": "9768fa8f381e3fcb8025bab3c4fb6c0f7cddb52e2e78058ca4ca80d6482346aa",
+    "decision": "exclude",
+    "reason": "General bot attack-tool overview; Distributed Cloud appears only in related-content link"
+  },
+  "69337": {
+    "article_hash": "c1ae7e9dee01a402dff75c02c4f9b7abd80f74b8a7fb98754be18019a189cb3e",
+    "decision": "exclude",
+    "reason": "General SIRT crisis response announcement; no focused XC procedure"
+  },
+  "69446": {
+    "article_hash": "1fce53c5f976acad261e8db3fa155da876b0776b7874ebfa5547b81beeba9520",
+    "decision": "exclude",
+    "reason": "BIG-IP country blocking tutorial; XC only reference to separate article"
+  },
+  "69456": {
+    "article_hash": "eab0088180d7abdd86c0efa3ebc2e481368530bff16da43fd6aaabc6ca09f98b",
+    "decision": "exclude",
+    "reason": "General OMB zero-trust capability guide; no substantive XC procedure"
+  },
+  "69462": {
+    "article_hash": "eef4e5e42b89867fc2d7647c2d16c34f0dd48989ea4b701844880b6c1237fc26",
+    "decision": "include",
+    "reason": "Distributed Cloud Security Service Insertion orchestrates external BIG-IP WAF service deployment"
+  },
+  "69568": {
+    "article_hash": "e9c76beeb90ad0f42828e7036343204ad5fdc3ef3d34a4bc00ab631160b9e4e9",
+    "decision": "exclude",
+    "reason": "General OWASP Automated Threats overview; Distributed Cloud appears only in related-content links"
+  },
+  "69584": {
+    "article_hash": "12fad7e2e6bf882cfa5b53ae753c09725a2f6eb2518b9ce14cf7a7014dfa7b0a",
+    "decision": "include",
+    "reason": "Demonstrates credential-stuffing mitigation with Distributed Cloud Bot Defense"
+  },
+  "69639": {
+    "article_hash": "a62ee6521fe39c32a241e13882173e5e1b0d8ee938d0f68f4e490bb0c983145a",
+    "decision": "exclude",
+    "reason": "Monthly community digest includes forums and article links, not focused technical content"
+  },
+  "69712": {
+    "article_hash": "98d36f59962957aabecaa40a7aa1e8c3f6d4807ef04aab9f9643ad63cce8005b",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense onboarding and BIG-IP connector integration"
+  },
+  "69713": {
+    "article_hash": "90ede16cc14163ddaa4d6f49ea0514393f4dfe64a9f702694244e02610d7bc56",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense onboarding and native BIG-IP connector integration"
+  },
+  "69723": {
+    "article_hash": "11128b21d9320aacb45e8a952482e7195d4e862b4d79b5bc8f5c31bc82377f15",
+    "decision": "exclude",
+    "reason": "Monthly community digest includes forums and article links, not focused technical content"
+  },
+  "69843": {
+    "article_hash": "50dc579335cca66c6d8b6ac444f806a43fa7286bbc67f11d11356c8909f90d2b",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP deployment and Palo Alto integration in AWS"
+  },
+  "69897": {
+    "article_hash": "558ee526dd3c6b3f652cfc0272e486d69eb916befab0a2aaba7c7f5d69a8cb03",
+    "decision": "include",
+    "reason": "Distributed Cloud Account Protection fraud investigation demonstration"
+  },
+  "69940": {
+    "article_hash": "ec2e7599ff774c4820c05cf3747e708f5d44424bae5b1bf327e436de62786b61",
+    "decision": "exclude",
+    "reason": "Community group welcome and participation guidance; not substantive technical article"
+  },
+  "69971": {
+    "article_hash": "9c50c6abaced124d29049975ca0da77ff6f5094368273bf2d4598e1e1bd92ef8",
+    "decision": "exclude",
+    "reason": "General networking acronym glossary with incidental Distributed Cloud terms"
+  },
+  "70005": {
+    "article_hash": "d8681f28d794810cbf7de814efc31e747d6e849577f425626a6f4d3eb23b09be",
+    "decision": "exclude",
+    "reason": "Recent-article roundup with contributor attribution; news digest outside content scope"
+  },
+  "70023": {
+    "article_hash": "a4e910bce8b446adc32b5c0349f0fb95c22510dd93577e0203b14ad43dcdbab0",
+    "decision": "exclude",
+    "reason": "Personal learning and mission essay; Distributed Cloud only a learning topic"
+  },
+  "70039": {
+    "article_hash": "26eabac4881a93a0e6d0a8159fb8cae7da27d05aaeb6eb5854bcbfb95a0e38a0",
+    "decision": "include",
+    "reason": "Kubernetes service discovery authentication for Distributed Cloud platform"
+  },
+  "70110": {
+    "article_hash": "896beaa72bf56d17ced0b633b6a128fbd156420d258c52a5238f83a4ee9f251a",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "70115": {
+    "article_hash": "642bdba5f7d20a0d008b65bff4bbaf3a5b09bce795ef62cf784c7af64f3cc7c3",
+    "decision": "exclude",
+    "reason": "BIG-IP AWAF policy automation; Distributed Cloud is introductory portfolio context"
+  },
+  "70118": {
+    "article_hash": "d5ae59ccadda01441f5ffd89071c912fdd7d306d9a1bb26e55375fc40b381a84",
+    "decision": "exclude",
+    "reason": "Apache Commons vulnerability explanation; Distributed Cloud one mitigation alternative"
+  },
+  "70138": {
+    "article_hash": "43725b2ed8ba13cb1f322a44602e3ab0c460e85cedbdec3ec77fa671a8ae7487",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0cf5f763752884a3ba3886d8ebeeaac7615a701d.jpeg": {
+        "output_sha256": "6bf968f75c573365c1b8a33c598286dde5a8639c0066655b21e743b14b04b1ed",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0cf5f763752884a3ba3886d8ebeeaac7615a701d.jpeg": "42653b53faaa3ae32e6f3d3318a22643c4fde96144a7e403e1641e368e4eaec4"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected authentication intelligence explanation and generic session timeline; no credentials or user records",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "70151": {
+    "article_hash": "a3228047b1378e4fc92d4d9e83e477a9e3a0024627b639d5465c693b9e635ed5",
+    "decision": "include",
+    "reason": "Distributed Cloud Azure cloud credential setup"
+  },
+  "70152": {
+    "article_hash": "2692696b285b8c2360c5eaf62a2c6f66fca4cbd6f475c67d52f826005014d87c",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dbc73ccd542a5b069413c9faa55dc2ff7fe44ab.png": {
+        "labels": [
+          {
+            "rectangle": [
+              187,
+              130,
+              350,
+              147
+            ],
+            "size": 10,
+            "text": "existing-workload-vpc"
+          },
+          {
+            "rectangle": [
+              364,
+              130,
+              489,
+              147
+            ],
+            "size": 10,
+            "text": "vpc-00000001"
+          },
+          {
+            "rectangle": [
+              188,
+              166,
+              350,
+              186
+            ],
+            "size": 10,
+            "text": "managed-services-vpc"
+          },
+          {
+            "rectangle": [
+              364,
+              166,
+              489,
+              186
+            ],
+            "size": 10,
+            "text": "vpc-00000002"
+          }
+        ],
+        "output_sha256": "399c948916273c4e7519c8950237d2ea953f83865de9f162ae3193a0a352f659",
+        "rectangles": [
+          [
+            0,
+            0,
+            990,
+            41
+          ],
+          [
+            700,
+            124,
+            967,
+            244
+          ],
+          [
+            184,
+            188,
+            699,
+            239
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7eca353ce7bfabfd261a02e2da961e7b1a2f94e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              5,
+              61,
+              119,
+              79
+            ],
+            "size": 9,
+            "text": "Example Organization"
+          }
+        ],
+        "output_sha256": "e3d49910a1457aeb0932ab6152d5e8ea4f8eeb93637ce27ceceb12110ae300c5",
+        "rectangles": [
+          [
+            5,
+            61,
+            120,
+            76
+          ],
+          [
+            895,
+            0,
+            990,
+            22
+          ],
+          [
+            16,
+            143,
+            178,
+            187
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6129510306dfa4c65bbe9f614722e4193f46abe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              272,
+              56,
+              476,
+              73
+            ],
+            "size": 10,
+            "text": "rtb-00000001"
+          },
+          {
+            "rectangle": [
+              168,
+              81,
+              700,
+              110
+            ],
+            "size": 16,
+            "text": "rtb-00000001 / workload-private-route-table"
+          },
+          {
+            "rectangle": [
+              190,
+              220,
+              345,
+              239
+            ],
+            "size": 10,
+            "text": "rtb-00000001"
+          },
+          {
+            "rectangle": [
+              178,
+              259,
+              350,
+              285
+            ],
+            "size": 10,
+            "text": "vpc-00000001 / workload-vpc"
+          },
+          {
+            "rectangle": [
+              382,
+              260,
+              530,
+              277
+            ],
+            "size": 10,
+            "text": "000000000000"
+          },
+          {
+            "rectangle": [
+              557,
+              222,
+              760,
+              252
+            ],
+            "size": 10,
+            "text": "subnet-00000001 / workload-subnet"
+          },
+          {
+            "rectangle": [
+              413,
+              482,
+              638,
+              499
+            ],
+            "size": 10,
+            "text": "tgw-00000001"
+          },
+          {
+            "rectangle": [
+              413,
+              500,
+              638,
+              518
+            ],
+            "size": 10,
+            "text": "nat-00000001"
+          },
+          {
+            "rectangle": [
+              178,
+              518,
+              404,
+              536
+            ],
+            "size": 10,
+            "text": "2001:db8::/56"
+          },
+          {
+            "rectangle": [
+              413,
+              536,
+              638,
+              553
+            ],
+            "size": 10,
+            "text": "igw-00000001"
+          },
+          {
+            "rectangle": [
+              178,
+              554,
+              402,
+              573
+            ],
+            "size": 10,
+            "text": "pl-00000001"
+          },
+          {
+            "rectangle": [
+              413,
+              554,
+              638,
+              573
+            ],
+            "size": 10,
+            "text": "vpce-00000001"
+          }
+        ],
+        "output_sha256": "794c19c4cfe55fa9833c74196a0622fab1d4de13191b7652563631bc877fad1e",
+        "rectangles": [
+          [
+            0,
+            0,
+            937,
+            41
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fd9c74c2c9019ef9bddd757e24190f453bb5a831.png": {
+        "labels": [
+          {
+            "rectangle": [
+              194,
+              93,
+              421,
+              111
+            ],
+            "size": 10,
+            "text": "vpc-00000001"
+          }
+        ],
+        "output_sha256": "18eeeca3ee6357b97fab0a19e391f8afb5fc3892ab74c7fef394289292a6a601",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fe21422b0f140a7f94c038c06457efa7c466a82f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              262,
+              131,
+              329,
+              149
+            ],
+            "size": 8,
+            "text": "aws-vpc-site"
+          }
+        ],
+        "output_sha256": "815890243455e0eb0f49ffaa89f62b584825add67bc1054c4606501af58f15de",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e9b26e623f31b6c3774c6784a5bc0177cf320df6.png": "b7fa87912d9ae9a6e7091b72fc20d8d1995ec3051ca1262570e0c30d9b04d8a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/267380837e6e580640bd2d81af9fc693ba60e2ba.png": "ca0d961791c77289932ad8dcd5e3abe763ee547d20556d88e94f8089f6ffb6cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2f5af6eb77355fd9324d6de3dc2eb0328d036ef2.png": "6169cf87210b4adf8ab872c67c64d01cbb03f8a815b257a0a9be95dba4b67f41",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54db4ba8d195a07331b2307c133d9ae2256efbf1.png": "b26cb2220c781781fcc5ccd0f0959843a121554485533b42451b03672ad976db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dbc73ccd542a5b069413c9faa55dc2ff7fe44ab.png": "4ac3ba98b3dc1e2613853d363bddd8b39203a0d87c9e8edbea193835e2ef896c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab0cdcfe9b10b34963ea01467509c4cd2aa85094.png": "d0f7c801bc7570e04e1f12272718f0b98bf9e855874d4b4dcad5b94e2a97c29a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7eca353ce7bfabfd261a02e2da961e7b1a2f94e.png": "f57c63bc6bf5770efe497bafb70abd3d01b994788b20383669b98ace7a4c4abd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6129510306dfa4c65bbe9f614722e4193f46abe.png": "80061c4440104b4149288d7163ad46fddc0e7b8496191dbb3ff1f9255f69ea7a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/def9b2cca982d62a700635f4addd520dc389c182.png": "b67b43bd41f535fff81ef4496cf64bf134c7d7046899999e9154aca43d5792ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e66767273b198e2650946c7e8d429c4514cbd665.png": "91f6c5b82cea851c86e53a8bc239d57733d4bc2fe1b857e1481ac22d137cc277",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4c9351b73217467e011ef19e9f171658dc6cd35b.png": "889dad0a02a784c46f85db1bb40953d8b63893b73fe0d0ae2f418abbc7bd3563",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/a/9a70cbdd26486baf12535a8d23dbe826534fbd91.png": "a3a7c96e616a422ddd7fa082cc16480e9d09ffa0caf2b7c308b26069eb3852c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/b/bbcb5821ecc8baea8c1296fe82469dfcbaef0270.png": "8ce7af9d07682defdae4b49013b8d8743f1a3644fc16724297037095be1024ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/7/e7a5bcb7886ad6ec19a7ef52cc9e1cec6b2f492e.png": "fd7bbd0ad14c08cdbc0772403d68cbb42cf5f6887ba4dcda204a21e525069f8a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/a/eaf92ff41996ad687053a49a4b57a9ee5b031670.png": "7fb1d5b503de3151add5d92d66a8da2ff152fd8847a5a0ca00219626fe5558b7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fd9c74c2c9019ef9bddd757e24190f453bb5a831.png": "ba6a2724ffddde1007f68e1ac444b100779bbb29f706da5b04560e5357e43011",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fe21422b0f140a7f94c038c06457efa7c466a82f.png": "d3bad80b09674205498a7e39d71a108473cdc6ab708568e397ee675c66e7e1c8"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected prose and seventeen configuration images; synthetic resource and site identifiers preserve route targets and VPC attachment; private example networks are illustrative",
+    "reason": "Distributed Cloud transit networking and site mesh deployment"
+  },
+  "70220": {
+    "article_hash": "dc0562d7840e51096ef094bd960af28e0d76c18626abe8e7e3cbb1053e83c70f",
+    "decision": "exclude",
+    "reason": "Weekly news and article-link digest, not substantive technical article"
+  },
+  "70236": {
+    "article_hash": "963f9bc0684c81e41ff9be6aea5c5821aea3f892045b14490a954f58674303de",
+    "decision": "include",
+    "reason": "Demonstrates CAPTCHA defeat mitigation with Distributed Cloud Bot Defense"
+  },
+  "70262": {
+    "article_hash": "69433216bdff044139a986e16d8b07f5c67ebe939555958fdf164ea2f9254c55",
+    "decision": "exclude",
+    "reason": "HTTP hop-by-hop vulnerability explanation; Distributed Cloud one closing alternative"
+  },
+  "70376": {
+    "article_hash": "5d12dbcb263626c1f1629883ca38437e1415bbf3d50b9c88b15a1fe00f104a1a",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0c1fa3bac44b1079cc78ac7cf5e1d3d73dddbf7f.jpeg": {
+        "output_sha256": "9f960b97b32b4c295409479e735d4a87671f5bd1be543dad00cf4522d655a802",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0c1fa3bac44b1079cc78ac7cf5e1d3d73dddbf7f.jpeg": "535df0acb433943481bdf87138cc8861fe4cb620c67fae4f23e3971ab30214bd"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OpenShift unified-security prose and generic module title; no identifiers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "70387": {
+    "article_hash": "cceef31b2f7d44757cf21937c6faf1b8241e308b8071a1724ee9baa2fabc38cc",
+    "decision": "include",
+    "reason": "Demonstrates carding mitigation with Distributed Cloud Bot Defense"
+  },
+  "70395": {
+    "article_hash": "efb1284856e888c5e6a025d7506aedb0f56e64542914b1aff4b60122bf08a095",
+    "decision": "exclude",
+    "reason": "Recent-article and video roundup; news digest outside content scope"
+  },
+  "70397": {
+    "article_hash": "5c552131eee4535a90f2e281ae91565d6e91292e3114ed80cdb4537b5664831f",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/36f6de938e76bef999c0729c23f1e0f52515c515.jpeg": {
+        "output_sha256": "a25ba2ac37b37ac19b3c35036c498ecceb29b6d0cdd90ba0149fd0373aeed648",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/36f6de938e76bef999c0729c23f1e0f52515c515.jpeg": "3d6100e225ea8faa405dfbd0205e89771b1f36f143dc44d316998d25ebaa51b9"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OWASP API risk explanation and generic metadata flow diagram; no request records",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "70469": {
+    "article_hash": "49cd293d98354882d109d491b430803693648d74053f033da792b05e9eb17eae",
+    "decision": "exclude",
+    "reason": "Recent-article and video roundup; news digest outside content scope"
+  },
+  "70628": {
+    "article_hash": "31e757585093d9b6ddd5fdd73e8e0f22e0bf212be3ac0b6f3748e65bf0076cbc",
+    "decision": "exclude",
+    "reason": "Recent-article roundup; news digest outside content scope"
+  },
+  "70693": {
+    "article_hash": "f6ca9628e1c02eb67df29660896cf70748839867569395f8b9163b11130ef607",
+    "decision": "include",
+    "reason": "Demonstrates vulnerability-scanner mitigation with Distributed Cloud Bot Defense"
+  },
+  "70694": {
+    "article_hash": "4b33f3ee092dd2db8746863faf847fa3c77b4217bb6343a3f043b7d72b77b0e9",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9e773f55d364abffa7e3bac7d8ae1e0e837c5e4e.jpeg": {
+        "output_sha256": "83f944bed0f5df75d59ee8b2caf1376c5300db2cf3f58a73485b46f1fc3b7279",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9e773f55d364abffa7e3bac7d8ae1e0e837c5e4e.jpeg": "69522f0febb4b35b7f310b325742eb817c4ce0b2af3b1c24bbfa464072ed203e"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected sniping threat explanation and generic Bot Defense feature slide; no bidder records",
+    "reason": "Demonstrates automated sniping mitigation with Distributed Cloud Bot Defense"
+  },
+  "70708": {
+    "article_hash": "360121c450183157ebdc40b668101c7c290fcdcb8044b6699e20416c3d9b9308",
+    "decision": "exclude",
+    "reason": "BIG-IP, BIG-IQ and NGINX hardening guide; Distributed Cloud only one WAF alternative"
+  },
+  "70751": {
+    "article_hash": "8049af3a53b4302459d5d1956f3a443872d0b5e6778432d6aa58336fd4ce953c",
+    "decision": "exclude",
+    "reason": "BIG-IP automation and CloudWatch operations; Distributed Cloud is only a closing alternative"
+  },
+  "70811": {
+    "article_hash": "c063d98cf06a3938af44dcbd4a1d33e7a9d8015a5fedb95aa0fc4ac4edb61ce8",
+    "decision": "include",
+    "reason": "Distributed Cloud CI/CD deployment and service-graph observability"
+  },
+  "70812": {
+    "article_hash": "0a8ccc870ff870eef1b8df8de3b767ee9959986e3ccc98a5a3785da0e84291c8",
+    "decision": "include",
+    "reason": "Distributed Cloud API discovery and enforcement in associated hybrid application demonstration"
+  },
+  "70833": {
+    "article_hash": "cb40721164acdb49457e92d4c4e72401d75c67bbe0afdce8522606414c15f344",
+    "decision": "include",
+    "reason": "Demonstrates automated scalping mitigation with Distributed Cloud Bot Defense"
+  },
+  "70890": {
+    "article_hash": "a2cb8e48d7824375cff6e4b092111781e45135ebce70a7ec1bea35ce414be7fb",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP API discovery, inventory and security dashboards"
+  },
+  "70911": {
+    "article_hash": "6f8418d8ec7db4dacfc416d42d879b62b1f704e56f19d7a1c14d8ab8751535c0",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95e95e6c8ab4ead230d09653a4078c099cf34f4f.png": {
+        "output_sha256": "eaa9563f1e0ba8737ed218573a5f780bd69f131c74ad97e18543081720bc4427",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/0556ea68bacc6618dd71772b430359bb96feee71.jpeg": {
+        "output_sha256": "c55d748f98d24a665bfb0e05d7c50c3d5cc4b86137321b166ca7d0ee6c93c52d",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95e95e6c8ab4ead230d09653a4078c099cf34f4f.png": "9bc1afdb5bd3a62ba0aabc2eddbff8c16557a9e1fb3c1c561e6484c10dab0891",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/0556ea68bacc6618dd71772b430359bb96feee71.jpeg": "1689fdfa7a38196427199ad660bf067db82c7bc533d9cdeff216ec789881e459"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected exfiltration response explanation and two generic AIP and STIR architecture diagrams; no alerts or user records",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "70923": {
+    "article_hash": "d3322157cf7cf1eaacbe3f40fe50e2caf81ce3e31e93b12c60b7f88feb877fff",
+    "decision": "exclude",
+    "reason": "General multi-product API security index; no substantive Distributed Cloud deployment"
+  },
+  "70931": {
+    "article_hash": "4abf161cead60e0022b40c42640750f6a2f2d929b989338e323fa44871cc3ed6",
+    "decision": "exclude",
+    "reason": "Recent-article roundup; news digest outside content scope"
+  },
+  "71043": {
+    "article_hash": "551a25057c50071c51ea1a8e6f1d54bd537d1987ebd8a5e13f636754ec7c1865",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b84052b273c446f672d265acc32b43bc1bf5f9f4.jpeg": {
+        "output_sha256": "70b16dfd8470d30323c159966e76aea60d659b0461eb5bc644764d808348385d",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62707637709506821faa1c1abc09fd6a1d3ae65a.png": "a5ba878463df81fbb765b266b53e15b890006548dff89b8734184c5aa83496e0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b84052b273c446f672d265acc32b43bc1bf5f9f4.jpeg": "761a9c49e7b076cb89ab326c9223af3f0501cf8f71869a30239f8b80fcd9b606"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected CSD automation explanation and two generic analysis and deployment flow diagrams; no credential bytes",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "71045": {
+    "article_hash": "4405f482362afa93e1d2b04d098644d9f2135296f1885df7361d5146007f074e",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/592cabd3211cf52df362d63f3af19361a69d51bf.jpeg": {
+        "output_sha256": "9ed401005a331287f4e3c31354098c49487b5a7175f43f5f7b640a276821e37f",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/592cabd3211cf52df362d63f3af19361a69d51bf.jpeg": "8c9ba911de77e51735a3195efa3a2baef367cd75dcb583965efdccd7f7685417"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected injection mitigation automation explanation and generic deployment diagram; no actual endpoint identifiers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "71062": {
+    "article_hash": "539a7b9b7e592272933f5737806b50d9023d0bc438401afd8fca39d03530538e",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/564b47dbb3d419b1a2d1e186d75f59d87da482a4.jpeg": {
+        "output_sha256": "932e37951719cdf0741e9dd16a1dba16d8faa8f8453805c376beb41d37e65737",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/288b200687c01e1bdd8903562eca5ab6e1b8d43d.jpeg": {
+        "output_sha256": "91e102c2a284f7a3e0860506026276ca57f361dfe4a2d6e42eda813f9924dd8c",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/564b47dbb3d419b1a2d1e186d75f59d87da482a4.jpeg": "7be8d9536aff8f0d113b1d91765ca2d74318608cb1c1b19d404b2299a9720fe5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/288b200687c01e1bdd8903562eca5ab6e1b8d43d.jpeg": "58827a30068902abb86c4f75c7f484e24c58f22539cb0e2f87e89e16761dbdb3"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected malicious user mitigation explanation and two generic behavioral and deployment diagrams; no actual user events",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "71092": {
+    "article_hash": "6b28bf5ad9277cf222396582aa573ed035839efa92083e278a9c64c9f44582c5",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; not a Distributed Cloud focused article"
+  },
+  "71093": {
+    "article_hash": "a416812ee2c249538a31da3d99fb89d40866758716f7123539a5c5741a633da2",
+    "decision": "exclude",
+    "reason": "Generic STIR SIEM/SOAR architecture; Distributed Cloud appears as related prior application"
+  },
+  "71173": {
+    "article_hash": "5ac3dff0cfee76232a3aa253f478564de5e060f9616e7610cd92e297807298aa",
+    "decision": "exclude",
+    "reason": "BIG-IP and AWS Global Accelerator testing; Distributed Cloud is a short alternative section"
+  },
+  "71226": {
+    "article_hash": "035eef746742622526c5a197cbecb7416c113b71e46192aac8a805254e42b255",
+    "decision": "exclude",
+    "reason": "BIG-IP APM OAuth API access-control tutorial; Distributed Cloud WAAP is introductory context"
+  },
+  "71240": {
+    "article_hash": "c287dc05b52b4cbc429be1066992c95b51d000abc6b7f13373dde417f7ec6f1b",
+    "decision": "exclude",
+    "reason": "Recent-article holiday roundup; news digest outside content scope"
+  },
+  "71279": {
+    "article_hash": "2be8db6f85f53de2422845c9fb17affd6935146c4869a7ab88f24e347a21b090",
+    "decision": "exclude",
+    "reason": "General CVE program explanation; Volterra only acquisition provenance"
+  },
+  "71304": {
+    "article_hash": "824634b10cb9e5d6996a7b99ad1714e16c76b253006051947dd41448e04c2eda",
+    "decision": "include",
+    "reason": "Hybrid WAF architecture with substantive Distributed Cloud edge security design"
+  },
+  "71319": {
+    "article_hash": "179f7a443f7367ca784c8949210a00d903251dfac7d5b68fbbab0451bee87607",
+    "decision": "include",
+    "reason": "Joint Distributed Cloud edge WAF and BIG-IP origin WAF deployment and CI/CD integration"
+  },
+  "71398": {
+    "article_hash": "c2e6b38cfbb6292adccfdd0869618bd72574188d980a0f35dc3b9b9cacf8b0f9",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/77626c66943ae89866e34efaa44a432b1a66663c.jpeg": {
+        "output_sha256": "0800cc6456cf86051a848e56cdd07d6531d66930aed7293aaa9c1e22c88e2365",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/77626c66943ae89866e34efaa44a432b1a66663c.jpeg": "7f4ab685d54ef3375da397a7699960a1b01584275dcf5d9331582894d1ca3a72"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected DoS threat explanation and generic WAAP architecture slide; no events or user records",
+    "reason": "Demonstrates DoS mitigation with Distributed Cloud Bot Defense"
+  },
+  "71441": {
+    "article_hash": "01e7c70e728fe67112eb0ca8051f5d51122f799c850787adfe0cd5a5119a41e3",
+    "decision": "exclude",
+    "reason": "Generic STIR component configuration; Distributed Cloud load balancers are a deployment reference"
+  },
+  "71455": {
+    "article_hash": "cf4378fba7adf955bfc0ab170be867ee7e0a4f943945d40316bebfc4e020e74b",
+    "decision": "include",
+    "reason": "Distributed Cloud virtual Kubernetes and DNS support workload migration and failover"
+  },
+  "71493": {
+    "article_hash": "6942b0ebac9f65c02b2ef0ecc8598a68f35439e31fb4a5b79de8f472d1b5274f",
+    "decision": "exclude",
+    "reason": "General multi-cloud networking concept; no substantive Distributed Cloud procedure"
+  },
+  "71526": {
+    "article_hash": "07b2b0a9974b19395dc67c54901d2b3632f649211153972087e2670e402ef8bb",
+    "decision": "exclude",
+    "reason": "Recent-article roundup; news digest outside content scope"
+  },
+  "71535": {
+    "article_hash": "00dbdd6a2bddf14637f96fbfb5997dc8451af925557e1a7e420b9dc31de81d57",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Curated Distributed Cloud Network Connect learning path and configuration resources"
+  },
+  "71685": {
+    "article_hash": "340a89eb640a5b92dfca69dfc75286a9caeb74c6541896825c514806db28fcac",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense connector onboarding and monitoring via BIG-IP 17.1"
+  },
+  "71780": {
+    "article_hash": "7d8e673b8d8beca710a2e098627cd849a1f49907be1c36d9296aa7f720f4e980",
+    "decision": "include",
+    "reason": "Substantive Distributed Cloud regional-edge, customer-edge and tunnel resiliency architecture"
+  },
+  "71805": {
+    "article_hash": "3184befd613612d4fbfef4c94f37bd73d98cb465a2913015ee12052e66ba8298",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "71826": {
+    "article_hash": "c4f5fdac9cbdf6d2df56eee73d5e2ee27c1ec6e680a417f4645c98cf0649ca41",
+    "decision": "exclude",
+    "reason": "Recent-article roundup; news digest outside content scope"
+  },
+  "71833": {
+    "article_hash": "752b374545d436c40502bd776ef2c09aa704f23bd25f771eefad2082000f6763",
+    "decision": "exclude",
+    "reason": "Kubernetes certification learning narrative; Distributed Cloud only a closing activity"
+  },
+  "71917": {
+    "article_hash": "0914b532fd124ecb73d84ba91e9d1a0dcf77af54cf41a4b5d253e698dd71c7da",
+    "decision": "exclude",
+    "reason": "General WAAP concept overview; Distributed Cloud is only a closing product example"
+  },
+  "71965": {
+    "article_hash": "f006d434149451058ca137df4bfb7a173789d931c40897862fdc33d5fd87f187",
+    "decision": "include",
+    "reason": "API threat overview includes substantive Distributed Cloud WAAP mitigations and platform capabilities"
+  },
+  "71973": {
+    "article_hash": "c72a10da749a98aa9cb3be8c00d686ff6621a1d1f58484f2c6ae54ba750a40aa",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot and DDoS defense deployment with BIG-IP origin WAF"
+  },
+  "71996": {
+    "article_hash": "153f92aaa9c61b4b709a29c76825dd5c85edb7ac8a8f43e7c9eff3386cd3df2f",
+    "decision": "exclude",
+    "reason": "General HTTP request-smuggling and BIG-IP RFC enforcement; Distributed Cloud is one alternative"
+  },
+  "72005": {
+    "article_hash": "23ba18693afa7600ce8f9ef708c4d18083d05c8a48f31d4c1538e719d91784e8",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Curated Distributed Cloud WAAP learning path and configuration resources"
+  },
+  "72008": {
+    "article_hash": "2d8a58468df9cf76a45c40d0d76b84842cd5a57184aee84d527c84e93ad8a896",
+    "decision": "exclude",
+    "reason": "General CVE process explainer; Volterra only acquisition provenance"
+  },
+  "72017": {
+    "article_hash": "c0a37d288f0e446f9ecd74812550884d7a93308582faf1f171de5b0fd34b3f32",
+    "decision": "exclude",
+    "reason": "SIRT support case study for BIG-IP credential stuffing; not Distributed Cloud focused"
+  },
+  "72045": {
+    "article_hash": "120e7832e6096072ee6647deb00752acba4ad9d9a659c6a20b47bba3d71b8020",
+    "decision": "exclude",
+    "reason": "OpenTelemetry observability demo focuses BIG-IP and NGINX; XC appears as optional edge deployment"
+  },
+  "72098": {
+    "article_hash": "04d29667607d7c6d9f54d7202438cd27dc52a946023d11d64eee622ad9cf290c",
+    "decision": "include",
+    "reason": "Distributed Cloud App Stack extension guide; iRule in title is an analogy"
+  },
+  "72169": {
+    "article_hash": "00244c09afdb224ae9ac6ba815769ec7f78aee5ed26f7ca0a3b7dfab3590316f",
+    "decision": "exclude",
+    "reason": "BIG-IP ASM iRule shadow-API logs and reports; XC only comparison and future integration"
+  },
+  "72254": {
+    "article_hash": "dbb829b875d0f3cafddcc64007f91204320125185d86bdcfea3f97c4e83cae18",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; not Distributed Cloud focused technical content"
+  },
+  "72321": {
+    "article_hash": "330db2fb274c5332489404d62e149a86e447c2fb84456825445751e6a8f70cf2",
+    "decision": "include",
+    "reason": "Distributed Cloud Client-Side Defense onboarding through BIG-IP connector"
+  },
+  "72363": {
+    "article_hash": "4c6fe926b0153d3826d0fc1e0acffb311b2e62eb64b3e73013856b70ac28ce42",
+    "decision": "include",
+    "reason": "Distributed Cloud GraphQL discovery and protection demonstration"
+  },
+  "72388": {
+    "article_hash": "113047517dfb593bf3089e2875f30b2f0459085290838f124500064357fc8272",
+    "decision": "include",
+    "reason": "Migrates iRule behavior to Distributed Cloud service policies and L7 routes; privacy review required"
+  },
+  "72432": {
+    "article_hash": "7a1616db0418b9af57de9222da726ab49d119f8dd6b2d9da5945dd7e37cef3a8",
+    "decision": "include",
+    "reason": "Distributed Cloud synthetic monitoring configuration and alerting"
+  },
+  "72470": {
+    "article_hash": "35d8982b624a7db0d13688113c62819f6fcdaa30de84273daed4213f45068971",
+    "decision": "exclude",
+    "reason": "Generic CDN defense-in-depth case study; Distributed Cloud only mentioned as CDN offering"
+  },
+  "72485": {
+    "article_hash": "079bda93bd430346c16021b86c8f97fcd9cc77a6c61852cb7b2acf1c189c2228",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9fc547dc6d06e1d83aa2eb40d1e56896fd568a9a.jpeg": {
+        "output_sha256": "23cf68f5c9186ea091bfc1754b9bd0e8ab4c3eec95656ec178b53daeb53807c7",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9fc547dc6d06e1d83aa2eb40d1e56896fd568a9a.jpeg": "dca1c6d28259877508b29cd9dc840ed0df86ae5eba0c8f0e493ca4b876f4d52a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SSO architecture guidance and generic identity diagram; no actual identities",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "72505": {
+    "article_hash": "6d13496992dbadf419c4e5e4d2a1b260188971c6e6cffc0601813857983f4c3d",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP tiered protection deployment and optional BIG-IP migration"
+  },
+  "72533": {
+    "article_hash": "17bff3365a5f12d6f18274ee2de10922dc2bdd3d8c6753150989b7f6fea2c84c",
+    "decision": "exclude",
+    "reason": "General threat advisory with multi-product alternatives; no focused Distributed Cloud procedure"
+  },
+  "72729": {
+    "article_hash": "9e1150d5eb3fccdc32f0e9f73eb02f09a3afe0dd5db6404745a4495f6d285854",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP incident monitoring and suggested mitigation workflow"
+  },
+  "72733": {
+    "article_hash": "a0c64890f5a936c7decfb289b3191e05e801756795753b290ebd9592ab920030",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud DNS configuration demo guide and deployment resources"
+  },
+  "72834": {
+    "article_hash": "47bd4bd08d3dc691c3bd7830a404c614ea17ef4f5b5102a7b5755e1daa6dcad1",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0449f07e7cf21048446c8a1e2772cdd68b0e7da1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              37,
+              486,
+              189,
+              507
+            ],
+            "size": 14,
+            "text": "blue.example.com"
+          },
+          {
+            "rectangle": [
+              239,
+              486,
+              411,
+              507
+            ],
+            "size": 14,
+            "text": "green.example.com"
+          },
+          {
+            "rectangle": [
+              451,
+              486,
+              625,
+              507
+            ],
+            "size": 14,
+            "text": "purple.example.com"
+          },
+          {
+            "rectangle": [
+              674,
+              486,
+              820,
+              507
+            ],
+            "size": 14,
+            "text": "red.example.com"
+          }
+        ],
+        "output_sha256": "43f0effe0d4cc1da811f241d5db6e4d98bd10a2bda9b4d1d452f07ad1b7d4b8a",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16fdf4d87ff5fcabe18aafa9f941a4b0772c68b6.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              133,
+              549,
+              290,
+              571
+            ],
+            "size": 14,
+            "text": "blue.example.com"
+          },
+          {
+            "rectangle": [
+              339,
+              549,
+              509,
+              571
+            ],
+            "size": 14,
+            "text": "green.example.com"
+          },
+          {
+            "rectangle": [
+              549,
+              549,
+              723,
+              571
+            ],
+            "size": 14,
+            "text": "purple.example.com"
+          },
+          {
+            "rectangle": [
+              775,
+              549,
+              924,
+              571
+            ],
+            "size": 14,
+            "text": "red.example.com"
+          }
+        ],
+        "output_sha256": "a00dfc8c00092d1030c4a038f3edfa073b1f4dc1cd113ba915c61a4f2d277a48",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ea2cc0489bfb739aa8364acd00555f6c8eb195af.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              39,
+              498,
+              197,
+              525
+            ],
+            "size": 14,
+            "text": "blue.example.com"
+          },
+          {
+            "rectangle": [
+              242,
+              498,
+              417,
+              525
+            ],
+            "size": 14,
+            "text": "green.example.com"
+          },
+          {
+            "rectangle": [
+              450,
+              498,
+              627,
+              525
+            ],
+            "size": 14,
+            "text": "purple.example.com"
+          },
+          {
+            "rectangle": [
+              675,
+              498,
+              826,
+              525
+            ],
+            "size": 14,
+            "text": "red.example.com"
+          },
+          {
+            "rectangle": [
+              811,
+              7,
+              937,
+              32
+            ],
+            "size": 14,
+            "text": "example.com"
+          }
+        ],
+        "output_sha256": "b31b9b7307d63469486bbc83f9b6d9ac6dbc0029de014a69aca9dfd311b7f9d5",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43679dcc61f1bddbf759f942331c174bad43836b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              329,
+              40,
+              475,
+              61
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:01"
+          },
+          {
+            "rectangle": [
+              329,
+              61,
+              475,
+              82
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:02"
+          },
+          {
+            "rectangle": [
+              329,
+              82,
+              475,
+              103
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:03"
+          },
+          {
+            "rectangle": [
+              654,
+              40,
+              800,
+              61
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:01"
+          },
+          {
+            "rectangle": [
+              654,
+              61,
+              800,
+              82
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:03"
+          },
+          {
+            "rectangle": [
+              654,
+              82,
+              800,
+              103
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:01"
+          },
+          {
+            "rectangle": [
+              654,
+              103,
+              800,
+              124
+            ],
+            "size": 15,
+            "text": "02:00:00:00:00:02"
+          },
+          {
+            "rectangle": [
+              226,
+              150,
+              357,
+              167
+            ],
+            "size": 11,
+            "text": "02:00:00:00:00:01"
+          },
+          {
+            "rectangle": [
+              439,
+              150,
+              571,
+              167
+            ],
+            "size": 11,
+            "text": "02:00:00:00:00:02"
+          },
+          {
+            "rectangle": [
+              645,
+              150,
+              780,
+              167
+            ],
+            "size": 11,
+            "text": "02:00:00:00:00:03"
+          },
+          {
+            "rectangle": [
+              23,
+              413,
+              182,
+              437
+            ],
+            "size": 14,
+            "text": "blue.example.com"
+          },
+          {
+            "rectangle": [
+              18,
+              480,
+              186,
+              505
+            ],
+            "size": 14,
+            "text": "green.example.com"
+          },
+          {
+            "rectangle": [
+              19,
+              549,
+              190,
+              573
+            ],
+            "size": 14,
+            "text": "purple.example.com"
+          },
+          {
+            "rectangle": [
+              27,
+              615,
+              179,
+              640
+            ],
+            "size": 14,
+            "text": "red.example.com"
+          }
+        ],
+        "output_sha256": "96165f8672644a9fe280df354f812c1e8fa58fc3b5bff669f38f1b02a6703fc9",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/8/d8ba549cc63b1a63fa606dce734aedc906bb1f03.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              150,
+              611,
+              309,
+              634
+            ],
+            "size": 14,
+            "text": "blue.example.com"
+          },
+          {
+            "rectangle": [
+              352,
+              611,
+              525,
+              634
+            ],
+            "size": 14,
+            "text": "green.example.com"
+          },
+          {
+            "rectangle": [
+              563,
+              611,
+              740,
+              634
+            ],
+            "size": 14,
+            "text": "purple.example.com"
+          },
+          {
+            "rectangle": [
+              799,
+              611,
+              951,
+              634
+            ],
+            "size": 14,
+            "text": "red.example.com"
+          }
+        ],
+        "output_sha256": "39894d25fe8c88c9688118f2a20b9db1a30941c09b414764d9e4b3f5c8d02554",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0449f07e7cf21048446c8a1e2772cdd68b0e7da1.jpeg": "a7fcf795c0d992601899b27cef4e8514bdf9e9b81bed8b8a22e5ef1dd23d79b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16fdf4d87ff5fcabe18aafa9f941a4b0772c68b6.jpeg": "3f47ae08c68c09e34cbd96a2ef7ca310efef129a379e9e411ca6f8259b740850",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4ff3074de9125422979b881364eb5458ddee4ac9.jpeg": "21a99e10f7cb5c1d7a92cb67aa3e13efb76e43ccae02dce24d56cbd419c666a2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ea2cc0489bfb739aa8364acd00555f6c8eb195af.jpeg": "53d0bc7643964ea02fc3620eb3d3fc763146a4afc0858019f5322ea1d3d42d36",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f1e65c31e51220cf8d0590f837856612855c96e4.jpeg": "5d6d437fd8e8c8d4df52a4ec3eed9d81dba779737ef3975be5bfc7a3b01655cd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43679dcc61f1bddbf759f942331c174bad43836b.jpeg": "6283a0a993d2285124134f32f8b89c5258757a5160a2774a0165232d457f4c5e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b731d5ecbda68ac208049ccb80dff8611def50ad.jpeg": "87d63e8a4e4d58772c4d658be4b5ae16ce4eb20c3ed28ce4e1757476285ecca5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/8/d8ba549cc63b1a63fa606dce734aedc906bb1f03.jpeg": "516e21b2c21b3777f3992f348b024c52ab8c5b57361413f9b4f2d3dba8154b2b"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected prose and all eight diagrams; synthetic domains and locally administered MAC labels preserve ARP relationships; private example networks are illustrative",
+    "reason": "Distributed Cloud customer edge routing; BIG-IP comparison is incidental"
+  },
+  "72841": {
+    "article_hash": "2dd6d86cd074aa3a44f460e939ded0e216f42dec981d1a8da1433972422933f6",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud DDoS API credential and routing integration with FastNetMon"
+  },
+  "72851": {
+    "article_hash": "400c4a8fd9df9f9d3c21a350a79244bbebd122cf12845087729f60af717cb748",
+    "decision": "include",
+    "reason": "Distributed Cloud REST APIs and Terraform deployment of MCN and edge compute"
+  },
+  "72910": {
+    "article_hash": "16ead93f0b3621add89d410e28f7e694b77d3747dc3a0047f946291676731272",
+    "decision": "include",
+    "reason": "WAF policy conversion and deployment from BIG-IP and NGINX to Distributed Cloud"
+  },
+  "72916": {
+    "article_hash": "18145ce791965a02f79bd38d0db84df0931b8c86864e8ddfdc89b0a493e232d0",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP and virtual Kubernetes protect and test notional FDX APIs"
+  },
+  "72948": {
+    "article_hash": "14ce8067556a9354c0073aa1f6c8657fa55e4a8154d7eff6321cf55406ea290e",
+    "decision": "include",
+    "reason": "Joint Distributed Cloud WAAP, BIG-IP APM and Kubernetes ingress deployment"
+  },
+  "73012": {
+    "article_hash": "10f7e1599cda86ef053b92e6fa21537cdaec58029b117ae6c03bd0a3165bd66d",
+    "decision": "include",
+    "reason": "Distributed Cloud AppStack API logger and control-plane API inventory"
+  },
+  "73082": {
+    "article_hash": "abfbaff67aed582a68d008bb87b3c3f97a3d56bda2da188e09ad4d1dd8e88653",
+    "decision": "include",
+    "reason": "Policy Supervisor onboarding and policy conversion for Distributed Cloud WAAP"
+  },
+  "73259": {
+    "article_hash": "771d4cdc949753dbf3e3825b305501c857109362a4c9a873f43dc9c3f1a58a0b",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; Distributed Cloud mentions are news context"
+  },
+  "73337": {
+    "article_hash": "0ea63ed7f61f260f6169573a4faf99e79d3a87148866844936c9cfb37f2e5b99",
+    "decision": "include",
+    "reason": "Includes concrete Distributed Cloud TLS security-level and HSTS configuration"
+  },
+  "73350": {
+    "article_hash": "e41227ab4fadc002c11e8171f092f36f0584b995f43292a75b8cdb6080e069c9",
+    "decision": "exclude",
+    "reason": "NGINX App Protect API mitigation procedure; no Distributed Cloud deployment"
+  },
+  "73410": {
+    "article_hash": "f3c2b06372be4990dd13a2bd3fea63d5c9498abaec0ad4167c9d91503b080a1f",
+    "decision": "exclude",
+    "reason": "BIG-IP APM BOLA tutorial; hybrid XC architecture is a related-reference section"
+  },
+  "73507": {
+    "article_hash": "069e7e54ba4779d6efa035eddc814b01ce9622d6aaa7276b2cda389ade398f90",
+    "decision": "include",
+    "reason": "Substantive Distributed Cloud PCI service-provider and Client-Side Defense security guidance"
+  },
+  "73548": {
+    "article_hash": "da06d701767d4e3a5dcdd59ca60ad73a8db3f95cabd8bd74f2f59579ac399245",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "bb00bf55e8f7fcdb7431bf26213fa5f010a6a3821f6de6f0e7a1727aea184af9": "{\u201cUserName\u201d: \u201dapisec\u201d, \u201cIsAdmin\u201d: \u201cFalse\u201d, \u201crole\u201d: \u201dtesting\u201d, \u201cEmail\u201d: \u201cuser@example.com\u201d}"
+      },
+      "output_sha256": "f8b8aa841a0c2adec2fc540b6949bc132bd178902bf104cce9208680c3fd35c5"
+    }
+  },
+  "73570": {
+    "article_hash": "ad71bf310a34afacb11a6f5aa8d8ae4ec3f7a0f61b483f962d895f7b82c6f04a",
+    "decision": "exclude",
+    "reason": "BIG-IP Azure cross-region deployment guide; Distributed Cloud appears as comparison"
+  },
+  "73605": {
+    "article_hash": "c348a2df8b1c63e3c621088e36f12bf53f5d28bb75872500f752312555f764f6",
+    "decision": "exclude",
+    "reason": "BIG-IP APM authentication tutorial; Distributed Cloud only a related hybrid article"
+  },
+  "73606": {
+    "article_hash": "77a63f2b2c2007d656c6e4670c6fe23e6723e8dfa11533fb9a14a6312cc57d59",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Substantive Distributed Cloud Bot Defense and API security in layered LLM model-theft defenses"
+  },
+  "73663": {
+    "article_hash": "5b47d5b9d980bd904a86fb02822f64b5af16d96ee6e41c926db68ba6574e3bcf",
+    "decision": "exclude",
+    "reason": "General request-smuggling mitigation mainly BIG-IP WAF; XC mentioned for feature parity"
+  },
+  "73837": {
+    "article_hash": "a88c0ba09ce8015d41ddc1a3a66c2e5647a1f304188663e783f101abdb89be1c",
+    "decision": "include",
+    "reason": "Distributed Cloud out-of-band API monitoring; BIG-IP is the traffic translation component"
+  },
+  "74044": {
+    "article_hash": "ba3f3eea6b2dae0c533ade7080995e1df77e3bc4ea5d430d93bfa94ae9813b2a",
+    "decision": "exclude",
+    "reason": "BIG-IP active-active Azure load balancing; XC one alternative recommendation"
+  },
+  "74060": {
+    "article_hash": "294c228811d469d30714bb34255cb40e35f661cac70b9380410dab393e4cf234",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; not Distributed Cloud focused technical article"
+  },
+  "74096": {
+    "article_hash": "74f25ee020eb9c865f4cef46cafd3d556ec4553df30ec7ec610660d73ae6c6e8",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Substantive Distributed Cloud capability mapping alongside other F5 products"
+  },
+  "74133": {
+    "article_hash": "5a86595a02a4a234684d8ce502ad7536365d4290f57410cfcfa027629f50e51f",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "1fbd3b428f622322854611d658c0682d4db9c2bc15ae27832bc08e8e634ca339": "sub_filter \u2018Example\u2019 \u2018EXAMPLE\u2019;",
+        "2f4f19c76c076faa4e368252a19087b1e14cb19d8d5d395288a878be4fe2bf6c": "https://public-site2.example.com",
+        "3e7bf9c06d860967f3c03c846b1617f59c97dec31e9091a2086ac3c663f5a00d": "http://site1.example.com",
+        "50f6e376ebad4db97a907c3a37196f21fa8f56962de5e5a8cff39a2b7f7f9599": "site1.example.com",
+        "5a1f1bfd8badaca6c7f5c9648af19bd47c71bfeb86c18852a8a837389ede62c1": "log_format example \u2018$proxy_protocol_addr - $remote_addr - $remote_user [$time_local] - $proxy_add_x_forwarded_for\u2019",
+        "943a48d6d85fbacba8425a25a249ba7d2bd6523360145ffb8012d12942bd7558": "https://public-site1.example.com",
+        "a3738bfaeeeaa03221d2cf1d7b6d8dda1c3cfa80864f3a5ca1a969ae3cda69d1": "site2.example.com",
+        "f5fa1168f5213b3bd30f129a7a5657e388522be45b0140456b786a9c7286c24e": "http://site2.example.com"
+      },
+      "output_sha256": "fd924518146fb5ba1385f46b1eeef5e07127c0594e66eab44c2d6fb697eae21e"
+    }
+  },
+  "74162": {
+    "article_hash": "389a9317b696641590f47e7db20126769a4b6cb7b1f325d730636fdb72ccd0e9",
+    "decision": "include",
+    "reason": "Substantive mapping of XC regional/customer edges, WAAP, AppStack and MCN to API gateway tiers"
+  },
+  "74199": {
+    "article_hash": "7f4d3738a5c9e73e51a683533b5f87d9832effacb2da7dbf9f6f504cc553b98f",
+    "decision": "exclude",
+    "reason": "Weekly security news digest including acquisition news; not substantive XC guide"
+  },
+  "74253": {
+    "article_hash": "b05668206b2bceb6964c87ee89282c2b6b54b071e5c522a439e53d8ef145111c",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; Distributed Cloud only a mitigation recommendation"
+  },
+  "74264": {
+    "article_hash": "db52bd3d3e9db362dfd28812ec2d968605131c429c602a63dd0a1d8bf9d86ee4",
+    "decision": "include",
+    "reason": "Distributed Cloud customer-edge application fabric and consistent WAAP policies"
+  },
+  "74268": {
+    "article_hash": "9a85807c4cb81bafda64fa62ef68610e10a8f15fda5a2e6cea8b262602b81d3f",
+    "decision": "exclude",
+    "reason": "BIG-IP APM object-property authorization tutorial; XC only related reference"
+  },
+  "74344": {
+    "article_hash": "136df9380a3700f18351926e7bc51c1681483b7af3eb39520e464a6a1383049d",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; not Distributed Cloud focused"
+  },
+  "74396": {
+    "article_hash": "2c30c3b2dac5d726ccf845a1c2c2ca313a22b5bb50de15a337b09814e962152f",
+    "decision": "include",
+    "reason": "Distributed Cloud AppStack customer-edge GPU deployment for Ollama"
+  },
+  "74446": {
+    "article_hash": "7e7f2bacd9aab9563f58969b136a9a034fb5844b2d81a8e9c20ece21bf803cb4",
+    "decision": "include",
+    "reason": "Migrates BIG-IP maintenance-page iRule functionality to Distributed Cloud AppStack"
+  },
+  "74471": {
+    "article_hash": "f4c608e8efa38a54dad8c63cb5b391614856e8f837e5150b248232e292003ac1",
+    "decision": "include",
+    "reason": "Distributed Cloud ring-hash load-balancing and persistence explanation"
+  },
+  "74578": {
+    "article_hash": "9c50cdbe319dc22c6debbfb9511b40a76ef96ad9cee55fe67c53c45a4da2bd15",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Monitors Distributed Cloud DNS and automates hybrid authoritative DNS failover",
+    "text_replacements": {
+      "nodes": {
+        "ee6f19653db6f97403e5f5ca483c91c28162386cf8565893c8a41079fe022666": "#!/bin/sh\n\n# Define variables\npidfile=\"/var/run/$MONITOR_NAME.$1.$2.pid\"\nstatusfile=\"/var/run/dns_status\"\ncheck_string=\"RESPONSE-OK\"\n\n# NAMECHEAP API USER\nAPI_USER=\"sampleapiuser\"\n# NAMECHEAP APIKEY\nAPI_KEY=\"<apikey>\"\n# NAMECHEAP ACCOUNT USERNAME\nUSERNAME=\"namecheapuser1\"\n# NAMECHEAP COMMAND TO CHANGE THE NAMESERVER\nCOMMAND=\"namecheap.domains.dns.setCustom\"\n# NAMECHEAP ALLOWED API CLIENT IP, WE SET IT TO BIG-IP IP\nCLIENT_IP=\"192.0.2.10\"\n# SECOND LEVEL DOMAIN\nSLD=\"example\"\n# TOP LEVEL DOMAIN\nTLD=\"com\"\nF5XC_NAMESERVERS=\"ns1.f5clouddns.com,ns2.f5clouddns.com\"\nBIGIP_NAMESERVERS=\"gtm1.example.com,gtm2.example.com\"\n# BIGIP ADMIN PASSWORD\nADMIN_PASS=\"XXXXXXX\"\n\n# Function to update DNS to F5XC nameservers\nsendapi_xc() {\n    #tmsh modify ltm virtual VS_APP2 enabled\n    F5XC_API_URL=\"https://api.namecheap.com/xml.response?ApiUser=$API_USER&ApiKey=$API_KEY&UserName=$USERNAME&Command=$COMMAND&ClientIp=$CLIENT_IP&SLD=$SLD&TLD=$TLD&NameServers=$F5XC_NAMESERVERS\"\n    curl -X GET \"$F5XC_API_URL\" >/dev/null 2>&1\n}\n\n# Function to update DNS to BIGIP nameservers\nsendapi_bigip() {\n    #tmsh modify ltm virtual VS_APP2 disabled\n    BIGIP_API_URL=\"https://api.namecheap.com/xml.response?ApiUser=$API_USER&ApiKey=$API_KEY&UserName=$USERNAME&Command=$COMMAND&ClientIp=$CLIENT_IP&SLD=$SLD&TLD=$TLD&NameServers=$BIGIP_NAMESERVERS\"\n    curl -X GET \"$BIGIP_API_URL\" >/dev/null 2>&1\n}\n\n# Functions to manage zone records using F5 iControl REST API\naddzr_xc() {\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo arr external example.com. example.com. 50 NS ns1.f5clouddns.com. | zrsh'\\\"}\" >/dev/null 2>&1\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo arr external example.com. example.com. 50 NS ns2.f5clouddns.com. | zrsh'\\\"}\" >/dev/null 2>&1\n}\n\ndelzr_bip() {\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo drr external example.com. example.com. 50 NS gtm1.example.com. | zrsh'\\\"}\" >/dev/null 2>&1\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo drr external example.com. example.com. 50 NS gtm2.example.com. | zrsh'\\\"}\" >/dev/null 2>&1\n}\n\naddzr_bip() {\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo arr external example.com. example.com. 50 NS gtm1.example.com. | zrsh'\\\"}\" >/dev/null 2>&1\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo arr external example.com. example.com. 50 NS gtm2.example.com. | zrsh'\\\"}\" >/dev/null 2>&1\n}\n\ndelzr_xc() {\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo drr external example.com. example.com. 50 NS ns1.f5clouddns.com. | zrsh'\\\"}\" >/dev/null 2>&1\n    curl -sku admin:$ADMIN_PASS \"https://127.0.0.1:8443/mgmt/tm/util/bash\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"command\\\":\\\"run\\\",\\\"utilCmdArgs\\\":\\\"-c 'echo drr external example.com. example.com. 50 NS ns2.f5clouddns.com. | zrsh'\\\"}\" >/dev/null 2>&1\n}\n\n# Manage the PID file to ensure only one instance of the script runs\nif [ -f $pidfile ]; then\n    kill -9 -`cat $pidfile` > /dev/null 2>&1\nfi\n\necho \"$$\" > $pidfile\n\n# Run dig command and store the output in a variable\nresponse=$(dig @ns1.f5clouddns.com example.com TXT +short)\n\n# Compare response and take action\nif echo \"$response\" | grep -q \"$check_string\"; then\n    previous_status=$(cat \"$statusfile\" 2>/dev/null)\n    if [ \"$response\" != \"$previous_status\" ]; then\n        sendapi_xc\n        addzr_xc\n        delzr_bip\n    fi\n    echo \"up\"\n    echo \"$response\" > \"$statusfile\"\nelse\n    previous_status=$(cat \"$statusfile\" 2>/dev/null)\n    if [ \"$response\" != \"$previous_status\" ]; then\n        sendapi_bigip\n        addzr_bip\n        delzr_xc\n    fi\n    echo \"$response\" > \"$statusfile\"\nfi\n\nrm -f \"$pidfile\"\n"
+      },
+      "output_sha256": "64dc4f9542100c61d93b8cc26bed5f3253231090efb03132585c719b70318dc5"
+    }
+  },
+  "74581": {
+    "article_hash": "8417b69f31f969a6b441500b9f8bf1b07df44c0130df1c02ab1018cb5732479f",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Converts BIG-IP DNS records to Distributed Cloud DNSLB using XC API; privacy review required",
+    "text_replacements": {
+      "nodes": {
+        "e20eda86ac8c9d04afcf0b354333cf5734f451de9951fc7e17cd71051efcb17b": "#!/bin/bash\n\n# Get list of wide IPs\nwideip_output=$(tmsh list gtm wideip all-properties one-line)\n\n# Get list of Pool\npool_output=$(tmsh list gtm pool a one-line all-properties)\n\n# Declare associative arrays\ndeclare -A wideip_list\ndeclare -A current_wideip_info\ndeclare -A zone_array\ndeclare -A subdomain_info\ndeclare -A a_record_per_zone\ndeclare -A pool_list\ndeclare -A membersip_array\n\n# Unset variables\nfunction unset_arrays {\n    unset current_wideip_info name subdomain domain type aliases description status failure_rcode last_resort_pool load_balancing_decision_log metadata minimal_response partition persist_cidr_ipv4 persist_cidr_ipv6 persistence pool_lb_mode pools pool_cname topology_edns0 ttl_persistence poolnames poolnames_array zone_array subdomain_info a_record_per_zone dnslb_name pool_list membersip_array\n}\n\n# Print wide IP details\nfunction print_wideip {\n    for wideip in \"${!wideip_list[@]}\"; do\n        echo \"Wide IP: $wideip, Details: ${wideip_list[$wideip]}\"\n    done\n}\n\n# Create Zone\nfunction create_zone {\ncurl -X POST -H \"Authorization: APIToken XXXXX\" -H \"Accept: application/json\" -H \"Access-Control-Allow-Origin: *\" -H \"x-volterra-apigw-tenant: example-corp\" -H \"Content-Type: application/json\" -d \"{\\\"metadata\\\":{\\\"name\\\":\\\"$zone\\\",\\\"namespace\\\":\\\"system\\\"},\\\"spec\\\":{\\\"primary\\\":{\\\"allow_http_lb_managed_records\\\":true},\\\"default_soa_parameters\\\":{},\\\"dnssec_mode\\\":{},\\\"rr_set_group\\\":[],\\\"soa_parameters\\\":{\\\"refresh\\\":3600,\\\"expire\\\":0,\\\"retry\\\":60,\\\"negative_ttl\\\":0,\\\"ttl\\\":0}}}\" https://example-corp.console.ves.io/api/config/dns/namespaces/system/dns_zones\n}\n\n# Create DNSLB\nfunction create_dnslb {\ncurl -X POST -H \"Authorization: APIToken XXXXX\" -H \"Accept: application/json\" -H \"Access-Control-Allow-Origin: *\" -H \"x-volterra-apigw-tenant: example-corp\" -H \"Content-Type: application/json\" -d \"{\\\"metadata\\\":{\\\"name\\\":\\\"$dnslbname\\\",\\\"namespace\\\":\\\"system\\\",\\\"labels\\\":{},\\\"annotations\\\":{},\\\"disable\\\":false},\\\"spec\\\":{\\\"record_type\\\":\\\"A\\\",\\\"rule_list\\\":{\\\"rules\\\":[{\\\"geo_location_set\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"geo-1\\\",\\\"kind\\\":\\\"geo_location_set\\\"},\\\"pool\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"$xcdnslbpoolname\\\",\\\"kind\\\":\\\"dns_lb_pool\\\"},\\\"score\\\":100}]},\\\"response_cache\\\":{\\\"disable\\\":{}}}}\" https://example-corp.console.ves.io/api/config/dns/namespaces/system/dns_load_balancers\n}\n\n# Loop through each line of output\nwhile IFS= read -r line; do\n    pool_name=$(awk '{print $4}' <<< \"$line\")\n    dnslbpool_name=$(echo \"$pool_name\" | sed 's/[^a-zA-Z0-9]/-/g; s/.*/\\L&/')\n    pool_type=$(awk '{print $3}' <<< \"$line\")\n    lbmode=$(grep -o 'load-balancing-mode [^ ]*' <<< \"$line\" | awk '{print $2}')\n    # Convert load_balancing_mode to lowercase if it is \"ROUND_ROBIN\"\n    if [[ \"$lbmode\" == \"round-robin\" ]]; then\n        lbmode=\"ROUND_ROBIN\"\n    elif [[ \"$lbmode\" == \"static-persistence\" ]]; then\n        lbmode=\"STATIC_PERSIST\"\n    elif [[ \"$lbmode\" == \"global-availability\" ]]; then\n        lbmode=\"PRIORITY\"\n    elif [[ \"$lbmode\" == \"ratio\" ]]; then\n        lbmode=\"RATIO_MEMBER\"\n    fi\n    \n    # Extract members block using awk\n    #members=$(awk -F 'members {| }' '{print $2}' <<< \"$line\")\n    members=$(echo \"$line\" | grep -o -P '(?<=members \\{ ).*?(?=\\} \\})')\n    membernames=$(echo \"$members\" | grep -oP '\\S+(?=\\s*{)')\n    # Temporary array to hold member IP addresses\n    declare -a temp_members_array\n    temp_members_array=($(awk -F ':' '{print $2}' <<< \"$membernames\"))\n    monitor=$(awk -F 'monitor ' '{print $2}' <<< \"$line\" | awk '{print $1}')\n    ttl=$(awk '{print $2}' <<< \"$(grep -o 'ttl [^ ]*' <<< \"$line\")\")\n    \n    # Assign values to the associative array\n    membersip_array[\"$dnslbpool_name\"]=\"${temp_members_array[@]}\"\n\n    # Store extracted values in the array\n    pool_list[\"$dnslbpool_name\"]=\"pool_type: $pool_type, lbmode: $lbmode, monitor: $monitor, members: ${membersip_array[\"$dnslbpool_name\"]}, ttl: $ttl\"\ndone <<< \"$pool_output\"\n\n# Loop through each pool in the pool_list\nfor dnslbpool_name in \"${!pool_list[@]}\"; do\n    # Extract only the TTL value from the string\n    ttl=$(awk -F 'ttl: ' '{print $2}' <<< \"${pool_list[$dnslbpool_name]}\")\n    lbmode=$(awk -F 'lbmode: ' '{print $2}' <<< \"${pool_list[$dnslbpool_name]}\" | awk -F ',' '{print $1}')\n    members=$(awk -F 'members: ' '{print $2}' <<< \"${pool_list[$dnslbpool_name]}\" | awk -F ',' '{print $1}')\n    pool_type=$(awk -F 'pool_type: ' '{print $2}' <<< \"${pool_list[$dnslbpool_name]}\" | awk -F ',' '{print $1}')\n\n    # Check if pool_type is \"a\"\n    if [[ \"$pool_type\" == \"a\" ]]; then\n        # Initialize an empty string to store the JSON strings\n        members_string=\"\"\n\n        # Loop through each record in the current zone\n        for ip in ${membersip_array[\"$dnslbpool_name\"]}; do\n            # Create JSON string for each member and append to the existing string\n            members_string+=\"{\\\"ip_endpoint\\\":\\\"$ip\\\",\\\"ratio\\\":10,\\\"priority\\\":1},\"\n        done\n\n        # Remove the trailing comma from the JSON string\n        members_string=\"${members_string%,}\"\n\n        # Create DNSLB Pools\n        curl -X POST \\\n            -H \"Authorization: APIToken EXAMPLE_API_TOKEN\" \\\n            -H \"Accept: application/json\" \\\n            -H \"Access-Control-Allow-Origin: *\" \\\n            -H \"x-volterra-apigw-tenant: example-corp\" \\\n            -H \"Content-Type: application/json\" \\\n            -d \"{\\\"metadata\\\":{\\\"name\\\":\\\"$dnslbpool_name\\\",\\\"namespace\\\":\\\"system\\\"},\\\"spec\\\":{\\\"a_pool\\\":{\\\"members\\\":[$members_string],\\\"disable_health_check\\\":null,\\\"max_answers\\\":1},\\\"ttl\\\":\\\"$ttl\\\",\\\"load_balancing_mode\\\":\\\"$lbmode\\\"}}\" \\\n            \"https://example-corp.console.ves.io/api/config/dns/namespaces/system/dns_lb_pools\"\n    fi\ndone\n\n# Unset variables to free up memory\nunset pool_list membersip_array\n\n# Loop through each line of output\nwhile IFS= read -r line; do\n    # Extracting specific details using awk and sed based on the current line\n    name=$(echo \"$line\" | awk '{print $4}')\n    dnslb_name=$(echo \"$name\" | sed 's/\\./-/g')\n    subdomain=$(echo \"$name\" | cut -d'.' -f1)\n    domain=$(echo \"$name\" | sed 's/^[^.]*\\.//')\n    type=$(echo \"$line\" | awk '{print $3}')\n    aliases=$(echo \"$line\" | grep -o 'aliases [^}]*' | awk '{print $2}')\n    description=$(echo \"$line\" | grep -o 'description [^ ]*' | sed 's/description //')\n    status=$(echo \"$line\" | awk '{print $12}')\n    failure_rcode=$(echo \"$line\" | grep -o 'failure-rcode [^ ]*' | sed 's/failure-rcode //')\n    last_resort_pool=$(echo \"$line\" | grep -o 'last-resort-pool [^ ]*' | sed 's/last-resort-pool //')\n    load_balancing_decision_log=$(echo \"$line\" | grep -o 'load-balancing-decision-log-verbosity [^ ]*' | sed 's/load-balancing-decision-log-verbosity //')\n    metadata=$(echo \"$line\" | grep -o 'metadata [^ ]*' | sed 's/metadata //')\n    minimal_response=$(echo \"$line\" | grep -o 'minimal-response [^ ]*' | sed 's/minimal-response //')\n    partition=$(echo \"$line\" | grep -o 'partition [^ ]*' | sed 's/partition //')\n    persist_cidr_ipv4=$(echo \"$line\" | grep -o 'persist-cidr-ipv4 [^ ]*' | sed 's/persist-cidr-ipv4 //')\n    persist_cidr_ipv6=$(echo \"$line\" | grep -o 'persist-cidr-ipv6 [^ ]*' | sed 's/persist-cidr-ipv6 //')\n    persistence=$(echo \"$line\" | grep -o ' persistence [^ ]*' | sed 's/persistence //')\n    pool_lb_mode=$(echo \"$line\" | grep -o 'pool-lb-mode [^ ]*' | sed 's/pool-lb-mode //')\n    pools=$(echo \"$line\" | grep -o -P '(?<=pools \\{ ).*?(?=\\} \\})')\n    pool_cname=$(echo \"$line\" | grep -o 'pools-cname [^ ]*' | sed 's/pools-cname //')\n    topology_edns0=$(echo \"$line\" | grep -o 'topology-prefer-edns0-client-subnet [^ ]*' | sed 's/topology-prefer-edns0-client-subnet //')\n    ttl_persistence=$(echo \"$line\" | grep -o 'ttl-persistence [^ ]*' | sed 's/ttl-persistence //')\n    # Use grep to find strings before \"{\"\n    poolnames=$(echo \"$pools\" | grep -oP '\\S+(?=\\s*{)' | sed 's/[^a-zA-Z0-9]/-/g; s/.*/\\L&/')\n    # Convert matches to an array\n    readarray -t poolnames_array <<< \"$poolnames\"\n    # Store extracted values in the associative array\n    current_wideip_info=([Type]=\"$type\" [Subdomain]=\"$subdomain\" [Domain]=\"$domain\" [Status]=\"$status\" [DNSLB]=\"$dnslb_name\" [Pools]=\"${poolnames_array[@]}\" [Pool_LB_Mode]=\"$pool_lb_mode\")\n\n    # Assign wideip_info to wideip_list\n    wideip_list[\"$name\"]=\"${current_wideip_info[@]}\"\n    \n    # Add subdomains to zone_array\n    if [ -n \"${zone_array[$domain]}\" ]; then\n        zone_array[\"$domain\"]=\"${zone_array[$domain]},$subdomain\"\n    else\n        zone_array[\"$domain\"]=$subdomain\n    fi\n\n    # Store subdomain information in subdomain_info array\n    subdomain_info[\"$subdomain\"]=\"${current_wideip_info[@]}\"\n    \n    # Store subdomain type \"a\" and add it to the array for that zone\n    if [ \"$type\" == \"a\" ]; then\n        a_record_per_zone[$domain]=\"${a_record_per_zone[$domain]}${a_record_per_zone[$domain]:+,}$subdomain\"\n    fi\ndone <<< \"$wideip_output\"\n\nfor zone in \"${!zone_array[@]}\"; do\n    create_zone\ndone\n\n# Loop through each domain in a_record_per_zone and echo its A record subdomains\nfor domain in \"${!a_record_per_zone[@]}\"; do\n    echo \"Domain: $domain\"\n    echo \"A Record Subdomains: ${a_record_per_zone[$domain]}\"\n    echo \"--------------------------\"\n    # Initialize an empty string to store the JSON strings\n    a_records_string=\"\"\n    # Loop through each record in the current zone\n    for record in ${a_record_per_zone[$domain]//,/ }; do\n        # Create JSON string for each A record and append to the existing string\n        xcdnslbpoolname=$(echo ${wideip_list[$record.$domain]} | awk '{for (i=6; i<=(NF-1); i++) {printf \"%s\", $i; if (i < NF-1) printf \" \"}}')\n        #echo \"${a_record_per_zone[$domain]}\"\n        #echo \"xcdnslbpoolname: $xcdnslbpoolname\"\n        # Check if xcdnslbpoolname has multiple strings\n        if [[ $xcdnslbpoolname == *\" \"* ]]; then\n            echo \"Multiple strings found in xcdnslbpoolname\"\n            # Split xcdnslbpoolname into an array based on space\n            IFS=' ' read -ra pool_names <<< \"$xcdnslbpoolname\"\n\t        # Initialize an empty string to store the JSON strings\n\t        pools_string=\"\"\n            # Loop through each pool name in the array\n            for pool_name in \"${pool_names[@]}\"; do\n\t            # Create JSON string for each member and append to the existing string\n\t            pools_string+=\"{\\\"geo_location_set\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"geo-1\\\",\\\"kind\\\":\\\"geo_location_set\\\"},\\\"pool\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"$pool_name\\\",\\\"kind\\\":\\\"dns_lb_pool\\\"},\\\"score\\\":100},\"\n            done\n\t        # Remove the trailing comma from the JSON string\n\t        pools_string=\"${pools_string%,}\"\n        else\n\t\t\tpools_string=\"{\\\"geo_location_set\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"geo-1\\\",\\\"kind\\\":\\\"geo_location_set\\\"},\\\"pool\\\":{\\\"tenant\\\":\\\"example-corp\\\",\\\"namespace\\\":\\\"system\\\",\\\"name\\\":\\\"$xcdnslbpoolname\\\",\\\"kind\\\":\\\"dns_lb_pool\\\"},\\\"score\\\":100}\"\n        fi\n        dnslbname=$(echo \"dnslb-$record-$domain\" | sed 's/\\./-/g')\n\t\t#create_dnslb\n        curl -X POST -H \"Authorization: APIToken XXXXX\" -H \"Accept: application/json\" -H \"Access-Control-Allow-Origin: *\" -H \"x-volterra-apigw-tenant: example-corp\" -H \"Content-Type: application/json\" -d \"{\\\"metadata\\\":{\\\"name\\\":\\\"$dnslbname\\\",\\\"namespace\\\":\\\"system\\\",\\\"labels\\\":{},\\\"annotations\\\":{},\\\"disable\\\":false},\\\"spec\\\":{\\\"record_type\\\":\\\"A\\\",\\\"rule_list\\\":{\\\"rules\\\":[$pools_string]},\\\"response_cache\\\":{\\\"disable\\\":{}}}}\" https://example-corp.console.ves.io/api/config/dns/namespaces/system/dns_load_balancers\n        a_records_string+=\"{\\\"ttl\\\":3600,\\\"lb_record\\\": {\\\"name\\\":\\\"$record\\\",\\\"value\\\":{\\\"namespace\\\": \\\"system\\\",\\\"name\\\":\\\"$dnslbname\\\"}}},\"\n    done\n    # Remove the trailing comma from the JSON string\n    a_records_string=\"${a_records_string%,}\"\n    # Print the final JSON string\n    echo \"$a_records_string\"\n\t#update zone record\n\tcurl -X PUT -H \"Authorization: APIToken XXXXX\" -H \"Accept: application/json\" -H \"Access-Control-Allow-Origin: *\" -H \"x-volterra-apigw-tenant: example-corp\" -H \"Content-Type: application/json\" -d \"{\\\"metadata\\\":{\\\"name\\\":\\\"$domain\\\",\\\"namespace\\\":\\\"system\\\"},\\\"spec\\\":{\\\"primary\\\":{\\\"allow_http_lb_managed_records\\\":true,\\\"default_rr_set_group\\\":[$a_records_string],\\\"default_soa_parameters\\\":{},\\\"dnssec_mode\\\":{},\\\"rr_set_group\\\":[],\\\"soa_parameters\\\":{\\\"refresh\\\":3600,\\\"expire\\\":0,\\\"retry\\\":60,\\\"negative_ttl\\\":0,\\\"ttl\\\":0}}}}\" https://example-corp.console.ves.io/api/config/dns/namespaces/system/dns_zones/$domain  \ndone\n\nunset_arrays\n"
+      },
+      "output_sha256": "b223ecfd5cce5ae00c73ca559e00ee5ecad688013fd633defc2b283cc5319110"
+    }
+  },
+  "74599": {
+    "article_hash": "f2e0bf5fac074de9aee95dc9849269a860df79cb46e2c61611d2f9dcaaf09597",
+    "decision": "exclude",
+    "reason": "BIG-IP APM user rate-limiting tutorial; XC only comparison and related links"
+  },
+  "74618": {
+    "article_hash": "707eebc5086278ff4fb3b43dc1d9f3811417c07ab27fa916503b9bd98aeedcec",
+    "decision": "exclude",
+    "reason": "BIG-IP DNS zone-transfer and DNSSEC configuration; XC is example secondary server"
+  },
+  "74630": {
+    "article_hash": "c49e7a18085b172b47654eb9fae03be7228aa253aef7fe8926fa473eb919676d",
+    "decision": "include",
+    "reason": "Distributed Cloud secondary authoritative DNS with BIG-IP hidden primary and automation"
+  },
+  "74632": {
+    "article_hash": "86c5ec9384492b69d20584d4b466c75f0d2f996b5f416b0fddde1e4a6f519c99",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "74665": {
+    "article_hash": "e1b43851303b4fca563de2aeee5be7a81e4e997a88a5a550a1fe69e43a6ac627",
+    "decision": "exclude",
+    "reason": "BIG-IP AWAF legacy leaked-credential-check removal; not XC service guide"
+  },
+  "74672": {
+    "article_hash": "d05f74a0ac9f7c9ef383bdad4fa134a4f5385edbee951ae3c9031404e051d94a",
+    "decision": "include",
+    "reason": "Distributed Cloud HTTPS load balancer and customer-edge AI firewall integration"
+  },
+  "74701": {
+    "article_hash": "ac62da39a9b06b0ff3024020110cda8debb25a105f1cdac1cb3e647d23105ec0",
+    "decision": "include",
+    "reason": "Distributed Cloud Cloud Connect segmentation and cross-cloud network isolation"
+  },
+  "74717": {
+    "article_hash": "22245a3ffe90c686d0ead58dfb349ecce9f22b7d5b32563dd92181c9e12b0df6",
+    "decision": "include",
+    "reason": "Distributed Cloud load balancers, customer edges and API security protect NetApp management"
+  },
+  "74762": {
+    "article_hash": "5d087285fea43f956b0a06ccefb78155494af4ab921a8288bce4d1c380580ea0",
+    "decision": "exclude",
+    "reason": "General command-injection evasion and WAF signatures; XC one equivalent product"
+  },
+  "74878": {
+    "article_hash": "63323354d41a1711630149f2c0538f95aefea672376fef7b0c9da8c355d09024",
+    "decision": "include",
+    "reason": "Demonstrates AI chatbot and RAG deployment on Distributed Cloud platform"
+  },
+  "74917": {
+    "article_hash": "23a76a0e84bd593d12e61aa362277095bd2b199f80b6a2f05a268ebd0bf5435d",
+    "decision": "exclude",
+    "reason": "NGINX hybrid scaling tutorial; XC is NGINX One SaaS access context"
+  },
+  "74981": {
+    "article_hash": "c3f38467b66d3aac7edfceea32bf4f5422dbb81cfe7c5a4aa8c3d46465036b86",
+    "decision": "exclude",
+    "reason": "BIG-IP APM function authorization; XC only a related architecture link"
+  },
+  "74988": {
+    "article_hash": "27ef3c3017d21e6a592031adc659b2798746dd837ba79330666653271dc52201",
+    "decision": "exclude",
+    "reason": "Generic application testing tool across F5 portfolio; no focused XC procedure"
+  },
+  "75135": {
+    "article_hash": "83fc65f8dc8e526c7b3687a139672712d23e6142d6d862d134d38c6d24e48bf3",
+    "decision": "exclude",
+    "reason": "Hyperscaler zero-trust overview; XC only related-resource link"
+  },
+  "75154": {
+    "article_hash": "746c66587e2125766bc45e6c6f59ecda0abdd9f4e70d11626714ac7a20996a91",
+    "decision": "exclude",
+    "reason": "NGINX One product feature guide; no substantive Distributed Cloud service content"
+  },
+  "75162": {
+    "article_hash": "b7dfb5b9d530feac5f71dd519872b74bf830af14c701fa014c54fedc4c8e0d5d",
+    "decision": "exclude",
+    "reason": "NGINX App Protect LLM mitigation and Kubernetes configuration; not XC focused"
+  },
+  "75164": {
+    "article_hash": "98c1f4bc7bb7a5d3863363e0064853974ceb4e373449d54bf39af3a9296d500d",
+    "decision": "include",
+    "reason": "Distributed Cloud intent-based application connectivity across Nutanix and cloud services"
+  },
+  "75201": {
+    "article_hash": "92d59efb4edaa17d1008a3d8610703fb3d613795538e64498fa93dbde8000ac4",
+    "decision": "exclude",
+    "reason": "BIG-IP/legacy Shape JavaScript troubleshooting; XC only current product naming"
+  },
+  "75218": {
+    "article_hash": "e3f9a2cc2508d196c5c2f7020910105c347d5e3b468d862bb3d9aacf50f1904c",
+    "decision": "include",
+    "reason": "Distributed Cloud user-identification configuration"
+  },
+  "75232": {
+    "article_hash": "84036d723b9c57849d51c4441d528389076ac75cf70a30fc427e958dfa24e632",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "75311": {
+    "article_hash": "44d91d27880dec70f2c690845ccc6b620ee982ef46f08d62f1b311cfcfe4cbac",
+    "decision": "exclude",
+    "reason": "General positive/negative security portfolio comparison; no focused XC procedure"
+  },
+  "75353": {
+    "article_hash": "fed66cec0c7732230cb63bb9e578130cf67f2e51b2b64a506acfb0efb06c690d",
+    "decision": "exclude",
+    "reason": "BIG-IP cyberattack mitigation guide; XC only an alternative SaaS section"
+  },
+  "75354": {
+    "article_hash": "ee2f68447b2a25f3608462b7c3303cc34ac6a21425107e00d183589c2117eaf2",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense and BIG-IP APM integration workflow"
+  },
+  "75439": {
+    "article_hash": "39487b04060a6d77bccf00160e5fdb82f78e5fa912720d7bdbbb681b354b47ec",
+    "decision": "include",
+    "reason": "Distributed Cloud App Connect secures NetApp S3 access for multi-site RAG workloads"
+  },
+  "75442": {
+    "article_hash": "b0f6d7418bd4e6ad46882ae4ccb6ac51910a16dda0e9bdffca16985be3d31016",
+    "decision": "include",
+    "reason": "Distributed Cloud Web App Scanning restricted by XC service policy and AWS security group"
+  },
+  "75445": {
+    "article_hash": "46f30e41f4bd408087c783f0014dc43b527407641d4466ca1517f51461e0d81e",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; Distributed Cloud one WAF mitigation reference"
+  },
+  "75486": {
+    "article_hash": "cfb0258d20e2c3173b6c7d8ba6480177ddb82d69419a6e822a0d78d9c23d941f",
+    "decision": "include",
+    "reason": "Includes substantive Distributed Cloud AppStack Kasm deployment and WAAP exposure"
+  },
+  "75638": {
+    "article_hash": "6a180a15d211fccaceed8a6a97ad41ee0be2afbcee67111a0adbc4be5a9c0758",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused configuration article",
+    "text_replacements": {
+      "nodes": {
+        "5689cd0aa5d70443443f953cdb1313b7cd9a63b7a99666f8f4d56c3c8603b32e": "Synthetic Contributor",
+        "6f6b644b10956ce1be0c5ee0d1ae5ba1429b447a52063faf151cf0d55f46b42a": "Synthetic Contributor"
+      },
+      "output_sha256": "bbd8abf63e90ca1b847ce239d2581c433b47725e877db44cc9912fa15ab80153"
+    }
+  },
+  "75677": {
+    "article_hash": "2dce46f6d827f00093968f8755231bb0880af6d59318c707a4e80c6d6c29ede7",
+    "decision": "exclude",
+    "reason": "BIG-IP XSS mitigation tutorial; XC only related resource"
+  },
+  "75711": {
+    "article_hash": "f90ba1b3ca677b3f93a3be49ed8deb3fd25db9a4d54f1b548559388543d048b5",
+    "decision": "exclude",
+    "reason": "Unovis release announcement; XC only product-user context"
+  },
+  "75721": {
+    "article_hash": "87107b42a7505e73f0088078a346c69cb30dce2145d1d0c390311057cd0b7103",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdf74269e0b72441e565caf5dfdec3867b2b6fd8.png": {
+        "output_sha256": "df3e8dad88c114634449bdc75e76900b19bd227d3bda083ab870a8ba733b74b6",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdf74269e0b72441e565caf5dfdec3867b2b6fd8.png": "24200712ff6e1dc23f2c7f55dbdc6e54207f7bad4711d391d4afc8fdde7a3bd0"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected agentic RAG security explanation and generic seven-controls slide; no model or user data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "75732": {
+    "article_hash": "4c2b15ca2ecef3921725ea90a396e72126c180c3562c3c8105cbaba1c5d1ee67",
+    "decision": "include",
+    "reason": "Distributed Cloud BIG-IP service discovery and SaaS security augmentation"
+  },
+  "75751": {
+    "article_hash": "dcf825b8651f854126536fc7618a03f86f1f9b271183aaab3310583f1a0d8e84",
+    "decision": "exclude",
+    "reason": "Broad financial-services portfolio overview; no focused XC configuration"
+  },
+  "75784": {
+    "article_hash": "d032978c4bcd0dfaa81cb0d118e7af34af6babd3d50762bb4bd7e0456565c432",
+    "decision": "include",
+    "reason": "Distributed Cloud DNS, regional edges and customer edges scale hybrid BIG-IP applications"
+  },
+  "75873": {
+    "article_hash": "9ae7797e4b803d53fad01b2111d1e1d455fd1b5d2963233c176477acb7390ce3",
+    "decision": "exclude",
+    "reason": "BIG-IP SSRF mitigation tutorial; XC only related resource"
+  },
+  "75882": {
+    "article_hash": "8e3e5a8af2ddcea1b14f5acd845468f24e270de37bfabab2762057047f1437c8",
+    "decision": "include",
+    "reason": "Distributed Cloud AppStack Tailscale proxy deployment and secure tailnet app exposure"
+  },
+  "75890": {
+    "article_hash": "2316c5b8b97658638ece710ca1e47bda6e043c90799427e00065a6573ea9d003",
+    "decision": "include",
+    "reason": "Distributed Cloud CE, App Connect and Network Connect simplify workload migrations"
+  },
+  "75900": {
+    "article_hash": "61f9fbf27e09ce4df9923a333f79b1df45f1552ead3ed8d07a1552314e651ea9",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense Advanced self-service UI and role/configuration guidance"
+  },
+  "75966": {
+    "article_hash": "7a41027a56804e62fec128aa69f300afa0ed942ca3745e6e3beacffc03bd6ba0",
+    "decision": "exclude",
+    "reason": "Weekly security news digest; XC only related AI-security reference"
+  },
+  "75971": {
+    "article_hash": "89d1730c16242016f7739127f5a02c5c03821b9753248a0f376d7ad7d2573fad",
+    "decision": "include",
+    "reason": "Concrete Distributed Cloud host-header L7 route configuration with comparison examples"
+  },
+  "75975": {
+    "article_hash": "11cfa96695af78edf838bc5ccc509e59074754670b93915a169b9fa8fcd62074",
+    "decision": "exclude",
+    "reason": "BIG-IP API misconfiguration mitigation; XC only related resource"
+  },
+  "75976": {
+    "article_hash": "9db914ff106b97cf2ccb6c561a26ae2c4cff5833293f12721eeafa9d9de96d93",
+    "decision": "exclude",
+    "reason": "BIG-IP API SSRF mitigation; XC only related resource"
+  },
+  "76010": {
+    "article_hash": "dae66128dedfee908fbe46815edccf51f229f7f9f13c6957185bf1e52fd8e6ed",
+    "decision": "exclude",
+    "reason": "BIG-IP outdated-component mitigation; XC only related resource"
+  },
+  "76017": {
+    "article_hash": "2727f6c3534c60cec4db528e7cea335c10c116d69a67a1786b18c3f8281427a0",
+    "decision": "exclude",
+    "reason": "General MITRE initial-access overview; XC only mitigation links"
+  },
+  "76027": {
+    "article_hash": "a535341ce40c2b04ee8a8682fc6e9a5e38482554317691d7e6e0d3514ed0aa48",
+    "decision": "exclude",
+    "reason": "General ingress portfolio overview focuses CNFs, NGINX and CIS; XC only listed deployment flavor"
+  },
+  "76033": {
+    "article_hash": "4b7dd5b265d8f6f7bc40318f1fb10e54108a3c6d75fea7395f9612d9b61807a9",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "76039": {
+    "article_hash": "9d8bac8d47e6e6467643ddd6558d5eb643490cf05ae7d53a785aa4d7e158dbb2",
+    "decision": "include",
+    "reason": "Distributed Cloud Network Connect, App Connect and WAAP demonstrate secure MCN"
+  },
+  "76062": {
+    "article_hash": "74085defbf71f3afade5b15bbba3118b194d9caafc4f8e816f62da6476854217",
+    "decision": "include",
+    "reason": "Substantive Distributed Cloud AI Assistant security-event and posture workflow"
+  },
+  "76110": {
+    "article_hash": "39555aa69c726be26738f5961d72da1d45e88417bd069adf3fe593abb514e375",
+    "decision": "exclude",
+    "reason": "BIG-IP security logging tutorial; XC only related resource"
+  },
+  "76119": {
+    "article_hash": "788a7163d49dcc0f7cdddebc026fe0b79aa5707d5b91e0405113bbd3d2f604e8",
+    "decision": "exclude",
+    "reason": "BIG-IP business-flow mitigation tutorial; XC only related resource"
+  },
+  "76120": {
+    "article_hash": "a1c2e9abdb079d813ed6da9d1612cad8c560d7a3118f6baf2ef7b1dd71cea100",
+    "decision": "exclude",
+    "reason": "BIG-IP cryptographic-failure mitigation; XC only related resource"
+  },
+  "76156": {
+    "article_hash": "ad6f7838836e404ff2cfe6bbe8adda431d060a0b5376dd8f50f1ae9d0c228f73",
+    "decision": "exclude",
+    "reason": "Generic API automation threat overview; XC only related connector links"
+  },
+  "76175": {
+    "article_hash": "a7e9af44f41504ce9687d39400e4ca10d41ea53630f1c00583b2bfe2395d661f",
+    "decision": "exclude",
+    "reason": "General MITRE execution overview; XC only broad product mitigation mention"
+  },
+  "76183": {
+    "article_hash": "f4ec338c79c3c89e68e55b7fe8ceaaf5a5c27e89463db3952bcca868429c023b",
+    "decision": "include",
+    "reason": "Concrete Distributed Cloud API discovery and shadow-API inventory walkthrough"
+  },
+  "76190": {
+    "article_hash": "c7dcd0b08f65e7892ce2d6ebd4728bb804a851678b6662421f4e09297b37b412",
+    "decision": "exclude",
+    "reason": "BIG-IP OWASP web-risk guide; XC only related resource"
+  },
+  "76231": {
+    "article_hash": "bdfe1b72918007f7da49425ebc5231d25789bba6be39828a78026bd6b51c459f",
+    "decision": "include",
+    "reason": "Distributed Cloud API security article-series entry and discovery/protection deployment resources"
+  },
+  "76282": {
+    "article_hash": "c44bb6aff2ac8001f53a606764fe80e1813f0e9f738b8df9b67809e4637abc9a",
+    "decision": "exclude",
+    "reason": "BIG-IP Advanced WAF DoS reporting guide; XC only closing mitigation link"
+  },
+  "76383": {
+    "article_hash": "e493b735940ca01d25cf0e548dab95c629d889a30c4e79268b5d7d7f21e650b3",
+    "decision": "exclude",
+    "reason": "General MITRE persistence overview; XC only broad portfolio statement"
+  },
+  "76395": {
+    "article_hash": "b5a82b2326727e0861ad3f498ab828ce49b07fc7a73f739bb9690875c721c31e",
+    "decision": "exclude",
+    "reason": "NGINX NJS rate-limit implementation; XC only optional hosting reference"
+  },
+  "76399": {
+    "article_hash": "f22564815bb2754da3c493adf2979f70e06be7540ee359cceab39249efa5df33",
+    "decision": "include",
+    "reason": "Substantive Distributed Cloud API discovery and enforcement mapping to NIST controls"
+  },
+  "76446": {
+    "article_hash": "f33b85f8ef6bafbbeacd3025f3c6d485daec741cc0f824c40c616b1d7dc00419",
+    "decision": "exclude",
+    "reason": "BIG-IP API risk mitigation guide; XC only related resource"
+  },
+  "76453": {
+    "article_hash": "d4da5a4dd622fcf8e7a2141979e8e68e33ec5d5c05c31d8cacb8854d12e72524",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "76458": {
+    "article_hash": "003c8e1f9e51e6dd65b1480a5beb02c155fe6a401c749a991595725d68f6ab61",
+    "decision": "include",
+    "reason": "Distributed Cloud hybrid architecture automation series and deployment resources"
+  },
+  "76459": {
+    "article_hash": "6fcf12b65219958895f242be99c055e66d2637c1afdfc2bc23ff26e8c4962d2b",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense scoped dev/test bypass using IP prefix sets and service policy"
+  },
+  "76484": {
+    "article_hash": "62e49a3a95c4237464c91e0a832de5c8e9a83e2fd7abfd8bd8898307f5094f9c",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense connector onboarding and BIG-IP integration walkthrough"
+  },
+  "76488": {
+    "article_hash": "93e68a9316813459d5c20efda6b33273619ab919214a87b8a60436dd5c36d3ae",
+    "decision": "exclude",
+    "reason": "Generic BIG-IP DNS external monitor; XC is one stated usage example"
+  },
+  "76511": {
+    "article_hash": "1c09ba76523d198adf8c82d027ed966f77cd3f8b02d17270c7f77af508ca1f8e",
+    "decision": "include",
+    "reason": "Substantive Distributed Cloud Bot Defense onboarding with BIG-IP identity controls"
+  },
+  "76519": {
+    "article_hash": "8db8f330333918e5c6d67dc96d6c3d2bdd2633852b18815c388feeb7c6a05d30",
+    "decision": "exclude",
+    "reason": "BIG-IP/NetApp S3 optimization; XC AI Assistant only generates iRule"
+  },
+  "76550": {
+    "article_hash": "e3319a99f57ed45457f4a1beff736ce1c5e28e2680b2aa49b02c87851bdb8eb1",
+    "decision": "exclude",
+    "reason": "BIG-IP hybrid delivery overview; XC only related repo reference"
+  },
+  "76631": {
+    "article_hash": "1deb6a6d3c3390f08c8a5d17884216b852d4e896a49efb108b8df598d9d07e80",
+    "decision": "exclude",
+    "reason": "General HTTP chunk-extension smuggling and multi-product coverage; no focused XC implementation"
+  },
+  "76689": {
+    "article_hash": "d6c2610543c38e85163fc66581195dbecafe98d63bafaf0bf4d45899c4956ee6",
+    "decision": "exclude",
+    "reason": "General MITRE credential-access techniques; no substantive XC implementation"
+  },
+  "76706": {
+    "article_hash": "abf8a09cdb278f8659097cbfcba6e8f93b98d57314a6c6fa9730ae487e5b1cfa",
+    "decision": "exclude",
+    "reason": "General MITRE command/control techniques; no substantive XC implementation"
+  },
+  "76707": {
+    "article_hash": "8eb72708482fbc5ef2ec4fc89c53f7cf239c847db7414999e1206cf0f32ed7d4",
+    "decision": "exclude",
+    "reason": "General MITRE exfiltration techniques; no substantive XC implementation"
+  },
+  "76713": {
+    "article_hash": "01dd3d7bd3312921be022e55d4519cabac4f1073e3e259a117f6e9f7afe528e2",
+    "decision": "exclude",
+    "reason": "General MITRE collection techniques; XC only broad portfolio mitigation"
+  },
+  "76714": {
+    "article_hash": "c125fbe0361c1b4619ec7ef4794937401124ff5ec299ab5aa6acc099cd682a82",
+    "decision": "exclude",
+    "reason": "General MITRE privilege-escalation techniques; XC only broad portfolio mitigation"
+  },
+  "76716": {
+    "article_hash": "4f29961b03728a008ffd15f5ef7e39512e3a50a025f52aa0e44f73dbb332121e",
+    "decision": "exclude",
+    "reason": "General MITRE discovery techniques; no substantive XC implementation"
+  },
+  "76717": {
+    "article_hash": "dd1b1fa7446185e13cec71b5b51e168b673ad7e6a7ca9f3b2b31ec6e82aa2452",
+    "decision": "exclude",
+    "reason": "General MITRE impact techniques; no substantive XC implementation"
+  },
+  "76718": {
+    "article_hash": "80e2802234263c54342754754ccf9e4e5d8bc87c5ee67352c5e67e62909cc499",
+    "decision": "exclude",
+    "reason": "General MITRE lateral-movement techniques; XC only broad product mitigation"
+  },
+  "76759": {
+    "article_hash": "3544cbca189cca84aa7e348d2ad079cae29f7d9f50252235a48e6fded5716ee0",
+    "decision": "exclude",
+    "reason": "General MITRE resource-development techniques; no substantive XC implementation"
+  },
+  "76768": {
+    "article_hash": "153dcccaf08e4f8644f77bdbcad6d95608ba8865c1a886293621abef1211f44d",
+    "decision": "exclude",
+    "reason": "General MITRE reconnaissance overview; no substantive Distributed Cloud implementation"
+  },
+  "76784": {
+    "article_hash": "8578af2b79a048226363596e61eb9c9d0e95a68b1f8da298a4fe58c485f91166",
+    "decision": "include",
+    "reason": "Distributed Cloud API inventory, schema validation and runtime enforcement demonstrations"
+  },
+  "76834": {
+    "article_hash": "90cd1eb0da3035941298fe1fa8fed85f24d96cb0d0775fdf144b67a7c7e2e3d8",
+    "decision": "exclude",
+    "reason": "General MITRE ATT&CK overview; no focused Distributed Cloud implementation"
+  },
+  "76843": {
+    "article_hash": "c1da798ef1dca9069cc054dd9a28144a1f79a481f9047cb9e4322bccc6f5688c",
+    "decision": "exclude",
+    "reason": "BIG-IP Next Kubernetes DNS CNF walkthrough; Distributed Cloud is introduction only"
+  },
+  "76854": {
+    "article_hash": "37da3232e0538727238ab01c820113a36e99fc8519869316d7f04feb63a5110e",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/55efa5a5f627eceff8fc43ced876906e85bd0b15.png": "83e88276704b81f6aecb00137e376fa1a42193b77eb70109ee51e8021b542a8b"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected concert-security analogy and generic venue diagram; no attendee identifiers",
+    "reason": "Substantive Distributed Cloud integrated WAAP, bot, DDoS and security capability overview"
+  },
+  "76873": {
+    "article_hash": "f560cced23931d8619aec26f0f4a36aaa3ab79e5a4337022200061e0a63370ef",
+    "decision": "include",
+    "reason": "Concrete Distributed Cloud DNS, synthetic monitoring, CE and WAAP failover architecture"
+  },
+  "76911": {
+    "article_hash": "c0743490bb78345cc364b9754cd13f4abb8bb2841eda717851636138fa18f359",
+    "decision": "exclude",
+    "reason": "BIG-IP ASM policy-template REST API procedure; Distributed Cloud only a tag"
+  },
+  "76920": {
+    "article_hash": "1be0f8d0fbd526b659f8c2a17edb8b319391452a8678292a48be02ee493acf66",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1d4a42f4add54d809fb7d67dc8a701e59e5e44de.jpeg": {
+        "output_sha256": "f69260b550d8225d12d28a927cdfb3d46a1d34051a4a175c62a4d8b25f6e8a0e",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/f/3fbe602ad1dbc385b4e8503b9c7014f08dd7a97e.jpeg": {
+        "output_sha256": "c85cd58febf04b994c02d9cd9dd7e0cd6ec15e4775a40a04440c3160f0dc7c4b",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1d4a42f4add54d809fb7d67dc8a701e59e5e44de.jpeg": "b4cffdfcb815ffda2a2f5c6bcfb02d83b8a465933e0712580438d9d2f74978ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/f/3fbe602ad1dbc385b4e8503b9c7014f08dd7a97e.jpeg": "787f9cce3e29acb6b052875be6fd95876162a2731252ffd898b0dfece0c9fc15"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Equinix application portability explanation and two generic topology maps; no customer locations",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "76978": {
+    "article_hash": "8f61a854de181d5e3467271657fb2958989f484ba88902790aa4b074491b8208",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d22b9dbef7ca7e110ad2e387ef208c11885e1c55.png": "6e4388749c24cef5ff958b3d66c837b29f1c75f0848e3949684c36387372493b"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Red Hat quickstart explanation and generic LlamaStack architecture; financial scenario is illustrative",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77008": {
+    "article_hash": "2428c577752ca8614f0e2ed85131da4d35028872c14ce6036c125d6661097ef2",
+    "decision": "include",
+    "reason": "Distributed Cloud Web App Scanning exports findings for BIG-IP virtual patching and retesting"
+  },
+  "77018": {
+    "article_hash": "aa7966cb5c1fbb757ac1190b376a50d8f7bb4609206d966c3e9587d33d2e3fb4",
+    "decision": "include",
+    "reason": "Distributed Cloud authoritative DNS and synthetic monitoring in hybrid resiliency design"
+  },
+  "77026": {
+    "article_hash": "c1710fb549ba59dcb4adce4e7d25df932b406853267726094e3fbf2f507be213",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/316b57156f719372a3a22fa93c06bdd58bcdf932.jpeg": {
+        "output_sha256": "c9f463ba51d93edb396d2bbacd2adc159faaf91f14400d11cb927312e9e7c0e1",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/316b57156f719372a3a22fa93c06bdd58bcdf932.jpeg": "d0c725922473c7a99bec33e52370604e6c20b937e02011cc1cfc1dfd81c8d672"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected centralized AI connectivity explanation and generic departmental architecture; no named customers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77035": {
+    "article_hash": "f4792b8c7240734ab95f449a69ff0ccc6a629816bb2ee161b226094b8c12d547",
+    "decision": "exclude",
+    "reason": "General Spanish-language DNS architecture discussion; Distributed Cloud only one product paragraph"
+  },
+  "77042": {
+    "article_hash": "ed746b8333ffba0ad255fb88fa3d3f80f094c043cd9c43ee810b4a58f2ebf49d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/071991286e9b0c41f8d76605d49e6f4b1e2ed9a2.jpeg": {
+        "output_sha256": "a30710ea026b052e7e06ea4caaed9f4f06f7b783de6a769cc93bece0f8786c20",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/071991286e9b0c41f8d76605d49e6f4b1e2ed9a2.jpeg": "9c07e9f1443939c56c9d628492302254ff6185269e5e1839afe38ac05bb41e7d"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected risk-based WAF explanation and generic outcomes slide; no event records or credentials",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77045": {
+    "article_hash": "540371d4350c786f3a0ff6fac0a9de1fb4c9b6dfbe9b61eea135da04dbada46f",
+    "decision": "include",
+    "reason": "Distributed Cloud AI WAF risk-scoring custom-policy configuration companion article"
+  },
+  "77046": {
+    "article_hash": "b6038a644221a311bf3923861ac6cad1360de233104caefd5018a990453cd9b7",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud WAF AI risk-scoring behavior and operational guidance"
+  },
+  "77048": {
+    "article_hash": "4c2448a7ea11126d15830abc79c1da35b2fa96c979bcd1802990c6ae989e144e",
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
+    "reason": "Distributed Cloud focused article"
+  },
+  "77104": {
+    "article_hash": "1b9dc00829bbd8e619e529e6d8dfffea32e8ec995728c884b8b15f63b5013229",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b55f8b57f269c99d27f47068e6bb6f34a584ffc6.png": "8d64b65ecc736d3e5c5c99727898f98a37ca303d996a818dbb8e80f946d6192c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/59b62b09d8ff1f04e6628ebf25f8825525dca762.png": "9803307df4de403a270bdcd8ad90357c4daaa41c57b04a6768cff2faf2612d98",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff9e03b6190d8b3c442c16a382dfc34ed818437e.png": "16a5f7e47cd097a7bd42a7004f5ad5b0707b632b1621bdf81effec3711891e27"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected origin-bypass explanation and three generic traffic diagrams; no concrete user or customer identities",
+    "reason": "Substantive Distributed Cloud customer-edge private-tunnel architecture mitigates origin bypass"
+  },
+  "77115": {
+    "article_hash": "73d02908a4405fe85bf1344c4d2bd0d1446b9943add1e0ead84f7351f02d3a89",
+    "decision": "include",
+    "reason": "Automates Distributed Cloud edge load balancing and WAF with BIG-IP origin services"
+  },
+  "77153": {
+    "article_hash": "23ad05cd67d818712310119e06aec4e8eecca13b59b328c74064b2490eab529f",
+    "decision": "exclude",
+    "reason": "Self-hosted API Security Local Edition and BIG-IP enforcement; Distributed Cloud only resource links"
+  },
+  "77195": {
+    "article_hash": "35710c17104321bd254f9e97294b5c5639401bf9d8794abc6b4ddf1d5636b220",
+    "decision": "include",
+    "reason": "Distributed Cloud WAF monitoring and malicious-user behavioral mitigation"
+  },
+  "77208": {
+    "article_hash": "c1d5f7563e9bf61f0958282a73da8ed51105af8117ce16e7af6ee710f90c49b9",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/267cd1af1c5a9634e885383c1da595315036ca05.jpeg": {
+        "output_sha256": "79dff52770e2396c1cba6c7befa0f64d9259400e788560481feb3867692031c4",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff2eea15339f86a8a8872b079912cb81b52b93fd.jpeg": {
+        "output_sha256": "dfecb4a23e8540729bf212b9d30443305d1353c64f43349da660d411909b05d1",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/267cd1af1c5a9634e885383c1da595315036ca05.jpeg": "7a66dc9673e83dd5cfbc25c9123940f02e688e4bf61cab4dfaa3524e0ff4dc4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff2eea15339f86a8a8872b079912cb81b52b93fd.jpeg": "3eee1bef8798aa5c2fd612ca31d5ff64bdc8edad30ebc1f507938eb782acc530"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected XC and Gateway Fabric automation prose, architecture and title slide; no personal or customer values",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77211": {
+    "article_hash": "e79b66bc602304dfe83e91afda5c7f4af39453917229f14f5603574c55a55276",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/7791ca9474c3e0e92eec0ab35be6e348c41cc969.jpeg": {
+        "output_sha256": "e49a4fff449c4b4b0fd3f0cc60e287a93ab114353220c66f46332cf8a103f998",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8bcd29778dba732743ac45084a410fd19fbc8d9c.jpeg": {
+        "output_sha256": "5222cf8bf9a2ef0bd16db25a8dff0caafd4266178ab239243f12b3ec3ade7b92",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/7791ca9474c3e0e92eec0ab35be6e348c41cc969.jpeg": "29418cb2f7b8a05433bdf42e07659bfda0edd7a9578d60f7a26c14385d4438b2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8bcd29778dba732743ac45084a410fd19fbc8d9c.jpeg": "e776d5017f061f73e80e9473cd9432515ec381ec6dbec091c720fca9a00c4b74"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected XC and NGINX automation prose, architecture and title slide; no personal or customer values",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77234": {
+    "article_hash": "1f99ad092af7b89488cea386249100603ac2239142ced3608a36110992c3678b",
+    "decision": "include",
+    "reason": "Distributed Cloud App Connect origin-pool health monitoring and failure detection"
+  },
+  "77240": {
+    "article_hash": "c0d30931f386e46fe85ff015c1920acbabb51870d28a50db0ab479e718fd0fd1",
+    "decision": "exclude",
+    "reason": "Generic application observability and BIG-IP/OpenTelemetry; Distributed Cloud only related link"
+  },
+  "77242": {
+    "article_hash": "70f1031da6f9113e33ac0a785dde3223c308a9f15b44a35b21125a1b045fae53",
+    "decision": "include",
+    "reason": "Distributed Cloud CDN migration to HTTP load balancer integrated CDN"
+  },
+  "77276": {
+    "article_hash": "5244514d878667a255fd9dfe9ed2bcdb296e4efc11f597bf746d19f675532346",
+    "decision": "include",
+    "reason": "Distributed Cloud integrated WAF, API, bot and behavioral defenses for AI threats"
+  },
+  "77374": {
+    "article_hash": "b03e266fc5a82249d26c37a918d64ad0895611380f2af8d08d6075383869d386",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1bf07a435c84f493c6bb4e2de98a58ad156f13f8.png": "bd4f1bea65f1abc32cac042781e32619b996b893a8e7e10cf4815fccbe9fd161",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cd9024535cf0252d42d2e473b3be2813749f6abf.png": "14ce853b4ca4508f0d99cecef1a406e6b95213cfb6a38a9fcb2d15969cf7fb98",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/9/e904703c841b23023b23d7774caaa37959403fd0.png": "a1017ecc69971cde7559ed9d6e2771de6f73b67a779f81769507ed3a2ab2e6b2"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected prose and all three full-resolution blank configuration illustrations; no identifiers or image annotations",
+    "reason": "Distributed Cloud load balancer configuration article"
+  },
+  "77407": {
+    "article_hash": "8caecec0b2f5f96ff6e3c0ab22583e00374ac442fbf9f2616c4c0a8a16583d79",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense traffic classification demonstration"
+  }
+}

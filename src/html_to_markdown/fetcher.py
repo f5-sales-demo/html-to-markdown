@@ -14,7 +14,7 @@ import httpx
 from playwright.async_api import Browser, Playwright, async_playwright
 
 from .adapters.base import SourceAdapter
-from .adapters.community import BASE, CommunityClient, topic_id
+from .adapters.community import BASE, CommunityClient, article_hash, topic_id
 from .errors import AuthenticationWallError, NotFoundError, ScrapeError
 from .models import FetchResult
 from .urls import validate_asset_url, validate_source_url
@@ -81,12 +81,15 @@ class Fetcher:
             reviews = json.loads(baseline.read_text()) if baseline.exists() else {}
             if reviews_path.exists():
                 reviews.update(json.loads(reviews_path.read_text()))
+            review = reviews.get(str(identifier), {})
+            if review.get("article_hash") != article_hash(value):
+                review = {}
             return FetchResult(
                 url=canonical,
                 final_url=f"{BASE}/t/{identifier}",
                 status_code=200,
                 html=json.dumps(value),
-                headers={"community-review": json.dumps(reviews.get(str(identifier), {}))},
+                headers={"community-review": json.dumps(review)},
             )
         if adapter.browser_only or browser:
             return await self._browser_fetch(adapter, canonical)
