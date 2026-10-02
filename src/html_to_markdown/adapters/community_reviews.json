@@ -183,6 +183,29 @@
     "decision": "exclude",
     "reason": "General SIRT crisis response announcement; no focused XC procedure"
   },
+  "69365": {
+    "article_hash": "ddc0aada9d35b128627fdca406eb867800c397cfe90cfac78cbb023bde41cb57",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/d/7d74eed114c1f81de78c81d59305bd268a1bcb0f.jpeg": {
+        "output_sha256": "abe66a2efab017a28cf4b743e3a2290de39cd0fbfd922eb1917212923ecb818e",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/dffac4f8f7d323cc54b0e5ec31d15224c0791e86.jpeg": {
+        "output_sha256": "1e68a374abbe9ecfe0d78391c14ab52d837cf33ec13f5ed6d358a105cba52049",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/d/7d74eed114c1f81de78c81d59305bd268a1bcb0f.jpeg": "9916d1aaf9f9d771e919e438d9cb13f4ee1217dad96421288359e506cfb606b7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/dffac4f8f7d323cc54b0e5ec31d15224c0791e86.jpeg": "55b797aa9b6d2261da784fdc916b865c03435dff921cf9305ddbec3c21adf3bb"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OpenShift service guidance and two generic module title slides; no cluster or user data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "69446": {
     "article_hash": "1fce53c5f976acad261e8db3fa155da876b0776b7874ebfa5547b81beeba9520",
     "decision": "exclude",
@@ -203,9 +226,44 @@
     "decision": "exclude",
     "reason": "General OWASP Automated Threats overview; Distributed Cloud appears only in related-content links"
   },
+  "69578": {
+    "article_hash": "14e78c4e33e463338ad8ad93045faf3401ca22222b1b76f23e80f4eb991ae70d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a3348a934ec8b86f5e51f49232692bf1e0b28d8.png": {
+        "output_sha256": "c3421d6b800318c0ec26d5dfa6f8817c5f132a8c89e5e2bc9ce44e0ac1894e97",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/a/7a5f45c797466c927e05f1888c7d331a59c54af6.jpeg": {
+        "output_sha256": "570664e284634721b41f6fb33321b5dee354be8124c8e99ea4c144ac1d34aa27",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a3348a934ec8b86f5e51f49232692bf1e0b28d8.png": "1a661ff47de2654db843b84c04aa18f4a1cb48151e2b6a8f4455a2bb181b43fb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/a/7a5f45c797466c927e05f1888c7d331a59c54af6.jpeg": "02f0dee349b8509a60f4a411b2d92a8e5d2394036099be36894d723a9e4b25ca"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected cloud migration guidance and two generic migration diagrams; private networks illustrate topology",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "69584": {
     "article_hash": "12fad7e2e6bf882cfa5b53ae753c09725a2f6eb2518b9ce14cf7a7014dfa7b0a",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98f67b70a634f42945c2f61f12a681c29703b8b1.jpeg": {
+        "output_sha256": "3d3b032077854eafd5731dc70ee51b926cbb3d318498f17910239ff4844647a7",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98f67b70a634f42945c2f61f12a681c29703b8b1.jpeg": "a4ff400bcf6f5c5270d3cf0e20745ed21dbe693e75a9743096e5c2f50140e797"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected credential stuffing explanation and generic demonstration title; no credential pairs",
     "reason": "Demonstrates credential-stuffing mitigation with Distributed Cloud Bot Defense"
   },
   "69639": {
@@ -654,6 +712,19 @@
     "privacy_reason": "Individually inspected OWASP API risk explanation and generic metadata flow diagram; no request records",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "70409": {
+    "article_hash": "eb6e12b487c184877c6768f74f47021c96dd4b9780e7cca8d15be35e67bf7ecb",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/35826e1852d9a380abb397696241c838342f3c51.png": "e3cd42fe5072c1547b751a98843e62ae4ebffd15a25a6a5be7d978182f2db597",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f99c42c259ca02e1b8269c560e6a427b69bd5a9.png": "7ddb54b3b59df68356795e8e15ee9ed2707e33540e98de93fbb3735458809943",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d0f115bd24ab89a903aafc88d5b6f46f40d85793.png": "bdf7066ff00949ef7b791376296a93b6a417c5d60edc513613fd5c7f3b5f97e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/7148562ef83970e632fc4df86cf5fb2d20116e17.png": "1e70b5ced57b56f0e1e8f11e1fa9f2b1059c4bdceb55291fb4b96a84b3a20eef"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected service account creation and kubeconfig generation code and four generic authentication diagrams; tokens are variable references only",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "70469": {
     "article_hash": "49cd293d98354882d109d491b430803693648d74053f033da792b05e9eb17eae",
     "decision": "exclude",
@@ -839,13 +910,60 @@
   },
   "71304": {
     "article_hash": "824634b10cb9e5d6996a7b99ad1714e16c76b253006051947dd41448e04c2eda",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5d389556007cb4cc7614c4a744230403bcdab916.jpeg": {
+        "output_sha256": "462fc01f1d8344a5d3b1953d1402a0c26cbaefc1099dcb47e4e81c64ceab8b5b",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/3447a02177ef4f87e523525d7247ce43ff18ad83.jpeg": {
+        "output_sha256": "71896a65e941e0010cb48d5309384f33591ca4a4f87ec7cc656e7cf46dc588dd",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5d389556007cb4cc7614c4a744230403bcdab916.jpeg": "3da1dce389699f1d97503e0c6cd883c00d45b0c70338a0c029eb462e08611640",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/3447a02177ef4f87e523525d7247ce43ff18ad83.jpeg": "c61797a3d3facc91df733062ca4c31623dac8808c8d6237e466c0f49b17328c5"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected hybrid WAF architecture explanation and three generic portfolio diagrams; no customer policies or data",
     "reason": "Hybrid WAF architecture with substantive Distributed Cloud edge security design"
   },
   "71319": {
     "article_hash": "179f7a443f7367ca784c8949210a00d903251dfac7d5b68fbbab0451bee87607",
     "decision": "include",
     "reason": "Joint Distributed Cloud edge WAF and BIG-IP origin WAF deployment and CI/CD integration"
+  },
+  "71350": {
+    "article_hash": "df981365817ad3b6920e68a38a000def0c78274baa059ddd3af1ef0f3ad87d04",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e52f4d1dcfb276472b988e52320ef2f276da7955.png": {
+        "output_sha256": "3a62694ac01a8309392b587e237906d190429d0db0baa35bc2b0fdf4f27c4379",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e52f4d1dcfb276472b988e52320ef2f276da7955.png": "434afda9a9ddb4d8d715a8ce0d4a2be880087245864d491c63c37156fd3d9221"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SDK generation and certificate helper code and generic documentation image; token already removed and example certificate domains made synthetic",
+    "reason": "Distributed Cloud API SDK generation and certificate expiration helper",
+    "text_replacements": {
+      "nodes": {
+        "96682983d4346e60a9ff57aeca15289d25d85d999489997c69a150f844a4fc19": "{\n  \"namespace1\": {\n    \"customsite1\": {\n      \"domain\": \"customsite1.example.org\",\n      \"expires\": \"01/15/2023, 19:05:29\"\n    }\n  },\n  \"namespace2\": {\n    \"customsite2\": {\n      \"domain\": \"customsite2.example.org\",\n      \"expires\": \"02/06/2023, 13:24:37\"\n    },\n  },\n}\n"
+      },
+      "output_sha256": "27fef9b36b645cc5c9111a58a1825a756f8409aa0df7695590f21e2e26692125"
+    }
   },
   "71398": {
     "article_hash": "c2e6b38cfbb6292adccfdd0869618bd72574188d980a0f35dc3b9b9cacf8b0f9",
@@ -891,6 +1009,36 @@
     "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
     "reason": "Curated Distributed Cloud Network Connect learning path and configuration resources"
   },
+  "71604": {
+    "article_hash": "90f154ed4d8f060065ba555f06b77cec5d3c35a7fa17bf1e8261fec471622d67",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/2/32c2e7398c3aca3fe955f70eb76b26a3e3a56d55.jpeg": {
+        "output_sha256": "7a92f3adfa2862c746666f5a27ee557966152a448187a63301511ee3101527d7",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/558d2218649d5a5d07b1a0451ad57bf8c065d773.jpeg": {
+        "output_sha256": "8bbd5dde5eef21d4c975d9dd992155595b2c5b40f62189770741c0478b3378a9",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/d/adeaef3bf127cb839e4723deee89cf47de236314.jpeg": {
+        "output_sha256": "fd2854694840d26ee77ce57eee8e48b76b324b1222a6c81fe70b8bc3835cdd8d",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/3/0/306f4ee8768693fddcc80262417e816648a4e868_2_500x250.png": "5a568232aa86f6815bc256d88ce4d34a4ad81e3b6ad1e67643acbac4a72ec56f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/2/32c2e7398c3aca3fe955f70eb76b26a3e3a56d55.jpeg": "2cb65b48a81d922ad8c248288eb6407cd7c265fcdc9e848d4803fd2f05789fbe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/558d2218649d5a5d07b1a0451ad57bf8c065d773.jpeg": "f163278677ca66cbd806b57b7b5d8be0d0bb9a41f5f56a6feddf1dcd521a92ca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/d/adeaef3bf127cb839e4723deee89cf47de236314.jpeg": "228ad8c1708169d04fc491fe7ae41c5d8b23b9c6e5ecad034335ffa0ea51e851"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected MCN demo guide and repository card plus three generic module title slides; no actual user or cloud resources",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "71685": {
     "article_hash": "340a89eb640a5b92dfca69dfc75286a9caeb74c6541896825c514806db28fcac",
     "decision": "include",
@@ -918,6 +1066,42 @@
     "decision": "exclude",
     "reason": "Kubernetes certification learning narrative; Distributed Cloud only a closing activity"
   },
+  "71857": {
+    "article_hash": "577c8a92c4000481453b13fa83caf0c94eb98fd88d938a692cd3c9cf18197990",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd59674476042e2bc51b6831633a2edfe51f49ce.png": {
+        "output_sha256": "c12c8b9324c2769077fb873f83f76e03d788758cd38d17c702bacade23dec9c1",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cf22d707956b330229e2266f5a22712bb03c8f5a.jpeg": {
+        "output_sha256": "60593d3121dbb5db5267ea318e81933bdb7ffb88d75667e2b9a760744ea148ac",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/d/0da45a8c84ba0ac3a722217438aae9975de4c29d.png": {
+        "output_sha256": "0a965930221c1810e74ccb2904494f908ec2e54be880315b33f049e1eed12ad7",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/1/e16c4180c25ead9723335f66005f08729ca56c1b.jpeg": {
+        "output_sha256": "690f27df02afc6e3d0b7e6128975c28c6be8e66a3ff5241fa394fa5db4b6a03c",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b10f72a66007725c4bda27b865e54045211449dc.png": "db9a8945fb11b09b05902ea1c1787477f2d51081fb9747d848f8e14df332e6c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd59674476042e2bc51b6831633a2edfe51f49ce.png": "e825e9049bfa340c02cff37b1de6e96178e341ed5fff2cf92f1b5f22a53939e1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cf22d707956b330229e2266f5a22712bb03c8f5a.jpeg": "b0958854737a77eeda91dea0c304d131cb768209d0d42394f35e84944850d82c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/d/0da45a8c84ba0ac3a722217438aae9975de4c29d.png": "6d60453325c492ad613bc8f13f4dfc5168107831da608e0eb0bdb673e1cb772f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/1/e16c4180c25ead9723335f66005f08729ca56c1b.jpeg": "44e7ba7e7c91ce7f74c202131ccd3ba36d9e61481738f3a87bf828ed9d32ea9a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected managed services guidance and five generic capability and regional network slides; no client telemetry",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "71917": {
     "article_hash": "0914b532fd124ecb73d84ba91e9d1a0dcf77af54cf41a4b5d253e698dd71c7da",
     "decision": "exclude",
@@ -925,7 +1109,25 @@
   },
   "71965": {
     "article_hash": "f006d434149451058ca137df4bfb7a173789d931c40897862fdc33d5fd87f187",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2005c1cfd21a2c0fe0973d3386faea6337f4136e.jpeg": {
+        "output_sha256": "d769933f4c6497bdf6aa4299e86f22564914208908e5896aa21a6398e501c8f4",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0ccb6f03710a37483dd2fc4f795a0f4d09abf895.jpeg": {
+        "output_sha256": "1d79aadf2a5296d344ee162bdb9b3b85807630a44d0c00ca9d1fc54ff2ba20f4",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2005c1cfd21a2c0fe0973d3386faea6337f4136e.jpeg": "ee0637badab1ae053b7d4854445e2768cee0a657019d6e6728db881235ef6aa1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0ccb6f03710a37483dd2fc4f795a0f4d09abf895.jpeg": "7918ec8cd6d18e2ed6bc2e561b7333e2e230f783d972f1cbf4fa796450caf0e3"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OWASP API risk overview and two generic risk taxonomy and platform diagrams; no API records",
     "reason": "API threat overview includes substantive Distributed Cloud WAAP mitigations and platform capabilities"
   },
   "71973": {
@@ -937,6 +1139,23 @@
     "article_hash": "153f92aaa9c61b4b709a29c76825dd5c85edb7ac8a8f43e7c9eff3386cd3df2f",
     "decision": "exclude",
     "reason": "General HTTP request-smuggling and BIG-IP RFC enforcement; Distributed Cloud is one alternative"
+  },
+  "71998": {
+    "article_hash": "edcec0c49a6de7b33f7eb297aeafc8f553695a41e8b939cf222e6ef1c6a2ec08",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/88a6909f8b42be0143cbe769f7f0ec81ac2e9cfb.png": {
+        "output_sha256": "927ccf47d2b39d2f2e4448277fc6a9f35313cdf90d480d3ada5674aa9111f937",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/88a6909f8b42be0143cbe769f7f0ec81ac2e9cfb.png": "0bb0b0876153d78469cd0d62478cb27248a93a16abe22530cfecbd04677d229e"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected QRadar logging explanation and generic unfilled receiver settings; no actual logs or endpoints",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "72005": {
     "article_hash": "23ba18693afa7600ce8f9ef708c4d18083d05c8a48f31d4c1538e719d91784e8",
@@ -960,6 +1179,19 @@
     "decision": "exclude",
     "reason": "OpenTelemetry observability demo focuses BIG-IP and NGINX; XC appears as optional edge deployment"
   },
+  "72064": {
+    "article_hash": "12b6d97f6f471ae4f022e6e2bb21bae3157120f9a5ebba3ac56ad452e4314dcd",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/53ccd3d06883d1dd906c7fc80428b4a73846aaf6.png": "5e16a5caecbd17d7e05a6d0d6cc46af504844dc50125aec597c95316fc39cd09",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/721c0c02423318d2ada016502b36634fd71a8bc7.png": "d7ed3ff0d9a579424592945b016ffbf7ee0514104c65a6a9bb0d4385c85e3208",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/85a833d473f4ec7ada66f8b1e19bc2b8b91b7096.png": "eb87b18223723c90d22d4c40e89b038fecb9873007b9c6a7594c6c14b6319696",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d1ac7c4326b33d543261bf517f406507c60b5528.png": "47ed0e302fff910a0d137f0ab9ddf107d80dc76d8930259edb208baf6c2d2755"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected WAF deployment guidance and four generic edge architecture diagrams; no tenant or resource data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "72098": {
     "article_hash": "04d29667607d7c6d9f54d7202438cd27dc52a946023d11d64eee622ad9cf290c",
     "decision": "include",
@@ -970,6 +1202,35 @@
     "decision": "exclude",
     "reason": "BIG-IP ASM iRule shadow-API logs and reports; XC only comparison and future integration"
   },
+  "72251": {
+    "article_hash": "b75aab41117c5f23eef470bd29a7f20566f894ed8600208a61b6328fabeb2e42",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/a/2ad7686688bbe5b2fb2c84bcb35f08951beb711d.jpeg": {
+        "output_sha256": "d0e398361749b0b3cf84346e05b1b23a39d11cd371d8b507c03f4eea140c3b1c",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/5/65282e0a4275b26db80d32f4f49358448ae30c0c.jpeg": {
+        "output_sha256": "73d865c14bdac3c2f9e3541eb0584c299b290c8de1a1be3b3de4865ff749030e",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/e/aedc51c922c3f60187c7743919cdd07e5754bcc9.jpeg": {
+        "output_sha256": "ae9c16c95c20f55d058ce42c94d8109fda20ddec0b14b8c95c66712cf18c1e2d",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/a/2ad7686688bbe5b2fb2c84bcb35f08951beb711d.jpeg": "c1c17e61f558f8395af7996daef172e88a3bff6bc83dc212230111ecdd43a458",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/5/65282e0a4275b26db80d32f4f49358448ae30c0c.jpeg": "b7782c5f3069ddf4ca8e93b3c47039069cdd82068d8bf3118fb2a58482c13401",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/e/aedc51c922c3f60187c7743919cdd07e5754bcc9.jpeg": "b94aead1d62e31cb26768927b1177680015d0961fcf7c24edd8c8e8190e47335"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OpenShift connectivity and security guidance and three generic module titles; no cluster identifiers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "72254": {
     "article_hash": "dbb829b875d0f3cafddcc64007f91204320125185d86bdcfea3f97c4e83cae18",
     "decision": "exclude",
@@ -977,13 +1238,61 @@
   },
   "72321": {
     "article_hash": "330db2fb274c5332489404d62e149a86e447c2fb84456825445751e6a8f70cf2",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/1/61ac724ad911779d5e811d776dee6cc7fbf070f1.jpeg": {
+        "output_sha256": "b1a3e0c1e6c9f0d7be0b190f0013cd71f7093521175eb4a55c35e361ca3e21e2",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/29ebcdb09dc5d9c448e962696613a6bc05c104a2.png": "22e361e45a185eb2f79091bcaa80bcebbecbe9306902b9feec60a686eee16e48",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/1/61ac724ad911779d5e811d776dee6cc7fbf070f1.jpeg": "b55cb60ca280e9b6a62c5a56511070671cc4808b6e29fa899a24714d9a1360dc"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected XC Client-Side Defense connector explanation and two generic integration diagrams; no injected keys or client data",
     "reason": "Distributed Cloud Client-Side Defense onboarding through BIG-IP connector"
   },
   "72363": {
     "article_hash": "4c6fe926b0153d3826d0fc1e0acffb311b2e62eb64b3e73013856b70ac28ce42",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cbf98fbcee49e1cd37841514e0451a06b288c1e6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              446,
+              64,
+              786,
+              89
+            ],
+            "size": 14,
+            "text": "example-graphql-inspection"
+          },
+          {
+            "rectangle": [
+              478,
+              349,
+              792,
+              375
+            ],
+            "size": 14,
+            "text": "graphql.example.com"
+          }
+        ],
+        "output_sha256": "b4b3d51bfffc9083349ad173306e52c08a66221918444b31ea32346f6c339bbe",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9884c56ec91d44c243b95a5fe37587a18b0cc798.png": "f462c0655fc7ea8140b5532ce2eff635eaff794a215f48853665687eb4e5120b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cbf98fbcee49e1cd37841514e0451a06b288c1e6.png": "d594cf511211a533e339c2872261dc26d34c0bdac4845bcfce66b1af73698d27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/0749927f94ca2f242d008b3457f3f20b02af96ed.jpeg": "05a8dc00b2a81c94bc071c9ab541a81f163f43124cf9cb1dd56403ca47194f29"
+    },
     "decision": "include",
-    "reason": "Distributed Cloud GraphQL discovery and protection demonstration"
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected GraphQL prose, two configuration images and title slide; synthetic domain and policy name preserve inspection settings",
+    "reason": "Distributed Cloud GraphQL discovery and inspection configuration"
   },
   "72388": {
     "article_hash": "113047517dfb593bf3089e2875f30b2f0459085290838f124500064357fc8272",
@@ -1017,10 +1326,75 @@
     "privacy_reason": "Individually inspected SSO architecture guidance and generic identity diagram; no actual identities",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "72497": {
+    "article_hash": "f6cf45cbea045e1d94dc698be521f671158d02acf734d360c691ab72c4d0afe5",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/66c7314024fb5fab6b16f962dc33bb3164d67006.png": "5dc9e848bcf65cf43f28d95ea0ab1cbea4a88f5f65c29bc922b28e5b7601150a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected HA workload guide and generic regional and customer edge architecture; no deployment identifiers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "72499": {
+    "article_hash": "c8aded08ddb1d3beec14b96a5cc303a02ef4ce077df354782b35e445412963c3",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/153b67fa42a6bfb1fff3913d40206b93afd978d6.png": {
+        "output_sha256": "f01433b563c18487679e9060a7212865b05d93c2774898a7e2d2e732d9a38d56",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/153b67fa42a6bfb1fff3913d40206b93afd978d6.png": "58dfd4466ca43ff37b538ad75d9519d82a546d960ff123e994e747b90e65b1cb"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected edge compute guide and generic architecture; retail dataset and businesses explicitly fictitious",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "72505": {
     "article_hash": "6d13496992dbadf419c4e5e4d2a1b260188971c6e6cffc0601813857983f4c3d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc33438f4e6801e7284e0195470dc3a57430dfbb.jpeg": {
+        "output_sha256": "b0ea482bfcd500effc08226b51dc286f2cabb0d347aa6b7aca3a6a9eda400bc1",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/6003a4bfa59729885291ac62fbe1929cb0c0f1d2.png": "f8c23d3491a90bc786774116c28a2edf5261a4f5dd0bdda153d0c16de0c6c4c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/14d1df26e413adf28c035681a6f67148f0f6c58b.png": "0b5133aebe09a2dfde09f705df627219289b3d536826f096891af201456f77c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aadfdb8518a845ffa88f604c42f6c52d4cf7230d.png": "7f970714612f3f99209c1d4a3f0ffe50956509c49d00fe624a1c17ddac54225e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc33438f4e6801e7284e0195470dc3a57430dfbb.jpeg": "b8555c8b8bf120958216f1e5321f19b038be408d23375814950f1b6ccd8b3eb0"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected tiered WAAP deployment explanation and four generic security diagrams; no actual customer apps",
     "reason": "Distributed Cloud WAAP tiered protection deployment and optional BIG-IP migration"
+  },
+  "72518": {
+    "article_hash": "7180ef1a935dd354c55f6da8e904016794070239c74d608ccb48eb9d26e0f658",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/1/a13f98a7d9ac83853693350a72b52a6ee0ef556c.jpeg": {
+        "output_sha256": "c2281aaaf0d0c33da2961d67f2a9ffa29e9ae02f9a54cb5cdf98b4b8a6996ac1",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/de24f471bdddb3349625f3a489508366b64570d4.jpeg": {
+        "output_sha256": "200d2d873e9a11bf550fbaa64bef838aa750180077ef5d98aefb6696629393e0",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/1/a13f98a7d9ac83853693350a72b52a6ee0ef556c.jpeg": "9b2ed19e0b9c3d122e8627becdbc7e8922aa7b970fa39b3438e16529f06728f6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/de24f471bdddb3349625f3a489508366b64570d4.jpeg": "fa642444688170d497d2e417a121f804916bc2506cbc31d66a189134f1b95a23"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected OpenShift blue-green and connectivity guidance and two module title slides; no actual applications",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "72533": {
     "article_hash": "17bff3365a5f12d6f18274ee2de10922dc2bdd3d8c6753150989b7f6fea2c84c",
@@ -1412,7 +1786,21 @@
   },
   "72910": {
     "article_hash": "16ead93f0b3621add89d410e28f7e694b77d3747dc3a0047f946291676731272",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/f/6fe7e2cf6f0ef4794312e6429edf96b9d2b36d2a.jpeg": {
+        "output_sha256": "4831f4479eeb65b939d7303db7dfe0a6bc7e8bb8e17e05007030cf0caa300c59",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbdef6a6769c3f8026e115c4725459f5b80be2ae.png": "64d893beaa1cad71224dd2b30d1694859bfa8bfd13f5a85d80eecd8956ab56ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/f/6fe7e2cf6f0ef4794312e6429edf96b9d2b36d2a.jpeg": "108d4237513821efce40731c8baccf017adf8fc89caca513bc7c237fb5ea5f16",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8c2353cf0e840d32e6a91f687792154956c145d9.png": "d6d9a34e642059940e8c486454810aa30e113b69a093a2e8a9ea4a5c0e638912"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected WAF migration guidance and three generic policy conversion diagrams; no concrete policies or users",
     "reason": "WAF policy conversion and deployment from BIG-IP and NGINX to Distributed Cloud"
   },
   "72916": {
@@ -1442,13 +1830,39 @@
   },
   "73337": {
     "article_hash": "0ea63ed7f61f260f6169573a4faf99e79d3a87148866844936c9cfb37f2e5b99",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fd2a6a8e7c6f883cf3382b76f23a6ef79e5123b6.png": "8464f58aa25a0a360f79852969fc0995d7018a0b0bd369bb6ed0a20a16b3192e"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected TLS guidance and blank TLS and HSTS settings image; no certificates or customer names",
     "reason": "Includes concrete Distributed Cloud TLS security-level and HSTS configuration"
   },
   "73350": {
     "article_hash": "e41227ab4fadc002c11e8171f092f36f0584b995f43292a75b8cdb6080e069c9",
     "decision": "exclude",
     "reason": "NGINX App Protect API mitigation procedure; no Distributed Cloud deployment"
+  },
+  "73351": {
+    "article_hash": "64f8f42e0453e33fbe98e8d34064b7cc10d4d85d377486472795a6d3992f2aa6",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/d3aef01c3fc66522b498dc6210251b269f8be6d6.jpeg": {
+        "output_sha256": "ee565eac159edd9f4f2f0a7aa9b989e4102df74dcbe2d424bb47512d7936b45b",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b78cb76f33aa66562298e1232fd8a37a7ab44992.png": "9aa9e8deee811d1b26b8a6a60d8928377b93316ac27eb311b8717856040dfc43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/d3aef01c3fc66522b498dc6210251b269f8be6d6.jpeg": "f04bdb2c2730db80bbc94723d6ab4dcd95a7aae769561dc3e9a944c9041eb068",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1ed1f40360ceeaac048d56e16d147f5668a5e628.png": "32d8e3ae85d4fb6b2a6806a79557cfd9f9519ce8d79b5b45ca6fbbab79d677e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5dabf7b1e3a8c337477a942a87946ed68411f466.png": "aa6691d079efaeb332ba37bd424e8584d082700842be49a1445b068069cf7241",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/fa4d9571967ca18982ca41ef351678080dfdd092.png": "03b8cde7b7eba40d1e944437dd1138f7940bb28fa38cb2166b31427998054118"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Bot Defense deployment guide and five generic connector diagrams; airline scenario fictitious",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "73410": {
     "article_hash": "f3c2b06372be4990dd13a2bd3fea63d5c9498abaec0ad4167c9d91503b080a1f",
@@ -1495,9 +1909,50 @@
     "decision": "exclude",
     "reason": "General request-smuggling mitigation mainly BIG-IP WAF; XC mentioned for feature parity"
   },
+  "73712": {
+    "article_hash": "a79eeca1f24a22b4abaee93124e89ab5c9a53a094308be0f1cbfe9a73eda001c",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3e92298ac71f166c2641e9f4d41e1b4c7b9f3b7.png": {
+        "output_sha256": "a7e95cc68ce6b5cf9bad46df0d208688c88e6da550c0e7ea2617d44ea438b411",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3e92298ac71f166c2641e9f4d41e1b4c7b9f3b7.png": "a61625ec3a926c983591b6950723d0b0423cd542ee23ec8db4cb23da94d933c0"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SAP MCN explanation and generic networking diagram; no named customer or user data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "73837": {
     "article_hash": "a88c0ba09ce8015d41ddc1a3a66c2e5647a1f304188663e783f101abdb89be1c",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/581f8d5118612b820d1d19f2023c2ca2e29df86e.jpeg": {
+        "output_sha256": "90b838628096774cb63594200e16b35a9432a822df177f9c3a7d9e9782cb2dd8",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e490fd39d9b72bb1cf42d53ad678108c7719e2d.jpeg": {
+        "output_sha256": "545bf5e6911bdcba173e79ee4f819becbd5a6e19502367ae54cb45e6646468e3",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f4d04213ee141010540279716813ec7f3e2c126.jpeg": {
+        "output_sha256": "bfd410992a5e45c5e9801159f775b33bab4afcd0f3427d6cd4e8ace095fc518d",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/581f8d5118612b820d1d19f2023c2ca2e29df86e.jpeg": "d9f85c6423dec265cd24bb4e6111134e1f755ef2b2c9c78d2ab3502d584425bb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e490fd39d9b72bb1cf42d53ad678108c7719e2d.jpeg": "a9e82a34e5957e66440457b096ecc0db3b0026573809f36a568dfc147bd5fc8f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f4d04213ee141010540279716813ec7f3e2c126.jpeg": "4b8707753bee7f6a57eaaa045d760f2890711a97e6da7b9e879a71c98d6370c2"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected XC API out-of-band monitoring explanation and three generic mirroring diagrams; no traces or client identities",
     "reason": "Distributed Cloud out-of-band API monitoring; BIG-IP is the traffic translation component"
   },
   "74044": {
@@ -1510,12 +1965,78 @@
     "decision": "exclude",
     "reason": "Weekly security news digest; not Distributed Cloud focused technical article"
   },
+  "74088": {
+    "article_hash": "78c8656d328ae79ba007ebde862b63fc9aced20f9a89cb865997a41e06e99d14",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d8df22a58d22ab70b1eea126c92ecfb23d006ff.jpeg": {
+        "output_sha256": "9969d1b55b35274541420148c96b8a122d079ea0b46c0d77c462ff517835aff9",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/35a88fa80e4ab4f2988b84011855157148702fe7.jpeg": {
+        "output_sha256": "ecaccaed3e6e4f6381d666dbc4e51291a777b992b3a087fccddf9926bff8f6b1",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64fb8f83b9bfae75debff15565949464f8a885d1.jpeg": {
+        "output_sha256": "71c90d7273000bc67cf88035b27c5026d27facedbd0d978d0791bad10727c94c",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d8df22a58d22ab70b1eea126c92ecfb23d006ff.jpeg": "e3fd327ff5cd99b666da5f1c7a5b5812eee8a9fd418117a8fca6d2ba16c23f0f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/35a88fa80e4ab4f2988b84011855157148702fe7.jpeg": "74ac22e47ed281c002abbf0f99b12cadc1fbaaa7ee13786fcb432c7ea18dae20",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64fb8f83b9bfae75debff15565949464f8a885d1.jpeg": "4eb110fb5238f501dbf159207c8c6fb22786703c40f96204e9b790f7937a1730",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7c42e673ecbe0cd94bd4effd5ad5e5af318ab075.png": "3c2713b8628a48d0096b7d5e96a1ae8a2a50a750021d9b9d0e69b02c6808bb97",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/3/e37ea61ac56e89c2b474e328c23d6ae3ad842dc2.png": "7adbcf57101b20275911a12e89839d2b39b8c75a718c47f68dc450ba06070d42"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected GenAI multicloud security explanation and five generic workload diagrams; no prompts or model data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "74096": {
     "article_hash": "74f25ee020eb9c865f4cef46cafd3d556ec4553df30ec7ec610660d73ae6c6e8",
     "decision": "include",
     "privacy": "approved",
     "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
     "reason": "Substantive Distributed Cloud capability mapping alongside other F5 products"
+  },
+  "74107": {
+    "article_hash": "5cc848ad80fce27139bf265df16e2a4d85d25ba7f140a8a4704c18b1fe7d0239",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b502492ba4f82f197511f64aa29fa1c9e829b018.jpeg": {
+        "output_sha256": "363ee0c896006c961791c20b264671487e233798f6c96644b2b9041d5dd0eb15",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/47b16c99b2df88b9ed030956572af6c254b9d069.jpeg": {
+        "output_sha256": "994909816244eac5aa38d3a79f7e9db5195283722c053a603e28ec1c6c007669",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5708345dfd48cbfec523f97b27a4aa5c61cab4cf.jpeg": {
+        "output_sha256": "18f8469f695f1da44454d431c8693e1b1b1b89f8a4bb4c457a1833cb3689ea01",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d38dfbd7e1b5d7f56e702a6094c5ca4fa702649.jpeg": {
+        "output_sha256": "75930b0911aa413e41481d91c8bee41047ae2c9624382395aae54391010df382",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b502492ba4f82f197511f64aa29fa1c9e829b018.jpeg": "7f6a5a997c6d27bccd8d8be61c2d14e5b831a65509e28d98afd1af09516902b4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/47b16c99b2df88b9ed030956572af6c254b9d069.jpeg": "74c4ba2362d592a0a253e2c7415100357d88485a55f47f8c6929080751f9dc68",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5708345dfd48cbfec523f97b27a4aa5c61cab4cf.jpeg": "3dc268ee7646565b3edf3e3475abe8627dee52916b57ce954acbdf62676145f3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d38dfbd7e1b5d7f56e702a6094c5ca4fa702649.jpeg": "64b9f5b022341b9ee57dbf06a20db431034906f745d468a335a2395719953f35"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Secure MCN explanation and four generic mesh and application diagrams; no named customer",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "74133": {
     "article_hash": "5a86595a02a4a234684d8ce502ad7536365d4290f57410cfcfa027629f50e51f",
@@ -1552,9 +2073,45 @@
     "decision": "exclude",
     "reason": "Weekly security news digest; Distributed Cloud only a mitigation recommendation"
   },
+  "74263": {
+    "article_hash": "e9e69f7780df873b50a22b97adab465c11528fd5329dc2af8e2d01b385ed0686",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": {
+        "output_sha256": "fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": "f3596262a1c78c7cd10fe702a3ecd44f549c451e48136bc5dd1a6599fd2f68bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/16114439ce98c26807a7348983bc0550c0afd8e2.png": "227e26ac0cf115b3b6b65b54de296e085a381aa06c2fb1dfd0e34aa26ed3fa2d"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected uniform application policy guidance and generic multicloud diagram and repository logo; acquisition scenario illustrative",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "74264": {
     "article_hash": "db52bd3d3e9db362dfd28812ec2d968605131c429c602a63dd0a1d8bf9d86ee4",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": {
+        "output_sha256": "fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62155d286d7c1940f608ba631f0c82b17a1823b7.jpeg": {
+        "output_sha256": "b857f0386bfe3a787fbc0a2c3b118e40f36746e7577baeac7ba197e582ce0369",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": "f3596262a1c78c7cd10fe702a3ecd44f549c451e48136bc5dd1a6599fd2f68bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62155d286d7c1940f608ba631f0c82b17a1823b7.jpeg": "c80600a923945b194d13b97056a1ef65d5eaa009f0a11ba88fa999cff552a741"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected application delivery fabric guidance and generic application connectivity diagram and repository logo; no actual endpoints",
     "reason": "Distributed Cloud customer-edge application fabric and consistent WAAP policies"
   },
   "74268": {
@@ -1579,7 +2136,12 @@
   },
   "74471": {
     "article_hash": "f4c608e8efa38a54dad8c63cb5b391614856e8f837e5150b248232e292003ac1",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/1/61bd6fcfbce9f8ff9c2acb1d1acadb497a607d70.png": "d0a6ff088b3bbea3d33ac7d15190797060ba6fe2e8f55dabb9c31ebbf9ddb64d"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected consistent hashing explanation and generic algorithm selection image; no request records",
     "reason": "Distributed Cloud ring-hash load-balancing and persistence explanation"
   },
   "74578": {
@@ -1657,7 +2219,19 @@
   },
   "74878": {
     "article_hash": "63323354d41a1711630149f2c0538f95aefea672376fef7b0c9da8c355d09024",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/936ea9c7a27bdd0dea51773b82dabd85f76b4453.jpeg": {
+        "output_sha256": "b6c037dcb16a7ae0a6801ad97b5dfa6553f337dd596e7fec70f1eb6782fe78bf",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/936ea9c7a27bdd0dea51773b82dabd85f76b4453.jpeg": "f9585fb59685979dd2b0daf64887e39b31a714e3e131fa9f79d6dd83947861f2"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected chatbot explanation and generic RAG architecture diagram; no prompts or user documents",
     "reason": "Demonstrates AI chatbot and RAG deployment on Distributed Cloud platform"
   },
   "74917": {
@@ -1872,7 +2446,19 @@
   },
   "76062": {
     "article_hash": "74085defbf71f3afade5b15bbba3118b194d9caafc4f8e816f62da6476854217",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/0/301eb04a35e6e9c55c52165e0a437fe56f0a3146.jpeg": {
+        "output_sha256": "ed5c62714279fc571cdfcad4c9e9516bfc644a17d60519c8f3d05759204e2210",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/0/301eb04a35e6e9c55c52165e0a437fe56f0a3146.jpeg": "34573d402b94cd59ad404c8598d71e1acc5092ea58d0b517ff10a4c94c9539e5"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected AI assistant overview and generic ADSP title slide; no assistant conversations or events",
     "reason": "Substantive Distributed Cloud AI Assistant security-event and posture workflow"
   },
   "76110": {
@@ -1912,13 +2498,42 @@
   },
   "76231": {
     "article_hash": "bdfe1b72918007f7da49425ebc5231d25789bba6be39828a78026bd6b51c459f",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0c70992c2cad798016de0175cb72b9d85ae442d8.jpeg": {
+        "output_sha256": "fc9a0d41c54c6e39be41bda440590c6df40832d327cd111dcd66dbe9af16efbd",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0c70992c2cad798016de0175cb72b9d85ae442d8.jpeg": "33f28a2de6ee2cb8b7671421ea47d48f0f7c480fc19d0f63af45e2572cd7a907"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API discovery overview and generic API Security title slide; no discovered endpoints",
     "reason": "Distributed Cloud API security article-series entry and discovery/protection deployment resources"
   },
   "76282": {
     "article_hash": "c44bb6aff2ac8001f53a606764fe80e1813f0e9f738b8df9b67809e4637abc9a",
     "decision": "exclude",
     "reason": "BIG-IP Advanced WAF DoS reporting guide; XC only closing mitigation link"
+  },
+  "76289": {
+    "article_hash": "e473ae3d10f5ea43fabf939fe9e7a3cfa89f9cc5a2283da1424ed46d79dd3871",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c2f4f331985afd66659b9d673230538bd958b92.jpeg": {
+        "output_sha256": "c095c4d1312e89b5abdae369edea38acf3e4ea01d3be58237f3d0ee1e69ea8a5",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c2f4f331985afd66659b9d673230538bd958b92.jpeg": "876a65192ac2a8416e99719a1429969e3353838d6724f40e09b3a778153d3df9"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected telemetry overview and generic processing diagram; no logs or metrics records",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "76383": {
     "article_hash": "e493b735940ca01d25cf0e548dab95c629d889a30c4e79268b5d7d7f21e650b3",
@@ -1949,13 +2564,64 @@
   },
   "76458": {
     "article_hash": "003c8e1f9e51e6dd65b1480a5beb02c155fe6a401c749a991595725d68f6ab61",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6ef48d42b62dad0e82c676af8df985106a9b16e8.png": "1b3943f6425d867867fcdc07749459124b5aa42e62257d516fd196680feee3bd"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected ADSP automation overview and generic platform capabilities slide; no deployment identifiers",
     "reason": "Distributed Cloud hybrid architecture automation series and deployment resources"
   },
   "76459": {
     "article_hash": "6fcf12b65219958895f242be99c055e66d2637c1afdfc2bc23ff26e8c4962d2b",
     "decision": "include",
     "reason": "Distributed Cloud Bot Defense scoped dev/test bypass using IP prefix sets and service policy"
+  },
+  "76460": {
+    "article_hash": "03fe56cb8ffd1172fc37123ec54e6384bda6414a25e04a4e1e5134ebb81f563a",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a120a5dbbefcae1f18d33f853f5d69652404106.png": {
+        "output_sha256": "a10e07d12c8de457506cdddd63c8fa5d9d02061717ec0b475f1aae68989d76b4",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3df62cc1e1de07b01ec2e70e78c3b6f37d2d309f.png": {
+        "output_sha256": "5b7531032e95c163e41350dfb93a8874c4a0eab40613c0c4dda16d13f92fee91",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/962a0261016b11474e525d995af062402c71ae3a.png": {
+        "output_sha256": "3f793a43904d442bc877b7f749dba2e96a3788c0bbf38d980ba31214578ab88f",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a120a5dbbefcae1f18d33f853f5d69652404106.png": "7afb7fbaf6d62e535ba4530b3887dde4e45781e3b974664092734737572c38b1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3df62cc1e1de07b01ec2e70e78c3b6f37d2d309f.png": "951eecfab4bc7cf1ddbdbed127a6222bbf06cc55dc954c18091a1dc2c90873e1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/962a0261016b11474e525d995af062402c71ae3a.png": "48e538138cb668a14ffc00a1342bceb05510fd81af1491e7b58c54ac7519d32a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected extranet architecture guidance and three generic partner connectivity diagrams; no named customer",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "76461": {
+    "article_hash": "85d85a6d8aff68f2bdba9c847217db9941dc6d1682295b7345136b3d5b53705e",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/20c639ba3de42b6a907873516e0d79d522d19fdf.jpeg": {
+        "output_sha256": "10003764b98f13ba121ba968fb3dd2919ac8adb8a0cfbc4b109f27ea5879f6c9",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/20c639ba3de42b6a907873516e0d79d522d19fdf.jpeg": "e11c7f515e89a942c30a2b01aa317204baaefc9bb14be979e2eef5a869c750ad"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected MCP protection explanation and generic component diagram; no MCP request records or client data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "76484": {
     "article_hash": "62e49a3a95c4237464c91e0a832de5c8e9a83e2fd7abfd8bd8898307f5094f9c",
@@ -1991,6 +2657,23 @@
     "article_hash": "d6c2610543c38e85163fc66581195dbecafe98d63bafaf0bf4d45899c4956ee6",
     "decision": "exclude",
     "reason": "General MITRE credential-access techniques; no substantive XC implementation"
+  },
+  "76704": {
+    "article_hash": "cd84a445592bfaaa611e215df40c080881ed4d26fd9b6b5682149fc53822e5ed",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43d13e7b83f504eff4f50d4e80d82f73e6c8fc16.png": {
+        "output_sha256": "122a6c9cd05d7f7f0318112e5b4d238260b4e2cfee1a37ecd11ec04316632cce",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43d13e7b83f504eff4f50d4e80d82f73e6c8fc16.png": "0f0066d10b680d3873c5a888cd167162199ac0e2f51ac1439d67b0d3fff9c570"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected application DMZ architecture guidance and generic global topology diagram; no customer locations",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "76706": {
     "article_hash": "abf8a09cdb278f8659097cbfcba6e8f93b98d57314a6c6fa9730ae487e5b1cfa",

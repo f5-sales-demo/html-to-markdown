@@ -11,6 +11,65 @@ from PIL import Image, ImageDraw, ImageFont
 from .errors import PublicationBlockedError
 
 
+def gif_subblocks_end(content: bytes, offset: int) -> int:
+    """Read the exact end of a GIF data-block chain."""
+    while offset < len(content):
+        size = content[offset]
+        offset += 1
+        if size == 0:
+            return offset
+        offset += size
+        if offset > len(content):
+            break
+    raise ValueError("truncated GIF subblocks")
+
+
+def strip_gif_metadata(content: bytes) -> bytes:
+    """Remove comment and unknown application blocks without decoding frames."""
+    if len(content) < 14 or content[:6] not in {b"GIF87a", b"GIF89a"}:
+        raise ValueError("invalid GIF header")
+    offset = 13
+    if content[10] & 128:
+        offset += 3 * (2 ** ((content[10] & 7) + 1))
+    output = bytearray(content[:offset])
+    while offset < len(content):
+        start = offset
+        marker = content[offset]
+        offset += 1
+        if marker == 0x3B:
+            if offset != len(content):
+                raise ValueError("unexpected GIF trailing bytes")
+            output.append(marker)
+            return bytes(output)
+        if marker == 0x21:
+            if offset >= len(content):
+                raise ValueError("truncated GIF extension")
+            kind = content[offset]
+            offset += 1
+            end = gif_subblocks_end(content, offset)
+            # Preserve control, plain-text rendering, and standard loop timing only.
+            preserve = kind in {0xF9, 0x01} or (
+                kind == 0xFF
+                and content[offset : offset + 12] in {b"\x0bNETSCAPE2.0", b"\x0bANIMEXTS1.0"}
+            )
+            if preserve:
+                output.extend(content[start:end])
+            offset = end
+        elif marker == 0x2C:
+            if offset + 9 >= len(content):
+                raise ValueError("truncated GIF image descriptor")
+            packed = content[offset + 8]
+            offset += 9
+            if packed & 128:
+                offset += 3 * (2 ** ((packed & 7) + 1))
+            # Skip the LZW minimum code-size byte, preserving compressed bytes.
+            offset = gif_subblocks_end(content, offset + 1)
+            output.extend(content[start:offset])
+        else:
+            raise ValueError("invalid GIF block marker")
+    raise ValueError("missing GIF trailer")
+
+
 def draw_label(draw: Any, label: dict[str, Any]) -> None:
     """Draw a reviewed synthetic label only when it fits its cleared area."""
     text, size = label["text"], label["size"]
@@ -62,8 +121,19 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
         not transform.get("rectangles")
         and not transform.get("labels")
         and transform.get("strip_metadata") is not True
+        and transform.get("strip_gif_metadata") is not True
     ):
         raise PublicationBlockedError("community image redaction has no reviewed rectangles")
+    if transform.get("strip_gif_metadata") is True:
+        if transform.get("rectangles") or transform.get("labels"):
+            raise PublicationBlockedError("GIF metadata policy cannot alter frame pixels")
+        try:
+            result = strip_gif_metadata(content)
+        except ValueError as error:
+            raise PublicationBlockedError("community GIF metadata transform is invalid") from error
+        if hashlib.sha256(result).hexdigest() != transform.get("output_sha256"):
+            raise PublicationBlockedError("community GIF differs from reviewed output")
+        return result, "image/gif"
     try:
         with Image.open(io.BytesIO(content)) as source:
             if getattr(source, "n_frames", 1) != 1:

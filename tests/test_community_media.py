@@ -199,3 +199,70 @@ def test_malformed_labels_fail_closed(labels):
     }
     with pytest.raises(PublicationBlockedError, match="invalid"):
         reviewed_media(content, URL, review)
+
+
+def test_gif_metadata_removal_preserves_all_frames_and_timing():
+    from html_to_markdown.community_media import strip_gif_metadata
+
+    source = io.BytesIO()
+    Image.new("RGB", (10, 10), "blue").save(
+        source,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (10, 10), "red")],
+        duration=[100, 200],
+        loop=2,
+        comment=b"Synthetic private annotation",
+    )
+    content = source.getvalue()
+    output = strip_gif_metadata(content)
+    assert b"Synthetic private annotation" not in output
+    assert len(output) < len(content)
+    original, published = Image.open(io.BytesIO(content)), Image.open(io.BytesIO(output))
+    assert original.n_frames == published.n_frames == 2
+    assert published.info["loop"] == 2
+    for frame in range(2):
+        original.seek(frame)
+        published.seek(frame)
+        assert original.info["duration"] == published.info["duration"]
+        assert original.convert("RGBA").tobytes() == published.convert("RGBA").tobytes()
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "strip_gif_metadata": True,
+                "output_sha256": hashlib.sha256(output).hexdigest(),
+            }
+        },
+    }
+    assert reviewed_media(content, URL, review) == (output, "image/gif")
+    review["asset_redactions"][URL]["output_sha256"] = "0" * 64
+    with pytest.raises(PublicationBlockedError, match="reviewed output"):
+        reviewed_media(content, URL, review)
+    review["assets"][URL] = hashlib.sha256(b"invalid").hexdigest()
+    with pytest.raises(PublicationBlockedError, match="invalid"):
+        reviewed_media(b"invalid", URL, review)
+    review["asset_redactions"][URL]["rectangles"] = [[0, 0, 1, 1]]
+    with pytest.raises(PublicationBlockedError):
+        reviewed_media(content, URL, review)
+
+
+@pytest.mark.parametrize("content", [b"", b"GIF89a", b"GIF89a" + bytes(20)])
+def test_invalid_gif_metadata_transform_fails_closed(content):
+    from html_to_markdown.community_media import strip_gif_metadata
+
+    with pytest.raises(ValueError):
+        strip_gif_metadata(content)
+
+
+def test_gif_unknown_application_metadata_is_removed():
+    from html_to_markdown.community_media import strip_gif_metadata
+
+    source = io.BytesIO()
+    Image.new("RGB", (10, 10), "blue").save(source, format="GIF")
+    original = source.getvalue()
+    annotated = original[:-1] + b"\x21\xff\x0bXMP DataXMP\x07private\x00" + original[-1:]
+    assert strip_gif_metadata(annotated) == original
+    for malformed in (original[:-1], original + b"trailing", original[:-1] + b"\x21"):
+        with pytest.raises(ValueError):
+            strip_gif_metadata(malformed)
