@@ -1359,7 +1359,37 @@
   },
   "70812": {
     "article_hash": "0a8ccc870ff870eef1b8df8de3b767ee9959986e3ccc98a5a3785da0e84291c8",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0993a562570a94f3eda4d1a4dc640b16ef1ae4e.png": {
+        "output_sha256": "cea58eeab1175d4bce7eb496600887be7e6db039c3aa29ec86fbf151770c41b9",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/49b67ca641c50ee4e8ca53f8c2c8285953dd5732.png": {
+        "output_sha256": "b6a61dcbd03bfc54979b7bcf74c6534841221c04c9907796486ab97638d61af5",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/7/5733171863c80cbb1ee3069cbf7ec0219d362543.png": {
+        "output_sha256": "b10512687719fa94363e5a2e14ceb04a6c3eb064c0d79f53611cf97d4edd17c8",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b3d72b5675a13130d7bcbf3550021ff4f48b2eac.jpeg": {
+        "output_sha256": "2c90390cd2687111d56f0c026e91f05b67b6bfb2298514b27be7dd4439e042e0",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0993a562570a94f3eda4d1a4dc640b16ef1ae4e.png": "e0620b2c1d8b82b2d1575d26f2cada84ec2599e2cdbfed81e8c4ea72ba067d0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/49b67ca641c50ee4e8ca53f8c2c8285953dd5732.png": "74c3362c7862b94f32a646065fa0fc23fb4299062e940cab7688bfc904249782",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/7/5733171863c80cbb1ee3069cbf7ec0219d362543.png": "4389920d6341ec5af2f75744d7aacf8626440445cdc503a69358f8ba3112a10a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b3d72b5675a13130d7bcbf3550021ff4f48b2eac.jpeg": "418aec9703201cd59684d0b2ea1324332cf6da908aa0af77fc679e0abb3bf22d"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API strategy guide and four generic architecture and synthetic API example images; schemas contain field names only",
     "reason": "Distributed Cloud API discovery and enforcement in associated hybrid application demonstration"
   },
   "70813": {
