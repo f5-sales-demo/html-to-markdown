@@ -485,6 +485,23 @@
     "decision": "exclude",
     "reason": "Apache Commons vulnerability explanation; Distributed Cloud one mitigation alternative"
   },
+  "70120": {
+    "article_hash": "44a2480a212514229f92dfd2fb489afd87264fc307daffc2522f468af33e2469",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/506c2d14eae3d0997ed411b34e49420ed7bc1e97.jpeg": {
+        "output_sha256": "02f92983c4d27c27e42f52abb15d8703a98160d6a01f0accc41d0c68e94c341b",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/506c2d14eae3d0997ed411b34e49420ed7bc1e97.jpeg": "5a9a686b8432dca3af725dc460aacdb6a9d6696bef4a09e3170e56c2729bb647"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected aggregator overview and aggregated traffic chart; no identifiers or transactions",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "70138": {
     "article_hash": "43725b2ed8ba13cb1f322a44602e3ab0c460e85cedbdec3ec77fa671a8ae7487",
     "asset_redactions": {
@@ -800,6 +817,266 @@
     "privacy_reason": "Individually inspected prose and seventeen configuration images; synthetic resource and site identifiers preserve route targets and VPC attachment; private example networks are illustrative",
     "reason": "Distributed Cloud transit networking and site mesh deployment"
   },
+  "70153": {
+    "article_hash": "21bd775fdecd07b1f8557a8cffe033058f251bca540f15e92313194ee5b59fa6",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0122052bcd0bc342b50a49cd9336d72cc4f9f62c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              221,
+              100,
+              307,
+              117
+            ],
+            "size": 9,
+            "text": "azure-vnet-site"
+          }
+        ],
+        "output_sha256": "18097d13af8e00a06f7ac3a44a5886e89810ebf53aab619c653b21c1c19e280d",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/22ff69f2ebd692a0f78f340ce3df43685e817747.png": {
+        "labels": [
+          {
+            "rectangle": [
+              224,
+              114,
+              390,
+              131
+            ],
+            "size": 9,
+            "text": "example/azure-refer-friend"
+          },
+          {
+            "rectangle": [
+              218,
+              147,
+              440,
+              162
+            ],
+            "size": 9,
+            "text": "example/aws-frontend"
+          },
+          {
+            "rectangle": [
+              218,
+              171,
+              440,
+              186
+            ],
+            "size": 9,
+            "text": "example/azure-refer-friend"
+          },
+          {
+            "rectangle": [
+              218,
+              195,
+              440,
+              210
+            ],
+            "size": 9,
+            "text": "example/k8s-frontend"
+          },
+          {
+            "rectangle": [
+              218,
+              219,
+              333,
+              238
+            ],
+            "size": 8,
+            "text": "example/gcp-refer-friend"
+          }
+        ],
+        "output_sha256": "fbf362e440e881a3478afb14a8498bc108ac1c955a64e8fb50fc0127d695a0bd",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a09016b4ca8616b7d99f7d8028d8c50ebb78c0e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              16,
+              41,
+              132,
+              57
+            ],
+            "size": 10,
+            "text": "k8s-frontend"
+          }
+        ],
+        "output_sha256": "7eb9f15d2606d388758cde2c47c6fad51f50b79f287ed290e121092ea122e2c8",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/584ab31d7ac79f9e1f70780e7ea7c09ce9554053.png": {
+        "labels": [
+          {
+            "rectangle": [
+              225,
+              149,
+              430,
+              167
+            ],
+            "size": 9,
+            "text": "example/azure-refer-friend"
+          }
+        ],
+        "output_sha256": "3f5dd5b8907ff240db8c443254e82b151c87d39c166cc22357e8aefafc6caf70",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a20ed0771e3b3466a214f0c49cb7c874f9fc78e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              229,
+              638,
+              879,
+              701
+            ],
+            "size": 16,
+            "text": "Synthetic demo contacts"
+          }
+        ],
+        "output_sha256": "fae67a388a13a0a0b22dad71e18dbf411d85a464f40628657792d35d66c58071",
+        "rectangles": [
+          [
+            75,
+            2,
+            420,
+            42
+          ],
+          [
+            1369,
+            3,
+            1409,
+            41
+          ],
+          [
+            1215,
+            429,
+            1429,
+            704
+          ],
+          [
+            227,
+            637,
+            879,
+            704
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/86735f2af8f278df44344cf42be8fdf6ea086cd0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              223,
+              110,
+              420,
+              131
+            ],
+            "size": 9,
+            "text": "example/k8s-frontend"
+          }
+        ],
+        "output_sha256": "bf7ae8d7f50e985525b6cec43742a6acffe1ef0f0144fdf089e18b2220e8ddb8",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1dfe9decbe22ea6f5b1217f3c4ed8dc75c147814.png": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              135,
+              428,
+              152
+            ],
+            "size": 9,
+            "text": "gcp-vpc-site"
+          }
+        ],
+        "output_sha256": "8ef867fb3b4735da1cbe42dd21320354b787fa0bd362d09f1a8d4f1632057261",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52f6bdf965c31938c1c07b15ca448ca7c14fa487.png": {
+        "labels": [
+          {
+            "rectangle": [
+              233,
+              73,
+              402,
+              93
+            ],
+            "size": 10,
+            "text": "frontend.example.com"
+          },
+          {
+            "rectangle": [
+              248,
+              405,
+              381,
+              425
+            ],
+            "size": 10,
+            "text": "k8s-frontend"
+          }
+        ],
+        "output_sha256": "31d3e30439a0003161bdec4a616c9313c7c066011a223fb0af09745ee49c8291",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/7/87328f650285990c48fa2ef0f270884cc54ef1f5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              368,
+              128,
+              502,
+              155
+            ],
+            "size": 10,
+            "text": "gcp-vpc-site"
+          }
+        ],
+        "output_sha256": "98ad49d8f889cf97288fcd7fb22e272d6c7da91246ace291080c129ccdcef716",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e00f03933d60680c11c39891ca78ae29252e59c5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              16,
+              44,
+              139,
+              62
+            ],
+            "size": 10,
+            "text": "k8s-frontend"
+          }
+        ],
+        "output_sha256": "953e85a3c751239991f5433de58338b7a7491ac01549715cf776fbe4292ec42c",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0122052bcd0bc342b50a49cd9336d72cc4f9f62c.png": "427e099cfe8487bfc96b2fb46780a5994aa35bd5c574a7c1be99ad6c91b37e87",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2135924d9cc855d80f172834f4943150c9786afb.png": "8af61d79d299d3cfb18ed67c7cfb590818b0687c5af3d124c74d4a30c674bef4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/22ff69f2ebd692a0f78f340ce3df43685e817747.png": "60f6c6be43d4b6bcf31db4e105203c56e75eac7ac003657a0d3db61d8b7dd920",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a09016b4ca8616b7d99f7d8028d8c50ebb78c0e.png": "e89a41ebeebc38c682b4ee7ee5e3efb0bba43471615e7101efc49135323b7c05",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/584ab31d7ac79f9e1f70780e7ea7c09ce9554053.png": "0148fad047c465a088fa78bb09ae4c0c4092058fb7f55bd73fd4116da5e182a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a20ed0771e3b3466a214f0c49cb7c874f9fc78e.jpeg": "6fa5324c8a91ddc6df89b7a330848f085cd7ae731c97da6cf20277a19fde3d4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/86735f2af8f278df44344cf42be8fdf6ea086cd0.png": "e5e97e857faa8e7898c44885c1c2abcd7ec1ff75ad2557b62c3223443c070cc0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b042b5421744c141ed2de49af171bf42841aecf5.png": "f17bcbe71fc0065d55007b4baf7cd4ac79249f712db3b2f60735020a2b033dec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f78b8747d980fefc717dbf5dda9aba04d8f2782d.png": "619ad4b4e9ba03b15c322700c7f2e6816303e38910a52fb77856e4aa61ccb75b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1dfe9decbe22ea6f5b1217f3c4ed8dc75c147814.png": "741ec332d862ccb8764820e4dc319218d559ed5fc57b7f057d249e6f280f2da3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52f6bdf965c31938c1c07b15ca448ca7c14fa487.png": "7916c57edb578e37419f61cd0c33453b79d61b2e2be247f3cb2df253de16d194",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/7/87328f650285990c48fa2ef0f270884cc54ef1f5.jpeg": "a078c79c33669c55a2cb755f6268b986b0c59958d2b23db4837fa6056d425adb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/1/a1543fb0e0e1bbe20a921b72ccbf9ffbad0813ba.jpeg": "c7a347be49f65fc69f51c89c9ea480389f9875620f2d57418521f4624a8008bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e00f03933d60680c11c39891ca78ae29252e59c5.png": "69c14632062d0b47c6b06148d6bf075fbb7beeb20b6e59d7d1104d9dd3524554"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected prose and fourteen diagrams and configuration images; personal namespace and site labels and demo host made synthetic; finance UI profile and contact identifiers cleared; private networks are illustrative",
+    "reason": "Distributed Cloud multi-cluster application connectivity"
+  },
   "70220": {
     "article_hash": "dc0562d7840e51096ef094bd960af28e0d76c18626abe8e7e3cbb1053e83c70f",
     "decision": "exclude",
@@ -834,7 +1111,19 @@
   },
   "70387": {
     "article_hash": "cceef31b2f7d44757cf21937c6faf1b8241e308b8071a1724ee9baa2fabc38cc",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/80b0414fdb515aeb70d85d847353f3e36b6e44c2.jpeg": {
+        "output_sha256": "6ed16b68164116d28ebcfd9a1817362ee2aceab0fd16b292822d4539bf77b6dd",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/80b0414fdb515aeb70d85d847353f3e36b6e44c2.jpeg": "6a5ab5339bf99138edef1dc3f7d3f7ea1d411f7fc648d52157d17c89a08632e9"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected carding explanation and generic Bot Defense architecture slide; no card data",
     "reason": "Demonstrates carding mitigation with Distributed Cloud Bot Defense"
   },
   "70395": {
@@ -884,8 +1173,31 @@
   },
   "70693": {
     "article_hash": "f6ca9628e1c02eb67df29660896cf70748839867569395f8b9163b11130ef607",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50668336c5d9c2a427366574813ad9f4701bcdcc.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              512,
+              500,
+              610
+            ],
+            "size": 20,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "02c1c2a483e95f46383f03e991c70fa27ca2e08d6938b843558ef710aea3cbe7",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50668336c5d9c2a427366574813ad9f4701bcdcc.jpeg": "384c6cd4db001f7a8f44689c454a99ad5aee52caf38778751a8731e84bda9c2a"
+    },
     "decision": "include",
-    "reason": "Demonstrates vulnerability-scanner mitigation with Distributed Cloud Bot Defense"
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected vulnerability scanning explanation and title image; presenter attribution made generic",
+    "reason": "Distributed Cloud security or alert configuration guidance"
   },
   "70694": {
     "article_hash": "4b33f3ee092dd2db8746863faf847fa3c77b4217bb6343a3f043b7d72b77b0e9",
@@ -1219,6 +1531,105 @@
     "privacy_reason": "Individually inspected DoS threat explanation and generic WAAP architecture slide; no events or user records",
     "reason": "Demonstrates DoS mitigation with Distributed Cloud Bot Defense"
   },
+  "71412": {
+    "article_hash": "cae88bb06a2b3206a43f58e9df11a7d56be92987c44c4b48e340e75b8a7b481d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d99169723a9bf42c4cb3c1188de0d3f5174bb28d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              407,
+              373,
+              706,
+              428
+            ],
+            "size": 12,
+            "text": "Synthetic demo contacts"
+          }
+        ],
+        "output_sha256": "574ccd3136bff44849ac8023a1872a2926b89b2978d0af3ce4e04db75413ddef",
+        "rectangles": [
+          [
+            370,
+            121,
+            519,
+            139
+          ],
+          [
+            922,
+            122,
+            947,
+            141
+          ],
+          [
+            407,
+            372,
+            705,
+            428
+          ],
+          [
+            852,
+            301,
+            947,
+            412
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c99d85f5c608c05f7644a2e927c9575d1de56b8.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              418,
+              383,
+              824,
+              407
+            ],
+            "size": 12,
+            "text": "expressroute-example-circuit"
+          },
+          {
+            "rectangle": [
+              418,
+              420,
+              1056,
+              458
+            ],
+            "size": 10,
+            "text": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example"
+          }
+        ],
+        "output_sha256": "6ed3761b9428efbf59e88ec9967a97cca77090a39db745504aa765f9aaf7388c",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/21ab46114672a4d27c6f4803c7ac908a6aaef604.jpeg": "8bf6ad79735ef5f4d1f2bf2ad70082d61edf195d57ff276a68c7f7c5158333fa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3634d1a733fa77b9bc97db661329dda8e6f0cf8b.jpeg": "96a8849503cddd32678827585ec1f1197f4571a5c11770c99d99ee7c9a962108",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/424b554581bc005762af65c334fe732c3da55f26.jpeg": "e00080dfbdf85ce7cb03686c48f98457ba29ddb1e63f8a4a11afc6ab86011638",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/56abbf82e11d1f0ab6e0f4d14160e6c35e9ef82d.jpeg": "648d5cef213e007ea06afbea2bd9ccf0efe11ebfe8a626529a289a3954d062e5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d99169723a9bf42c4cb3c1188de0d3f5174bb28d.jpeg": "2eda548028c02f27fcca346ed73d815084efe2f5db84bf08083124ae6941d706",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e2a442ac62e840ad7610988c90668b9383609200.jpeg": "7ef547e5ad988fabd0eaf1707243f75b373008fd59d8fc6f69d937f574cb84f8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/1/419bcf6ec6d5d72914305c1ee562c407f4f6ae6c.jpeg": "d9c66f5baf2e8e0fcd93f3b7bb58683d982d95cbbbd14dbef257d96c95568098",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/1/61330563c39a96aaf1e6761e46b9d0dfd42e64b8.jpeg": "8702b6cea66e10b1630a3e3a7c904e86e770bd04991f1572164b50c32b571bd0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6bb34fb795b87b2db8ed7f049bbf133ee8fac8b9.jpeg": "cc129482065ad611b6f5e8545afc2b7c32ff0f59f8c141e90e7187585b862979",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c99d85f5c608c05f7644a2e927c9575d1de56b8.jpeg": "12be5a6d2f7312096254f142b9f9b2d265e95473a966f428584a464050fd0f48",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/f/afca913847283074d929680c87d3bf0a5627da0d.jpeg": "f29ebb99a383daa15d5265d7995cc7b97277e74da61d935c735dbee9b3041011",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/7/c72ecaf47bf27bf4700edd3ea0f912fee9dadfa5.jpeg": "e367450bbd94273dbf7be96c21a0d213f26fe3582a920886b501e73522bf291a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected private connectivity guide and twelve media; tenant and resource names made synthetic; financial UI identities cleared; private example addresses preserve route topology",
+    "reason": "Distributed Cloud private connectivity orchestration",
+    "text_replacements": {
+      "nodes": {
+        "27d9c9757f716c9a4c3ea5d847ee146af525877f9d237c321bdc9399415f1e9b": "metadata:\n  name: mcn-arcadia-frontend\n  namespace: mcn-privatelinks\n  labels:\n    ves.io/app_type: arcadia\n  annotations: {}\n  disable: false\nspec:\n  domains:\n    - mcn-arcadia-frontend.demo.internal\n  http:\n    dns_volterra_managed: false\n    port: 80\n  downstream_tls_certificate_expiration_timestamps: []\n  advertise_on_public_default_vip: {}\n  default_route_pools:\n    - pool:\n        tenant: example-corp\n        namespace: mcn-privatelinks\n        name: mcn-aws-workload-pool\n        kind: origin_pool\n      weight: 1\n      priority: 1\n      endpoint_subsets: {}\n",
+        "8fc74743109a5a3b29860d5a3c38c71c2e9b23a640f91ef33c4f160fc6cc0199": "metadata:\n  name: mcn-aws-workload-pool\n  namespace: mcn-privatelinks\n  labels:\n    ves.io/app_type: arcadia\n  annotations: {}\n  disable: false\nspec:\n  origin_servers:\n    - private_ip:\n        ip: 10.100.2.238\n        site_locator:\n          site:\n            tenant: example-corp\n            namespace: system\n            name: aws-direct-connect\n            kind: site\n        inside_network: {}\n      labels: {}\n  no_tls: {}\n  port: 8000\n  same_as_endpoint_port: {}\n  loadbalancer_algorithm: LB_OVERRIDE\n  endpoint_selection: LOCAL_PREFERRED\n",
+        "b3147863b198010acc04d7d04a7eea8ca6f9a7819e345e893babc6db578d37dc": "root@example-container:/etc/nginx# curl -v api:8080\n* Rebuilt URL to: api:8080/\n* Hostname was NOT found in DNS cache\n*   Trying 10.101.1.5...\n* Connected to api (10.101.1.5) port 8080 (#0)\n> GET / HTTP/1.1\n> User-Agent: curl/7.35.0\n> Host: api:8080\n> Accept: */*\n>\n< HTTP/1.1 200 OK\n* Server nginx/1.18.0 (Ubuntu) is not blacklisted\n< Server: nginx/1.18.0 (Ubuntu)\n< Date: Thu, 12 Jan 2023 18:59:32 GMT\n< Content-Type: text/html\n< Content-Length: 612\n< Last-Modified: Fri, 11 Nov 2022 03:24:47 GMT\n< Connection: keep-alive\n< ETag: \"636dc07f-264\"\n< Accept-Ranges: bytes\n",
+        "e62149244259d808dec814a633cd3740fa101a9277e5de2ba5c685d02ed5ebad": "root@example-container:/etc/nginx# hping3 -ST -p 8080 api\nHPING api (eth2 10.101.1.5): S set, 40 headers + 0 data bytes\nhop=1 TTL 0 during transit from ip=172.18.0.1 name=UNKNOWN  \nhop=1 hoprtt=7.7 ms\nhop=2 TTL 0 during transit from ip=192.168.1.6 name=UNKNOWN  \nhop=2 hoprtt=31.4 ms\nhop=3 TTL 0 during transit from ip=192.168.1.5 name=UNKNOWN  \nhop=3 hoprtt=67.3 ms\nhop=4 TTL 0 during transit from ip=192.168.1.22 name=UNKNOWN  \nhop=4 hoprtt=67.2 ms\n^C\n--- api hping statistic ---\n8 packets transmitted, 4 packets received, 50% packet loss\nround-trip min/avg/max = 7.7/43.4/67.3 ms\n"
+      },
+      "output_sha256": "6de6415dec5afe67b90a6a332c41b73ceb47e0bf7ef28fff7bc1eef816646c9e"
+    }
+  },
   "71441": {
     "article_hash": "01e7c70e728fe67112eb0ca8051f5d51122f799c850787adfe0cd5a5119a41e3",
     "decision": "exclude",
@@ -1338,6 +1749,34 @@
     "privacy": "approved",
     "privacy_reason": "Individually inspected managed services guidance and five generic capability and regional network slides; no client telemetry",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "71894": {
+    "article_hash": "6eda3ebe883e4e388997f13c176adb0ddbc48af69355c7d6234b8f46b761af74",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ce050261399d54ccfa685f38898c15c2b8fc04ea.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              106,
+              485,
+              580,
+              608
+            ],
+            "size": 20,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "d5caba41a7026f048a559949f8b3c27bb2dfe9aa3a774ab752ad498d052d1e87",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ce050261399d54ccfa685f38898c15c2b8fc04ea.jpeg": "9b1c576be367d5942a76a9ee12e5f125a596e682e030025306527856d24e49c9"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected PagerDuty alert guide and title image; presenter attribution made generic",
+    "reason": "Distributed Cloud security or alert configuration guidance"
   },
   "71917": {
     "article_hash": "0914b532fd124ecb73d84ba91e9d1a0dcf77af54cf41a4b5d253e698dd71c7da",
@@ -1511,6 +1950,236 @@
     "article_hash": "dbb829b875d0f3cafddcc64007f91204320125185d86bdcfea3f97c4e83cae18",
     "decision": "exclude",
     "reason": "Weekly security news digest; not Distributed Cloud focused technical content"
+  },
+  "72266": {
+    "article_hash": "87094bdd207010f6772014925bbcd4b10e1e9f5efdca8d6682fe1d6682c1ebf7",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/168b5a3bab78983b98987b0c4ffb3ad9ab038733.png": {
+        "labels": [
+          {
+            "rectangle": [
+              326,
+              230,
+              529,
+              254
+            ],
+            "size": 12,
+            "text": "example-tgw-site-1"
+          },
+          {
+            "rectangle": [
+              326,
+              278,
+              529,
+              302
+            ],
+            "size": 12,
+            "text": "example-tgw-site-2"
+          },
+          {
+            "rectangle": [
+              326,
+              326,
+              529,
+              350
+            ],
+            "size": 12,
+            "text": "example-tgw-site-3"
+          },
+          {
+            "rectangle": [
+              326,
+              374,
+              529,
+              398
+            ],
+            "size": 12,
+            "text": "example-tgw-site-4"
+          },
+          {
+            "rectangle": [
+              326,
+              422,
+              529,
+              446
+            ],
+            "size": 12,
+            "text": "example-tgw-site-5"
+          },
+          {
+            "rectangle": [
+              326,
+              470,
+              529,
+              494
+            ],
+            "size": 12,
+            "text": "example-tgw-site-6"
+          },
+          {
+            "rectangle": [
+              326,
+              518,
+              529,
+              542
+            ],
+            "size": 12,
+            "text": "example-tgw-site-7"
+          },
+          {
+            "rectangle": [
+              326,
+              566,
+              529,
+              590
+            ],
+            "size": 12,
+            "text": "example-tgw-site-8"
+          },
+          {
+            "rectangle": [
+              326,
+              614,
+              529,
+              638
+            ],
+            "size": 12,
+            "text": "example-tgw-site-9"
+          },
+          {
+            "rectangle": [
+              326,
+              662,
+              529,
+              686
+            ],
+            "size": 12,
+            "text": "example-tgw-site-10"
+          }
+        ],
+        "output_sha256": "8452a868e64eaf6bd0e40ea122720ad6fb141fad9f3ce0d8775b00ac1f9dd72d",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3167c140ac2b1bbd5d9450b08f7b977496e99a7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              696,
+              396,
+              800,
+              420
+            ],
+            "size": 12,
+            "text": "Example Corp"
+          }
+        ],
+        "output_sha256": "4feb659e7f8ad1ce4488254c2bc1c4e1563646bb554cd7dce01a15a38d5d7e41",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aac8807ff6ad0dd1e62e7db3aaae42a55afe4fa0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              586,
+              599,
+              660,
+              619
+            ],
+            "size": 9,
+            "text": "example-site"
+          }
+        ],
+        "output_sha256": "3a5b09db1fd7e91d258229046b4df69503161aac667734d8af89a5ad22465236",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d237b952390a38a822519eca55004e68335bc3e2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              223,
+              137,
+              364,
+              157
+            ],
+            "size": 10,
+            "text": "example-bigip-service"
+          },
+          {
+            "rectangle": [
+              1077,
+              134,
+              1245,
+              148
+            ],
+            "size": 8,
+            "text": "https://node10.example.com"
+          },
+          {
+            "rectangle": [
+              1077,
+              148,
+              1245,
+              162
+            ],
+            "size": 8,
+            "text": "https://node20.example.com"
+          },
+          {
+            "rectangle": [
+              1077,
+              173,
+              1245,
+              187
+            ],
+            "size": 8,
+            "text": "https://node1.example.com"
+          },
+          {
+            "rectangle": [
+              1077,
+              187,
+              1245,
+              201
+            ],
+            "size": 8,
+            "text": "https://node2.example.com"
+          }
+        ],
+        "output_sha256": "cec19afc48c88773fcd0ea6949c6bd895dd49ece29eafc6dddd652232d0c1a7d",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/068d3f8f7bdc95cc7aad772eb75c6ec55bd62c4c.png": "a398ec8279d88e7fea93f886bf3c3cbd57ecf171f8650cc472969b898de051da",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/168b5a3bab78983b98987b0c4ffb3ad9ab038733.png": "5c76b8f489f2364df95d86bced466267e39a8298b4d07914bb6e53191d0ecb90",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19977ba38c7c54c997ea360ffdd5b6a441202cc5.png": "cddbc2acab10bd2b2fe847b511a108e0aebfcf233b96c7f7676f891494fa292f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/295846a7a0157d9ceb9f385ca46bd69f5a0b4f2e.png": "330a3f9063181afba794ea6b33ea283e778aba197ef3e6c5a0e05d2625ace585",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/365db5b22e9ff6a508786b1903dadd5ecb2d2f9a.png": "4d51d59c48b4d778e557544e381d02493beb5d4cef773bee9883a707dcb30b42",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/36974730c41efbef0b195154b3a06e627b232477.png": "36b61e140a73990db39d25acb09191f059d284997055e69a2a36f911029f0bdd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4d07d0108794086446c91be6818f44800d31af37.png": "a72b3a18da759f63b55838d37fd606ac879e8faa9679606ff5541599c4d5e72d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5fc4c2c59e5252ec3e5de79ab511d0f186b61301.png": "d3a9a835c55a48dbfc472cdeadc4e2af1f8553335c6784abc643d64b725aea37",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8fd2e67d0828fdd6fc4e4ada4554ea3e38ccbcc7.png": "49d23f2dc52cd62508448e7271872572fab650513be0f5cce221c998938dd8c7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b3c45d92e221ca87c7411cb922d2a876595d0445.jpeg": "5776d62e2428534a783a7917ef0774a313002c63cd751fe3f6b98d5d51333afe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6d463f1ece5c74b03904e3abd982aa2c042a651.png": "c22f1d533e94ec8e514a7778ba8eec00920f8acee1dce41b17bc16157d563efe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd9b11c550f2ac05d55021101cf27b42fa165433.png": "67a764f00ef0bf7bb85fcee5b77393a1fac63e8654cff32f5a9ecb1028285961",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5b70e3466973242abbc6fcbb70a2179801bb1c3.jpeg": "8507260a70b67d98d49c054f7db05266840ad687c0040d313c4cf41da4adff2d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d62b241f3ed428002ff4267f994c257711a14376.png": "7db367052c318578505c3ec578d76bfd722d8f8dce2fe784495560ce2a58e3cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d9ed5cc5933234cf97297b14a3b9f5e90fbd53d8.png": "4f17620beb3c401fc4ea2c2506642dd3abe2dd9bdcf91377bb25004cbbd33512",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3167c140ac2b1bbd5d9450b08f7b977496e99a7.png": "923d3bddb17e5b4d3f1623fbf011d3a7e80172a975ab76281bef4c478ffbd846",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6e7d852252bf28629b75692768d17dcb9d62c64.jpeg": "8c75afe834f838ab961da58a94824c4b3ff808b588e7d3733e92b5a3a91e5bd4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/a/2a48a663488ee2b146df14cef9b2df8331e58d29.png": "74b3ae68b6f6379d0caf07d351ce0509cec70d4a8a2227a821ef608c4c761811",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f305842aa809d7291addcb99486ab00de53b744.png": "918001676c2e76ecf992fe312b9b241e695c0e56158995bb3fd4becd12d68a48",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/b/4b6a6b0e829a305db6f07dc74e08caf40cd6b58f.png": "f78e249d164a7f593230db565354b3bf9ab6e8794f874801adfaed3c7a244b29",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/51e0a586c806c23e105cd1b1ee6640214b5fa370.png": "d0c4d086969191d7696c8218c85d3abc589c2c268d54711d3ca8007e070bb156",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aac8807ff6ad0dd1e62e7db3aaae42a55afe4fa0.png": "0a69c069fe62e6b3d40e97dedd26ed6c302067d244092126d0de24ec3a53f173",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/6/b6218ca71186436d0d4179fbf3ad13d33f2f275c.png": "fb63f18e1ecd21b5c9bec0944b83c760160573b0597ad55309b9faee9e9641f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/4/c4d6c9b9740877cb4416285b9852b9dece7935ff.jpeg": "08afa6037cf3bd1f8723856d208cbe0fbc7d50f44515a4bbfae077bd6f2a6278",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d237b952390a38a822519eca55004e68335bc3e2.png": "d4b69e002fe5e2d4cfd1cde35c04461adc60316c2320c0275373291ca354980c"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected service insertion guide and twenty-five screenshots and diagrams; site list and management links made synthetic; UUID is public documentation route",
+    "reason": "Distributed Cloud orchestrated Palo Alto service insertion"
   },
   "72321": {
     "article_hash": "330db2fb274c5332489404d62e149a86e447c2fb84456825445751e6a8f70cf2",
@@ -1741,6 +2410,246 @@
     "privacy_reason": "Individually reviewed MCN guide, provider matrix and animation fixed background with moving traffic markers; all-frame OCR and metadata stripping verified",
     "reason": "Distributed Cloud CDN or networking guide"
   },
+  "72617": {
+    "article_hash": "0f646f9823de1b672f20422cebb7e728cef12ebf56c89d9b2bfaedcd5b8eb27d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/dcfc95d71daa9def90f1a66417ce49423cedbded.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1430,
+              272,
+              1562,
+              384
+            ],
+            "size": 9,
+            "text": "Example source IPs"
+          },
+          {
+            "rectangle": [
+              649,
+              627,
+              747,
+              653
+            ],
+            "size": 10,
+            "text": "192.0.2.41"
+          },
+          {
+            "rectangle": [
+              649,
+              726,
+              747,
+              754
+            ],
+            "size": 10,
+            "text": "192.0.2.42"
+          }
+        ],
+        "output_sha256": "9ff55298fefb6ba779128d01e8112b413866c64d7652f9f0c9ecbc8c0a23bda0",
+        "rectangles": [
+          [
+            1428,
+            271,
+            1562,
+            387
+          ],
+          [
+            1430,
+            477,
+            1560,
+            555
+          ],
+          [
+            642,
+            587,
+            756,
+            843
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0bc560c2cac43c46bcef17bac25caf76b66435ae.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1040,
+              647,
+              1217,
+              775
+            ],
+            "size": 12,
+            "text": "Synthetic fingerprints"
+          }
+        ],
+        "output_sha256": "03f4da8627dea3882eb7feb9825997f8615faac391d2580764cf6fb1793f95cd",
+        "rectangles": [
+          [
+            1038,
+            645,
+            1203,
+            780
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c797e20123a39acd31378c0db17b127abe450e7f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              989,
+              615,
+              1151,
+              738
+            ],
+            "size": 10,
+            "text": "Synthetic fingerprints"
+          }
+        ],
+        "output_sha256": "e78ea57142e53d56594f6af89ae85107743f4f445c0eff4db964eb64d70f2848",
+        "rectangles": [
+          [
+            988,
+            616,
+            1152,
+            736
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e10a414e52ef2eded49a12aa1b7ce961125437d0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              719,
+              305,
+              783,
+              364
+            ],
+            "size": 9,
+            "text": "Example IPs"
+          }
+        ],
+        "output_sha256": "0e98e1648e95cc7da1c4da37c5112bced5465b68f83c8e5aa0e600c43e7802c6",
+        "rectangles": [
+          [
+            718,
+            303,
+            784,
+            363
+          ],
+          [
+            717,
+            390,
+            815,
+            454
+          ],
+          [
+            217,
+            301,
+            271,
+            411
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e4ea1a9608583b9716500c56bc3f98df21577b8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              274,
+              301,
+              343,
+              353
+            ],
+            "size": 9,
+            "text": "Example IPs"
+          }
+        ],
+        "output_sha256": "f804046bd951aeb3ec568f09fcfbdb23b196697ab0614260321031927610bc46",
+        "rectangles": [
+          [
+            270,
+            299,
+            344,
+            353
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/1/917187ed075cf28f9271fd8ae7be759220817aa2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              669,
+              455,
+              857,
+              476
+            ],
+            "size": 10,
+            "text": "https://node1.example.com"
+          },
+          {
+            "rectangle": [
+              669,
+              489,
+              857,
+              510
+            ],
+            "size": 10,
+            "text": "https://node2.example.com"
+          }
+        ],
+        "output_sha256": "c2805dafad11eb14f6250234971d58d340d81c6cf2d8a384011ad08723c3f74d",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/95006e1496ddc44ce3e4429d7d5060e1b7159171.png": {
+        "labels": [
+          {
+            "rectangle": [
+              427,
+              610,
+              628,
+              632
+            ],
+            "size": 10,
+            "text": "CN=frontend.example.com"
+          }
+        ],
+        "output_sha256": "635e02340e89553b5a4c9350a15f3e196e89d0e199f635fb792bfd9c0fba196c",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/dcfc95d71daa9def90f1a66417ce49423cedbded.png": "d5c39c9059e64f0da216fac00846825f3f8978f306882b2c8c1ae10ce8a2d0c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/024b190dc3daeb981279b0a953ec543e58b0de0b.png": "911860bb89ddb2fd9b1a3907c5a3539fb63dcd35303f9bb3e8a496ba579ac95b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0bc560c2cac43c46bcef17bac25caf76b66435ae.png": "17f42ad1742a5af5fcb181e92f1a8dba342c4f88ea458a56c68060a4fe070fd8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0cf59f53cf0c21abd094486245aa823ab889b978.png": "568f35167616a3e600d0b218f821188c1f1adcd3a87ebf62365bdaa4ade97b10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/121d40581b42b0b3c94b379599e6f6531d04ea78.png": "eb661afecd3b32e4c12e9eb386fd3c8b4c57862e1924828bdfcffe65e99111ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/41aee3e571b31a5f93d28c0c64e9e3d1cc56da49.png": "fc92b847035d9f978c44df5ed9252238f051214251531b3c9a88e47b60df4faa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4421a26d21d2f6faa3edeb06aa3b49fee4ec780f.png": "7bf62069749ca24c3dba6f418f3e80d2a3bb898fa22deb7015bbfb416217f79a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/77943ae18d006115e1cd8d94f77a13cac341bd49.jpeg": "e3589b2f8c784d58b4fbc76a856c24b9dee0d3c1b26ea68dd8ff93daee54a71f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8b341a811f67c50f35e6b6b28e5227c505446f0a.png": "f3bce6903d742791e79a1511eea183f837a41ea24970ed4b9c4be4f82af2caad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8f31c785df252dc9ba236263f400ee62167707b0.png": "d969ba1426811013457a69d72d3539b7519a6d17e1e66ba70cb6818943e238ba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b04d9ff488f08d62d14ddaafbbc5f68e126d60e3.png": "798cef57f95feb9d5cff73263d6c0ba23499a096127f0ffd92c56dfb0c572265",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c797e20123a39acd31378c0db17b127abe450e7f.png": "8379bdb0a2b8bcb8835ca5fe858b93b9f5be87b51cd96df15b7f10677d64c200",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d4e3b2a93f15eca604268f456dac5bedf5d530a9.png": "6779f4b6d5ce1206ac5532343f08077d7a4ace34b9d295e36d3377aa7acfb8de",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e0d7ce04a10ae1a34502f3b651ebabbac5bb3795.png": "e722f8d1627387b5375cbc88b58d1873bb491e6df26e3b24275db1724ae93167",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e10a414e52ef2eded49a12aa1b7ce961125437d0.png": "0163f33f6f68202f48430308545e7cecd0973618fd4df8dda4d9f44f7e41285e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fdfbe87027040fde7d9dfe00b19d74c749aaf6ac.png": "c93a0bdfba9a3e4c93d4d22bf3b35ada340c9a84e008ab3bbcddecb678708caf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/02d32da136f9cf635046bcd9cfae28b1aa0f4f58.png": "669bbce1c2e6434dc25499925a1d0ef3d24ad234ee6ca791fed36f1746b84239",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1d784940af428de55fcfe64c0f4134fa2fae68f9.png": "1de7a7d04a37ec0f638bab5e5308292f91db1962f7ecf783be0c881a2939ef7b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4ea5f14ba7524a927e16f7f9de8a81f9f5bb4586.png": "54e9f296e7e22f07bcf1e35a639d9cd19939835db29d69c2115746ad020d46cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/2/621f57b66364b7a5e898e49b9e4e095c54ff34df.png": "9a41e4e432764e1f0ba59a569fac635bcf3b2d413c780ac26ac50846e4b90a90",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e4ea1a9608583b9716500c56bc3f98df21577b8.png": "569492b54bc2466d571ca9c8b4f0a003dcba9d7f2c68f25eaf11ea652eb3b57e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/1/917187ed075cf28f9271fd8ae7be759220817aa2.png": "adff85f06ee1d91ee5df5ac7593980acf56da3db0f1e42b1691b17181bdcf9ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/95006e1496ddc44ce3e4429d7d5060e1b7159171.png": "f78fcc2e616d6751f8a744d79a0fc1d0c8f2531b9a4bc13315b72d4137c0eb97",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/2/b28fca03c887f22beff6f77494fbab7a4ee45406.png": "a643ca92ffd068ad53f51a48e17284a4f0db7960bfe9785ceca4c73c2c6652dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c15fb06cd65f13efa81f0379999a5c224867ee84.png": "00e78a267e35cac3c6f1cf71571ca99ea18516b50b3f30433d788782b85b3d82",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ce8e5b2c65698bbbc08ab1d027877fdb848a6639.png": "e5887b8b8a901b64131e37681ef8b5dae3e1dbdc986e29891e34c7d34be1ed0e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd44fafe03cfd28374d6ca6b9a5c9f759902ba13.png": "03c890c5c4160842f2ad02b714b5f16b41aaba8850349e11ebeca3fcd21b952a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff4aa6de63f68b119a0098c9d031ed1d658b0a4e.png": "43ef93201dfd70df3e4adf7ae19d73d5939ea1da635286558ae7ba7ed4b0b8f8"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected walkthrough prose and twenty-eight images; client addresses and fingerprints, management URLs and certificate domain made synthetic; aggregate charts and technical controls retained",
+    "reason": "Distributed Cloud complete multicloud network and app walkthrough"
+  },
   "72689": {
     "article_hash": "ef755dcdd1681083d50a49821425c63baae34e3734e07bc30136c14d33d00789",
     "asset_redactions": {
@@ -1768,6 +2677,54 @@
     "privacy": "approved",
     "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
     "reason": "Distributed Cloud DNS configuration demo guide and deployment resources"
+  },
+  "72811": {
+    "article_hash": "41ff1d8a4392ff466bcf085d7c2997a5a8b02278000d468f51826cf2add71cac",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/da6425fa553b9717da6bb33e938de74c5120a11d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              796,
+              238,
+              1001,
+              310
+            ],
+            "size": 18,
+            "text": "Example account"
+          },
+          {
+            "rectangle": [
+              798,
+              508,
+              1157,
+              584
+            ],
+            "size": 18,
+            "text": "Example savings"
+          },
+          {
+            "rectangle": [
+              798,
+              778,
+              1157,
+              852
+            ],
+            "size": 18,
+            "text": "Example reserve"
+          }
+        ],
+        "output_sha256": "27c963edaab8752151a2eeabe4ce1b52cb64a472f947c620a6d96b32f475b6ac",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/da6425fa553b9717da6bb33e938de74c5120a11d.png": "405884b439e621b4d2f5a8dff9d6951fc0a49835810ba1174b9a285ba91a0830"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Mobile App Shield prose and one protection illustration; account references made synthetic; image filename email match is decorative naming",
+    "reason": "Distributed Cloud mobile application shield overview"
   },
   "72834": {
     "article_hash": "47bd4bd08d3dc691c3bd7830a404c614ea17ef4f5b5102a7b5755e1daa6dcad1",
@@ -2734,6 +3691,11 @@
     "decision": "exclude",
     "reason": "NGINX hybrid scaling tutorial; XC is NGINX One SaaS access context"
   },
+  "74979": {
+    "article_hash": "417a94448c7594e2a4f64d15ec69442729f5a6fd6d2d9d5ea3be62c82d7c683f",
+    "decision": "include",
+    "reason": "Distributed Cloud client certificate routing"
+  },
   "74981": {
     "article_hash": "c3f38467b66d3aac7edfceea32bf4f5422dbb81cfe7c5a4aa8c3d46465036b86",
     "decision": "exclude",
@@ -3511,6 +4473,20 @@
     "privacy_reason": "Individually inspected Equinix application portability explanation and two generic topology maps; no customer locations",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "76970": {
+    "article_hash": "20c6c5aee6ab9a730f844396e8428e92dfab40513d952a3c624c22df02aeb143",
+    "assets": {},
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected DNS automation prose and sample output; private example addresses and reserved domains only; tenant normalized",
+    "reason": "Distributed Cloud secondary DNS API automation",
+    "text_replacements": {
+      "nodes": {
+        "061e20d2639c0c7d2e08dcc227284d2356b3826853e9fa9078c0f981b2d81cb5": "$ ./create_secondary_dns.sh\n\n\n\nStarting secondary DNS zone creation...\n\nTenant : example-corp\n\n---\n\n[line 1] Creating secondary zone: example.com (primaries: 10.0.0.1 10.0.0.2)\n\n[line 1] OK - example.com created (HTTP 200)\n\n[line 2] Creating secondary zone: example.org (primaries: 192.168.1.1)\n\n[line 2] OK - example.org created (HTTP 200)\n\n---\n\nDone. Success: 2, Failed: 0, Total lines: 2\n"
+      },
+      "output_sha256": "04e852216bb0e4d0afb37b9a2dad5d3184e0d700d1baf7a4a3d3759dd19949b4"
+    }
+  },
   "76978": {
     "article_hash": "8f61a854de181d5e3467271657fb2958989f484ba88902790aa4b074491b8208",
     "assets": {
@@ -3660,6 +4636,16 @@
     "decision": "include",
     "reason": "Automates Distributed Cloud edge load balancing and WAF with BIG-IP origin services"
   },
+  "77119": {
+    "article_hash": "e68e7ae31cdad16b4e1178471c6366e299a60d69dcc1e391b2ef449c981fc631",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6bd584e33b6aca4ec58fe0f21830a1d4239fe7a.png": "8df888645ddc9e416e91730a90e9555b2812923e385b8528a3b073e1f179686b"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected origins and health checks explanation and public schema mapping table; no configured origins",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "77138": {
     "article_hash": "d9ed1cb3e291e855b612261a4305698c66bbff5daa67d1a868e60b04fc5b858c",
     "assets": {
@@ -3779,7 +4765,12 @@
   },
   "77234": {
     "article_hash": "1f99ad092af7b89488cea386249100603ac2239142ced3608a36110992c3678b",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/8690146f94f390bc5b62d8b4b2dac58aabd98506.png": "c0631f03ae5a1aaaa01706c874653305161b75b48361d127ca713b86947858ed"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected origin health guide; tiny logo is decorative and no media or customer data",
     "reason": "Distributed Cloud App Connect origin-pool health monitoring and failure detection"
   },
   "77240": {
@@ -3855,6 +4846,17 @@
     "privacy": "approved",
     "privacy_reason": "Individually inspected prose and all three full-resolution blank configuration illustrations; no identifiers or image annotations",
     "reason": "Distributed Cloud load balancer configuration article"
+  },
+  "77390": {
+    "article_hash": "145065f74c80495bff67287472b4bd87dc8efbb08c3a5dedb75c39e8400ee3c9",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/5/257b3aaa8e3be5676897599fa0b3e06e9881e954.png": "2c273b082a22178da6fd12687bc93fcb71ec99f9ffdfb5dd1a261693e440804b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/e/7ef8c6ef26931c0fd07b64c555f22beff227e537.png": "2ce003559704a274b4e94ee0168c2cb52345759c96420caaf2a2d70bfad5e3c9"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected log downloader guide and both full-resolution unfilled configuration images; no credentials or logs",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "77407": {
     "article_hash": "8caecec0b2f5f96ff6e3c0ab22583e00374ac442fbf9f2616c4c0a8a16583d79",
