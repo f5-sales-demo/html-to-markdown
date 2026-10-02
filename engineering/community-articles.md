@@ -21,8 +21,8 @@ The sitemap's known `page` query is used only to identify a topic; retrieval alw
 first post. A shared clock limits requests to two per second. Transient failures retry and
 `Retry-After` pauses subsequent requests. An incomplete first-post pass blocks publication.
 
-Each new snapshot starts in a fresh output directory. Interrupted runs resume the same captured
-listing and first-post checkpoint. The full reviewed baseline supplies benchmark URLs; the
+Each snapshot refreshes every listing and first post by default. Explicit API resume continues
+the same captured listing and first-post checkpoint; failed runs invalidate prior approval. The full reviewed baseline supplies benchmark URLs; the
 required example IDs are 73730, 72834, 72617, 70152, 71412, 72266 and 70153.
 
 ## Review evidence
@@ -92,3 +92,5 @@ The private inspection ledger now covers all 382 selected articles, including ev
 Credential publication enforcement now rejects remaining private-key, assigned-secret and authorization-token findings even when an article has a privacy approval. Three regression cases reproduced the bypass before correction. All 205 tests pass with 88.48% coverage and the strict adapter/pipeline 95% gate. Explicit offline re-evaluation of the captured pass confirms 8,082 topics, 382 accepted relevance decisions and 353 unresolved privacy reviews after 27 individually reviewed no-media approvals. OCR box proposals cover 2,697 unique images with zero errors; 1,437 images have candidate rectangles. These are unapproved proposals. Metadata review additionally identifies 681 images requiring metadata inspection or stripping. The combined artifact, PR and release remain unfinished.
 
 Media review supports metadata-only, hash-bound PNG rewrites that preserve pixels and transparency. Tests first rejected metadata-only policies; the implementation now strips annotations without adding pixel rectangles. The complete suite passes 207 tests with 88.49% coverage; strict adapter/pipeline coverage passes. Private proposal generation validates unchanged pixels and absent metadata before final approval. Snapshot publication remains gated on completing 353 unresolved reviews.
+
+Reviewed synthetic diagram labels now preserve routing relationships while replacing identifiers. The hash-bound policy validates label rectangles, font sizes and text fit. Animated input cannot pass through a still-image transform: twelve animated assets were identified and need all-frame review. Regression tests reproduced silent frame loss and missing label support before implementation. CodeShare placeholder repairs preserve fenced code under exact input/output hashes. The complete suite passes 220 tests with 88.62% coverage and the strict adapter/pipeline gate. Ruff, formatting, mypy, Bandit and changed PII checks pass. Pylint on the media module scores 10 with its unavailable import check disabled. Individually reviewed private previews now include two repaired CodeShare snippets, the required routing article with eight diagrams and five synthetic label transforms, and nine further configuration or architecture articles. The full inventory still requires completion of the remaining privacy reviews before publication.

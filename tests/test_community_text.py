@@ -6,6 +6,7 @@ import pytest
 
 from html_to_markdown.community_text import reviewed_text
 from html_to_markdown.errors import PublicationBlockedError
+from html_to_markdown.render import render_html
 
 
 def test_reviewed_synthetic_text_and_attributes():
@@ -35,3 +36,24 @@ def test_reviewed_synthetic_text_and_attributes():
 def test_invalid_replacements(policy):
     with pytest.raises(PublicationBlockedError):
         reviewed_text("<p>Original</p>", {"text_replacements": policy})
+
+
+def test_reviewed_placeholder_repair_survives_fenced_markdown():
+    from bs4 import BeautifulSoup
+
+    broken = 'certificate_url = "string:///<base64 encoding="" of="" public="" key="">"\n}</base64>'
+    fixed = 'certificate_url = "string:///<base64-encoded-public-key>"\n}'
+    soup = BeautifulSoup("<pre><code class='language-hcl'></code></pre>", "html.parser")
+    soup.code.string = broken
+    html = str(soup)
+    soup.code.string = fixed
+    review = {
+        "text_replacements": {
+            "nodes": {hashlib.sha256(broken.encode()).hexdigest(): fixed},
+            "output_sha256": hashlib.sha256(str(soup).encode()).hexdigest(),
+        }
+    }
+    repaired = reviewed_text(html, review)
+    assert render_html(repaired, "https://community.f5.com/t/67372").body == (
+        '```hcl\ncertificate_url = "string:///<base64-encoded-public-key>"\n}\n```\n'
+    )

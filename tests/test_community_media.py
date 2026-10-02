@@ -115,3 +115,87 @@ def test_metadata_policy_preserves_transparent_diagram():
     }
     result, _ = reviewed_media(content.getvalue(), URL, review)
     assert Image.open(io.BytesIO(result)).getpixel((0, 0)) == (0, 0, 255, 0)
+
+
+def test_animated_media_transform_cannot_discard_later_frames():
+    source = io.BytesIO()
+    Image.new("RGB", (10, 10), "blue").save(
+        source,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (10, 10), "red")],
+        duration=[100, 200],
+        loop=0,
+    )
+    content = source.getvalue()
+    still = io.BytesIO()
+    Image.new("RGB", (10, 10), "blue").save(still, format="PNG", optimize=False)
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "strip_metadata": True,
+                "rectangles": [],
+                "output_sha256": hashlib.sha256(still.getvalue()).hexdigest(),
+            }
+        },
+    }
+    with pytest.raises(PublicationBlockedError, match="animated"):
+        reviewed_media(content, URL, review)
+    del review["asset_redactions"]
+    assert reviewed_media(content, URL, review) == (content, None)
+
+
+def test_reviewed_label_preserves_diagram_relationships():
+    from PIL import ImageDraw, ImageFont
+
+    image = Image.new("RGB", (160, 40), "blue")
+    source = io.BytesIO()
+    image.save(source, format="PNG")
+    expected = Image.new("RGB", image.size, "blue")
+    draw = ImageDraw.Draw(expected)
+    draw.rectangle((2, 2, 157, 27), fill="white")
+    draw.text((4, 4), "blue.example.com", fill="black", font=ImageFont.load_default(size=12))
+    output = io.BytesIO()
+    expected.save(output, format="PNG", optimize=False)
+    review = {
+        "assets": {URL: hashlib.sha256(source.getvalue()).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "rectangles": [],
+                "labels": [{"rectangle": [2, 2, 158, 28], "text": "blue.example.com", "size": 12}],
+                "output_sha256": hashlib.sha256(output.getvalue()).hexdigest(),
+            }
+        },
+    }
+    result, _ = reviewed_media(source.getvalue(), URL, review)
+    assert result == output.getvalue()
+    assert Image.open(io.BytesIO(result)).getpixel((159, 39)) == (0, 0, 255)
+    review["asset_redactions"][URL]["labels"][0]["text"] = "example.com " * 30
+    with pytest.raises(PublicationBlockedError, match="invalid"):
+        reviewed_media(source.getvalue(), URL, review)
+
+
+@pytest.mark.parametrize(
+    "labels",
+    [
+        "invalid",
+        [None],
+        [{}],
+        [{"rectangle": [0, 0, 10, 10], "text": 3, "size": 8}],
+        [{"rectangle": [0, 0, 10, 10], "text": "", "size": 8}],
+        [{"rectangle": [0, 0, 10, 10], "text": "é", "size": 8}],
+        [{"rectangle": [0, 0, 10, 10], "text": "\n", "size": 8}],
+        [{"rectangle": [0, 0, 10, 10], "text": "x", "size": True}],
+        [{"rectangle": [0, 0, 10, 10], "text": "x", "size": "8"}],
+        [{"rectangle": [0, 0, 10, 10], "text": "x", "size": 73}],
+    ],
+)
+def test_malformed_labels_fail_closed(labels):
+    content = image_bytes()
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {URL: {"strip_metadata": True, "labels": labels}},
+    }
+    with pytest.raises(PublicationBlockedError, match="invalid"):
+        reviewed_media(content, URL, review)
