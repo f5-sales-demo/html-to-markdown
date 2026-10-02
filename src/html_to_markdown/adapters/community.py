@@ -458,10 +458,10 @@ class CommunityAdapter(SourceAdapter):
 
 
 async def capture_inventory(
-    client: CommunityClient, output: Path
+    client: CommunityClient, output: Path, *, resume: bool = False
 ) -> tuple[str, dict[int, Any], dict[int, Any], set[int]]:
     checkpoint = output / "pass.json"
-    if checkpoint.exists():
+    if resume and checkpoint.exists():
         saved = json.loads(checkpoint.read_text())
         started = saved["started_at"]
         listings = {int(key): value for key, value in saved["listings"].items()}
@@ -489,12 +489,16 @@ async def capture_inventory(
     return started, listings, tagged, sitemap
 
 
-async def inventory_pass(client: CommunityClient, output: Path) -> dict[str, Any]:
-    """Finish all first-post reads before admitting any community document."""
+async def inventory_pass(
+    client: CommunityClient, output: Path, *, resume: bool = False
+) -> dict[str, Any]:
+    """Read every first post afresh; explicit resume continues the same review pass."""
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
+    # A failed new pass must never leave the previous approval report admissible.
+    (output / "inventory.json").unlink(missing_ok=True)
     topic_dir = output / "topics"
     topic_dir.mkdir(exist_ok=True, mode=0o700)
-    started, listings, tagged, sitemap = await capture_inventory(client, output)
+    started, listings, tagged, sitemap = await capture_inventory(client, output, resume=resume)
     tag_articles = {
         identifier for identifier, item in tagged.items() if item["category_id"] in CATEGORIES
     }
@@ -513,7 +517,7 @@ async def inventory_pass(client: CommunityClient, output: Path) -> dict[str, Any
     async def inspect(identifier: int) -> None:
         async with semaphore:
             target = topic_dir / f"{identifier}.json"
-            if target.exists():
+            if resume and target.exists():
                 value = validate_topic(json.loads(target.read_text()), identifier)
             else:
                 value = await client.topic(identifier)

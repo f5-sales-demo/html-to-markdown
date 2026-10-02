@@ -84,3 +84,5 @@ adapter/pipeline gate passed. Ruff, formatting, mypy, Pylint, Bandit, dependency
 changed-file PII enforcement and audit, secret scan, wheel/sdist builds and isolated CLI
 installation passed. Full privacy review, approved community extraction, final archive
 verification, scraper PR, software/content releases and Pages acceptance remain open.
+
+Inventory refresh correction: new snapshot runs now refresh category/tag/sitemap listings and every first post even when the output directory already exists. Explicit Python API resume continues the same private review pass. Failed passes invalidate the previous inventory approval report. Regression tests reproduced both stale reads and stale approval before the fixes; the complete suite passes 201 tests with 88.43% coverage. Visual inspection now covers 265 articles; inspection is separate from privacy approval. Two additional screenshot redactions are prepared and visually checked, with article approval still pending.

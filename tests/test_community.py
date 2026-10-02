@@ -731,3 +731,47 @@ def test_small_unlabelled_logo_is_decoration_but_diagram_is_preserved():
         body='<p>Distributed Cloud routing.</p><img src="/logo.png" width="32" height="32" alt=""><img src="/diagram.png" width="32" height="32" alt="Routing diagram"><img src="/large.png" width="500" height="300" alt="">'
     )
     assert image_urls(clean_html(value)) == [BASE + "/diagram.png", BASE + "/large.png"]
+
+
+@pytest.mark.asyncio
+async def test_inventory_refreshes_existing_first_posts_and_listings(tmp_path):
+    client = InventoryClient()
+    await inventory_pass(client, tmp_path)
+    original = client.topic
+    checked = []
+
+    async def changed(identifier):
+        checked.append(identifier)
+        value = await original(identifier)
+        if identifier == 70152:
+            value["post_stream"]["posts"][0]["cooked"] += "<p>New routing detail.</p>"
+        return value
+
+    client.topic = changed
+    report = await inventory_pass(client, tmp_path)
+    assert len(checked) == 9
+    updated = next(item for item in report["topics"] if item["id"] == 70152)
+    assert updated["article_hash"] == article_hash(await changed(70152))
+
+    async def unavailable_listing(url, category_id=None):
+        raise ScrapeError("listing unavailable")
+
+    client.listing = unavailable_listing
+    with pytest.raises(ScrapeError, match="listing unavailable"):
+        await inventory_pass(client, tmp_path)
+    assert not (tmp_path / "inventory.json").exists()
+
+
+@pytest.mark.asyncio
+async def test_inventory_resume_is_explicit_and_reuses_same_pass(tmp_path):
+    client = InventoryClient()
+    first = await inventory_pass(client, tmp_path)
+
+    async def unavailable(*args):
+        raise ScrapeError("network unavailable")
+
+    client.topic = unavailable
+    client.listing = unavailable
+    resumed = await inventory_pass(client, tmp_path, resume=True)
+    assert resumed["started_at"] == first["started_at"]
+    assert resumed["topics"] == first["topics"]
