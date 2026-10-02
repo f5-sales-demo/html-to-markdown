@@ -1530,14 +1530,16 @@
     },
     "decision": "include",
     "privacy": "approved",
-    "privacy_reason": "Individually inspected Kubernetes egress policy guidance and cartoon and three generic traffic diagrams; public DNS address is documented service and attribution made generic",
+    "privacy_reason": "Individually inspected Kubernetes egress policy guidance and cartoon and three generic traffic diagrams; example DNS uses documentation address and attribution made generic",
     "reason": "Distributed Cloud Kubernetes egress control",
     "text_replacements": {
       "nodes": {
+        "386f96d29446e46b130b3660450b9a72a450a9ae6ccb5b0d9b73e514992d2a38": " to reach an example DNS server at ",
         "5073908e37f1eb85e4db377bcb05837af47a1ae9d741c4059715a57303eb1063": "Finally thank you to my colleague the F5 team\u00a0",
+        "838c4c2573848f58e74332341a7ca6bc5cd86a8aec7d644137d53b4d597f10f5": "192.0.2.53",
         "f55f6a41dfdfbb61981e1abe5f4d2f65dc1a6b07a23ae87d016aef5df81fa8ba": ""
       },
-      "output_sha256": "e593f77770d78dd196719bb96fd58fee743c1c5ddee7eea324173dcabeb29906"
+      "output_sha256": "639e85a0d0edb8ba53d824c3e3d60eab3ecd4adc88f8faeb83a05a62d2bd8bc9"
     }
   },
   "71350": {
