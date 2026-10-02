@@ -1117,13 +1117,13 @@
     "reason": "Distributed Cloud overlap-address application connectivity",
     "text_replacements": {
       "nodes": {
-        "256dea49805ac66b0720c52c363e69ff72d8b64c94747f75216f8916be928cc2": "root@example-appserver:/home/azureuser# ping 10.40.0.4\nPING 10.40.0.4 (10.40.0.4) 56(84) bytes of data.\n^C\n--- 10.40.0.4 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2050ms\n\nroot@example-appserver:/home/azureuser# ping 10.40.0.5\nPING 10.40.0.5 (10.40.0.5) 56(84) bytes of data.\n^C\n--- 10.40.0.5 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2039ms\n",
+        "256dea49805ac66b0720c52c363e69ff72d8b64c94747f75216f8916be928cc2": "root@example-appserver:/tmp/example# ping 10.40.0.4\nPING 10.40.0.4 (10.40.0.4) 56(84) bytes of data.\n^C\n--- 10.40.0.4 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2050ms\n\nroot@example-appserver:/tmp/example# ping 10.40.0.5\nPING 10.40.0.5 (10.40.0.5) 56(84) bytes of data.\n^C\n--- 10.40.0.5 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2039ms\n",
         "54a563cf9973e42deae3dcbef677c83e5281b9fb164be9c747521cc3614a0c34": "metadata:\n  name: same-cidr-other-site\n  namespace: example\n  labels: {}\n  annotations: {}\nspec:\n  domains:\n    - same-cidr-other-site.demo.internal\n  listen_port: 2022\n  origin_pools: []\n  origin_pools_weights:\n    - pool:\n        tenant: example-corp\n        namespace: example\n        name: gcp-remote-ssh\n      weight: 1\n      priority: 1\n      endpoint_subsets: {}\n  advertise_custom:\n    advertise_where:\n      - site:\n          network: SITE_NETWORK_INSIDE_AND_OUTSIDE\n          site:\n            tenant: example-corp\n            namespace: system\n            name: azure-vnet-wus2\n        use_default_port: {}\n  hash_policy_choice_round_robin: {}\n  idle_timeout: 3600000\n  retract_cluster: {}\n  dns_info: []\n",
-        "bef57b73760415b2f930ee30b64e9a433d8592c8db1c7c99f2d1e2919cd6a8d9": "root@example-appserver:/home/azureuser# telnet same-cidr-other-site.demo.internal 2022\nTrying 10.40.0.5...\nConnected to same-cidr-other-site.demo.internal.\nEscape character is '^]'.\nSSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.2\n^]q\n\ntelnet> q\nConnection closed.\nroot@example-appserver:/home/azureuser#\n",
-        "c0bf1abf31aab4315d4302d068d9843e2a2428526bd2c4aae293fe4edfd4b5b5": "root@docker-ubuntu-20-2-vm:/home/example# tcpdump -ni ens4 tcp port 22\ntcpdump: verbose output suppressed, use -v or -vv for full protocol decode\nlistening on ens4, link-type EN10MB (Ethernet), capture size 262144 bytes\n22:26:23.941910 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [S], seq 3472146549, win 65535, options [mss 1132,nop,wscale 9,sackOK,TS val 2217414740 ecr 0], length 0\n22:26:23.941965 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [S.], seq 2409916872, ack 3472146550, win 64768, options [mss 1420,sackOK,TS val 316240982 ecr 2217414740,nop,wscale 7], length 0\n22:26:23.953482 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [.], ack 1, win 2048, options [nop,nop,TS val 2217414750 ecr 316240982], length 0\n22:26:23.963366 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [P.], seq 1:42, ack 1, win 506, options [nop,nop,TS val 316241004 ecr 2217414750], length 41\n",
+        "bef57b73760415b2f930ee30b64e9a433d8592c8db1c7c99f2d1e2919cd6a8d9": "root@example-appserver:/tmp/example# telnet same-cidr-other-site.demo.internal 2022\nTrying 10.40.0.5...\nConnected to same-cidr-other-site.demo.internal.\nEscape character is '^]'.\nSSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.2\n^]q\n\ntelnet> q\nConnection closed.\nroot@example-appserver:/tmp/example#\n",
+        "c0bf1abf31aab4315d4302d068d9843e2a2428526bd2c4aae293fe4edfd4b5b5": "root@docker-ubuntu-20-2-vm:/tmp/example# tcpdump -ni ens4 tcp port 22\ntcpdump: verbose output suppressed, use -v or -vv for full protocol decode\nlistening on ens4, link-type EN10MB (Ethernet), capture size 262144 bytes\n22:26:23.941910 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [S], seq 3472146549, win 65535, options [mss 1132,nop,wscale 9,sackOK,TS val 2217414740 ecr 0], length 0\n22:26:23.941965 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [S.], seq 2409916872, ack 3472146550, win 64768, options [mss 1420,sackOK,TS val 316240982 ecr 2217414740,nop,wscale 7], length 0\n22:26:23.953482 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [.], ack 1, win 2048, options [nop,nop,TS val 2217414750 ecr 316240982], length 0\n22:26:23.963366 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [P.], seq 1:42, ack 1, win 506, options [nop,nop,TS val 316241004 ecr 2217414750], length 41\n",
         "ef2a0827ae23fe189eb9e3745805709f68282eae3fdf4dde17f82b4aeb2e5498": "metadata:\n  name: gcp-remote-ssh\n  namespace: example\n  labels: {}\n  annotations: {}\n  description: null\n  disable: null\nspec:\n  origin_servers:\n    - private_ip:\n        ip: 10.40.0.4\n        site_locator:\n          site:\n            tenant: example-corp\n            namespace: system\n            name: gcp-vpc-site\n        outside_network: {}\n      labels: {}\n  no_tls: {}\n  port: 22\n  same_as_endpoint_port: {}\n  healthcheck: null\n  loadbalancer_algorithm: LB_OVERRIDE\n  endpoint_selection: LOCAL_PREFERRED\n  advanced_options: null\nresource_version: null\n"
       },
-      "output_sha256": "f273150fcfe65c8327865efc86182e7c36784d563e8b82e0f073394b9885e421"
+      "output_sha256": "befd86b23044cc49dee406e9d94e9616b5e5e2ab448963e7203dec66994fab76"
     }
   },
   "70220": {
@@ -5677,6 +5677,35 @@
     "article_hash": "5d087285fea43f956b0a06ccefb78155494af4ab921a8288bce4d1c380580ea0",
     "decision": "exclude",
     "reason": "General command-injection evasion and WAF signatures; XC one equivalent product"
+  },
+  "74772": {
+    "article_hash": "02937946c96d7afc5e5aef2661f8243f06eb96a92e0cba07c3f05948db467f8d",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c09141e1f20e9cc1528ef883a29b084a06451bb.jpeg": {
+        "output_sha256": "966a25147e402d6df30da59b54d9d392cb7e3e793795aca4759459f87db1f29f",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2511700ccebf17c302fe4bc41545866fecfb186.jpeg": {
+        "output_sha256": "9b4dd8747c74e2ce760d7fdcea528e0c80307f6191b559e7d7185d780b92d0c6",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/4/a442372017a0dc75215dcdd02df0d9bbf884607a.jpeg": {
+        "output_sha256": "70907c096dcd153db3b1b4b1d73b229a6ea4bc048d7ff21fa869efd0e53cb028",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c09141e1f20e9cc1528ef883a29b084a06451bb.jpeg": "3663eb59f69a154ea0edd9fef4148dc8b0e9fb07be6d685b0138591bd74ac4a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2511700ccebf17c302fe4bc41545866fecfb186.jpeg": "811f3bf4b77efb816ea825cd83e4861008e56c2cb6bae3b691d908a207f0d832",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/4/a442372017a0dc75215dcdd02df0d9bbf884607a.jpeg": "dc351d7cfcfbfe51a427779b57b00609a102edc0c0b837f0e850fdba22cee05c"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API discovery guide and three generic demonstration endpoint diagrams; fields identify categories, no returned personal values",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "74878": {
     "article_hash": "63323354d41a1711630149f2c0538f95aefea672376fef7b0c9da8c355d09024",
