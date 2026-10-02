@@ -2814,6 +2814,76 @@
     "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
     "reason": "Distributed Cloud DNS configuration demo guide and deployment resources"
   },
+  "72755": {
+    "article_hash": "ca9564ae089e0529d486d9068adf72ffa61afb88edf4ff1a8437b9ead8cb0f13",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/e/be9c6710fe863cd0235b9a2bee71af10741ffe60.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              319,
+              19,
+              429,
+              38
+            ],
+            "size": 10,
+            "text": "example-mesh"
+          },
+          {
+            "rectangle": [
+              700,
+              194,
+              762,
+              210
+            ],
+            "size": 8,
+            "text": "vmware-site-2"
+          },
+          {
+            "rectangle": [
+              303,
+              433,
+              356,
+              449
+            ],
+            "size": 8,
+            "text": "vm-site-1"
+          },
+          {
+            "rectangle": [
+              1110,
+              433,
+              1163,
+              449
+            ],
+            "size": 8,
+            "text": "aws-site-1"
+          },
+          {
+            "rectangle": [
+              708,
+              673,
+              763,
+              689
+            ],
+            "size": 8,
+            "text": "azure-site"
+          }
+        ],
+        "output_sha256": "54c2fe41f7be69a49a607b0ad9cc87d5ffdc552a071ab2aabd76bf83e8d43c40",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": "f3596262a1c78c7cd10fe702a3ecd44f549c451e48136bc5dd1a6599fd2f68bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9117ea6868ccf9967c707aaa592f6a841bd56922.jpeg": "d00d432bfed753b626ff4bfd2132bb6cbbc2c564e4bbec741a6f27af90f3024b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/e/be9c6710fe863cd0235b9a2bee71af10741ffe60.jpeg": "2610c858ecfea6fa9cd4ea93f69732cce531564cb82d154f3201140022ec7789"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected secure MCN guidance and three images; site and mesh labels made synthetic while topology preserved",
+    "reason": "Distributed Cloud secure multicloud network features"
+  },
   "72811": {
     "article_hash": "41ff1d8a4392ff466bcf085d7c2997a5a8b02278000d468f51826cf2add71cac",
     "asset_redactions": {
