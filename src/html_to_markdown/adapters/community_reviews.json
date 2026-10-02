@@ -1215,10 +1215,87 @@
     "decision": "exclude",
     "reason": "Recent-article and video roundup; news digest outside content scope"
   },
+  "70585": {
+    "article_hash": "595ab06e281273a7fee212cb1d7338117f41759c3bc58f0c873e919209144004",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2ec8b83acd4942c45ded16230ee61fc3e5defefd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              550,
+              371,
+              625
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "234b1b610a07353426692454b0a9ac61d303edfff15360978f438dffe07cb50b",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/56261a203bce9ef1ab59ab2f295bca84b8197a36.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              550,
+              371,
+              625
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "7f04c92cc651033c03f51f91e353b776b6e92247dacad3d77a7876b3b6ca8b2d",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b657afd01af1bd8374957ae6cd110a6aa1b3de26.png": "4ad80ae6d76acf1c18504ee2415cbe4f4ca10d2aa47e08df2e07597944dcf948",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2ec8b83acd4942c45ded16230ee61fc3e5defefd.jpeg": "c931b45357cfdeff31c884496aedbf7dc48670795f4b002e08589eff4bb750cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/56261a203bce9ef1ab59ab2f295bca84b8197a36.jpeg": "35e8f70eb9da560550f5ec8cddb34d49448e141e28b76e32da9d67ce037f2186"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected WAAP demo guide and four generic architecture and title images; presenter attribution made generic",
+    "reason": "Distributed Cloud deployment or logging guide"
+  },
   "70628": {
     "article_hash": "31e757585093d9b6ddd5fdd73e8e0f22e0bf212be3ac0b6f3748e65bf0076cbc",
     "decision": "exclude",
     "reason": "Recent-article roundup; news digest outside content scope"
+  },
+  "70649": {
+    "article_hash": "fdb9319965df35711d275a8b93bee8483e708d5526d37184dd385f93360b5e6c",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/6/a63b0380bea75cf43b914a9bcfaa12a02b41f97e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              42,
+              414,
+              550,
+              561
+            ],
+            "size": 20,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "af6b99d708c864cd6b400b0a13486080b77bb22cd16b218f89e04508f4e6d70f",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": "0451114a67c06d8236bb7e2249913b35b6660a1d5d8648f1dcd3a6378a00c6c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a0ae5378702f52b0375d8abd4d8a8386fa07cd3.png": "810823c99e1cfcd23dfed700b1b96646aa84d0c1740fa1fb7550d146661c574d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/6/a63b0380bea75cf43b914a9bcfaa12a02b41f97e.jpeg": "be8cf74cac2ff51d3bf81448895b97a732c789efb3ba4c0d02aed7ff2c87a52e"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected remote logging guide and three generic topology and title images; presenter attribution made generic",
+    "reason": "Distributed Cloud deployment or logging guide"
   },
   "70693": {
     "article_hash": "f6ca9628e1c02eb67df29660896cf70748839867569395f8b9163b11130ef607",
