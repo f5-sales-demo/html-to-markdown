@@ -432,7 +432,10 @@ class CommunityAdapter(SourceAdapter):
         if decision != "include":
             raise PublicationBlockedError("community relevance review is unresolved or excluded")
         html = reviewed_text(clean_html(value), review)
-        if (privacy_findings(html) or image_urls(html)) and review.get("privacy") != "approved":
+        findings = privacy_findings(html)
+        if {"credential", "private-key", "authorization-header"} & set(findings):
+            raise PublicationBlockedError("community text still contains credential material")
+        if (findings or image_urls(html)) and review.get("privacy") != "approved":
             raise PublicationBlockedError("community text and media privacy review is unresolved")
         for url in image_urls(html):
             validate_asset_url(url)
@@ -552,7 +555,11 @@ async def inventory_pass(
                 except AllowlistError:
                     unknown.append(urlsplit(image).hostname or "")
             privacy = privacy_findings(html)
-            approved = review.get("article_hash") == digest and review.get("privacy") == "approved"
+            approved = (
+                review.get("article_hash") == digest
+                and review.get("privacy") == "approved"
+                and not ({"credential", "private-key", "authorization-header"} & set(privacy))
+            )
             records.append(
                 {
                     "id": identifier,

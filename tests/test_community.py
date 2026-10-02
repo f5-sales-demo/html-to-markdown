@@ -306,6 +306,10 @@ def test_privacy_and_meaningful_images():
     )
     with pytest.raises(PublicationBlockedError):
         CommunityAdapter().extract(page)
+    value["post_stream"]["posts"][0]["cooked"] = value["post_stream"]["posts"][0]["cooked"].replace(
+        "token=aaaaaaaaaaaaaaaaaaaa", "token=EXAMPLE"
+    )
+    page.html = json.dumps(value)
     sanitized = validate_topic(value, 70152)
     page.headers["community-review"] = json.dumps(
         {
@@ -791,3 +795,30 @@ async def test_failed_refresh_cannot_resume_previous_topic_bytes(tmp_path):
     assert not list((tmp_path / "topics").glob("*.json"))
     with pytest.raises(ScrapeError):
         await inventory_pass(client, tmp_path, resume=True)
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        "<p>Distributed Cloud token=aaaaaaaaaaaaaaaaaaaa</p>",
+        "<pre>-----BEGIN PRIVATE KEY-----\nSYNTHETIC_TEST_MATERIAL\n-----END PRIVATE KEY-----</pre>",
+        "<p>Authorization: Bearer aaaaaaaaaaaaaaaaaaaa</p>",
+    ],
+)
+def test_privacy_approval_never_overrides_remaining_credential_material(body):
+    value = topic(body=body)
+    review = {
+        "article_hash": article_hash(validate_topic(value, 70152)),
+        "decision": "include",
+        "privacy": "approved",
+        "reason": "Synthetic test approval",
+    }
+    page = FetchResult(
+        url=BASE + "/t/70152",
+        final_url=BASE + "/t/70152",
+        status_code=200,
+        html=json.dumps(value),
+        headers={"community-review": json.dumps(review)},
+    )
+    with pytest.raises(PublicationBlockedError, match="credential"):
+        CommunityAdapter().extract(page)
