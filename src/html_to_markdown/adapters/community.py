@@ -163,6 +163,18 @@ def clean_html(value: dict[str, Any]) -> str:
             re.I,
         ):
             paragraph.decompose()
+    for image in soup.find_all("img"):
+        try:
+            small = (
+                int(str(image.get("width", "0"))) <= 32
+                and int(str(image.get("height", "0"))) <= 32
+                and image.get("width")
+                and image.get("height")
+            )
+        except ValueError:
+            small = False
+        if small and not image.get("alt"):
+            image.decompose()
     for anchor in soup.select("a.lightbox"):
         image = anchor.find("img")
         if isinstance(image, Tag) and anchor.get("href"):

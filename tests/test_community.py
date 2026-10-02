@@ -724,3 +724,10 @@ async def test_tag_article_missing_category_pass_blocks(tmp_path):
     client.listing = listing
     with pytest.raises(ScrapeError, match="absent"):
         await inventory_pass(client, tmp_path)
+
+
+def test_small_unlabelled_logo_is_decoration_but_diagram_is_preserved():
+    value = topic(
+        body='<p>Distributed Cloud routing.</p><img src="/logo.png" width="32" height="32" alt=""><img src="/diagram.png" width="32" height="32" alt="Routing diagram"><img src="/large.png" width="500" height="300" alt="">'
+    )
+    assert image_urls(clean_html(value)) == [BASE + "/diagram.png", BASE + "/large.png"]
