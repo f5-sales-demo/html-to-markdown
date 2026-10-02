@@ -67,3 +67,51 @@ def test_bad_redactions_fail_closed(rectangles):
     }
     with pytest.raises(PublicationBlockedError):
         reviewed_media(content, URL, review)
+
+
+def test_metadata_only_policy_preserves_pixels_and_binds_output():
+    from PIL.PngImagePlugin import PngInfo
+
+    image = Image.new("RGB", (10, 10), "blue")
+    metadata = PngInfo()
+    metadata.add_text("comment", "Synthetic private annotation")
+    source = io.BytesIO()
+    image.save(source, format="PNG", pnginfo=metadata)
+    expected = io.BytesIO()
+    image.save(expected, format="PNG", optimize=False)
+    content = source.getvalue()
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "strip_metadata": True,
+                "rectangles": [],
+                "output_sha256": hashlib.sha256(expected.getvalue()).hexdigest(),
+            }
+        },
+    }
+    result, media = reviewed_media(content, URL, review)
+    assert result == expected.getvalue()
+    assert media == "image/png"
+    published = Image.open(io.BytesIO(result))
+    assert not published.info
+    assert published.mode == image.mode
+    assert published.tobytes() == image.tobytes()
+
+
+def test_metadata_policy_preserves_transparent_diagram():
+    image = Image.new("RGBA", (10, 10), (0, 0, 255, 0))
+    content = io.BytesIO()
+    image.save(content, format="PNG", optimize=False)
+    review = {
+        "assets": {URL: hashlib.sha256(content.getvalue()).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "strip_metadata": True,
+                "rectangles": [],
+                "output_sha256": hashlib.sha256(content.getvalue()).hexdigest(),
+            }
+        },
+    }
+    result, _ = reviewed_media(content.getvalue(), URL, review)
+    assert Image.open(io.BytesIO(result)).getpixel((0, 0)) == (0, 0, 255, 0)

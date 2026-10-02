@@ -19,13 +19,23 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
     transform = review.get("asset_redactions", {}).get(url)
     if transform is None:
         return content, None
-    if not isinstance(transform, dict) or not transform.get("rectangles"):
+    if not isinstance(transform, dict) or (
+        not transform.get("rectangles") and transform.get("strip_metadata") is not True
+    ):
         raise PublicationBlockedError("community image redaction has no reviewed rectangles")
     try:
         with Image.open(io.BytesIO(content)) as source:
-            image = source.convert("RGB")
+            mode = (
+                "RGBA"
+                if not transform.get("rectangles")
+                and ("A" in source.mode or "transparency" in source.info)
+                else "RGB"
+            )
+            converted = source.convert(mode)
+            image = Image.new(mode, converted.size)
+            image.paste(converted)
         draw = ImageDraw.Draw(image)
-        for rectangle in transform["rectangles"]:
+        for rectangle in transform.get("rectangles", []):
             if (
                 not isinstance(rectangle, list)
                 or len(rectangle) != 4
