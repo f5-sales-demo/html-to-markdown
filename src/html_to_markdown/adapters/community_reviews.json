@@ -159,6 +159,35 @@
     "decision": "exclude",
     "reason": "Legacy Mirai/Silverline overview; XC only redirected resource link"
   },
+  "68882": {
+    "article_hash": "6490c06d65b804a519ad7d36b86f8057aff46712a80e1d0737f824f83792d542",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4072d7b04485606a03911dc41fe287afe599b8a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              291,
+              217,
+              337,
+              234
+            ],
+            "size": 7,
+            "text": "192.0.2.1"
+          }
+        ],
+        "output_sha256": "a2f497d4b172552ba5418063cb374ea2ba16bce561e2a5354f06835bacb3acda",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7afcb185210ebf68d15fe84f01772b3f4872c813.png": "0650abe521eeba93cfaaf91b9fde5f36c40d9fe3d0f9fe9d74bcc4dbb3e67f0d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4072d7b04485606a03911dc41fe287afe599b8a.png": "b0a24b00a79b73db5682cda68c1b8dfa1281e89755604c086963c9aaa3f118d6"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API control guide and two analytics screenshots; suspicious user address made synthetic",
+    "reason": "Distributed Cloud API or routing configuration guide"
+  },
   "68885": {
     "article_hash": "deaf6f54fe72e0afbd43c562200bab6163a8e2977f97f390210730f2a8758416",
     "asset_redactions": {
@@ -1077,6 +1106,26 @@
     "privacy_reason": "Individually inspected prose and fourteen diagrams and configuration images; personal namespace and site labels and demo host made synthetic; finance UI profile and contact identifiers cleared; private networks are illustrative",
     "reason": "Distributed Cloud multi-cluster application connectivity"
   },
+  "70200": {
+    "article_hash": "2b59e769b4153464b1cb4fb727439f495cefd5b4170ea010b5c666ec1cd825c9",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8662fd0c5998250a3e2447c2b5b8e95f53820231.jpeg": "b5dc00beff36fa522b4d720c4f24c1aeb3222621e93c1456c1bdb808cb48446a"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected overlap example and generic app diagram; tenant and shell user values made synthetic; private example addresses retained",
+    "reason": "Distributed Cloud overlap-address application connectivity",
+    "text_replacements": {
+      "nodes": {
+        "256dea49805ac66b0720c52c363e69ff72d8b64c94747f75216f8916be928cc2": "root@example-appserver:/home/azureuser# ping 10.40.0.4\nPING 10.40.0.4 (10.40.0.4) 56(84) bytes of data.\n^C\n--- 10.40.0.4 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2050ms\n\nroot@example-appserver:/home/azureuser# ping 10.40.0.5\nPING 10.40.0.5 (10.40.0.5) 56(84) bytes of data.\n^C\n--- 10.40.0.5 ping statistics ---\n3 packets transmitted, 0 received, 100% packet loss, time 2039ms\n",
+        "54a563cf9973e42deae3dcbef677c83e5281b9fb164be9c747521cc3614a0c34": "metadata:\n  name: same-cidr-other-site\n  namespace: example\n  labels: {}\n  annotations: {}\nspec:\n  domains:\n    - same-cidr-other-site.demo.internal\n  listen_port: 2022\n  origin_pools: []\n  origin_pools_weights:\n    - pool:\n        tenant: example-corp\n        namespace: example\n        name: gcp-remote-ssh\n      weight: 1\n      priority: 1\n      endpoint_subsets: {}\n  advertise_custom:\n    advertise_where:\n      - site:\n          network: SITE_NETWORK_INSIDE_AND_OUTSIDE\n          site:\n            tenant: example-corp\n            namespace: system\n            name: azure-vnet-wus2\n        use_default_port: {}\n  hash_policy_choice_round_robin: {}\n  idle_timeout: 3600000\n  retract_cluster: {}\n  dns_info: []\n",
+        "bef57b73760415b2f930ee30b64e9a433d8592c8db1c7c99f2d1e2919cd6a8d9": "root@example-appserver:/home/azureuser# telnet same-cidr-other-site.demo.internal 2022\nTrying 10.40.0.5...\nConnected to same-cidr-other-site.demo.internal.\nEscape character is '^]'.\nSSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.2\n^]q\n\ntelnet> q\nConnection closed.\nroot@example-appserver:/home/azureuser#\n",
+        "c0bf1abf31aab4315d4302d068d9843e2a2428526bd2c4aae293fe4edfd4b5b5": "root@docker-ubuntu-20-2-vm:/home/example# tcpdump -ni ens4 tcp port 22\ntcpdump: verbose output suppressed, use -v or -vv for full protocol decode\nlistening on ens4, link-type EN10MB (Ethernet), capture size 262144 bytes\n22:26:23.941910 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [S], seq 3472146549, win 65535, options [mss 1132,nop,wscale 9,sackOK,TS val 2217414740 ecr 0], length 0\n22:26:23.941965 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [S.], seq 2409916872, ack 3472146550, win 64768, options [mss 1420,sackOK,TS val 316240982 ecr 2217414740,nop,wscale 7], length 0\n22:26:23.953482 IP 10.40.0.3.51675 > 10.40.0.4.22: Flags [.], ack 1, win 2048, options [nop,nop,TS val 2217414750 ecr 316240982], length 0\n22:26:23.963366 IP 10.40.0.4.22 > 10.40.0.3.51675: Flags [P.], seq 1:42, ack 1, win 506, options [nop,nop,TS val 316241004 ecr 2217414750], length 41\n",
+        "ef2a0827ae23fe189eb9e3745805709f68282eae3fdf4dde17f82b4aeb2e5498": "metadata:\n  name: gcp-remote-ssh\n  namespace: example\n  labels: {}\n  annotations: {}\n  description: null\n  disable: null\nspec:\n  origin_servers:\n    - private_ip:\n        ip: 10.40.0.4\n        site_locator:\n          site:\n            tenant: example-corp\n            namespace: system\n            name: gcp-vpc-site\n        outside_network: {}\n      labels: {}\n  no_tls: {}\n  port: 22\n  same_as_endpoint_port: {}\n  healthcheck: null\n  loadbalancer_algorithm: LB_OVERRIDE\n  endpoint_selection: LOCAL_PREFERRED\n  advanced_options: null\nresource_version: null\n"
+      },
+      "output_sha256": "f273150fcfe65c8327865efc86182e7c36784d563e8b82e0f073394b9885e421"
+    }
+  },
   "70220": {
     "article_hash": "dc0562d7840e51096ef094bd960af28e0d76c18626abe8e7e3cbb1053e83c70f",
     "decision": "exclude",
@@ -1694,7 +1743,15 @@
   },
   "71780": {
     "article_hash": "7d8e673b8d8beca710a2e098627cd849a1f49907be1c36d9296aa7f720f4e980",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b9e3e1431e1003790c6a856d2401d36ea4ac3c6a.png": "246d02437e797d66296fe88b8bb6116a4681fdbce0d4cdd99d126817cbe83de0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/317968e0aa0093e0dbeb109ac4954406d4f1c92a.png": "ad60d9804acfae6784477ddaccfb8ff9b96ffb15bce82cf77d28e4100cbec131",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/93eb3ff9f090e1ac599cfc701a62a4e30907010c.png": "172724c73ae9c3767790724a2c2ff178abc44ff5b49cff2e2d50080f8a0cba59",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/77e8c53ea41efd795f9dd0593afc8da5ef5f0686.png": "1e8e2e135debbf7a183b817da4560c3e1a80514135b88480c187411a9d4808a7"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected resiliency guidance and four generic SLA and public ASN diagrams; no customer data",
     "reason": "Substantive Distributed Cloud regional-edge, customer-edge and tunnel resiliency architecture"
   },
   "71805": {
@@ -3092,6 +3149,31 @@
     "privacy_reason": "First-post prose, code and links reviewed; synthetic documentation values only; no images.",
     "reason": "Distributed Cloud DDoS API credential and routing integration with FastNetMon"
   },
+  "72849": {
+    "article_hash": "9cc765f9b80c4cf4e36e365d377d716161c619dd543409e999a6dd8d29059af4",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/c/ec8e3e6fdf7d35db5a9711026060da7d547b124e.jpeg": {
+        "output_sha256": "1baff0b710df44caa421da7a25159446bdec813c3e69741fc6547987f1388608",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2a2de739b46a13b6071e68aa9d52217a0f726cc9.png": "5aeef99d01ce7bc27f69825ed6598b229a93d23d0636c8b12b81572f70462133",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/c/ec8e3e6fdf7d35db5a9711026060da7d547b124e.jpeg": "8c05218c55df2e2809024d16cc08e85ef489a16b80bea1e5075fe806d693f035"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SDK integration guide and two generic catalog and benefits images; signing passwords and URL filter made synthetic",
+    "reason": "Distributed Cloud automation configuration guide",
+    "text_replacements": {
+      "nodes": {
+        "cd22ad6f64f65c1375815d56f42c14dfe51c75efe2aef42b28bbadde32f6e2bb": "$ java -jar SDK-Integrator.jar --plugin F5-XC-Mobile-SDK-Integrator-Android-plugin-4.1.1-4.dat --plugin my_app_android_profile.dat ./input_app.apk --output ./output_app.apk --keystore ~/my-key.keystore --keyname mykeyname --keypass EXAMPLE_PASSWORD --storepass EXAMPLE_PASSWORD",
+        "d46abbff4010e657fdeb45e375ca2de91b7f29ae18bffd284258f299f6115d81": "$ python3 ./create_config.py --target-os Android --apiguard-config ./base_configuration_android.json --url-filter \u201c*.example.com/*/login\u201d --enable-logs --outfile my_app_android_profile.dat"
+      },
+      "output_sha256": "3770ebec7609d65662349f7f3ae16f40bafe98bf8a3d4333a0136f8f33acc1b9"
+    }
+  },
   "72851": {
     "article_hash": "400c4a8fd9df9f9d3c21a350a79244bbebd122cf12845087729f60af717cb748",
     "decision": "include",
@@ -3277,6 +3359,1915 @@
     "privacy": "approved",
     "privacy_reason": "Individually inspected SAP MCN explanation and generic networking diagram; no named customer or user data",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "73730": {
+    "article_hash": "551488c34e4a5d6a66e677ab81274e3b20751737644ce65dd6693050f6d4c49a",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/4d4e92ce68d0588dd79e83c981e6ec07fed003d4.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              222,
+              289,
+              242
+            ],
+            "size": 9,
+            "text": "192.0.2.11"
+          },
+          {
+            "rectangle": [
+              217,
+              377,
+              289,
+              398
+            ],
+            "size": 9,
+            "text": "198.51.100.32"
+          },
+          {
+            "rectangle": [
+              218,
+              466,
+              289,
+              487
+            ],
+            "size": 9,
+            "text": "203.0.113.9"
+          },
+          {
+            "rectangle": [
+              449,
+              148,
+              640,
+              166
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              178,
+              640,
+              196
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              210,
+              640,
+              227
+            ],
+            "size": 9,
+            "text": "app-b.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              252,
+              640,
+              272
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              297,
+              640,
+              317
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              337,
+              640,
+              356
+            ],
+            "size": 9,
+            "text": "app-x.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              360,
+              640,
+              378
+            ],
+            "size": 9,
+            "text": "app-y.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              380,
+              640,
+              399
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              401,
+              640,
+              421
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              421,
+              640,
+              440
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              456,
+              640,
+              474
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              476,
+              640,
+              496
+            ],
+            "size": 9,
+            "text": "*.example.org + Default LB"
+          },
+          {
+            "rectangle": [
+              834,
+              148,
+              989,
+              165
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              178,
+              989,
+              196
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              235,
+              989,
+              252
+            ],
+            "size": 9,
+            "text": "app-c.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              253,
+              989,
+              271
+            ],
+            "size": 9,
+            "text": "app-d.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              273,
+              989,
+              291
+            ],
+            "size": 9,
+            "text": "app-e.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              459,
+              989,
+              475
+            ],
+            "size": 9,
+            "text": "example.com-301-appa"
+          },
+          {
+            "rectangle": [
+              270,
+              0,
+              437,
+              10
+            ],
+            "size": 6,
+            "text": "A app-a.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              9,
+              437,
+              19
+            ],
+            "size": 6,
+            "text": "A app-a.dev.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              18,
+              437,
+              28
+            ],
+            "size": 6,
+            "text": "A app-b.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              27,
+              437,
+              37
+            ],
+            "size": 6,
+            "text": "A app-c.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              36,
+              437,
+              46
+            ],
+            "size": 6,
+            "text": "A app-d.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              45,
+              437,
+              55
+            ],
+            "size": 6,
+            "text": "A app-e.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              54,
+              437,
+              64
+            ],
+            "size": 6,
+            "text": "A app-x.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              63,
+              437,
+              73
+            ],
+            "size": 6,
+            "text": "A app-y.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              72,
+              437,
+              82
+            ],
+            "size": 6,
+            "text": "A app-z.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              81,
+              437,
+              91
+            ],
+            "size": 6,
+            "text": "A example.com 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              270,
+              90,
+              437,
+              100
+            ],
+            "size": 6,
+            "text": "A host.example.org 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              4,
+              48,
+              239,
+              70
+            ],
+            "size": 12,
+            "text": "https://host.example.org"
+          }
+        ],
+        "output_sha256": "4a87d9d6eb1e1ee03f34f7a63d2e20529a45e2eeb00870cb4bda424650a8cf96",
+        "rectangles": [
+          [
+            4,
+            48,
+            235,
+            69
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83bc33e3d1eefa554c595d617c635dd709264b1a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              222,
+              289,
+              242
+            ],
+            "size": 9,
+            "text": "192.0.2.11"
+          },
+          {
+            "rectangle": [
+              217,
+              377,
+              289,
+              398
+            ],
+            "size": 9,
+            "text": "198.51.100.32"
+          },
+          {
+            "rectangle": [
+              218,
+              466,
+              289,
+              487
+            ],
+            "size": 9,
+            "text": "203.0.113.9"
+          },
+          {
+            "rectangle": [
+              449,
+              148,
+              640,
+              166
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              178,
+              640,
+              196
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              210,
+              640,
+              227
+            ],
+            "size": 9,
+            "text": "app-b.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              252,
+              640,
+              272
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              297,
+              640,
+              317
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              337,
+              640,
+              356
+            ],
+            "size": 9,
+            "text": "app-x.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              360,
+              640,
+              378
+            ],
+            "size": 9,
+            "text": "app-y.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              380,
+              640,
+              399
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              401,
+              640,
+              421
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              421,
+              640,
+              440
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              456,
+              640,
+              474
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              476,
+              640,
+              496
+            ],
+            "size": 9,
+            "text": "*.example.org + Default LB"
+          },
+          {
+            "rectangle": [
+              834,
+              148,
+              989,
+              165
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              178,
+              989,
+              196
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              235,
+              989,
+              252
+            ],
+            "size": 9,
+            "text": "app-c.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              253,
+              989,
+              271
+            ],
+            "size": 9,
+            "text": "app-d.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              273,
+              989,
+              291
+            ],
+            "size": 9,
+            "text": "app-e.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              459,
+              989,
+              475
+            ],
+            "size": 9,
+            "text": "example.com-301-appa"
+          },
+          {
+            "rectangle": [
+              270,
+              0,
+              437,
+              10
+            ],
+            "size": 6,
+            "text": "A app-a.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              9,
+              437,
+              19
+            ],
+            "size": 6,
+            "text": "A app-a.dev.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              18,
+              437,
+              28
+            ],
+            "size": 6,
+            "text": "A app-b.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              27,
+              437,
+              37
+            ],
+            "size": 6,
+            "text": "A app-c.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              36,
+              437,
+              46
+            ],
+            "size": 6,
+            "text": "A app-d.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              45,
+              437,
+              55
+            ],
+            "size": 6,
+            "text": "A app-e.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              54,
+              437,
+              64
+            ],
+            "size": 6,
+            "text": "A app-x.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              63,
+              437,
+              73
+            ],
+            "size": 6,
+            "text": "A app-y.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              72,
+              437,
+              82
+            ],
+            "size": 6,
+            "text": "A app-z.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              81,
+              437,
+              91
+            ],
+            "size": 6,
+            "text": "A example.com 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              270,
+              90,
+              437,
+              100
+            ],
+            "size": 6,
+            "text": "A host.example.org 203.0.113.9"
+          }
+        ],
+        "output_sha256": "8c0efc8b4f70842a52cd830d94f0b5274ec79111dfff716c5af81b38f875b47e",
+        "rectangles": [
+          [
+            4,
+            48,
+            235,
+            69
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd7dba85d0c05f355a522b9ec71c8a2bcf86288f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              224,
+              289,
+              244
+            ],
+            "size": 9,
+            "text": "192.0.2.11"
+          },
+          {
+            "rectangle": [
+              217,
+              379,
+              289,
+              400
+            ],
+            "size": 9,
+            "text": "198.51.100.32"
+          },
+          {
+            "rectangle": [
+              218,
+              468,
+              289,
+              489
+            ],
+            "size": 9,
+            "text": "203.0.113.9"
+          },
+          {
+            "rectangle": [
+              449,
+              150,
+              640,
+              168
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              180,
+              640,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              212,
+              640,
+              229
+            ],
+            "size": 9,
+            "text": "app-b.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              254,
+              640,
+              274
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              299,
+              640,
+              319
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              339,
+              640,
+              358
+            ],
+            "size": 9,
+            "text": "app-x.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              362,
+              640,
+              380
+            ],
+            "size": 9,
+            "text": "app-y.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              382,
+              640,
+              401
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              403,
+              640,
+              423
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              423,
+              640,
+              442
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              458,
+              640,
+              476
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              478,
+              640,
+              498
+            ],
+            "size": 9,
+            "text": "*.example.org + Default LB"
+          },
+          {
+            "rectangle": [
+              834,
+              150,
+              989,
+              167
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              180,
+              989,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              237,
+              989,
+              254
+            ],
+            "size": 9,
+            "text": "app-c.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              255,
+              989,
+              273
+            ],
+            "size": 9,
+            "text": "app-d.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              275,
+              989,
+              293
+            ],
+            "size": 9,
+            "text": "app-e.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              461,
+              989,
+              477
+            ],
+            "size": 9,
+            "text": "example.com-301-appa"
+          },
+          {
+            "rectangle": [
+              270,
+              0,
+              437,
+              10
+            ],
+            "size": 6,
+            "text": "A app-a.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              9,
+              437,
+              19
+            ],
+            "size": 6,
+            "text": "A app-a.dev.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              18,
+              437,
+              28
+            ],
+            "size": 6,
+            "text": "A app-b.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              27,
+              437,
+              37
+            ],
+            "size": 6,
+            "text": "A app-c.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              36,
+              437,
+              46
+            ],
+            "size": 6,
+            "text": "A app-d.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              45,
+              437,
+              55
+            ],
+            "size": 6,
+            "text": "A app-e.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              54,
+              437,
+              64
+            ],
+            "size": 6,
+            "text": "A app-x.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              63,
+              437,
+              73
+            ],
+            "size": 6,
+            "text": "A app-y.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              72,
+              437,
+              82
+            ],
+            "size": 6,
+            "text": "A app-z.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              81,
+              437,
+              91
+            ],
+            "size": 6,
+            "text": "A example.com 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              270,
+              90,
+              437,
+              100
+            ],
+            "size": 6,
+            "text": "A host.example.org 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              4,
+              48,
+              239,
+              70
+            ],
+            "size": 12,
+            "text": "https://app-b.example.com"
+          }
+        ],
+        "output_sha256": "5431b744085b2f589b126f5301ccaf7964be624356ce58e377c9c22616ca7036",
+        "rectangles": [
+          [
+            4,
+            48,
+            235,
+            69
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d10e927a7545c18717e4186fceebdc445f361466.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              224,
+              289,
+              244
+            ],
+            "size": 9,
+            "text": "192.0.2.11"
+          },
+          {
+            "rectangle": [
+              217,
+              379,
+              289,
+              400
+            ],
+            "size": 9,
+            "text": "198.51.100.32"
+          },
+          {
+            "rectangle": [
+              218,
+              468,
+              289,
+              489
+            ],
+            "size": 9,
+            "text": "203.0.113.9"
+          },
+          {
+            "rectangle": [
+              449,
+              150,
+              640,
+              168
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              180,
+              640,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              212,
+              640,
+              229
+            ],
+            "size": 9,
+            "text": "app-b.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              254,
+              640,
+              274
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              299,
+              640,
+              319
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              339,
+              640,
+              358
+            ],
+            "size": 9,
+            "text": "app-x.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              362,
+              640,
+              380
+            ],
+            "size": 9,
+            "text": "app-y.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              382,
+              640,
+              401
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              403,
+              640,
+              423
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              423,
+              640,
+              442
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              458,
+              640,
+              476
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              478,
+              640,
+              498
+            ],
+            "size": 9,
+            "text": "*.example.org + Default LB"
+          },
+          {
+            "rectangle": [
+              834,
+              150,
+              989,
+              167
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              180,
+              989,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              237,
+              989,
+              254
+            ],
+            "size": 9,
+            "text": "app-c.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              255,
+              989,
+              273
+            ],
+            "size": 9,
+            "text": "app-d.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              275,
+              989,
+              293
+            ],
+            "size": 9,
+            "text": "app-e.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              461,
+              989,
+              477
+            ],
+            "size": 9,
+            "text": "example.com-301-appa"
+          },
+          {
+            "rectangle": [
+              270,
+              0,
+              437,
+              10
+            ],
+            "size": 6,
+            "text": "A app-a.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              9,
+              437,
+              19
+            ],
+            "size": 6,
+            "text": "A app-a.dev.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              18,
+              437,
+              28
+            ],
+            "size": 6,
+            "text": "A app-b.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              27,
+              437,
+              37
+            ],
+            "size": 6,
+            "text": "A app-c.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              36,
+              437,
+              46
+            ],
+            "size": 6,
+            "text": "A app-d.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              45,
+              437,
+              55
+            ],
+            "size": 6,
+            "text": "A app-e.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              54,
+              437,
+              64
+            ],
+            "size": 6,
+            "text": "A app-x.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              63,
+              437,
+              73
+            ],
+            "size": 6,
+            "text": "A app-y.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              72,
+              437,
+              82
+            ],
+            "size": 6,
+            "text": "A app-z.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              81,
+              437,
+              91
+            ],
+            "size": 6,
+            "text": "A example.com 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              270,
+              90,
+              437,
+              100
+            ],
+            "size": 6,
+            "text": "A host.example.org 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              4,
+              48,
+              239,
+              70
+            ],
+            "size": 12,
+            "text": "http://app-y.example.com"
+          }
+        ],
+        "output_sha256": "349bbb0434ed5dc85a817a2aff92bfbe0dd778fcceca575f8572eed8469c7da2",
+        "rectangles": [
+          [
+            4,
+            48,
+            235,
+            69
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7f68f4b3c0ff28a1bf3b79ae5c8e78bf6bdaa7e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              224,
+              289,
+              244
+            ],
+            "size": 9,
+            "text": "192.0.2.11"
+          },
+          {
+            "rectangle": [
+              217,
+              379,
+              289,
+              400
+            ],
+            "size": 9,
+            "text": "198.51.100.32"
+          },
+          {
+            "rectangle": [
+              218,
+              468,
+              289,
+              489
+            ],
+            "size": 9,
+            "text": "203.0.113.9"
+          },
+          {
+            "rectangle": [
+              449,
+              150,
+              640,
+              168
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              180,
+              640,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              212,
+              640,
+              229
+            ],
+            "size": 9,
+            "text": "app-b.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              254,
+              640,
+              274
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              299,
+              640,
+              319
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              339,
+              640,
+              358
+            ],
+            "size": 9,
+            "text": "app-x.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              362,
+              640,
+              380
+            ],
+            "size": 9,
+            "text": "app-y.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              382,
+              640,
+              401
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              403,
+              640,
+              423
+            ],
+            "size": 9,
+            "text": "app-z.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              423,
+              640,
+              442
+            ],
+            "size": 9,
+            "text": "*.example.com"
+          },
+          {
+            "rectangle": [
+              449,
+              458,
+              640,
+              476
+            ],
+            "size": 9,
+            "text": "*.example.com + Default LB"
+          },
+          {
+            "rectangle": [
+              449,
+              478,
+              640,
+              498
+            ],
+            "size": 9,
+            "text": "*.example.org + Default LB"
+          },
+          {
+            "rectangle": [
+              834,
+              150,
+              989,
+              167
+            ],
+            "size": 9,
+            "text": "app-a.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              180,
+              989,
+              198
+            ],
+            "size": 9,
+            "text": "app-a.dev.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              237,
+              989,
+              254
+            ],
+            "size": 9,
+            "text": "app-c.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              255,
+              989,
+              273
+            ],
+            "size": 9,
+            "text": "app-d.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              275,
+              989,
+              293
+            ],
+            "size": 9,
+            "text": "app-e.example.com"
+          },
+          {
+            "rectangle": [
+              834,
+              461,
+              989,
+              477
+            ],
+            "size": 9,
+            "text": "example.com-301-appa"
+          },
+          {
+            "rectangle": [
+              270,
+              0,
+              437,
+              10
+            ],
+            "size": 6,
+            "text": "A app-a.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              9,
+              437,
+              19
+            ],
+            "size": 6,
+            "text": "A app-a.dev.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              18,
+              437,
+              28
+            ],
+            "size": 6,
+            "text": "A app-b.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              27,
+              437,
+              37
+            ],
+            "size": 6,
+            "text": "A app-c.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              36,
+              437,
+              46
+            ],
+            "size": 6,
+            "text": "A app-d.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              45,
+              437,
+              55
+            ],
+            "size": 6,
+            "text": "A app-e.example.com 192.0.2.11"
+          },
+          {
+            "rectangle": [
+              270,
+              54,
+              437,
+              64
+            ],
+            "size": 6,
+            "text": "A app-x.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              63,
+              437,
+              73
+            ],
+            "size": 6,
+            "text": "A app-y.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              72,
+              437,
+              82
+            ],
+            "size": 6,
+            "text": "A app-z.example.com 198.51.100.32"
+          },
+          {
+            "rectangle": [
+              270,
+              81,
+              437,
+              91
+            ],
+            "size": 6,
+            "text": "A example.com 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              270,
+              90,
+              437,
+              100
+            ],
+            "size": 6,
+            "text": "A host.example.org 203.0.113.9"
+          },
+          {
+            "rectangle": [
+              4,
+              48,
+              239,
+              70
+            ],
+            "size": 12,
+            "text": "https://app-y.example.com"
+          }
+        ],
+        "output_sha256": "556202d54249978c54477d7be944f9170acc204116d442e1de0a8cb6c9f6ce02",
+        "rectangles": [
+          [
+            4,
+            48,
+            235,
+            69
+          ]
+        ]
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/d/ad56bf9c7aa61e5b722cc6aa1ae57d2aed438231.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              39,
+              163,
+              111,
+              178
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              118,
+              163,
+              190,
+              178
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              196,
+              163,
+              268,
+              178
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              275,
+              163,
+              347,
+              178
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              351,
+              163,
+              422,
+              178
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              39,
+              182,
+              111,
+              198
+            ],
+            "size": 7,
+            "text": "198.51.100.113"
+          },
+          {
+            "rectangle": [
+              118,
+              182,
+              190,
+              198
+            ],
+            "size": 7,
+            "text": "198.51.100.113"
+          },
+          {
+            "rectangle": [
+              196,
+              182,
+              268,
+              198
+            ],
+            "size": 7,
+            "text": "198.51.100.113"
+          },
+          {
+            "rectangle": [
+              274,
+              198,
+              346,
+              214
+            ],
+            "size": 7,
+            "text": "203.0.113.10"
+          },
+          {
+            "rectangle": [
+              351,
+              198,
+              421,
+              214
+            ],
+            "size": 7,
+            "text": "203.0.113.10"
+          },
+          {
+            "rectangle": [
+              17,
+              332,
+              89,
+              349
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              17,
+              369,
+              90,
+              386
+            ],
+            "size": 7,
+            "text": "198.51.100.113"
+          },
+          {
+            "rectangle": [
+              17,
+              387,
+              90,
+              405
+            ],
+            "size": 7,
+            "text": "203.0.113.10"
+          },
+          {
+            "rectangle": [
+              500,
+              32,
+              573,
+              48
+            ],
+            "size": 7,
+            "text": "192.0.2.183"
+          },
+          {
+            "rectangle": [
+              500,
+              135,
+              573,
+              151
+            ],
+            "size": 7,
+            "text": "198.51.100.113"
+          },
+          {
+            "rectangle": [
+              500,
+              277,
+              573,
+              294
+            ],
+            "size": 7,
+            "text": "203.0.113.10"
+          }
+        ],
+        "output_sha256": "d61f12647fe908f4eb81b848298a9ab2d3a512a449ceadfb17ec3190b8e6bc08",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/4d4e92ce68d0588dd79e83c981e6ec07fed003d4.jpeg": "dea8c832f00a6305fb95c69b67eee5cec57ea95b7662c59e4edf6283ed4abfb5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4d5f6bfc9e5e9ec3bd087023b8adcf4b77ad42dd.jpeg": "c70e4619aeabe5ff9059bc535df74bd475ff840db2fcb547999ec3119d027f8a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65af42ff303f1ba7b41d4e8296f6defcc79153a4.jpeg": "5b12c9fc68f248f830243820af1aa1ab1f7b8886e77b1f2ebfd680c2fb2ada69",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83bc33e3d1eefa554c595d617c635dd709264b1a.jpeg": "02fe60a1657200890173b7fc6a59ba8409bf0b5e9326fe3e01a866689ded258e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd7dba85d0c05f355a522b9ec71c8a2bcf86288f.jpeg": "6c21c65abb487d82bc97ba33bed23aeeafccf7280f7c298e3821f877ed9d3725",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d10e927a7545c18717e4186fceebdc445f361466.jpeg": "19904c507154c328eed11196ccc65f472b390eeef93bdb0656cc4e5767a73ce7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7f68f4b3c0ff28a1bf3b79ae5c8e78bf6bdaa7e.jpeg": "19a2c3381eb6a355aa70c918999f836a947d34afccb92a1327c4b275ddb2e906",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e7168954a85d7535ea51e7b1d1fddcc140afd786.jpeg": "c16a15b77bebdf073b9d98d60e82b514b3e8f5a687e22e446cff3773175cb685",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/d/ad56bf9c7aa61e5b722cc6aa1ae57d2aed438231.jpeg": "d3da1ec613ad5bf78e64466f91dbd5c9cf138d9945d3345a8a9e54cfa5c11634",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b48c482d4fa387944aa068a20f4bccba96313667.jpeg": "1f21af76ff2859278d9b7fc40f3a73b81019d7a378497f87c102ce0814b630a9"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected listener guide and ten diagrams; reserved domains and documentation IPs consistently replace illustrative public addresses; DNS and route bindings retained",
+    "reason": "Distributed Cloud listener logic; BIG-IP is comparison context",
+    "text_replacements": {
+      "nodes": {
+        "1c4823f459b76bfe95ca73a7ca209bce6365027a6dc005f647aae19f342fd4e8": "app3.example.com",
+        "4df290657d70755a80d64e0e09d75524638acacbc86de3ce414acb6ec3657412": "\u201d and a wildcard would look like \u201c*.example.com\u201d.\u00a0 The more specific the match will determine which LB object is used when client-side traffic requests are received by the IP address and Port.\u00a0 These domains are either gathered as part of the ",
+        "7c9755470a57701747a95cea879e84c34029a473002fa254dcfc4ebb3e84deb9": "http://app-y.example.com",
+        "841375a307077f5c33b098afc8043b4d8c5957d753ef49c6ee836a6111ca9046": "host.example.com",
+        "9fd4bc8cbdf96a2ee6e13a06c1011271c6382384e3cf78d53ae1f5112a4c413a": "http://app-z.example.com",
+        "a5895e596792741306047e5e5373304b4fe8d9d22f7849409bef050917746faa": "app-b.example.com",
+        "a7878f639099658b92eeb13f617db7e9492cd34b9b49bde1fdfbd49f185d74a5": "app-z.example.com",
+        "a86541e2867cf2066262023ebbed7881f123d8842c64930ac0dc5f383ea53461": "http://host.example.com",
+        "b6b215697ca5b417c8692ce5be886dd15e2f822ae3387d0b1f7a1e30962aa125": " value of the request when using HTTPS, or the host header if using HTTP.\u00a0 Lastly, there is a concept of a Default Load Balancer, which is used on an HTTPS load balancer, for anything that isn\u2019t matched in a more specific domain match.\u00a0 An example of this would be, you have a wildcard certificate for *.example.com, and you haven\u2019t defined anywhere a domain on an LB of ",
+        "c94530583a247149acaab170551eef90703dcf055627bcc35b12e8e2706f4805": "http://app3.example.com",
+        "c9519a175fa9716d821e9614b7689ef4c548cb8beec8927e6dd094f8f22d7795": "http://app-b.example.com",
+        "d20f8124dbd8562b71220af75306f21c9c6aac427e400d60ef409fe29388e96d": "app-y.example.com"
+      },
+      "output_sha256": "3c45968bc186f4ae873f7aab76a9747769d4416251b18918b1a55de59a8b71d4"
+    }
   },
   "73837": {
     "article_hash": "a88c0ba09ce8015d41ddc1a3a66c2e5647a1f304188663e783f101abdb89be1c",
@@ -3614,6 +5605,24 @@
     "decision": "include",
     "reason": "Distributed Cloud HTTPS load balancer and customer-edge AI firewall integration"
   },
+  "74697": {
+    "article_hash": "8c9201a01fcdcf63932be4a773a9356720962d01703092373612ac5280c827ad",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/5c487916f956335a2b4b5806a39c6bba1638b81c.jpeg": {
+        "output_sha256": "4313ed35ea12d00d0ef516c69992eef9bd401d64e00c9430c8d7f661caa8d5de",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/5c487916f956335a2b4b5806a39c6bba1638b81c.jpeg": "11018cfaaa76b7984065e077cb23800b4b428de9e8721b350bec2d9151dbb445",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd66b672f7630d590075e4d60f5533210c2c5110.png": "f83e7b833f8ef1e5d8f11d9d3b027eb7f30e66329b04ffcc629e847ce9b613f6"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected customer deployment guide and two generic diagrams and cropped site menu; no full customer identifiers",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "74701": {
     "article_hash": "ac62da39a9b06b0ff3024020110cda8debb25a105f1cdac1cb3e647d23105ec0",
     "decision": "include",
@@ -3724,6 +5733,22 @@
     "privacy": "approved",
     "privacy_reason": "Individually inspected service discovery guide, generic title and two full-resolution gateway diagrams; no kubeconfig contents or cluster identifiers",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "75093": {
+    "article_hash": "b9cc69b7a0f6c480414e20850485eaca4af3fa5d5466db050813e975f415685b",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/e/f/ef593bc2b11f2df18c583e497b291a032abc887f_2_500x250.png": "974bbcfd9124bc64e6dfef4577f0e475c975c34fd0a537144a39c372cf08e666"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected delegated configuration automation and generic repository card; child tenant example made synthetic",
+    "reason": "Distributed Cloud automation configuration guide",
+    "text_replacements": {
+      "nodes": {
+        "5085ed733d3ac8cb7936f833200ebd5067be27c03219a6b683548f76fefdcdd3": "python3 config-sync/config-sync.py --config config/prod-config.json --configType log_receiver --namedConfig 'root-test' --childTenants 'example-child-tenant'\n"
+      },
+      "output_sha256": "b95ed2180d897a1470aba26a9aa19887c80039b540460fcd5a4735535464942a"
+    }
   },
   "75135": {
     "article_hash": "83fc65f8dc8e526c7b3687a139672712d23e6142d6d862d134d38c6d24e48bf3",
@@ -4133,6 +6158,23 @@
     "privacy_reason": "Individually inspected telemetry overview and generic processing diagram; no logs or metrics records",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "76323": {
+    "article_hash": "5881d989117ed8c62ee61e83434fcdbceb44167357d623bfa1c6fe788a29dfc0",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a33c405313b1f47020e050ab73f76b8e169573cf.jpeg": {
+        "output_sha256": "e723d7c5569461a2771763efa05dbfef4571d4fddd63297b30996c038fe466d5",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a33c405313b1f47020e050ab73f76b8e169573cf.jpeg": "30b37bd079b5cd98c7d1481dd8baf2ac2a5be0e6e87e18dedaeeb7bacbed5b4f"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected CE deployment code and generic host networking diagram; private example subnet preserved",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "76383": {
     "article_hash": "e493b735940ca01d25cf0e548dab95c629d889a30c4e79268b5d7d7f21e650b3",
     "decision": "exclude",
@@ -4172,8 +6214,50 @@
   },
   "76459": {
     "article_hash": "6fcf12b65219958895f242be99c055e66d2637c1afdfc2bc23ff26e8c4962d2b",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/499280017250104dae3867fc505a6a76c95f1846.png": {
+        "labels": [
+          {
+            "rectangle": [
+              204,
+              85,
+              332,
+              106
+            ],
+            "size": 9,
+            "text": "example-resource-group"
+          },
+          {
+            "rectangle": [
+              204,
+              196,
+              666,
+              219
+            ],
+            "size": 12,
+            "text": "https://workflow.example.com"
+          }
+        ],
+        "output_sha256": "8aafebf81ba25568b88b26dd2bf8d28090ae0def61b722aace57abe9faa1ef1a",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1d79d642e9be0f352e510aa0a816eb51789de001.png": "bd0d6f8524d8d7e16be4055f26cfa4267e319be1401f8c0e1ef7435aea576bdd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/499280017250104dae3867fc505a6a76c95f1846.png": "619e0b7bcb184c158d126f6234ab38bad5c6b71f6fd2ee1cf6d9d53e9174305b"
+    },
     "decision": "include",
-    "reason": "Distributed Cloud Bot Defense scoped dev/test bypass using IP prefix sets and service policy"
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected dev policy and Logic App code plus two diagrams; personal IP set and resource-group labels normalized and workflow URL made synthetic",
+    "reason": "Distributed Cloud scoped developer Bot Defense policy",
+    "text_replacements": {
+      "nodes": {
+        "1f47b57041c90ef4dee11f92891405bde25473dd85126c9c37b543266fa1c6e7": "{\n  \"metadata\": {\n    \"name\": \"example-dev-ip-address\"\n  },\n  \"spec\": {\n    \"prefix\": [\n      \"10.10.10.10/32\"\n    ],\n    \"ipv4_prefixes\": [\n      {\n        \"ipv4_prefix\": \"10.10.10.10/32\"\n      }\n    ]\n  }\n}\n",
+        "91204961b321106b7147586f107d3d8dcc456f6edc5b4e22ca6a71f2c0796674": "{\n    \"definition\": {\n        \"$schema\": \"https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#\",\n        \"contentVersion\": \"1.0.0.0\",\n        \"triggers\": {\n            \"HTTP_Call_to_Update_IP_Address_Prefix_List\": {\n                \"type\": \"Request\",\n                \"kind\": \"Http\",\n                \"inputs\": {\n                    \"method\": \"GET\",\n                    \"schema\": {}\n                },\n                \"conditions\": []\n            }\n        },\n        \"actions\": {\n            \"Compose_Client_IP\": {\n                \"runAfter\": {},\n                \"type\": \"Compose\",\n                \"inputs\": \"@split(split(triggerOutputs()?['headers']['x-forwarded-for'], ',')[0], ':')[0]\\n\"\n            },\n            \"HTTP_Update_IP\": {\n                \"runAfter\": {\n                    \"Get_secret\": [\n                        \"Succeeded\"\n                    ]\n                },\n                \"type\": \"Http\",\n                \"inputs\": {\n                    \"uri\": \"https://@{parameters('tenant-name')}.console.ves.volterra.io/api/config/namespaces/@{parameters('namespace')}/ip_prefix_sets/@{parameters('ip-prefix-set')}\",\n                    \"method\": \"PUT\",\n                    \"headers\": {\n                        \"Content-Type\": \"application/json\",\n                        \"Authorization\": \"APIToken @{body('Get_secret')?['value']}\"\n                    },\n                    \"body\": {\n                        \"name\": \"@{parameters('ip-prefix-set')}\",\n                        \"namespace\": \"@{parameters('namespace')}\",\n                        \"metadata\": {\n                            \"name\": \"@{parameters('ip-prefix-set')}\",\n                            \"namespace\": \"@{parameters('namespace')}\",\n                            \"labels\": {},\n                            \"annotations\": {},\n                            \"description\": \"Last updated by Logic Apps at @{utcNow()}UTC\",\n                            \"disable\": false\n                        },\n                        \"spec\": {\n                            \"prefix\": [\n                                \"@{outputs('Compose_Client_IP')}/32\"\n                            ],\n                            \"ipv6_prefix\": [],\n                            \"ipv4_prefixes\": [\n                                {\n                                    \"ipv4_prefix\": \"@{outputs('Compose_Client_IP')}/32\",\n                                    \"description\": \"Last updated by Logic Apps at @{utcNow()}UTC\"\n                                }\n                            ],\n                            \"ipv6_prefixes\": []\n                        }\n                    }\n                }\n            },\n            \"Response\": {\n                \"runAfter\": {\n                    \"HTTP_Update_IP\": [\n                        \"Succeeded\"\n                    ]\n                },\n                \"type\": \"Response\",\n                \"kind\": \"Http\",\n                \"inputs\": {\n                    \"statusCode\": 200,\n                    \"body\": \"Updated successfully to @{outputs('Compose_Client_IP')}/32\"\n                }\n            },\n            \"Get_secret\": {\n                \"runAfter\": {\n                    \"Compose_Client_IP\": [\n                        \"Succeeded\"\n                    ]\n                },\n                \"type\": \"ApiConnection\",\n                \"inputs\": {\n                    \"host\": {\n                        \"connection\": {\n                            \"name\": \"@parameters('$connections')['keyvault']['connectionId']\"\n                        }\n                    },\n                    \"method\": \"get\",\n                    \"path\": \"/secrets/@{encodeURIComponent('f5xc-api-key')}/value\"\n                },\n                \"runtimeConfiguration\": {\n                    \"secureData\": {\n                        \"properties\": [\n                            \"inputs\",\n                            \"outputs\"\n                        ]\n                    }\n                }\n            }\n        },\n        \"parameters\": {\n            \"namespace\": {\n                \"defaultValue\": \"default\",\n                \"type\": \"String\"\n            },\n            \"tenant-name\": {\n                \"defaultValue\": \"xc-tenant-name\",\n                \"type\": \"String\"\n            },\n            \"ip-prefix-set\": {\n                \"defaultValue\": \"example-dev-ip-address\",\n                \"type\": \"String\"\n            },\n            \"$connections\": {\n                \"type\": \"Object\",\n                \"defaultValue\": {}\n            }\n        }\n    },\n    \"parameters\": {\n        \"$connections\": {\n            \"type\": \"Object\",\n            \"value\": {\n                \"keyvault\": {\n                    \"id\": \"/subscriptions/{subscription-guid}/Microsoft.Web/locations/westus3/managedApis/keyvault\",\n                    \"connectionId\": \"/subscriptions/{subscription-guid}/resourceGroups/{rg-name}/providers/Microsoft.Web/connections/keyvault\",\n                    \"connectionName\": \"keyvault\",\n                    \"connectionProperties\": {\n                        \"authentication\": {\n                            \"type\": \"ManagedServiceIdentity\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}\n",
+        "ba7cc388543a265c8364000d5385a05933e39c903311828b86f6e97ccc4e33c1": "{\n  \"metadata\": {\n    \"name\": \"skip-bot-defense-for-devs\"\n  },\n  \"spec\": {\n    \"algo\": \"FIRST_MATCH\",\n    \"rules\": [\n      {\n        \"kind\": \"service_policy_rule\"\n      }\n    ],\n    \"rule_list\": {\n      \"rules\": [\n        {\n          \"metadata\": {\n            \"name\": \"dev1-rule\"\n          },\n          \"spec\": {\n            \"action\": \"NEXT_POLICY\",\n            \"ip_matcher\": {\n              \"prefix_sets\": [\n                {\n                  \"kind\": \"ip_prefix_set\",\n                  \"name\": \"example-dev-ip-address\"\n                }\n              ]\n            }, \n            \"waf_action\": {\n              \"none\": {}\n            }\n          }\n        }\n      ]\n    }\n  }\n}\n"
+      },
+      "output_sha256": "7bffe8a963b30ff3c1c044e30606f6103fbe471913e55a6a8a6ef1b98650cff1"
+    }
   },
   "76460": {
     "article_hash": "03fe56cb8ffd1172fc37123ec54e6384bda6414a25e04a4e1e5134ebb81f563a",
@@ -4367,6 +6451,312 @@
     "privacy": "approved",
     "privacy_reason": "Individually inspected BGP and maintenance guidance and four generic VIP lifecycle diagrams; private example prefix explicitly identified",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "76743": {
+    "article_hash": "7043d3024c92c9e6b01e2445fdec9e7f0288eec367f1e01fb3e7917d357ff7fc",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46ac6e7bdad79216aed65b6018d954347b07ff8b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              678,
+              173,
+              845,
+              194
+            ],
+            "size": 12,
+            "text": "example-route-1"
+          },
+          {
+            "rectangle": [
+              678,
+              221,
+              845,
+              242
+            ],
+            "size": 12,
+            "text": "example-route-2"
+          },
+          {
+            "rectangle": [
+              678,
+              269,
+              845,
+              290
+            ],
+            "size": 12,
+            "text": "example-route-3"
+          },
+          {
+            "rectangle": [
+              678,
+              317,
+              845,
+              338
+            ],
+            "size": 12,
+            "text": "example-route-4"
+          }
+        ],
+        "output_sha256": "e7eb98762d7cc25f7ca309af72726ef1283e38ba0b31f1bed4ccd34e3952c0ac",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4e1180c8c015dec270616dd3c8a3ca8c13461139.png": {
+        "labels": [
+          {
+            "rectangle": [
+              665,
+              185,
+              940,
+              248
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 1"
+          },
+          {
+            "rectangle": [
+              737,
+              229,
+              945,
+              249
+            ],
+            "size": 12,
+            "text": "example-origin-1"
+          },
+          {
+            "rectangle": [
+              665,
+              293,
+              940,
+              356
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 2"
+          },
+          {
+            "rectangle": [
+              737,
+              337,
+              945,
+              357
+            ],
+            "size": 12,
+            "text": "example-origin-2"
+          },
+          {
+            "rectangle": [
+              665,
+              401,
+              940,
+              464
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 3"
+          },
+          {
+            "rectangle": [
+              737,
+              445,
+              945,
+              465
+            ],
+            "size": 12,
+            "text": "example-origin-3"
+          },
+          {
+            "rectangle": [
+              665,
+              509,
+              940,
+              572
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 4"
+          },
+          {
+            "rectangle": [
+              737,
+              553,
+              945,
+              573
+            ],
+            "size": 12,
+            "text": "example-origin-4"
+          },
+          {
+            "rectangle": [
+              665,
+              617,
+              940,
+              680
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 5"
+          },
+          {
+            "rectangle": [
+              737,
+              661,
+              945,
+              681
+            ],
+            "size": 12,
+            "text": "example-origin-5"
+          },
+          {
+            "rectangle": [
+              665,
+              725,
+              940,
+              788
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 6"
+          },
+          {
+            "rectangle": [
+              737,
+              769,
+              945,
+              789
+            ],
+            "size": 12,
+            "text": "example-origin-6"
+          },
+          {
+            "rectangle": [
+              665,
+              833,
+              940,
+              896
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 7"
+          },
+          {
+            "rectangle": [
+              737,
+              877,
+              945,
+              897
+            ],
+            "size": 12,
+            "text": "example-origin-7"
+          },
+          {
+            "rectangle": [
+              665,
+              941,
+              940,
+              1004
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 8"
+          },
+          {
+            "rectangle": [
+              737,
+              985,
+              945,
+              1005
+            ],
+            "size": 12,
+            "text": "example-origin-8"
+          },
+          {
+            "rectangle": [
+              665,
+              1049,
+              940,
+              1112
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 9"
+          },
+          {
+            "rectangle": [
+              737,
+              1093,
+              945,
+              1113
+            ],
+            "size": 12,
+            "text": "example-origin-9"
+          },
+          {
+            "rectangle": [
+              665,
+              1157,
+              940,
+              1220
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 10"
+          },
+          {
+            "rectangle": [
+              737,
+              1201,
+              945,
+              1221
+            ],
+            "size": 12,
+            "text": "example-origin-10"
+          },
+          {
+            "rectangle": [
+              665,
+              1265,
+              940,
+              1328
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 11"
+          },
+          {
+            "rectangle": [
+              737,
+              1309,
+              945,
+              1329
+            ],
+            "size": 12,
+            "text": "example-origin-11"
+          },
+          {
+            "rectangle": [
+              665,
+              1373,
+              940,
+              1436
+            ],
+            "size": 10,
+            "text": "HTTP Method: ANY / example path 12"
+          },
+          {
+            "rectangle": [
+              737,
+              1417,
+              945,
+              1437
+            ],
+            "size": 12,
+            "text": "example-origin-12"
+          }
+        ],
+        "output_sha256": "af6fb9a0275775c2d894c4e04698bc14bde257b740ca761feb1a80d9e35b263a",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3c59054ccf8748f79f4be1ca918cf4e6a05e6057.jpeg": "390566d6d7874e180d56b7b24f97c856e775ef4baf14642e79290718e5125a3e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46ac6e7bdad79216aed65b6018d954347b07ff8b.png": "30a2f362cf0e2a69f5bea70367cb89f53de9ccdfda8ff8c516416c5cd5255bab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4e1180c8c015dec270616dd3c8a3ca8c13461139.png": "237e3992657c65e9af192042dcb48b15148283805fdb61a9def2eb4fe5cfe0d2"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected custom routing guide and three diagrams; route names and paths made synthetic with method and pool relationships preserved",
+    "reason": "Distributed Cloud API or routing configuration guide"
   },
   "76759": {
     "article_hash": "3544cbca189cca84aa7e348d2ad079cae29f7d9f50252235a48e6fded5716ee0",
@@ -4714,7 +7104,14 @@
   },
   "77195": {
     "article_hash": "35710c17104321bd254f9e97294b5c5639401bf9d8794abc6b4ddf1d5636b220",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f916266a2f430d468443ef43f832dca3b2d27419.png": "b57607aa85d8561ad3e4809000a8c6b8c3b05153432220a44ca8a3b6ea17f034",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/95a6dae67ad3dd26d2744711129c8f451f824352.png": "5ba0b7002eb5ea335610af510da5b8f0dff7cf1c05c4bc347a3e847434787be1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b367cb504118f753301df020bd0f96802921241b.png": "0b6e295bdeb5fd8f74f00eae9060cd6dd6eb67e0d66ff782caea77e95354c2bf"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected WAF monitoring explanation and three generic configuration and anonymous timeline screenshots; no user identity or request payload",
     "reason": "Distributed Cloud WAF monitoring and malicious-user behavioral mitigation"
   },
   "77208": {
@@ -4761,6 +7158,18 @@
     "decision": "include",
     "privacy": "approved",
     "privacy_reason": "Individually inspected XC and NGINX automation prose, architecture and title slide; no personal or customer values",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
+  "77229": {
+    "article_hash": "9bd34e1418fa2d3faaccf2377f069baf63b51ef44a2ce6e22707e3fa98ee06ec",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1a25499272ee642f302c2eeceb9042663ef7aa92.png": "26a2463a2de813987b9988f04cf9cb9dc253d3a9c7c01ae9ecf2fa9393efb765",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1ca1e67d540847cd2467add03cefc8167e4ef300.png": "ebc651f47eaf9079677b17f7a3247355fd93adb81562e9bc6d13dd5d40e78911",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a4764a868dab4054a4aa066eab7d1bda363ef353.png": "31aac1d2b0999b27e43925139a6a6d962f3587f3ccf9fb0839e9a2f9c088c072"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected multiregion application explanation and three generic traffic diagrams; private example addresses illustrate origin relationships",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "77234": {
