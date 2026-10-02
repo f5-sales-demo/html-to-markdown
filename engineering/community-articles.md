@@ -57,3 +57,30 @@ manifest, checksums, quality reports and immutable receipt.
 - [ ] Publish next unused minor software version and merged-main immutable content snapshot.
 - [ ] Verify downloaded releases, pinned Pages deployment, progressive leaves and assets.
 - [ ] Clean this task's worktree and confirmed-merged branch; preserve other worktrees.
+
+## Verified execution evidence
+
+The complete live cutoff pass checked all 8,082 first posts. Relevance review selected 382
+articles and excluded 7,700. The selected set includes all seven required example IDs. The
+sitemap reconciles every category topic; 236 selected topics have the Distributed Cloud tag
+and the baseline also includes untagged articles. Privacy and visual review remain pending.
+
+The refreshed existing sources contain 1,066 documents and retain all 1,063 prior documents
+from `content-20260928T200055Z`. Ten currently unavailable API pages retain verified prior
+bodies with removal-candidate provenance under the explicit retention option.
+
+All selected media were downloaded: 2,772 references, 2,697 unique digests. OCR completed for
+all unique media with zero operational failures; 202 images were flagged for inspection.
+These are private review inputs and are not published artifacts.
+
+Measured combined payload: 473,614,237 compressed bytes, 558,782,263 expanded bytes and
+6,657 members. The paired bounds are 512 MiB, 1 GiB and 20,000 members. Docs-control
+[PR #2277](https://github.com/f5-sales-demo/docs-control/pull/2277) merged at
+`d7f8d7be211c945d501c5dd8eb0dbfe6454fdd27`; Pages pins that commit for both workflow
+and verifier. Its task worktree and branch were cleaned after merge.
+
+Local application verification: 199 tests passed, 88.43% overall coverage and the 95%
+adapter/pipeline gate passed. Ruff, formatting, mypy, Pylint, Bandit, dependency audit,
+changed-file PII enforcement and audit, secret scan, wheel/sdist builds and isolated CLI
+installation passed. Full privacy review, approved community extraction, final archive
+verification, scraper PR, software/content releases and Pages acceptance remain open.
