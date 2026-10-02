@@ -6647,6 +6647,72 @@
     "decision": "exclude",
     "reason": "General MITRE lateral-movement techniques; XC only broad product mitigation"
   },
+  "76721": {
+    "article_hash": "185355b54346d60578d47d13267be9f66e448236502daeb50b0daa7ce8434e69",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e0866de1c62e69439d9da087d49e51b3ac0e1164.png": {
+        "labels": [
+          {
+            "rectangle": [
+              38,
+              240,
+              392,
+              303
+            ],
+            "size": 24,
+            "text": "example-log-receiver"
+          },
+          {
+            "rectangle": [
+              1608,
+              239,
+              1925,
+              290
+            ],
+            "size": 22,
+            "text": "example-log-receiver"
+          },
+          {
+            "rectangle": [
+              1596,
+              920,
+              1762,
+              962
+            ],
+            "size": 20,
+            "text": "example"
+          },
+          {
+            "rectangle": [
+              1700,
+              1141,
+              2258,
+              1182
+            ],
+            "size": 20,
+            "text": "https://logs.example.com/log_endpoint"
+          }
+        ],
+        "output_sha256": "0a07633dc7c2864f6038c1ab87616704f31a06d8440f8548bf0a83668aea2ba2",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/3/73d1b2c11e790fcf9adb644c1beb50f4e7072287.png": "b5d409c8dba9f269d5a696f47005e985da3ede4c8a0bac88566d85f020f5428b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/930add37bc67b947518987908014ef21349f6916.png": "b7bc482c4ac0d482a5249aaf548b62ae750f762878884d64aec4f6f46ff757a2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e0866de1c62e69439d9da087d49e51b3ac0e1164.png": "1c9e3a16133b3c1af5cd4ef6021e127886d7fa28c7884be5547a5e150521b2ad"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected logging guide and three diagrams; resource labels and receiver URL made synthetic; public IP ranges are cited provider allowlist documentation",
+    "reason": "Distributed Cloud Global Log Receiver forwarding integration",
+    "text_replacements": {
+      "nodes": {
+        "1f8844952394b064eb5e0e2c1ab2a1498b593b0b75c5c8dd67db87cc3d0fd689": "ltm virtual vs-3 {\n    destination <vs-ip>:443\n    ip-protocol tcp\n    mask 255.255.255.255\n    profiles {\n        example-client-tls {\n            context clientside\n        }\n        http { }\n        tcp { }\n    }\n    rules {\n        <iRule-created-in-earlier-step>\n    }\n    serverssl-use-sni disabled\n    source 0.0.0.0/0\n    source-address-translation {\n        type automap\n    }\n    translate-address enabled\n    translate-port enabled\n}\n"
+      },
+      "output_sha256": "5081023303c400ecb7cdadcfaf763a7e8e8ca5efd14d4440b57bdb57136a4477"
+    }
+  },
   "76730": {
     "article_hash": "bb2096ca1a592d312363475225eabd6d5ac32f1cf7fd408183821b4cfed04a02",
     "assets": {
