@@ -7054,7 +7054,25 @@
   },
   "77115": {
     "article_hash": "73d02908a4405fe85bf1344c4d2bd0d1446b9943add1e0ead84f7351f02d3a89",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/70489785e9e67280471e347d93efeb2a4dd6fe31.jpeg": {
+        "output_sha256": "026852b811f9986956d698c3555f3d221286356684db6c96988ee98208acfd73",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/019f2efdd9ac7031dc4511774b4c57f0c3d2de40.jpeg": {
+        "output_sha256": "04238b5b8ae65ef009cf964c5275fb7e21278ff89c8a455cfe48bb76845ea3a4",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/70489785e9e67280471e347d93efeb2a4dd6fe31.jpeg": "45ddaaca9b15f62ad4d312c1405a48a6a501a3c4c70084dddd731100ff7f2897",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/019f2efdd9ac7031dc4511774b4c57f0c3d2de40.jpeg": "2fd629da77affec6e52e37e588fbc65efc01efdfc454726dbaf3a7e31d1a8479"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected joint XC edge security deployment and two generic hybrid WAF diagrams; no credentials or customer values",
     "reason": "Automates Distributed Cloud edge load balancing and WAF with BIG-IP origin services"
   },
   "77119": {
