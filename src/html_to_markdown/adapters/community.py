@@ -53,6 +53,10 @@ PRIVACY_PATTERNS = {
         r"Authorization[\s\"':]+(?:Bearer|APIToken)\s+(?!EXAMPLE_API_TOKEN)[A-Za-z0-9+/=_-]{16,}",
         re.I,
     ),
+    "session-cookie": re.compile(
+        r"\b(?:Set-Cookie|Cookie)\s*:\s*[A-Za-z0-9_-]+\s*=\s*[A-Za-z0-9+/=_-]{16,}",
+        re.I,
+    ),
     "cloud-account": re.compile(r"\b\d{12}\b"),
     "resource-id": re.compile(r"\b(?:vpc|subnet|rtb|i|sg)-[a-f0-9]{8,}\b", re.I),
     "uuid": re.compile(r"\b[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\b", re.I),
@@ -433,7 +437,7 @@ class CommunityAdapter(SourceAdapter):
             raise PublicationBlockedError("community relevance review is unresolved or excluded")
         html = reviewed_text(clean_html(value), review)
         findings = privacy_findings(html)
-        if {"credential", "private-key", "authorization-header"} & set(findings):
+        if {"credential", "private-key", "authorization-header", "session-cookie"} & set(findings):
             raise PublicationBlockedError("community text still contains credential material")
         if (findings or image_urls(html)) and review.get("privacy") != "approved":
             raise PublicationBlockedError("community text and media privacy review is unresolved")
@@ -558,7 +562,10 @@ async def inventory_pass(
             approved = (
                 review.get("article_hash") == digest
                 and review.get("privacy") == "approved"
-                and not ({"credential", "private-key", "authorization-header"} & set(privacy))
+                and not (
+                    {"credential", "private-key", "authorization-header", "session-cookie"}
+                    & set(privacy)
+                )
             )
             records.append(
                 {

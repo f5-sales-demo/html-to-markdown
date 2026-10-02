@@ -803,6 +803,8 @@ async def test_failed_refresh_cannot_resume_previous_topic_bytes(tmp_path):
         "<p>Distributed Cloud token=aaaaaaaaaaaaaaaaaaaa</p>",
         "<pre>-----BEGIN PRIVATE KEY-----\nSYNTHETIC_TEST_MATERIAL\n-----END PRIVATE KEY-----</pre>",
         "<p>Authorization: Bearer aaaaaaaaaaaaaaaaaaaa</p>",
+        "<pre>Set-Cookie: session=aaaaaaaaaaaaaaaaaaaa; Secure; HttpOnly</pre>",
+        "<pre>Cookie: session=aaaaaaaaaaaaaaaaaaaa; theme=light</pre>",
     ],
 )
 def test_privacy_approval_never_overrides_remaining_credential_material(body):
