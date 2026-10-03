@@ -10315,5 +10315,208 @@
         "output_sha256": "c4c0625d13ed9254afc776ac2778fb25c47d7a160c462d882c94b62811411dcb"
       }
     }
+  },
+  "71563": {
+    "article_hash": "bce0b4588dd349f2f3fc7c38b3f938ae55110d1b664c8c033b4e1dcf1bd7f6ea",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected broken authentication guide and six screenshots; demo load balancer and domains made synthetic, role insight timestamp normalized; API paths, authentication state and sensitive field names are demo schema details without token or personal values",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27bdae493a43b87751b0fb0903cc1e36c26855b7.jpeg": "6734aeb4eb7036cd712423f4f23588203027a71e47ea6fd8579a005870c79c38",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4013c4d3614915720c88609bc122cbcdc4e98d4a.jpeg": "3b174735df7f5ce672015fb56b4b60780e4cee48906898f4e5966fac76f94338",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f258b379e4f3bd88e7c0fe91873e42087fd62d84.jpeg": "a068c05c4d4d2bb977dfed0fff25991bbe3fda2842eb4bb8aca77aa03df369f6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2b44993c9cb66782440ff7dd10f21339dfa8a26a.jpeg": "3d97755227c4d00181c4f0cf8189233a85a5b6ee5545a58e19ca1ad87af147ab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/9/a978b0350ff93d9db7acc52b692ebbbd8c1f1cb6.jpeg": "d870fff862abb6a027ac275c7d63658d5076f369d009a91a1696720eee6a1ee4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f776473142d1f3fa7ad2ee226b13e359c73a8d56.jpeg": "53535ac8c0f02a5d596874926315ed50bb146ffd99284ba8e42c1bb3c63a7cc3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27bdae493a43b87751b0fb0903cc1e36c26855b7.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              365,
+              19,
+              480,
+              48
+            ],
+            "text": "example-juice",
+            "size": 16
+          }
+        ],
+        "output_sha256": "9fa9b126bb06f161ec6849d3abfe18471b8c39399e8c87db95b8eeb32b82c9a0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4013c4d3614915720c88609bc122cbcdc4e98d4a.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              328,
+              22,
+              511,
+              51
+            ],
+            "text": "example-juice",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1958,
+              416,
+              2170,
+              442
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1958,
+              472,
+              2170,
+              498
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1958,
+              527,
+              2170,
+              553
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1958,
+              582,
+              2170,
+              608
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "561ab48964fd374e92ddb4af359e1dd8e90a038fd97edef542c22dc83b69940b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f258b379e4f3bd88e7c0fe91873e42087fd62d84.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              358,
+              20,
+              478,
+              49
+            ],
+            "text": "example-juice",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2100,
+              578,
+              2514,
+              612
+            ],
+            "text": "\"last_seen\": \"2023-01-01T00:00:00Z\"",
+            "size": 12
+          }
+        ],
+        "output_sha256": "549e1480a3ae164725ca7e8a555bea7d89ae1286e388e31f6d0a7d4636bed3fe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2b44993c9cb66782440ff7dd10f21339dfa8a26a.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              211,
+              18,
+              339,
+              47
+            ],
+            "text": "example-juice",
+            "size": 12
+          }
+        ],
+        "output_sha256": "51203b8979353a0c148ffe5e939e00016d51c6bf68fe2efa75ee9092e7ad7263"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/9/a978b0350ff93d9db7acc52b692ebbbd8c1f1cb6.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              359,
+              19,
+              483,
+              48
+            ],
+            "text": "example-juice",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1930,
+              362,
+              2142,
+              388
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1930,
+              412,
+              2142,
+              438
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1930,
+              461,
+              2142,
+              487
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1930,
+              511,
+              2142,
+              537
+            ],
+            "text": "juice.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b080bdc4f6cb0e6f6903377f97ee761b7fdcf66fd67b6290dd91a2b189fbe6bd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f776473142d1f3fa7ad2ee226b13e359c73a8d56.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              315,
+              128,
+              525,
+              158
+            ],
+            "text": "example-juice",
+            "size": 16
+          }
+        ],
+        "output_sha256": "849aaee6c58c4699febc8c7ac0233eca4def29b8b65d499b1d7f44accac9f487"
+      }
+    }
   }
 }
