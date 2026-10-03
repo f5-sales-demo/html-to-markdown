@@ -43064,5 +43064,159 @@
         "output_sha256": "8426712d9d40f9461e5abc1332d48eba9ecb5a6fa9841023562295acfde89970"
       }
     }
+  },
+  "76191": {
+    "article_hash": "daced6d80c294643c5230a9ee678365935cfa300572cd93c91deb2e6d0bac317",
+    "decision": "include",
+    "reason": "Distributed Cloud CE publication and security for KServe inference",
+    "text_replacements": {
+      "nodes": {
+        "ec45d728348040587159173dd681d533aa38c0dc5d61032d76aed6d6ea14e80d": "inference.example.com",
+        "b75f24ee3b6caac2efe81a0d3d83bba59884493967f7199b948e6d67119ef4a1": "% oc -n istio-system get svc,ep kserve-local-gateway\nNAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE\nservice/kserve-local-gateway ClusterIP 192.0.2.250 <none> 443/TCP 5d6h\n\nNAME ENDPOINTS AGE\nendpoints/kserve-local-gateway 192.0.2.12:8445 5d6h\n"
+      },
+      "output_sha256": "26228890d456ee83774c145795e11966882d4b9b307d9181623a3fcef34c76ff"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and eleven static images; synthetic application domain, Kubernetes endpoint addresses, personally derived storage names and CE site; replaced access key and masked secret entirely with explicit placeholders; preserved Kubernetes service discovery, runtime YAML, health check and TLS settings and topology; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0233f933e683e453e28df0dbd0370bfc8b4c383b.png": "4f78ddcc5bc0cfbcea8fe8c6e80dae1e21a9b0899e9065f3a5cbca6898a3d620",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0b388af6dae607c8f717c5106ee90580b896705e.png": "ff7bac0b70948128422e1a58dd21b8ffb9aaf39a6fe73014a44c80210a8f9472",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18812bfccf1821c8edebf5852c747298261a8953.png": "d2f14371c9a09e00e9bd12ca7b2470918818c5811b0f322db155719c57c00e50",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2febbe2d6282dd865961b54f2aa203d7ae16cfd3.png": "491ddb0b99815ee752d7e9b02f5b020a17e8129ba62a28f13dd550a57f5ff7e7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c2ee2d6b9a440e1e1d9dd51a4335560283e9dcd.png": "42caadc7f16ea7811f51d994d1e5415a538e35553e994d27ef406ad8697bf0f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dcad7c8bfa5a12234b88e64b80d772c9d14d52c.png": "517d3eb918d910f9b271d1e496720ab1c03b0437cf4f72b6b5dfe11aeb80f001",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d19bff5cd0133f8fbad4382bc2ba79bb9a619d2d.png": "b1d8c888e530be2f3a3987137e5404a0b8cb6ecc79a4e7aca95c8cb51e41df78",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6fdd9f1e2c8156490c056eb3d8262f131107ff2.png": "f5c05ecb6a786c96669baa7e8434e3baf34fd086cf6d07e4062a03f2a096fbef",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/6/a60f3b31387c507941e94744bdce2f12340e3e2b.png": "ecb67268f3f403ae2773e62b25b492d34507de60e321923920c82233362b1ba1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/e/bef44caea23bc49a99403501e92a1b07c4ebe387.png": "2f28d05a7efbdb5a35c8483f25fc2d5169b446ac089f0a667c2cba8315176fcd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/4/e4431874acbf6541b75097ab2173fbf66fd035e7.png": "654290bd2864cc10a0a101e90a0b0c80ae535ae5c494af04891ad6b21420b57b"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0b388af6dae607c8f717c5106ee90580b896705e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              284,
+              295,
+              590,
+              333
+            ],
+            "text": "inference.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "92f2fccb4cc2e4c47d9d6c3f5a1b76190d6982a4cb8458d5ccb2e743d5578c2d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dcad7c8bfa5a12234b88e64b80d772c9d14d52c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              72,
+              1209,
+              480,
+              1245
+            ],
+            "text": "demo-model-storage",
+            "size": 23
+          }
+        ],
+        "output_sha256": "7d4cb376f6210b56603c43cf2d4a87e1dc933ed4b9cc049c164838bde2b3bcf2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/e/bef44caea23bc49a99403501e92a1b07c4ebe387.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              439,
+              455,
+              478
+            ],
+            "text": "demo-model-storage",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              36,
+              581,
+              457,
+              618
+            ],
+            "text": "demo-model-storage",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              48,
+              940,
+              425,
+              978
+            ],
+            "text": "EXAMPLE_ACCESS_KEY",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              48,
+              1080,
+              425,
+              1120
+            ],
+            "text": "EXAMPLE_SECRET",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              47,
+              1510,
+              462,
+              1547
+            ],
+            "text": "demo-model-storage",
+            "size": 23
+          }
+        ],
+        "output_sha256": "89191690ada56979ca988769c473d83558e57fe639b0b8b8c7daaa730eb1db2c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/4/e4431874acbf6541b75097ab2173fbf66fd035e7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1010,
+              438,
+              1190,
+              480
+            ],
+            "text": "demo-rosa",
+            "size": 23
+          }
+        ],
+        "output_sha256": "8b1ce7a8a8c08e76908b8a129cfab5ccc62342e772898dde63c4028c6e256dfe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18812bfccf1821c8edebf5852c747298261a8953.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "140c318df4e300fa94d663a515be33d821e8aa1e105ea7470c238144d0b4da02"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2febbe2d6282dd865961b54f2aa203d7ae16cfd3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "28b7fde0ad63156f6d410bdd72217f8fd01e7790735b467c72dbfc6a85cf7ef1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c2ee2d6b9a440e1e1d9dd51a4335560283e9dcd.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "01e5789c40ee24414ac96cb3deae64ec408c4efb1fc1af46d8c7f4e7633d6f39"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d19bff5cd0133f8fbad4382bc2ba79bb9a619d2d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dd65e74167b2341bb6651b314c9eb5872f05d10e041680b694d3edf5182ba744"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6fdd9f1e2c8156490c056eb3d8262f131107ff2.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0e87073f9b6bcd2b337b077385e3a09bc7275687f46ddcdcd139dbd30663622c"
+      }
+    }
   }
 }
