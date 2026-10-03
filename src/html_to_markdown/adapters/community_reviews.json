@@ -10894,5 +10894,150 @@
         "output_sha256": "cab067b348040713f1c3cc799be453bf765eac15237689b3ac4e2fb3008eaa20"
       }
     }
+  },
+  "75064": {
+    "article_hash": "8877f05eefb34880f036637f8e450811347b434fb627ebc7db0fd476353f4aff",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Nutanix migration guide and all four images; browser chrome and avatar removed, personal site and cluster names and storage serial warning made synthetic; private lab subnets, migration endpoints and deployment health retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/00fda4a7b179a5de85a5c0dcf7c738cf8d182bde.jpeg": "0afdc6735309fdbfc9d21cabcefd3cc7fd163ff6267d0cb434fcdb9a1b0abe79",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4eb3ffe3ee5e6a176b89169ad7d3156c0eab8229.jpeg": "7f2d47b8ca2c87ef5d160575b7f057425a1c02a2183cefd8c11ae55f44d1ad86",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/89cecb64f98715d4d348c19cf3203b63d5068aae.png": "40dd1eba1005b24c07c863fb10f19b9118bbc11f680622d554c2bc63bb960ec0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/56e0d1b9f64d7ff290e26c9f42cc3433272f0213.jpeg": "cfbf430b1d597d53418a3b50b85582affa06ab3f68ed6e2b752f1045ee26e5a2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/00fda4a7b179a5de85a5c0dcf7c738cf8d182bde.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            2018,
+            92
+          ],
+          [
+            1951,
+            96,
+            2002,
+            150
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              340,
+              729,
+              524,
+              764
+            ],
+            "text": "example-nutanix-aws",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              340,
+              795,
+              524,
+              827
+            ],
+            "text": "example-nutanix-site",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1640,
+              603,
+              1746,
+              637
+            ],
+            "text": "example",
+            "size": 12
+          }
+        ],
+        "output_sha256": "74101d4b5dcd1c3110e82287c07889c2f4fced740b58e46e0e2b791f68215a77"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4eb3ffe3ee5e6a176b89169ad7d3156c0eab8229.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              53,
+              13,
+              207,
+              49
+            ],
+            "text": "example-aws-cluster",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1762,
+              443,
+              1997,
+              498
+            ],
+            "text": "Example storage warning",
+            "size": 12
+          }
+        ],
+        "output_sha256": "137cd7e476d931756d267682303fb893077756211baf6fcfaeb2caf2670d03c4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/89cecb64f98715d4d348c19cf3203b63d5068aae.png": {
+        "rectangles": [
+          [
+            1875,
+            90,
+            2348,
+            117
+          ],
+          [
+            2330,
+            116,
+            2352,
+            134
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              950,
+              793,
+              1240,
+              827
+            ],
+            "text": "https://app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1730,
+              1114,
+              2099,
+              1139
+            ],
+            "text": "VPC: Example Nutanix Cluster",
+            "size": 16
+          }
+        ],
+        "output_sha256": "814f65c6bccc561667e12046e869502591d1e489c27a5d7fd76ac8f57b040680"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/56e0d1b9f64d7ff290e26c9f42cc3433272f0213.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              85,
+              20,
+              150,
+              45
+            ],
+            "text": "example",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c4263eb8d33753aa1e7e1087898a97f25a5726e737e84481052c6334784d8e87"
+      }
+    }
   }
 }
