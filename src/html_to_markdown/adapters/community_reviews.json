@@ -18304,5 +18304,303 @@
         "output_sha256": "3c4a6ae711f7bd89c20018087cfec3005d4d142be51ee503e16b38d5246bb7a6"
       }
     }
+  },
+  "71633": {
+    "article_hash": "5032dc7ec677e2013218a6f2e1b39b9ce494b008639f5129ec871439969d1222",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense mitigation of insecure-design scalping is primary",
+    "text_replacements": {
+      "nodes": {
+        "0bca39133736daefe827ee0c58e95f59b878278349bd38b6e952743ce29fdc26": "import requests\nimport random\n# List of User-Agents\nUSER_AGENTS = [\n    \"sqlmap/1.5.2\",  # Automated SQL injection tool\n    \"Nikto/2.1.6\",  # Nikto vulnerability scanner\n    \"nmap\",  # Network mapper used in reconnaissance\n    \"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\",  # Spoofed Search Engine Bot\n    \"php\",  # PHP Command Line Tool\n    \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)\",  # Old Internet Explorer (suspicious outdated)\n    \"libwww-perl/6.36\",  # Perl-based automation, often found in attacks or scrapers\n    \"wget/1.20.3\",  # Automation tool for downloading files or making requests\n    \"Python-requests/2.26.0\",  # Python automation library\n]\n\n# Function to select a random User-Agent\ndef get_random_user_agent():\n    return random.choice(USER_AGENTS)\n\n# Base URL of the API\nBASE_URL = \"https://app.example.com\"\n\n# Perform the API request to add products to the cart\ndef add_to_cart(product_id, quantity):\n    url = f\"{BASE_URL}/cart\"\n    headers = {\n        \"User-Agent\": get_random_user_agent(),  # Random User-Agent\n        \"Content-Type\": \"application/x-www-form-urlencoded\"\n    }\n    payload = {\n        \"product_id\": product_id,\n        \"quantity\": quantity\n    }\n    # Send POST request with cookies included\n    response = requests.post(url, headers=headers, data=payload)\n    if response.status_code == 200:\n        print(f\"Successfully added {quantity} to cart!\")\n    else:\n        print(f\"Failed to add to cart. Status Code: {response.status_code}, Response: {response.text}\")\n    return response\n\n# Perform the API request to place an order\ndef place_order():\n    url = f\"{BASE_URL}/cart/checkout\"\n    headers = {\n        \"User-Agent\": get_random_user_agent(),  # Random User-Agent\n        \"Content-Type\": \"application/x-www-form-urlencoded\"\n    }\n    payload = {\n        \"email\": \"someone@example.com\",\n        \"street_address\": \"1 Example Street\",\n        \"zip_code\": \"00000\",\n        \"city\": \"Example City\",\n        \"state\": \"CA\",\n        \"country\": \"United States\",\n        \"credit_card_number\": \"EXAMPLE_CARD\",\n        \"credit_card_expiration_month\": \"1\",\n        \"credit_card_expiration_year\": \"2026\",\n        \"credit_card_cvv\": \"000\"\n    }\n    # Send POST request with cookies included\n    response = requests.post(url, headers=headers, data=payload)\n    if response.status_code == 200:\n        print(\"Order placed successfully!\")\n    else:\n        print(f\"Failed to place order. Status Code: {response.status_code}, Response: {response.text}\")\n    return response\n\n# Main function to execute the API requests\ndef main():\n    # Add product to cart\n    product_id = \"OLJCESPC7Z\"\n    quantity = 10\n    print(\"Adding product to cart...\")\n    add_to_cart_response = add_to_cart(product_id, quantity)\n    # If the add_to_cart request is successful, proceed to checkout\n    if add_to_cart_response.status_code == 200:\n        print(\"Placing order...\")\n        place_order()\n\n# Run the main function\nif __name__ == \"__main__\":\n    main()\n"
+      },
+      "output_sha256": "3024c1cdf7b198fc65647c5b9208aa010e677d0cc26ea988299fce61b221d222"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose, automation code and six screenshots individually reviewed. Example checkout address/card/CVV normalized; demo domains, personal endpoint name, shell identity, client IP, location, fingerprint and request ID replaced. All cart/checkout fields, code, product content, bot policy controls, response statuses and detection reasons preserved. No real customer data, session value or original credential; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/343056fa1fab459c590563aec1cbf807d4ac7ee1.png": "87d34d079cc1b64c698224aa75ed10f669bea98efb6f1fb94b6b14a6edaceb0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/585d7ad16770e551c9bb1725fa19a57aa06658c3.png": "ceff10c648a16f5aba308fd067ace1407e6947f61cd7d46211b2eb648e5c2858",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76bcf336221b43f0414b7cc0acadf3e0eabde44a.png": "2ae5f7da4094f59c1991e7623d2511f22a5621201378489ff54b396dc90f103a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b316833d286bf72f37936b5e699c4c09b26df381.png": "60fd355bf067640beba602195e1bafabe4560ce033dee7eb7541ddf054069a00",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f0a394f896245178dc228f82ee1dd9bc7a0550e2.jpeg": "5ca4d5be4f3c42bcd7080ee294fb9fd0d098bd3f82fcaf065816c2d48285c35a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/c/1cccb6444982bcc6a740df0f72f27dc8e4b4b8ee.png": "b6322402fd45aad39470456c508c9ae87698fbac042dcfc2ed142154c363859e"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/343056fa1fab459c590563aec1cbf807d4ac7ee1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              69,
+              68,
+              721,
+              104
+            ],
+            "text": "example-scalper",
+            "size": 23
+          }
+        ],
+        "output_sha256": "8f794c7ad38cdb8dfb7b662a183a89970fc605b0978297706738a9504a348dee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76bcf336221b43f0414b7cc0acadf3e0eabde44a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              900,
+              121,
+              1100,
+              173
+            ],
+            "text": "192.0.2.10",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              346,
+              390,
+              733,
+              425
+            ],
+            "text": "192.0.2.10",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              344,
+              438,
+              705,
+              476
+            ],
+            "text": "Example city",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              344,
+              486,
+              705,
+              524
+            ],
+            "text": "Example region",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              345,
+              674,
+              1330,
+              715
+            ],
+            "text": "Example browser",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              344,
+              823,
+              1415,
+              868
+            ],
+            "text": "example-fingerprint",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2194,
+              109,
+              2451,
+              187
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1556,
+              390,
+              2140,
+              426
+            ],
+            "text": "example-request",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1556,
+              438,
+              2097,
+              476
+            ],
+            "text": "app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              635,
+              121,
+              827,
+              173
+            ],
+            "text": "Example city",
+            "size": 22
+          }
+        ],
+        "output_sha256": "3758a36302f9d05d5e3c3ba2fd8f146ac0a4aaeec31de48ad1e6cd3330ff3eb3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b316833d286bf72f37936b5e699c4c09b26df381.png": {
+        "rectangles": [
+          [
+            3020,
+            9,
+            3067,
+            65
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              456,
+              17,
+              1128,
+              62
+            ],
+            "text": "https://app.example.com/cart",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1966,
+              687,
+              2408,
+              749
+            ],
+            "text": "1 Example Street",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1966,
+              860,
+              2320,
+              919
+            ],
+            "text": "00000",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1966,
+              1034,
+              2340,
+              1096
+            ],
+            "text": "Example City",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1966,
+              1208,
+              2212,
+              1275
+            ],
+            "text": "EX",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2268,
+              1208,
+              2640,
+              1275
+            ],
+            "text": "Example Country",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1966,
+              1546,
+              2542,
+              1606
+            ],
+            "text": "[example card number]",
+            "size": 24
+          }
+        ],
+        "output_sha256": "3d79d685aa6a84c17f3b880c49f426b62ea085617d63a67844694d5cefae916f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f0a394f896245178dc228f82ee1dd9bc7a0550e2.jpeg": {
+        "rectangles": [
+          [
+            3020,
+            9,
+            3078,
+            65
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              456,
+              17,
+              1110,
+              66
+            ],
+            "text": "https://app.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "620366f2e771881e2ce24dd19a746dc40857cb808625f3123e889b6935cfcf83"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/c/1cccb6444982bcc6a740df0f72f27dc8e4b4b8ee.png": {
+        "rectangles": [
+          [
+            0,
+            171,
+            677,
+            188
+          ],
+          [
+            0,
+            0,
+            669,
+            112
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              669,
+              37
+            ],
+            "text": "(example-env) example@host workspace %",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              0,
+              39,
+              669,
+              76
+            ],
+            "text": "(example-env) example@host workspace %",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              0,
+              78,
+              669,
+              115
+            ],
+            "text": "(example-env) example@host workspace %",
+            "size": 22
+          }
+        ],
+        "output_sha256": "3e40faa69dc187e4292d80f4d0255e4219916c5d18eadc5c1f85a7e7731dcf50"
+      }
+    }
   }
 }
