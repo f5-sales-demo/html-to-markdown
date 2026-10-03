@@ -22143,5 +22143,102 @@
         "output_sha256": "3def4dd585991aaeb3950b394c5f80c5c2cb45867124dd3a1eb3bb4d0e817720"
       }
     }
+  },
+  "69812": {
+    "article_hash": "3133c91b04eca4067f9d717de8b2468d861df2ce09be5aee7a529ad2cc795da4",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full migration-to-XC article and eight images. Personal namespace and CE labels replaced with synthetic regional/site names; profile avatar removed. Generic transition diagrams, product comparison, XC compute scaling and traffic-health topology preserved. BIG-IP/GSLB discussion is context for the Distributed Cloud migration architecture.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/2965277a70624968c66f532aa9b3cca7952ee25f.png": "1bb6266e0587e922fadb7a4650710caa7c92983fbd5bee19283368dc97a1705c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/180579386cad6235d948ca02c77080f363ad32f4.png": "56d1d20f40daef79c09a097e45a26156545031ed85e66eacfe92f3b44fc188ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b9f6c171d5a84fcbccdd3ba0bf4c942d1c9a5c82.png": "b4865116ae10b8069f412f393a9346359462e0d35793e88b9d3571fabbb11cdd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c61d2f3c219de726832c482804aea636a646e0c2.jpeg": "f20345f81270bcb9f314a5ef97e27409d1257dcea38588f929ff10338c051366",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ea2aa9607e30ff7db97996a6a55667b9fff3cda0.png": "c60dc22e64bf42ac8577dadb41e27b72f8a82b596c17ad999af6d5bf00eab56c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f922598a947523d3c9226c1de4c25d552955274b.png": "a5d887d4df225168c7623982cfcf0e7a42953415fd53d1ef735313665553426d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/16adebc1b2881cc72f0663f4a0498b3f9df49c48.png": "64388fab33e067bef1b8fbe2e7d9e54f6fb8f238b929a89e3b84ef68b83e6b70",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/f/7f72f660c4b0996001dd526e05ea41a4cd6beb48.png": "613ccb002b7aed55bada796fd8b1dac53eb5c0c9a5d999309781de300ab70a58"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f922598a947523d3c9226c1de4c25d552955274b.png": {
+        "rectangles": [
+          [
+            1260,
+            9,
+            1303,
+            54
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              185,
+              7,
+              260,
+              27
+            ],
+            "text": "example",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              974,
+              263,
+              1042,
+              282
+            ],
+            "text": "azure-east",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              975,
+              380,
+              1041,
+              402
+            ],
+            "text": "gcp-west",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              974,
+              495,
+              1043,
+              518
+            ],
+            "text": "gcp-east",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              975,
+              614,
+              1043,
+              638
+            ],
+            "text": "azure-west",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1209,
+              435,
+              1291,
+              458
+            ],
+            "text": "dc-ingress",
+            "size": 11
+          }
+        ],
+        "output_sha256": "066e3a0cc96b74f19f9938c26336fe6a2b755b255d0acf7ea532ba0a08cbc9b4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c61d2f3c219de726832c482804aea636a646e0c2.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7cf516b7c5ff35c9b322a342e7d1f392a61e9e2095c1254651a8e00827994eaf"
+      }
+    }
   }
 }
