@@ -25222,5 +25222,115 @@
         "output_sha256": "e51f0433c8457d6ce558eb48de861eece605aaa5b11a0ea4a095b46b1b5474a5"
       }
     }
+  },
+  "76737": {
+    "article_hash": "0499a961c9476172ceada954eb45d94c06b8b5f78d3cf8e99d89f59168383a70",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete implementation prose/code and nine diagrams/screenshots. Personal BGP policy, site and interface object names replaced with synthetic names. Preserved RFC1918 lab addresses and private ASNs consistently across firewall commands, prefix filters, BGP summaries, ECMP routes and topology; no credentials or user records shown.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/0abaa946998ac879eeba328d8608a7dc03aba3fb.png": "772a9d77c6edbadece9044bc75af2491d8b4e01ef7899aeeb683ec074c3d6322",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1489e58c36ff75bc231788e0c11f4d9ef4b6f53d.png": "3f45dc50f189b1acc19e94203e3bbbb071da158966dbab6d092c7ff55d61d14f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f3c68880311615f567de1aa27f6b9b7adb76776.png": "82ee7a3371174f7df6a0d3047c318e66f099db4b94c3cc3bc9adef98ee7504b1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6dc9884d31b8e83bbb9473230538f091a53e4302.png": "35d931de8c997bee66fda2942647c747dd6889603084a5ad74f4f693c19d498e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76f0bafb7d88a365708e2b4bfa355880d444762d.png": "224a660f307fed121488c6746ed37d31ea0ac1429b7f4681d3f334165c3da386",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ae98e0eb642842ffaf98dfd202a552b8f06be45.png": "f870062079848af051fcfedcd23712b9dc291c2357d4a78657f3894ac8ead5ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ec11ef27851c458cc108c0d74b2d2abe57a0639.png": "2555d022aeacf6c3a310a0a6dca8d759f70c9474da4d1e5884860995d5bd15be",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/2/123600a9274d87ee6480d2383693b8a3b759028d.png": "c7d587c84fff62f650bec51b89b9bfaa8fbad006c27de1f19aa839e83910a875",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/8/18046af923908f6791574f44ee2b7b7bf67a9125.png": "dba0f3755e940a5cf2e0536e4eb02c3601d30467acb50001a36e336dbb2a644d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1489e58c36ff75bc231788e0c11f4d9ef4b6f53d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              90,
+              226,
+              113
+            ],
+            "text": "example-bgp-peer-ce1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              84,
+              438,
+              395,
+              463
+            ],
+            "text": "system/example-ce1",
+            "size": 14
+          }
+        ],
+        "output_sha256": "eee66f95c31549221c1f080856fc52c973fdc4fc7c24011986427ac51bd47035"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ec11ef27851c458cc108c0d74b2d2abe57a0639.png": {
+        "labels": [
+          {
+            "rectangle": [
+              121,
+              918,
+              461,
+              942
+            ],
+            "text": "system/example-ce1-interface",
+            "size": 14
+          }
+        ],
+        "output_sha256": "c9b4000c95e530ceb45babbf81ccbf0cbd5d80fe2aae4a3f8eee7a2b8a65e9a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/2/123600a9274d87ee6480d2383693b8a3b759028d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              83,
+              240,
+              208,
+              266
+            ],
+            "text": "example-deny-all",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              83,
+              290,
+              224,
+              315
+            ],
+            "text": "example-allow-vip",
+            "size": 14
+          }
+        ],
+        "output_sha256": "2bedb2c2a7dca01f97cb97782abcca5df0536e3abe8f4e22c6e8c773dcd3a075"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/8/18046af923908f6791574f44ee2b7b7bf67a9125.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              92,
+              171,
+              116
+            ],
+            "text": "example-allow-vip",
+            "size": 14
+          }
+        ],
+        "output_sha256": "2a8f9afbd383202f913a6bba4343e722f8df92b5d77ea0fb23f3ab5d15e4ed01"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f3c68880311615f567de1aa27f6b9b7adb76776.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e9ee306b158036e82a19814876ec283bcd48335e36839645e795adf80b915c92"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ae98e0eb642842ffaf98dfd202a552b8f06be45.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ba5daeaf59ba1ca39090a033dc66add30c8886aeae2186a79cfae07ba525dc61"
+      }
+    }
   }
 }
