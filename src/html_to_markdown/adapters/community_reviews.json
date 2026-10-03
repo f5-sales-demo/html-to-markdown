@@ -28294,5 +28294,415 @@
         "output_sha256": "599286926432673878b1f65b6d726a457e65a6ec19ae0c49e626d07fc76a2cbc"
       }
     }
+  },
+  "73621": {
+    "article_hash": "ba2ab917bd3b9cafde6a30f426d6dffa2b3f4a9feb94c5a7ec47d4f56650086f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all ten screenshots; synthetic domains, VIN, request identifiers, visitor location and address, user greeting and response nonce preserve payloads, OpenAPI validation, 200 success and 403 blocking evidence; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/01609eca097157bf734d26105d10d5a35a71b5b6.jpeg": "8f561a0a48eab01abc6f6cfb2f1f4dd53f3a38d9294126be11bdfcc8f5224f0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2519feb2dce1e244293f08d4dd5a4747a5d7ad4f.jpeg": "302404026e909d2a2bdfa0dc5d601c64a49f1fb628729284d1eeb51e9592195a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a7eb7f3eee299bb93e50c0322e437528f15c2dec.jpeg": "e2190ff781f4af5f9b109545d0bd84c779f8732f1f75640d5195f7e8a6ab7f97",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd2fbaa8008176c7e3f1773e1864e0b6c3ee681f.jpeg": "d11278888b986de9cf904e4c6496812e683da43005cdd410469994cb513c7dbe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7d4038376d1226e8a86765ccfffdb4cbd08fa13.jpeg": "b0dbbd5af3e680d754dbc7a214632d959018c7e35e8d643ddbe119b27c52513c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d9e489b27740d4885bb6eb38effc9acea56eea0e.jpeg": "67481e1806a9b9e0b1a381080274b9baccdaee3d7d19a6340af55a2aefec7d8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f2296adc5f67b9058caaa991e5425e39050b7812.jpeg": "7ce75a62dbc327b11f3b7dea7ca3b25ac5dc0f57bb7296660a6d6adf68c2b709",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8cbb67baaf1184d8f2b92016a4c752b149c87f7b.jpeg": "71cd7a298cc1075a1eedfedc06c4c4dcd8e56f0e6049c9e6a44b5fd855ed0910",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/a/ba3a77a9ce11b10740401220fd98194346ba43a8.jpeg": "695f7902ebb79bcb6b337401b9adb82f97fa19952b75d569c4b8aad06682d7c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/b/cb273d28b751b5eaa0992abeff9d1ff70e0d9e2f.jpeg": "a442c8b26e511ecb793d9df3cc989e7881d64bcea5ce0beca9e55b6baa03bf74"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/01609eca097157bf734d26105d10d5a35a71b5b6.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              293,
+              730,
+              1833,
+              786
+            ],
+            "text": "string doesn't match the regular expression \"^http://app.example.com/workshop/api/mechanic/receive_report$\"",
+            "size": 26
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "e2d0d78edfe016d96adf21fd8d03c0752642d5dda664bfc36d570081386326fa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2519feb2dce1e244293f08d4dd5a4747a5d7ad4f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              317,
+              23,
+              1455,
+              80
+            ],
+            "text": "http://app.example.com/workshop/api/merchant/contact_mechanic",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              218,
+              598,
+              703,
+              653
+            ],
+            "text": "\"vin\": \"EXAMPLE_VIN\"",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              1891,
+              1047,
+              2333,
+              1092
+            ],
+            "text": "nonce=\\\"EXAMPLE_NONCE\\\"",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              284,
+              1098,
+              861,
+              1139
+            ],
+            "text": "_g={kEI:\"EXAMPLE_ID\",",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              875,
+              1542,
+              2659,
+              1587
+            ],
+            "text": "2177970',kB:'EXAMPLE_ID',kOPI:0};(function(){var a;(null==(a=window.google.bv))?0:a.sgsstl();",
+            "size": 25
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "cf9490abc0443dec72700f7dc577b86296a54b7df0c048fd2bcf6d142307781e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a7eb7f3eee299bb93e50c0322e437528f15c2dec.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              325,
+              44,
+              1434,
+              105
+            ],
+            "text": "http://app.example.com/workshop/api/merchant/contact_mechanic",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              214,
+              622,
+              717,
+              676
+            ],
+            "text": "\"vin\": \"EXAMPLE_VIN\"",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              154,
+              1256,
+              2186,
+              1307
+            ],
+            "text": "Your support ID is example-request<h2>Error 403 - Forbidden</h2>F5 site: example-site<br/><br/><a",
+            "size": 28
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "8845f7adbe556fd64bd64d8b44acf84908b506a4aa70024072d4cb891f44953b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd2fbaa8008176c7e3f1773e1864e0b6c3ee681f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              578,
+              9,
+              1731,
+              66
+            ],
+            "text": "app.example.com/contact-mechanic?VIN=EXAMPLE_VIN",
+            "size": 35
+          },
+          {
+            "rectangle": [
+              1758,
+              297,
+              2250,
+              335
+            ],
+            "text": "EXAMPLE_VIN",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              1053,
+              1541,
+              2059,
+              1589
+            ],
+            "text": "http://app.example.com/workshop/api/merchant/contact_mechanic",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              1051,
+              1691,
+              1303,
+              1736
+            ],
+            "text": "192.0.2.20:80",
+            "size": 29
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "1f9436073252579e95325d17175ff6bb0e4c53f5c0fdc620b5d5054737f519d4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d9e489b27740d4885bb6eb38effc9acea56eea0e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              492,
+              149,
+              1923,
+              194
+            ],
+            "text": "{mechanic_code: \"TRAC_JME\", problem_details: \"SSRF test\", vin: \"EXAMPLE_VIN\", ...}",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              492,
+              200,
+              1885,
+              239
+            ],
+            "text": "mechanic_api: \"http://app.example.com/workshop/api/mechanic/receive_report\"",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              490,
+              413,
+              923,
+              454
+            ],
+            "text": "vin: \"EXAMPLE_VIN\"",
+            "size": 26
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "cf879dd58a2d2a674cbff8dc46192cd0d3ce5c87a298bc4afc3ec8c5c7d138e9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f2296adc5f67b9058caaa991e5425e39050b7812.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              444,
+              1245,
+              653,
+              1302
+            ],
+            "text": "US,Example City",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              762,
+              1246,
+              910,
+              1300
+            ],
+            "text": "192.0.2.10",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              2330,
+              1222,
+              2597,
+              1316
+            ],
+            "text": "app.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              345,
+              1523,
+              480,
+              1569
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              345,
+              1574,
+              529,
+              1619
+            ],
+            "text": "Example City",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              345,
+              1626,
+              488,
+              1668
+            ],
+            "text": "US-EX",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              345,
+              1675,
+              443,
+              1719
+            ],
+            "text": "US",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              345,
+              1725,
+              570,
+              1774
+            ],
+            "text": "Example (64512)",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1832,
+              1523,
+              2361,
+              1567
+            ],
+            "text": "example-request",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1832,
+              1575,
+              2279,
+              1621
+            ],
+            "text": "app.example.com",
+            "size": 24
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "eb6044e22aa165112c06ffe9fc21e8ec52d078cfd7004dc8db4eb9a9d6269f40"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8cbb67baaf1184d8f2b92016a4c752b149c87f7b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              3025,
+              49,
+              3566,
+              122
+            ],
+            "text": "Good Morning, Example User!",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              1763,
+              558,
+              2248,
+              618
+            ],
+            "text": "EXAMPLE_VIN",
+            "size": 34
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "bd75037a3c97f9be6fe800a90fdf33f40c67813e76648494061e5a607bde2e11"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/a/ba3a77a9ce11b10740401220fd98194346ba43a8.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              328,
+              31,
+              1470,
+              90
+            ],
+            "text": "http://app.example.com/workshop/api/merchant/contact_mechanic",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              531,
+              378,
+              1779,
+              422
+            ],
+            "text": "\"http://app.example.com/workshop/api/mechanic/receive_report\",",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              235,
+              607,
+              704,
+              652
+            ],
+            "text": "\"vin\": \"EXAMPLE_VIN\"",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              294,
+              1103,
+              2079,
+              1152
+            ],
+            "text": "\"report_link\": \"http://app.example.com/workshop/api/mechanic/mechanic_report?report_id=31\"",
+            "size": 27
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "edb1cbf5a7bad2060ba5940377816017c35693429984246818e8cf59943d1f5b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/b/cb273d28b751b5eaa0992abeff9d1ff70e0d9e2f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              427,
+              858,
+              2298,
+              912
+            ],
+            "text": "\"pattern\": \"^http://app.example.com/workshop/api/mechanic/receive_report$\"",
+            "size": 36
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "7c2983121218b7873678f4815c7e7d69262bf5029355e5f9702aa363b947cdc5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7d4038376d1226e8a86765ccfffdb4cbd08fa13.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3fcdfcdc027f3231308953b5a46f35afddf4d8c1df7ad37a40c1dc8ed274c9ed"
+      }
+    }
   }
 }
