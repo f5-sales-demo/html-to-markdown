@@ -1962,7 +1962,32 @@
   "71455": {
     "article_hash": "cf4378fba7adf955bfc0ab170be867ee7e0a4f943945d40316bebfc4e020e74b",
     "decision": "include",
-    "reason": "Distributed Cloud virtual Kubernetes and DNS support workload migration and failover"
+    "reason": "Distributed Cloud virtual Kubernetes and DNS support workload migration and failover",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected workload migration guide and two images; topology contains generic provider architecture, retail demo has products without account data and cloud resource browser chrome removed",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c890b6563939f3a777847119e64a8f2c3bef38e.jpeg": "6c1bdd06bfbf8b61c1e3865fed000a48cdf0a45850624013bc5f94812f9f86db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c50ad03816cb6c8740796c767f84d0d058bb9842.jpeg": "a1964bcb57be8eb29f012f26bea08a689121055c8a8840c20d0498f19b2c9168"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c50ad03816cb6c8740796c767f84d0d058bb9842.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            1280,
+            62
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "3e93dbfe8fbc8905169aeeef044750b5a9ddcad92e5f14850f784207dde0803f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c890b6563939f3a777847119e64a8f2c3bef38e.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0c1b6591d35e1dd66f01d9285a23cf3bda7d14ffd821a34acc5fe659d6b0e181"
+      }
+    }
   },
   "71493": {
     "article_hash": "6942b0ebac9f65c02b2ef0ecc8598a68f35439e31fb4a5b79de8f472d1b5274f",
@@ -7397,7 +7422,72 @@
   "76784": {
     "article_hash": "8578af2b79a048226363596e61eb9c9d0e95a68b1f8da298a4fe58c485f91166",
     "decision": "include",
-    "reason": "Distributed Cloud API inventory, schema validation and runtime enforcement demonstrations"
+    "reason": "Distributed Cloud API inventory, schema validation and runtime enforcement demonstrations",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected runtime API security guide and three images; crAPI endpoint paths, risk scores and sensitive-type categories contain no actual personal values or token contents; schema domains made synthetic",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c76dec63f02eb6b4a9ff17e8636a4edcede33b0.png": "14b2a0fd28b0483bb6b052e085d02577a900db47eb3c8922fe3bde7697943579",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba297187e113d26377b0abee09b5981f924a477d.png": "77898ee6537dd7370580a45ec3129d8744dbd794bf025519436fc5896a429948",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/2/225ee306b3812175bd9965efa8ae96a557a73fbb.jpeg": "bba9339146ba8581db33ba6dd5b026ea264136d722e34fe1ca641842b74feb69"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c76dec63f02eb6b4a9ff17e8636a4edcede33b0.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              605,
+              303,
+              925,
+              368
+            ],
+            "text": "crapi.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              605,
+              399,
+              925,
+              464
+            ],
+            "text": "crapi.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              605,
+              495,
+              925,
+              560
+            ],
+            "text": "crapi.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              605,
+              591,
+              925,
+              656
+            ],
+            "text": "crapi.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "5d8825479f5e176f42b9c6f33a364841b39674bb450db00a6f28f21099a98a97"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba297187e113d26377b0abee09b5981f924a477d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a8c89495386b8852ae7f74ca81e0fea6b60a907b3dad5c49841208a9634e4311"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/2/225ee306b3812175bd9965efa8ae96a557a73fbb.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "fef3b47e5bd181f804d1cfb2519292d016f0b7b3b5dffdff7a68ed8792cfc79b"
+      }
+    }
   },
   "76834": {
     "article_hash": "90cd1eb0da3035941298fe1fa8fed85f24d96cb0d0775fdf144b67a7c7e2e3d8",
@@ -8253,6 +8343,283 @@
         ],
         "rectangles": [],
         "output_sha256": "221f66c98cbaa363d5154c2a45aaf5d9a94be4131e1289220782f7338baeaa9f"
+      }
+    }
+  },
+  "70199": {
+    "article_hash": "ce9dc7efd6ce601d498dcb4c963fcdcfbadb9d14cb235b3168cba2b2affa1164",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected transit routing overview, complete SVG and topology screenshot; generic provider sites retained, personal site label replaced with synthetic AWS site and no route identifiers present",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b015627ed0e93c5136679df55a9c5f728d37a93.png": "f12faf10ddbb289cad6ff4a5478acd43076bb5f6e777ffe308f371c5f9cacb52",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/d/9d8f614d16b3541fae48c015cc2971dd68813021.svg": "67e420b30f5a8ab91d3920d148756dedb6f57c1807267d7036c33df150fa9e10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/4/c4f42a84c6ce66beddff688faf103c830df4496d.jpeg": "500e5c3780b68faa23dbacccce480c26c9177efe56222c46af14c2e5d02814f3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/4/c4f42a84c6ce66beddff688faf103c830df4496d.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              337,
+              158,
+              401,
+              176
+            ],
+            "text": "aws-vpc-site",
+            "size": 8
+          }
+        ],
+        "output_sha256": "be7660ca88d5c201eb29df0d3c30b9645ea81c68952d8cf8079070f5e128868d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b015627ed0e93c5136679df55a9c5f728d37a93.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3eff9e82694e9cddd55a6af416ade72f590b4dba0e79c856a27b9c3b76b5d640"
+      }
+    }
+  },
+  "73163": {
+    "article_hash": "b1106928e3921714f07033d724a4367f2a55ac87e4ded19945090071b95b821e",
+    "decision": "include",
+    "reason": "Distributed Cloud Customer Edge integration with HPE GreenLake",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected GreenLake guide and two images; screenshot user identity removed and all machine labels and IPs made synthetic, preserving active Customer Edge deployment and generic architecture",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b1139e7bf29b23a7bc466115ac2cdb9d133fcaaf.png": "44d86a8f613c211586a72eb8b28ef2525cd6711536e037da585564ab4f772ec5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/e/1ec79185cecb831695d255b5ed198df6eccf52cc.jpeg": "731412c6f4e8435ac9d4fbcb0afeb106cedfc89a020548c02fd56970e848b409"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/e/1ec79185cecb831695d255b5ed198df6eccf52cc.jpeg": {
+        "rectangles": [
+          [
+            953,
+            19,
+            1067,
+            51
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              258,
+              149,
+              426,
+              177
+            ],
+            "text": "example-nginx",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              223,
+              426,
+              251
+            ],
+            "text": "example-rhel",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              297,
+              426,
+              325
+            ],
+            "text": "example-xc-node",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              374,
+              426,
+              402
+            ],
+            "text": "example-jump-host",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              446,
+              426,
+              474
+            ],
+            "text": "example-cluster",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              548,
+              426,
+              576
+            ],
+            "text": "example-app",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              258,
+              644,
+              426,
+              672
+            ],
+            "text": "example-monitor",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              433,
+              153,
+              542,
+              177
+            ],
+            "text": "IP: 192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              225,
+              542,
+              249
+            ],
+            "text": "IP: 192.0.2.2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              301,
+              542,
+              325
+            ],
+            "text": "IP: 192.0.2.3",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              373,
+              542,
+              397
+            ],
+            "text": "IP: 192.0.2.4",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              446,
+              542,
+              470
+            ],
+            "text": "IP: 192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              465,
+              542,
+              489
+            ],
+            "text": "IP: 192.0.2.6",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              548,
+              542,
+              572
+            ],
+            "text": "IP: 192.0.2.7",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              568,
+              542,
+              592
+            ],
+            "text": "IP: 192.0.2.8",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              433,
+              645,
+              542,
+              669
+            ],
+            "text": "IP: 192.0.2.9",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              398,
+              669,
+              819,
+              704
+            ],
+            "text": "example-xc-node is in Active Status",
+            "size": 20
+          }
+        ],
+        "output_sha256": "08af5726581160a4710b2c6fc4566c75c669fe0c7080f92e2b728ba4525e26b2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b1139e7bf29b23a7bc466115ac2cdb9d133fcaaf.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9a8707b0eaa22f06db8bc2bc81b04b5793cbb7b0d9b139b5f670f0369b9aff4c"
+      }
+    }
+  },
+  "69323": {
+    "article_hash": "45c9fb380cb64a181b04c1cfb2ad5342dd8f5074b3119db7a6efb8506d0a2051",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API security overview and two images; tenant browser URL removed and demo load balancer label made synthetic; empty policy controls preserve configuration meaning",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/9/b9b7f8c90b0d673a4785f281a6ade29f0e7e9742.jpeg": "da8b0de5309fe3807d7c967fd5845d8d05c07d0b77e2faf78f8733b9c3d16b08"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/9/b9b7f8c90b0d673a4785f281a6ade29f0e7e9742.jpeg": {
+        "rectangles": [
+          [
+            128,
+            75,
+            1144,
+            103
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              355,
+              179,
+              470,
+              211
+            ],
+            "text": "example-petstore",
+            "size": 10
+          }
+        ],
+        "output_sha256": "76231374cbfaae6e622635c65e7b6f9f7feb2c6ba04bf08c7c20240bfb052b9a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
   }
