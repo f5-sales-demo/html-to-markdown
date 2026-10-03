@@ -16055,5 +16055,168 @@
         "output_sha256": "80ffa6cecc2dc8c3210d109a19ed051f820748d38c7c9e2e2ea4460d35f8f3ea"
       }
     }
+  },
+  "70458": {
+    "article_hash": "d108270453a47d715f4846b5b43d7efc0e3d77f9d5a1bc1af79adde1e0d6289c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and four screenshots individually reviewed. Demo target IP/domain, username, password, request ID, namespace and LB names replaced with synthetic values; generic SQL injection string retained as the illustrated attack, with no real user payload. Response HTML, status, signature identifiers, matched expression, WAF event details and prevention instructions preserved. No visible cookie value or authorization token; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65aa95995439febb1368d4c19f024214824e4885.png": "ff4dd148323feedf3ecd27637777148e138eb00a95210a4a6d66952be5abbeff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8389d90699ff0456bfff1c75d81f7b03932e2226.jpeg": "81cc3e8d13451bcaa2fad1e372fabb6bb03f87166653df56b8f33d8807e0b6a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/871d1c38590e9dc6ce221665a950b5a73c41b2a0.jpeg": "99ca2a6aad4b93d9cd8fec4730fc2d82f6c7e21908ee0b1e2256a2e5ecd290eb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/88837fc91c710420fa2efdf0dfea0f184fa3657f.png": "978260e9d85897557e258c896c91d4d0dfb6ff0a850785039bb8d11d44da246b"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65aa95995439febb1368d4c19f024214824e4885.png": {
+        "labels": [
+          {
+            "rectangle": [
+              183,
+              24,
+              773,
+              61
+            ],
+            "text": "http://app.example.com/index.php?page=login.php",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              247,
+              225,
+              348,
+              250
+            ],
+            "text": "\"user1\",",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              253,
+              252,
+              458,
+              277
+            ],
+            "text": "\"example-password\"",
+            "size": 16
+          }
+        ],
+        "output_sha256": "c29a5a9837b803c45873278b39ac2a3b5745505184c784effd52f0b35a91928d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8389d90699ff0456bfff1c75d81f7b03932e2226.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              328,
+              46,
+              1054,
+              89
+            ],
+            "text": "http://app.example.com/users/v1/login",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              450,
+              438,
+              790,
+              478
+            ],
+            "text": "\"example-password\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              504,
+              1350,
+              1234,
+              1392
+            ],
+            "text": "example-request-id",
+            "size": 24
+          }
+        ],
+        "output_sha256": "26dda31b9198c75350e6e9592078734f10249a8155a75ddca3109e7b6b4e28b2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/871d1c38590e9dc6ce221665a950b5a73c41b2a0.jpeg": {
+        "rectangles": [
+          [
+            3720,
+            5,
+            3820,
+            73
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              749,
+              0,
+              944,
+              35
+            ],
+            "text": "example-app",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              779,
+              37,
+              939,
+              79
+            ],
+            "text": "example-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              76,
+              270,
+              307,
+              307
+            ],
+            "text": "example-app",
+            "size": 22
+          }
+        ],
+        "output_sha256": "85dd9710e54b75bb314937ecec3f18899462c9c0ff441807243a1cc0541ca24a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/88837fc91c710420fa2efdf0dfea0f184fa3657f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              185,
+              37,
+              772,
+              73
+            ],
+            "text": "http://app.example.com/index.php?page=login.php",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              252,
+              237,
+              489,
+              263
+            ],
+            "text": "\"user1' or '1'='1\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              253,
+              265,
+              458,
+              291
+            ],
+            "text": "\"example-password\"",
+            "size": 16
+          }
+        ],
+        "output_sha256": "d8760b88bcdc0c1bb4747df999565b7244dc25a7b86242494c4eefec3cacd249"
+      }
+    }
   }
 }
