@@ -16,8 +16,68 @@
   },
   "65170": {
     "article_hash": "98894d0ee97ee6e9ea1db86217df3b2632e172918616f1e1d82e70b2cd194892",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ef7c45c1e2547ca7d1d43a73da2f648b89101813.png": {
+        "labels": [
+          {
+            "rectangle": [
+              470,
+              330,
+              755,
+              355
+            ],
+            "size": 14,
+            "text": "frontend.example.com"
+          }
+        ],
+        "output_sha256": "93cc4fb2c4563e769b7426d5bb7666f1d8dd2a755d607234503fc04e9ad8057e",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/963d9fd3ce5c351e6fb9cce26c7aac9646a59194.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              82,
+              0,
+              1000,
+              18
+            ],
+            "size": 10,
+            "text": "export KUBECONFIG=/tmp/example-kubeconfig.yaml"
+          }
+        ],
+        "output_sha256": "eae16e5753cbb28b26cf4f8046ac99c590ab77b45d7baa162d8d56326aa559af",
+        "rectangles": [
+          [
+            0,
+            0,
+            1429,
+            14
+          ]
+        ]
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c37eae802d4cbe5ef51964af9fbebeca29f9a7b4.png": "64a9220d3d5208fccf6004a88262af9853430657822e3050bc4411bc9b84e379",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0ba3e383d5c44e6208687342c854f2a11c9bf888.png": "5930a1df649f7f73d215011fe0046969d61e4b386e1a7442063b48c0e417651b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/264eb8136d29cc5c7f13f897887f2a1b72f708fb.png": "900a9e474e1e4abd6c6d37ab0064c3dba64916bd871e0df390de9041c3a25614",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/70ba80bb727393af938a58898576cd2dcd46bee7.jpeg": "9cdd7bcf54a3de0bf121bfccea31eb143f4e1273f8413c0874757c84c2b3d8fd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c62d132b71eaa8f0d35548e41e82ad0a02a84cf0.png": "47c7385bd5875dd21c466d2b8ad05c844b0f5b609830f9302f715e753581f20c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ef7c45c1e2547ca7d1d43a73da2f648b89101813.png": "77dcf88ddd60b692886029bbd5873238d65cb26857aeee69fcb795c4332c78a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6651e3e23e4e819c2ecec2a687dd1655c35b492.png": "2fe8a4e3f5d121f804b155b5d94c4e22ccedbde45e65ed7d1698a0396b461440",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc285a5ee9a974adce158145b838966828393789.jpeg": "cd53260909bd289291aeccbfd8c3c4782c4f4bc950ed38343a108f77769427b5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/7/172eb4c36e5c5a9d374126331966e3555f054a9b.png": "ba90b7a66a8e7376c7ece4e3b6e3f5bbc878b01c2a0f971c7618b71026dadf7d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/7/177543499d931918f41ff1b5151611dec2cd2561.png": "508220ddb777fcc879b0d1ae59067fd7cff8896a3b3bd7376942856245fda7c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/963d9fd3ce5c351e6fb9cce26c7aac9646a59194.jpeg": "bf01670be3fa0ca037919c13f8172d182c57d5bd205f4b266b57ca662ea437b4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a21a07dd3b4d4a90a311c7a871ccdf936ba7de3c.jpeg": "8ae5bcbbd3d2ae4a36dbd6ebf8291d537e8522a1ad817a021a4e162dcc80ff1b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/e/ae97e0794e6748cc3318de7a25e627c0102fe2d4.png": "716ba818eacc4880664628463e07086101c0e3125b74b67b36e713080b2f43ce",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b006c3fbabf5240587a521cd9c6dc6d189bcc37c.png": "d0814ff4fa6a831085bcc2795014d2d31656b10ceb02853656555e4673c4288f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ede3faf3cecd91d94054d3ef353046995ff9f460.png": "a55c26e40eb76968643ca51d4407a735907bd1a8e96e9e1298a9d9d73ad4fd12"
+    },
     "decision": "include",
-    "reason": "Volterra API discovery, schema learning and Swagger export walkthrough"
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected legacy Volterra API discovery guide and fifteen images; demo domain and local username made synthetic; API schemas contain field names only",
+    "reason": "Volterra API discovery and schema generation"
   },
   "65215": {
     "article_hash": "9a4670e1bceb85c3b1ddc49be20c73f6f7f27918f193b2bc4c2e6c415b488df6",
