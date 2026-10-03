@@ -31958,5 +31958,305 @@
         "output_sha256": "481726413efddbaebb598eaa369917ca49a5263746020173eddedb99eb9e90c9"
       }
     }
+  },
+  "74641": {
+    "article_hash": "d39380f0cb1ff299f26d7e6b1c870ee46bff2cdb2ed692be395a1bb32d5cac58",
+    "decision": "include",
+    "reason": "Distributed Cloud focused Customer Edge OS migration guide",
+    "text_replacements": {
+      "nodes": {
+        "859e50ea339507ba4e3bf9fc3fe22f10e5ab635cfaab4f962b2166ac16ecffaf": "Type in the Key from \u201cSite Selector Expression\u201d my example is \u201dexample-vsite\u201d and click Assign a Custom Key \u2018example-vsite\u2019"
+      },
+      "output_sha256": "9585efb8d44a663fb978dff9c7fa37dc0e3bc521aa323d586004c5e57ab07ec9"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire prose and all eleven static diagrams and screenshots; synthetic site names, namespace, origin address, virtual-site key and VM serial; retained CE deployment topologies, label selection, static origin discovery, OS details and migration procedure; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/000fbdabc9a781dfac4c85190154cf2f8ce791c4.png": "e06b3ff0034b3b45a784553cccae734a711cbb0ca320c992b7761d384a9f2804",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1fd8b48891ddbcf4c6aaa9392db19ad1d6175b09.png": "4114f596a9f0053019c221a3d7531aebb5958f09e00e86a9b13294e28cad8364",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2140442ed74f510b1713bdf7b54f94546fa94f51.png": "b09b8e8f61323c1585f3591e1b70303c5b774bf4c640e342140574bdb253a5b6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/332945aa2626dffcd8b56ec401a09f909a7161b7.png": "9abbf50dd3f2a3d89df21e1fa1f13c5ee2249c0e6d26dc2ecb7a68bf3111ad37",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/504d4f644a9962e94d77a8b99790d09cb2c441e9.png": "a9064fea18fd029492b596932842c7710122f2e77875451e0c93d73f4ec4f385",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82dc0cdaa8a23a3cb7535a165778eea7bf72faee.png": "d66fc0acda25a7d655776b6b76f0b9cad1a2b3337cc5710d20d81c0f1ce8ae43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8f7f289ae3de0ccb2a7663dcd1cf8efbf54ceadb.png": "47c7df7f327f3e0734bdbd4d3d85030871a83ccb36ed00aa95dd89755a7da840",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca0d7ed99dcbf8cd0e62f7b40ab3cc04c08fcc31.png": "0766f388f6ef2dd1b6dc9f398095b46c32c1f91adc074632ba7ef6ebd728ac7c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbb9bf09ea5edaabc1eb23c2164e3264777dff70.png": "27bcecf7241933f1f2abd7945ea0b83fa3a75bc969297c7d07179c663170c492",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b3aaf2c5a3421b1bc05949837ce6d36aba2e049.png": "0ffe7f0efa27b7d3df8e8988e2d3cf9e45722839b6b8c258c325b99c10c8ba64",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/eb12a3688108e2805f867a7261be37d339edcde0.png": "42c0f97fcce60547b6b591d637731560efa8bb456232e9fb7bbf2324cf986bed"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/332945aa2626dffcd8b56ec401a09f909a7161b7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              117,
+              115,
+              257,
+              137
+            ],
+            "text": "example-site-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              620,
+              188,
+              766,
+              208
+            ],
+            "text": "example-serial",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              578,
+              210,
+              663,
+              231
+            ],
+            "text": "example-vsite",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "61f00c7ecc2231a0b0a43d64d39f54fb8100bc41eef18c5e0d794f9d1afddd64"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/504d4f644a9962e94d77a8b99790d09cb2c441e9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              201,
+              330,
+              356,
+              364
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              229,
+              535,
+              450,
+              559
+            ],
+            "text": "shared/example-vsite",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f6381f8004c7e5887b5254b207113ee9857247c80e0832770ca9a54ac83761c1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82dc0cdaa8a23a3cb7535a165778eea7bf72faee.png": {
+        "labels": [
+          {
+            "rectangle": [
+              48,
+              90,
+              195,
+              114
+            ],
+            "text": "example-site-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              589,
+              166,
+              744,
+              187
+            ],
+            "text": "example-serial",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "667bf3f4eb906a7915870df9b4d23a58031f5938eece07042b5a1ae455cc47b1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8f7f289ae3de0ccb2a7663dcd1cf8efbf54ceadb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              498,
+              137,
+              644,
+              160
+            ],
+            "text": "example-vsite",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              500,
+              515,
+              589,
+              537
+            ],
+            "text": "example-vsite",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "1fe768737e37e5cecf191f00f729f84087b9d28cb416bb6d4ec8153be1c0f8d6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca0d7ed99dcbf8cd0e62f7b40ab3cc04c08fcc31.png": {
+        "labels": [
+          {
+            "rectangle": [
+              62,
+              78,
+              195,
+              101
+            ],
+            "text": "example-site-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              591,
+              152,
+              744,
+              173
+            ],
+            "text": "example-serial",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              541,
+              175,
+              674,
+              201
+            ],
+            "text": "example-vsite",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              555,
+              279,
+              783,
+              307
+            ],
+            "text": "Assign custom key 'example-vsite'",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "08adf24507820d5ed202d8b1f2c521d66c705881d0ff8e802e33367593834899"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b3aaf2c5a3421b1bc05949837ce6d36aba2e049.png": {
+        "labels": [
+          {
+            "rectangle": [
+              184,
+              4,
+              238,
+              18
+            ],
+            "text": "example",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              84,
+              215,
+              174,
+              236
+            ],
+            "text": "S:192.0.2.10 / STATIC",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              350,
+              215,
+              467,
+              236
+            ],
+            "text": "example-site-2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              84,
+              257,
+              174,
+              278
+            ],
+            "text": "S:192.0.2.10 / STATIC",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              350,
+              257,
+              467,
+              278
+            ],
+            "text": "example-site-1",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "1dbe160fb6915e1acaafb8948e9bb890b51be90f8fe61d6f04d42af073c046ce"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/eb12a3688108e2805f867a7261be37d339edcde0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              119,
+              199,
+              210,
+              218
+            ],
+            "text": "example-site-1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              119,
+              240,
+              210,
+              259
+            ],
+            "text": "example-site-2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              962,
+              101,
+              1044,
+              122
+            ],
+            "text": "example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              91,
+              659,
+              236,
+              681
+            ],
+            "text": "example-site-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              633,
+              704,
+              843,
+              725
+            ],
+            "text": "example-serial",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "b39382b4fe0ef1fe7ac81c74fb0eaba280cf25fd7436992d8b300de88ed56a02"
+      }
+    }
   }
 }
