@@ -35998,5 +35998,380 @@
         "output_sha256": "89cf72fd1963c22f0c9e10398af7d47779f982af6189e39c8adc4dead26a2ee6"
       }
     }
+  },
+  "69540": {
+    "article_hash": "9196eb9245c387b0d0b6534105f796a74a4db9b737a477d96d8effbccfd4f2b9",
+    "decision": "include",
+    "reason": "Distributed Cloud focused automatic certificate DNS challenge configuration",
+    "text_replacements": {
+      "nodes": {
+        "b03ca9eeb33ac85e22cc50f652d81624b34bcdeb71f30d6f19addc71463bd072": "demo.example.com",
+        "7996329d4c0431c714c8061a3d1c7f15fa0cf88425045a9f407042e7e40c2f60": "_acme-challenge.demo.example.com",
+        "23b9d5163317e715344a4c81971d4b9b61a550ec30b69737c72c7a7b8c5cc24b": "challenge.example.com"
+      },
+      "output_sha256": "8a949abb9c9758a9171f5bc5bf447a385d2d3c66741e628a285451e5573d4dd1"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and eleven static screenshots; synthetic demo domain, ACME CNAME/TXT challenge, load-balancer DNS name and resolver/VIP addresses; preserved DNS lookup syntax/results, pending and valid states, issuer chain and automatic HTTPS configuration; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/106ffe5e1f598d886739b45fb75bde237d068199.png": "540f39ea72ed7d0efd13689b213abc309513728d66d667176b3c0c36eaab7492",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/39302eae6ebefb309ba4534760e0c74960ed2c22.png": "6e0aac2cbb108c2af3e389c1fdce9142740f348f69a58e5e041eb9720fb2fcf4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f30ef557f4a6ed10acba15f9305f82cc93d8fdb.png": "cb0931ded16fcd11b72d32d8a1fa321e2a3dafc79645696d1e120c7532fad0ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11c63aae409debdd15e85fc862a6b0bbb47d263e.png": "b3e2ace7258ae1299d9e0b083b853da726f437d65011d5277454ee5fc2ca6de9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f11c0f1f707fc3669caa99286a6a6ac07f62271.png": "84ad55375f200f2699fc0169d2b66f443dbd927e2487587a2dd1b5cdf3b8482e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/a/6a874c7d897f8449bff40f41cc18fee660b0ab8a.png": "c5ad98e57253aff7bb0984f45f51988f3e0c8234f0cb9a77243762b1e28e59f1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/0/9076a027aebc9d6383d1c1d5d57a81256a0e6ef3.png": "3ab059a105afa46cabe1b578e1b6ab0bbe0ecfe70f29a775809f186dd060f81a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a236cf2dadd19c8f69c55312b34b88ad63b6cebd.png": "840ced47b7f0c0de46ff009da88f55f581db7f9ba7820f036179ee3e1e8f292e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dec05bdbd4bf139f7255a947f1f426eb0d22b297.png": "45b6eb81cd4f66f4aceb69aa55872532c6c9bb7684f6091c2df2c8ed2aa02625",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f76eea0a63ea6631d1307f97865b4bf44573e409.png": "543fa9f7654a52a8c80cf169a31a0fbfea7a88eb04b6d315074a7d1215572299"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/106ffe5e1f598d886739b45fb75bde237d068199.png": {
+        "labels": [
+          {
+            "rectangle": [
+              159,
+              24,
+              342,
+              54
+            ],
+            "text": "demo.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              281,
+              240,
+              420,
+              267
+            ],
+            "text": "demo.example.com",
+            "size": 15
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5255e6f3d6432b1d9fe9c18d7fca1a717b9529cb9c0c49fc6715e22906a9107d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/39302eae6ebefb309ba4534760e0c74960ed2c22.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1662,
+              62,
+              1851,
+              92
+            ],
+            "text": "demo.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "2d0b9ef3ddad4261c5a19e49b48848c5586d17b7d270a88d2dc8cbf7144ce59d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f30ef557f4a6ed10acba15f9305f82cc93d8fdb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              332,
+              24,
+              461,
+              53
+            ],
+            "text": "example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              434,
+              316,
+              575,
+              347
+            ],
+            "text": ".example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              68,
+              463,
+              660,
+              498
+            ],
+            "text": "lb.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "36b7fdc5e98fd7740202d0894f0027cb7dd28a83251a9c0a5f70502ccfa7ebff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11c63aae409debdd15e85fc862a6b0bbb47d263e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              555,
+              291,
+              1197,
+              325
+            ],
+            "text": "lb.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              441,
+              537,
+              580,
+              570
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "b440c021b93c283976d72986cd700cff7fa74c291b4f437c72f33897afbf11ab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f11c0f1f707fc3669caa99286a6a6ac07f62271.png": {
+        "labels": [
+          {
+            "rectangle": [
+              16,
+              17,
+              406,
+              43
+            ],
+            "text": "# dig _acme-challenge.demo.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              59,
+              800,
+              85
+            ],
+            "text": "; <<>> DiG 9.11.5 <<>> _acme-challenge.demo.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              255,
+              433,
+              281
+            ],
+            "text": ";_acme-challenge.demo.example.com. IN A",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              322,
+              1097,
+              348
+            ],
+            "text": "_acme-challenge.demo.example.com. 299 IN CNAME challenge.example.com.",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              388,
+              466,
+              414
+            ],
+            "text": ";; SERVER: 192.0.2.53#53(192.0.2.53)",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              477,
+              718,
+              503
+            ],
+            "text": "# dig txt challenge.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              521,
+              1104,
+              548
+            ],
+            "text": "; <<>> DiG 9.11.5 <<>> txt challenge.example.com.",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              720,
+              696,
+              747
+            ],
+            "text": ";challenge.example.com. IN TXT",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              786,
+              1193,
+              814
+            ],
+            "text": "challenge.example.com. 300 IN TXT \"EXAMPLE_CHALLENGE\"",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              16,
+              852,
+              466,
+              879
+            ],
+            "text": ";; SERVER: 192.0.2.53#53(192.0.2.53)",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5e312d7bc3fed1a227970e88cd54b42fcb29bba46f56f7ac98cc4e9edfcef832"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/a/6a874c7d897f8449bff40f41cc18fee660b0ab8a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              95,
+              550,
+              468,
+              588
+            ],
+            "text": "_acme-challenge.demo.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1088,
+              538,
+              1542,
+              601
+            ],
+            "text": "challenge.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "36e7be0685923e4b9be829e3d927ddf78adf3e7b5165bdfb6467c3d70f2f5601"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/0/9076a027aebc9d6383d1c1d5d57a81256a0e6ef3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              327,
+              29,
+              459,
+              60
+            ],
+            "text": "example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              431,
+              323,
+              566,
+              353
+            ],
+            "text": ".example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              65,
+              466,
+              685,
+              501
+            ],
+            "text": "challenge.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "6219a4347b2cc53f3ca4ecef8ba61702a5c6056896eb86ec4944f747f551146d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a236cf2dadd19c8f69c55312b34b88ad63b6cebd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              203,
+              267,
+              405,
+              300
+            ],
+            "text": "demo.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "cf82973d4af2287f45f67e3dcfd561094d4c3c05c0959442fd9f55b6aa5ff5f1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dec05bdbd4bf139f7255a947f1f426eb0d22b297.png": {
+        "labels": [
+          {
+            "rectangle": [
+              278,
+              308,
+              528,
+              344
+            ],
+            "text": "CN=demo.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              99,
+              645,
+              477,
+              681
+            ],
+            "text": "_acme-challenge.demo.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1095,
+              637,
+              1552,
+              695
+            ],
+            "text": "challenge.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "c7ab80846df60810c11d309ab2a7f831eb7103e28ef9d97c2cf21adfc82b24c4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f76eea0a63ea6631d1307f97865b4bf44573e409.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1679,
+              396,
+              1880,
+              430
+            ],
+            "text": "demo.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "da60b0bf7dace85eddee88b258ab1e4c587ef9188f4619b18b9b6e26127aff14"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
