@@ -48651,5 +48651,442 @@
         "output_sha256": "11e91f3c1642928d76fe2cfa7ad16aa789bf37f8115f4d325d8a191578462132"
       }
     }
+  },
+  "75493": {
+    "article_hash": "1dbae9a8681e8f973ab999ff130d8a67edca09461bc3dba13cacd9a6ae314526",
+    "decision": "include",
+    "reason": "Distributed Cloud API security primary for ROSA model serving",
+    "text_replacements": {
+      "nodes": {
+        "ade4fc09bcc41534c5a970e955660d0fa33b35de218fbe0acc2d448d8ee4bdb4": "http://llm.example.com"
+      },
+      "output_sha256": "9ee11e155eee355226a21c43b3b1a4f5e7afff226a761a5441616b843b6ba001"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose, Ollama model table and all 13 static images. Distributed Cloud API security primary; preserved ROSA/OpenShift AI architecture, model IDs, API paths, schema validation fields and error, sensitive-data categories without values, bot count and chart, rate threshold five per minute and 429 outcome, model-validation policy 403 result and metrics. Replaced personal load-balancer and namespace labels, profile portraits, client IP and location/ASN, request IDs, demo domain and generated specification title with synthetic examples; preserved public regional-edge IDs and tool versions. Image metadata stripped and hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3f5ba5a6c2848ebe0e6e607745ad4a20639f20fa.png": "586671685164f4582f6c2a4a1ff893a72b55ae9921395ef395bd7b727f3c35f5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/75ec227ca4f9724e8a1bcb137ef70cb4ceda6a07.jpeg": "6ea8b3bce27363ee0777347afd576074a342041bdc5f4fbeb6be26c9748fbf4a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b0bfdd840faa60c98378587b59c2171966e0ce1.png": "9a0ea8f5388edb96b47cf7a39c0d6510d5786881c1e419636e607683cf47d534",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b8a50daad5591c137d952561896b20047318358.png": "d64c9708f965d8598dc5c7a156a51c5d34fa99ce16f3bb3b0098d5943d1b0c6c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b88e561880ae919d7a27d6d94ec0066d2ad09840.png": "4569c14e2670a583c9e46f040712b9106888ece0aa5f6a1cf3595ae456fc78ad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bf55ff7ee223b83d98c2d270b2e0b519dc8fac1a.png": "f2ecec34721d349e2d513c9867ed4936e23264ec6e91a697425aeaa2acc059b6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ece92c9d4443110b75c0e6f4a07776e179669136.png": "c0f351037ccd88b2330067e97092b966a0d4836ebbb9cf27510d7d25d6addadf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/9/29e6d6ace4610eb991b91507ea78267d40296da4.png": "0714bdc23c380d4af31d59f017e428d92a6c333c71d5c2be8945c60bf70d3839",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f9bbc58302750ec1e805ad55aa3cf8e3f12f579.png": "26536bc41d6497313ef0facdeb4d4fe23ba34b54fd2713dbac64e11ad9b29736",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/49e51380d9e0397d119e2907212766c1b1ce5ecd.png": "c3be388148f3df8c04e885fcc6ae61b8f8d7eec2ac01fc0799c02c8c233afa2d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/7611e9d79b2192aa6b6927dfab07aa738781f771.png": "03f6b1ab567c7c62ded2a0cc19a559d4c9d86c8480de987cf316ad80779389f9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/d/8d1946f1e2d35c38378eec79e7844a4e4e286250.png": "b64e9df0d1ae44f26ebdefa40ccafb5d3b38a83e1b8ed6deb4878a567407d50b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9fb6692a931f18364232c33025220c7b197d8061.png": "62387e41f198fa58759b0ae6a7a4d8e54ca95bd966b5dd78abda786158953440"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3f5ba5a6c2848ebe0e6e607745ad4a20639f20fa.png": {
+        "rectangles": [
+          [
+            1657,
+            6,
+            1702,
+            52
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              238,
+              6,
+              276,
+              23
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              196,
+              29,
+              365,
+              52
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              242,
+              243,
+              362,
+              265
+            ],
+            "text": "Example City",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              413,
+              243,
+              536,
+              267
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              184,
+              383,
+              308,
+              402
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              184,
+              410,
+              302,
+              430
+            ],
+            "text": "Example City",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              184,
+              487,
+              510,
+              516
+            ],
+            "text": "Example Network (64496)",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              984,
+              381,
+              1324,
+              405
+            ],
+            "text": "EXAMPLE_REQUEST_ID_1",
+            "size": 14
+          }
+        ],
+        "output_sha256": "4ec61c4321f7c5a61162c6052a5c1bce51141243f478a0d398e66097e9e9015b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/75ec227ca4f9724e8a1bcb137ef70cb4ceda6a07.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              487,
+              24,
+              536,
+              52
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              398,
+              68,
+              730,
+              112
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2473,
+              1371,
+              3080,
+              1425
+            ],
+            "text": "\"example-rosa-ai-llm-lb\",",
+            "size": 24
+          }
+        ],
+        "output_sha256": "da492883cf1483cffc2cc584e89a0b5f92d322f59937bc84347ce52b782983fb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b88e561880ae919d7a27d6d94ec0066d2ad09840.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              143,
+              389,
+              189
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 30
+          }
+        ],
+        "output_sha256": "a350a2db3774a9a485841c0b90555b2989d4414b7893441ada182fa772933c54"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bf55ff7ee223b83d98c2d270b2e0b519dc8fac1a.png": {
+        "rectangles": [
+          [
+            1961,
+            8,
+            2008,
+            57
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              510,
+              5,
+              543,
+              25
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              460,
+              28,
+              637,
+              53
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              42,
+              164,
+              82,
+              188
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "5a057441aeca7c2e0fd9431c295e4f7c5dc18d220082504a2e5668f6f745ec50"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/9/29e6d6ace4610eb991b91507ea78267d40296da4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              204,
+              509,
+              477,
+              531
+            ],
+            "text": "EXAMPLE_REQUEST_ID_2",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c0ed7bf4cc35af916dac60e8006910530dc85511ebab01cdf3cdb9b81ebbf74e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f9bbc58302750ec1e805ad55aa3cf8e3f12f579.png": {
+        "rectangles": [
+          [
+            1940,
+            8,
+            1990,
+            53
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              505,
+              5,
+              545,
+              27
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              460,
+              28,
+              637,
+              53
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              42,
+              164,
+              83,
+              187
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              510,
+              300,
+              644,
+              326
+            ],
+            "text": "Example City",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              683,
+              300,
+              812,
+              325
+            ],
+            "text": "192.0.2.11",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1542,
+              290,
+              1715,
+              336
+            ],
+            "text": "llm.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              453,
+              448,
+              594,
+              473
+            ],
+            "text": "192.0.2.11",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              453,
+              475,
+              592,
+              502
+            ],
+            "text": "Example City",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              452,
+              558,
+              633,
+              581
+            ],
+            "text": "Example Network (64497)",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1256,
+              448,
+              1570,
+              475
+            ],
+            "text": "EXAMPLE_REQUEST_ID_3",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1256,
+              475,
+              1450,
+              501
+            ],
+            "text": "llm.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              568,
+              974,
+              1000,
+              1001
+            ],
+            "text": "example-loadbalancer-network-security-rosa-ai-llm-lb",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              568,
+              1001,
+              610,
+              1028
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "209760a0d1dca5d08440a897812cee8a42cfdbd911672bd30c78dab75244b947"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/7611e9d79b2192aa6b6927dfab07aa738781f771.png": {
+        "rectangles": [
+          [
+            1658,
+            7,
+            1705,
+            53
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              245,
+              5,
+              274,
+              23
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              204,
+              28,
+              372,
+              52
+            ],
+            "text": "rosa-ai-llm-lb",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              36,
+              1073,
+              168,
+              1105
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              223,
+              1072,
+              488,
+              1105
+            ],
+            "text": "Example Network",
+            "size": 14
+          }
+        ],
+        "output_sha256": "0113281a481ca3b22e8e22b0341a1e2ba2fabff69bed279beea7c2ea0cc87f5d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ece92c9d4443110b75c0e6f4a07776e179669136.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "07057d47e2852d0e6a278eb73d9dd532ee48590a065ab33bd0a39eb9262b2539"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/9/49e51380d9e0397d119e2907212766c1b1ce5ecd.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f4288882c489d99db6690aaa1ad3e4f8b6be89f99ecc54e42c0e53a5c8433496"
+      }
+    }
   }
 }
