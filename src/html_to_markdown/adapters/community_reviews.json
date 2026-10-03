@@ -4186,7 +4186,109 @@
   "73012": {
     "article_hash": "10f7e1599cda86ef053b92e6fa21537cdaec58029b117ae6c03bd0a3165bd66d",
     "decision": "include",
-    "reason": "Distributed Cloud AppStack API logger and control-plane API inventory"
+    "reason": "Distributed Cloud AppStack API logger and control-plane API inventory",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and six images individually reviewed. Distributed Cloud API discovery and AppStack-based out-of-band analysis is primary; BIG-IP logging context is necessary integration background. Personal logger domains and export title normalized. Schemas, endpoint methods, auth classifications, risk scores, architecture, numeric sample product identifiers and metrics retained; no request/response customer payload exposed. Anonymous scale anecdote contains no customer identity. Metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/000a6d21709bc1f5a7f77648c623149675ba8c18.png": "5abc7bf4e39cdd20b5293a9af7172253bfda6c06684a51dcaeb17cfa601ec41c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2fa433950585ce755bd1bac5e556744d181c0691.png": "d7ef476942d5c7409a8abe4d544e6ce1ae01a7754f2c408970551f4cab0ebd9f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76d26f4dc06ce1fe1a79cc1c8cf6fc63b5df821c.png": "e362a96d60255fcfeb75489ddd3c5575b258d4e9d3f1626ffc9e7772a1698cff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/f/3ffa1230d7ca97e78a5d39521f90c82a5ea29d65.png": "09906e8f5498b6ad855e9fd1c3b3306cd41625ade7bfc7c9fdb5d8e4f4774a92",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/2/72f7e7302e619a00feb1a42d7fd14737be0b813d.png": "f7af865db7bd7ad7ea6d0943c577d9c2e1d253ee039c08a89f19228d03296700",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ce8a876caa1eaa62da94b7e9b432ead826db4759.png": "97dd97f9e08b431b11d6bd81f18d3516ade2669e0cf9b28dc9dee06a73618847"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/000a6d21709bc1f5a7f77648c623149675ba8c18.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1293,
+              121,
+              1494,
+              151
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              181,
+              1494,
+              211
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              241,
+              1494,
+              271
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              301,
+              1494,
+              331
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              361,
+              1494,
+              391
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              421,
+              1494,
+              451
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1293,
+              481,
+              1494,
+              511
+            ],
+            "text": "logger.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "f4b15514b9de5baff95aebdd1443451ffb8533f545d8cf39a8738456aa89e099"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76d26f4dc06ce1fe1a79cc1c8cf6fc63b5df821c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              388,
+              339,
+              785,
+              369
+            ],
+            "text": "\"example-api-logger\"",
+            "size": 15
+          }
+        ],
+        "output_sha256": "c6aac56b8b0178fe6526a427a35dcc96dccb9dce7ecd16ef8eee1623753d61b6"
+      }
+    }
   },
   "73038": {
     "article_hash": "734fe7b7015a9ae453907c6ebc85382ac5647a6e88f90e73b35b75639f1a6bb3",
