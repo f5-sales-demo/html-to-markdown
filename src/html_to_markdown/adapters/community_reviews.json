@@ -34401,5 +34401,312 @@
         "output_sha256": "263d700cec3a1ea428181084f8b6ffe370bddc959d3ac1c65446cdda3d1d0099"
       }
     }
+  },
+  "71162": {
+    "article_hash": "3dae2e6b8b65e548637557316b50844fc20c9104da43543c98a8e6f1eaf80d97",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and sixteen static images; synthetic cluster/owner labels, VM serial, public domain, terminal user, service addresses and discovery ID; preserved public/private transit diagrams, service discovery, NodePort configuration, mesh selectors and topology; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a01dbacac70e581fd4a950c367a4c9bf21278a4e.png": "b1af0f2bdd28d2ce1a78d808561bbfd7aeb35868766d7507b3f5f04cfed12665",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1198cd52e3b3d7d6850ae10ff3c5b4a9d384b472.png": "4e48d76ea9ff798a97495af170c8dc70df1d1bf70af292b2d1b5893592a83d23",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2048fdc3179dd5a2f51f04156ac7b24cbf2edb60.png": "d8a88c3a8de712227c8929ce0e3548405fa2a4eaa1aa3576bfacd362d75c4818",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/34936c4c6e0477afefeefa37823c639fe4cac7fc.png": "663b7ef0243df31003e256aea8b9ec04c08a5fe4fbe7b5dec6b627efd42222d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43015684e7dcf20a8f897cc17cd4d0ec4c20d2b4.png": "bf9a8380fdadffcabb3880b09200dcb292d349d503ae02869ec563cd7cf2a79b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bee65b1eec32145f7163704b8e155b1952188a3.png": "bf788218cf6b33f1e6835eb56c7d7d9d9770f87d02736ac595598acef4771cf4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/78bece0a8d93c671be5052889d48ed3bf68c92ea.png": "ae2d8963bd5a5fefafbe14a17fec76c9ff8e1e2e539503ec3e10b9d312434e23",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/99ab5e6bad4ef91f12589ff11382597a1e18ea03.png": "6a7f2041438d09926202ce964eff199952e84b44ea5dac1a6bacd6eacb7c8170",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6e666d78c215477d916b215939929f98f1ba214.png": "54dbc35bcb71654c12559e806a5a8185cfe47f5fc11891bc9cbe140cb5c79862",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/5/35f443e1c65a7cf21ec83cd68f9d76c0cefe2e65.png": "d1ba366b6494a94c5a659d735224c9a87f64e667187035b552b6299a06793c2a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/7/37b112f3acfc48d649dcd017f516e271c44f652e.png": "e8adfa8507fb4e2c4e57aef8b5b29c1430c21c7824e40413e277aa874ff28a60",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/710a645a4fa127afe4fc94f5be2d38fb986731c8.png": "37ca6ba73b32977bbf841a61558cfe41f59920c0635001c5e03839f74c5a35c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/9/79755c68da805217bb817db9b1a779034d52d915.png": "06443262157a527f30489d37ebc4c00a22b3d6aed794f8f5a086477db6698a1c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/f/af64d94c839a53ad768c88c96a9a005c69d9e811.png": "edc21be4e2cd4c405e9629d5cf7650b5b89d514d8a202f3c996e28f30d1ec0f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b76a167ff0d66bb77061bbeccdcf4aa4c7893765.png": "d12509ef119f7e4bdc6877cd999af7dd8960f70b753576b4a2143a75cf13d7e2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff8be96439d184b0952b6c477ce2667d9fb77477.png": "82f6f138d6017f206db760ae3667ed82061038b6023aad82d9452907d71bcfac"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a01dbacac70e581fd4a950c367a4c9bf21278a4e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              609,
+              34,
+              787,
+              57
+            ],
+            "text": "example-serial",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              127,
+              62,
+              162,
+              84
+            ],
+            "text": "EX",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "334db2cdc2985939516e2ed907a0e7cc14e6844c880ac6803be430edcc33ed0d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2048fdc3179dd5a2f51f04156ac7b24cbf2edb60.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              57,
+              205,
+              82
+            ],
+            "text": "example-gke (us-central1-c)",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "655266bb8b1cb87f3bf9d6c5b12263031588ed310fe5449ffb9a4bd288d4194e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/34936c4c6e0477afefeefa37823c639fe4cac7fc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              95,
+              20
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              19,
+              95,
+              39
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              246,
+              95,
+              266
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              265,
+              95,
+              285
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              284,
+              95,
+              304
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              302,
+              95,
+              322
+            ],
+            "text": "example$",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              393,
+              54,
+              501,
+              76
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              73,
+              501,
+              95
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              92,
+              501,
+              114
+            ],
+            "text": "192.0.2.12",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              111,
+              501,
+              133
+            ],
+            "text": "192.0.2.13",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              130,
+              501,
+              152
+            ],
+            "text": "192.0.2.14",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              149,
+              501,
+              171
+            ],
+            "text": "192.0.2.15",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              168,
+              501,
+              190
+            ],
+            "text": "192.0.2.16",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              187,
+              501,
+              209
+            ],
+            "text": "192.0.2.17",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              206,
+              501,
+              228
+            ],
+            "text": "192.0.2.18",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              393,
+              225,
+              501,
+              247
+            ],
+            "text": "192.0.2.19",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              411,
+              376,
+              705,
+              400
+            ],
+            "text": "example-discovery-id",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              210,
+              471,
+              326,
+              494
+            ],
+            "text": "192.0.2.19",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              210,
+              490,
+              326,
+              514
+            ],
+            "text": "192.0.2.19",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              210,
+              567,
+              332,
+              591
+            ],
+            "text": "192.0.2.20:80",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "c1e4eff44951e3b907dcd439a9de55fd72156822292c5324bda11f122e5f2988"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bee65b1eec32145f7163704b8e155b1952188a3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              161,
+              114,
+              362,
+              142
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f20067a602fedbd5fdb89f6059dc954974ea9c6881df941a61938e20cc6eab08"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/710a645a4fa127afe4fc94f5be2d38fb986731c8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              119,
+              114,
+              141
+            ],
+            "text": "azure-cluster",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5190289fb2c1777052fa2d27ff6962f291a2a1bb3206160b27580326555bf1db"
+      }
+    }
   }
 }
