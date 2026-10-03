@@ -24832,5 +24832,175 @@
         "output_sha256": "31b5e716156c446e8052ede6893fb644c544b520057000c3be893914ab9fe0ae"
       }
     }
+  },
+  "71529": {
+    "article_hash": "0364f90085476bf89b0aabb28cd3539fcbf995fe309cdf7cb48dda938b24197e",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and all nine images. Synthetic app/CDN domains, LB/CDN names and observed origin/client IP and location values replace identifying data, including partially masked origin IP. Preserved trusted header order, origin host header, CDN topology, WAF result and request controls; stock airlines page has no passenger data.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/231e75475f4c4725b506b45cdc3a731b90c4d18b.png": "7cbd1e9a185dadc22d51fdf9be0d0b93aecf262880e369ebb475770e94a2b908",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cfcc409b8743bae0cef671c718d6966c6568397.png": "d76657b331fb07483171dbf14a8a928d284b0c62e676c57f4b860511674b5c63",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6368fed316b16fdfaa952bb09f6df53142c84160.png": "9c53331074edeab5e935f86ec624aa576ed83246793c29e76ee620775f5c5e8b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/84a16fd5e4c2fea848f678b689119f6e6d38f36c.png": "33dc589641de4124404506120886ee31d62e0ff25de150684cd4562a2da0a379",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f7073dcf9492fee67e0bf5c047ef8d377070f7e4.jpeg": "e6666895d9320519fa1ea34f2b0c2b75aa95edd6c6d9706ca2c3b7d08a4ef3d1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/01e0cd4cd15195029ffa96fcc00fb7821619f5ba.jpeg": "64f7eac8de30f81b28192a426ffaf7eeb6917fc5fc1421cc25ad420ec2a6e48d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/593e53354e8e02f3a07443680a7468cf9f39954f.png": "df4c136e1c23003129222f73bf547ebae8261f81cf8ae71adf96a769dcbc1793",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd1365aad84a2aa9eff3788a3baf9f411a8d2325.png": "7c73a1fa1bf2a28902e2d03ddbdcb482bcfffd040b10f13723542e7440561454",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6898f6f72a02197478c4e101939f3e8906f8fe4.png": "7f6ece66c8d1dde39a20cb77ef84a809cb89559ce0432667d251cb1adbe8c191"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/231e75475f4c4725b506b45cdc3a731b90c4d18b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              84,
+              204,
+              401,
+              245
+            ],
+            "text": "app.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1189,
+              787,
+              1512,
+              825
+            ],
+            "text": "app.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "ae5bb3f8a1cd0fd52311529aca0d712aa93e16dada2cdf67cab1f9b87ed48e16"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cfcc409b8743bae0cef671c718d6966c6568397.png": {
+        "labels": [
+          {
+            "rectangle": [
+              75,
+              167,
+              239,
+              203
+            ],
+            "text": "example-lb",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1357,
+              991,
+              1547,
+              1035
+            ],
+            "text": "192.0.2.20",
+            "size": 26
+          }
+        ],
+        "output_sha256": "3fb05fcdfb99beae8c1bbc830dbe84ccf6817881eb2f2bfd2554fb2895212078"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6368fed316b16fdfaa952bb09f6df53142c84160.png": {
+        "labels": [
+          {
+            "rectangle": [
+              731,
+              137,
+              944,
+              185
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              411,
+              137,
+              568,
+              185
+            ],
+            "text": "Example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2338,
+              123,
+              2526,
+              197
+            ],
+            "text": "app.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "6fa9efc0f196fff860123900deb14bccdc7251ded694770eab3c75ba3ff3d4be"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f7073dcf9492fee67e0bf5c047ef8d377070f7e4.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              688,
+              18,
+              1094,
+              73
+            ],
+            "text": "cdn.example.com",
+            "size": 32
+          }
+        ],
+        "output_sha256": "ce842eaafb11458ee4282d1e77a8fd8459baf062c2fbdb60b31c08d1e728be23"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/593e53354e8e02f3a07443680a7468cf9f39954f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              318,
+              205,
+              635,
+              252
+            ],
+            "text": "app.example.com",
+            "size": 27
+          }
+        ],
+        "output_sha256": "ee51baa75addc131284ad6f14cbba59b691992261be8b5b31ea72935935a581e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd1365aad84a2aa9eff3788a3baf9f411a8d2325.png": {
+        "labels": [
+          {
+            "rectangle": [
+              76,
+              178,
+              232,
+              221
+            ],
+            "text": "example-cdn",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              337,
+              815,
+              676,
+              861
+            ],
+            "text": "cdn.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "69d205824922dbe0e9ce0e4465d3690ba157e49bf46ceeb6e550d6f66e767ac3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/01e0cd4cd15195029ffa96fcc00fb7821619f5ba.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "67c3e14810d0915a15ca541fa689af4588457cf99267570bc8ce4bfb3fcb9d64"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6898f6f72a02197478c4e101939f3e8906f8fe4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3bd28dafcd7e032788808135e3c96be28db21ba09e6942fdc77a446b5bcc3b16"
+      }
+    }
   }
 }
