@@ -33783,5 +33783,217 @@
         "output_sha256": "ef241f32267f218334540da1edf6d86db681a71cca46d80428da1cc81b650489"
       }
     }
+  },
+  "70689": {
+    "article_hash": "35e524f2b9d79fe788abf334405facc61b0dd22d09b90bae1d43f2393dcafafe",
+    "decision": "include",
+    "reason": "Distributed Cloud focused split DNS TCP and UDP deployment guide",
+    "text_replacements": {
+      "nodes": {
+        "404fb8704389d7bc3bb51f7262eea3ec816feeefa274b985677cd012b2429cbd": "nslookup -port=5553 -vc app.example.com 192.0.2.53       \nServer:\t\t192.0.2.53\nAddress:\t192.0.2.53#5553\n\nNon-authoritative answer:\nName:\tapp.example.com\nAddress: 192.0.2.80\n",
+        "919c4a80d02a36d1e6f236fb9d941051566daf52eb5fc48412e9f6db2696091b": "nslookup -port=5553 app.example.com 192.0.2.53 \nServer:\t\t192.0.2.53\nAddress:\t192.0.2.53#5553\n\nNon-authoritative answer:\nName:\tapp.example.com\nAddress: 192.0.2.80\n"
+      },
+      "output_sha256": "2a52b4329f9ff8ee97db7238a14432529474a3ef6345ecc1ea79b5caf10b6324"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and eleven static images; synthetic DNS request/result addresses, namespaced services, sites and cluster references; preserved TCP/UDP origin configuration, port 5553, VIP advertisements and nslookup validation; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3777addbc44dd803d325e688845e7acc60962e4f.png": "285636424e8570a568e25ae4f27510656261f423110c841c9c81a65063387dd0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b82a1f2e0f39bdcdf5ebb78d54663de31531010.png": "7906039e542d98045baced3e5c73950795b95c2233bce68a71e0f91fbc9a8a33",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9841d5cf3a5395e8cc25c126730565dc64ef9fa2.png": "199af44b3db42f6a84de580ef5fa28abca46765720204efe38c153e825971916",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba0c5c730885059ca7cffc7670675b9a63810201.png": "159233e927393f470af276a1bc617a0da679a2aa43acd2e08a02d8d692766bfd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bb78089470ca361b8b8524c37f227c587ebe3d43.png": "8ba8b32a2fb1f8ff17d9e4304486c9b9b76e224c9a83c1257849756bcbb7e68d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c41ba6ac3af1f2e33d61370246f92b17836a75c6.png": "3428bbe5f4a07fe4caf6cc03b977591843613b48c32309f67ab559d98121787b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fee47ce4cfaab76ad506dcd9352e74f11d1030e8.png": "6fc61409fb19124eb1de046b85dd95f449e4ad4e49a55ca7525bd3254bb01552",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c8b5e4c23141f1ca87fa2678bbbdb2a92f6f786.png": "9014206ae95f1d3eabb242d8d94f6c41d392165254ec97a0d8841fbe337ddeda",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/80a4aa3a5d797170ef026c5137c4c92fc73bf867.png": "682d7c58b026174a102c872efc7782dee48f1413f6023ef11753a61f14940f6e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/faff0b873737736d93ee6a8d424aa0c9a62a4f0a.png": "4b941fad9c7a6ed99621680ba4bc3396688090023daf2b7736d400abc319378d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b82a1f2e0f39bdcdf5ebb78d54663de31531010.png": {
+        "labels": [
+          {
+            "rectangle": [
+              116,
+              250,
+              332,
+              277
+            ],
+            "text": "system/example-cluster",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "850e0a4696ec49be2649ea66c652cdb7315feb29d647aa90336ae06aabae7539"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba0c5c730885059ca7cffc7670675b9a63810201.png": {
+        "labels": [
+          {
+            "rectangle": [
+              202,
+              175,
+              389,
+              201
+            ],
+            "text": "bind9.example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              428,
+              175,
+              574,
+              201
+            ],
+            "text": "example-site-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              202,
+              235,
+              389,
+              261
+            ],
+            "text": "bind9.example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              428,
+              235,
+              574,
+              261
+            ],
+            "text": "example-site-2",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              202,
+              295,
+              389,
+              321
+            ],
+            "text": "bind9.example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              428,
+              295,
+              574,
+              321
+            ],
+            "text": "example-site-3",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "3d32ab543fdacedb7f3db16a6c6c20ded9b5ca5bb7be0670610952b4204fcb65"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bb78089470ca361b8b8524c37f227c587ebe3d43.png": {
+        "labels": [
+          {
+            "rectangle": [
+              86,
+              122,
+              274,
+              149
+            ],
+            "text": "example/dns-cluster",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "17ad41e040be7c353864dc4f499a52e3bbcc89cd95407a359abe9c9cdfb8e1b8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c41ba6ac3af1f2e33d61370246f92b17836a75c6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              140,
+              226,
+              352,
+              252
+            ],
+            "text": "system/example-cluster",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f3e8f57424aae3031864d0bb885401d1b59c2847de6165c9134bfc5fdf5f1137"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fee47ce4cfaab76ad506dcd9352e74f11d1030e8.png": {
+        "rectangles": [
+          [
+            402,
+            0,
+            474,
+            29
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "1a83de3a3e4c3165137194f94842d702ed8ddd11abae03c26bfed2ba25290283"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/80a4aa3a5d797170ef026c5137c4c92fc73bf867.png": {
+        "labels": [
+          {
+            "rectangle": [
+              139,
+              331,
+              351,
+              357
+            ],
+            "text": "bind-services.example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              120,
+              808,
+              329,
+              836
+            ],
+            "text": "system/example-azure",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0767854ce7ae9c5a5b8d30765c998a2a599ebd0a02528628bf44c4f219e11b21"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/faff0b873737736d93ee6a8d424aa0c9a62a4f0a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              138,
+              258,
+              339,
+              286
+            ],
+            "text": "bind-services.example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              180,
+              473,
+              356,
+              497
+            ],
+            "text": "system/example-azure",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f6c83688e68881a324c7bbdd04d2e0774dfff8c0e57c6cfbc429032b5c3bb115"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
