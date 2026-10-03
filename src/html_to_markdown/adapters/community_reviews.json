@@ -3229,7 +3229,194 @@
   "72729": {
     "article_hash": "9e1150d5eb3fccdc32f0e9f73eb02f09a3afe0dd5db6404745a4495f6d285854",
     "decision": "include",
-    "reason": "Distributed Cloud WAAP incident monitoring and suggested mitigation workflow"
+    "reason": "Distributed Cloud WAAP incident monitoring and suggested mitigation workflow",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected incidents guide and three images; source addresses, city, region, ASN, incident ID and authority made synthetic consistently in summary and expanded panels; navigation steps, event counts and mitigation recommendation retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ec1af4c634b93c44da50028076ace5be68bde1a2.jpeg": "e6af5de3d04d796f520f96b0f3b7ced2c652bb683fbf9e1dcad99f88c4f46eab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2bc5d7d6b41f248bd58f8186e4b784b34e3b5148.jpeg": "9bd608293bf86535bc1fa05400252402cefff3830b79260a9193f312d0df1595",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fea8b5694a58cedf1f8051b20d3eede26fd986ab.jpeg": "cede5ae48c488b6e2329415d6d21b7081d4beb1724bf9c09ae105c0e39fefb4c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ec1af4c634b93c44da50028076ace5be68bde1a2.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              770,
+              43,
+              909,
+              89
+            ],
+            "text": "example",
+            "size": 20
+          }
+        ],
+        "output_sha256": "5e4de849c6e335514fe6797e288cfe964d11348f906bc9bbdd4d6ad433d5d250"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2bc5d7d6b41f248bd58f8186e4b784b34e3b5148.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              2418,
+              368,
+              3098,
+              413
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.10)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              747,
+              594,
+              977,
+              641
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              747,
+              641,
+              972,
+              688
+            ],
+            "text": "Example City",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              747,
+              690,
+              972,
+              734
+            ],
+            "text": "Example Region",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              749,
+              781,
+              1063,
+              824
+            ],
+            "text": "AS64496",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2317,
+              594,
+              2852,
+              641
+            ],
+            "text": "example-incident-1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2317,
+              643,
+              2762,
+              690
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              809,
+              987,
+              1603,
+              1037
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.10)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              809,
+              1121,
+              1964,
+              1172
+            ],
+            "text": "Consider adding \"192.0.2.10\" to blocked client list",
+            "size": 18
+          }
+        ],
+        "output_sha256": "680cefa81632948bf91deb9ca15e1dc2f5f63eaaa4cec69949b7a7e5298f4e87"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fea8b5694a58cedf1f8051b20d3eede26fd986ab.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              770,
+              50,
+              915,
+              92
+            ],
+            "text": "example",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2422,
+              562,
+              3128,
+              641
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.10)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2422,
+              641,
+              3128,
+              719
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.10)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2422,
+              723,
+              3128,
+              830
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.11)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2422,
+              850,
+              3128,
+              957
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.11)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2422,
+              965,
+              3128,
+              1071
+            ],
+            "text": "Suspicious bot traffic (src_ip:192.0.2.12)",
+            "size": 18
+          }
+        ],
+        "output_sha256": "5451d1cc5808713f0dedf85a55a53f05190e999905a97c28259c9e06367fa7bd"
+      }
+    }
   },
   "72733": {
     "article_hash": "a0c64890f5a936c7decfb289b3191e05e801756795753b290ebd9592ab920030",
