@@ -34167,5 +34167,239 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "76035": {
+    "article_hash": "dcbf41b7b9b2572627a65de3bf4523e7ed29b6c5e8bab010a6e892213c2dc4f0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire first post and eleven static screenshots/diagram; synthetic domains, visitor address/location/ASN, request IDs, fingerprint and terminal prompts; preserved load-test metrics, API endpoint, four-per-minute threshold, latency and 200/429 outcomes; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/2d65572fb9b6527ca881b4e37cd4cf9e37470ca7.png": "d35f3256f4a169b1d5d46336773f7a3706dd2587df1277e9848f170a7362bafc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/9c3759dbb044b4183e6099d788d8b7c9fa8e547d.png": "58cc00382ba60025e75168700d46177252ab71fdbac72f6cd16b269ad4abd3d5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/ced59e913de7bee53bcc6badf09e3a54ccbfb0a8.png": "e11acb3bd164e4eef8517c79c6181c64ca42cc0da4cf1d96c00a9af4faa683e2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1677cbd5331cc51c7813fd2a049c16ff526c771e.png": "dce991a5c463f35e2217ef8132411372b7b67351a30a56d318a0901e9debc207",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33006c17dbd20650aeb011d3308d3585c5c781e3.jpeg": "cf116a0e4425373fff2094e29a42d79f545c52668c1ce3db06c1c26112dcc267",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/399d31d7f823c54e0eb66c5e4bee91988762b11d.png": "25f20d987e6aaad0bb971de3f3122c4ecd2a099cfc2129d92796f866b65f1e3c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fb04d78f2ab229a48a12746caed4be9c47060cb.png": "ab6487523b08e01197a8c817c080f2744151c770ea0a596ec80100d4be6d8fc1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60cbe8471b839954258c23ebd672528e8a68e3e0.png": "39b5caaa608fae79c140bc70f71da982542703a390e9631864b2810afb485587",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/316ed1de5df3e2927bf03c55cb4f52a9a31930ba.png": "8f23a03228417386970aae4b19f5f00f482365b8314dae85ff970cfa53649fb1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/e/5e30f5f2f9e81566fb6d4c0bd8e5543c6ae43b9e.png": "e080c07768d3f684f70172ae79bede1ebd7713f348639478fd5d9aab094661a5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/a/7a29e5189cbe2c74f230382169fd8a22941c1535.png": "51766d5ae1f9d8a9ee8732dece06a5b18d42a9e04d56a2511a554d0b65c3f493"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/9c3759dbb044b4183e6099d788d8b7c9fa8e547d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              99,
+              0,
+              180,
+              17
+            ],
+            "text": "Example City",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              99,
+              16,
+              333,
+              33
+            ],
+            "text": "Example ASN (64512)",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              99,
+              31,
+              290,
+              47
+            ],
+            "text": "example-fingerprint",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              99,
+              108,
+              139,
+              126
+            ],
+            "text": "US",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              590,
+              92,
+              665,
+              107
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              590,
+              109,
+              622,
+              124
+            ],
+            "text": "US",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              590,
+              123,
+              781,
+              140
+            ],
+            "text": "example-request",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "951084af16f3f728805db860dbb6d74de2427234da936d389009845430e4f071"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1677cbd5331cc51c7813fd2a049c16ff526c771e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              121,
+              61,
+              439,
+              82
+            ],
+            "text": "https://app.example.com/product/OLJCESPC7Z",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              181,
+              311,
+              420,
+              331
+            ],
+            "text": "example-request",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "da00ddf5449e6b44705c59ea9f37d819e188acb807f60628387409431783e039"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33006c17dbd20650aeb011d3308d3585c5c781e3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              244,
+              18
+            ],
+            "text": "example$ ./test.sh",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              461,
+              0,
+              701,
+              18
+            ],
+            "text": "example$ ./test.sh",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "923f023820faeff592cb93af9215efdd31ac9e5eb407b9df98c5a40c8bd0a05d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fb04d78f2ab229a48a12746caed4be9c47060cb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              601,
+              0,
+              672,
+              17
+            ],
+            "text": "IP-192.0.2.10",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "519db833d5a77de2441d819b90f220600a4de301502358f97d135cf22dcc389a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60cbe8471b839954258c23ebd672528e8a68e3e0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              775,
+              89,
+              900,
+              125
+            ],
+            "text": "app.example.com",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "ddf4bff271e61425c182cd78447588f119f4994ca7b0f0c2f438088e34f6c188"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/e/5e30f5f2f9e81566fb6d4c0bd8e5543c6ae43b9e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              171,
+              240,
+              246,
+              256
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              99,
+              483,
+              173,
+              502
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              87,
+              395,
+              267,
+              411
+            ],
+            "text": "example-message",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "28de4870b69618ed29fb5ed821106568bba909d6b0ac22d34c037be4ebed873e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/a/7a29e5189cbe2c74f230382169fd8a22941c1535.png": {
+        "labels": [
+          {
+            "rectangle": [
+              121,
+              63,
+              437,
+              84
+            ],
+            "text": "https://app.example.com/product/OLJCESPC7Z",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "263d700cec3a1ea428181084f8b6ffe370bddc959d3ac1c65446cdda3d1d0099"
+      }
+    }
   }
 }
