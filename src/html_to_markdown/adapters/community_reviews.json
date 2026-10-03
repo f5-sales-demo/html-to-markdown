@@ -6407,7 +6407,30 @@
   "75900": {
     "article_hash": "61f9fbf27e09ce4df9923a333f79b1df45f1552ead3ed8d07a1552314e651ea9",
     "decision": "include",
-    "reason": "Distributed Cloud Bot Defense Advanced self-service UI and role/configuration guidance"
+    "reason": "Distributed Cloud Bot Defense Advanced self-service UI and role/configuration guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected self-service policy guide and bot threat diagram; login fields empty and browser URL made synthetic; quote has anonymous role attribution without customer identity",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f797b47488475bbeb96b8703c52b9593b1954542.jpeg": "9610cb7aa51364ae4d77f4e262a566c9be24262d5e9ca4a32582e5c3e32c0f0e"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f797b47488475bbeb96b8703c52b9593b1954542.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              557,
+              232,
+              703,
+              248
+            ],
+            "text": "https://login.example.com",
+            "size": 8
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0526816fdf6dac5b57211247166ea666bf68812aec27fbb5b4b73622a283b2cd"
+      }
+    }
   },
   "75966": {
     "article_hash": "7a41027a56804e62fec128aa69f300afa0ed942ca3745e6e3beacffc03bd6ba0",
@@ -6501,7 +6524,47 @@
   "76183": {
     "article_hash": "f4ec338c79c3c89e68e55b7fe8ceaaf5a5c27e89463db3952bcca868429c023b",
     "decision": "include",
-    "reason": "Concrete Distributed Cloud API discovery and shadow-API inventory walkthrough"
+    "reason": "Concrete Distributed Cloud API discovery and shadow-API inventory walkthrough",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected discovery guide, complete OpenAPI code and eight images; imaginary historical mapping data, reserved support email, generic endpoints and sensitive-type counts contain no returned personal values; API definition label made synthetic",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0994afefb3fef65b439acdd9b8bc07d7853859b3.png": "943a8ea31884ad6295c1194707f7272816c277873dcbfef6edef8178b55d23fa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0d58c3230f3a3f89dcebdd56721b438d194bbdc4.png": "a2bb3f1886794c49cf3e501526e8950717f7c4ba6e3f2a91e3ba0767368cad05",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/17c482dcbf61362129accb3127e22eca4a48c172.png": "134494acdfab431f3e53b0db7a34d48624153f61ad45fb21563c61cf71d14583",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f5aa51457f38a19cbdf18e2cff8f73ee0306710f.png": "d5140fcec26bd072b1b969bd9ff287e5affd4a3222f2f325bd6197494ac10fde",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f975cc38f42ca41f731a0339fcbe159db226051e.png": "417b8620bc3f678d329498082c6abe04482ae2a3db15d34fda0cdecc9132a495",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/343be0c5dc32c04429a2a1fa62136cf67d7fd342.png": "8bbe20cbb82934015bb0aa80623e8300e5be69b2ff81fbb17df0e35d10fc1712",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/980df0be3bcf06b0b510e26d50b18b6dcc069f1c.jpeg": "51142445a3e25d372e8d911b580861d1e568cc67e59c5024590f28e0ba6b4e55",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6c7b547f7eb6f797a86e2fe0e5789ddaaa40d58.png": "c40dec03993e1e1f36e3fd90ca59b26cfe1209eca2f585c9423b35b7400d6b36"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f975cc38f42ca41f731a0339fcbe159db226051e.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1287,
+              9,
+              1390,
+              25
+            ],
+            "text": "example-cook-api",
+            "size": 10
+          }
+        ],
+        "output_sha256": "c14e2c1b8cc586ee8b396b2988a5bc6c86910527ce332926470c72752b863cdf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0d58c3230f3a3f89dcebdd56721b438d194bbdc4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c58d4e69145a77ed47ff3a4f7e68da489e38b26821b3b9238230a2428d2cbcbb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/980df0be3bcf06b0b510e26d50b18b6dcc069f1c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cfb88230a6dfe3e7aeb2835e6349d07447e9e1f1ca9e435d03688300a89520d0"
+      }
+    }
   },
   "76190": {
     "article_hash": "c7dcd0b08f65e7892ce2d6ebd4728bb804a851678b6662421f4e09297b37b412",
@@ -6577,7 +6640,50 @@
   "76399": {
     "article_hash": "f22564815bb2754da3c493adf2979f70e06be7540ee359cceab39249efa5df33",
     "decision": "include",
-    "reason": "Substantive Distributed Cloud API discovery and enforcement mapping to NIST controls"
+    "reason": "Substantive Distributed Cloud API discovery and enforcement mapping to NIST controls",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected NIST control mapping and five diagrams; Distributed Cloud guidance retained with contextual BIG-IP and NGINX alternatives; load balancer labels made synthetic; sensitive-type dashboard shows counts only",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8a1caca3d91969afe8788468093e3ac70288b2ae.png": "be1bb18faba947b1b36bae0041df2d61f3cc3fee2a8d68b6a9eb79340bc38738",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7edead4b12195635124346a6d9c64eb162a2aea.png": "a61d254576ca8307f4648f03fefbd310144599d53b4c7d9c556c49197fbb15a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/59f8d1aceb6fefff68fcda8b3126dbb6f7536e59.png": "82d2b0f119348e0d50e0ab855178a1237c9b8fa3a90b8efb8a02798a0a4a0b7e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5fa15830704f68af7d31579cc4ac8831cba1ceab.png": "483401f1c8d0ed2ef1676994612610afb1efaf9b866df2ab0191a353d8cf5f87",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/3/d306abf53d866e9ef71878330a2d3c8a890b01d8.png": "6ab36bfa237bda232a25347041b6951fb670cf5e881311c2718b0abed932742c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8a1caca3d91969afe8788468093e3ac70288b2ae.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              10,
+              51,
+              170,
+              79
+            ],
+            "text": "example-api",
+            "size": 16
+          }
+        ],
+        "output_sha256": "5b548b67733874dbde22fea86707d946f10d926e035e9f07249803c2f8a5f426"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7edead4b12195635124346a6d9c64eb162a2aea.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              22,
+              73,
+              175,
+              103
+            ],
+            "text": "example-api",
+            "size": 16
+          }
+        ],
+        "output_sha256": "8bef4c45e2223b14d117b9c38ab147ab6d284c7d2e0f368d96dc6abf26d3a7b2"
+      }
+    }
   },
   "76446": {
     "article_hash": "f33b85f8ef6bafbbeacd3025f3c6d485daec741cc0f824c40c616b1d7dc00419",
@@ -7850,5 +7956,304 @@
     "article_hash": "8caecec0b2f5f96ff6e3c0ab22583e00374ac442fbf9f2616c4c0a8a16583d79",
     "decision": "include",
     "reason": "Distributed Cloud Bot Defense traffic classification demonstration"
+  },
+  "75295": {
+    "article_hash": "f2ec65e92cdd1c13dfeb7884e01f308c789a0b5d54fefbc397d46a5642c3550d",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected migration guide and full-resolution architecture; application domain made synthetic and embedded browser chrome and avatar removed; private subnet shows IP preservation across two virtual machines",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/3/534bb8ed90fd18151a7136a790c9fa9b263fa9a3.png": "38bc6ef42735e18bfcce2994789a4ae2e5ecd6225ccb5dc0003fb28878c4c786"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/3/534bb8ed90fd18151a7136a790c9fa9b263fa9a3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              365,
+              443,
+              821,
+              485
+            ],
+            "text": "juiceshop.example.com",
+            "size": 28
+          }
+        ],
+        "rectangles": [
+          [
+            1497,
+            95,
+            2080,
+            125
+          ],
+          [
+            2051,
+            124,
+            2080,
+            143
+          ]
+        ],
+        "output_sha256": "5faf7c7050dc400d5f8e5121e41f15819477c634f0884783ca9241d042c75f9b"
+      }
+    }
+  },
+  "76232": {
+    "article_hash": "4192f0274b3097b4fda89ae6bda1f7326c3a4f850f3f7da5972f7a0f9b85c3b4",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected scanning overview and service inventory screenshot; all application domains and public addresses replaced consistently with reserved examples while ports, software and service relationships retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/1/912b1bc981c33b673f7f1b1ef46034404b30a4f3.jpeg": "7e9d014150275f655d8c36164f56d5ed546d1a22f137b066c65786d32ec6949c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/1/912b1bc981c33b673f7f1b1ef46034404b30a4f3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              485,
+              234,
+              709,
+              260
+            ],
+            "text": "hipster.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              234,
+              806,
+              260
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              263,
+              709,
+              290
+            ],
+            "text": "hipster.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              263,
+              806,
+              290
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              293,
+              709,
+              318
+            ],
+            "text": "juice-shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              293,
+              806,
+              318
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              322,
+              709,
+              348
+            ],
+            "text": "juice-shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              322,
+              806,
+              348
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              352,
+              709,
+              377
+            ],
+            "text": "kiosk.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              352,
+              806,
+              377
+            ],
+            "text": "0.0.0.0",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              381,
+              709,
+              406
+            ],
+            "text": "langchain-qa.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              381,
+              806,
+              406
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              410,
+              709,
+              436
+            ],
+            "text": "langchain-qa.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              410,
+              806,
+              436
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              439,
+              709,
+              478
+            ],
+            "text": "langchain-docs.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              439,
+              806,
+              478
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              480,
+              709,
+              523
+            ],
+            "text": "langchain-docs.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              480,
+              806,
+              523
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              529,
+              709,
+              573
+            ],
+            "text": "langchain-search.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              529,
+              806,
+              573
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              582,
+              709,
+              608
+            ],
+            "text": "langchain-search.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              582,
+              806,
+              608
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              485,
+              610,
+              709,
+              644
+            ],
+            "text": "langchain-summary.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              733,
+              610,
+              806,
+              644
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "221f66c98cbaa363d5154c2a45aaf5d9a94be4131e1289220782f7338baeaa9f"
+      }
+    }
   }
 }
