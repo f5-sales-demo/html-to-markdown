@@ -8985,8 +8985,8 @@
   },
   "75354": {
     "article_hash": "ee2f68447b2a25f3608462b7c3303cc34ac6a21425107e00d183589c2117eaf2",
-    "decision": "include",
-    "reason": "Distributed Cloud Bot Defense and BIG-IP APM integration workflow"
+    "decision": "exclude",
+    "reason": "First-post review: BIG-IP APM primary guide. Implementation configures BIG-IP LTM virtual servers, forwarding iRule, APM per-session and per-request policies and native connector profiles; Distributed Cloud Bot Defense is a service integration rather than the primary deployment subject. Excluded under the BIG-IP-focused content rule."
   },
   "75439": {
     "article_hash": "39487b04060a6d77bccf00160e5fdb82f78e5fa912720d7bdbbb681b354b47ec",
@@ -45878,6 +45878,183 @@
         "strip_metadata": true,
         "rectangles": [],
         "output_sha256": "9d96b9819d71ea53e0b8885d82744664c941b7a8b26562b7383843fc97726f5b"
+      }
+    }
+  },
+  "74028": {
+    "article_hash": "816b3d3e8ac0c81311971632afa3778b6fcb4997ae87e7e4d3c4dcdcdc8ff182",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose, regex examples and all 11 static images. Distributed Cloud App Connect and API security primary; preserved inference topology, public historical figures discussed as model accuracy examples, mock fishing response, schema and sensitive-data category names without exposed sensitive values, endpoint counts, latency statistics, rate-limit threshold and 429 regional-edge result. Replaced person-derived namespace, demo service domains and request ID with synthetic examples; stripped image metadata. Hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/8d1b9ea5fe62abe4780b8d25a0cf13983aebbed6.png": "fdddddb6a5765efec02e692d2bea2b055cdd87fd8da4c7dce439385ff20a00ae",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a6e0ebc6362c48ae42ea765d3237ebe0fac045f2.png": "363369f8d77188548c3e68fb30a6060d3aedf553948300279ef28dbc9b47d51c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/eb24dd93a9a5087ea73540d012e8cfedcebb4c1f.png": "661bfbf222fbcfb86a90b4fe703775fa17231969f86485f8af76565a04fe690e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2e4e91d4d5fe41a9bee3f58e936ae98850946ba3.png": "4973cbdfbf336ea4a7c7e826acff2f449b3e1cc1b5a11f3aa31e9fe6ced5b572",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/52866827fce651c380cd78509a5dc3762bc464bf.png": "8b242a099ac0a5757db23d3adf228c6235eb375b30e9c0be0943473fa967e50f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f49715f3a4c747ce7840b04d2e0143e5ea3ac4f.png": "a093590cbf76a01e081d97c9c5c5a0843b8c9defdcc24f48c8b7261d5868fbd3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b19523705718d480a9c97a1d350422364fff198d.png": "7dc7a29a7d23a0e81d462fa6cac0ac8ba9e526b873eac80ab073fde3a4f6aac6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/8/08d6af6379bd125b2e2714793831c24009039f98.png": "19e5034f908a7377f958c9901d71817269f205baca4d21af650c70b5176dfc54",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fe67adc8c988aad42c56512e1a78a291b7b8ad0.png": "9b886f7e743e072752226fe1bcf9fc9ae339cc642a8b47beeb586925f055a64d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/9/79aa5a04e70cb29ee52c72d28f89f9767d25dfe4.png": "d2a11feaee3cce5aabe4c452f4ef8e05930e40abbb56e146bd21d774c2b45b75",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b944ae5f6d500f20932503771880adf4c906151.png": "2220ab9f3f2c743b8ce6bfd464aff6dc8953c231afe943b71875e9ed2024d44a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a6e0ebc6362c48ae42ea765d3237ebe0fac045f2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              451,
+              4,
+              511,
+              22
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              35,
+              145,
+              109,
+              166
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              588,
+              1763,
+              612
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              642,
+              1763,
+              666
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              696,
+              1763,
+              720
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              750,
+              1763,
+              774
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              804,
+              1763,
+              828
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              858,
+              1763,
+              882
+            ],
+            "text": "ai.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c165fa8361b73f1d7b193b60bb8ac3b7619a64e9840558ffc962595871b6b50a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f49715f3a4c747ce7840b04d2e0143e5ea3ac4f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              3055,
+              1477,
+              3140,
+              1585
+            ],
+            "text": "ai.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "ac25ef141b7e0e6eed83b0fab55177e55ac8dfed5b4ce3846aac9ce0fe4cf89a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b19523705718d480a9c97a1d350422364fff198d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              506,
+              102,
+              1300,
+              126
+            ],
+            "text": "http://ai.example.com/lamini?question=What%20should%20you%20do%20to%20learn%20about%20fly%20fishing%3F",
+            "size": 11
+          }
+        ],
+        "output_sha256": "8c79eae2bebeda33ff203a2a4c489db448eb03cca8b7c56eca16f079c39da5ec"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b944ae5f6d500f20932503771880adf4c906151.png": {
+        "labels": [
+          {
+            "rectangle": [
+              130,
+              62,
+              927,
+              84
+            ],
+            "text": "http://ai.example.com/llm012?question=who%20was%20John%20Steinbeck%3F%20What%20was%20he%20famous%20for%3F",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              192,
+              424,
+              458,
+              441
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 10
+          }
+        ],
+        "output_sha256": "577375f3b7dddaa7749558bcf5d58d3b1b7f3a2817b676e28851c93742613c6d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/eb24dd93a9a5087ea73540d012e8cfedcebb4c1f.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c97d3e2eea162a5c677407cec385aa7fdb768df0fb3d8f17508ce2509163fbe4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2e4e91d4d5fe41a9bee3f58e936ae98850946ba3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cd529cdf4fc7e29de3f7cb09df31b3838f2aae547f958230f95212fa3658a550"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fe67adc8c988aad42c56512e1a78a291b7b8ad0.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "33c2a980dc6a636782bb68da219df5119da41209c20cf570fe715f4af44a5bde"
       }
     }
   }
