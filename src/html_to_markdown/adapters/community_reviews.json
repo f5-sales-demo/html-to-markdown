@@ -8991,7 +8991,448 @@
   "75439": {
     "article_hash": "39487b04060a6d77bccf00160e5fdb82f78e5fa912720d7bdbbb681b354b47ec",
     "decision": "include",
-    "reason": "Distributed Cloud App Connect secures NetApp S3 access for multi-site RAG workloads"
+    "reason": "Distributed Cloud App Connect secures NetApp S3 access for multi-site RAG workloads",
+    "text_replacements": {
+      "nodes": {
+        "4f23b0b17d09565ab969a8dd852df8c29b01302d69a27a62c27891a855ab2587": "A final App Connect feature that is noteworthy, the offering provided is an L4 through L7 service (such as HTTPS), and as such the local layer 3 environment of the consumer and, in our case, storage offering is irrelevant. \u00a0 A complete overlap of IP, perhaps both ends are using the same 192.0.2.0/24 allotments, is acceptable, something extremely valuable within divisions of large corporations that have separately embraced similar RFC-1918 address spaces.\u00a0 Also, perhaps through mergers and acquisitions the net result in a major institution are widespread instances of duplicate IP spaces in use, IP renumbering projects are legendary as they are lengthy and fraught with the risks of touching core routing tables. \u00a0Lastly, applications that require users to configure IP addresses into GUIs are problematic as values are dynamic, App Connect provides services by name typically and this is less burdensome for IT staff who manage applications.",
+        "d3d9ba64a744949f1c780b5356cc6fad53b452c93e8e01dd2cca0fdf1a8f7f15": "s3.example.com",
+        "b0c13b359518c3ff1a4d2f1b2bd7361f36a2a053c241f9190273e8110241817e": "Establish where the service name will be projected by DNS and connectivity will be allowed, the service s3.example.com is not to be projected into the global DNS but rather will only be advertised by the Seattle CE inside interface, essentially making this load balancer a private offering.",
+        "e0ca46b185dbaf7e66bc2bcbce878ef71cf1aa4540ee593eef337c025488081a": "To achieve the second item, an HTTPS load balancer, we key in the following fields, including the FQDN of the service (s3.example.com), the fact that we will provide a TLS certificate/key pair to be used by the load balancer, and the one-check option to create an HTTP-to-HTTPS redirection service too.",
+        "9ec8f031018299429ad188982efb7ff327526dba1c0885e324d9a0fe027f8ee4": "Lastly, the advertisement of our service will only be supported by the CE node at the Seattle site, requests for s3.example.com from our AI server will resolve to the local CE node inside network interface IP address. \u00a0 The App Connect load balancer will ensure the underlying connectivity, through the underlay network, to the origin pool (StorageGRID) in San Jose.",
+        "4d455e133f29c854f465096ca8cce2d052170b5ded96d01dc731e91ec3b18cb5": "The RAG tests includes ingestion of both .txt and .pdf documents provided by App Connect from NetApp StorageGRID. \u00a0 A private CA certificate was created using an OpenSSL-derived tool and loaded into the Seattle Linux and Windows hosts. \u00a0 That CA cert was then used to create a pkcs12-packaged certificate and key set for s3.example.com and uploaded to the HTTPS load balancer setup on Distributed Cloud. \u00a0 A quick Windows-based S3browser test confirmed reachability from Seattle:",
+        "733f1460599eeb72805ddd4be8b4ec9b6e79753b5f617a1c60d4dc80ba306fc3": "sudo mount -t nfs 192.0.2.202:/f5busdev /home/example/f5bizdev/",
+        "9e67de6bd8d0baa54472fda750950ae47d30031690b65b911f8fde32a24e3f9b": "s3fs mybucket001 /home/example/rag-files-001 -o url=",
+        "46d41bdece582e61854e412535384882453482063b1b61a71873a77951967aae": "https://s3.example.com:443",
+        "4d619c9683897d86ff945bb453231bdf63442aa539aba4bfb0d3fd5f157197e6": " -o use_path_request_style -o passwd_file=/home/example/.passwd-s3fs"
+      },
+      "output_sha256": "61a2dfd717023e474a985e6e385397724ffc379875dcbe0383595d17b35c8cf0"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose, mount commands and all 12 static images. Distributed Cloud App Connect and S3 RAG primary; BIG-IP is an incidental existing local StorageGRID load balancer. Preserved NetApp topology, service advertisement to one CE, HTTPS/origin configuration, s3fs flags and credential-file path without credential bytes, model names and digests, public novel/manual/research-guide examples, RAG outputs, traffic statistics, API inventory/shadow and sensitive-data categories without values, and malicious-user controls. Replaced personal home paths, namespace/site labels, demo IPs/domain, request IDs, user-specific TLS fingerprints and bucket label with synthetic examples; stripped bookmark chrome and metadata. All transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16a27f6d01e0bbb400dfe34969e24ee1bb18dfbe.png": "5098f3d05a3c77d1103255036bc11b7afc1a747370e800e575e066b68380d674",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3682d4cd737a793aa7d65d81ae9dea124739af3c.png": "f8203ec3c7f5f6decf21149e80624eb54a5d9c7cc9e01c529041bac18a1d3d63",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f7176155ea37d374633f69a25735730683ed1ca.png": "5fdc6a65090cfc6633e2db8cb8bafafa74eb563c6ae096610c62cabba9c280ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6e3fb806de79f584e5b1950759e588346aa062b3.png": "e72c9d3fad87b9da83ae8c7b1e4d08ced04b2c75b2954a32805fb53ac17147cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/89eb4aa818049f16ca40c5ec26134ec177a354d1.png": "86c472f93c4c4eced8cf5d7fb4528d57e8fe872eae65c10ac2355f2c9a896245",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11645be0920b721e58ac4f3ade1eaea04662ced.png": "e5ca05500b09e32464d09a2675a6534130d5dee6bd30ba13e07ceb247614f8bb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a6418767679a03385fafc59b9147a357987cc6c7.png": "0d314f817d90b9b7d1ecf6a73e7d7f98a36b331559e67d86e0f5d7cadd9cc4d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc640ed42bb5b6fe89e4924bede202638ee5d371.png": "08860336a22ea81b86b189061694d908dac1a6a318d8ff2f92c2200b920300f9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/119e24cc92777185684355178bdfd423db79c3a9.png": "3d23562acdeb8ab7c87f75b293d0737c5b141239e58f43f5717e4e61cde49088",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4e1e3ca4f3ff0c06e591c4a36a0219aa62459487.png": "9ce61fde1042a6b2f49c459db5cb431fc3bcc807877decbb4d93a4c8315d5b45",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/8/58e88fd3891ce45362879e92daa2febb7d91578e.png": "64c4595180c07ffbf1dd358994a18273baf49e7fd546d8df2ea1652d073a9f01",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/0/70a5afd0f0f92c168d3ac0d3f732767b80dceba2.png": "c6e1cffd0153552bbe052219fb8892cd2dc22434d9d906ccc83402264b4dde0f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16a27f6d01e0bbb400dfe34969e24ee1bb18dfbe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              509,
+              239,
+              686,
+              263
+            ],
+            "text": "system/demo-seattle-sms-2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              888,
+              93,
+              1118,
+              128
+            ],
+            "text": "s3.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "033ad69eead526fda81db8fb5087ebfab696c34199747cd6d93fcdfc1ebc4b1b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3682d4cd737a793aa7d65d81ae9dea124739af3c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              379,
+              4,
+              430,
+              20
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              32,
+              122,
+              89,
+              140
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              402,
+              182,
+              468,
+              207
+            ],
+            "text": "192.0.2.36",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              554,
+              171,
+              674,
+              191
+            ],
+            "text": "demo-san-jose-sms-2",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              327,
+              325,
+              576,
+              345
+            ],
+            "text": "demo-s3content-https-load-balancer",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              329,
+              365,
+              565,
+              383
+            ],
+            "text": "EXAMPLE_MESSAGE_ID",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              341,
+              460,
+              482,
+              480
+            ],
+            "text": "demo-seattle-sms-2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              341,
+              480,
+              414,
+              499
+            ],
+            "text": "192.0.2.36",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              338,
+              560,
+              542,
+              579
+            ],
+            "text": "EXAMPLE_TLS_FINGERPRINT",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              341,
+              582,
+              490,
+              601
+            ],
+            "text": "demo-san-jose-sms-2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              341,
+              602,
+              420,
+              621
+            ],
+            "text": "198.51.100.75",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1168,
+              598,
+              1290,
+              619
+            ],
+            "text": "192.0.2.36",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              356,
+              716,
+              578,
+              736
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              355,
+              756,
+              459,
+              776
+            ],
+            "text": "s3.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "aa2a380a4e91eee4a84a5bba2a451d8a83a260890ca70c8990a8db50b3075139"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6e3fb806de79f584e5b1950759e588346aa062b3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              155,
+              5,
+              410,
+              28
+            ],
+            "text": "example.console.ves.volterra.io/web/home",
+            "size": 11
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            38,
+            1415,
+            75
+          ]
+        ],
+        "output_sha256": "1a9cda0554b0ea2c23860e948c22bcbeb4ba614d9c421ca255955751888686ba"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/89eb4aa818049f16ca40c5ec26134ec177a354d1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              75,
+              83,
+              233,
+              105
+            ],
+            "text": "demo/s3-user-id-policy",
+            "size": 12
+          }
+        ],
+        "output_sha256": "8b1df2580f862b1062b6567e0a26e38cd2c842c94768fd3b2b9cc2f697112235"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11645be0920b721e58ac4f3ade1eaea04662ced.png": {
+        "labels": [
+          {
+            "rectangle": [
+              379,
+              12,
+              432,
+              29
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              31,
+              130,
+              90,
+              149
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1190,
+              524,
+              1295,
+              547
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1190,
+              575,
+              1295,
+              598
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1190,
+              619,
+              1295,
+              642
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1190,
+              666,
+              1295,
+              689
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1190,
+              707,
+              1295,
+              730
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "565f752784cec0b16d9ae0f559cd8ebc4b1c76653b0e90bb7dc04d136f3e0cd0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a6418767679a03385fafc59b9147a357987cc6c7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              37,
+              184,
+              155,
+              212
+            ],
+            "text": "example-bucket-006",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              181,
+              683,
+              306,
+              705
+            ],
+            "text": "s3.example.com:443",
+            "size": 10
+          }
+        ],
+        "output_sha256": "ab4b83c77a3efb20fa111cf83dd82e7ad762821759655e14ef0dccd6b82771f9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc640ed42bb5b6fe89e4924bede202638ee5d371.png": {
+        "labels": [
+          {
+            "rectangle": [
+              674,
+              278,
+              768,
+              297
+            ],
+            "text": "198.51.100.75",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              880,
+              278,
+              1030,
+              298
+            ],
+            "text": "demo-san-jose-sms-2",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d24a95bef08e039b1c22ea234b3cbb9837950e7b36114bbb25c306a776362dea"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4e1e3ca4f3ff0c06e591c4a36a0219aa62459487.png": {
+        "labels": [
+          {
+            "rectangle": [
+              486,
+              106,
+              572,
+              124
+            ],
+            "text": "s3.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "4919e6ca84b93a984ccf8914abccebbe0f2fd5c515dafc7d22556b78c687cfc3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/0/70a5afd0f0f92c168d3ac0d3f732767b80dceba2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              998,
+              84,
+              1113,
+              103
+            ],
+            "text": "demo-seattle-sms-2",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              997,
+              384,
+              1177,
+              404
+            ],
+            "text": "EXAMPLE_TLS_FINGERPRINT_1",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              997,
+              405,
+              1177,
+              425
+            ],
+            "text": "EXAMPLE_TLS_FINGERPRINT_2",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              997,
+              426,
+              1177,
+              446
+            ],
+            "text": "EXAMPLE_TLS_FINGERPRINT_3",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              997,
+              728,
+              1218,
+              748
+            ],
+            "text": "/example-bucket/bird-watching.pdf",
+            "size": 8
+          }
+        ],
+        "output_sha256": "a551e116a6de00a904d8e9af2b1e629d7f37e05601429b6c4a7a08126939da8e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/8/58e88fd3891ce45362879e92daa2febb7d91578e.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c73cc20ff44c1b05ed897831578f0bbe7ee3b09bc52c791ce794b5846df1316a"
+      }
+    }
   },
   "75442": {
     "article_hash": "b0f6d7418bd4e6ad46882ae4ccb6ac51910a16dda0e9bdffca16985be3d31016",
