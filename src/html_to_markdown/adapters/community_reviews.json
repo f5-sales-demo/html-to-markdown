@@ -43385,5 +43385,102 @@
         "output_sha256": "ddc1398d0de1841d88e0e8ab0306c2f9b250b0cdc20d11e81f6d4050c8933b43"
       }
     }
+  },
+  "75574": {
+    "article_hash": "53ea26fe1cec11dd9a5d538f5e08950cccd0fe2879f567a9e6c3d35173cb9d11",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and sixteen static screenshots; synthetic terminal host and request ID; existing example.com application domains retained; public curl and wget JA4 signatures retained as protocol tool fingerprints; preserved policy matcher, attachment, denial and browser success behavior; no user data; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/04072d70111c9c5e6c9adaae4afa94da2037bfdd.png": "3d3bd7bd914d58423c1a300a206ce23403b47ed8cbd072cabb4ba3ddeb9545b6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/114ef1b6b485358c63335329bf6a6b2507d65b29.png": "c7cb87f34a3a946549a610fa891afcbbd67957527e1ad028923c7fe5c5461218",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/505bf97ec195171460a614f888a78ad7bb881ef4.png": "e81777886a904e90895838451559ef7324b50444cba6ef03e36f61147f662a1f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7152066db75b014a56f1f440fe2aaef6e82c2c97.png": "ce5d2080e0dac72858dc621c8ad09e0bf04cc88ef067740600202ca6ed628441",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/79a9eff9b32ae389f10c007cd1855803ed9bad7d.png": "fed638509d0bf6e5e52487be79b905a2d215e38e4b0cc857b7a262bd49301133",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9544d9a26df465878b11b4597ce7e4ba9934f0f4.png": "ad4a40dbfde8d968287356381f2f91805f0345daddb775a1a8ae43db067ed594",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a169d0c1eeb1ac9347b357090b8a6b39bfeceb88.png": "a8ad390b4c670f1fad4ff84c1c7353ffbca225ea049d5b4a561e11e1dd9efcb7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b32853cae11e895a173621e24175e22c484619d2.png": "d8f6c1bf54f7b506a80274f98f35830df86dc3e9d7100d32f560feb2f410e03d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d73d762f86b037880dd0f70028c78ed30de84cbf.png": "712efa51e66a963cdb64a4a3de4926272bc5e2e9ed12c6ff4aac64df5f966c8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e2762d2b0ac6a1059d8ff19945268a35b8ce5ca1.png": "88d1d33d08e333fb4e74b14167dba123641e516e7fd061ced6d5f3f378c8e034",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43a3aaaf409d0a19a37ee66a721b4b315ee1657d.png": "6b6a2eecd523a758b8739d87b533e7e7a647e774c98907157a1f19e26db7b8e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5f01085fb99fad5ef28f69700fafb2e9c2902316.png": "be39e0d3c1ae5dd1689ac6774aefbc66e73a27c74c02b4579c060377cbf9e6ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/1/b15e0b4f268e5867f9c2b59f3ffd4d48d5a5a3b8.png": "7c3e1a4fd7745bc3a4d830c44085fc8188df9d4b349c2c8d182b771fb9f7a572",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/a/ba8b5acb0b822e6e15b9d586b5e6175866a5e721.png": "0354beef6b8483791a8e2be028c9789c5f742350e5fe70fd2864730a29a0bc16",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c5fb3ba0fcb45937a9ab2704f72f670a1a69fabb.png": "8c75ee700346d5783f9333592bccec48d61e421b1b0361cb85d0d21862519a67",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd1a272f17fcad62a8c176b1481a9b555fbd2c7a.png": "1d5065f2b107b230bfc363b8ecccc95317bed36a08346857677ac990acfb2b0c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7152066db75b014a56f1f440fe2aaef6e82c2c97.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              477,
+              44
+            ],
+            "text": "ubuntu@demo-server:~$",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              423,
+              151,
+              1285,
+              193
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 28
+          }
+        ],
+        "output_sha256": "ac03c7f502836137a93d77b6575f0be7f41f4c1f4978df6409ea2bc8a1713c0e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/505bf97ec195171460a614f888a78ad7bb881ef4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "459d685ad0ac7037033fef9927d39e1813cae1330f4c94b1897eb97582e4027b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a169d0c1eeb1ac9347b357090b8a6b39bfeceb88.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "25c7780b0ccefe5528e6f713068ed1d0193ca885ebb7eccfb0568fd4f94423fc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b32853cae11e895a173621e24175e22c484619d2.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "eeb916b7556e4010e4765475a3d4d5dba3046ef505a6bdc05a2a943407e73dc1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e2762d2b0ac6a1059d8ff19945268a35b8ce5ca1.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7384bded9d29f87580aa99b8579b7e9c8cefe7b5388544671ab02f680be11fcf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43a3aaaf409d0a19a37ee66a721b4b315ee1657d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "af1e6886b423598594ae1d5747e13a389337e305f63e2ec31ac7ded426840b6c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5f01085fb99fad5ef28f69700fafb2e9c2902316.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0c2feda8755f5c458c9437a54be8b9cbe2993bd48a32eaecde6b6034d3ee5eb9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/1/b15e0b4f268e5867f9c2b59f3ffd4d48d5a5a3b8.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "128663b7d1991bb7b33f50407d110ab2db36241ad0a9f59f6e1fda314b247a98"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c5fb3ba0fcb45937a9ab2704f72f670a1a69fabb.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d8951d5179403f847982c7d37923e060f6c00eb8de824b44c90a7f3519e2b1cf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd1a272f17fcad62a8c176b1481a9b555fbd2c7a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7cc5edd1ed4c8fed29a3ceb29419757f1137f5dc329547cf73ba86d1551e9330"
+      }
+    }
   }
 }
