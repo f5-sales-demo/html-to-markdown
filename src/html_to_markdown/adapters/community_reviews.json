@@ -13814,5 +13814,158 @@
         "output_sha256": "eea40d8cde4a70720277389b7feaa94066cdcdf4486637d4c9c150b5e4686e46"
       }
     }
+  },
+  "76069": {
+    "article_hash": "739d1d354df2bc89c787130f8f03d28ebb8ebc11793c3c2cfae5b838503ba27e",
+    "decision": "include",
+    "reason": "Distributed Cloud routed DDoS guide",
+    "text_replacements": {
+      "nodes": {
+        "aabde1e43bb60ccd1004afc66ec48b4de5ba0762b6a75e5b0f05b7088aa3fa20": "example@container:/etc/logstash/conf.d# cat 50-f5xc-logs.conf\ninput {\n  http {\n    port => 8080\n  }\n}\n\nfilter {\n  json {\n    source => \"message\"\n  }\n}\n\noutput {\n  elasticsearch {\n    hosts => [\"localhost\"]\n    index => \"f5xc-logs-%{+YYY.MM.dd}\"\n  }\n}\n"
+      },
+      "output_sha256": "e22e0df8734d1eb3bd83af80ed93c488b2d0f19df1ef343b35297ad63e5e198d"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected routed DDoS guide, complete Logstash configuration and seven images; personal receiver names, domain and container prompt made synthetic, cropped event document values replaced with explicit placeholders; DDoS topology, classifications, counters and mitigation chart retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4aa758652d8f60d9bde9666b5c89314ed19c93e7.jpeg": "2c35c6908fd7dafa59a9daece8feb27228d6709ceb73cf3ac0524ac14fc00dfc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/57766a0b7ae27354cec5cf574ec544f4666fe47f.jpeg": "212438d7dd20b54ca8c7b8c38d30ed354aceedc08211c094b52b9439011edf1f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5cdf783f3537094044bd08e18b77e1cd24283bc4.jpeg": "08dae74279eedf034fdd95434a48cd584652baac1ae00472cb8d3a8c12a8afa9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/992151d6a86d38e7df7915c82ad592937f913afd.jpeg": "11dfc05ce245d398e2eb472e861252d9e81fe653cab81b97c63811d1d4eb8611",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b9682c3f248004735e0a0e5ab896abd5678992a7.jpeg": "a503fa435f9f23aeb00407615db207be082c1ac9f56f2ec7da4d78bcf0cb8635",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c2d14c0fb456c564baf1a15086168b2df0c6209.jpeg": "c50fc521233badd7e2cf7dbd8ceba8644e44d1629a9897a965ebac713a78a1e8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/8/7850382ddd333d56caa8ce8c7996e36a31bf3c68.jpeg": "008ad3e92c618b9f113bd741b8dcae94a3ca1eb31eebf2edf6c4a7f651e02d4f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4aa758652d8f60d9bde9666b5c89314ed19c93e7.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              83,
+              223,
+              608,
+              289
+            ],
+            "text": "example-elk-receiver",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1264,
+              223,
+              1905,
+              289
+            ],
+            "text": "example-elk-receiver",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              2858,
+              849,
+              3375,
+              928
+            ],
+            "text": "example-elk-receiver",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1144,
+              874,
+              1834,
+              951
+            ],
+            "text": "https://logs.example.com",
+            "size": 28
+          }
+        ],
+        "output_sha256": "a285d5b6fb60b6e2e91ae3ebf2dc7b70d9afb962abcac1571ce684efdb19f755"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/992151d6a86d38e7df7915c82ad592937f913afd.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              118,
+              643,
+              780,
+              714
+            ],
+            "text": "example-elk-receiver",
+            "size": 28
+          }
+        ],
+        "output_sha256": "f17a1afd815177b6497fd0218efe05465eae7ac7e34223be4d73b93f8a068b10"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b9682c3f248004735e0a0e5ab896abd5678992a7.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              2321,
+              939,
+              2456,
+              1074
+            ],
+            "text": "EXAMPLE",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              2321,
+              1074,
+              2456,
+              1204
+            ],
+            "text": "EXAMPLE",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              2321,
+              1209,
+              2456,
+              1313
+            ],
+            "text": "EXAMPLE",
+            "size": 14
+          }
+        ],
+        "output_sha256": "a2dc243ee3fbe990f0c83ab97069784e279529d7d8afbcf02cec9767519e65d3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/8/7850382ddd333d56caa8ce8c7996e36a31bf3c68.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              411,
+              629,
+              710,
+              658
+            ],
+            "text": "https://logs.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "8a4ab50bf843f96e39aa95851e777477418664329bf05c8425d061df7519f0d8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/57766a0b7ae27354cec5cf574ec544f4666fe47f.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9f14479d7407ceb4a6c6e661906a262223ef9af6ac1e424dc4771330fd3d7f15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5cdf783f3537094044bd08e18b77e1cd24283bc4.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4947cba251a395578d8281ebb85d84eadae0577e6e8eb3ac12039754760af150"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c2d14c0fb456c564baf1a15086168b2df0c6209.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "052f5a544870348aaa3f68694901c68395595e268238d0f6774a9cb888fbddb1"
+      }
+    }
   }
 }
