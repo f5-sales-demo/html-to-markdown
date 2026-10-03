@@ -17269,5 +17269,374 @@
         "output_sha256": "1577b27df406edf13999ff1d0d927eef56b0e4ff65af1a41791db42caae75250"
       }
     }
+  },
+  "76326": {
+    "article_hash": "3bc0f0ecbe26d236d56d51ff0b63bc617ea51d10d30dc5f0d46b2817f454125f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and six images individually reviewed. Container IDs, Grafana URL query identifiers, avatars and vhost labels normalized. Prometheus localhost scrape target and Docker bridge private address retained as contextual local networking examples. API certificate setup has no entered credentials. Complete exporter topology, metrics names, labels, graphs, scrape config and Docker commands preserved; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/3dbe8c900d2b0c3d30b6103d10ffa6a769bf8256.png": "473ba572f5774897a7ad686d8c552fe23bec6b5d19f73eda808bd9e68dc0e23e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/61be26c931d2034ac57791e4b47abff96c300b52.jpeg": "050871c0d86f5a016b0a519a8865569d55c6dfdd43228c4715226ad9c77381d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b634378e0caab99149c491b522b2d3f0e245175c.png": "deec6f75501317ad579cf87da3304c6c8638540ae13613dd3d6e33f1c91eb4ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e49a6ecd0bac0e0e9c6a8290c0b5a5de1a1715b1.png": "75b4c841033e03b39f1119b7c7141da9992c9c055059e267a4dd94279d59d9d8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4ed953133b42006fa01ef4967da821107d584b2f.png": "4cb3115bbf26489fbc2554fecb0623fd235fcc5c5e82fbb6caac126c26f9cd7d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8baa0d94cd373214e8ddf14f0090f5320a0d7dc6.png": "824018bff2fddf09ffda2c8de7f483a166e87ea19a1d92e92d63b56fe1a7aa2a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/3dbe8c900d2b0c3d30b6103d10ffa6a769bf8256.png": {
+        "rectangles": [
+          [
+            3365,
+            86,
+            3445,
+            160
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              421,
+              12,
+              2940,
+              64
+            ],
+            "text": "http://grafana.example.com:3000/explore",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2390,
+              1790,
+              2938,
+              1827
+            ],
+            "text": "vhost=\"example-lb\"}",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2410,
+              2034,
+              3130,
+              2078
+            ],
+            "text": "vhost=\"example-lb\"}",
+            "size": 20
+          }
+        ],
+        "output_sha256": "c59dd6c53b320abe9b028d9177a97b1bd2a88c85637adcbd6f9a6219ec1d08b4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e49a6ecd0bac0e0e9c6a8290c0b5a5de1a1715b1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              41,
+              235,
+              80
+            ],
+            "text": "example-grafana",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              0,
+              80,
+              235,
+              119
+            ],
+            "text": "example-prometheus",
+            "size": 19
+          }
+        ],
+        "output_sha256": "a231ae47cc0810ff9ee5ec46f0d09f3c792c551d6a9bdbdcd3af5ea9f8f1f215"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4ed953133b42006fa01ef4967da821107d584b2f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              421,
+              19,
+              1137,
+              81
+            ],
+            "text": "http://grafana.example.com:3000/connections/datasources",
+            "size": 20
+          }
+        ],
+        "output_sha256": "6062cd8af9fef5a31a74af66dfc4c46ebecc5703ddf928995f75373a95816fb3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8baa0d94cd373214e8ddf14f0090f5320a0d7dc6.png": {
+        "rectangles": [
+          [
+            3370,
+            79,
+            3448,
+            153
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              421,
+              5,
+              2860,
+              63
+            ],
+            "text": "http://grafana.example.com:3000/metrics",
+            "size": 25
+          }
+        ],
+        "output_sha256": "2f413afda08c94d9f3bdb12356f6281c4b72a25ef65b3eafae6373bb1e9baadc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/61be26c931d2034ac57791e4b47abff96c300b52.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3acc9c5743ebb08ba8596a7640eabb0541ae2f65943036e8543e719dbba89791"
+      }
+    }
+  },
+  "76324": {
+    "article_hash": "78ed51669d01cc9a0135ced564bb1e6a8bf6bc23181fb75162db8e17a5c86c1e",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and all six images individually reviewed. Grafana log example rebuilt with identical visible schema and synthetic session, visitor, event, node, pod, network, location and domain values; all observed identifiers and session cookie removed. Container IDs normalized. Python webhook code, Docker bridge address, GLR settings, API path, status/error logic, log selector and UI controls preserved. No original user payload or credentials; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f32069e19cd716eb586da6bf17cc2b5622f1f6d.png": "cfca1d7eceb796f358d5a0396ee2fd23a29147b7795429584edc4e20f9f389df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9aa5b0f4a2bb60c315f033f2345e0993faf63b1e.png": "909958e386d0302963c82b4fc3b897316cfb315264be2b0926bf4ad7291f59f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b2f0dc5ea64af9d087f6fcf10660b37ffcb75a76.jpeg": "d9b62829b0c7f42be00395adf2e0b84fd4a33bf62a668f478932e36395830e3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbe00eed3f052f4c4f696f092e1342ad0d217b3f.png": "c392dbc5617523e754091a9c44a604302e1226d3f686f5a4ea6ed517c33a596a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/0/10afb0aad45950bd94e1430f4ecb6234f6a75201.png": "3f217884658e544fdb3650c5571714b15ee8e4a6ba2788bd5f5fd28dfd18d04b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2698692870cd06fba9bbfc209a179f9cedf61d5.png": "648c03d1e0bc23c2375c325d545244a2419f640403227228da9c3b76d0c76e7c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbe00eed3f052f4c4f696f092e1342ad0d217b3f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              42,
+              226,
+              78
+            ],
+            "text": "example-grafana",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              0,
+              80,
+              226,
+              118
+            ],
+            "text": "example-loki",
+            "size": 20
+          }
+        ],
+        "output_sha256": "bf9435cd359f5823c928ebaa4cb238e11820230060a7bbd63226e37856a18049"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2698692870cd06fba9bbfc209a179f9cedf61d5.png": {
+        "rectangles": [
+          [
+            3380,
+            75,
+            3456,
+            158
+          ],
+          [
+            1382,
+            1452,
+            3274,
+            2074
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              437,
+              10,
+              2938,
+              68
+            ],
+            "text": "http://grafana.example.com:3000/explore",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1388,
+              1459,
+              3270,
+              1496
+            ],
+            "text": "{\"@timestamp\":\"2025-06-10T11:07:45.075642164Z\",\"_id\":\"example-event\",\"visitor_id\":\"example-visitor\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1496,
+              3270,
+              1533
+            ],
+            "text": "\"action\":\"block\",\"api_endpoint\":\"UNKNOWN\",\"app\":\"example-app\",\"app_firewall_name\":\"example-waf\",\"app_type\":\"\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1533,
+              3270,
+              1570
+            ],
+            "text": "\"as_number\":\"64500\",\"as_org\":\"Example network\",\"asn\":\"Example network (64500)\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1570,
+              3270,
+              1607
+            ],
+            "text": "\"attack_types\":[{\"name\":\"ATTACK_TYPE_SQL_INJECTION\"},{\"name\":\"ATTACK_TYPE_VULNERABILITY_SCAN\"}],",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1607,
+              3270,
+              1644
+            ],
+            "text": "\"authority\":\"app.example.com\",\"browser_type\":\"Example browser\",\"city\":\"Example city\",\"cluster_name\":\"example-re\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1644,
+              3270,
+              1681
+            ],
+            "text": "\"content-type\":\"application/json\",\"country\":\"Example\",\"detections\":[],\"device_type\":\"Example device\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1681,
+              3270,
+              1718
+            ],
+            "text": "\"domain\":\"app.example.com\",\"dst\":\"\",\"dst_instance\":\"\",\"dst_ip\":\"192.0.2.1\",\"dst_port\":\"0\",\"dst_site\":\"\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1718,
+              3270,
+              1755
+            ],
+            "text": "\"enforcement_mode\":\"Blocking\",\"excluded_threat_campaigns\":[],\"hostname\":\"example-node\",\"http_version\":\"HTTP/1.1\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1755,
+              3270,
+              1792
+            ],
+            "text": "\"ja4_tls_fingerprint\":\"\",\"kubernetes\":{\"container_name\":\"example-app\",\"host\":\"example-node\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1792,
+              3270,
+              1829
+            ],
+            "text": "\"labels\":{\"app\":\"example-app\"},\"namespace_name\":\"example-system\",\"pod_id\":\"example-pod\",\"pod_name\":\"example-pod\"},",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1829,
+              3270,
+              1866
+            ],
+            "text": "\"latitude\":\"0\",\"longitude\":\"0\",\"messageid\":\"example-message\",\"method\":\"POST\",\"namespace\":\"example-namespace\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1866,
+              3270,
+              1903
+            ],
+            "text": "\"network\":\"192.0.2.0\",\"no_active_detections\":false,\"original_path\":\"/rest/user/login\",\"recommended_action\":\"block\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1903,
+              3270,
+              1940
+            ],
+            "text": "\"region\":\"Example region\",\"request_headers\":{\"Accept\":\"application/json, text/plain, */*\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1940,
+              3270,
+              1977
+            ],
+            "text": "\"Accept-Encoding\":\"gzip, deflate, br, zstd\",\"Accept-Language\":\"en-US,en;q=0.9\",\"Content-Length\":\"43\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              1977,
+              3270,
+              2014
+            ],
+            "text": "\"Content-Type\":\"application/json\",\"Cookie\":\"language=en; session=example\",\"Host\":\"app.example.com\",",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              1388,
+              2014,
+              3270,
+              2051
+            ],
+            "text": "\"Method\":\"POST\",\"Origin\":\"https://app.example.com\",\"Priority\":\"u=1\",\"Referer\":\"https://app.example.com\"}}",
+            "size": 19
+          }
+        ],
+        "output_sha256": "e4dbf71d5c0b8fea82e915883102bcb18ca5bc668e0692c28e206716d82ebfc0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9aa5b0f4a2bb60c315f033f2345e0993faf63b1e.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2a793faa0b0e011f6fdce394df2419aa12d49d6552e172c0fda48db48a05bdd8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b2f0dc5ea64af9d087f6fcf10660b37ffcb75a76.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d1bfa43a645d048f7b55a74773b2a47f5a71270659f8a829660970f9c02cffd6"
+      }
+    }
   }
 }
