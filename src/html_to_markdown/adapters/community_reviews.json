@@ -10739,5 +10739,160 @@
         "output_sha256": "82dbceebb6f66e15bff1be56e0186fda02ec451d84e987f24ca597481851ed94"
       }
     }
+  },
+  "76575": {
+    "article_hash": "4524c979b03cee3e0a495bbff130136562d2b7d357160d37f8975163840b6fac",
+    "decision": "include",
+    "reason": "Distributed Cloud routing and persistence guide",
+    "text_replacements": {
+      "nodes": {
+        "c1ee9ea256ccaed805990f87a8c4e424b68533713cba36a739865c69e1918625": "Why this works? A colleague explained to me the hashing of the origin is taking into account the CE name, so the same origin under 2 different CE will get the same ring hash and the same source IP address will be send to the same CE to access the Origin Server. This will not work for a single 3-node CE cluster as it all 3 nodes have the same name."
+      },
+      "output_sha256": "45e85344a2a55421b16e213e544f77e8323c5afe2c18812a507e78f7e57e4a75"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected community-authored source IP guide and five images; personal site names and tenant URL removed, generic BGP selection table and architecture retained; private SNAT and origin addresses illustrate the documented lab behavior",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/215db6b9e504eedeeb2a23094232b2934ff90639.png": "581768de644ead29948f48348c2417002d0a14e6bff8012a6aca3ace5f6035d9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71f0d5acc0922fd7b28a0f34b54ff582524381f7.jpeg": "1b1f3188b2fb72a0fce72aafa58c3ff933d8a42a5a013b661605d931cb41b7b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dff74b9b58f16377e2849a98fcd5beeaf95c734.png": "b1699726f48bb2ceca042892bad27a30721e45ebd3cb29ed6e684f8b906462c9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/9/b9c0a8dec2f0ab9bba4e38144089f253f81a15a3.png": "19390b6f53af24c265c06f4117d46ccb8e760a1c0c28ba7bfd96e795040b474e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/b/cbd5016e659131714988116433aaf4a580e6ee68.png": "7d6bf0f724762518da3d507c84055aa235c9f34c80326bf09e3b6aaa1b5db847"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/215db6b9e504eedeeb2a23094232b2934ff90639.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              173,
+              177,
+              335,
+              199
+            ],
+            "text": "system/example-cluster",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d7f18b84f8cc8d92e608617aa0d4f78f95a898be8da549f977eb414da7aec9d4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dff74b9b58f16377e2849a98fcd5beeaf95c734.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              355,
+              159,
+              469,
+              184
+            ],
+            "text": "example-vsite",
+            "size": 10
+          }
+        ],
+        "output_sha256": "35195d3c1453bd2ad7d9871a0c15c260035d8bf4b7c3765f9020b0bebcbda23d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/9/b9c0a8dec2f0ab9bba4e38144089f253f81a15a3.png": {
+        "rectangles": [
+          [
+            0,
+            0,
+            1107,
+            34
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              242,
+              122,
+              332,
+              147
+            ],
+            "text": "example-lb",
+            "size": 10
+          }
+        ],
+        "output_sha256": "af21a6513dd413f4db15682524d9d4b05db82ed3708ee4ed83f5ce8551febc21"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71f0d5acc0922fd7b28a0f34b54ff582524381f7.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c49f57d6ce7a8b34571710a3660cb941e7af72f75d89eed804b8ed980302e2ea"
+      }
+    }
+  },
+  "77024": {
+    "article_hash": "06c9fc8c66d85c0debc4ce4caac69f36d1ed7876b6e1c0f3e88f37028d36dc9f",
+    "decision": "include",
+    "reason": "Distributed Cloud routing and persistence guide",
+    "text_replacements": {
+      "nodes": {
+        "8026f78b2a63eee7769d4e3626d7b589450406c37c6eb8cfa04cae93aa6d73ff": "CE sites use the tunnel source interface (ens50 in the demo) and assign internal tunnel IPs (172.16.0.X/24). The remote gateway IP (192.0.2.10) represents the Cisco router\u2019s public elastic IP."
+      },
+      "output_sha256": "cf188394d720527b35653a452521615acd7d398791de5b82e78727e681497418"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected external connector guide and four images; public peer IPs made synthetic across prose and diagrams, internal tunnel and lab subnet addressing retained to explain BGP routing; generic Cisco and CE site labels contain no identities or secrets",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/f/1f20bf914d442aa230cb7617deef287b3dbd9505.jpeg": "741e115b9522a27df9ba54529e4b88b76d3f3fd1cce196ce4a02236a94a4773c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/7/37bda7600fcbbc169b6a0d5a7ee9fb3fab3fc7b5.jpeg": "eb14e12f9ab1a193023e56f632d26b3fdec1a20d887de436ca6db5517c7c2325",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/9/69d7c205fc0fc457c56614552111b9edcf4bb6d4.jpeg": "b86d6b644226f7c505db868fd691cff450a1e5a417acbe1b37c551cc66c9ff4b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f191db3b1e660b5dd2aa25dbfb65f3a8bf073431.jpeg": "26a5dae44311719977fc9cdf6acd6ecf15de5517865cb2f5c254509e94710ce0"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/7/37bda7600fcbbc169b6a0d5a7ee9fb3fab3fc7b5.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1580,
+              1060,
+              1826,
+              1103
+            ],
+            "text": "192.0.2.10",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              2226,
+              1060,
+              2477,
+              1103
+            ],
+            "text": "192.0.2.20",
+            "size": 26
+          }
+        ],
+        "output_sha256": "2331fbdcb1c6dfd560ac2c2ae5fdd4429ce99c35fdc25bbdfaf968cbad949593"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/9/69d7c205fc0fc457c56614552111b9edcf4bb6d4.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              603,
+              735,
+              810,
+              766
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          }
+        ],
+        "output_sha256": "7ee4e738df83a46f6b0c4151c09940c93f0e68f86619b0bdef0d4fe2479efa81"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/f/1f20bf914d442aa230cb7617deef287b3dbd9505.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be014043f179d8d49c88d2a7ec83c87125524e17f7767cd0216e5fbbb422b805"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f191db3b1e660b5dd2aa25dbfb65f3a8bf073431.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cab067b348040713f1c3cc799be453bf765eac15237689b3ac4e2fb3008eaa20"
+      }
+    }
   }
 }
