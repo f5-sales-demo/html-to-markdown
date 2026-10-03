@@ -41086,5 +41086,616 @@
         "output_sha256": "535114e16e9fa38cae8e35d86d76d2c2fcda65eda9727c3810ab69f524857419"
       }
     }
+  },
+  "76098": {
+    "article_hash": "9d0ab8d86ceeac7c93e14c6dcdaa1cb4ffa1e0608653cbfea343f0cfc5ba40b1",
+    "decision": "include",
+    "reason": "Distributed Cloud CE BGP and application overflow guidance",
+    "text_replacements": {
+      "nodes": {
+        "a2698215baf3142cea31b03f333852fce54251c0ff960a99c9d6cf41941d07c8": "192.0.2.122",
+        "dbc35fa3e2cc8b34df2a637b7fa9ee5503cdcb2f64f21e2fde0c33a9553a311e": "juice.example.com",
+        "a1daee137440703b77099255dae313dd8b7159c00557def85013017c604dc5d5": "vlan 10\n   name backend\n!\ninterface Ethernet1\n   description connected to backend\n   speed forced 1000full\n   switchport access vlan 10\ninterface Ethernet11\n   speed forced 1000full\n   no switchport\n   ip address 192.0.2.222/24\n!\ninterface Management1\n   ip address 203.0.113.195/24\n!\ninterface Vlan10\n   ip address 198.51.100.1/24\n!\nip routing\n!\nntp server 0.us.pool.ntp.org\nntp server pool.ntp.org\n!\nrouter bgp 64496\n   router-id 192.0.2.222\n   neighbor 192.0.2.52 remote-as 64497\n   neighbor 192.0.2.52 description node-32eae\n   neighbor 192.0.2.52 ebgp-multihop 2\n   neighbor 192.0.2.137 remote-as 64497\n   neighbor 192.0.2.137 description node-8e5f4\n   neighbor 192.0.2.137 ebgp-multihop 2\n   neighbor 192.0.2.143 remote-as 64497\n   neighbor 192.0.2.143 description node-1f456\n   neighbor 192.0.2.143 ebgp-multihop 2\n   !\n   address-family ipv4\n      neighbor 192.0.2.52 activate\n      neighbor 192.0.2.137 activate\n      neighbor 192.0.2.143 activate\n      network 198.51.100.0/24\n!\nend\n"
+      },
+      "output_sha256": "d3cc6216f4894023b956fd7c4aac612082e7ed3d5f6da772b4e08eb7e47b2664"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose, switch configuration and twelve static screenshots; synthetic BGP peers, VIP, router identifiers, WAN and cloud addresses, application hostname, instance and interface identity; reserved documentation ASNs; preserved routing fields, ECMP paths, three-node topology, measured latency and origin priority; no credential or user data; metadata removed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/afc620903849ac3bbe9a0135a26d1f6d8d1ef53e.png": "68807bb4338de9ef0d3a8e397fdfa4f9f5886fb3e840b5fd0b7c7fa3387bf524",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/043475a9b2a636eb2cd0ef8730951ce1652ed2c4.png": "344fba72499d0961c721f7629c96dd2a9cfc01f3d71b5c66342b2ec7d2370f87",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16fa29200ec7a7b6dc176fe74e931e1e476ee319.png": "5f4c630ac439bcc20a0d8b00b3a3e0e73b9f88349f7e7cfc7ac00e0a70848d6b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1bb51d52131c54a5e65808d1e1324f3d6ae76a54.png": "e0f177f62a9063eca218d387fbd04afcb6f86598515e3c473f867bc42f5ea33b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4e4927e1de9fac19669910b52681827b1dd7d219.png": "1ba96c88c0bc72073133fde7bdf179347d02c1d252c42a36519b305a7c756460",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5223f681118d01804247c209e9dd0eb201c0ebee.png": "fc09fc028acdac95bd5e921ad68a550d9c4bf24e742377428d717e7a25dfc78b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/565c79d7a26d0fe94ce2283253a9f1a90552c47b.png": "0ddfd53290ed8c36ff0a56f80c40ee90cad9d8b552089ab68e8c8b9fffa2fefe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aead74e0df073c3da7cf58b058d647c7b2f0029a.png": "720a0006c76ea4b1bdc083d662c39e4f6e88a72ee981e70b6142c41d2ebc10d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/beb57afe0dd3d3d20359101c6e131efe838531be.png": "6e05df4900efc548cefa79812677499452f177c4222dbc800ec25a9556a80b28",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c398ff6ec961269bdb26a36a36392dac35fb8bfe.png": "04249a3172d5820fa7f2bd0d846136d98582820338a3c5f50659edccbdc4a57d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/4/04f2a4438a7fed844594b7efff7c98f921e46aeb.png": "10ee249d84ae5b2287c6d27b4a7dd6eee9275f690d0c07d0f0fcd330eb6be684",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/5183344580255d9144eeeabc7b3c57328b2501de.png": "1ffe57055fd841a0d92c12aadb4b0ad73fb676397e8af26bb6c738f8e5c96e23"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/afc620903849ac3bbe9a0135a26d1f6d8d1ef53e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              660,
+              540,
+              829,
+              568
+            ],
+            "text": "juice.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              678,
+              568,
+              820,
+              597
+            ],
+            "text": "192.0.2.122",
+            "size": 18
+          }
+        ],
+        "output_sha256": "59e4358a03a9b72fe40650b61aa0495d7e44c9030dd15e45796ea835d6ee2997"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/043475a9b2a636eb2cd0ef8730951ce1652ed2c4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              102,
+              549,
+              275,
+              589
+            ],
+            "text": "192.0.2.122",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d7514783f51bc918270ee54276f30bb0bed0497dc1a73dbe0083ef3cb5f237ad"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/16fa29200ec7a7b6dc176fe74e931e1e476ee319.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1698,
+              1066,
+              1900,
+              1110
+            ],
+            "text": "192.0.2.52",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1698,
+              1150,
+              1900,
+              1195
+            ],
+            "text": "198.51.100.77",
+            "size": 23
+          }
+        ],
+        "output_sha256": "5a8b03e789b976e720fc3f3f0cc0bc468fe93d7417700ae3b5871fdafb23d749"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1bb51d52131c54a5e65808d1e1324f3d6ae76a54.png": {
+        "labels": [
+          {
+            "rectangle": [
+              857,
+              1042,
+              1050,
+              1088
+            ],
+            "text": "203.0.113.105",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              857,
+              1128,
+              1050,
+              1174
+            ],
+            "text": "203.0.113.105",
+            "size": 24
+          }
+        ],
+        "output_sha256": "4823ed223e8eb6b7d3233c5c67397b151c19934e7dd0db272f8841b888c4f5e7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4e4927e1de9fac19669910b52681827b1dd7d219.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1610,
+              605,
+              1940,
+              648
+            ],
+            "text": "i-example",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1488,
+              927,
+              1680,
+              972
+            ],
+            "text": "192.0.2.42",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1488,
+              1012,
+              1690,
+              1058
+            ],
+            "text": "198.51.100.18",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              2205,
+              926,
+              2430,
+              972
+            ],
+            "text": "203.0.113.199",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              115,
+              605,
+              299,
+              648
+            ],
+            "text": "demo-aws-node",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              2108,
+              765,
+              2370,
+              817
+            ],
+            "text": "demo-aws-node",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              408,
+              927,
+              612,
+              973
+            ],
+            "text": "demo-aws-node",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              408,
+              1010,
+              612,
+              1059
+            ],
+            "text": "demo-aws-node",
+            "size": 23
+          }
+        ],
+        "output_sha256": "57c1c9e88323318824e68f02e1009caa473511d19ee9494a2fda009d8d5bf505"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5223f681118d01804247c209e9dd0eb201c0ebee.png": {
+        "labels": [
+          {
+            "rectangle": [
+              473,
+              909,
+              704,
+              949
+            ],
+            "text": "\"192.0.2.222\"",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              459,
+              1164,
+              558,
+              1205
+            ],
+            "text": "64496,",
+            "size": 26
+          }
+        ],
+        "output_sha256": "41e1d0ed125a1359618df90e781ea7a065a9eafd9fac40d26c082794bef2fcc8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/565c79d7a26d0fe94ce2283253a9f1a90552c47b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              565,
+              778,
+              845,
+              819
+            ],
+            "text": "\"192.0.2.120/32\"",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              565,
+              946,
+              845,
+              988
+            ],
+            "text": "\"192.0.2.122/32\"",
+            "size": 25
+          }
+        ],
+        "output_sha256": "395e44429da778375cef39e5afeca3c892b15437b2bfd91128d1afb3a20a63fd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/beb57afe0dd3d3d20359101c6e131efe838531be.png": {
+        "labels": [
+          {
+            "rectangle": [
+              361,
+              89,
+              622,
+              119
+            ],
+            "text": "Load Balancer (192.0.2.122)",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              796,
+              419,
+              948,
+              447
+            ],
+            "text": "juice.example.com",
+            "size": 17
+          }
+        ],
+        "output_sha256": "6171b7e55f5393d4080dcd1a9e36bcfa6108ff2df399943ae7efac97f7ca5526"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c398ff6ec961269bdb26a36a36392dac35fb8bfe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              448,
+              770,
+              735,
+              813
+            ],
+            "text": "\"192.0.2.143/32\"",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              448,
+              1066,
+              735,
+              1109
+            ],
+            "text": "\"192.0.2.222/32\"",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              456,
+              938,
+              2036,
+              986
+            ],
+            "text": "\"ECMP: Receive on interface vhost-int-1; Interface vethfr0-logical-example;\"",
+            "size": 25
+          }
+        ],
+        "output_sha256": "48615a96c7dfe468e5e1782d83aa0f1968e502cc6af26ca1959539e3683682ee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/5183344580255d9144eeeabc7b3c57328b2501de.png": {
+        "labels": [
+          {
+            "rectangle": [
+              196,
+              63,
+              354,
+              91
+            ],
+            "text": "192.0.2.222,",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              527,
+              63,
+              590,
+              91
+            ],
+            "text": "64496",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              196,
+              323,
+              354,
+              351
+            ],
+            "text": "192.0.2.222,",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              527,
+              323,
+              590,
+              351
+            ],
+            "text": "64496",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              289,
+              142,
+              455,
+              172
+            ],
+            "text": "192.0.2.52",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              495,
+              142,
+              560,
+              172
+            ],
+            "text": "64497",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              289,
+              168,
+              455,
+              198
+            ],
+            "text": "192.0.2.137",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              495,
+              168,
+              560,
+              198
+            ],
+            "text": "64497",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              289,
+              194,
+              455,
+              224
+            ],
+            "text": "192.0.2.143",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              495,
+              194,
+              560,
+              224
+            ],
+            "text": "64497",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              99,
+              506,
+              283,
+              536
+            ],
+            "text": "192.0.2.120/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              506,
+              506,
+              536
+            ],
+            "text": "192.0.2.52",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              506,
+              916,
+              536
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              99,
+              532,
+              283,
+              562
+            ],
+            "text": "192.0.2.120/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              532,
+              506,
+              562
+            ],
+            "text": "192.0.2.137",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              532,
+              916,
+              562
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              99,
+              558,
+              283,
+              588
+            ],
+            "text": "192.0.2.120/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              558,
+              506,
+              588
+            ],
+            "text": "192.0.2.143",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              558,
+              916,
+              588
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              99,
+              584,
+              283,
+              614
+            ],
+            "text": "192.0.2.122/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              584,
+              506,
+              614
+            ],
+            "text": "192.0.2.52",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              584,
+              916,
+              614
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              99,
+              610,
+              283,
+              640
+            ],
+            "text": "192.0.2.122/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              610,
+              506,
+              640
+            ],
+            "text": "192.0.2.137",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              610,
+              916,
+              640
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              99,
+              636,
+              283,
+              666
+            ],
+            "text": "192.0.2.122/32",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              339,
+              636,
+              506,
+              666
+            ],
+            "text": "192.0.2.143",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              818,
+              636,
+              916,
+              666
+            ],
+            "text": "64497 ?",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              100,
+              661,
+              287,
+              697
+            ],
+            "text": "198.51.100.0/24",
+            "size": 18
+          }
+        ],
+        "output_sha256": "b67b66a630b45bf5ae024e06ba1dbd5cf40f1b923d8902bb7cd04f3ee8050269"
+      }
+    }
   }
 }
