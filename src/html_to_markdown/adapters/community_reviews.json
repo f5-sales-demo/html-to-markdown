@@ -9281,7 +9281,259 @@
   "75784": {
     "article_hash": "d032978c4bcd0dfaa81cb0d118e7af34af6babd3d50762bb4bd7e0456565c432",
     "decision": "include",
-    "reason": "Distributed Cloud DNS, regional edges and customer edges scale hybrid BIG-IP applications"
+    "reason": "Distributed Cloud DNS, regional edges and customer edges scale hybrid BIG-IP applications",
+    "text_replacements": {
+      "nodes": {
+        "917515ca7a0dbadc6d04d324722a298c837cd7b88264bfdced2b74f7eb566656": "external.example.com",
+        "ce41902c6a73388d2710b837094f284a92be773b76380d2ca228d3a4bb19222d": "on-prem.example.com",
+        "632e6fac22ec07f52bc89ec38763ccb0ff09955137b6c015b5d2fc2132c8f532": "http://external.example.com",
+        "f5733cbf32c358b8b19cc3ea96606cd587ed6277e1a14a1c02549b6d464c49a8": "http://on-prem.example.com"
+      },
+      "output_sha256": "ea89389109d61f4e3a015cbe6277f1e1e295172722b97534d0e307afea610cf1"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and ten static images; synthetic account namespace, console URL, management IP and DNS lookup hosts and addresses; preserved split-DNS behavior, BIG-IP discovery and Distributed Cloud App Connect configuration and architectural diagrams; no credentials; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/392eb9a025a16b08e5b32925e76e6be923414f43.jpeg": "8c90d31624c0bbbb81653d0311d822e28a7ddfeee01403baaf291940586d2361",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46a9212c788430958bd3a44cc8f8db582785dbc7.png": "91850dd0108ae8576aff529c33dde99eaa36f273c4444133075bc56a286f7adf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64b9af7b482c47d9956a64fa2a33ffdc7e7d01e3.png": "babd4e24df33c0ec73e0a072c52471dc4b415590261e91b15c0a87517b55a30b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7dfd3355531009800246f67e7716aeed45a8d6e5.png": "86215e63619b395f52fea8c99a1550482111a66ea992aa5c0df47b02cc3237a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8649dec5704576b19fc865754e6bf2336c9aa5c3.jpeg": "edff3a50407ef4a4bfcd51d3d2403a9147453c44017fcf16c392988a28bb137e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e23045797f4e6c4b0d3b45d431979b4854e40e64.jpeg": "435421df8431e2486555750548ae08fe312e8149ee09cbacf713a0b78c898ebb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f51ce61de300244b4df6866646280da74889e66c.jpeg": "d32f0ae24565a6bc4c750b95dfd4e2a1bb7fff78c8bb00d8f447c1b3e5f8c166",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/21b8a6828950b5dd86b001981b76430f4641d6e5.jpeg": "8410f31b9f27be8a9c2f81d540ec80df52c2ef376750be06805a4e7d170f1858",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/e/5e8fb2b3b0b9dd53bd322d5eaf7e5cf0613ebcac.jpeg": "768b3c64a4a361c357d175d8d0d5a7b3d86aeb58dc3d504b636184a0e5497ea7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c5066e68a337a9bfc47f307c5eeb6f75ed785f2b.jpeg": "d24199ce160d4d7c8346450c24aaa88e0a4678448ab574dcfbab9b93befe6304"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/392eb9a025a16b08e5b32925e76e6be923414f43.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              610,
+              94,
+              2740,
+              150
+            ],
+            "text": "https://tenant.example.com/web",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              969,
+              174,
+              1066,
+              204
+            ],
+            "text": "demo",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              83,
+              474,
+              206,
+              518
+            ],
+            "text": "demo",
+            "size": 24
+          }
+        ],
+        "output_sha256": "ca518347828f75145ca5d3f474ab259f06731bb27e4a1c6edbfbba6c4a99c238"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8649dec5704576b19fc865754e6bf2336c9aa5c3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              930,
+              147,
+              1930,
+              225
+            ],
+            "text": "https://192.0.2.5/xui/",
+            "size": 36
+          },
+          {
+            "rectangle": [
+              229,
+              296,
+              432,
+              333
+            ],
+            "text": "192.0.2.5",
+            "size": 22
+          }
+        ],
+        "output_sha256": "a7dd6d901009317da4779ab65ece9588334541a8ff4eb8969d9bfe4cac4c5368"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/21b8a6828950b5dd86b001981b76430f4641d6e5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              2710,
+              215,
+              3840,
+              300
+            ],
+            "text": "k8s - root@demo-server",
+            "size": 42
+          },
+          {
+            "rectangle": [
+              340,
+              355,
+              2760,
+              448
+            ],
+            "text": ".../k8s - root@demo-server: /home/example - ssh demo@192.0.2.5",
+            "size": 42
+          },
+          {
+            "rectangle": [
+              338,
+              478,
+              2650,
+              548
+            ],
+            "text": "[root@demo-server:/home/example# host bookinfo.on-prem.example.com",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              548,
+              2650,
+              618
+            ],
+            "text": "bookinfo.on-prem.example.com has address 192.0.2.20",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              618,
+              2650,
+              688
+            ],
+            "text": "Host bookinfo.on-prem.example.com not found: 3(NXDOMAIN)",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              688,
+              2650,
+              758
+            ],
+            "text": "Host bookinfo.on-prem.example.com not found: 3(NXDOMAIN)",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              758,
+              2650,
+              828
+            ],
+            "text": "[root@demo-server:/home/example# host bookinfo.external.example.com",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              828,
+              2650,
+              898
+            ],
+            "text": "bookinfo.external.example.com has address 192.0.2.30",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              338,
+              898,
+              2650,
+              968
+            ],
+            "text": "[root@demo-server:/home/example#",
+            "size": 40
+          }
+        ],
+        "output_sha256": "1c21440dab964b32f436c247358af147dc85bd6a42df204d6a90cf2373bfbea0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/e/5e8fb2b3b0b9dd53bd322d5eaf7e5cf0613ebcac.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              610,
+              94,
+              2740,
+              150
+            ],
+            "text": "https://tenant.example.com/web",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              969,
+              174,
+              1066,
+              204
+            ],
+            "text": "demo",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              83,
+              474,
+              206,
+              518
+            ],
+            "text": "demo",
+            "size": 24
+          }
+        ],
+        "output_sha256": "a01633b1a0fe5e1e14e6f6bd6847e79bd14a7a36ac3ac1cbb368a5080b2afb35"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c5066e68a337a9bfc47f307c5eeb6f75ed785f2b.jpeg": {
+        "rectangles": [
+          [
+            1983,
+            402,
+            2008,
+            1888
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "4d105baa50b20b93c064fb73fa82fcca4006a6bd650ac94118965c330731886e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46a9212c788430958bd3a44cc8f8db582785dbc7.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "27b3097333d754b98f68d130034e1ee7358d1589b6d71eb3759d6eff15af3bdf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64b9af7b482c47d9956a64fa2a33ffdc7e7d01e3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a029c22d8a548015fc6ef2a1b2733c02fc34724be7fba03eff536181d720acd8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7dfd3355531009800246f67e7716aeed45a8d6e5.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0d2e27d13c50d6bce940aa4d33756f65565bf2e07272a24027c61da4b3b697b6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e23045797f4e6c4b0d3b45d431979b4854e40e64.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9e5893cabfcec625dc6642dfbbcc8c3427c622f992ec385c8f56344d7905b0e7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f51ce61de300244b4df6866646280da74889e66c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e215fe107496e964eea557396d91710697420fe930ded393a60b73c953aa29c6"
+      }
+    }
   },
   "75872": {
     "article_hash": "07e7c2717bb5daf539b5030fa53796dfe9ae560041a405194f7e815615e27a7b",
