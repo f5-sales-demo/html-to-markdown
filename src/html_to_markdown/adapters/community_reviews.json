@@ -3560,7 +3560,17 @@
   },
   "73507": {
     "article_hash": "069e7e54ba4779d6efa035eddc814b01ce9622d6aaa7276b2cda389ade398f90",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/00ef780296e174a4082e8d3c0fcb6f40d76cae52.png": "938c40ecb997c976157876e099b8721da82bf0f613aca4b82334b7233ad568a9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/01703c2bc43b15d278df05c191c915b131c28d09.png": "6312fc76109ba7393a3b7d78c79c70257e20879014c7efd2c5703ad136f09786",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19e9131feeb6385c0588ebe38b5f37f38cad83f2.png": "926529f274322ee7577859c77dc1333a19c159549e307bf02b092b3bcd640360",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/285a60f11c4cdbdea042dde62e0bfbc1a05f8c14.png": "713ffc2e73922866041a0c638760683025777cfe0bac45f90a5d41e1765e9635",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6d045b4fbdd035516157182a808bd42827888447.png": "aee5782264f34d6d563dae34bc987b1af7104ccd520e059ad50f2b175e401c6f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/e/be75589851452786ca0bf4b46624269f3afe4b8c.png": "964ed70a5abcd96c4c534fae8bfe1bc043355b87de1f0f72ac760ada7cfeb080"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected PCI security guidance and six generic compliance and control diagrams; no cardholder or customer data",
     "reason": "Substantive Distributed Cloud PCI service-provider and Client-Side Defense security guidance"
   },
   "73548": {
