@@ -12666,5 +12666,883 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "72573": {
+    "article_hash": "71a25872cafd6182ae3e0a8487e66fa0b33fac827bf7e55fa6dbaae31ef3d50b",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected scheduled report guide and seven screenshots; report IDs, personal report labels, destination domains and ASNs made synthetic; namespace and user group labels are generic, no recipient email or returned user values displayed; schedule, history and summary comparisons retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/57b57e2019e9428d1f0b56a6099b97ca803508e7.jpeg": "91353eb1e6d81a4518f0be8148ec5116b608cb3a2bb11e691ec63ba694e35eeb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a2d9c663e65160c13184a7b51b6b94eb8b0297d5.jpeg": "d477b92b63793ff737764047f9c7447463e2d3bdd6337ae38988fa2755ad3d7e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba06ae9e1f6487e049b247b3c3755e71a35d218f.jpeg": "b4b621259de47b94ff41dd3ed48ffe8806ed1a8f67fff64770ab4fc2c31c55fe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd9bc22406f484a70d8942fd1a0a173e0da41cc9.jpeg": "a4cb8a48b47f836e11f6f6559af4cca359a0bc66adb5952218295bfcf1a1887c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed2237e36d8288d31fd8cbf30e36dbb092998fc3.jpeg": "a6827187b4fc7ffabf89fb7e630ba5d13b88a306b988a58726d37e80eac3846c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/2749562c45fabf3fb6d362a5c91980145cb7696c.jpeg": "94636ad1c298b385bddec15bd50acc7e595e0077df2aaf81711c891997e82e6f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c169a77769221d06be343c6dbdd6db3a00ea9fc.jpeg": "27683182fb6430bbacf592de1d61ca2a4656695e97cd37c11fad1ba28eed8600"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/57b57e2019e9428d1f0b56a6099b97ca803508e7.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              672,
+              475,
+              991,
+              546
+            ],
+            "text": "example-monthly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              583,
+              991,
+              653
+            ],
+            "text": "example-daily",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              696,
+              991,
+              766
+            ],
+            "text": "monthly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              809,
+              991,
+              879
+            ],
+            "text": "multi-ns",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              922,
+              991,
+              993
+            ],
+            "text": "weekly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              1030,
+              991,
+              1100
+            ],
+            "text": "example-weekly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              3236,
+              571,
+              3585,
+              642
+            ],
+            "text": "Example report description",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3236,
+              911,
+              3585,
+              983
+            ],
+            "text": "Example report description",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3236,
+              1030,
+              3585,
+              1082
+            ],
+            "text": "Example weekly report",
+            "size": 16
+          }
+        ],
+        "output_sha256": "fc4971134ddbcbaa6b169119668f1c940e14e824537267620fea5acb3847503a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba06ae9e1f6487e049b247b3c3755e71a35d218f.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              672,
+              475,
+              991,
+              546
+            ],
+            "text": "example-monthly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              583,
+              991,
+              653
+            ],
+            "text": "example-daily",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              696,
+              991,
+              766
+            ],
+            "text": "monthly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              809,
+              991,
+              879
+            ],
+            "text": "multi-ns",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              922,
+              991,
+              993
+            ],
+            "text": "weekly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              672,
+              1030,
+              991,
+              1100
+            ],
+            "text": "example-weekly",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              3235,
+              567,
+              3320,
+              616
+            ],
+            "text": "Example",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3235,
+              903,
+              3320,
+              952
+            ],
+            "text": "Example",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3235,
+              1025,
+              3320,
+              1074
+            ],
+            "text": "Example",
+            "size": 14
+          }
+        ],
+        "output_sha256": "6a8a675bca49ef2dd45456fb66ef634b4b1e86cc901e7ba92b4e0131f5189883"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd9bc22406f484a70d8942fd1a0a173e0da41cc9.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              519,
+              467,
+              966,
+              553
+            ],
+            "text": "example-report-1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              467,
+              1766,
+              533
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              579,
+              966,
+              666
+            ],
+            "text": "example-report-2",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              579,
+              1766,
+              645
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              696,
+              966,
+              782
+            ],
+            "text": "example-report-3",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              696,
+              1766,
+              761
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              810,
+              966,
+              896
+            ],
+            "text": "example-report-4",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              810,
+              1766,
+              876
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              924,
+              966,
+              1011
+            ],
+            "text": "example-report-5",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              924,
+              1766,
+              990
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1037,
+              966,
+              1123
+            ],
+            "text": "example-report-6",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1037,
+              1766,
+              1103
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1151,
+              966,
+              1238
+            ],
+            "text": "example-report-7",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1151,
+              1766,
+              1217
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1266,
+              966,
+              1352
+            ],
+            "text": "example-report-8",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1266,
+              1766,
+              1331
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1380,
+              966,
+              1466
+            ],
+            "text": "example-report-9",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1380,
+              1766,
+              1446
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1494,
+              966,
+              1581
+            ],
+            "text": "example-report-10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1494,
+              1766,
+              1560
+            ],
+            "text": "example-report",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              519,
+              1609,
+              966,
+              1695
+            ],
+            "text": "example-report-11",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1528,
+              1609,
+              1766,
+              1674
+            ],
+            "text": "example-report",
+            "size": 16
+          }
+        ],
+        "output_sha256": "08bd7ced31fca499216774aaba850c7338120d241bd34cfa4afb1e5d41e90f90"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed2237e36d8288d31fd8cbf30e36dbb092998fc3.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1410,
+              405,
+              2163,
+              461
+            ],
+            "text": "example-report",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              514,
+              474,
+              947,
+              557
+            ],
+            "text": "example-report-1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              586,
+              947,
+              669
+            ],
+            "text": "example-report-2",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              698,
+              947,
+              781
+            ],
+            "text": "example-report-3",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              811,
+              947,
+              894
+            ],
+            "text": "example-report-4",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              923,
+              947,
+              1006
+            ],
+            "text": "example-report-5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1036,
+              947,
+              1119
+            ],
+            "text": "example-report-6",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1148,
+              947,
+              1231
+            ],
+            "text": "example-report-7",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1260,
+              947,
+              1343
+            ],
+            "text": "example-report-8",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1373,
+              947,
+              1456
+            ],
+            "text": "example-report-9",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1485,
+              947,
+              1568
+            ],
+            "text": "example-report-10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1598,
+              947,
+              1681
+            ],
+            "text": "example-report-11",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1710,
+              947,
+              1793
+            ],
+            "text": "example-report-12",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              514,
+              1823,
+              947,
+              1905
+            ],
+            "text": "example-report-13",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1472,
+              1725,
+              1727,
+              1782
+            ],
+            "text": "weekly",
+            "size": 14
+          }
+        ],
+        "output_sha256": "406e06f42d4ecddc8f8e356f2e34e0d551e9f9bff42e11e03e82121320daf464"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/2749562c45fabf3fb6d362a5c91980145cb7696c.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1400,
+              404,
+              2194,
+              450
+            ],
+            "text": "example-report",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              521,
+              460,
+              960,
+              573
+            ],
+            "text": "example-report-1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              574,
+              960,
+              687
+            ],
+            "text": "example-report-2",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              688,
+              960,
+              801
+            ],
+            "text": "example-report-3",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              802,
+              960,
+              915
+            ],
+            "text": "example-report-4",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              916,
+              960,
+              1029
+            ],
+            "text": "example-report-5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1030,
+              960,
+              1143
+            ],
+            "text": "example-report-6",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1144,
+              960,
+              1257
+            ],
+            "text": "example-report-7",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1258,
+              960,
+              1371
+            ],
+            "text": "example-report-8",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1372,
+              960,
+              1485
+            ],
+            "text": "example-report-9",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1486,
+              960,
+              1599
+            ],
+            "text": "example-report-10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1600,
+              960,
+              1713
+            ],
+            "text": "example-report-11",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1714,
+              960,
+              1827
+            ],
+            "text": "example-report-12",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              521,
+              1828,
+              960,
+              1941
+            ],
+            "text": "example-report-13",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1493,
+              1719,
+              1751,
+              1783
+            ],
+            "text": "weekly",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              2158,
+              1170,
+              2358,
+              1220
+            ],
+            "text": "app1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2158,
+              1243,
+              2358,
+              1293
+            ],
+            "text": "app2.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2158,
+              1316,
+              2358,
+              1366
+            ],
+            "text": "app3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1422,
+              647,
+              1609,
+              690
+            ],
+            "text": "AS64496",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1422,
+              721,
+              1609,
+              764
+            ],
+            "text": "AS64497",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1422,
+              794,
+              1609,
+              837
+            ],
+            "text": "AS64498",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1659,
+              647,
+              1846,
+              690
+            ],
+            "text": "AS64496",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1659,
+              721,
+              1846,
+              764
+            ],
+            "text": "AS64497",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1659,
+              794,
+              1846,
+              837
+            ],
+            "text": "AS64498",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1923,
+              1170,
+              2140,
+              1220
+            ],
+            "text": "app1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1923,
+              1243,
+              2140,
+              1293
+            ],
+            "text": "app2.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1923,
+              1316,
+              2140,
+              1366
+            ],
+            "text": "app3.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e847dd7f44cd0ab96cae5036184c9de5f4a561c8243432a27b30c03286d81fef"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a2d9c663e65160c13184a7b51b6b94eb8b0297d5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "6ca8615f788cc1738f649ace46597916d7c980d8c8fa7e17cc2d3ee5d3174813"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c169a77769221d06be343c6dbdd6db3a00ea9fc.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1bab00f40b985d262c5049a096b5fe6601a2621dfe577f85c0728400e6289090"
+      }
+    }
   }
 }
