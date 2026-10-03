@@ -32733,5 +32733,317 @@
         "output_sha256": "2314fc1f5fedbd33aa1460f210b7041511c6e244fdefd7468e4e8b8db2c93328"
       }
     }
+  },
+  "69988": {
+    "article_hash": "39efd48fd59608f913de55068e846c69f15cff688ed1b4c0eec4aca42818f419",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and eleven screenshots; synthetic app domains, example email and password, WAF names, ASNs and support IDs; removed unrelated browser bookmarks; retained PHP demo code, standard system-account listing, upload results and WAF blocking evidence; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/06f66d7962c65e70b4637560405a646593963cbb.png": "03ac19ad453cbd938b4c14c82a2d3db87b9b851072fbd26ef3b5eba5edaaa825",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18d0044c8f329849515ca3640cea0807ddecc24e.jpeg": "a8d482106eaf69d2bf5752e01cd28a5bb1fb00527dedef674b083d63e34606fb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a3f691e80bf1fa7e5539a21bf562acb8d2c5e85.jpeg": "f09d5b08e2ae14408a65ae257cfeebb23fcfe591b4f84fceee8fb1e4f8c0d920",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4ab575659fcfdb3e23b1ec212aff36510b231824.jpeg": "79cfd7b77ccad705a33237917252756f63c0a914522b86b10fb06ecae8227f83",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/80e7dc8e0ee3d3e34d44aec41323c162717cc385.jpeg": "b9734f587404572d3da0baea85838bf9a788a5c2d4baa92e92615f0e55989f23",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/932a516e15ce0273ff149a9e19f4e609f4c3b340.png": "103343a41fde566ac734bdaa6bf92d4b977035dfeb5247649c0645d559f4088a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b61c5d0096527de00104226f031054d391de1cfe.jpeg": "df07c03f010c05688d0553a095fb1c69b073a8d54ebcbdecbbb0593d74220bd0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b73d0c4c6548ad390940c844f996362c5ae996c5.jpeg": "dab088037b6e1a1276d7985e78b4a78f27c71cdeaa7b29d6c0e8f0b9d306afc8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/07613b4f8b6579bcfa80abc771d96c83440f48f3.jpeg": "428be67dce58ce73fbb89334f3f1d13069342e6d2f052c045ffb806800012add",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d689aee8bf157d99810a0beb9c949a22871dd888.jpeg": "96f51fa4e81b58da293d6406c4d161f4785d586629f3d0b43129f8faf2488baa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef1c349762fc04ee934e889bd2a2d42a65f04794.png": "c00ea129a3ac1ee8998ad10d71b25af2d931886e6200f912ed29527da73b5c41"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a3f691e80bf1fa7e5539a21bf562acb8d2c5e85.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              342,
+              7,
+              1111,
+              61
+            ],
+            "text": "app.example.com/#/search",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              3200,
+              353,
+              3562,
+              410
+            ],
+            "text": "admin@example.com",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            70,
+            3670,
+            154
+          ]
+        ],
+        "output_sha256": "ee5b596d7a7a9eeb8cb320ee249b8ff5d9beea3b1d157e95be9eec5b40ef9ea6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4ab575659fcfdb3e23b1ec212aff36510b231824.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              346,
+              11,
+              1269,
+              61
+            ],
+            "text": "app.example.com/vulnerabilities/upload/#",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              330,
+              272,
+              1004,
+              323
+            ],
+            "text": "example-request",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            77,
+            1584,
+            155
+          ]
+        ],
+        "output_sha256": "c4d551f4b295a7b7d24bc117ef4429c592e72416e6605aa08448578b922f6ab3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/80e7dc8e0ee3d3e34d44aec41323c162717cc385.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              355,
+              3,
+              1431,
+              55
+            ],
+            "text": "app.example.com/hackable/uploads/malicious.exe",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              332,
+              263,
+              1001,
+              314
+            ],
+            "text": "example-request",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            67,
+            1615,
+            150
+          ]
+        ],
+        "output_sha256": "e5ca6344f9e9eb9d4d2c37b7833a447f7aa482e9a46dff98fa2b24ce68900f49"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b61c5d0096527de00104226f031054d391de1cfe.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              320,
+              7,
+              1038,
+              57
+            ],
+            "text": "app.example.com/#/login",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              1437,
+              744,
+              2395,
+              792
+            ],
+            "text": "example-request<br/><br/><a",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            65,
+            3430,
+            144
+          ]
+        ],
+        "output_sha256": "6f40670ce25d7364009a594ad9d1156fef3e7aa908b8921c4bd50ab16d7f9574"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b73d0c4c6548ad390940c844f996362c5ae996c5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1514,
+              210,
+              1736,
+              259
+            ],
+            "text": "example-waf",
+            "size": 29
+          },
+          {
+            "rectangle": [
+              2009,
+              261,
+              2303,
+              310
+            ],
+            "text": "example-waf",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              681,
+              507,
+              882,
+              552
+            ],
+            "text": "example-api-waf",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              681,
+              607,
+              882,
+              651
+            ],
+            "text": "example-waf",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              681,
+              707,
+              882,
+              751
+            ],
+            "text": "example-bot-rule",
+            "size": 24
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0f1436138ca34709ee9b19106e9aa211192576e74e91c2f4fc9696731b9a2f76"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/07613b4f8b6579bcfa80abc771d96c83440f48f3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              338,
+              7,
+              1097,
+              60
+            ],
+            "text": "app.example.com/#/login",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              1456,
+              898,
+              1734,
+              955
+            ],
+            "text": "EXAMPLE_PASS",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            69,
+            3624,
+            152
+          ]
+        ],
+        "output_sha256": "cd2e022c07251925f21f75f9002853b0f88e02728ccd1e6d056ce5a0875b86e2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d689aee8bf157d99810a0beb9c949a22871dd888.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              775,
+              22,
+              928,
+              63
+            ],
+            "text": "example-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              749,
+              802,
+              891,
+              832
+            ],
+            "text": "US",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              749,
+              843,
+              1016,
+              885
+            ],
+            "text": "Example (64512)",
+            "size": 22
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "82b07b4ced50198f9a64c7827b86bda8d4d0c147f42bb06f5209e4cd24dee3cd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef1c349762fc04ee934e889bd2a2d42a65f04794.png": {
+        "labels": [
+          {
+            "rectangle": [
+              321,
+              10,
+              1273,
+              58
+            ],
+            "text": "app.example.com/hackable/uploads/malicious.php",
+            "size": 30
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            76,
+            1600,
+            142
+          ]
+        ],
+        "output_sha256": "5c384d61a706313c7f7632814555c1a6a1a4b8d1594bc1de7e9354e0b2becba7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18d0044c8f329849515ca3640cea0807ddecc24e.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2df2e84df1650839253ec74c506c53db53b31f8af6ec71c9018c9c6c682dab9d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/932a516e15ce0273ff149a9e19f4e609f4c3b340.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e16a23e8b4761a5dff1c297057dafc941b47c95e395f29051f9a20dd8408679a"
+      }
+    }
   }
 }
