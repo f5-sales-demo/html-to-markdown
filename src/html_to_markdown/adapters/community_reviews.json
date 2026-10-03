@@ -38047,5 +38047,252 @@
         "output_sha256": "4c040ca142ddd51927e3589d0e569cfe0cedd2fb487ed202242a904b7de7cd23"
       }
     }
+  },
+  "73600": {
+    "article_hash": "658855f2c3b7e61685ac4587c46661df2c5846396267d9f37d2dec8209cdf88d",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and eleven static screenshots; replaced demo domains, personally derived resource names, tenant and origin IP with synthetic documentation values; preserved HTTP and HTTPS port ranges, TCP load-balancer-port origin selection, health checks and distinct sample application responses; no credential values; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e7dff55b84b1cd7db07fae1c071d20f26b3cae29.jpeg": "d66b31b41a81d35b980054652d65fd96564249c55bc33c172d19348806823ff4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/158e97d1c77d1ce95cf8dc79a3f3292634b8fbd9.jpeg": "69ddb2062584925ce4d3621542d0b1f2add91d2064df07fb40267fa3c1bea915",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/442118656a913aff0e37dc536b9bef2137a7c633.jpeg": "d8d8d5a262669a4c2f0025d2157651b8e73e6a9305f32c89d0fdee75ad87a3a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62e622c9b240ec173b81a024a03bef8bd328c695.jpeg": "598979aa131eb618ed8a04d2ea2a6ecb14eea4d98f558463aae2d45e9ac788df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6a5022d25d87854819ec94e49110dce9bbdaa001.jpeg": "bbbf52952f702b1ae8ea5597cf1228ee699b422da6b7cad2d5d67f58af78ffad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7796091377c3393c4046801cc300c19979f592e.jpeg": "cb67b5d0479bb91caf7419ced11114fcde81ef45007bd8f4733e949fd9ab1c15",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e83a0885166e7b632077c61ab6963bbb6674b14f.jpeg": "d15b6f31e3c181f51c7f411346bc048a75ffa94a97bac9b05d424e7aa7f4521e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/5601580f9a2c3654b745dba390a591b991dd5adc.jpeg": "aa65a109d1f5e652c31987f8b59c97d9408970a5ecf332f839f422aa49bb7a46",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/5/a541a2b894748a1f54dfb17302a44331bb8cb238.jpeg": "6047b4eee87ec6932873a37193755cccdbe18076f7bdf6ac370e61c2b6659d2e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b47ea82e5389e24c278fe9595ed953643e4254fa.jpeg": "313bfc22bbff2fdc91be0645019932a996ad8a92814758030f0c430de98362c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/a/ca447e784676fd7b8d1846057e8b33aa3a387ce1.jpeg": "92ca3447fa9248cd3e9e90ba880bcabce9c11538e5902ab496fbbda5a80eb0c8"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e7dff55b84b1cd7db07fae1c071d20f26b3cae29.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              369,
+              15,
+              1050,
+              72
+            ],
+            "text": "https://air.example.com:12000",
+            "size": 32
+          }
+        ],
+        "output_sha256": "1c7cbac98ebe8ed3d02f4cb30f52953912f8252b22220a3f38dd16b7991eacd5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/158e97d1c77d1ce95cf8dc79a3f3292634b8fbd9.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1370,
+              532,
+              1760,
+              576
+            ],
+            "text": "air.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "583043e03d0e3723524fec5cc2da008326ae0eac1c9fa11d98814ecac1042396"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/442118656a913aff0e37dc536b9bef2137a7c633.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              580,
+              24,
+              1190,
+              79
+            ],
+            "text": "tcp.example.com:301/login.php",
+            "size": 30
+          }
+        ],
+        "output_sha256": "2cac5566d1b431cd5a7b7826bf387be747d67cf7daaf50880c2872083f154c7a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62e622c9b240ec173b81a024a03bef8bd328c695.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              410,
+              226,
+              625,
+              268
+            ],
+            "text": "demo-multiport",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1436,
+              223,
+              1640,
+              262
+            ],
+            "text": "demo-multiport",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1370,
+              484,
+              1680,
+              529
+            ],
+            "text": "tcp.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1755,
+              1109,
+              1910,
+              1146
+            ],
+            "text": "demo-lbport",
+            "size": 20
+          }
+        ],
+        "output_sha256": "03fb707fdda8d5e686745c60b760d24a2a3b5d6cd168b59f7d2f7d5488b9d652"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6a5022d25d87854819ec94e49110dce9bbdaa001.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              581,
+              17,
+              1170,
+              72
+            ],
+            "text": "air.example.com:120",
+            "size": 30
+          }
+        ],
+        "output_sha256": "81ed63c4e834dcdd2117c3152b95075cd5df2f345b9a253c50c466e9ffe1af59"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7796091377c3393c4046801cc300c19979f592e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              581,
+              27,
+              1090,
+              80
+            ],
+            "text": "tcp.example.com:300/#/",
+            "size": 30
+          }
+        ],
+        "output_sha256": "0c6475bf1bd2cbffa957d60d480f82695dc7aa4d43145b5c53b812822c4c07bc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e83a0885166e7b632077c61ab6963bbb6674b14f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              407,
+              220,
+              600,
+              269
+            ],
+            "text": "demo-lbport",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1430,
+              219,
+              1620,
+              263
+            ],
+            "text": "demo-lbport",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1753,
+              636,
+              1950,
+              676
+            ],
+            "text": "192.0.2.20",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2843,
+              1468,
+              3050,
+              1516
+            ],
+            "text": "demo-tenant",
+            "size": 23
+          }
+        ],
+        "output_sha256": "7e272c081500e055b6e5cd5df6529b461b6db2ad869d9f6a3fe2fd3417a68f6b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/5601580f9a2c3654b745dba390a591b991dd5adc.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              572,
+              28,
+              1170,
+              84
+            ],
+            "text": "air.example.com:100",
+            "size": 30
+          }
+        ],
+        "output_sha256": "9606f1b697fc65b78725745702899b6de00e2cf4cd139a68aba37abc46dde607"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/5/a541a2b894748a1f54dfb17302a44331bb8cb238.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              571,
+              24,
+              1060,
+              82
+            ],
+            "text": "tcp.example.com:302",
+            "size": 30
+          }
+        ],
+        "output_sha256": "8e4847fa10d68381016991e555f564874d4825a995e406a1f3a1aa40f96104e4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b47ea82e5389e24c278fe9595ed953643e4254fa.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              369,
+              23,
+              1055,
+              79
+            ],
+            "text": "https://air.example.com:12010",
+            "size": 32
+          }
+        ],
+        "output_sha256": "5ba6846b02813d0a38a18ae43a3c9e5f5a72ac4fbd4d8bef6f4e318ae3473756"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/a/ca447e784676fd7b8d1846057e8b33aa3a387ce1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1369,
+              528,
+              1740,
+              575
+            ],
+            "text": "air.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "a4fa2a78988e213f431b44928416dab7a5321191234a17a43ece4a5e786a2478"
+      }
+    }
   }
 }
