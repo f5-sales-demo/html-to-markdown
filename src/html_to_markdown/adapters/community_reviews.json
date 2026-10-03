@@ -1064,9 +1064,382 @@
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "70151": {
-    "article_hash": "a3228047b1378e4fc92d4d9e83e477a9e3a0024627b639d5465c693b9e635ed5",
     "decision": "include",
-    "reason": "Distributed Cloud Azure cloud credential setup"
+    "reason": "Distributed Cloud Azure cloud credential setup",
+    "article_hash": "a3228047b1378e4fc92d4d9e83e477a9e3a0024627b639d5465c693b9e635ed5",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/f2b2d91d6a82a24874fa4b75c092d64beb90b0dd.png": "00c29cb4a14a755f098ee1e32636be31b035f7dabec3aecd64a3f200acd6bc8d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/015d8fa0d2e63b29aae613eb07887f909deaf97b.png": "c74723f03501e1638cfe3abb64b76b9d81eb26c6c4aa92019d68323f01b1d707",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/148c8cc661abe0e2810a10df654b4da6d5927fac.png": "c4348cdf6cda260b3806227aab17a2bbc8776996d29d7b419be5168e7fcfd1e0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6ea6a8b540bda035890832541cf5b208cc11c851.png": "fb4fecd37f82fc96338da0aead46337237ae233cfcbdc1593eae3d49a336b9c3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/763ceb6521400ef7b0a339654c6dec30f3b375e2.png": "632c2acd4a626d84d5566eeba857ac7a341503acb6a70c98e5041e345a374aea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8b94ba78354aca7464107fac1fd08390158216c0.png": "8a2ed7c1994785010649be6d0fb664e18df9a132a8cc14ae4b806fb28742f6dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c188ed18e5c535a7917d8882540c90f8efdcbb0.png": "fb2b3b3a22bc66a184df31f10099cfcb586eae358405ce91a4fe4f030b7a13bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a35e8826484e7facac17f08dd84327f35eacbeff.png": "dd5261240930d2c88f0ba4b4c5ae5037b14bb226c28ff1e25bc06b1a500ad380",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aaa1148eacd4669455f37cf6fdfc179701c63955.png": "9d082bd92a7166fdfd6e3e77ef0a16ca6a2cd9262116e158507579e2cbab7320",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7cc5b8f9e3b0ae06f8636635a7a145d15e8625b.png": "f31311c646f8ca3aee4bd250009d38ccf1fb36cc894d6df87ce8912680c10b62",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b81096e70e5687ad7414e18d870d8a859d7e78ce.png": "b99b9add472c37ebf9e2a2e8575a418336c136cab7563c6124a34ac8e0c3d8bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd462c5c1024d2c2cbeeafd8dc8948d57c2dc049.png": "7074821e3d159a963b6d8e91621af18c86f0bf1040c5013133e862a41f554fd0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/01a73af439f7e04028aa4505181012a399dc4cc0.png": "9de49421a342ff172918ac526e05a0d3d4969e3d23a0968b8f94f4fd7fb1b7fb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fddd4b2eb261b6c9fc297dc2d56ec5818dca485.png": "37e70e6311af8abfed2738d3de8926ba068ee70d17f9d5a1c0c51ca550971b6d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/c/cca40fb1256c3613863b9dcde1790c0c78a152e3.png": "5cd068d2787c2b81dfe48598fe1f5fc216fc4f7e01525afaab9c4e9a4c03ec8a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8b94ba78354aca7464107fac1fd08390158216c0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              250,
+              94,
+              410,
+              118
+            ],
+            "text": "EXAMPLE_SECRET",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              96,
+              563,
+              116
+            ],
+            "text": "example-secret-id",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "34fb4e5e8ab4b5591f6f886bc2ca20209a8622ab559ddc7e3b680226a049c6d9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/015d8fa0d2e63b29aae613eb07887f909deaf97b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              55,
+              156,
+              275,
+              182
+            ],
+            "text": "EXAMPLE_SECRET",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "9ba173c825e2e07baa2ee4a694f004f93d225b3e4d0716037d0f934d0c7b57f4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6ea6a8b540bda035890832541cf5b208cc11c851.png": {
+        "labels": [
+          {
+            "rectangle": [
+              31,
+              43,
+              125,
+              66
+            ],
+            "text": "Example Directory",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              255,
+              241,
+              312,
+              257
+            ],
+            "text": "Example",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              254,
+              263,
+              405,
+              282
+            ],
+            "text": "example-tenant-id",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              255,
+              292,
+              368,
+              314
+            ],
+            "text": "example.com",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "3afe094a1007efc97eea77e4e1f325c3ba5433ac16e7c5b66f3437348eed7422"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c188ed18e5c535a7917d8882540c90f8efdcbb0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              58,
+              111,
+              250,
+              131
+            ],
+            "text": "example-client-id",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              56,
+              153,
+              264,
+              176
+            ],
+            "text": "example-subscription-id",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              57,
+              193,
+              268,
+              218
+            ],
+            "text": "example-tenant-id",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "96ee94bd8e143b82b8fc51c28ed9b9c59416185b8fd788d91c889799b7800ca6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a35e8826484e7facac17f08dd84327f35eacbeff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              25,
+              235,
+              44
+            ],
+            "text": "Example",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f7f0ec35a0731430e9a294e8aad5d3c8b5c8935b8d01d2172e6eab2391be19ad"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aaa1148eacd4669455f37cf6fdfc179701c63955.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              25,
+              235,
+              44
+            ],
+            "text": "Example",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              10,
+              45,
+              138,
+              77
+            ],
+            "text": "Example Subscription",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              221,
+              42,
+              406,
+              65
+            ],
+            "text": "Example Subscription",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              13,
+              220,
+              124,
+              242
+            ],
+            "text": "Example Subscription",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "777f34fc2481f21c5a01c684233d2ec34e49903709b9fe5dd08bdd664479c24d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7cc5b8f9e3b0ae06f8636635a7a145d15e8625b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              100,
+              229,
+              120
+            ],
+            "text": "example-client-id",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              44,
+              146,
+              230,
+              168
+            ],
+            "text": "example-subscription-id",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              44,
+              190,
+              234,
+              212
+            ],
+            "text": "example-tenant-id",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "86a5379776604fc435ac2b7367f6a6aa93d7cbdc926c7ebc41072a4a38db6584"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b81096e70e5687ad7414e18d870d8a859d7e78ce.png": {
+        "labels": [
+          {
+            "rectangle": [
+              281,
+              181,
+              429,
+              199
+            ],
+            "text": "example-client-id",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              281,
+              198,
+              429,
+              216
+            ],
+            "text": "example-object-id",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              281,
+              215,
+              429,
+              233
+            ],
+            "text": "example-tenant-id",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              59,
+              26,
+              127,
+              44
+            ],
+            "text": "Example",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "4f7d493cd700f9eb2536cd4fed4e901ac6c4470169c39033881ae070b24f60eb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd462c5c1024d2c2cbeeafd8dc8948d57c2dc049.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              45,
+              129,
+              66
+            ],
+            "text": "Example Directory",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              58,
+              26,
+              126,
+              44
+            ],
+            "text": "Example",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "2cbfb83550f90ddb6a5b863521571ffd4fa0a63d25c71acf25842c6b928e43d9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/01a73af439f7e04028aa4505181012a399dc4cc0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              259,
+              266,
+              406,
+              288
+            ],
+            "text": "example-object-id",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              126,
+              25,
+              236,
+              45
+            ],
+            "text": "Example",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "c4b62968ae5c9ed9930be0de479f83db0e5694998696ae20ed1e4bbd1127c9be"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/c/cca40fb1256c3613863b9dcde1790c0c78a152e3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              205,
+              307,
+              221
+            ],
+            "text": "Accounts in this organizational directory only (Example - Single tenant)",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              58,
+              25,
+              126,
+              44
+            ],
+            "text": "Example",
+            "size": 9
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "46e3fbe69e51bf001dbfac9d3bec9596a97edd72c234af31cb19e645945194c5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed all prose and sixteen static screenshots; replaced visible and blurred client secret with EXAMPLE_SECRET, client/object/tenant/subscription IDs with synthetic labels, account names and domains; preserved Azure registration, single-tenant choice, Contributor assignment and blindfold workflow; metadata stripped."
   },
   "70152": {
     "article_hash": "2692696b285b8c2360c5eaf62a2c6f66fca4cbd6f475c67d52f826005014d87c",
