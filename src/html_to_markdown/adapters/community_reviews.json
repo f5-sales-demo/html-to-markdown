@@ -506,7 +506,67 @@
   "69897": {
     "article_hash": "558ee526dd3c6b3f652cfc0272e486d69eb916befab0a2aaba7c7f5d69a8cb03",
     "decision": "include",
-    "reason": "Distributed Cloud Account Protection fraud investigation demonstration"
+    "reason": "Distributed Cloud Account Protection fraud investigation demonstration",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected fraud response overview and screenshot; browser identity removed and user, IP, device fingerprint and ASN replaced with synthetic examples while risk and fraud indicators retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b9786e2a432c9612be36eaa9bd122664a0a5aec.jpeg": "ca1b00d9f1886506d347b4daf4fb573a12767c958073d8e57a2b42297208e9db"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b9786e2a432c9612be36eaa9bd122664a0a5aec.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            1280,
+            52
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              896,
+              303,
+              990,
+              321
+            ],
+            "text": "example-device",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              902,
+              323,
+              988,
+              341
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              896,
+              343,
+              990,
+              381
+            ],
+            "text": "AS64496",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              217,
+              333,
+              491,
+              355
+            ],
+            "text": "example-user",
+            "size": 12
+          }
+        ],
+        "output_sha256": "fce00cdcba1bb4560306da8c230502fb2820f63c02dfe7a9c021adff962cf342"
+      }
+    }
   },
   "69940": {
     "article_hash": "ec2e7599ff774c4820c05cf3747e708f5d44424bae5b1bf327e436de62786b61",
@@ -8754,6 +8814,111 @@
         "strip_metadata": true,
         "rectangles": [],
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
+  },
+  "74699": {
+    "article_hash": "f41cfb8aa4864ac03a62cfd2a08a42385f6f87f1cf5aef45010fad5946f3d545",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected complete Terraform module guide and three diagrams; deployment parameters contain names and definitions without secret values, site names made synthetic, architecture and sequence retain generic service relationships",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/5c487916f956335a2b4b5806a39c6bba1638b81c.jpeg": "11018cfaaa76b7984065e077cb23800b4b428de9e8721b350bec2d9151dbb445",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd66b672f7630d590075e4d60f5533210c2c5110.png": "f83e7b833f8ef1e5d8f11d9d3b027eb7f30e66329b04ffcc629e847ce9b613f6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/df9c526b3f0e28d0927fc41b0576c091d2570abc.png": "8c3c1a137a33b3d7065aa431befc1c98a5fd1bdc611b778878a38ef8e973736f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd66b672f7630d590075e4d60f5533210c2c5110.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              603,
+              422,
+              702,
+              458
+            ],
+            "text": "example-1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              603,
+              495,
+              702,
+              530
+            ],
+            "text": "example-2",
+            "size": 14
+          }
+        ],
+        "output_sha256": "f6a830ce510971518255ddf06596a1c95264da98aadc4ee669ef1524c53c3f95"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/5c487916f956335a2b4b5806a39c6bba1638b81c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4313ed35ea12d00d0ef516c69992eef9bd401d64e00c9430c8d7f661caa8d5de"
+      }
+    }
+  },
+  "74746": {
+    "article_hash": "e9736f3da8169706d67ba94540fa26924d6cbd459b8703a2ec58d49f6f5b9fd2",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected partner exchange guide and three images; personal site prefixes made synthetic, numbered partner segments and private lab subnets demonstrate segregation without partner identities",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6aeae0bd6a69fdd896a4a17993b740b96c0b4f83.jpeg": "eb6a97de54713675a9e1e06727501645bf854d2545d01a5b7093490195c26e9d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76145eadbfa389e4f126ae1a4694dc327fa9cf80.png": "4896d340518fb25e86fe6c70c6b15294d99a50f802686d891daab518229c6460",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/d/0d5f4a761f3ee5d85e47c648c84ddb6cc0e5cefe.jpeg": "bd995f9140de4fc4b464f878253bc5356bf60ecab97055e8cab0b5bb8077a589"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6aeae0bd6a69fdd896a4a17993b740b96c0b4f83.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              162,
+              1200,
+              491,
+              1250
+            ],
+            "text": "example-equinix-aws",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              162,
+              1335,
+              491,
+              1385
+            ],
+            "text": "example-equinix-1",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              162,
+              1470,
+              491,
+              1520
+            ],
+            "text": "example-equinix-2",
+            "size": 23
+          }
+        ],
+        "output_sha256": "f1e5121beea65acfb585bc4d9419bd0ee8b42f007f00fc26eb28522009961e98"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76145eadbfa389e4f126ae1a4694dc327fa9cf80.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3850a17fdf1c4b78b7502c04ffdee4edbfe86bbebf35b282fd028cefa4f39412"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/d/0d5f4a761f3ee5d85e47c648c84ddb6cc0e5cefe.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5df88e05048694730344eca9957a2e99b49e135905349c86f86e39444155f07a"
       }
     }
   }
