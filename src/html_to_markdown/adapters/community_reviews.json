@@ -7250,7 +7250,68 @@
   "76484": {
     "article_hash": "62e49a3a95c4237464c91e0a832de5c8e9a83e2fd7abfd8bd8898307f5094f9c",
     "decision": "include",
-    "reason": "Distributed Cloud Bot Defense connector onboarding and BIG-IP integration walkthrough"
+    "reason": "Distributed Cloud Bot Defense connector onboarding and BIG-IP integration walkthrough",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Bot Defense connector guide and six images; destination IP and application hostname made synthetic and truncated browser domains removed; API key is masked and account, app and telemetry identifiers are fully redacted; profile and JavaScript insertion controls retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19082e2a95d9d6903bf8038d08cac363d2f445d0.png": "ae23c9c1665886c85f4271bba1f41e02e166f49247efaa4e28e08d0d26d2cfe7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bcfc8f1970649d21eb526da2fb3ee4c1ef3941f.png": "62dde3ae48ac4c9a8400f7fc83f88cc9e6827cb881a196a7ffdb509bd159a304",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50a8a628f5aed6c9aa46b43f62ffca4b2c2e585e.png": "3c235220c749d547e23e181f2ed166c5e717577962e464dd4c2add84cef83fa8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bdd243e864b09781c569e86f45234dd9578208fd.png": "a92edae7c4805e9c7ba0ace03f14a8cc2b9f6cb7294f205fe4f1ef0ee500f41a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bec14606ff2531e9261d58cf4713bdb970d9cdce.png": "71909be2b1737b52b389a825ad1d9b999fc947906cfa52adc24d045e1d86c995",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e05c5db29dcc7cda0ba488bede532e6d2ee4b78e.png": "d4c227e7f819e93be7c826f63f2762bb8074d185a27db3cf5224f37a23904df7"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bcfc8f1970649d21eb526da2fb3ee4c1ef3941f.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              465,
+              309,
+              750,
+              350
+            ],
+            "text": "192.0.2.100:443",
+            "size": 26
+          }
+        ],
+        "output_sha256": "cf24a1c7c323111817fe04ba93067ee5a5a4ff918f6cd61ce365146ed87fd683"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bdd243e864b09781c569e86f45234dd9578208fd.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              255,
+              955,
+              510,
+              1009
+            ],
+            "text": "app.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "ed2dff9d93030aab0de3880ffcd45ca6c532520e53f22d1e76801c8b1c47e745"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bec14606ff2531e9261d58cf4713bdb970d9cdce.png": {
+        "rectangles": [
+          [
+            107,
+            129,
+            188,
+            288
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "018d7bf39750a95906e90c4a23a113d51b319b16d85973c973aaac48c61c5431"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50a8a628f5aed6c9aa46b43f62ffca4b2c2e585e.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ea15f8a009ef262504dc8c964583f971c86b4d09f5219ba5455b3f1880b0e18c"
+      }
+    }
   },
   "76488": {
     "article_hash": "93e68a9316813459d5c20efda6b33273619ab919214a87b8a60436dd5c36d3ae",
