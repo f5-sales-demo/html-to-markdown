@@ -1346,6 +1346,16 @@
   "70649": {
     "article_hash": "fdb9319965df35711d275a8b93bee8483e708d5526d37184dd385f93360b5e6c",
     "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": {
+        "output_sha256": "6397e9dd946cfaff0016ad9821e11bd5c8126c2496b5ce8100b74f6595128be9",
+        "rectangles": [],
+        "strip_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a0ae5378702f52b0375d8abd4d8a8386fa07cd3.png": {
+        "output_sha256": "9d81b1a75dd794178ae09e234d5dda5099a196b7e0d23a3ffba3a4e78ebade44",
+        "rectangles": [],
+        "strip_metadata": true
+      },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/6/a63b0380bea75cf43b914a9bcfaa12a02b41f97e.jpeg": {
         "labels": [
           {
@@ -2721,6 +2731,11 @@
       "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3137655d9601ae15cb7130b83a741167adde0ec.gif": {
         "output_sha256": "385f3a9523b6a9284c9b95b151e31d7d8d36f7c7874e8ca0fea70a9c77608a12",
         "strip_gif_metadata": true
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/6/b6ad55db758e0af6164e91c38a6a2314526c885c.png": {
+        "output_sha256": "9eb838ac6d9ba7bdbeef1981c354046d2bfbb4a9743b59de361f8bf2d07d6020",
+        "rectangles": [],
+        "strip_metadata": true
       }
     },
     "assets": {
@@ -6847,6 +6862,11 @@
   "76721": {
     "article_hash": "185355b54346d60578d47d13267be9f66e448236502daeb50b0daa7ce8434e69",
     "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/930add37bc67b947518987908014ef21349f6916.png": {
+        "output_sha256": "32f117393a4443b4f8ae9e1225b0ca1c3bb88dbb4e55f3b63d61e4d0bdd30660",
+        "rectangles": [],
+        "strip_metadata": true
+      },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e0866de1c62e69439d9da087d49e51b3ac0e1164.png": {
         "labels": [
           {
