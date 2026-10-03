@@ -6395,7 +6395,153 @@
   "75442": {
     "article_hash": "b0f6d7418bd4e6ad46882ae4ccb6ac51910a16dda0e9bdffca16985be3d31016",
     "decision": "include",
-    "reason": "Distributed Cloud Web App Scanning restricted by XC service policy and AWS security group"
+    "reason": "Distributed Cloud Web App Scanning restricted by XC service policy and AWS security group",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected restricted scanning guide and six images; personal host and cloud resource labels replaced with synthetic examples, operational account ARN already fully redacted; published scanning and Regional Edge source ranges retained as cited service allowlist data",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/32b834566e3430f1ab350de7bae6fe12a7959db9.png": "ebdd47d1851ba6589d7a58424e77d9b82d809b12c4e3e517878ee818e0e1cdce",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c46b543a1890831c7fadc037ff39c37b9fc1a1c.png": "1175513199bddfd1fac4f8be53908012e17712ebf5716b01c922247f0b691876",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c68b053f28d8d621a7c6915c27587f3200f12bc4.png": "e1376662c52461ee5b9dcff768d426ad887ff2b96b88a066dcdd33665dfe7868",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d212ccf5522518f423e1bdea266b77be9ba65fe1.png": "7de49ee3076b23a84e05650c536d505684b022b3fdb119e970e4add7972098b9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76491e1e277b1d5a704423f582f4ee92c129030c.png": "428bca6f9dc571eef8c088367deeac5701319880023ab96c74ac2a4786cf5ea7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f193ceab2d02622d7501d91ac44d58c56b82950b.png": "7484d8624dab8f7e69b52cf1efc4b73d18309af7171883b82d0f03b2526f58d2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/32b834566e3430f1ab350de7bae6fe12a7959db9.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              140,
+              51,
+              280,
+              77
+            ],
+            "text": "192.0.2.10/32",
+            "size": 14
+          }
+        ],
+        "output_sha256": "6ac367029835e04f8d384a223b9230453456dd45d2ec979435c463b1ab2e8949"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c68b053f28d8d621a7c6915c27587f3200f12bc4.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              480,
+              55,
+              653,
+              83
+            ],
+            "text": "example-prefix-list",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              263,
+              94,
+              577,
+              131
+            ],
+            "text": "example-prefix-list",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              708,
+              218,
+              907,
+              249
+            ],
+            "text": "example-prefix-list",
+            "size": 14
+          }
+        ],
+        "output_sha256": "b6b85b7a615f23dc3b28fc49d2eef5f7baba624b63ceac1153eeec82f1afe2d6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d212ccf5522518f423e1bdea266b77be9ba65fe1.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              31,
+              83,
+              346,
+              118
+            ],
+            "text": "example-registration-app",
+            "size": 18
+          }
+        ],
+        "output_sha256": "2371633027b80fbfff72d4212d47de554a8db0ea6d81017e2762a8ccafa6febf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76491e1e277b1d5a704423f582f4ee92c129030c.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              28,
+              186,
+              204,
+              216
+            ],
+            "text": "example-rule-1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              28,
+              268,
+              204,
+              298
+            ],
+            "text": "example-rule-2",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              28,
+              368,
+              204,
+              398
+            ],
+            "text": "example-rule-3",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              775,
+              235,
+              894,
+              263
+            ],
+            "text": "192.0.2.10/32",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              774,
+              313,
+              919,
+              363
+            ],
+            "text": "example-prefix-list",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              774,
+              413,
+              919,
+              463
+            ],
+            "text": "example-prefix-list",
+            "size": 10
+          }
+        ],
+        "output_sha256": "cd994847f7b696c02fef2d375522aa701215a221dfc4c4c9e960d896e5e4aca4"
+      }
+    }
   },
   "75445": {
     "article_hash": "46f30e41f4bd408087c783f0014dc43b527407641d4466ca1517f51461e0d81e",
