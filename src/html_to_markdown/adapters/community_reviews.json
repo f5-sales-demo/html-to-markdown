@@ -36997,5 +36997,380 @@
         "output_sha256": "1544928abd458f2268ac6c1a1b104c3321478699af6fb0fd1042874fc4cb92ed"
       }
     }
+  },
+  "74016": {
+    "article_hash": "cbcf85ae35ef630dd1f5750a374d777e98020c3e6a57ae2455ab2d8b2d71cfa3",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and ten static screenshots; cookie values replaced with explicit synthetic original and modified tokens, request identity, network and location fields with documentation examples; browser bookmarks removed; preserved WAF blocking, HttpOnly and SameSite flags, cookie tampering response and violation; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0fe928ec24794e47f035771294698c300dcf741b.jpeg": "9988394f7d500a7c076b5fd239bf7d7689b0fc606d4c0f948e427b6eff621af6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2fd1138d4b050dda9e6ae92e81e02a5a387276c1.jpeg": "d2efb66c3c5a52c7feed0354bf210d4a0cf4bf2d2b1a5a339f23482e5f560e7a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d259230f732e95a4385f20fedcc3196a1af5445.jpeg": "e87f076196ed11986b5c5623373046982b8fd17f7ff718afa3a01e9d967844f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bf63bdb209e2f85587171ac0fe70e1bb39ae49d0.jpeg": "ba6e2a2f042db2ce5251a2e9893c0361b82366d2bba33edbce01975b2bcb900f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ecf7c043feff0be2966eee9c2013a36b61266577.jpeg": "5a1eeb72d5bf3ce9db35d93e9f8b6f3208e21b1bfbe79c6e509991a2aad5cd1b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc426630494bca5276c7650f0005dcdc39afbbc3.jpeg": "4c65c9d150fc7dea5874d46866aa8fb6477aace5a579d0117b78da140339aae3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/4/74e1430e9a294d9154857a849fcd99eb0d962e1b.jpeg": "ab5b598013ef9d93cd268ffe2379d983943ea56c972df7abf8109ef44bee9e27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/7/97b3f2534feaa78d5e873042d901588985b5a08a.jpeg": "ceb5797d889b875cd37b37fcf64fe71892b4381195b67e389319b95162eefaa7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cdf8c07a61313e94113f8ea4a5636edbc994da09.jpeg": "3fc6f5d761b1e37fd843f25e5b2bf52600184b89e1c5c7b69cbce39f707d2bac",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d601a684da7aa5bf11ad4c68c419a2a634ba291c.jpeg": "4f0002e3fa2697bfa7df766c4e47f8baaab9e103d3a1c94dae62a1d2fe2ab175"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0fe928ec24794e47f035771294698c300dcf741b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              566,
+              897,
+              730,
+              925
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              932,
+              735,
+              960
+            ],
+            "text": "Example City",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              966,
+              735,
+              997
+            ],
+            "text": "EX-01",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              1003,
+              620,
+              1033
+            ],
+            "text": "EX",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              1032,
+              947,
+              1063
+            ],
+            "text": "Example ISP (64496)",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              1167,
+              725,
+              1198
+            ],
+            "text": "demo-site",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              566,
+              1202,
+              725,
+              1233
+            ],
+            "text": "demo-site",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2295,
+              895,
+              2680,
+              926
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2294,
+              932,
+              2640,
+              963
+            ],
+            "text": "cookie.example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "e1a2e4adc6a1e18b2d3cd59b8eedc07fd92ce1e59631d7786831c842ad4e9916"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d259230f732e95a4385f20fedcc3196a1af5445.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              178,
+              31,
+              603,
+              74
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              553,
+              133,
+              1090,
+              182
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            199,
+            3826,
+            300
+          ]
+        ],
+        "output_sha256": "42b7d85ac66a24db89703289e40776c86d1b79852782d5be7546a4e353493063"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ecf7c043feff0be2966eee9c2013a36b61266577.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              95,
+              450,
+              610,
+              502
+            ],
+            "text": "cookie.example.com",
+            "size": 34
+          },
+          {
+            "rectangle": [
+              115,
+              700,
+              910,
+              756
+            ],
+            "text": "token=EXAMPLE_TOKEN_MODIFIED",
+            "size": 30
+          }
+        ],
+        "output_sha256": "f687554649bc9ba871d13b0424a28343d6d95c7a351a34a57140263224ebe252"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc426630494bca5276c7650f0005dcdc39afbbc3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1370,
+              480,
+              1720,
+              522
+            ],
+            "text": "cookie.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "4c88be8d16f68296ea67298b6553b6748d5a3f15fc2f78b33d4b398d6d1e1d05"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/4/74e1430e9a294d9154857a849fcd99eb0d962e1b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              175,
+              30,
+              605,
+              78
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              553,
+              133,
+              1100,
+              189
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1250,
+              963,
+              1800,
+              1008
+            ],
+            "text": "http://cookie.example.com",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              2600,
+              499,
+              3064,
+              546
+            ],
+            "text": "EXAMPLE_COOKIE",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2600,
+              549,
+              3064,
+              595
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2300,
+              1363,
+              2877,
+              1410
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 24
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            200,
+            3840,
+            300
+          ]
+        ],
+        "output_sha256": "430755e7fc71a837fed0608d8265b906c774bb00316654b3fcd429d41e01d4ef"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/7/97b3f2534feaa78d5e873042d901588985b5a08a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              343,
+              151,
+              930,
+              205
+            ],
+            "text": "http://cookie.example.com/get",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              350,
+              1409,
+              1060,
+              1468
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 30
+          }
+        ],
+        "output_sha256": "8469eb0031227c9ac9fc70d207c47112880527cdbbcf31dc0e633ae32202569e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cdf8c07a61313e94113f8ea4a5636edbc994da09.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1754,
+              588,
+              1970,
+              622
+            ],
+            "text": "192.0.2.20",
+            "size": 22
+          }
+        ],
+        "output_sha256": "9ee9c05573d5c15a37eeab236d6d0b231851f8b887b4cb216cde5f9a8d54d999"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d601a684da7aa5bf11ad4c68c419a2a634ba291c.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              174,
+              27,
+              605,
+              77
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              550,
+              132,
+              1100,
+              187
+            ],
+            "text": "cookie.example.com/set",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1938,
+              915,
+              2640,
+              961
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1938,
+              965,
+              2650,
+              1012
+            ],
+            "text": "EXAMPLE_COOKIE",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1938,
+              1015,
+              2650,
+              1062
+            ],
+            "text": "EXAMPLE_COOKIE",
+            "size": 24
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            199,
+            3838,
+            300
+          ]
+        ],
+        "output_sha256": "c50c9c879ea2fd92d894e8be16670bcf22c5f5af2eac287d8240a969b9293632"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2fd1138d4b050dda9e6ae92e81e02a5a387276c1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d814d1eefda9c75a8a5f0983735e6e3cbb84699b5b56baab31e6b2fc79d9b0b9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bf63bdb209e2f85587171ac0fe70e1bb39ae49d0.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f42f7ca322aecf6b7b7b263e9a880b6ad4a8448ed27afe27f616f9b1cb511762"
+      }
+    }
   }
 }
