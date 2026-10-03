@@ -44797,5 +44797,470 @@
         "output_sha256": "7d363e902c9c2c38dec4734e5a6b3086ee5f8fea045a67221cd1eebe80c0da6b"
       }
     }
+  },
+  "73145": {
+    "article_hash": "ba917ce32fdc8959da4eb4cd6026bfdb8602697106a246dce362f6e636817cde",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 21 static images. Preserved staging configuration, signature IDs, encoded URI and cookie attack inputs, public signature database and Swagger upstream, and allow/block results. Replaced screenshot demo domains, person-derived resource labels, client IP and location, request support IDs and sample API key with synthetic examples; removed browser profile portrait and image metadata. Hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/103b7623c32171cd95d38b7940ea80edf29479f1.jpeg": "4277f8ec3f9b5eee890dfbace717b50c1bb0f8f7589478f7b17bf2e51283c6df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/347b9c031c0c8d5d5242790fe24a561c2872728b.png": "dd4fba97cb59924cfe334453eecee436cd5a505bb82996607bff0f4d3117ba5f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a4da7ada3ddae7b01c3bee70aaffa466fecdd65.jpeg": "c181335ffecf5dca09e19c0b9c5840885d3e41981558fb46c985bfa426097523",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cfcae834133faed066bb3e05e4be37a7bf5516f.png": "6b9008aea746fb1fd70217e009406745e788d32b8cae207e08add5299005a60c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49e0ec1a0ee38e9658df88dbbc7cfe741e006d77.png": "36e11dd47e5a544e8393569101f4a8c75d07f164faf3346d2e9522ad03b24b12",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50569ecf3d9edabb887b6b5cd41c19b56bb89daa.png": "b2a029d911552c8d046c8f778f69f6d58dcc1a673e32718d4f6395fff535b7c3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/53c8d51c5afc4da3b532c7b2025df4e0d6b3dae3.png": "c23481ab376e49be9a932db7a3e377eed742ae70f5e663979e14daee748064f9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/605ec79237dee116ba4c7d61b0e87931883f48cf.png": "e066d569707c832c9fbfcf4b1a8c80c8c8ef61e18fd6731f89b280333f9e2d2a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/683782a9f70168fd846723146158b8b675a5ebc3.jpeg": "8e6166d16951289f90ee51f9dd39c635e525ca462399ab01921266d0ec9cb9a2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/84bf2a000fa0de9844696b5339a4c83ac4c1085f.jpeg": "cb983c34203941e469ea198fc15d71d5bdab46e42b4925d50187a6becc4aca5d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a296da06324e1b10b1a8fb306452d9f323ff59b5.png": "83ff6c57fd667ab5fbbe647f6600580add1fc10e8c106109bd3e69f93fd89554",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba61b30f201dba22e450caf3ada56fb4c98303c9.png": "03fc12b6c186836d55a3682b9bbd4f92f4b057fdcd9eaaf4f1d9166be186fde4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c9243cdb6b127b37ebcd568246f606411a21490c.png": "c216c6313d04840b81b5223ddf6f1034c0a762e98819cf8863ece336cae1f163",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dff34c2972a7490af01a2fdc19854a37484d1129.png": "9b78b9db5bfdec269301f39b50f334709af286c0a6b2d8eaedfa5506df82905a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ee6efe82d2cbb95a37525ab91415c7c0d5291f8a.jpeg": "b874603ec9847c081db364290ceccd1cd1a8a6f361fa0c0b642aad85dd3907a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52ac3055a6ebf84ea3cc5179b30970f7a7e8882a.png": "fe71c420f27c1f1a345a50fc816a9e718f913461128254f9bd082f48f36d6d71",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6baf912020804c69dc6db53983d6808d84794def.png": "bfc84a14ff967ef6d74212dd03ad3b9b0fc71dacd2ff9406a6afa07aabcc6502",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b5ec1d8e0371f043aca47ec7387350bfab3af90.png": "ba03e4133c6ce1eece2195e8822dc971c12d77cd6d4d1275d305b9056dd295c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/82fa039446585df4ad65bfaabb0b862e376f4cf1.jpeg": "e18398a4464984b15c4b360dbc406a9253142d1baa14b34ae2ec686ddce6bd15",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c298c31a07ec8dd21da992a1e654bac4599e6c9d.jpeg": "1aa60843d2edc445308b27bf678db2b7cab8cfbffe159f3407490a8f6b9766e7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fbecaab3a929365a097f612d29d2bb429105625b.jpeg": "ddc53ae4a7763683837e9dcc724e29ffc1bb35e8a25fda64978aa3419ea312f3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/103b7623c32171cd95d38b7940ea80edf29479f1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              300,
+              12,
+              2240,
+              56
+            ],
+            "text": "https://petstore.example.com//components/%21%28%28%29&&%21%7C%2A%7C%2A%7C/update/updateinternaluser.service.js",
+            "size": 26
+          }
+        ],
+        "output_sha256": "7c5e88969ff10505a280d4494a51b0327989a4c6b6ae3fbdd66b5a4be99691f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cfcae834133faed066bb3e05e4be37a7bf5516f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              540,
+              440,
+              700,
+              470
+            ],
+            "text": "demo-csd",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              540,
+              530,
+              700,
+              560
+            ],
+            "text": "demo-juice",
+            "size": 18
+          }
+        ],
+        "output_sha256": "46f4d66cd86091023f77c9533bfacd2ee69a7a20993c142141510c27b423f0f8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49e0ec1a0ee38e9658df88dbbc7cfe741e006d77.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1532,
+              309,
+              1728,
+              359
+            ],
+            "text": "petstore.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1532,
+              395,
+              1728,
+              447
+            ],
+            "text": "jbair.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1532,
+              483,
+              1728,
+              536
+            ],
+            "text": "mcn.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1532,
+              572,
+              1728,
+              626
+            ],
+            "text": "versions.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1532,
+              664,
+              1728,
+              716
+            ],
+            "text": "perroute.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "9be875ed6eb344dd738fbed34dfec5ce0570d8b76be9e59c8c2cb72f3f5ab61b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/683782a9f70168fd846723146158b8b675a5ebc3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              417,
+              1294,
+              614,
+              1344
+            ],
+            "text": "Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              706,
+              1294,
+              920,
+              1344
+            ],
+            "text": "192.0.2.10",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2162,
+              1284,
+              2398,
+              1355
+            ],
+            "text": "petstore.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "53af06803b399a81540fb035c2d288ab8f7fecafeb6e2536a68deb41fe0b234a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a296da06324e1b10b1a8fb306452d9f323ff59b5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              217,
+              14,
+              542,
+              48
+            ],
+            "text": "petstore.example.com/abc",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              191,
+              124,
+              593,
+              158
+            ],
+            "text": "EXAMPLE_REQUEST_ID_1",
+            "size": 20
+          }
+        ],
+        "output_sha256": "de701dc861370d34f4daf15965b8b6a50eca6f6f789220e5cafa43a3615a2ba3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c9243cdb6b127b37ebcd568246f606411a21490c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              222,
+              19,
+              548,
+              54
+            ],
+            "text": "petstore.example.com/abc",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              200,
+              128,
+              592,
+              163
+            ],
+            "text": "EXAMPLE_REQUEST_ID_2",
+            "size": 20
+          }
+        ],
+        "output_sha256": "5eaa0ed0e7cd167a099b6c366a3e015b9bc8b3a5ea835f338da1c27cb0c9827e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dff34c2972a7490af01a2fdc19854a37484d1129.png": {
+        "labels": [
+          {
+            "rectangle": [
+              207,
+              5,
+              665,
+              39
+            ],
+            "text": "petstore.example.com/abc",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1650,
+              350,
+              1785,
+              381
+            ],
+            "text": "EXAMPLE_KEY",
+            "size": 16
+          }
+        ],
+        "output_sha256": "8d80c2129e10f8b430094e6499c7b0132ce6a1026205fec18a0fa4ec93950a8c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ee6efe82d2cbb95a37525ab91415c7c0d5291f8a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              650,
+              912,
+              809,
+              948
+            ],
+            "text": "Example City",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              849,
+              912,
+              997,
+              948
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1838,
+              898,
+              2012,
+              974
+            ],
+            "text": "petstore.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              650,
+              1028,
+              809,
+              1066
+            ],
+            "text": "Example City",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              849,
+              1028,
+              997,
+              1066
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1838,
+              1020,
+              2012,
+              1076
+            ],
+            "text": "petstore.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              650,
+              1117,
+              809,
+              1156
+            ],
+            "text": "Example City",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              849,
+              1117,
+              997,
+              1156
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1838,
+              1108,
+              2012,
+              1168
+            ],
+            "text": "petstore.example.com",
+            "size": 15
+          }
+        ],
+        "output_sha256": "1c3a442a9f1ef5c2f5d1562dc606a008ccec54ba1e27afd0902432f5acc5668e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52ac3055a6ebf84ea3cc5179b30970f7a7e8882a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              955,
+              857,
+              1130,
+              915
+            ],
+            "text": "demo-vampi",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              955,
+              1002,
+              1130,
+              1053
+            ],
+            "text": "demo-waf",
+            "size": 30
+          }
+        ],
+        "output_sha256": "715a23031e52d3b9e9e4365c1338af585cd5400c568054cd931712b2ba2d7f6c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6baf912020804c69dc6db53983d6808d84794def.png": {
+        "labels": [
+          {
+            "rectangle": [
+              726,
+              657,
+              951,
+              690
+            ],
+            "text": "petstore.example.com",
+            "size": 19
+          }
+        ],
+        "output_sha256": "6c096ba857fb2f12a4e940248f5f0ad2af09ef17beebe163cd96b65c73eecdbf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/82fa039446585df4ad65bfaabb0b862e376f4cf1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              787,
+              1076,
+              974,
+              1110
+            ],
+            "text": "Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1040,
+              1076,
+              1220,
+              1110
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2253,
+              1058,
+              2414,
+              1125
+            ],
+            "text": "petstore.example.com",
+            "size": 13
+          }
+        ],
+        "output_sha256": "7372a59a657e21e0ed6235f634d710407abf378a90b86c54dbebfb015c668a4c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fbecaab3a929365a097f612d29d2bb429105625b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              210,
+              17,
+              500,
+              53
+            ],
+            "text": "petstore.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [
+          [
+            2060,
+            8,
+            2105,
+            60
+          ]
+        ],
+        "output_sha256": "4bd9b7a15d37dd73a05d88ac7a826e5eb9cd1181c45909738aa498ee8132ecb6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/347b9c031c0c8d5d5242790fe24a561c2872728b.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "13ae934627ce67f50ce015f5270a1b3338627fb5f61e9bcfc65f4ddce78db606"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a4da7ada3ddae7b01c3bee70aaffa466fecdd65.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "bf61d9cca20296718146c2ca52fc50db99a955e439eafb025aa4dab56a0f953f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/53c8d51c5afc4da3b532c7b2025df4e0d6b3dae3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cd5519e89a7748aecc125dc8dfc333861686b27822b8e6d5850ff818d371e484"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/605ec79237dee116ba4c7d61b0e87931883f48cf.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9cbe25034d0d3016368099501701182bdff8f3ae508441a9e04d339718b98d67"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/84bf2a000fa0de9844696b5339a4c83ac4c1085f.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3877836768db0f88ead5d0f4f47c10b24a25a66d1059f1939d2280771aed7df1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba61b30f201dba22e450caf3ada56fb4c98303c9.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8256e8a20bc05c3b8814718ace09602c9eae1ca734a2cb6c03aa2971c1986fa6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c298c31a07ec8dd21da992a1e654bac4599e6c9d.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0b732eaf291b8bcbdbc5a76b754f3270699f1a6c0ed778c9a14c520e91de5d98"
+      }
+    }
   }
 }
