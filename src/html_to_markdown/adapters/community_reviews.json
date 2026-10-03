@@ -12472,5 +12472,67 @@
         "output_sha256": "2364fb0724b911e457b98343b5dce540b8b3f83b4558cee71fb070e3aed593f7"
       }
     }
+  },
+  "69206": {
+    "article_hash": "3e214e4b83ce8ac2b9c29211353747417d99a11f6b5159fcc5ecb85e89615082",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected platform ecosystem guide and all five images; generic SSO login and encrypted sharing diagrams have no entered data, incident title made synthetic and assigned service already redacted; contact is a public organizational program mailbox",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fb1f36560cf0e7140dcb3846280c7bd02c3f3c2.png": "07e448505a68565e47230ce0504e98a1b701835406b48a6fe5c13bbf0b1b9e9a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9f7efeb6278aa04ca02fe09123ad8b8de5d20722.png": "486202e70c9a6a338465cfecd5c515b0b2209c37fc5afd575f408145dc14130d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0ffb7b417412f707e282b0c1ae58d2987392c7e.png": "9d79fb044a3713c27923a0d9f590f9b70e0694a2678f8f603afaab10f08eb457",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d44cbc64263a50801ca2d83c36ede898c754d39d.jpeg": "821cbd5f7ab8d5ed07bb89b3a56c15d04a3c64f887180a3d940a0b9077a43f31",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f68f01727dcd97daed0f10098e9376ba5485aff1.png": "be4b0ff1ff5e740ee2d0baf54ae84eb8240e638804ff0c6879dc158722df1cb6"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9f7efeb6278aa04ca02fe09123ad8b8de5d20722.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              313,
+              337,
+              749,
+              370
+            ],
+            "text": "[FIRING:1] example-minor (system example)",
+            "size": 14
+          }
+        ],
+        "output_sha256": "9ac06160ce39ca4eb829ebfa37b4c37cc78475922fb46ab72da53c08166d378b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d44cbc64263a50801ca2d83c36ede898c754d39d.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1e816963c24ffbb67fdd380c170a432237e77b8e9c9b1bfa13d06d24afca3323"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f68f01727dcd97daed0f10098e9376ba5485aff1.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7394d43f26833c5b4f696022c953720c1427ec7d8ccb3a5503061533e3725dfc"
+      }
+    }
+  },
+  "69431": {
+    "article_hash": "def61a6cab8f128eccc9c3bdc441a31e61e024c7c2a96a7cce39c2d55e7b14dd",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected ingress and egress guide, complete JSON examples and four images; connector names describe an illustrative fleet, no tenant URL or user identity displayed; public DNS resolver routes and split default prefixes are essential routing examples without customer data",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c642bda24b6a5ec10db8a24daf7802357af4f587.png": "9684d858b222c67b61ef987c84254c96e67682469998c1f27cb690bc5a20cda5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bee58cc324ab8108aaaa26fe4d801e5b8eeb6c09.png": "47188665e9e843d10ab13bdb10049d39d3486163361db865d4cc76840a660163",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/0947d5acaa719302ecacfe36c07d68c86570cb04.png": "b07eec237ff3f20d078b76582e00ae6fe71fbaa71d2196f41d410495300065ad"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
