@@ -4059,7 +4059,139 @@
   "73082": {
     "article_hash": "abfbaff67aed582a68d008bb87b3c3f97a3d56bda2da188e09ad4d1dd8e88653",
     "decision": "include",
-    "reason": "Policy Supervisor onboarding and policy conversion for Distributed Cloud WAAP"
+    "reason": "Policy Supervisor onboarding and policy conversion for Distributed Cloud WAAP",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected distributed WAF policy lifecycle guide, code and six images; personal namespace, operational UUIDs and load balancer label made synthetic, presenter attribution removed; conversion controls, feature report and generic policy JSON retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/13bd21c8d7977d470a460d2b64812e76301831e3.png": "4aa88375796c4fd310d92905e21d26f1d194787721c1b93eb4c828006c61e5cc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/453690a4e429a242cd498f1d165dc17b119b872c.png": "2442967a026dbed515e6586e15d308388609d96448e74fe00c428d909e81073b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c1df1ae31096760a11712bd9951742c1ec1042dc.png": "0fed3fb91d4208cc13926de286cd96f2adf7290a61782efb1339469b23296d21",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/9/193d59b0054fd2482443550ef54336bd04392a6a.png": "4567e45147a7272ab4d457a99b2fb3f27a54307a2ae61bbe6996fd622a6cc247",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/a/9ac9a95d3e523946f064c173fb1ce60838db854a.png": "2bf4c5c69fd10f943f4cec689004e4d5cd881d2b3c703045f1d993155cb3397c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/c/ac7a6cba6e60984e00b6a2369e8d8b34e8766a6f.jpeg": "e7ba242ceb5ac8b61e5cf8074feb119f5556060cbc04f554bfc6a36c2cca5009"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/453690a4e429a242cd498f1d165dc17b119b872c.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              492,
+              234,
+              706,
+              265
+            ],
+            "text": "example-load-balancer",
+            "size": 14
+          }
+        ],
+        "output_sha256": "76d31a81d781282dc6fc4c20cb3a65cf19909be95ea24c738adfdfbcde524323"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c1df1ae31096760a11712bd9951742c1ec1042dc.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              106,
+              229,
+              132
+            ],
+            "text": "Example Namespace",
+            "size": 14
+          }
+        ],
+        "output_sha256": "01c502bff8b8a9d9ef907dfd2d4306fa7b6694d77da7d004fcad16f18a01be95"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/9/193d59b0054fd2482443550ef54336bd04392a6a.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              106,
+              229,
+              132
+            ],
+            "text": "Example Namespace",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              221,
+              989,
+              253
+            ],
+            "text": "example-policy-1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              269,
+              989,
+              301
+            ],
+            "text": "example-policy-2",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              318,
+              989,
+              350
+            ],
+            "text": "example-policy-3",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              367,
+              989,
+              399
+            ],
+            "text": "example-policy-4",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              415,
+              989,
+              447
+            ],
+            "text": "example-policy-5",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              697,
+              465,
+              989,
+              497
+            ],
+            "text": "example-policy-6",
+            "size": 14
+          }
+        ],
+        "output_sha256": "61b9b65bc004edb8f2c8ca6e4f55990cd88b592a3f22f61600565e300699f474"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/c/ac7a6cba6e60984e00b6a2369e8d8b34e8766a6f.jpeg": {
+        "rectangles": [
+          [
+            120,
+            544,
+            472,
+            615
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "a2b6d05f335b7c015ad1f132aac6ccb2785dfb0e12898809da407653e21c4c86"
+      }
+    }
   },
   "73259": {
     "article_hash": "771d4cdc949753dbf3e3825b305501c857109362a4c9a873f43dc9c3f1a58a0b",
@@ -12495,13 +12627,13 @@
               313,
               337,
               749,
-              370
+              360
             ],
             "text": "[FIRING:1] example-minor (system example)",
             "size": 14
           }
         ],
-        "output_sha256": "9ac06160ce39ca4eb829ebfa37b4c37cc78475922fb46ab72da53c08166d378b"
+        "output_sha256": "a27314c6c94f2d16e505acf9edb53da9d80ba8313c0a7913f94b259c8da3e28f"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d44cbc64263a50801ca2d83c36ede898c754d39d.jpeg": {
         "strip_metadata": true,
