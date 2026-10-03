@@ -17638,5 +17638,175 @@
         "output_sha256": "d1bfa43a645d048f7b55a74773b2a47f5a71270659f8a829660970f9c02cffd6"
       }
     }
+  },
+  "74283": {
+    "article_hash": "a55f3ab33e80f59b7989f3643ea67d6cf93ee2f8cf32546e31ded84c733ebf8e",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and six images individually reviewed. Article explicitly uses public RFCs, sports rules and a public film review as RAG inputs; quoted names are public works or cited authors, not customer identities. Notebook host and personal bookmarks normalized/removed. Full questions, generated answers, code, topology, NFS mount placeholder and evaluation discussion retained. No confidential enterprise document, credential or user payload; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50984572480f8d3ec2cef3815c5c2db0ad423b1c.png": "5f25b2712a0da86f4e90b2b4377b3d1ccb891dc740060ceec73122fa315b05ad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5defa8c0d1e4b9723e6bfff2e4bd9fa7f0b37b40.png": "38705164c5b1ae774c4ed27556a010e4a94ecfd6b38f6f833e8004c73fec1bbe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/90e1e9ce9fc4db6bfd83bfc841a6bc9d176362ff.jpeg": "1dd13c5a399044fccb9ebe5d8329300aef53a203cf24361561f78047f4ac0ef3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aee295aa4693c76767eaf5ef7b7a8eb812549b02.jpeg": "4aff7605ddc151d6592e93e124a717f8f625c6724ad3a89ae3d7580fe7c017d9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cab4897bee450d0780e155fafb9326f417f8ba49.jpeg": "93d24c7fef2a0922f3ff3f6da5d5bd50e2abd724ad78e0118313490e77896b5d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b17bec576b5af2e8d938d252a5a7fb68ee1e911.png": "08115701b94ad511173d47df7c3ac7c10f73fd1ceb44ca9c43237419068c6386"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/90e1e9ce9fc4db6bfd83bfc841a6bc9d176362ff.jpeg": {
+        "rectangles": [
+          [
+            0,
+            35,
+            1368,
+            76
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              3,
+              5,
+              370,
+              33
+            ],
+            "text": "http://notebook.example.com:8888",
+            "size": 12
+          }
+        ],
+        "output_sha256": "6a92ee56b5985e3c1cdd3cb8ed637d3924072eb106cbbcf8e3a27fac990c06f6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aee295aa4693c76767eaf5ef7b7a8eb812549b02.jpeg": {
+        "rectangles": [
+          [
+            0,
+            48,
+            1283,
+            85
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              55,
+              9,
+              376,
+              42
+            ],
+            "text": "http://notebook.example.com:8888",
+            "size": 12
+          }
+        ],
+        "output_sha256": "f09e76d79c7a01c9ade8929b3a67389fca7ff862447b71320047e3774792a49e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cab4897bee450d0780e155fafb9326f417f8ba49.jpeg": {
+        "rectangles": [
+          [
+            0,
+            48,
+            1283,
+            85
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              55,
+              9,
+              376,
+              42
+            ],
+            "text": "http://notebook.example.com:8888",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3494acab40acdaa66dff1218f63ddf0ac0a21296cdd2afef5b0e4b83da674eff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50984572480f8d3ec2cef3815c5c2db0ad423b1c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d8914acf594663c4aad7c87a89e492d8234eee06648ac67cece8abf495048709"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5defa8c0d1e4b9723e6bfff2e4bd9fa7f0b37b40.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f4bd6bed1e0caff80ac889484360736867f8f368adf73c0382c2808eb8fa0b60"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b17bec576b5af2e8d938d252a5a7fb68ee1e911.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e09939c0a7ed6cfeadf26a49e27df7018fe50c407bd144be3497598be01a16e2"
+      }
+    }
+  },
+  "74235": {
+    "article_hash": "ab8e6b74c6ed97028925af098f1cdf340229f37e10ff6f485aa6b05269748312",
+    "decision": "include",
+    "reason": "Distributed Cloud CE lifecycle automation with Ansible is the primary subject",
+    "text_replacements": {
+      "nodes": {
+        "a5ac2adea03dba87fc55758b7cb26e9e62d9f916967be41984a318efa2a95e04": "{\n  \"rhel_location\": \"https://vesio.blob.core.windows.net/releases/rhel/9/x86_64/images/vmware/rhel-9.2023.29-20231212012955-single-nic.ova\",\n  \"xc_api_credential\": \"_____________________________________\",\n  \"xc_namespace\": \"example-automation\",\n  \"xc_console_host\": \"example-corp\",\n  \"xc_user\": \"admin\",\n  \"xc_pass\": \"EXAMPLE_PASS\",\n  \"vcenter_hostname\": \"{{ ansible_host }}\",\n  \"vcenter_username\": \"{{ ansible_env.ANSIBLE_NET_USERNAME }}\",\n  \"vcenter_password\": \"{{ ansible_env.ANSIBLE_NET_PASSWORD }}\",\n  \"vcenter_validate_certs\": false,\n  \"datacenter_name\": \"Example-DC\",\n  \"cluster_name\": \"Example-Cluster\",\n  \"datastore\": \"TrueNAS-SSD\",\n  \"dvs_switch_name\": \"DSC-DVS\",\n  \"dns_name_servers\": [\n    \"192.168.192.20\",\n    \"192.168.192.1\"\n  ],\n  \"dns_name_search\": [\n    \"example.local\",\n    \"localdomain\"\n  ],\n  \"ntp_servers\": [\n    \"0.pool.ntp.org\",\n    \"1.pool.ntp.org\",\n    \"2.pool.ntp.org\"\n  ],\n  \"domain_fqdn\": \"example.local\",\n  \"DVS_Name\": \"{{dvs_switch_name}}\",\n  \"Internal_Network\": \"DVS-Server-vLan\",\n  \"External_Network\": \"DVS-DMZ-vLan\",\n  \"resource_pool_name\": \"Lab-XC\",\n  \"waiting_period\": 2,\n  \"temp_download_location\": \"/tmp/xc-ova-download.ova\",\n  \"xc_ova_builds\": [\n    {\n      \"hostname\": \"xc-automation-rhel-demo\",\n      \"tmpl_name\": \"xc-automation-rhel-demo\",\n      \"admin_password\": \"EXAMPLE_PASS\",\n      \"cluster_name\": \"xc-automation-cluster-rhel-demo\",\n      \"dhcp\": \"no\",\n      \"external_ip\": \"172.16.192.170\",\n      \"external_ip_subnet_prefix\": \"24\",\n      \"external_ip_gw\": \"172.16.192.1\",\n      \"external_ip_route\": \"0.0.0.0/0\",\n      \"internal_ip\": \"192.168.192.170\",\n      \"internal_ip_subnet_prefix\": \"22\",\n      \"internal_ip_gw\": \"192.168.192.1\",\n      \"certified_hw\": \"vmware-regular-nic-voltmesh\",\n      \"latitude\": \"0\",\n      \"longitude\": \"0\",\n      \"build_count\": 3,\n      \"nic_config\": \"rhel-multi\"\n    }\n  ]\n}\n"
+      },
+      "output_sha256": "4351711618c49ee3bc99e7883dc404d7d55b9b56f8cb30acf44464dd889126b1"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose, configuration JSON and seven screenshots individually reviewed. Entered admin passwords replaced with EXAMPLE_PASS; personal namespace, environment names, DNS domain, coordinates and vCenter identity normalized. API credential already blank and template variables preserved. Public OVA/registry URLs, code source, private lab routing addresses, full variable schema and Ansible setup/workflow preserved. No original secrets or customer data; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/34afa047013d8fd19df354d927ba752055a64869.png": "ca1ddac92283679d527a0036befa391f06297b5ca2946df37c3450b68c8153e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc6b2b4149c4cab4cb384d940360b0e71408f4cb.png": "0848bf81e33e36839024bbdf710215d36e7c09b66ba847614e045829b7659e95",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f98874aac8d55d6f8750c702f2801fa7ab80b09d.png": "64b0e22e1d5e5d5be1fdbc156135aa2a5860ebd608e7606a3071cce6114e1758",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/3/0307c6cd6f712bb2288805943b0df4974fbe5390.png": "a3a53bddc11340f30214a0b3c3239b74197e89d73973ba0c87f95f09c5ea91db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/819ed04bcc4d3faf67f8af492f55003c498ff66d.png": "7a0a686db4ba68fb3102f299055f07478ddaf84dcbbe6e3dfd8affbd0f93b942",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/d/9d2ef92ad4d249a6c2b8f4b4e050f2f95b2139c3.png": "1438beff18c601b16add4feab89eb855b27e1a57b9f843dd366e71a34ea971e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2eb2127f0ac20906c3cab1ec7775aa51bf92c43.png": "f6d58c70996040d3df3a91c7a3e942f6bddbf5907d65edd42cea9b4c67563499"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/34afa047013d8fd19df354d927ba752055a64869.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1081,
+              179,
+              1281,
+              207
+            ],
+            "text": "admin@example.local",
+            "size": 14
+          }
+        ],
+        "output_sha256": "aa950fea431ae86d29398df5e653cede63b94beb254262646e638235ec78a2c3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc6b2b4149c4cab4cb384d940360b0e71408f4cb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              243,
+              565,
+              438,
+              593
+            ],
+            "text": "\"example-automation\",",
+            "size": 13
+          }
+        ],
+        "output_sha256": "63964ed68bfe8a824a6e1b2899f62e7aa43eba5943ef9aa57b59327d923825d8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2eb2127f0ac20906c3cab1ec7775aa51bf92c43.png": {
+        "labels": [
+          {
+            "rectangle": [
+              199,
+              402,
+              458,
+              430
+            ],
+            "text": "vcenter.example.local",
+            "size": 14
+          }
+        ],
+        "output_sha256": "81dd7c77aa8afb86b1c4ad5d0b53094ffbca12c122154a2cf5a89014b1664eeb"
+      }
+    }
   }
 }
