@@ -43218,5 +43218,172 @@
         "output_sha256": "0e87073f9b6bcd2b337b077385e3a09bc7275687f46ddcdcd139dbd30663622c"
       }
     }
+  },
+  "76321": {
+    "article_hash": "0ecfe75bb8d7b562dc26a0a5ea00af4f6333d28787cbd06ba3557d253ca44408",
+    "decision": "include",
+    "reason": "Distributed Cloud Global Log Receiver integration with ELK",
+    "text_replacements": {
+      "nodes": {
+        "b622927874133ad448a43673130d548cc9845cb139e893feb541da1f6b46e785": "elastic/EXAMPLE_SECRET"
+      },
+      "output_sha256": "1294e5baf1b5abc96e26b197b9e8f3e65d385f6347091f6777bd0363bd05236d"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and ten static images; synthetic receiver IP, test identifiers and password placeholders; retained log field names, attack signatures, aggregate charts, Logstash input/filter/output syntax and test success; receiver log sample contains only synthetic connection-test content; no user records; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/17ca3b894c9397b7f8bf8ddf2d3bac3e79faec1b.jpeg": "f8a32d1f382a96513c790fc93fdccbe114e0f326fe4c4cd333d0f64ee2307c1e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2c22e998025963daea30d5802db96332f888a16e.jpeg": "0f5087ebd261a2f277aee85cd37adaf8a95d1108db631bdb0978eccfa3b00866",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3b4a40a811b4f4dc0370d462092cee0d141ffaf7.png": "29ef38a7bf4d6e427db0434186cecd592289aab5bf7b50c213d9e955c5c2edad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5735b073a6c91986b1f7359701d022234a03e25f.png": "00c900983e27e723657bb3ceee303470166aee614a96e29f14379f5e2dbe4090",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64273821d6819e540cb7b47245ac616fbe9556e4.png": "178819dfbe83b606a7fb5342a792deb667bf3e117eb8027094713f700642d5dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e4ede53f4c01345ea9d1ef301a181f44aa944cba.png": "ab02f5710d9cd7bdf39e62a3aad9b8a2561a582c31251fe2ab3d063902bdcfae",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ea1d4324e57006e33b816dff88ebfc759985d76e.png": "e8722b5471568e8833112b5a45f01675f2d08ec5d6912bfd8a4ffe7f31383261",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/9/291f9092349a6c81432ac814b8e00bebaec17ac1.jpeg": "e920aa80fc6c693b5c283b6fe435bc87f315a2c20a33c4b6354acc21f2eead95",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/46f22631718c0f32bacd05421059d46afc7ff5c0.jpeg": "e2d57404ca5b13e7a3e5bf0910c52baae548cea5a352016917ad76951228f980",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9c3a6c5ad8cb90eee0fff827b256dc5b460b1ef4.png": "92f41c05c56bc4e90fec2c8a5a4750a3642dc234527a9ea46a77155709044f1f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2c22e998025963daea30d5802db96332f888a16e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              397,
+              1010,
+              526,
+              1026
+            ],
+            "text": "192.0.2.20",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              279,
+              968,
+              524,
+              980
+            ],
+            "text": "uid=EXAMPLE_TEST_ID",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              279,
+              991,
+              524,
+              1003
+            ],
+            "text": "http://receiver.example.com",
+            "size": 6
+          }
+        ],
+        "output_sha256": "18e76ea2a6294d02c178dfd591bd4f8bd003698341094d6150841946dc47227e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5735b073a6c91986b1f7359701d022234a03e25f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1405,
+              1165,
+              1770,
+              1197
+            ],
+            "text": "http://192.0.2.20:8080",
+            "size": 20
+          }
+        ],
+        "output_sha256": "1a9a87d6dcb00fd65cac7eb35a65643faab7f44f528b336977c1adbce4bc6c6a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ea1d4324e57006e33b816dff88ebfc759985d76e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2770,
+              1398,
+              3000,
+              1442
+            ],
+            "text": "192.0.2.20",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2767,
+              758,
+              3448,
+              953
+            ],
+            "text": "{\"host\":\"localhost\",\"message\":\"connection test uid=EXAMPLE_TEST_ID\",\"service\":\"vector\",\"source_type\":\"demo_logs\",\"timestamp\":\"2025-06-17T13:40:20Z\"}",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              2767,
+              1040,
+              3448,
+              1140
+            ],
+            "text": "connection test for global_log_receiver uid=EXAMPLE_TEST_ID; test-message",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2006,
+              622,
+              2360,
+              665
+            ],
+            "text": "uid=EXAMPLE_TEST_ID",
+            "size": 18
+          }
+        ],
+        "output_sha256": "18944418fac69372e394f6b0e57b334870307208803dd303f8f55425d99752ee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/46f22631718c0f32bacd05421059d46afc7ff5c0.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              355,
+              586,
+              900,
+              627
+            ],
+            "text": "password => \"EXAMPLE_SECRET\"",
+            "size": 28
+          }
+        ],
+        "output_sha256": "8836bc47840b1c7ff47daffd5ba73813c9eb21024d18d166dc59f76c0fda8518"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/17ca3b894c9397b7f8bf8ddf2d3bac3e79faec1b.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ca30de49c5b7812330e63a6392de05149f5be81ce011c872cdcd25a09356439c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3b4a40a811b4f4dc0370d462092cee0d141ffaf7.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d1eb52f4f9ac636c3e5c838105417f5f75df172e4b05d9b7b82e1230d44cd7f0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64273821d6819e540cb7b47245ac616fbe9556e4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ece6d424031def43ddb0101d7693c32ca038210c3c681fc98166802549aebf4c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e4ede53f4c01345ea9d1ef301a181f44aa944cba.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "71fd754e6d3c0f098b41f74314fcfdd267b154770c93562c4e21dd99fb9433de"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/9/291f9092349a6c81432ac814b8e00bebaec17ac1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be0afd435244e2f6f7fcdee1ebfa8c9404a367c589dbfa4facc262dfbcc9d642"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9c3a6c5ad8cb90eee0fff827b256dc5b460b1ef4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ddc1398d0de1841d88e0e8ab0306c2f9b250b0cdc20d11e81f6d4050c8933b43"
+      }
+    }
   }
 }
