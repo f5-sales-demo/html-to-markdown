@@ -30641,5 +30641,1322 @@
         "output_sha256": "cb1d8de64eed7e549db9a05fee0b9d6d22607b77968e96b34ff172e9c28673f7"
       }
     }
+  },
+  "77292": {
+    "article_hash": "7f7d8772a16f2cbf019e7321d497c5cd6862bfee63403298cfcb74ad611ed343",
+    "decision": "include",
+    "reason": "Distributed Cloud focused AI WAF risk-scoring mitigation walkthrough",
+    "text_replacements": {
+      "nodes": {
+        "7cae66e591004d1cc58d9f2b53479435ee16085d761a5bf1af67d1af4ededa41": "curl https://app.example.com/chat/completions \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer ' ${SQL_INJECTION}\" \\ -d \"{\\\"model\\\": \\\"mistral\\\", \\\"max_tokens\\\": 1, \\\"messages\\\": [{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"'any string will do!\\\"}]}\"\n",
+        "bc0f60c88129f2abf570e916843b168e41b88369d35113cbf417e34207d2013c": "curl https://app.example.com/chat/completions \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer ${VALID_TOKEN}\" \\ -d \"{\\\"model\\\": \\\"mistral\\\", \\\"max_tokens\\\": 1, \\\"messages\\\": [{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"'SELECT tokens > 500 or tokens > ethereum and IS NOT NULL--\\\"}]}\"\n"
+      },
+      "output_sha256": "81103a8791e735ce35af21971902bcf6b1f3994452a640bbff30705e1307782b"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and all nine images; synthetic demo host and visitor IP/city; opaque labels replace query fragments already obscured upstream; retained SQL query context, signature IDs, benign and malicious risk scores, allow/block evidence and full diagrams; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/9/193de234ce0c7a8cb270427110ee01c1c2fcc5c7.png": "4a19cb3d3575179525daf8217b5d328a03c7ebbabfe0724e798f275438bd693a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4acf5a259950053d8d9427761016d1fe49ab9e99.png": "446cacf757bdae7673c1b791db36f5f4ad981de99bafbd4367381de5c188ffbc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8b4f6efdbd7a755bd7caa93fe116c9c47b790a23.png": "7c1f21014a4a771ec61b8592525149008974dbfecf7477ed8a215737957aca38",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/b/bb6c937a4ab1aa99af8c663b36f1e354ac51d590.png": "151cb00a81a6361c16599d774992240082a8f309a1212af997c3d55859e24306",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c64708c6752c701d588e7830dee21672e1112ca9.jpeg": "2ac17068a66390c0e7dd6df794ba4b0d3c7c4e95ff29677a20f0c0b2fcc70d91",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf709f8902ba23c4a9b670a18be32e2379a7ec24.png": "4a9322d37baf9e809ed216501ba3418aff25f3ace04a382a12ab58b91b0191e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6eb4a62a5c54c957faf284c900ceed65002889d.png": "4b30667633066a8d75f9e05679768356592d9a0d5267d91774367e60134ba9a3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed2ef971b0b6e4f3fe26094e74689079337212be.png": "39935a2279e59f64faa6bfd526e4fbc39a0df84ed1b2edccfc3edbb4fdc20818",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/fff466f153deaeb6902874b3d153ed1ba6a6d260.png": "6d1361a86aab3f4f9be99caf33a11ff6db525b697abb17df2e8e7fe6774e76b9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4acf5a259950053d8d9427761016d1fe49ab9e99.png": {
+        "labels": [
+          {
+            "rectangle": [
+              423,
+              211,
+              526,
+              234
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              296,
+              526,
+              319
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              381,
+              526,
+              404
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              466,
+              526,
+              489
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              551,
+              526,
+              574
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              636,
+              526,
+              659
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              721,
+              526,
+              744
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              806,
+              526,
+              829
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              891,
+              526,
+              914
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              976,
+              526,
+              999
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1061,
+              526,
+              1084
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1146,
+              526,
+              1169
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1231,
+              526,
+              1254
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1316,
+              526,
+              1339
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1401,
+              526,
+              1424
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1486,
+              526,
+              1509
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1571,
+              526,
+              1594
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1656,
+              526,
+              1679
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1741,
+              526,
+              1764
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              423,
+              1826,
+              526,
+              1849
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              813,
+              211,
+              939,
+              234
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              296,
+              939,
+              319
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              381,
+              939,
+              404
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              466,
+              939,
+              489
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              551,
+              939,
+              574
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              636,
+              939,
+              659
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              721,
+              939,
+              744
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              806,
+              939,
+              829
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              891,
+              939,
+              914
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              976,
+              939,
+              999
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1061,
+              939,
+              1084
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1146,
+              939,
+              1169
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1231,
+              939,
+              1254
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1316,
+              939,
+              1339
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1401,
+              939,
+              1424
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1486,
+              939,
+              1509
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1571,
+              939,
+              1594
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1656,
+              939,
+              1679
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1741,
+              939,
+              1764
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              1826,
+              939,
+              1849
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5deb0eea798d30cd8f19f7d2e0dfaa0ed20e0c98bc7de853eb102bf9b618a60b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/b/bb6c937a4ab1aa99af8c663b36f1e354ac51d590.png": {
+        "labels": [
+          {
+            "rectangle": [
+              417,
+              212,
+              520,
+              235
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              297,
+              520,
+              320
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              382,
+              520,
+              405
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              467,
+              520,
+              490
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              552,
+              520,
+              575
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              637,
+              520,
+              660
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              722,
+              520,
+              745
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              807,
+              520,
+              830
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              892,
+              520,
+              915
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              977,
+              520,
+              1000
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              1062,
+              520,
+              1085
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              1147,
+              520,
+              1170
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              1232,
+              520,
+              1255
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              417,
+              1317,
+              520,
+              1336
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              807,
+              212,
+              933,
+              235
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              297,
+              933,
+              320
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              382,
+              933,
+              405
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              467,
+              933,
+              490
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              552,
+              933,
+              575
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              637,
+              933,
+              660
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              722,
+              933,
+              745
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              807,
+              933,
+              830
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              892,
+              933,
+              915
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              977,
+              933,
+              1000
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              1062,
+              933,
+              1085
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              1147,
+              933,
+              1170
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              1232,
+              933,
+              1255
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              807,
+              1317,
+              933,
+              1336
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "de1e43beca86feb60aaf6f2a8527e4e3df883cbb9882bcf2e6c22610607a26a4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf709f8902ba23c4a9b670a18be32e2379a7ec24.png": {
+        "labels": [
+          {
+            "rectangle": [
+              405,
+              243,
+              508,
+              266
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              328,
+              508,
+              351
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              413,
+              508,
+              436
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              498,
+              508,
+              521
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              583,
+              508,
+              606
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              668,
+              508,
+              691
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              753,
+              508,
+              776
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              838,
+              508,
+              861
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              923,
+              508,
+              946
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1008,
+              508,
+              1031
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1093,
+              508,
+              1116
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1178,
+              508,
+              1201
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1263,
+              508,
+              1286
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1348,
+              508,
+              1371
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              405,
+              1433,
+              508,
+              1456
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              780,
+              243,
+              906,
+              266
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              328,
+              906,
+              351
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              779,
+              413,
+              906,
+              436
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              498,
+              906,
+              521
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              583,
+              906,
+              606
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              668,
+              906,
+              691
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              753,
+              906,
+              776
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              838,
+              906,
+              861
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              923,
+              906,
+              946
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1008,
+              906,
+              1031
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1093,
+              906,
+              1116
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1178,
+              906,
+              1201
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1263,
+              906,
+              1286
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1348,
+              906,
+              1371
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              780,
+              1433,
+              906,
+              1456
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "c93865b081d6443079b9a0313b0f862736c8fb1be60081cdcaacd10a0a12fdbf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed2ef971b0b6e4f3fe26094e74689079337212be.png": {
+        "labels": [
+          {
+            "rectangle": [
+              401,
+              808,
+              504,
+              831
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              808,
+              902,
+              831
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              893,
+              504,
+              916
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              893,
+              902,
+              916
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              978,
+              504,
+              1001
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              978,
+              902,
+              1001
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1063,
+              504,
+              1086
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1063,
+              902,
+              1086
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1148,
+              504,
+              1171
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1148,
+              902,
+              1171
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1233,
+              504,
+              1256
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1233,
+              902,
+              1256
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1318,
+              504,
+              1341
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1305,
+              902,
+              1352
+            ],
+            "text": "192.0.2.10",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              401,
+              1403,
+              504,
+              1426
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1403,
+              902,
+              1426
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1488,
+              504,
+              1511
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1488,
+              902,
+              1511
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1573,
+              504,
+              1596
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1573,
+              902,
+              1596
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1658,
+              504,
+              1681
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1658,
+              902,
+              1681
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              401,
+              1743,
+              504,
+              1766
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              775,
+              1743,
+              902,
+              1766
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "2d6deb72d4599d7bec1e31559919845d872e8474da29967f4b5de2da0a326055"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/9/193de234ce0c7a8cb270427110ee01c1c2fcc5c7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              737,
+              974,
+              1901,
+              1005
+            ],
+            "text": "Query fragment obscured in original",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              7,
+              1007,
+              1401,
+              1038
+            ],
+            "text": "Query fragment obscured in original",
+            "size": 18
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "9931c0c3005cb99a8eafe2764b1e0fca3301c0714ae2286c6015af667b9213a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8b4f6efdbd7a755bd7caa93fe116c9c47b790a23.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5ae8202df0b630296c4ebbd2f7138b9b0a160a205cbd5c10881ef2fad34f3371"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c64708c6752c701d588e7830dee21672e1112ca9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8f721c9e505abfe239df6cab3011cb33c897f0f16d45104a581f5d447deb9b4a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6eb4a62a5c54c957faf284c900ceed65002889d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be7b000cef0e1ecd85a15ab695db8143d502604ef2d7a99c1fbbdc45a1728d7b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/fff466f153deaeb6902874b3d153ed1ba6a6d260.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "481726413efddbaebb598eaa369917ca49a5263746020173eddedb99eb9e90c9"
+      }
+    }
   }
 }
