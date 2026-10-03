@@ -5915,7 +5915,38 @@
   "74396": {
     "article_hash": "2c30c3b2dac5d726ccf845a1c2c2ca313a22b5bb50de15a337b09814e962152f",
     "decision": "include",
-    "reason": "Distributed Cloud AppStack customer-edge GPU deployment for Ollama"
+    "reason": "Distributed Cloud AppStack customer-edge GPU deployment for Ollama",
+    "text_replacements": {
+      "nodes": {
+        "71e7d65b9669d65849d4daf62522770dc2da08e1504975d633ffacc7f0a1bc95": "I got a chance last week to (finally) see a show-and-tell of running Ollama on F5 Distributed Cloud (XC) AppStack with an NVIDIA Tesla T4 GPU instance in AWS. I\u2019d seen Ollama running Ollama on a Customer Edge (CE) with no GPU already, but to get to see it with full driver support (coming in the next release of XC after writing this) was another notch up that our partners and customers want us to\u2026display ("
+      },
+      "output_sha256": "3b6717beb924f9ada7dd61bf738d45ebc626cfd13bae3d092b4c639b2f5fca92"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected AppStack GPU Ollama guide and image; presenter identities and browser desktop chrome removed, retaining public product content and complete setup timeline",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/2/62279b81224e83ec346e9a806da766091e1d9423.jpeg": "60ad90f0053702f6e0561f3a43188483bec126b31f9283f31f9672da342e2dce"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/2/62279b81224e83ec346e9a806da766091e1d9423.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            268,
+            720
+          ],
+          [
+            268,
+            0,
+            1280,
+            151
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "442570667126ea4b403175e2d50ada88881e3178e2cfcb0aa747cb42fcc06434"
+      }
+    }
   },
   "74446": {
     "article_hash": "7e7f2bacd9aab9563f58969b136a9a034fb5844b2d81a8e9c20ece21bf803cb4",
@@ -8615,6 +8646,109 @@
           }
         ],
         "output_sha256": "76231374cbfaae6e622635c65e7b6f9f7feb2c6ba04bf08c7c20240bfb052b9a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
+  },
+  "69262": {
+    "article_hash": "535ae22aa80c335fda741a7a5ee7db900cae78cc8ec4cfaccfa1568e565c0a8c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment guide",
+    "text_replacements": {
+      "nodes": {
+        "514634796d8cba63a2223c0a8d683ee5f1b41dd6bff64b9dcbbf753dce1a4131": "app.example.com",
+        "80f474ea0a428eba8bd7968e2dedcb63304c569a043c0b7ea6b8fa102f3de8e6": "//==========================================================================\n//Definition of the Origin, 1-origin.tf\n//Start of the TF file\nresource \"volterra_origin_pool\" \"op-ip-internal\" {\n  name                   = \"op-ip-internal\"\n  //Name of the namespace where the origin pool must be deployed\n  namespace              = \"VOLTERRA_NS\"\n \n   origin_servers {\n\n    public_name {\n      dns_name = \"APP_FQDN\"\n    }\n\n    labels = {\n    }\n  }\n\n  no_tls = true\n  port = \"80\"\n  endpoint_selection     = \"LOCALPREFERED\"\n  loadbalancer_algorithm = \"LB_OVERRIDE\"\n}\n//End of the file\n//==========================================================================\n\n//Definition of the WAAP Policy\nresource \"volterra_app_firewall\" \"waap-tf\" {\n  name      = \"WAAP_POLICY_TO_CREATE\"\n  namespace = \"VOLTERRA_NS\"\n\n  // One of the arguments from this list \"allow_all_response_codes allowed_response_codes\" must be set\n  allow_all_response_codes = true\n  // One of the arguments from this list \"default_anonymization custom_anonymization disable_anonymization\" must be set\n  default_anonymization = true\n  // One of the arguments from this list \"use_default_blocking_page blocking_page\" must be set\n  use_default_blocking_page = true\n  // One of the arguments from this list \"default_bot_setting bot_protection_setting\" must be set\n  default_bot_setting = true\n  // One of the arguments from this list \"default_detection_settings detection_settings\" must be set\n  default_detection_settings = true\n  // One of the arguments from this list \"use_loadbalancer_setting blocking monitoring\" must be set\n  use_loadbalancer_setting = true\n  // Blocking mode - optional - if not set, policy is in MONITORING\n  blocking = true\n}\n\n//==========================================================================\n//Definition of the Load-Balancer, 2-https-lb.tf\n//Start of the TF file\nresource \"volterra_http_loadbalancer\" \"lb-https-tf\" {\n  depends_on = [volterra_origin_pool.op-ip-internal]\n  //Mandatory \"Metadata\"\n  name      = \"lb-https-tf\"\n  //Name of the namespace where the origin pool must be deployed\n  namespace = \"VOLTERRA_NS\"\n  //End of mandatory \"Metadata\" \n  //Mandatory \"Basic configuration\" with Auto-Cert \n  domains = [\"app.example.com\"]\n  https_auto_cert {\n    add_hsts = true\n    http_redirect = true\n    no_mtls = true\n    enable_path_normalize = true\n    tls_config {\n        default_security = true\n      }\n  }\n  default_route_pools {\n      pool {\n        name = \"op-ip-internal\"\n        namespace = \"VOLTERRA_NS\"\n      }\n      weight = 1\n    }\n  //Mandatory \"VIP configuration\"\n  advertise_on_public_default_vip = true\n  //End of mandatory \"VIP configuration\"\n  //Mandatory \"Security configuration\"\n  no_service_policies = true\n  no_challenge = true\n  disable_rate_limit = true\n  //WAAP Policy reference, created earlier in this plan - refer to the same name\n  app_firewall {\n    name = \"WAAP_POLICY_TO_CREATE\"\n    namespace = \"VOLTERRA_NS\"\n  }\n  multi_lb_app = true\n  user_id_client_ip = true\n  //End of mandatory \"Security configuration\"\n  //Mandatory \"Load Balancing Control\"\n  source_ip_stickiness = true\n  //End of mandatory \"Load Balancing Control\"\n  \n}\n\n//End of the file\n//==========================================================================\n",
+        "878175908e80e6541537e13e4128a433f5bb473352c1737ccb9dd5ffd1f6cf0b": "http://app.example.com"
+      },
+      "output_sha256": "f2a97756aafb13b72478168127caeb444f88fa28c8bd8f458b3115a24d102055"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected complete Terraform guide and two images; example domain and personal namespace made synthetic, presenter and desktop chrome removed; certificate paths and tenant remain explicit placeholders",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2b6181243d47d2d10da2ed4eeed437d4055130f7.jpeg": "e256fb57ed533e5c26576e154107ec2a63879879f0a18bb3877807d89d2cf8c1"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2b6181243d47d2d10da2ed4eeed437d4055130f7.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            1280,
+            36
+          ],
+          [
+            0,
+            36,
+            32,
+            720
+          ],
+          [
+            939,
+            448,
+            1280,
+            720
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              435,
+              198,
+              633,
+              225
+            ],
+            "text": "namespace = \"example\"",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ca6c9c80ed6091e9eb2a03bc9ffd11895be0a5bc50f418bd641c76512739866b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
+  },
+  "70410": {
+    "article_hash": "4eeea76967fbc126539f4f056bfd6fdb9c7c979db5705e9dd3cb433f3a7c9388",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment guide",
+    "text_replacements": {
+      "nodes": {
+        "c628ecdc2522ac6d307ce480e599d61dad0e04500148c2ef8a1fa0c22b137a0a": "An F5 engineer walks us through the steps to create an F5 Distributed Cloud Node in GKE, apply WAAP policy and how to expose the secured front end by using a GCP public IP address, rather than using the F5 XC Regional Edges."
+      },
+      "output_sha256": "1ffb3173ef84d93765862d1bba40d58ab29fcfbd464012f8d58b79608b625b11"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected GKE WAAP introduction and two images; presenter attribution and browser chrome removed while deployment title and diagram retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f547ea268c30b0beda5d3e983f2be03391bc2def.jpeg": "1ab4735611f92b78d0a9fb6a12d07567c47dcc53c2069fd9fc8b82a83d08befc"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f547ea268c30b0beda5d3e983f2be03391bc2def.jpeg": {
+        "rectangles": [
+          [
+            0,
+            79,
+            480,
+            170
+          ],
+          [
+            27,
+            243,
+            319,
+            270
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "68c547ea95c7fc4b591d05d8e3d8e19cf8acd72c75b32cd34a729dbbc6ae8680"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
         "strip_metadata": true,
