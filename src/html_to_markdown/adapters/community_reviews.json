@@ -2809,7 +2809,155 @@
   "72388": {
     "article_hash": "113047517dfb593bf3089e2875f30b2f0459085290838f124500064357fc8272",
     "decision": "include",
-    "reason": "Migrates iRule behavior to Distributed Cloud service policies and L7 routes; privacy review required"
+    "reason": "Migration of iRule functionality to Distributed Cloud service policies and L7 routes is the primary instructional outcome",
+    "text_replacements": {
+      "nodes": {
+        "e96d3d24799ed3ae4442b49085efa0e1fb1649701629d4d27e895571a3e79412": "15     if { $r_host eq \"internal-site.example.com\" } {\n16        if { [IP::addr $client_ip/32 equals 192.0.2.10/32] } {\n17          SSL::disable  serverside\n18          pool internal-site-pool\n19          return\n20        } else {\n21          log local0. \"Unexpected client IP. client_ip=$client_ip host=$r_host uri=$r_uri\"\n22          reject\n23        }\n24     }\n",
+        "f54fd9ffe9ae75a375d9309ea542b368ab3ba8f7dc0f5736628b5eaf9dd275cb": "internal-site.example.com",
+        "fb034ad8c94ab0bacfbf0cdddaad11e2d931244ed36871ab71093c1a894756a4": "26     if { $r_host eq \"special-site.example.com\" or $r_host eq \"special-site.example.org\"} {\n27        node 198.51.100.10 443\n28        return\n29     }\n",
+        "30b79969dc304054c53c9b3e68d184aaa686829dc101999912260b43e456f1c2": "31     if { $r_host eq \"secure.example.com\" } {\n32     \t set form_id [URI::query $r_uri \"form_id\"]\n33     \t set A [class match -value $form_id equals code_table]\n34     \t set B [URI::query $r_uri \"referralcode\"]\n35     \t if { $A eq \"\" } {\n36     \t \t set A \"customer-gift\"\n37     \t \t set B \"foobar1\"\n38     \t }\n39     \t if { $B eq \"\" } {\n40     \t \t if { $A ne \"\" } {\n41     \t \t \t set B \"foobar2\"\n42     \t \t } else {\n43     \t \t \t set B \"foobar1\"\n44     \t \t }\n45     \t }\n46     \t set target \"http://donate.example.com/$A?code=$B\"\n47     \t HTTP::respond 302 Location $target\n48     \t return\n49     }\n",
+        "57c6afac2db3e0ab967858007c40fec458fead5c49e6ca745aa744f264af8a4c": "http://internal-site.example.com"
+      },
+      "output_sha256": "e0fe7b827ee639aded2948cbd88e532c3c6ceb386d7587a1da96c506e10fc7d7"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose, all code and four images reviewed. Distributed Cloud migration is primary; source iRule is retained as necessary comparison. Production-derived IPs and domains replaced consistently with reserved examples across prose, code and screenshots. Code minimap duplicates removed; all substantive statements, matching logic, pool selection, redirects, query parameters and response headers preserved. No customer identity or credential; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/34bf06532d9cf18ba9f175eb8de03c30cd098733.png": "83b7689ad34faf64a2d831c35d461b4b642d447a834705aaeded4f3b1c3375b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1313b3621e42d86a82b26d7ab3e74eadc8373788.png": "f6c893206e26819906af0d8b1548c0287e7fb97a2e5b47990ff5a51498620f8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/839fa87ec287c6173bc1b737db3258839429a971.png": "52a7d0d6f6cc1a5b3b94036af6cd7977fc35b30ff6e7e492ab9095d348b4b28d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2c7bbbece454cf6fc0602846cd05a6dbcacacba.png": "ba65de7fb704662e4aa3babfc484ae76c516389018e043ede464f71c020e6628"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/34bf06532d9cf18ba9f175eb8de03c30cd098733.png": {
+        "rectangles": [
+          [
+            1070,
+            0,
+            1193,
+            200
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              91,
+              194,
+              813,
+              216
+            ],
+            "text": "set default_redirect_url \"http://security.example.com/awareness/phishing-examples/?d=[HTTP::host]\"",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              96,
+              249,
+              466,
+              271
+            ],
+            "text": "if { $r_host eq \"internal-site.example.com\" } {",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              117,
+              268,
+              548,
+              289
+            ],
+            "text": "if { [IP::addr $client_ip/32 equals 192.0.2.10/32] } {",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              97,
+              447,
+              709,
+              470
+            ],
+            "text": "if { $r_host eq \"special-site.example.com\" or $r_host eq \"special-site.example.org\"} {",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              119,
+              467,
+              341,
+              488
+            ],
+            "text": "node 198.51.100.10 443",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              97,
+              538,
+              427,
+              560
+            ],
+            "text": "if { $r_host eq \"secure.example.com\" } {",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              123,
+              807,
+              514,
+              830
+            ],
+            "text": "set target \"http://donate.example.com/$A?code=$B\"",
+            "size": 11
+          }
+        ],
+        "output_sha256": "d2ab31bc32000b6e8b94157dd614e3d324e95fd381d54184b015d6e509b2e679"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1313b3621e42d86a82b26d7ab3e74eadc8373788.png": {
+        "labels": [
+          {
+            "rectangle": [
+              557,
+              702,
+              716,
+              739
+            ],
+            "text": "secure.example.com",
+            "size": 13
+          }
+        ],
+        "output_sha256": "1461c57cea5bf6415c774fc489d9092569142a43e67cda8cf523d3ef0cc2321d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/839fa87ec287c6173bc1b737db3258839429a971.png": {
+        "labels": [
+          {
+            "rectangle": [
+              462,
+              381,
+              715,
+              412
+            ],
+            "text": "donate.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "499c4ab53babe86a60843ac51887cf1a21005a264d39c90fcd4e4d3187b7be87"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2c7bbbece454cf6fc0602846cd05a6dbcacacba.png": {
+        "labels": [
+          {
+            "rectangle": [
+              169,
+              119,
+              369,
+              149
+            ],
+            "text": "*.delegated.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "852631278d4e835145330f141f22e908c1d52f39c3bd62b89e7f27ae101d2350"
+      }
+    }
   },
   "72432": {
     "article_hash": "7a1616db0418b9af57de9222da726ab49d119f8dd6b2d9da5945dd7e37cef3a8",
