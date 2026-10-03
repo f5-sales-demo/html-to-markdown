@@ -17035,5 +17035,239 @@
         "output_sha256": "313ba9bba2bdf443071e866793640024ef19c99c7570b05b54548af944ecc54a"
       }
     }
+  },
+  "71590": {
+    "article_hash": "bbed5e08c2d6d61dcd759bfd6d50267d1fbe54794e67f37736980193de936574",
+    "decision": "include",
+    "reason": "Distributed Cloud RE/CE workload placement, HA database and vK8s networking is primary",
+    "text_replacements": {
+      "nodes": {
+        "b17f7b7ee2b1e908acd19a4d14f55a5b23c8097f731b72d852bae085ed5935fb": "\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 user=haservices password=EXAMPLE_PASS;"
+      },
+      "output_sha256": "f0d452310cab4c2aeaef42df54b065ebe5f0292524c7d2a8538c5f222a17b157"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose, all configuration examples and seven images individually reviewed. Tenant hostname/ID, UUID, node private hostnames and observed client IP normalized; generic workload/service/site names retained for continuity with instructions. Database password replaced with explicit EXAMPLE_PASS. Sample database response contains only Test title/body values. Complete HA topology, RE-to-CE traffic, virtual-site labels, pod health, metrics and caching settings preserved. No user/customer payload or original credentials; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/056b04a70e56ba60aa5061149ad80dc1af0a58c3.png": "1f362ad7ecb637b72459e295cf4abb0e0cafdb270b8a5fe32428ac2d623523ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/455bf98a925601f11cf2876ec2eab9dd023289b2.png": "791e2aba770f5549adf8c66a062835baeb01b7383237053e0852736946aa6bdf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/55cf9295127145524dabf40c241de9cceec353e3.png": "f48cf8754d1bf4536284bcc03a33b9abbcc2cbe334480c41d0d5775162618ad3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a593fcfd44fbbc11814998318d201572c463c312.png": "b0ccdd3d51c5b0e93a1373bca2a4e852872bbccffb9128c1206c8680a9f74a0f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be22a57d6bad17b13a2b1db56d9e554bd956e8df.jpeg": "8ecf3e58206c5ef4d579209771d42c77d12922be902106e0e78bca431646de20",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e6363379bcf4a1735b9cada7de6e7b27f07177f1.png": "88313f737ee84fad9a854c7bc384d3fc9d59123ebf93c6f3a7152adecf8b364f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4b01d7b16cd7309358901e1138f28ca87ef6dea.png": "3c995ad8f9e20bcac1141a1883fa6959b44c94ae74bb23b9af86a00066a4ef93"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/056b04a70e56ba60aa5061149ad80dc1af0a58c3.png": {
+        "rectangles": [
+          [
+            1810,
+            95,
+            1870,
+            148
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              257,
+              26,
+              611,
+              72
+            ],
+            "text": "app.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              464,
+              97,
+              1312,
+              145
+            ],
+            "text": "http://app.example.com",
+            "size": 28
+          }
+        ],
+        "output_sha256": "e87333a6f3655f91d91d4c11972e6f557606bb97c36350d762c37174c4fd3ee8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/55cf9295127145524dabf40c241de9cceec353e3.png": {
+        "rectangles": [
+          [
+            3382,
+            75,
+            3456,
+            139
+          ],
+          [
+            3327,
+            181,
+            3417,
+            257
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              279,
+              94,
+              2815,
+              137
+            ],
+            "text": "https://example.console.ves.volterra.io",
+            "size": 24
+          }
+        ],
+        "output_sha256": "db4f799eac294143608270a4cbd0d252cf31ec7e9bbca50b34ca2b938c83547b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be22a57d6bad17b13a2b1db56d9e554bd956e8df.jpeg": {
+        "rectangles": [
+          [
+            4070,
+            88,
+            4200,
+            155
+          ],
+          [
+            4023,
+            204,
+            4170,
+            277
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              269,
+              94,
+              2244,
+              144
+            ],
+            "text": "https://example.console.ves.volterra.io",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1558,
+              904,
+              1867,
+              1160
+            ],
+            "text": "example-node-a",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1558,
+              1220,
+              1867,
+              1476
+            ],
+            "text": "example-node-b",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1558,
+              1538,
+              1867,
+              1797
+            ],
+            "text": "example-node-c",
+            "size": 25
+          }
+        ],
+        "output_sha256": "f774d8dffca0d346712049706892ff5267aaeccfcfe5308d8775bfb182cccff7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e6363379bcf4a1735b9cada7de6e7b27f07177f1.png": {
+        "rectangles": [
+          [
+            3366,
+            77,
+            3456,
+            149
+          ],
+          [
+            3300,
+            193,
+            3423,
+            270
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              277,
+              96,
+              3015,
+              144
+            ],
+            "text": "https://example.console.ves.volterra.io",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1594,
+              1480,
+              1834,
+              1533
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1594,
+              1598,
+              1834,
+              1651
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1594,
+              1719,
+              1834,
+              1772
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          }
+        ],
+        "output_sha256": "d454349f5f3a08c982b7c1946adc583888b1fda7fd499b3eeb57b061f51a65b6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4b01d7b16cd7309358901e1138f28ca87ef6dea.png": {
+        "labels": [
+          {
+            "rectangle": [
+              480,
+              349,
+              1006,
+              397
+            ],
+            "text": "\"example-tenant\",",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              430,
+              534,
+              1254,
+              582
+            ],
+            "text": "\"00000000-0000-4000-8000-000000000001\",",
+            "size": 24
+          }
+        ],
+        "output_sha256": "3a5e3579822691c61c8861209eab886aedce43b5a67ae95e9eb4e8c89b0e361b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a593fcfd44fbbc11814998318d201572c463c312.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1577b27df406edf13999ff1d0d927eef56b0e4ff65af1a41791db42caae75250"
+      }
+    }
   }
 }
