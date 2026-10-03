@@ -7429,7 +7429,223 @@
   "76039": {
     "article_hash": "9d8bac8d47e6e6467643ddd6558d5eb643490cf05ae7d53a785aa4d7e158dbb2",
     "decision": "include",
-    "reason": "Distributed Cloud Network Connect, App Connect and WAAP demonstrate secure MCN"
+    "reason": "Distributed Cloud Network Connect, App Connect and WAAP demonstrate secure MCN",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and both images reviewed. Distributed Cloud App Connect, Network Connect and WAAP are the primary solution. Architecture preserved; Arcadia demo UI account suffix, faces, full names and transfer recipient identities replaced with synthetic examples. Demonstration balances, charts and stock transactions are sample app data contextualized by the article and retained; no user-entered email or secret.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66f4898409346998ccbc8da9154dedc3f6a4f377.jpeg": "a6ce3f287c464d0379822da81a7e42abd0906b95c203dfe9783740ceb51b1e11",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c970a21c1dd49edad95e059f8c5a1f78edff078f.jpeg": "922163e69ff6b27b89a30f30650c8173b38c286477aea3bed9f8cef2d48470ae"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c970a21c1dd49edad95e059f8c5a1f78edff078f.jpeg": {
+        "rectangles": [
+          [
+            1230,
+            4,
+            1262,
+            35
+          ],
+          [
+            237,
+            520,
+            273,
+            549
+          ],
+          [
+            360,
+            520,
+            399,
+            549
+          ],
+          [
+            482,
+            520,
+            523,
+            549
+          ],
+          [
+            607,
+            520,
+            647,
+            549
+          ],
+          [
+            733,
+            520,
+            771,
+            549
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              271,
+              5,
+              310,
+              23
+            ],
+            "text": "0000",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              220,
+              550,
+              292,
+              578
+            ],
+            "text": "Example A",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              344,
+              550,
+              416,
+              578
+            ],
+            "text": "Example B",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              469,
+              550,
+              540,
+              578
+            ],
+            "text": "Example C",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              590,
+              550,
+              667,
+              578
+            ],
+            "text": "Example D",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              715,
+              550,
+              789,
+              578
+            ],
+            "text": "Example E",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1111,
+              371,
+              1157,
+              386
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              388,
+              1157,
+              403
+            ],
+            "text": "User B",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              405,
+              1157,
+              420
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              422,
+              1157,
+              437
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              439,
+              1157,
+              454
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              457,
+              1157,
+              472
+            ],
+            "text": "User B",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              474,
+              1157,
+              488
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              490,
+              1157,
+              505
+            ],
+            "text": "User C",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              507,
+              1157,
+              522
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1111,
+              525,
+              1157,
+              540
+            ],
+            "text": "User B",
+            "size": 9
+          }
+        ],
+        "output_sha256": "b7cbe07ad724a7b02979e295412b50113096e2b5fc98d0efb17a78864766adc6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66f4898409346998ccbc8da9154dedc3f6a4f377.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d5e6b7fb55e6e321aae4ad0dfe0d4e93cb21e7650a3b8f2de7d6305f281f05ef"
+      }
+    }
   },
   "76062": {
     "article_hash": "74085defbf71f3afade5b15bbba3118b194d9caafc4f8e816f62da6476854217",
@@ -14496,6 +14712,143 @@
           }
         ],
         "output_sha256": "a8ce041641fc3b465713de1c453698cb3bddc2f3b2ec2e57e905602de0dd8693"
+      }
+    }
+  },
+  "70579": {
+    "article_hash": "8f4260eb1a76358026f0acd0076ce019596d5c09758c3c32dfc05073527c164e",
+    "decision": "include",
+    "reason": "Distributed Cloud CDN architecture, configuration and cache behavior are the primary subject",
+    "text_replacements": {
+      "nodes": {
+        "a06e72bda8adc0a57a357fba94c8f769d96f0fbb49b6f1c4a3d9061deb2ff6af": "metadata:\n  name: arcadia-cdn\n  labels: {}\nspec:\n  domains:\n    - arcadia-cdn.demo.internal\n  http:\n    dns_volterra_managed: true\n  add_location: false\n  more_option:\n    cache_ttl_options:\n      cache_ttl_default: 1m\n  origin_pool:\n    public_name:\n      dns_name: origin.example.com\n    no_tls: {}\n    origin_servers:\n      - public_name:\n          dns_name: origin.example.com\n  dns_info: []\n  state: VIRTUAL_HOST_READY\n  auto_cert_info:\n    auto_cert_state: AutoCertDisabled\n    dns_records: []\n  service_domains:\n    - domain: arcadia-cdn.demo.internal\n      service_domain: cdn.example.com\n"
+      },
+      "output_sha256": "48a3bf2b66ba2e73a69bec05dd0a5610f5bbc036ab3185da885777a7410aec81"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post text and five images individually reviewed. Personal namespace, origin and service-domain identifiers, distribution label and site IDs replaced with synthetic names. Existing generic namespace and redacted alert descriptions retained. CDN TTL, origin config, cache MISS/HIT examples, complete topology and dashboard metrics preserved; generic storefront imagery contains no entered customer data. Metadata stripped pixel-identically.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9875b79c48671c9df9153f3500af7abb0536b1cf.jpeg": "f5b8236b0e7337f2f821964cfa5da8cf1cb69f53ce10c4250de255a3027a0c60",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be9e70079eae72280ba7779c5bb186e00429c7ed.jpeg": "89b720b2fe67acb8d546bcfd94b24ae0b5cfb01e416b6777f83c4fd2f60c81fc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbb61337d28a2c83d45110f406d8e811726f8bc3.jpeg": "bf794b80810230312c56c4b5573d4315d6378c2092ccd3514148e8f2f592bf29",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/f/8f0e7fbbc789f0b781c6af8c27c2809f61db1dce.jpeg": "a54dbd58dc80cc57c8f997766bd632e69c5c5860eafbff0ce0c1b4e787a7c6f9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9875b79c48671c9df9153f3500af7abb0536b1cf.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              239,
+              3,
+              294,
+              24
+            ],
+            "text": "example",
+            "size": 11
+          }
+        ],
+        "output_sha256": "4d0f51810bec3fb248f7b115377e9717c58c1bd03b4df1c102c97a2c3a0ce49e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be9e70079eae72280ba7779c5bb186e00429c7ed.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              795,
+              643,
+              979,
+              669
+            ],
+            "text": "app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "a41115d725c984da01ee5fa070e8215509cb1006ad96f6cefed017e41cd285f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbb61337d28a2c83d45110f406d8e811726f8bc3.jpeg": {
+        "rectangles": [
+          [
+            911,
+            220,
+            927,
+            238
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              334,
+              225,
+              410,
+              242
+            ],
+            "text": "example-cdn",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1554,
+              619,
+              1658,
+              639
+            ],
+            "text": "example-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1554,
+              657,
+              1658,
+              677
+            ],
+            "text": "example-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1554,
+              695,
+              1658,
+              715
+            ],
+            "text": "example-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1554,
+              733,
+              1658,
+              753
+            ],
+            "text": "example-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1554,
+              771,
+              1658,
+              791
+            ],
+            "text": "example-site",
+            "size": 11
+          }
+        ],
+        "output_sha256": "5c284fc5b7bb42dd373c39ec913547f2a9f14034a593790876aedc7f279f159d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/f/8f0e7fbbc789f0b781c6af8c27c2809f61db1dce.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f89332a56ec0832e7e426a6a33389ca196ec982501b4324b6b736d9a89475458"
       }
     }
   }
