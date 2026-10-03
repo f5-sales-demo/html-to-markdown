@@ -37905,7 +37905,7 @@
               1380,
               34
             ],
-            "text": "C:\\Users\\Example>curl http://app.example.com/test --resolve app.example.com:80:192.0.2.10 -kv",
+            "text": "C:\\Users\\example\\>curl http://app.example.com/test --resolve app.example.com:80:192.0.2.10 -kv",
             "size": 21
           },
           {
@@ -37969,7 +37969,7 @@
             "size": 20
           }
         ],
-        "output_sha256": "b488380a8f6fe30a1a8ef044d61f420cb2c13c107e2b0a084141476122e756f2"
+        "output_sha256": "b20164d16222219a275862e66838f63f798a4d665f5fe9ff4e4aff54274eb64b"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43bcdac2452af1c2fc1f7a5caf5b714f1c4c361c.png": {
         "labels": [
