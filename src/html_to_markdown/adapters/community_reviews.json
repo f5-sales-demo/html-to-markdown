@@ -36373,5 +36373,629 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "77358": {
+    "article_hash": "609839d9f01b1fd4775fb29137436ec86617662dc3de65adedf5bcaa2d84e22f",
+    "decision": "include",
+    "reason": "Distributed Cloud Proxy Protocol origin-pool guidance",
+    "text_replacements": {
+      "nodes": {
+        "0546412d61ba57f140cbc562c81ed83fb1b8aae26b57bb1ac00d5eddc798ac0f": "192.0.2.5",
+        "180d338d162d679021525abcb9d66e204995f70878f54acaf955be60c52ed92c": "192.0.2.4",
+        "068d2ea729ce600898138286c68fd3b08c20566ef2fb20315180d1139fc418d9": "Example: Source IP is seen as 192.0.2.4 which is CE\u2019s ip."
+      },
+      "output_sha256": "a1b6ef232b3efbb741a62d53a5d56e4b71851421d2965d95fadbf9ad71daedd1"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and all ten images; synthetic documentation addresses preserve client, CE and origin relationships, ports and Proxy Protocol fields; generic lab prompt retained; image metadata removed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fb1f745317d9d8383d6e15cd619c3479995b0129.png": "932f3bd8a7ec8c5978e06cd77f4052076c983ecb8013d83c305f0c049ac7b559",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/6/067a19f71990d08a91fa179636477ed458af1880.png": "040ee5652206f88488cd3952b2a35c7b6da0335e7a3e80dbce2ed839ec7ee4f8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/b/3b7bfce40ce20fe05292d8de263824cc73ee95ed.jpeg": "f8f31548f74b36432c26407853dd9218f063b6673275d714d1ee5926e3d5ebcb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3ddd765f1b39ff237fbec9ffa87212d82cbab705.png": "a3a82f3ae6156e59d7ae70d85e860e6ac4747c26dbf3375d6ddfacc2240de6c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b20521f846e892c2c8725655ba9205bcf57bac2.png": "d577c3cefc401142f207f64d2d2ee4b7e7613c511f0d3538670a1ae53fa55233",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/5/752b255414f407588018dac538926cea528ab8c7.png": "c2153f77e11087fcb078ae38527fa83bef29791e3700e30cc87fec4405a66d0f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/936ca08bc3f923da59cc26f3ab7446f4a17c4260.png": "cb5adebfb0e29466f86ba2bc1deb650d69c96841242c6ad9e1427881ba2e8910",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9ef481c851fd11d2081d4898ae19d2302b18ab8a.jpeg": "1c7a9d30febb6796158c6d94754e102d27d37d2311cb4e043aeb661f0289bd78",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1809b8f2ad31fc648ad77d7fe8794f7973566fb.png": "98980610898cf6c0232e0c1182dd7127a8a401d95dc11de141f973c3ea5a2398",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/7/d78d0c18a4795ed0748eb066c5938f5bd4efd7bc.png": "5b2354eab9e869ead5f416c944b21c2f228cedd04241861f31bca488acbb6261"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/b/3b7bfce40ce20fe05292d8de263824cc73ee95ed.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              205,
+              62,
+              600,
+              99
+            ],
+            "text": "192.0.2.10:56884",
+            "size": 28
+          }
+        ],
+        "output_sha256": "dffc8ab29ccfd3b1ba47721a39260951b60a6870bf046c81d375be50e1d073f8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3ddd765f1b39ff237fbec9ffa87212d82cbab705.png": {
+        "labels": [
+          {
+            "rectangle": [
+              117,
+              15,
+              202,
+              25
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              15,
+              293,
+              25
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              25,
+              202,
+              35
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              25,
+              293,
+              35
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              35,
+              202,
+              45
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              35,
+              293,
+              45
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              45,
+              202,
+              55
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              45,
+              293,
+              55
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              55,
+              202,
+              65
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              55,
+              293,
+              65
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              65,
+              202,
+              75
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              65,
+              293,
+              75
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              75,
+              202,
+              85
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              75,
+              293,
+              85
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              85,
+              202,
+              95
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              85,
+              293,
+              95
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              95,
+              202,
+              105
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              95,
+              293,
+              105
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              117,
+              105,
+              202,
+              114
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              209,
+              105,
+              293,
+              114
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              706,
+              45,
+              936,
+              56
+            ],
+            "text": "PROXY 192.0.2.10 -> 192.0.2.20, 57590 -> 9000",
+            "size": 6
+          }
+        ],
+        "output_sha256": "c12527e9ee3a8177d2b6e147d5177834f3bb876244d814dffdcaaaf4fd89cbe7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b20521f846e892c2c8725655ba9205bcf57bac2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              335,
+              119,
+              390,
+              137
+            ],
+            "text": "192.0.2.5",
+            "size": 9
+          }
+        ],
+        "output_sha256": "109bce451d32db05a1a5887d5eaf5f6321db4d4c1f2ab431839cb8721fa2860e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/936ca08bc3f923da59cc26f3ab7446f4a17c4260.png": {
+        "labels": [
+          {
+            "rectangle": [
+              108,
+              21,
+              186,
+              31
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              21,
+              281,
+              31
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              31,
+              186,
+              41
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              31,
+              281,
+              41
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              41,
+              186,
+              51
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              41,
+              281,
+              51
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              51,
+              186,
+              61
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              51,
+              281,
+              61
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              61,
+              186,
+              71
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              61,
+              281,
+              71
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              71,
+              186,
+              81
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              71,
+              281,
+              81
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              81,
+              186,
+              91
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              81,
+              281,
+              91
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              91,
+              186,
+              101
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              91,
+              281,
+              101
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              101,
+              186,
+              111
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              101,
+              281,
+              111
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              111,
+              186,
+              121
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              111,
+              281,
+              121
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              121,
+              186,
+              131
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              121,
+              281,
+              131
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              131,
+              186,
+              141
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              131,
+              281,
+              141
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              108,
+              141,
+              186,
+              151
+            ],
+            "text": "192.0.2.5",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              198,
+              141,
+              281,
+              151
+            ],
+            "text": "192.0.2.4",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              692,
+              51,
+              922,
+              62
+            ],
+            "text": "PROXY 192.0.2.10 -> 192.0.2.20, 57943 -> 9000",
+            "size": 6
+          }
+        ],
+        "output_sha256": "800313bccfbe0c06e0e1826dec360925401733f74acdacd2e8e1fa4af6238651"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9ef481c851fd11d2081d4898ae19d2302b18ab8a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              170,
+              71,
+              550,
+              110
+            ],
+            "text": "192.0.2.4:42634",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              170,
+              186,
+              550,
+              225
+            ],
+            "text": "192.0.2.4:42635",
+            "size": 28
+          }
+        ],
+        "output_sha256": "d383de042954c7b9af3702d4186306e834bec57ced474f9ca61e69b7e830fddc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1809b8f2ad31fc648ad77d7fe8794f7973566fb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              251,
+              211,
+              414,
+              238
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              307,
+              238,
+              452,
+              264
+            ],
+            "text": "192.0.2.20",
+            "size": 20
+          }
+        ],
+        "output_sha256": "7e3a364858ea40e637dc115ead3b31f312bbc5350f8b624e86034be3c6caf77d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/7/d78d0c18a4795ed0748eb066c5938f5bd4efd7bc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              325,
+              106,
+              548,
+              139
+            ],
+            "text": "192.0.2.10",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              407,
+              141,
+              598,
+              174
+            ],
+            "text": "192.0.2.20",
+            "size": 28
+          }
+        ],
+        "output_sha256": "1544928abd458f2268ac6c1a1b104c3321478699af6fb0fd1042874fc4cb92ed"
+      }
+    }
   }
 }
