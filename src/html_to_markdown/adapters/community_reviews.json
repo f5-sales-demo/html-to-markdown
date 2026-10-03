@@ -25332,5 +25332,436 @@
         "output_sha256": "ba5daeaf59ba1ca39090a033dc66add30c8886aeae2186a79cfae07ba525dc61"
       }
     }
+  },
+  "76236": {
+    "article_hash": "0a41e935af97e6fb931f8ef96b787a89f7f86b3c324a266f8552b8f72ba20a9b",
+    "decision": "include",
+    "reason": "Distributed Cloud split DNS is primary",
+    "text_replacements": {
+      "nodes": {
+        "7449e13a1e0a9ca9ed019e664d9ca787e0b75e358ad7b971063f72da77928e4b": "The 2 DNS Load Balancer rules match either 192.0.2.0/24 or 0.0.0.0/0 that is any IP address, and this is why the Score is set to 110 for the first rule to have higher priority.",
+        "d26a8d12a513b7b7ed8c4d0060354ef782e25780fc2a3daf456c391f920a625d": "test.example.com",
+        "c31b4b358c038e3f328125b16012ea7f816896cb5627e448357cdea75d9a55a4": "  +subnet=192.0.2.0\u201d. If you don\u2019t choose any subnet, the EDNS will be your IP address. But remember that the system could add a default mask like /24 if you don\u2019t specify +subnet command with a mask. ",
+        "d594e95e9791207c9441c99dcf79b3cab6a585fbbe5619e9f52deabbc9045a1a": "  +subnet=192.0.2.1",
+        "41425fc41a6ef39da0579fde7157d1b57a50b9ee74173d44cc34c43603f1e003": "  +subnet=198.51.100.1",
+        "31497aec6249a2b9ee7b57535a68d8d1821b01213753b4c0cef272d2a4b2590d": "That will be sent to the specific pool as my IP matches 192.0.2.0 subnet, and it is auto-added to the EDNS in DNS request."
+      },
+      "output_sha256": "4f7a41764c75afff071a74c6509a24225c743d2cb25f3d21b07ccba1b4e475e8"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire XC split-DNS prose and nine static assets. Replaced personal DNS names, observed client subnet, pool address and ASN with consistent documentation examples in prose, dig output and console screenshots. Preserved ECS prefix/mask, rule score/order, distinct response pools and public F5 authoritative resolver address. BIG-IP reference is incidental comparison.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2532aa6fed2e96ea2720d693f493db2dc6ddb819.png": "60dae38482acebc869121622a04dacede9f22acf191ae39c7ebef77199be1d49",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5b49e6a956c8e7a18ca155aec37d3651a6283b9e.png": "d77467837eeba0ede23134d97e60bdbcecd40a160f678ae511e7f714453b52a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5b4c230b5f67e56b67dc723d86e9805f366e6f0f.png": "f8d9e3bf5e0964590fff40d90bd4a11a921e309ab45bf9571a30bfc89462c2ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6836b2d1c14617a5c9d09307e81e0acc013b25b2.png": "08ffc77d282fd5ad350a7d372c806e8a61963598f0f899f5144d067cb52dc177",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/70406dc8f1b5baa23396be9876b428e48032eb30.png": "d9520b5257573de0b7e01e9ebede9dde4a44afe8fa35f7cc2315bdaf935e2c83",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/db898e16b9a03c7c7de1fe63b38d25240962df84.png": "4e30bf94fbb6661b9f3b2d565737096b6872d5f42e3575ab15c7fb03b1f54669",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3f13234cd1d64d7b577d3bee25a873a946912ca.png": "715e08690d97aea71274fd7da608f9a49f8410d372784a67557d98e1c2e88f10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/0102e4eb0075df47882cecf0c02d0fe6f429d020.png": "7f17d5ee32671e60e0a05f15b27bcc52dff2e9ccb00cb3e6e9aac1c6d2b66925",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/7/d7b7bcbdb10d55b7c27a02a63fd44df0977cd29a.png": "8a39b7d5c2ff9fc849ebfbe30f1d5d48e718d8bec5ceff42e6c0806c7b23c78a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2532aa6fed2e96ea2720d693f493db2dc6ddb819.png": {
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              123,
+              128,
+              148
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              963,
+              238,
+              1051,
+              263
+            ],
+            "text": "example-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              963,
+              306,
+              1090,
+              332
+            ],
+            "text": "default-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              580,
+              248,
+              635,
+              270
+            ],
+            "text": "64512",
+            "size": 9
+          }
+        ],
+        "output_sha256": "d2ee597fdd876ea688eff524852f81d4cf0b6fc768fdf02dedc8249c841c09d3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5b49e6a956c8e7a18ca155aec37d3651a6283b9e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              580,
+              12,
+              750,
+              36
+            ],
+            "text": "test.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              986,
+              12,
+              1210,
+              36
+            ],
+            "text": "+subnet=192.0.2.1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              210,
+              211,
+              405,
+              237
+            ],
+            "text": "192.0.2.1/32/0",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              4,
+              255,
+              183,
+              279
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              4,
+              321,
+              183,
+              345
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              580,
+              321,
+              751,
+              345
+            ],
+            "text": "192.0.2.20",
+            "size": 13
+          }
+        ],
+        "output_sha256": "710b3879d20bf5b9d9eba7ef2679c6237e82c7fefdedf6e2cb1a0ed5ea781dfd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5b4c230b5f67e56b67dc723d86e9805f366e6f0f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              578,
+              13,
+              751,
+              37
+            ],
+            "text": "test.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              985,
+              13,
+              1190,
+              37
+            ],
+            "text": "+subnet=198.51.100.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              210,
+              211,
+              361,
+              236
+            ],
+            "text": "198.51.100.1/32/0",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              255,
+              185,
+              279
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              3,
+              321,
+              185,
+              345
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              580,
+              321,
+              724,
+              345
+            ],
+            "text": "192.0.2.30",
+            "size": 13
+          }
+        ],
+        "output_sha256": "5c1e5af39cd089e3ce15ad170d7bf8310413ed169acc71ec4db1a905aa13da89"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6836b2d1c14617a5c9d09307e81e0acc013b25b2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              30,
+              78,
+              126,
+              108
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              30,
+              185,
+              127,
+              217
+            ],
+            "text": "example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              30,
+              303,
+              127,
+              330
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              651,
+              232,
+              780,
+              260
+            ],
+            "text": "192.0.2.0/24",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              539,
+              705,
+              694,
+              730
+            ],
+            "text": "system/example-pool",
+            "size": 11
+          }
+        ],
+        "output_sha256": "b2776920b7467a8746f22875cbaa7694daac9475257893924e15a811ddc9fd62"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/70406dc8f1b5baa23396be9876b428e48032eb30.png": {
+        "labels": [
+          {
+            "rectangle": [
+              11,
+              129,
+              107,
+              154
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              925,
+              243,
+              1022,
+              268
+            ],
+            "text": "example-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              925,
+              311,
+              1055,
+              337
+            ],
+            "text": "default-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              544,
+              251,
+              598,
+              277
+            ],
+            "text": "64512",
+            "size": 9
+          }
+        ],
+        "output_sha256": "693a06832286ff4033e523b3ee69f65012b50377237eaaa7071be7662a811774"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/db898e16b9a03c7c7de1fe63b38d25240962df84.png": {
+        "labels": [
+          {
+            "rectangle": [
+              26,
+              76,
+              124,
+              102
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              941,
+              189,
+              1036,
+              217
+            ],
+            "text": "example-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              941,
+              258,
+              1069,
+              286
+            ],
+            "text": "default-pool",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              558,
+              199,
+              692,
+              223
+            ],
+            "text": "192.0.2.0/24",
+            "size": 9
+          }
+        ],
+        "output_sha256": "93c2e25b7395f6ce4d1c18f774b33caae14dea1865cfe5aefb24dbd64ad11313"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3f13234cd1d64d7b577d3bee25a873a946912ca.png": {
+        "labels": [
+          {
+            "rectangle": [
+              580,
+              15,
+              750,
+              38
+            ],
+            "text": "test.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              4,
+              233,
+              183,
+              257
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              4,
+              299,
+              183,
+              325
+            ],
+            "text": "test.example.com.",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              580,
+              299,
+              747,
+              325
+            ],
+            "text": "192.0.2.20",
+            "size": 13
+          }
+        ],
+        "output_sha256": "b6dc382511294f83bd65b9c30f76c25ac5e2045f82667892eb59d806aa1ad6ee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/7/d7b7bcbdb10d55b7c27a02a63fd44df0977cd29a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              11,
+              58,
+              112,
+              87
+            ],
+            "text": "example-dns",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              11,
+              169,
+              127,
+              195
+            ],
+            "text": "example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              996,
+              564,
+              1093,
+              588
+            ],
+            "text": "example-dns",
+            "size": 11
+          }
+        ],
+        "output_sha256": "2a83b3c53855a05bc506c7a3baed0e8d233318285ee425261dcbd2b9b205c631"
+      }
+    }
   }
 }
