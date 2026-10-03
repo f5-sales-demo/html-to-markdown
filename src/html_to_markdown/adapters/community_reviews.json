@@ -35542,5 +35542,461 @@
         "output_sha256": "9a9299bbf3e228afe36c889f7ce9c611f61e2a35fea583589f8df263084a671f"
       }
     }
+  },
+  "70354": {
+    "article_hash": "63cbe63b0a75da8f9a5b356d7371b54f0d2205d14a3b93a38690c8b66dbc237d",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and thirteen static screenshots; synthetic account/device/transaction identifiers, operator names, tenant and script endpoints; removed unrelated bookmarks and embedded author identifiers; preserved fraud scores/reasons, session evidence, integration controls and conversion/revenue charts; credential fields empty; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1fa1d12587cad011c8cc01f6ed8a2f81e8eea769.png": "1220c9fbfcf1d81f1650a4ab18693138f9436967f3abc0d4a549178a718c30fb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/210af1a9704d4aa3f7530720ec41d322c66f6bcc.png": "1af379c26d0b50f573b6f07201947363b5b2a2ef1eb19ec25060402e634af589",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": "b58a7822027c26c2dca433a74e3be4c18ef9748aa1601272f04da76e4d34240b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63ec3ab6dbb243894e9cd412f336fe8581163826.png": "e56a4416bdda6c7f86e277ea1b6ab824542ebb0f23ea84d995b9e82ce10a7431",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6a0924d0e0ab09d89dbd8707d8178df1679785f8.png": "d0d73fd2b5c73148f3b800b9bd3a4724c75a7560587b80ef62d76bd4393adb3d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/72f1eee8dcf78d02627ce54191d861e7101f0a62.png": "05cf73b2c1e76a818d68bfc69933ce990d7b40dd4e028c47e54bace7aca6c241",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c045d27ccb19fb41e7ded16aafaec77e478b821.png": "799f5259bce5ffa350f010b3c04addf5f8e777e5f73e8e21914cf1f69534286d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca0e4fc8f94ad3f805145a299aa34d46c3175d59.png": "96ef2bb09060d4bd98752c53690cea140280cf37254a9211888bba9d1d9985e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e28bfdac67d2683f88ee402b4376b75436edc5ac.png": "7bc72b13d75c4818576101577eb2f90a6947b02334f3f295478872e66c873e7f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76551216f09040066756bbc0c6f354d0f1e56c3e.png": "b41055ab290743b661f1d5d907b1e498515d314a48de80820b5a359fe2bf8c1b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/b/cb5c0848d7cc2cbe2ce933fd5734534404ccb547.png": "87e874a6f4444108f6c610dcd98cc609090c714e1de894c3ac05713059f6a3c3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6f45a7ca7323d598105917439403086b0fa9a20.png": "736d91b0d2e87f47fcaea15357a3e34e76e817f803fdf5988db29c8e03bd0acf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f9c212bc1029925f004d227fce4c4697ba0c3b0e.png": "2e1fb150a24e76fe3aaa6729e8f1dbfeecebbe316b8593526c86dd57c4aee759"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1fa1d12587cad011c8cc01f6ed8a2f81e8eea769.png": {
+        "labels": [
+          {
+            "rectangle": [
+              482,
+              24,
+              634,
+              51
+            ],
+            "text": "example-txn-1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1301,
+              174,
+              1380,
+              199
+            ],
+            "text": "user-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              493,
+              445,
+              614,
+              469
+            ],
+            "text": "example-txn-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              493,
+              530,
+              750,
+              557
+            ],
+            "text": "https://app.example.com/register/",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1301,
+              445,
+              1591,
+              470
+            ],
+            "text": "example-device-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              465,
+              822,
+              706,
+              846
+            ],
+            "text": "Transaction ID: example-txn-1",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "360d892aa5a274888e585837d7e32e43b6020ecf21f6dd75705eba1a4791963a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": {
+        "labels": [
+          {
+            "rectangle": [
+              621,
+              357,
+              766,
+              383
+            ],
+            "text": "example-tenant",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "18f6e50518cae6d19e191729ea068dd60d58dcd8233c591c1158d665e9b4ad38"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63ec3ab6dbb243894e9cd412f336fe8581163826.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2000,
+              384,
+              2487,
+              415
+            ],
+            "text": "<script async defer src=\"https://app.example.com/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2000,
+              406,
+              2487,
+              434
+            ],
+            "text": "telemetry.js\" id=\"example\" data-app-id=\"example\"",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2000,
+              431,
+              2487,
+              461
+            ],
+            "text": "data-api-domain=\"https://app.example.com\"></script>",
+            "size": 12
+          }
+        ],
+        "rectangles": [
+          [
+            868,
+            932,
+            947,
+            976
+          ]
+        ],
+        "output_sha256": "53054514eb4804dc11ee78653487d16ceef2187117bc6d0881a456a8a54a2507"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6a0924d0e0ab09d89dbd8707d8178df1679785f8.png": {
+        "rectangles": [
+          [
+            0,
+            37,
+            1154,
+            68
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "580ab4aeacfbb02bd9e365af5c954486ae56c852af928c8317539dcde9183211"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e28bfdac67d2683f88ee402b4376b75436edc5ac.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2469,
+              62,
+              2512,
+              84
+            ],
+            "text": "User",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "8dc25d09d08a2a61b0dec2598c6eb5031ec00baac544a360bb16649035aac76c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76551216f09040066756bbc0c6f354d0f1e56c3e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              352,
+              414,
+              474,
+              441
+            ],
+            "text": "example-txn-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              414,
+              655,
+              441
+            ],
+            "text": "user-1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              414,
+              1543,
+              441
+            ],
+            "text": "example-device-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              492,
+              474,
+              519
+            ],
+            "text": "example-txn-2",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              492,
+              655,
+              519
+            ],
+            "text": "user-2",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              492,
+              1543,
+              519
+            ],
+            "text": "example-device-2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              570,
+              474,
+              597
+            ],
+            "text": "example-txn-3",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              570,
+              655,
+              597
+            ],
+            "text": "user-3",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              570,
+              1543,
+              597
+            ],
+            "text": "example-device-3",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              638,
+              474,
+              665
+            ],
+            "text": "example-txn-4",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              638,
+              655,
+              665
+            ],
+            "text": "user-4",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              638,
+              1543,
+              665
+            ],
+            "text": "example-device-4",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              706,
+              474,
+              733
+            ],
+            "text": "example-txn-5",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              706,
+              655,
+              733
+            ],
+            "text": "user-5",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              706,
+              1543,
+              733
+            ],
+            "text": "example-device-5",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              775,
+              474,
+              802
+            ],
+            "text": "example-txn-6",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              775,
+              655,
+              802
+            ],
+            "text": "user-6",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              775,
+              1543,
+              802
+            ],
+            "text": "example-device-6",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              861,
+              474,
+              888
+            ],
+            "text": "example-txn-7",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              861,
+              655,
+              888
+            ],
+            "text": "user-7",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              861,
+              1543,
+              888
+            ],
+            "text": "example-device-7",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              352,
+              950,
+              474,
+              977
+            ],
+            "text": "example-txn-8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              523,
+              950,
+              655,
+              977
+            ],
+            "text": "user-8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1376,
+              950,
+              1543,
+              977
+            ],
+            "text": "example-device-8",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f5a4803ea54db24a4d1f03ded84a6a7197c2aa6b62cb9eaced55340cbb107b37"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6f45a7ca7323d598105917439403086b0fa9a20.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2468,
+              66,
+              2514,
+              88
+            ],
+            "text": "User",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "b4f7c0d42d7403064791def18ec3b2017d1c0ea8906f4863ade2f19518abd387"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f9c212bc1029925f004d227fce4c4697ba0c3b0e.png": {
+        "rectangles": [
+          [
+            865,
+            931,
+            950,
+            972
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "ebeef0878c7f050b98e7dfc9eaa036a9acb8f18256b1ad3c102190c9b848aadd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/210af1a9704d4aa3f7530720ec41d322c66f6bcc.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "89cf72fd1963c22f0c9e10398af7d47779f982af6189e39c8adc4dead26a2ee6"
+      }
+    }
   }
 }
