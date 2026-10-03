@@ -105,7 +105,386 @@
   "66432": {
     "article_hash": "7a4fed1ac72a9bb24ce3cc43663075dbadf5c4fd17175e7ca66003356ae74e15",
     "decision": "include",
-    "reason": "Distributed Cloud MCN demonstrations address overlap, observability, security and transit routing"
+    "reason": "Distributed Cloud MCN demonstrations address overlap, observability, security and transit routing",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire first-post text and all five static images. Synthetic object names, public addresses, SSH identity, console tenant, request ID and load generator labels replace identifying values; unrelated background terminal/profile chrome removed. Private routing ranges, connectivity arrows, ports, TGW topology, stock storefront and request telemetry preserved.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d3299ceffd4dd73ba6ed6498db29dd075525b45.jpeg": "eb260051cdc689005a7666928f096ff1b304eb986551112444f4c4163cbbd778",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b3c3ec0e09f85ad8d8975df56c7680046b8312c.jpeg": "19526948d56aec183fcebbf6739c91578474e9340b26b7cb0443177a0ad05fc6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/d/7d35b6b5d428daf425b30d8897423134a130b20d.jpeg": "c88cd5cd1864a3ad1ed3aa57839f5611769c58075f707daf5d111e5c1b869fb0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/3/a30f12126ba58f89f05597635e8b11b06c0f3a90.jpeg": "7f10b92214401123aa07c5a05a06d5099f379ac23f98bba40d7e639a8a624acb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf6a415d062a3d2dfa4c739ba4876d5fde6ed076.jpeg": "f7cc6ddb435ce4d73f5f040f27e36bc75f46a41af0857a57ea3e1d3798808336"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d3299ceffd4dd73ba6ed6498db29dd075525b45.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              120,
+              454,
+              300,
+              484
+            ],
+            "text": "ubuntu@example.local 9122",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              104,
+              52,
+              199,
+              72
+            ],
+            "text": "example-aws-ce1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              328,
+              52,
+              427,
+              72
+            ],
+            "text": "example-aws-ce2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              488,
+              52,
+              602,
+              73
+            ],
+            "text": "example-azure-ce1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              711,
+              99,
+              800,
+              119
+            ],
+            "text": "example-tgw",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              329,
+              286,
+              411,
+              307
+            ],
+            "text": "example-gcp1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              491,
+              282,
+              574,
+              304
+            ],
+            "text": "example-gcp2",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "7e9011c2f857f7655d6a5364fba48a0808044da1849479f587a9516563ceeaa4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b3c3ec0e09f85ad8d8975df56c7680046b8312c.jpeg": {
+        "rectangles": [
+          [
+            48,
+            0,
+            151,
+            720
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              276,
+              123,
+              393,
+              146
+            ],
+            "text": "example-aws-ce1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              535,
+              123,
+              659,
+              146
+            ],
+            "text": "example-aws-ce2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              719,
+              123,
+              861,
+              149
+            ],
+            "text": "example-azure-ce1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              997,
+              181,
+              1101,
+              203
+            ],
+            "text": "example-tgw",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              545,
+              402,
+              641,
+              424
+            ],
+            "text": "example-gcp1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              738,
+              399,
+              850,
+              423
+            ],
+            "text": "example-gcp2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              297,
+              599,
+              513,
+              641
+            ],
+            "text": "ubuntu@example.local 9122",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              284,
+              264,
+              383,
+              282
+            ],
+            "text": "192.0.2.11",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              342,
+              226,
+              426,
+              245
+            ],
+            "text": "192.0.2.12",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              459,
+              225,
+              554,
+              245
+            ],
+            "text": "192.0.2.13",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              504,
+              258,
+              600,
+              281
+            ],
+            "text": "192.0.2.14",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              682,
+              215,
+              774,
+              237
+            ],
+            "text": "192.0.2.15",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              683,
+              248,
+              778,
+              268
+            ],
+            "text": "192.0.2.16",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              434,
+              410,
+              524,
+              432
+            ],
+            "text": "192.0.2.17",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              848,
+              409,
+              941,
+              434
+            ],
+            "text": "192.0.2.18",
+            "size": 12
+          }
+        ],
+        "output_sha256": "33bb10c262274f076778edc13eee4010642abc844be684d1f15ef6f68a0e5976"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/d/7d35b6b5d428daf425b30d8897423134a130b20d.jpeg": {
+        "rectangles": [
+          [
+            48,
+            85,
+            69,
+            720
+          ],
+          [
+            1100,
+            31,
+            1125,
+            59
+          ]
+        ],
+        "output_sha256": "2e3e9c04220fb2c968a5b7defb88670269379c2d38dcf216d8c40d1db6def1f4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/3/a30f12126ba58f89f05597635e8b11b06c0f3a90.jpeg": {
+        "rectangles": [
+          [
+            49,
+            74,
+            75,
+            720
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              639,
+              447,
+              735,
+              471
+            ],
+            "text": "example-tgw",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              84,
+              349,
+              400,
+              374
+            ],
+            "text": "vpc1-vm1.example.com (10.1.1.133) - 9122",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              84,
+              374,
+              400,
+              397
+            ],
+            "text": "vpc1-vm2.example.com (10.1.1.32) - 9222",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              834,
+              352,
+              1135,
+              378
+            ],
+            "text": "vpc2-vm1.example.com (10.2.1.16) - 9123",
+            "size": 12
+          }
+        ],
+        "output_sha256": "266aed12beb473047c8c971a54634135c296c104162e541883dea8bbefd9f83a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf6a415d062a3d2dfa4c739ba4876d5fde6ed076.jpeg": {
+        "rectangles": [
+          [
+            48,
+            87,
+            69,
+            720
+          ],
+          [
+            1102,
+            32,
+            1130,
+            59
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              199,
+              32,
+              607,
+              56
+            ],
+            "text": "example.console.ves.volterra.io/web/namespaces/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              803,
+              453,
+              891,
+              475
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              804,
+              491,
+              1029,
+              515
+            ],
+            "text": "example-request",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              383,
+              430,
+              567,
+              451
+            ],
+            "text": "example-load-generator",
+            "size": 11
+          }
+        ],
+        "output_sha256": "b5c18b0739e1eba37632ad41b727e3950eb5d064f52dba6236dd103575be01a9"
+      }
+    }
   },
   "67249": {
     "article_hash": "7153ea4b9ecff7b1c25c2923dcf9b0edc61201aa33904a415495769b9643ea30",
