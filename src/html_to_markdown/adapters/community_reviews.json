@@ -21534,5 +21534,160 @@
         "output_sha256": "d1db0445921cb5f4c5265f125b1dcae21c1931572e3a4d1d2a9a47f421af6ff1"
       }
     }
+  },
+  "77025": {
+    "article_hash": "87f5b7b7415955057bf17d1df27779d22a4e776df69e662b99a0b5fe81299e50",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire first-post prose and eight assets. Synthetic namespace, tenant banner and personal photo filename replace identifying values; profile chrome removed. Fictional Webix demo context, cacheability, hit ratio, latency, enablement controls and illustrative timing graph preserved. F5 logo assets contain no user data.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/9/7/97d94bfc037e13d45e120f83229084d20be8aec1_2_443x249.png": "1879843e7d5b9387958b3c56c6e72c77fcdd10339546ed6bcd2192bde881c07f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/db83d4d43ae79e1140cafc284c6314c81f9c0d77.jpeg": "f5fb15cee83f01f77eb71005500c9f5d320ec982cc6db8d52b6fbc5cb482de56",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/de5e93c9046805514aeb9fe919e808b585332645.jpeg": "396be6bf816cd1cd9cf6dc3ed7c607ceeca37d5c7d8ef12017f270b66744834c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/46ef79ede5bf2c628a50d1dc2e7a807177ca5943.jpeg": "51677af7bbd878a7337940572de49ab63b934fa4559e7be69c8388d886493642",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/60298a86cb72ba2aaa54f6bef76fdd328b471907.jpeg": "8719d63d379ec8e5bc2145b70c3152e71da691bb6d6c4b963d54c56c5d4039cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/8690146f94f390bc5b62d8b4b2dac58aabd98506.png": "c0631f03ae5a1aaaa01706c874653305161b75b48361d127ca713b86947858ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/3/d30dde59081409839c1ddfc95694a47b579890bd.png": "53b4a2dac1b3d71ff295f9bbc21076a1dd9a1ec0a400e266f744ca4078804fcc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc7cc3d65e0a57304e977596817c4b7b4185cf82.jpeg": "4a77674f2ea3ec9c33e69fde2d3bdc9a715bcb5f34f01d206ddb8f49780026e2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/de5e93c9046805514aeb9fe919e808b585332645.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1018,
+              86,
+              1193,
+              135
+            ],
+            "text": "example",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              96,
+              439,
+              315,
+              488
+            ],
+            "text": "example",
+            "size": 34
+          },
+          {
+            "rectangle": [
+              3075,
+              598,
+              3446,
+              654
+            ],
+            "text": "/data/photos/example.jpg",
+            "size": 28
+          }
+        ],
+        "rectangles": [
+          [
+            3699,
+            114,
+            3771,
+            189
+          ]
+        ],
+        "output_sha256": "c928cb2b003fb9870ca88fc546f9e7936d2d14b86fc81079237bf9bb8491993d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/46ef79ede5bf2c628a50d1dc2e7a807177ca5943.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              341,
+              3,
+              402,
+              19
+            ],
+            "text": "example",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              32,
+              120,
+              112,
+              143
+            ],
+            "text": "example",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c7fed971dc51fea89432e32c93146f05853f7562f16d4afbc3818f1c5b97b9d1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/60298a86cb72ba2aaa54f6bef76fdd328b471907.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1014,
+              88,
+              1194,
+              137
+            ],
+            "text": "example",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              94,
+              439,
+              319,
+              491
+            ],
+            "text": "example",
+            "size": 34
+          },
+          {
+            "rectangle": [
+              1575,
+              24,
+              2278,
+              75
+            ],
+            "text": "Managed Tenant: example",
+            "size": 32
+          }
+        ],
+        "rectangles": [
+          [
+            3696,
+            114,
+            3773,
+            197
+          ]
+        ],
+        "output_sha256": "3c98d83aa14e3247fdf3bddb77e7ca5e6452f6916d13c63d4b4b362fedcf1986"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc7cc3d65e0a57304e977596817c4b7b4185cf82.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              90,
+              441,
+              201,
+              493
+            ],
+            "text": "example",
+            "size": 24
+          }
+        ],
+        "output_sha256": "31726a4b4a782668adc3515a7a41ffeea68ca459465da9f4e7f69f192e873e20"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/db83d4d43ae79e1140cafc284c6314c81f9c0d77.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "81792c7e9b617531cc38ac599fc29299e54448af18d63aac16def217e794f6bc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/3/d30dde59081409839c1ddfc95694a47b579890bd.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3eff9e82694e9cddd55a6af416ade72f590b4dba0e79c856a27b9c3b76b5d640"
+      }
+    }
   }
 }
