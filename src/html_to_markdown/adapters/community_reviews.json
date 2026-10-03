@@ -28154,5 +28154,145 @@
         "output_sha256": "17a956c09f989924a15efc6358b17e0dbd3b6a24bb8820f0fc7f5da9d6f2ff14"
       }
     }
+  },
+  "71577": {
+    "article_hash": "ab754f59220b0a9dfdb52548eb9599ed9405dc6bbc1cbe2339346537247354ca",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post text and nine static images. Synthetic domain, observed metadata public IP, visitor IP/location and support ID replace identifying values. Preserved AWS metadata service address and field names, exact SSRF query, WAF signature, blocking outcome and diagrams. No metadata credentials or customer records are shown.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e7f9bbc566c1a28b54db2952d9e34443750ef672.png": "254119f3fe87f803d39be570013e1f246eeecf8b2199ff62408920e4bbe2dbb8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1557c5285e36ec514afa37089f3bdb86c5ec4ce2.png": "ddf2fb992b89401cc7cad24a0fb8925aecb6282c4dda41495fec4c3c05df0001",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/230728e66050828e766b43e6e83440a8bed79b4e.png": "173fc4efcbf354da99ed7bd9b39cf250f3976c50911fe3dc0d26518fae895c6a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5bb9c0ba92ef9f2a255efd101f99ed5575c8a524.png": "4f5b81bb3a74e59dbc46a2e762360905e6ca3aa808bf0f856ecfbb0e26d53cd4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8e8fe1b54703232631b89322cee0432389c45f68.png": "c9c2550244ba4d8db8a434402cba812b4b8fee3af9d200edf71d42f0ef69a6a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/167e4417e7b3cb7f2b566f21e8ed463826ba1830.png": "864a686f71cfc13b23345449f43f6958437c19f87e94dc9c85801e81bcdf3084",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/602f83471974838104d68d5fd013043de33d108d.png": "da8a233ae5c6f44b4ab0715e0da62e0075f62e602d2d754fc2f0e2f26bd7a05f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/5/b555604ac7263888d5fc034733895ed2f26068ca.png": "5e5333a84434f9d8d4a58569cc29159244738cb7db325f1bea9faf8dc349c79d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/1/e1d14bdf40b42bbe303818fa9dfd68e622adb426.png": "094d7901f325760a59acfefb21b14d80dab0cba5bd1ba7e3ab0e830c9f42eebf"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e7f9bbc566c1a28b54db2952d9e34443750ef672.png": {
+        "labels": [
+          {
+            "rectangle": [
+              477,
+              102,
+              825,
+              150
+            ],
+            "text": "app.example.com",
+            "size": 31
+          },
+          {
+            "rectangle": [
+              6,
+              174,
+              173,
+              229
+            ],
+            "text": "192.0.2.20",
+            "size": 27
+          }
+        ],
+        "output_sha256": "e02da3f752eddc7e92533ed3280ee9e8bad481d05e8eb2b56e1ca60d94a8968b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1557c5285e36ec514afa37089f3bdb86c5ec4ce2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              475,
+              90,
+              817,
+              140
+            ],
+            "text": "app.example.com",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              315,
+              278,
+              982,
+              327
+            ],
+            "text": "example-request",
+            "size": 32
+          }
+        ],
+        "output_sha256": "b00cd0aaea8ce83a859d57013515c32aa163d4a214cb447d2053d465f79d023d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5bb9c0ba92ef9f2a255efd101f99ed5575c8a524.png": {
+        "labels": [
+          {
+            "rectangle": [
+              460,
+              18,
+              814,
+              65
+            ],
+            "text": "app.example.com",
+            "size": 29
+          }
+        ],
+        "output_sha256": "08078f1d25bd55bf911986f20662f7d75430e4e89f8e6f58c2f489519ae26d0f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8e8fe1b54703232631b89322cee0432389c45f68.png": {
+        "labels": [
+          {
+            "rectangle": [
+              478,
+              101,
+              834,
+              161
+            ],
+            "text": "app.example.com",
+            "size": 30
+          }
+        ],
+        "output_sha256": "3625d758f64e90195dcd1da250f235029bbc7e94095d2e51b01091ae7c3b6a01"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/5/b555604ac7263888d5fc034733895ed2f26068ca.png": {
+        "labels": [
+          {
+            "rectangle": [
+              755,
+              136,
+              956,
+              183
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              432,
+              136,
+              571,
+              183
+            ],
+            "text": "Example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2356,
+              116,
+              2549,
+              200
+            ],
+            "text": "app.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "e75b94fb6241454d20afa7d4f3f31220e4fcea8a482c8297a8a0a80c4228be0b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/167e4417e7b3cb7f2b566f21e8ed463826ba1830.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "599286926432673878b1f65b6d726a457e65a6ec19ae0c49e626d07fc76a2cbc"
+      }
+    }
   }
 }
