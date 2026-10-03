@@ -45535,7 +45535,7 @@
               1000,
               60
             ],
-            "text": "example@demo:/home/example$",
+            "text": "example@demo:/home/example/$",
             "size": 28
           },
           {
@@ -45609,7 +45609,7 @@
             "size": 26
           }
         ],
-        "output_sha256": "3676b9e49a96fdda90aa6ee4ef8561fa0f096d4f83c4efe7700c069203e7a92d"
+        "output_sha256": "4e8367f08b8eba4d6f7e0c65126fe2b55d8d2d8eef51d30b0b82606e52f1eb87"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/09c64a8ad6832879240d83c21b117725701f8375.png": {
         "labels": [
