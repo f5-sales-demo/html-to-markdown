@@ -25763,5 +25763,267 @@
         "output_sha256": "2a83b3c53855a05bc506c7a3baed0e8d233318285ee425261dcbd2b9b205c631"
       }
     }
+  },
+  "71491": {
+    "article_hash": "de6ae536d212395a6bf517ab51a1632e00166a8fd9f5744a43aa4729e2cfc558",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and ten static images. Replaced personal namespace, LB names, app type and domain, tenant login name and profile chrome with synthetic examples. Preserved DDoS detection/auto-mitigation controls, save action, layered protection diagram and generic console navigation. No visitor records or credentials are present.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2aad7a343d41d177027df3b33e9a76b590558279.png": "2ed16a0e7b04130e9419a54bf3e379e3eee2fd098be4e093fca4607261b86193",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bd23d4de0a24884060fa2feb5ba5666da088f0a.png": "06adf24e6a15cdf03080d25d01b93a61b777925f4e331eda3ae386c7d07bdd55",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6f777265c297eede260c8c4f1dfaa23d5ed5375a.png": "b6952bcdf0f2a1d5b700ffd26760712431d69692751cb47d9b88dc6644065fc1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/72039b9a2095ac8d1ae7a716b7af5405e8020c3f.png": "e3074dc97a0e415925dff1b92427ece80ee77f085937a0e9bbdef29531ffa883",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a011605eb04a2af4be8bbe6a8b3809851a8716b0.png": "10b03bb7a7ff81f76f63a9ea113c6f4a28249195d33adfc8b2741fcba67f8bea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3525101463eb552709c870a9c4412cb5e61bf78.png": "0d43810f8ae09b9c13eee55b94f668d563f61bb591f40c2f6ce5d2a2baa1ef4c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/daf495730a93d5e0b307d733d8ceacb7192efa75.png": "5c398f4d2b3ba03fce4ff12396ad3812cf49c2070cf839e46e10e3884bb74a28",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0c86401b05daa1e0578dd6ab349ebf81b5824039.png": "6bad779adcfdf71bf51027326f945013daa2b603c123713592e90700c05b09f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/d/2d74f926090a17aff05de9a8699a1ee6399f648c.png": "57b59e245aaf365779ee3ac4a870e129a569b101b11dc880db82277f7a03e592",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/b/3b8ae97083e5639411343fdbb7d87b23f080bdd2.png": "7d3d2a9d21795ebc4376ea75df2bc3cdb233dc6b6f893079ece1b686c13ecd6d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bd23d4de0a24884060fa2feb5ba5666da088f0a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              491,
+              3,
+              544,
+              28
+            ],
+            "text": "example",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              50,
+              177,
+              134,
+              208
+            ],
+            "text": "example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              330,
+              161,
+              548,
+              189
+            ],
+            "text": "example-lb",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              330,
+              412,
+              487,
+              442
+            ],
+            "text": "example-test",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              330,
+              662,
+              631,
+              692
+            ],
+            "text": "redirect-example-lb",
+            "size": 16
+          }
+        ],
+        "rectangles": [
+          [
+            2089,
+            9,
+            2126,
+            52
+          ]
+        ],
+        "output_sha256": "6b335b4bac9f4855128d1867590a928a066677250ef67ecc7f864589e44d82eb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6f777265c297eede260c8c4f1dfaa23d5ed5375a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              24,
+              70,
+              210,
+              98
+            ],
+            "text": "example-lb",
+            "size": 14
+          }
+        ],
+        "output_sha256": "91ab6c22db2991fa7fe38e3cb6263359d239caef82624eb447c8ea053ebc6cc4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/72039b9a2095ac8d1ae7a716b7af5405e8020c3f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              32,
+              138,
+              216,
+              164
+            ],
+            "text": "example-lb",
+            "size": 14
+          }
+        ],
+        "output_sha256": "23c333e7d8423e500ad20efd3dbf53c3cd2b42f443d506f82cdfb89ee8bb4243"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a011605eb04a2af4be8bbe6a8b3809851a8716b0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              36,
+              140,
+              221,
+              168
+            ],
+            "text": "example-lb",
+            "size": 14
+          }
+        ],
+        "output_sha256": "fd3869b2eb953468d383a448076da417abfc73aade9e2bfcb37071a6a55fe8fc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3525101463eb552709c870a9c4412cb5e61bf78.png": {
+        "labels": [
+          {
+            "rectangle": [
+              457,
+              167,
+              609,
+              195
+            ],
+            "text": "example-tenant",
+            "size": 18
+          }
+        ],
+        "output_sha256": "4e2c839c11b2032f59fa7e21c0d4f3a7ca5becde3173d7daa5740747b64b218a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/daf495730a93d5e0b307d733d8ceacb7192efa75.png": {
+        "labels": [
+          {
+            "rectangle": [
+              490,
+              3,
+              542,
+              28
+            ],
+            "text": "example",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              49,
+              177,
+              133,
+              207
+            ],
+            "text": "example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              329,
+              161,
+              546,
+              188
+            ],
+            "text": "example-lb",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              329,
+              411,
+              485,
+              440
+            ],
+            "text": "example-test",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              329,
+              660,
+              629,
+              689
+            ],
+            "text": "redirect-example-lb",
+            "size": 16
+          }
+        ],
+        "rectangles": [
+          [
+            2083,
+            9,
+            2119,
+            51
+          ]
+        ],
+        "output_sha256": "ba01d2a24158ca14bd5c5e3fe55dad2d496563d122c86dcdffce1d517aaa1f06"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/b/3b8ae97083e5639411343fdbb7d87b23f080bdd2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              37,
+              139,
+              216,
+              166
+            ],
+            "text": "example-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              619,
+              138,
+              800,
+              166
+            ],
+            "text": "example-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              669,
+              206,
+              941,
+              232
+            ],
+            "text": "example-app-type",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              659,
+              245,
+              1081,
+              274
+            ],
+            "text": "HTTPS load balancer for example origin",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              575,
+              418,
+              801,
+              447
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "320135063f6705a407b88ba98a22c919f67d0cf93aa6ef5597413adb62a34308"
+      }
+    }
   }
 }
