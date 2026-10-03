@@ -33241,5 +33241,66 @@
         "output_sha256": "2fa5da199b7255b1ae34d54d5e128f3c7272f5ebef412cdefcffc094dd5e170d"
       }
     }
+  },
+  "71416": {
+    "article_hash": "216fddcc128cb829696e3e2c5832c1e5c6a4441cb86c4358ecc242c7ed8c09d6",
+    "decision": "include",
+    "reason": "Distributed Cloud focused header and cookie manipulation guide with incidental BIG-IP comparison",
+    "text_replacements": {
+      "nodes": {
+        "2de6a41922b9c73c3ce79c9235208aca204077bf3e156c632802dff42eb71331": "To match a regex value in the header that is just a single IP address, even when the header has many ip addresses, use the regex (192\\.0\\.2\\.10) as an example to mach address 192.0.2.10.",
+        "c69d63838e736be61e5bea421f80d13b38ac43e34f60bbdcfdb841975c57c1c9": "Keep in mind that in some cases in the XC Regex for example (192\\.0\\.2\\.10) should be written without () as 192\\.0\\.2\\.10\u00a0 , so test it as this could be something new and I have seen it in service policy regex matches, when making a new custom signature that was not in WAAP WAF XC policy. I could make a seperate article for this "
+      },
+      "output_sha256": "ffb61dfed6da854226560b980b3e4db9c33603f79cfc9133e7774ba81f4d9bae"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and eleven static images; synthetic sample IP/regex and policy name; preserved header variables, matching controls, client certificate attributes and cookie flags; no cookie/credential values or personal data in remaining screenshots; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d68362bec697a7148138f7fb97084bebd3c9095.png": "38a44542b409c0e6c1ba9c1f81c6859b0deb8f1aa791dd00f5f6076f63be603e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4be0fdc5305706904eb0201361ca34ff07c61e61.png": "23db268ddbcb3d841a19c65cf13da2ab4728a0233abae1f3c774218f0ecd7bdb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/523cfd71d9a6464179820edc208990ce4cae7cb5.png": "5fd72bf34655b2a7958c6a590f61331d888c42758865aee108d054a6bfca2b57",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65605abc2030bb6fb520e2411c47df5b260d685d.png": "56cc4be706b378a2e022c98974c5985e3891dfbb2c3c3656871f56dfd32fe8a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7044fd2ecf47523ba0ca09c8fcd27aa4555d7457.png": "1d9348a0bbcf2097fede9a17ba3fdced38ed42fe71607f27cc1e63f5514bd4ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/749906b9e1294d242ca9f86f7b96ccfce0ca242e.png": "d6f48823a8f39f1449b7d81577c91d997f68203f0756198dbcd57f5a3989f92b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/da0c9e1f9b8c6a61e3dee05d2551e03df8af58ae.png": "25359febfecb2a09869526c8c1ad62e6ce83ba029c5f4c9ad8a7c351bf599d6c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ec1b1af688fcbfcb34a5473827384217e07cf478.png": "7aaf1f628000b3c0e939bafbe8d9edae7c683421d66e1b78f310cca665604c70",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc5cd40606a1ed1ebaf55f00906f63f36670039e.png": "58e918b87d5ca031f970549e4ee2b11171b9fed82661c7da2febf48695559406",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/45f30e7b221b894d4271a134f22df02a90cf6dde.png": "372c761b59239f6e8508e1728a84b938e8586d44787c0ddf5a0af015a74da510",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/8690146f94f390bc5b62d8b4b2dac58aabd98506.png": "c0631f03ae5a1aaaa01706c874653305161b75b48361d127ca713b86947858ed"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65605abc2030bb6fb520e2411c47df5b260d685d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              125,
+              291,
+              267,
+              316
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "904723469a80f56eb5a6727bafe582d7e287047ffc75339dc5dfec23c5a71be7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/45f30e7b221b894d4271a134f22df02a90cf6dde.png": {
+        "labels": [
+          {
+            "rectangle": [
+              61,
+              98,
+              345,
+              127
+            ],
+            "text": "example-service-policy-json-xml",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "61bedf3cda332fea61fcf0611f454d1fcd7edfeeea0ecaea1df18968beed8c39"
+      }
+    }
   }
 }
