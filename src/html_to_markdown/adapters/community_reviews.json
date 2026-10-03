@@ -10519,5 +10519,225 @@
         "output_sha256": "849aaee6c58c4699febc8c7ac0233eca4def29b8b65d499b1d7f44accac9f487"
       }
     }
+  },
+  "70429": {
+    "article_hash": "ba68ab1f332beecd2e716ae05e98f1060713731063a025fad1764214171c68aa",
+    "decision": "include",
+    "reason": "Distributed Cloud per-application Kubernetes failover with BIG-IP DNS background",
+    "text_replacements": {
+      "nodes": {
+        "dfe7cce5478bc23be524d2c1796be1965d4df2db833c5f54b6ec63fe28e65981": "\u00a0by an F5 contributor",
+        "f78c82588b5880522744e10b8be0c63792eb5b670a79b0c8c26a926499573620": "\u00a0by an F5 contributor"
+      },
+      "output_sha256": "961228fdf60c71cd265cc5db44910994f882037cf403f973550ce125416ab8e2"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected per-app failover guide and three diagrams; domain and DNS example addresses made synthetic consistently, author attribution removed; BIG-IP DNS background and Distributed Cloud origin-pool failover retain topology meaning",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/464c4caa46a726cc13e7aa1b453fe8480709b82d.png": "c0b79a3fe4de533d60591a49e23a2d7113126308fd53b2b1fc063004b28e8212",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c81e00eeb2c862efdf54d33216e3dd69408ea72c.png": "fdf2984cb6f7a123f6dd3a1b4984014b8c6b584f67d37f27090404bae9c63955",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/0/d07cd0036d154c7e0850be02a367dd01ab605937.png": "64b8a403378be0f707f0814d56d71a385548a026169a0a78c37398567fb165f0"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/464c4caa46a726cc13e7aa1b453fe8480709b82d.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              905,
+              43,
+              1310,
+              88
+            ],
+            "text": "app.example.com",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              905,
+              489,
+              1310,
+              535
+            ],
+            "text": "app.example.com",
+            "size": 28
+          }
+        ],
+        "output_sha256": "9412a97dea3a6b7c9d941e654058deb26c042ba5c19489325cfbaae4db9d4b15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c81e00eeb2c862efdf54d33216e3dd69408ea72c.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              95,
+              111,
+              204,
+              126
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              106,
+              127,
+              195,
+              143
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              250,
+              111,
+              372,
+              126
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              252,
+              127,
+              365,
+              143
+            ],
+            "text": "192.0.2.2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              453,
+              111,
+              550,
+              126
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              458,
+              127,
+              551,
+              143
+            ],
+            "text": "192.0.2.3",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              439,
+              247,
+              552,
+              267
+            ],
+            "text": "app.example.com (A)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              54,
+              269,
+              154,
+              290
+            ],
+            "text": "app.example.com ?",
+            "size": 10
+          }
+        ],
+        "output_sha256": "c2d50c401e86ea67aa3e9ac262d22c7f8ede953201f52a5c4734625b7a14e925"
+      }
+    }
+  },
+  "72566": {
+    "article_hash": "36702f265ecb32afc8b629c9b96551e29e88ba98e11b451f3a6793680e0b92fb",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Kubernetes WAF deployment guide and four images; request endpoints, Host values and support ID made synthetic, Bookinfo services and XSS blocked versus valid response preserved; architecture shows generic service placement",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c6a311b61a30cce0a6ac353d97207cc21553299.jpeg": "111e1afea60ac0446d50e7d5f7f9ec11cfa2e51c26fbdb2e1741b0cdfc661773",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/452a7a18a279e9d5a3b707c156623b4d4889f616.jpeg": "44918fff08dbe2a028679150c0be7634a197f8d7ebeb3c0dc55df878134351df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbfd03b879598ed048f9b4670f023ea44d1464fa.png": "42e26045bd3b3e722621603302c9a87444abb0c3cce5e7e94d0539e24783b14f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/2/4279e96405517f355fadc35e6318140bd99fb350.png": "fc519e1122a0067c6d100ebdd0d1ec8e6b81d16879b4b683ee052483b236171f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbfd03b879598ed048f9b4670f023ea44d1464fa.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              311,
+              160,
+              1848,
+              215
+            ],
+            "text": "http://origin.example.com?a=<script>",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              992,
+              516,
+              1370,
+              567
+            ],
+            "text": "app.example.com",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              341,
+              1240,
+              1025,
+              1308
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 24
+          }
+        ],
+        "output_sha256": "3d6f02b18da542f5f1393a5fe2a8b5e21ab3c14c69038c54691abfe604cd5a0c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/2/4279e96405517f355fadc35e6318140bd99fb350.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              314,
+              162,
+              1696,
+              219
+            ],
+            "text": "http://origin.example.com",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              987,
+              520,
+              1371,
+              573
+            ],
+            "text": "app.example.com",
+            "size": 30
+          }
+        ],
+        "output_sha256": "94898d614af0f082ed50cf802b21a499bde0597e53fc89420e57fbabfd12d478"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c6a311b61a30cce0a6ac353d97207cc21553299.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1b20e69206ad9269dfa7519adc29047c440ce947f417e2ed50150a79178957f8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/452a7a18a279e9d5a3b707c156623b4d4889f616.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "82dbceebb6f66e15bff1be56e0186fda02ec451d84e987f24ca597481851ed94"
+      }
+    }
   }
 }
