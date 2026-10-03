@@ -27663,5 +27663,496 @@
         "output_sha256": "f9f231e8fdaee0d8e2774c6109469d1c0a1a29db85f0b806c884629322f32a43"
       }
     }
+  },
+  "70384": {
+    "article_hash": "360dcc88b6e47f4bf7b66d9c17ae1d4ab897a3c1fc5f8c3a58d34872febbbd99",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and ten static screenshots. Synthetic WAF/LB names, app domain, visitor IP/location/ASN and request IDs replace identifying values. Preserved phpMyAdmin version/configuration exposure, localhost service account, WAF signature/path match, monitoring/blocking modes and allow/block outcomes. No customer records or credentials are displayed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/079628cd6d022bdace053b164856311286de4c6a.png": "0ac8159417b9f9443ac991649f85fb879cda89b5ba20ea8c92a614893d860e07",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4000f1ee71e4442b39291275eb63459bed02337d.png": "e554a1ceedce1d5ab05436348b8cda929322d638d78a2800c289fa79b25bf163",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dfa1a3e936e183195b252f1fc5a6f5a120073030.png": "a2457f75768b9ec1829d9ee4c20782164e55aa66a3ef3fbd653e6828141d31bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e940f5666fae4fec645e55af632fd2282e2201a7.png": "00c5cd016bc475c3f535563efb6a5f209f6bee0bf9fe6824a4f8e91474fac7e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e959c1aedaece40e1132689884d3cc5e8ba80813.png": "0b8363f2cce7cdec6fd8d5c9ecc6401fcc22492d38d5fcf2d50fe59547ee9739",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/567876b1e99997788fd7ef6e224612f65e0f754b.png": "05199bf2a7f0926f2bfcd1a029e6ac8aa3128f24928a9a5003c5213318172bb5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/86cc491c648785fb9a2d8c0744c90baad7a87b49.png": "8b35347705219563bbf980ca31d4db665479844ef4ed682123efc5b16a438327",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7d917d778d2692c80bdb33466834e31cc89d18e.jpeg": "b1c694d8400f0742f26f3f6a9c0d18f3754bb3e52ffaba2624219028e9f007c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/3/f3f3bc4d0fc23e63b546ee08a63c682e94efe81c.png": "2d0e81d7f5d5538f5e38b7cbc6a324177468338600235482f9e0f4601a0f454c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7acbcec91ff02cb0221be9cbcc15836706412b1.png": "06f5b958f7f0485747dc6ce1505c0ddb595a1450eae260b802f16f92da19cbfc"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/079628cd6d022bdace053b164856311286de4c6a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              106,
+              180,
+              137
+            ],
+            "text": "example-waf",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              747,
+              108,
+              886,
+              137
+            ],
+            "text": "example-waf",
+            "size": 21
+          }
+        ],
+        "output_sha256": "1e2439fad0991a9ba17c0eb60d1e50be1ac9b04b2317de85eea3a234915b0f29"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4000f1ee71e4442b39291275eb63459bed02337d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              266,
+              25,
+              488,
+              53
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              394,
+              259,
+              699,
+              284
+            ],
+            "text": "example-request",
+            "size": 17
+          }
+        ],
+        "output_sha256": "2fa27e98b0b9e671dcf1e4c52efb3a4dbbd357cb194b98e2a5564acb464f8704"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dfa1a3e936e183195b252f1fc5a6f5a120073030.png": {
+        "labels": [
+          {
+            "rectangle": [
+              440,
+              29,
+              594,
+              52
+            ],
+            "text": "example-app",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              577,
+              637,
+              675,
+              667
+            ],
+            "text": "192.0.2.10",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              577,
+              725,
+              675,
+              754
+            ],
+            "text": "192.0.2.10",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              466,
+              637,
+              563,
+              667
+            ],
+            "text": "Example",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              466,
+              725,
+              563,
+              754
+            ],
+            "text": "Example",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1317,
+              636,
+              1437,
+              676
+            ],
+            "text": "app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1317,
+              722,
+              1437,
+              759
+            ],
+            "text": "app.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "21f4c713568977923b7960096fc30b1c63af5114a8ae7c17e3182196d82f8b44"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e940f5666fae4fec645e55af632fd2282e2201a7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              68,
+              137,
+              269,
+              177
+            ],
+            "text": "example-waf",
+            "size": 30
+          }
+        ],
+        "output_sha256": "e616c5255223e4f4d9764022a6033fc48c97e9adb65a92bb6a142f291a16dec3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e959c1aedaece40e1132689884d3cc5e8ba80813.png": {
+        "labels": [
+          {
+            "rectangle": [
+              397,
+              18,
+              540,
+              43
+            ],
+            "text": "example-app",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              545,
+              574,
+              617,
+              599
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              545,
+              640,
+              617,
+              665
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              418,
+              574,
+              508,
+              599
+            ],
+            "text": "Example",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              418,
+              640,
+              508,
+              665
+            ],
+            "text": "Example",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1180,
+              560,
+              1286,
+              609
+            ],
+            "text": "app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1180,
+              628,
+              1286,
+              679
+            ],
+            "text": "app.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "759bc58c89f6d249dfdcb6979f73035ff2ca8c59dee7946a3db69d09690137a7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/6/567876b1e99997788fd7ef6e224612f65e0f754b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              30,
+              114,
+              262,
+              153
+            ],
+            "text": "example-app",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              755,
+              144,
+              1145,
+              184
+            ],
+            "text": "app.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "bf2fac30b77cecc6b9e50912bf716e5f29e0d5dc7cd434f3ce494d3d18a0d561"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/86cc491c648785fb9a2d8c0744c90baad7a87b49.png": {
+        "labels": [
+          {
+            "rectangle": [
+              65,
+              121,
+              275,
+              151
+            ],
+            "text": "example-app",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              947,
+              518,
+              1289,
+              548
+            ],
+            "text": "automation-apisec/example-waf",
+            "size": 18
+          }
+        ],
+        "output_sha256": "7053289412394f1a02385c09f31f61231090d2b12d749855c75d561340b4a0e1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7d917d778d2692c80bdb33466834e31cc89d18e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              287,
+              24,
+              539,
+              56
+            ],
+            "text": "app.example.com",
+            "size": 19
+          }
+        ],
+        "output_sha256": "f1146da765ee168636285cab290df58b3cc89c0dee4cb68df2fbd2c80ffa2a47"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/3/f3f3bc4d0fc23e63b546ee08a63c682e94efe81c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              415,
+              96,
+              497,
+              123
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              257,
+              96,
+              366,
+              123
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1218,
+              86,
+              1345,
+              131
+            ],
+            "text": "app.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              214,
+              246,
+              297,
+              269
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              213,
+              273,
+              316,
+              298
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              213,
+              304,
+              261,
+              327
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              213,
+              360,
+              363,
+              383
+            ],
+            "text": "Example ASN",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              913,
+              244,
+              1243,
+              273
+            ],
+            "text": "example-request",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              913,
+              274,
+              1153,
+              300
+            ],
+            "text": "app.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "f9ecf055043c16725165b877a1fd60540d997066daa39fe29fd2106d6a281a2d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7acbcec91ff02cb0221be9cbcc15836706412b1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              430,
+              53,
+              519,
+              78
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              264,
+              53,
+              375,
+              78
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1261,
+              42,
+              1389,
+              88
+            ],
+            "text": "app.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              217,
+              205,
+              301,
+              231
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              217,
+              233,
+              326,
+              259
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              217,
+              264,
+              268,
+              287
+            ],
+            "text": "Example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              217,
+              322,
+              370,
+              348
+            ],
+            "text": "Example ASN",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              942,
+              205,
+              1269,
+              230
+            ],
+            "text": "example-request",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              942,
+              234,
+              1187,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "17a956c09f989924a15efc6358b17e0dbd3b6a24bb8820f0fc7f5da9d6f2ff14"
+      }
+    }
   }
 }
