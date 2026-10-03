@@ -13967,5 +13967,536 @@
         "output_sha256": "052f5a544870348aaa3f68694901c68395595e268238d0f6774a9cb888fbddb1"
       }
     }
+  },
+  "72562": {
+    "article_hash": "e4273ae55d9d9eab5665385e93ac94b701a0168808d78760ed56d741dc8d32c5",
+    "decision": "include",
+    "reason": "Distributed Cloud alert ingestion and tenant-aware SOAR integration is the primary subject",
+    "text_replacements": {
+      "nodes": {
+        "e8736f772aeb0a54e001ff83c2d72e4b81cb2ba4def614c3c820f4c0aa0b24a1": "This integration provides the ability to execute these commands from the Cortex XSOAR CLI, as part of an automation, or in a playbook."
+      },
+      "output_sha256": "1b15eb7afc12d147336edce0cbfa65658e6a6bbc5ba91a6def93392605c37509"
+    },
+    "privacy": "approved",
+    "privacy_reason": "First-post prose and all seven screenshots individually reviewed. Synthetic tenant, namespace, site, cluster, analyst, observed client IP and alert fingerprint preserve the complete alert schema and tenant-aware commands. Generic integration controls, incident timing, severity and token creation fields retained; no token value present. Metadata stripped without changing other pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/514ec163555e449381d899e3c7758f494c53446e.jpeg": "8f5aa119e95a5ec8bffdd72e97a0cacffafa8323b2d85f1195462a55692c0e97",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6444dce910290a0087eeb0c9327dfcb29b6f4ccd.png": "ac6286219eb52b8848d09d667d5c1b16aac34c37461ac12240f3574b3cb3c04b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e62f7a4af436bbcf5312a399fdd111bb13d7aff7.png": "e14c7409e028be8a9a3bc55cb0ed51011f698f402468a427d5e513d00acb3b2c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/276f10a2b9a42260847d896be79cfcade70de669.png": "5bea3d239bd68be5c4b0391fc5f82075a2fc570f091fe5c25da5970a89a70079",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/d/8de42731b3aa53f810c4352cc06b11638a76b9d7.png": "df5f30cffa6a9b44888762bfdda3742e7846f806d6f7ecc7d25e9bf716298f91",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/5/d54d3b9a5d585884f58e33dd7028ffbcce1901d1.png": "21d742977a1174497007740ab16ecaeca96ad0ff4e948bdbd6f6db4612730561",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/da2749fe27ad7a04ad6d40902c814ab07001ba4f.png": "5894cc61d7eea8b3dadea1754be8ef4adc1ee34a8d66001047313d23ba6dcfe6"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/514ec163555e449381d899e3c7758f494c53446e.jpeg": {
+        "rectangles": [
+          [
+            302,
+            359,
+            1400,
+            552
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              100,
+              435,
+              295,
+              475
+            ],
+            "text": "example-tenant-a",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              100,
+              555,
+              300,
+              590
+            ],
+            "text": "example-tenant-b",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              100,
+              592,
+              300,
+              627
+            ],
+            "text": "example-tenant-c",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              305,
+              362,
+              1398,
+              388
+            ],
+            "text": "{\"labels\":{\"alertname\":\"MaliciousUserDetected\",\"cluster_name\":\"example-cluster\",",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              388,
+              1398,
+              414
+            ],
+            "text": "\"group\":\"Security\",\"namespace\":\"example-app\",\"severity\":\"major\",\"site\":\"example-site\",",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              414,
+              1398,
+              440
+            ],
+            "text": "\"source\":\"fluentbit\",\"tenant\":\"example-tenant-a\"},\"annotations\":{\"description\":",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              440,
+              1398,
+              466
+            ],
+            "text": "\"Malicious user IP 192.0.2.10 detected. 103 non-existing url attempts in last 15 seconds.\",",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              466,
+              1398,
+              492
+            ],
+            "text": "\"display_name\":\"Malicious User Detected\"},\"startsAt\":\"2023-03-21T04:39:56.898748863Z\",",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              492,
+              1398,
+              518
+            ],
+            "text": "\"endsAt\":\"2023-03-21T04:54:56.898748863Z\",\"generatorURL\":\"\",\"status\":{\"state\":\"active\",",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              305,
+              518,
+              1398,
+              544
+            ],
+            "text": "\"silencedBy\":null,\"inhibitedBy\":null},\"receivers\":[],\"fingerprint\":\"example-alert\"}",
+            "size": 15
+          }
+        ],
+        "output_sha256": "f68645968b2b7915bf3d986c8f8b4023c20693092bacd9cd29e1879554ee5f9f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6444dce910290a0087eeb0c9327dfcb29b6f4ccd.png": {
+        "rectangles": [
+          [
+            264,
+            311,
+            1410,
+            453
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              225,
+              98,
+              620,
+              127
+            ],
+            "text": "tenant=example-tenant-a",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              456,
+              225,
+              640,
+              254
+            ],
+            "text": "tenant=\"example-tenant-a\"",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              313,
+              1408,
+              333
+            ],
+            "text": "{\"labels\":{\"alertname\":\"MaliciousUserDetected\",\"cluster_name\":\"example-cluster\",\"group\":\"Security\",",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              333,
+              1408,
+              353
+            ],
+            "text": "\"namespace\":\"example-app\",\"severity\":\"major\",\"site\":\"example-site\",\"source\":\"fluentbit\",",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              353,
+              1408,
+              373
+            ],
+            "text": "\"tenant\":\"example-tenant-a\"},\"annotations\":{\"description\":\"Malicious user IP 192.0.2.10 detected.",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              373,
+              1408,
+              393
+            ],
+            "text": "103 non-existing url attempts in last 15 seconds.\",\"display_name\":\"Malicious User Detected\"},",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              393,
+              1408,
+              413
+            ],
+            "text": "\"startsAt\":\"2023-03-21T04:39:56.898748863Z\",\"endsAt\":\"2023-03-21T04:54:56.898748863Z\",",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              413,
+              1408,
+              433
+            ],
+            "text": "\"generatorURL\":\"\",\"status\":{\"state\":\"active\",\"silencedBy\":null,\"inhibitedBy\":null},",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              268,
+              433,
+              1408,
+              453
+            ],
+            "text": "\"receivers\":[],\"fingerprint\":\"example-alert\"}",
+            "size": 14
+          }
+        ],
+        "output_sha256": "b2944eafaeab7f46721906cb98d2ebb1e96da63f0e5c17d2a8f9a6f8dcfec667"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/276f10a2b9a42260847d896be79cfcade70de669.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              92,
+              384,
+              330,
+              414
+            ],
+            "text": "example-tenant-a",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              92,
+              417,
+              330,
+              447
+            ],
+            "text": "example-tenant-b",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              92,
+              451,
+              330,
+              482
+            ],
+            "text": "example-tenant-c",
+            "size": 16
+          }
+        ],
+        "output_sha256": "a8938a06d56bd6f42164065785aa64a51b84ded9af3d9dbe389452ca807f4b5d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/d/8de42731b3aa53f810c4352cc06b11638a76b9d7.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1101,
+              202,
+              1171,
+              230
+            ],
+            "text": "analyst",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              199,
+              578,
+              465,
+              608
+            ],
+            "text": "example-tenant-a:MaliciousUserDetected",
+            "size": 13
+          }
+        ],
+        "output_sha256": "65544f7c1f079dd4c1f26bdabf08a8f97ae4f6ccbfc200607fdac162ba1f5b25"
+      }
+    }
+  },
+  "74191": {
+    "article_hash": "639f0bc52569d9b16be3223d74301a23496c764f676973493cadd2014ed506ac",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "First-post prose and all five images individually reviewed, including full-resolution dashboard labels. Presenter identity, console avatars, personal namespace and demo domains replaced or removed; chart percentages and legends preserved with consistent synthetic names. Logstash pipeline, masked password, loopback endpoint, TLS guidance, monitoring metrics and architecture preserved. No customer payload or credential value present; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/4be097a4ba84136819d31cd1c4fc91da3ed4323f.png": "b9a62f94c0cb3e4a65dd657c5e9050f2fd746c3fa6345a2610087c7fa65e662f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/15b512b6186de98cc90376a6b691db4b76b709cc.png": "d3ac42dfd4298e8f0ac323598e639cda4af8a69b565934fe42bc3b9970de21d8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b69dc6513d9a8330ef67152e086675eec4a7a20.png": "841277fda958d05345878e613163859695d87375bfa9bda05ae52306d8fffe94",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2bd3765ee168cdad9a1ef57f39b5d679ab9ce2f8.png": "2de156cadbe4f480e8167a3e26785675e385f3204059b92553711f8e8768d116",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/9/39210db8e1693c2d96176327c61c192d8caa6bec.png": "06fefdcd79ae4c1a2c090f2cc380c463f45d5aa42322edc071d07fbd3dd4ac1d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/4be097a4ba84136819d31cd1c4fc91da3ed4323f.png": {
+        "rectangles": [
+          [
+            120,
+            1240,
+            1500,
+            1470
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "a4934504a7cdfa2dfd1f24a99bb4adcf1fdeb9fc72b22b327e28a207220ecf74"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/15b512b6186de98cc90376a6b691db4b76b709cc.png": {
+        "rectangles": [
+          [
+            877,
+            94,
+            883,
+            102
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              609,
+              402,
+              764,
+              427
+            ],
+            "text": "app.example.com",
+            "size": 15
+          }
+        ],
+        "output_sha256": "2a925aa4f79073903514ec49e26eb729ba1c2b188b17fc65c0ea02db82c187b6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b69dc6513d9a8330ef67152e086675eec4a7a20.png": {
+        "rectangles": [
+          [
+            3710,
+            15,
+            3776,
+            78
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1790,
+              581,
+              1985,
+              646
+            ],
+            "text": "example-app 42.86%",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              2290,
+              507,
+              2454,
+              544
+            ],
+            "text": "example-app",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              2740,
+              686,
+              2967,
+              751
+            ],
+            "text": "demo.example.com 57.14%",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2967,
+              637,
+              3220,
+              700
+            ],
+            "text": "app.example.com 35.71%",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3399,
+              471,
+              3702,
+              503
+            ],
+            "text": "demo.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3399,
+              515,
+              3702,
+              549
+            ],
+            "text": "app.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3399,
+              559,
+              3710,
+              594
+            ],
+            "text": "logs.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3119,
+              864,
+              3280,
+              895
+            ],
+            "text": "logs.example.com",
+            "size": 19
+          }
+        ],
+        "output_sha256": "1429c6e5bca7ac6a26259553970812a6f52484cba316e583bc597d4b9f726c1c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/b/2bd3765ee168cdad9a1ef57f39b5d679ab9ce2f8.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              408,
+              91,
+              620,
+              130
+            ],
+            "text": "example-app",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2480,
+              91,
+              2780,
+              130
+            ],
+            "text": "logs.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "b39918579c0443fe724559fe6048193316de17123cb80d4b493cfea219749e30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/9/39210db8e1693c2d96176327c61c192d8caa6bec.png": {
+        "rectangles": [
+          [
+            19,
+            137,
+            45,
+            170
+          ],
+          [
+            514,
+            245,
+            545,
+            277
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              50,
+              139,
+              114,
+              153
+            ],
+            "text": "example",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              411,
+              17,
+              461,
+              34
+            ],
+            "text": "example",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              544,
+              246,
+              610,
+              259
+            ],
+            "text": "example",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              906,
+              121,
+              952,
+              136
+            ],
+            "text": "example",
+            "size": 7
+          }
+        ],
+        "output_sha256": "a8ce041641fc3b465713de1c453698cb3bddc2f3b2ec2e57e905602de0dd8693"
+      }
+    }
   }
 }
