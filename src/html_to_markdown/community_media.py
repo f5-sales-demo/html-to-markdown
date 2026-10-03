@@ -109,6 +109,48 @@ def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
         draw_label(draw, label)
 
 
+def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
+    """Publish reviewed GIF pixels as lossless full-frame APNG with equivalent playback."""
+    with Image.open(io.BytesIO(content)) as source:
+        if source.format != "GIF" or getattr(source, "n_frames", 1) < 2:
+            raise ValueError("animation transform requires an animated GIF")
+        frames, durations = [], []
+        # GIF counts repeats; APNG counts total plays. Zero means infinite in both.
+        repeats = source.info.get("loop")
+        plays = 0 if repeats == 0 else (repeats + 1 if repeats is not None else 1)
+        for index in range(getattr(source, "n_frames", 1)):
+            source.seek(index)
+            frame = source.convert("RGBA")
+            clean = Image.new("RGBA", frame.size)
+            clean.paste(frame)
+            apply_labels_and_rectangles(clean, transform)
+            frames.append(clean)
+            durations.append(source.info.get("duration", 0))
+    output = io.BytesIO()
+    frames[0].save(
+        output,
+        format="PNG",
+        save_all=True,
+        append_images=frames[1:],
+        duration=durations,
+        loop=plays,
+        disposal=0,
+        blend=0,
+        optimize=False,
+    )
+    result = output.getvalue()
+    with Image.open(io.BytesIO(result)) as published:
+        if getattr(published, "n_frames", 1) != len(frames) or published.info.get("loop") != plays:
+            raise ValueError("animated output changed frame count or loop")
+        for index, frame in enumerate(frames):
+            published.seek(index)
+            if published.info.get("duration", 0) != durations[index]:
+                raise ValueError("animated output changed frame timing")
+            if published.convert("RGBA").tobytes() != frame.tobytes():
+                raise ValueError("animated output changed reviewed pixels")
+    return result
+
+
 def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[bytes, str | None]:
     """Approve original bytes or apply the explicitly reviewed opaque rectangles."""
     digest = hashlib.sha256(content).hexdigest()
@@ -124,6 +166,16 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
         and transform.get("strip_gif_metadata") is not True
     ):
         raise PublicationBlockedError("community image redaction has no reviewed rectangles")
+    if transform.get("animation") is True:
+        if transform.get("strip_gif_metadata"):
+            raise PublicationBlockedError("animation policy mixes output formats")
+        try:
+            result = transform_animation(content, transform)
+        except (OSError, ValueError, TypeError, KeyError) as error:
+            raise PublicationBlockedError("community animation transform is invalid") from error
+        if hashlib.sha256(result).hexdigest() != transform.get("output_sha256"):
+            raise PublicationBlockedError("community animation differs from reviewed output")
+        return result, "image/png"
     if transform.get("strip_gif_metadata") is True:
         if transform.get("rectangles") or transform.get("labels"):
             raise PublicationBlockedError("GIF metadata policy cannot alter frame pixels")

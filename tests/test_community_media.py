@@ -266,3 +266,109 @@ def test_gif_unknown_application_metadata_is_removed():
     for malformed in (original[:-1], original + b"trailing", original[:-1] + b"\x21"):
         with pytest.raises(ValueError):
             strip_gif_metadata(malformed)
+
+
+def test_frame_preserving_transform_keeps_pixels_timing_and_loop():
+    from html_to_markdown.community_media import transform_animation
+
+    frames = [Image.new("RGB", (20, 20), color) for color in ("blue", "red", "green")]
+    stream = io.BytesIO()
+    frames[0].save(
+        stream,
+        format="GIF",
+        save_all=True,
+        append_images=frames[1:],
+        duration=[100, 200, 300],
+        loop=2,
+        comment=b"private annotation",
+    )
+    content = stream.getvalue()
+    transform = {"animation": True, "rectangles": [[0, 0, 5, 5]]}
+    result = transform_animation(content, transform)
+    original, output = Image.open(io.BytesIO(content)), Image.open(io.BytesIO(result))
+    assert output.format == "PNG"
+    assert output.n_frames == original.n_frames == 3
+    assert output.info["loop"] == 3
+    assert b"private annotation" not in result
+    for n in range(3):
+        original.seek(n)
+        output.seek(n)
+        assert output.info["duration"] == original.info["duration"]
+        assert output.convert("RGBA").getpixel((0, 0)) == (255, 255, 255, 255)
+        assert (
+            output.convert("RGBA").crop((5, 5, 20, 20)).tobytes()
+            == original.convert("RGBA").crop((5, 5, 20, 20)).tobytes()
+        )
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {
+            URL: {**transform, "output_sha256": hashlib.sha256(result).hexdigest()}
+        },
+    }
+    assert reviewed_media(content, URL, review) == (result, "image/png")
+    review["asset_redactions"][URL]["output_sha256"] = "0" * 64
+    with pytest.raises(PublicationBlockedError, match="reviewed output"):
+        reviewed_media(content, URL, review)
+
+
+def test_animation_transform_rejects_invalid_input_and_unsafe_policy():
+    from html_to_markdown.community_media import transform_animation
+
+    with pytest.raises(ValueError, match="animated GIF"):
+        transform_animation(image_bytes(), {"rectangles": [[0, 0, 1, 1]]})
+    with pytest.raises((ValueError, OSError)):
+        transform_animation(b"GIF89a", {"rectangles": [[0, 0, 1, 1]]})
+
+
+def test_animation_transform_rejects_collapsed_frames():
+    from html_to_markdown.community_media import transform_animation
+
+    stream = io.BytesIO()
+    Image.new("RGB", (20, 20), "blue").save(
+        stream,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (20, 20), "red")],
+        duration=[100, 200],
+        loop=0,
+    )
+    transform = {"animation": True, "rectangles": [[0, 0, 20, 20]]}
+    with pytest.raises(ValueError, match="frame count"):
+        transform_animation(stream.getvalue(), transform)
+
+
+def test_animation_policy_rejects_conflicting_format_and_bad_coordinates():
+    stream = io.BytesIO()
+    Image.new("RGB", (20, 20), "blue").save(
+        stream,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (20, 20), "red")],
+        duration=[100, 200],
+    )
+    content = stream.getvalue()
+    transform = {"animation": True, "rectangles": [[0, 0, 21, 21]]}
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {URL: transform},
+    }
+    with pytest.raises(PublicationBlockedError, match="invalid"):
+        reviewed_media(content, URL, review)
+    transform["strip_gif_metadata"] = True
+    with pytest.raises(PublicationBlockedError, match="mixes"):
+        reviewed_media(content, URL, review)
+
+
+def test_animation_without_loop_plays_once():
+    from html_to_markdown.community_media import transform_animation
+
+    stream = io.BytesIO()
+    Image.new("RGB", (20, 20), "blue").save(
+        stream,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (20, 20), "red")],
+        duration=[100, 200],
+    )
+    output = transform_animation(stream.getvalue(), {"rectangles": [[0, 0, 5, 5]]})
+    assert Image.open(io.BytesIO(output)).info["loop"] == 1
