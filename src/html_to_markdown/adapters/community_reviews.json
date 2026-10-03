@@ -28963,5 +28963,599 @@
         "output_sha256": "db2bdeed91cb1016bd4969e7250c7c9c7168dbf4c77d7a042add8f751e319495"
       }
     }
+  },
+  "73667": {
+    "article_hash": "e59577caa4ead0dc9ad7f70b3be7fed1639c417e2b135a43281d9f00d6053b3f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and all nine images; synthetic visitor IPs, location, ASNs, app domains, user names and Basic Auth placeholders; removed unrelated browser tabs, bookmarks and session credential URL; preserved gift-card demo workflow, bot charts, endpoint rules and block responses; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/61c3636f14b98fcb6c1b61f51d5ceca790fee5c0.jpeg": "1c009f65cabf614cf64f03dd477f1156e932876c1d4b437c54bd5c5b924f48f3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b712ec151e9121164f1fb33ff9ccc739283b21ea.jpeg": "a8454fcebde3ac8a59ccf6f5fd8fe00cdd290ee679031dc6ab01049414883dab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc33dcbcbbbf51fe9057397c19fdf9e7299488cf.jpeg": "1e4eb69cc70ed71fef64f43e4f6c73cec8c9fe4b4a71cf0cb19a316ebcdac6af",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed388ca7f64c1b7933a9ede6ce3d3d3015dd9417.jpeg": "ec37420a7ef288c23675a7e4f07035c68b88dda762097f983549b8adeecc5f68",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fb305c2605e49ed0b3384895130d0df112014ee7.jpeg": "adf6900d7f6fda522784f926ce40a61852ead29f68827e004ebeb426842b854e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3d0fefcc067cfa6637f7385181ee0bac5218c8eb.jpeg": "157b452fbc7ae548e72b74dd679e39c73894a6672241ace2ea20b578c9bc7c7d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c13a8b216b7af85b91a44920194742f45991e1ce.jpeg": "51f58ef2fcaebaba6b445cafafd9a40503f2ed97a2927ce02b98c9fa8fb5a1b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ffa93c182242e356a1923fdcf516ec2bd6737977.jpeg": "086f6a234882f0b0185a4eae324eb65a75327c53dae324b0fc29bde4ef524ba6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ffaaa744634a418a34620c64fee0953feca952bd.jpeg": "00ad7677b5b72b87b3732b4c4dd1b8eab9bfbc10e4e3b55c71896c9cc9b12ef9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/61c3636f14b98fcb6c1b61f51d5ceca790fee5c0.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              485,
+              1377,
+              663,
+              1414
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              784,
+              1377,
+              1095,
+              1414
+            ],
+            "text": "Example ASN 64512",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1160,
+              1375,
+              1319,
+              1414
+            ],
+            "text": "US",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              485,
+              1423,
+              663,
+              1460
+            ],
+            "text": "192.0.2.11",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              784,
+              1423,
+              1095,
+              1460
+            ],
+            "text": "Example ASN 64513",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1160,
+              1421,
+              1319,
+              1460
+            ],
+            "text": "US",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1790,
+              1363,
+              2057,
+              1399
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1790,
+              1411,
+              2057,
+              1446
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1790,
+              1458,
+              2057,
+              1494
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1790,
+              1506,
+              2057,
+              1541
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1790,
+              1553,
+              2057,
+              1589
+            ],
+            "text": "app.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "62a00fa3715b6124643cb6fb1dbc37df92c09aa5ef2ef95e7b91d2c462e6834b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b712ec151e9121164f1fb33ff9ccc739283b21ea.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              828,
+              1002,
+              1022,
+              1041
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1002,
+              1312,
+              1041
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1002,
+              2929,
+              1041
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1075,
+              1022,
+              1114
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1075,
+              1312,
+              1114
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1075,
+              2929,
+              1114
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1147,
+              1022,
+              1186
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1147,
+              1312,
+              1186
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1147,
+              2929,
+              1186
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1220,
+              1022,
+              1259
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1220,
+              1312,
+              1259
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1220,
+              2929,
+              1259
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1293,
+              1022,
+              1332
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1293,
+              1312,
+              1332
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1293,
+              2929,
+              1332
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1366,
+              1022,
+              1405
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1366,
+              1312,
+              1405
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1366,
+              2929,
+              1405
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1438,
+              1022,
+              1477
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1438,
+              1312,
+              1477
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1438,
+              2929,
+              1477
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1511,
+              1022,
+              1550
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1511,
+              1312,
+              1550
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1511,
+              2929,
+              1550
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1584,
+              1022,
+              1623
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1584,
+              1312,
+              1623
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1584,
+              2929,
+              1623
+            ],
+            "text": "app.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              828,
+              1657,
+              1022,
+              1696
+            ],
+            "text": "US,Example City",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1135,
+              1657,
+              1312,
+              1696
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2670,
+              1657,
+              2929,
+              1696
+            ],
+            "text": "app.example.com",
+            "size": 20
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "52e2a3d23fad3ab6dfd773db7143ae7f16e03cb419817505eaa2237cf61ddf11"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc33dcbcbbbf51fe9057397c19fdf9e7299488cf.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              205,
+              61,
+              494,
+              93
+            ],
+            "text": "app.example.com/index",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2149,
+              167,
+              2258,
+              207
+            ],
+            "text": "Example",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              55,
+              786,
+              249,
+              829
+            ],
+            "text": "Hi Example!",
+            "size": 30
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f57dcf898ee426f84fc7154594505da7357f8ee83672be9dff0e984b0505db94"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fb305c2605e49ed0b3384895130d0df112014ee7.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1177,
+              353,
+              1777,
+              396
+            ],
+            "text": "https://app.example.com/user/signin",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              2255,
+              752,
+              2592,
+              805
+            ],
+            "text": "user@example.com",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              2253,
+              854,
+              2524,
+              902
+            ],
+            "text": "EXAMPLE_PASS",
+            "size": 27
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "47ee962c9c15cf726cc5b3e69a5c716f217e1c2ea366a8303255478629486ada"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3d0fefcc067cfa6637f7385181ee0bac5218c8eb.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              849,
+              376,
+              1089,
+              409
+            ],
+            "text": "app.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              973,
+              421,
+              1339,
+              458
+            ],
+            "text": "app.example.com/user/signup",
+            "size": 18
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f73a193faf8beb03b614cd3e1edbe351982851a0525bbeb734f8f9c6b9d2f4f1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ffaaa744634a418a34620c64fee0953feca952bd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              388,
+              224,
+              541,
+              240
+            ],
+            "text": "app.example.com/user/signin",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1035,
+              260,
+              1070,
+              275
+            ],
+            "text": "User",
+            "size": 9
+          }
+        ],
+        "rectangles": [
+          [
+            64,
+            0,
+            1216,
+            82
+          ],
+          [
+            64,
+            687,
+            1216,
+            720
+          ]
+        ],
+        "output_sha256": "946dbb6a81c66a9a6858c061ce1f76e23bfb6395aafb72e3a963edd3f9cbcee9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed388ca7f64c1b7933a9ede6ce3d3d3015dd9417.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "bff51336dc81c910c94773c584e35b08baab6680a4eb0d65b99060178ed8e49f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c13a8b216b7af85b91a44920194742f45991e1ce.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "887007b9870f54095b1b3f8689a90eff2e2617cc57b0095b1c6f2117d9d55bde"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ffa93c182242e356a1923fdcf516ec2bd6737977.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4904766ba15185d18fff98a2063329b9be69c51fd529c925540dfebdd8dfd1b9"
+      }
+    }
   }
 }
