@@ -7367,7 +7367,371 @@
   "74717": {
     "article_hash": "22245a3ffe90c686d0ead58dfb349ecce9f22b7d5b32563dd92181c9e12b0df6",
     "decision": "include",
-    "reason": "Distributed Cloud load balancers, customer edges and API security protect NetApp management"
+    "reason": "Distributed Cloud load balancers, customer edges and API security protect NetApp management",
+    "text_replacements": {
+      "nodes": {
+        "ed38065eef77fc59fe73cad4a41ad93066d1d087c5d7a5e8ea8ba84749ea6384": ":\\Users\\<user>>nslookup ",
+        "5ea33ec18e8e9229a668928a79899c42a75d43c00c440f128e413594929736bb": "deploy.example.com",
+        "bced669a83f3ff6ef035dd2fd430cba6f2f5e6715c800302733285254a0e71ab": "C:\\Users\\<user>>curl -k -X GET \u201c",
+        "5210b5ec9e67ae3f3dcb17546bc382bd37a57753568e5104fc442fda66220e3e": "https://deploy.example.com/api/v3/clusters",
+        "30ab235afbbb9735be58a8c7097e36fe3b358a40fc7457fa789d1d02f2dc29ca": "\u201d -H \u201caccept:application/hal+json\u201d --user admin:EXAMPLE_PASS",
+        "e3de6002c583bfc4d9ffbf18bd82f13e3f6ae9dcbb84a85c2d5e83f7e2649629": "\u201cid\u201d: \u201c00000000-0000-4000-8000-000000000001\u201d,",
+        "e23d134ad2a2a5604ba28499da10342061eb9a6527a41a8530ddea7428d8aacd": "\u201cname\u201d: \u201cexample-cluster\u201d",
+        "7ed6244e93f9cbe722484322cf7aca32a7460f641d5bc62af7bb93fe413b3f39": "We see the cluster is named \u201cexample-cluster\u201d, the cluster id value can be used as a key value to drill further down with both monitoring and configuration commands for this deployment.",
+        "663b80130dd851f34b4e38df683a956f40dd7982ec140c88669d99bc85043389": "ontap.example.com",
+        "6c3ff686011d580849ec7db3424baa904f863af99905dc4cf4085bb30e2def00": "https://ontap.example.com/api/protocols/nfs/services",
+        "2a3a0841bf114271fdb97ffe3e2d4844541bfc83fb6fbcaf6d14221a7d91a4f4": "\u201d --user admin:EXAMPLE_PASS",
+        "2f5a55c632c2293ed0e72cb3a6af21e5a51ae25fb777e58ea51fe046c2f873e9": "https://ontap.example.com/api/protocols/nfs/export-policies",
+        "01c855267540813cfc6122d4d32b4acb990b868802919b238b5b73f94ddee527": "https://ontap.example.com/api/storage/volumes",
+        "378e1d669b83b18ee48ad0f8b54626d6948960893c8c25491da63e75741c387d": "\u201d -H \u201caccept:application/hal+json\u201d\u00a0 --user admin:EXAMPLE_PASS",
+        "cdc919bf70f5ea6701bd468d80de61592729a3d49d749ce8b02eb12937152c39": "\u201cuuid\u201d: \u201c00000000-0000-4000-8000-000000000002\u201d,",
+        "47c0f8cbcb87ccd32a55ed3effe0d3cf332e71cd5b4ce0cd7546737ec60284c8": "\u201cname\u201d: \u201cExample_Source_Documents\u201d,",
+        "a11d54f23df286f3adad028ea7d69d76899af4a95663f61ec32cd90954e9ddb8": "\u201chref\u201d: \u201c/api/storage/volumes/00000000-0000-4000-8000-000000000002\u201d",
+        "816e47020075cac7766b337cfe58f3d3406c7438c500ab827e6e7af1a4eaa10b": "\u201cuuid\u201d: \u201c00000000-0000-4000-8000-000000000003\u201d,",
+        "799cf422867333b7d3a2ed8fc5d2ca75ef8793489330b8105aa4efea05a5d837": "\u201chref\u201d: \u201c/api/storage/volumes/00000000-0000-4000-8000-000000000003\u201d",
+        "d45b669e95cb3d12b43c10f3da436253d002eed9525dbef0ea9b0a1ceeb71373": "\u201cuuid\u201d: \u201c00000000-0000-4000-8000-000000000004\u201d,",
+        "ae44c2266c58079c18fb38f98a8c18a787aaae265a667ebfe67d3151dc64618d": "\u201cname\u201d: \u201cExample_Secure_Documents\u201d,",
+        "3fcbea086ae38653ca2b6b1728c01517e0526be0d9ac60bab02dfb9eb45b9eff": "\u201chref\u201d: \u201c/api/storage/volumes/00000000-0000-4000-8000-000000000004\u201d",
+        "4d9eab336eed86a0e07885807a5528510e51d757aff65af7efeb189814ea8d53": "https://ontap.example.com/api/storage/volumes/00000000-0000-4000-8000-000000000004",
+        "6d083aba32c19cf5025eb9368bbfe193eed5a02bed9671f0c639bf05d04dc2f7": "\u201d -H \u201caccept:application/hal+json\u201d\u00a0 --user admin:EXAMPLE_PASS",
+        "ff20402a541071e648815d1268f98ad698e8191bbdb595089d56cbba27807701": "\u201cexample-cluster_01_VM_DISK_1\u201d,",
+        "a854b447993fb498b1a3539710cab7563ce9ae3a474b9e01c37542817ef71cf1": "\u201cuuid\u201d: \u201c00000000-0000-4000-8000-000000000005\u201d",
+        "afb7d7f4e2b15efba865427b190a033f71010023a03b81b6c7834424e4e9191e": "\u201cuuid\u201d: \u201c00000000-0000-4000-8000-000000000006\u201d,",
+        "d79385ade02b9c5ddff01b22fe6b8a214ff0e2b600064d6d087e48ae68485827": "\u201chref\u201d: \u201c/api/svm/svms/00000000-0000-4000-8000-000000000006\u201d",
+        "82428a60417b06b7c16ec8fa82080a646d0d0cfacbc9bbe17bad4bc106808ff3": "http://deploy.example.com",
+        "4eab28bfda063de2a77c86469c68aa64abc12939997cdb35fd128b196887d42b": "http://ontap.example.com"
+      },
+      "output_sha256": "c8afabeff1be029e2a696f5f9d125e317971ea07779421edcd76b34f09428972"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and eight images. Synthetic documentation domains, placeholder user path and credentials, storage identifiers and names, namespace/site labels, request ID and schema title preserve commands, API schemas, telemetry, topology and private routing examples without publishing customer records.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1224f7332ab2a559e8a7c1adf8b23d7210176e3e.png": "ebd5bd664a2517f2ef7f1bc4fbdeb8f214e4f8b4f6c62a53ad147b2d2a03da0d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49deb9013d9d636c8cbb11c07a59abee0e61c083.png": "b40009f3cd6702a6592bb74afb505528b95f65efdec111cd845d60cc49e65cfe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a4484fe5b976ab9032dfbae012f21c712ac86d31.png": "186210a7761700878798e693149806e97f42314b2498dad6ab8255ca43c304af",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc109d1bc669a6335ab99d56c504c93c2a6fbf27.png": "2b20a7b261fbd6164fa8f681a22ee353cff49a58d76ace4a2096a2d4afd88c62",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d0bc90ca5ab713150a96d45dda5880b18f7e3673.png": "569846047d961a46a24e127cfb3b73f0229cdbb760a253cb84b2dd017c4ae740",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ec560c41a0eb801d2ea6bd1bd2ec264b8d3c6c64.png": "3a1f98e137d56f08c2ee112f493107134cefe439c11fa90ac47e00ef7d48372c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/2/62a1e1c6a79000e310c7006cc5a5ba97320d54be.png": "7b93f4a8524d840ea0f5dd448c8d791e0be9152ec87362ac87262ccabea62f9d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/b/db14b7b6593b2ab4a66e657767748230feb877b5.png": "c73f2d6270721fcbf98324a53134effe7e846f919b24e11cd94c595461d1103b"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49deb9013d9d636c8cbb11c07a59abee0e61c083.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1004,
+              15,
+              1138,
+              54
+            ],
+            "text": "example",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              80,
+              328,
+              244,
+              379
+            ],
+            "text": "example",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              905,
+              1140,
+              1215,
+              1187
+            ],
+            "text": "operations-ce",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              905,
+              1194,
+              1215,
+              1243
+            ],
+            "text": "operations-ce",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2502,
+              709,
+              3112,
+              756
+            ],
+            "text": "example-request",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2502,
+              761,
+              2817,
+              810
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2894,
+              392,
+              3174,
+              478
+            ],
+            "text": "ontap.example.com",
+            "size": 19
+          }
+        ],
+        "output_sha256": "fdc81ec346dbfddfc7fabe4294c9d50567069f243bb8e0e91b92a1ba2d37eb24"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc109d1bc669a6335ab99d56c504c93c2a6fbf27.png": {
+        "labels": [
+          {
+            "rectangle": [
+              64,
+              554,
+              667,
+              626
+            ],
+            "text": "GET /api/storage/volumes/EXAMPLE_VOLUME",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              2645,
+              1298,
+              3212,
+              1374
+            ],
+            "text": "/EXAMPLE_VOLUME GET (Schema)",
+            "size": 19
+          }
+        ],
+        "output_sha256": "2ace10bd1a0cdd041d7681f0197fddc5d9fea4bf242d03be46960acdbde8914b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d0bc90ca5ab713150a96d45dda5880b18f7e3673.png": {
+        "labels": [
+          {
+            "rectangle": [
+              304,
+              1277,
+              832,
+              1344
+            ],
+            "text": "deploy.example.com",
+            "size": 34
+          },
+          {
+            "rectangle": [
+              304,
+              1496,
+              832,
+              1566
+            ],
+            "text": "ontap.example.com",
+            "size": 34
+          }
+        ],
+        "output_sha256": "4f5507c834cc024f02f7eea5a6722539e709a1ca350677305ff3b34e0104d781"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ec560c41a0eb801d2ea6bd1bd2ec264b8d3c6c64.png": {
+        "labels": [
+          {
+            "rectangle": [
+              476,
+              9,
+              598,
+              49
+            ],
+            "text": "example",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              174,
+              1858,
+              636,
+              1939
+            ],
+            "text": "/api/storage/volumes/EXAMPLE_VOLUME",
+            "size": 21
+          }
+        ],
+        "output_sha256": "8a6dd60a66248adaf20fb4ce2227ed7bcf0a62344479029c7a590d73850c2ba5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/2/62a1e1c6a79000e310c7006cc5a5ba97320d54be.png": {
+        "labels": [
+          {
+            "rectangle": [
+              183,
+              1716,
+              636,
+              1797
+            ],
+            "text": "/api/storage/volumes/EXAMPLE_VOLUME",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              73,
+              576,
+              658,
+              623
+            ],
+            "text": "GET /api/storage/volumes/EXAMPLE_VOLUME",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              2628,
+              1235,
+              2944,
+              1287
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2628,
+              1355,
+              2944,
+              1407
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2628,
+              1475,
+              2944,
+              1527
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2628,
+              1597,
+              2944,
+              1649
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2628,
+              1715,
+              2944,
+              1767
+            ],
+            "text": "ontap.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "9f8fe675efca4b861ecde9c64b9da1631baaddcfee9e2c26518436f7a365aa34"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/b/db14b7b6593b2ab4a66e657767748230feb877b5.png": {
+        "rectangles": [
+          [
+            0,
+            111,
+            3805,
+            210
+          ],
+          [
+            3662,
+            15,
+            3734,
+            108
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              316,
+              459,
+              791,
+              503
+            ],
+            "text": "example-ontap-api",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1929,
+              359,
+              3077,
+              468
+            ],
+            "text": "example-ontap-api",
+            "size": 62
+          },
+          {
+            "rectangle": [
+              1321,
+              412,
+              1821,
+              464
+            ],
+            "text": "example-ontap-api",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2694,
+              524,
+              3125,
+              585
+            ],
+            "text": "example-ontap-api",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1969,
+              834,
+              2519,
+              888
+            ],
+            "text": "http://ontap.example.com",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              2640,
+              1780,
+              3549,
+              1841
+            ],
+            "text": "EXAMPLE_VOLUME",
+            "size": 26
+          }
+        ],
+        "output_sha256": "526e9c60ff8755b3ec6c5884ff3e108b2d3faf6f8b21159a9e6b1e7739ab8b85"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1224f7332ab2a559e8a7c1adf8b23d7210176e3e.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "6340df40e17786feb6ba7592b74f9c1d5002e19347be63c253b776a0c53902db"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a4484fe5b976ab9032dfbae012f21c712ac86d31.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ccdce4d23a499e9c1e7784fd4b7ed25046df1740a767698dc938f2200936318a"
+      }
+    }
   },
   "74721": {
     "article_hash": "f35892af36f0dc49fe18a0ac1c1c524e4959beb9f02426229215bb5b0cf427de",
