@@ -33995,5 +33995,177 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "70175": {
+    "article_hash": "a3891ad16c7cd14d4180aae80778c66efc7c1094022f8ee6d96c027b27abb8c0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and sixteen static screenshots; synthetic BIG-IP management host/address, application IDs, tenant and protected virtual server; preserved Distributed Cloud Mobile SDK connector, endpoint types, SNAT, HSL and upgrade configuration; credential fields empty; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/271a10191620c1fc18ebe8a4cc5b7b51003a25e3.png": "7b5b1d2b9e7597310ea9eae806e30d760d859b5b892a8fd69fe9340b2e95733b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d0f0a585b972ae08d998d04713572af9fb839af.png": "cc72eccd29770b4dbba1e106cbeed07aedb8616882be0f21180bc7296654245b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46ce8455bcfaff1dbddb252aa576767e184cdd7a.png": "61121558807d1a5d49510819357be9735e61e6f4d3a42a8e7a028bb40473f147",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5dd42d206d78e2e1e028f1ff4154400bb049a7ee.png": "54ef73034e962f2b1bf3cf1be254e2b474a53e9ea78e3ee471632b164b779e05",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": "b58a7822027c26c2dca433a74e3be4c18ef9748aa1601272f04da76e4d34240b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8a01a611de971e0ef41c50d8aae05774b203f67c.png": "b1718a565400266bc22945ab5d3b3e7596654a64464e585ab1cebde16e98379f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dda9785b32648b8cd5c94904d011ca6113777d3.png": "1a59535bb55718941b26cf1b50645b3cb9c11c424ffdbe7da6ac2784ce897400",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab2f4755545e9be30c81810a403fc1267eaeb2e1.png": "7c653810f69798502f29f4b2fee979663389fa6f1b8c6d4b8835479e3a73e8c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ade851bee6276ff1f8ced71850ab0e9a17b8e251.png": "1ad6c0cfbb6796216e14b66baa59d4093a2d188817faebac50dfc34b22f2bb9f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b4b4dadb0a7a271622a7625c70ddc4636db69d2d.png": "80ea02f8a858d51ffb62a3ec59d1f6e9d1c3e3cf3060eb80bb16df39f82b18ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bfe9bcc73339902d21e2c8dcb0282032cdbcce2a.png": "88f81d58b6201961b0156a886a304b3df32731826bc634cc8675921c40cea7be",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fcb78e19c62f616aac5a941658c4cc542d6d5fdb.png": "e7a94c7ae4c4f42095f3c82660ccd39d550f8055636280643027d5ad6a73d148",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/55e4cc0016c5524201f46a532c97cb440d4f1b8a.png": "10e8352033f838fb132a15439cfdeadc077c42fbcb5845835605983b443e7fd4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d1920d605155a3b1dd6c0907505817d530a0c6df.png": "fa7677973c1363fe3cab6398c4f0a812b0c131162b320697d479aae19938f27b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/4/e413d28172e8095f7e449e0d35e266f280c39509.png": "6ff861655749d32bb6ca17adee19a74e6c7319b004159f6088c3b31b86ec6ea5"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d0f0a585b972ae08d998d04713572af9fb839af.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              114,
+              193,
+              146
+            ],
+            "text": "bigip.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              19,
+              174,
+              114,
+              195
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "df593466b2e112f036528e1863c03556906231f352c98420016b25c8a274f401"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/46ce8455bcfaff1dbddb252aa576767e184cdd7a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              211,
+              98,
+              451,
+              121
+            ],
+            "text": "example-app-id",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              537,
+              266,
+              719,
+              290
+            ],
+            "text": "vs_app.example.com",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "35e98eebdaf003c0a211df0fc4baf4a569146ada22592e413abf5b8a8fb40721"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": {
+        "labels": [
+          {
+            "rectangle": [
+              621,
+              357,
+              766,
+              383
+            ],
+            "text": "example-tenant",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "18f6e50518cae6d19e191729ea068dd60d58dcd8233c591c1158d665e9b4ad38"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dda9785b32648b8cd5c94904d011ca6113777d3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              771,
+              189,
+              962,
+              211
+            ],
+            "text": "example-app-id-1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              771,
+              237,
+              962,
+              259
+            ],
+            "text": "example-app-id-2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              771,
+              285,
+              962,
+              307
+            ],
+            "text": "example-app-id-3",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "fe71121e60613b349c6c90917d9471816a2a21389ebb5a6ab0ea120f16502ac2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/55e4cc0016c5524201f46a532c97cb440d4f1b8a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              771,
+              189,
+              962,
+              211
+            ],
+            "text": "example-app-id-1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              771,
+              237,
+              962,
+              259
+            ],
+            "text": "example-app-id-2",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              771,
+              285,
+              962,
+              307
+            ],
+            "text": "example-app-id-3",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "21663ffd452df6bef1a545ec12111ce9eb8a6232e78cb57fa6fbd061a56e93fd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
