@@ -6495,7 +6495,36 @@
   "75732": {
     "article_hash": "4c2b15ca2ecef3921725ea90a396e72126c180c3562c3c8105cbaba1c5d1ee67",
     "decision": "include",
-    "reason": "Distributed Cloud BIG-IP service discovery and SaaS security augmentation"
+    "reason": "Distributed Cloud BIG-IP service discovery and SaaS security augmentation",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Distributed Cloud BIG-IP discovery guide and seven images; management IP made synthetic, admin is generic and password is unconfigured, ACME corporation and numbered teams are illustrative; discovery, namespace mapping, HA and DMZ diagrams retain all relationships",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/de955eb6453f5b9cf9db2d7009616c8c32c84685.png": "a1355bbcbfe9cb82ed1cdf67e8203d693d57433fc1903263ba6f0f5b840b0986",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ae32398a0001f672c6b995bb147b324caacbd19.png": "6495fa9e60238c42b07d4d047c9b3779a78aaab94b59890b3beabf304f077703",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/874c21e3de1d78b1c8cb7319c83fc99437d01053.png": "be30a672d38cc67c3a54b9a3690f9424f9f9bf089532f308541e63f3423cc9b7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/364da7956a32ae08b44778d216fc555e83b86014.png": "9277d66dc8d06796e7d3cc061664e2e503badba1eac9bb5330fbbd40b544c2a2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/8131d35e30be5f28e9834382892c7344ad0ad929.png": "1eb1506f93f1c07740557713c5af2e6b9f9973eec58a367c030da8de3350cb23",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/c/cc505ccf2cbab68e0cc64d276bc21e339eea73a2.png": "bf419ce536ad41bedc9ff49b13f34cb9811d7d9892973ee5c7a503257fac2c62",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/d/dd78561e6641d2d60df99c77755d0778ff33d600.png": "f10f753533f6d7094904d6f93e6ecedc5c2561d6f166a1d090ca866cbab8bb16"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ae32398a0001f672c6b995bb147b324caacbd19.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              98,
+              248,
+              125
+            ],
+            "text": "192.0.2.20",
+            "size": 14
+          }
+        ],
+        "output_sha256": "faaaf3445fe92d9135801ec325a6178a0fa6170c3a534a7e4a19a0c1e29d45f5"
+      }
+    }
   },
   "75751": {
     "article_hash": "dcf825b8651f854126536fc7618a03f86f1f9b271183aaab3310583f1a0d8e84",
