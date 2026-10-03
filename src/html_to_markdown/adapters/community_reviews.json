@@ -19288,5 +19288,63 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "70470": {
+    "article_hash": "0a1674cb1434dfadf7aadb5e925c679bf4199e33b8cfef50c889bd358ed6ba4d",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and seven screenshots/diagrams individually reviewed. Demo URL and support request ID normalized. Displayed passwd excerpts contain only standard Linux service accounts from deliberately vulnerable Mutillidae, with no personal account or password hash. Exact XXE payload, generic paths, WAF signature IDs/matching info, monitoring versus blocking settings and responses preserved. No customer data or credential; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0ef61edef7dc4ffca90e2b81210ddd5a3af73839.png": "05268bfc4ceea41906aaeeffe774d4104f228f21450751b3f4162d9230eec8c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/175c48c85396ecbda954d4665e5da2eb09a04d3e.png": "f9d75b192359aa83ba2057fd45412fb7cd66320248d2bac0b1fdda1cf26c87c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c7fe4ae41a35e58f91d89e04a78aa1b0ee2c55b.png": "1dc44b565ae848d046bdbcdb224edc2b7526ff95fad1eede6c3654604a8f5f8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2199b23d06730f151541e83c8fe93f27ec8bc218.png": "1a9cdb9fe650c05700fee3f48225678867bf440df256e625a3b423c12726c8c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27991856758ca94c22297d9e412010244f488830.png": "869bcfeb02f3b702ee1eac4c980837bc789c44b7d444516621fc9674670239bc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b0c624820a55daf48c7bb4f2521dadfd67525a3.png": "102fa28a51060b697ba909812e122ae0086c440ad031b0f7a51749457d0dd8ad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/d/2d038139ac722d5b6586f7843b827391f84eace8.png": "6b0caed22c2c84f52325b60b691a77d5ac10ca689f34f757f9a269094e48113f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c7fe4ae41a35e58f91d89e04a78aa1b0ee2c55b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              595,
+              109,
+              1517,
+              151
+            ],
+            "text": "app.example.com/index.php?page=xml-validator.php",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              327,
+              288,
+              1009,
+              338
+            ],
+            "text": "example-request-id",
+            "size": 30
+          }
+        ],
+        "output_sha256": "6e313aafb61f75c6703f37ce164503dca3e4ea9ad2c02394ff8ef671394db297"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27991856758ca94c22297d9e412010244f488830.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "77a330bdf70a20d9e554e7fd94784a0629b9991bf68f7a5ae1d0c275ac03e65a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/b/1b0c624820a55daf48c7bb4f2521dadfd67525a3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0fb71152e42db9b3070436812463b56735590fa060fed20d2a576edf74267bd0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/d/2d038139ac722d5b6586f7843b827391f84eace8.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f67d899cfa63144fa54b9f5b686b842b9172abcca3c16c2f1a8fcf2071ada89f"
+      }
+    }
   }
 }
