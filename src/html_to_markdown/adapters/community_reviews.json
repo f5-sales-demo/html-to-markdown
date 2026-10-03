@@ -18094,5 +18094,215 @@
         "output_sha256": "81dd7c77aa8afb86b1c4ad5d0b53094ffbca12c122154a2cf5a89014b1664eeb"
       }
     }
+  },
+  "68073": {
+    "article_hash": "b8f84dddc878759dedb637930c160a69a6e671200ca2ef26cb497e112aab0607",
+    "decision": "include",
+    "reason": "Terraform deployment of Distributed Cloud multicloud connectivity is primary",
+    "text_replacements": {
+      "nodes": {
+        "37f4eef60fac75bdac885fafd2bf6aa31a511c7137926612c56fd941757c32a8": "./setup.sh \n\nInitializing the backend...\n\nInitializing provider plugins...\n- Reusing previous version of hashicorp/random from the dependency lock file\n- Reusing previous version of volterraedge/volterra from the dependency lock file\n- Using previously-installed hashicorp/random v3.1.0\n- Using previously-installed volterraedge/volterra v0.10.0\n\nTerraform has been successfully initialized!\n\nrandom_id.buildSuffix: Creating...\nrandom_id.buildSuffix: Creation complete after 0s [id=c9o]\nvolterra_virtual_site.site: Creating...\nvolterra_virtual_site.site: Creation complete after 2s [id=00000000-0000-4000-8000-000000000001]\n\nApply complete! Resources: 2 added, 0 changed, 0 destroyed.\n\n\nOutputs:\n\nbuildSuffix = \"73da\"\nvolterraVirtualSite = \"scsmcn-site-73da\"\ncreated random build suffix and virtual site\n",
+        "ac92084aa623dce9dea7cf4f7b4747e68146a3c56da2c49653c749941aa834cb": "./aws-setup.sh \nInitializing modules...\n\nInitializing the backend...\n\nInitializing provider plugins...\n- Reusing previous version of volterraedge/volterra from the dependency lock file\n- Reusing previous version of hashicorp/aws from the dependency lock file\n- Reusing previous version of hashicorp/random from the dependency lock file\n- Reusing previous version of hashicorp/null from the dependency lock file\n- Reusing previous version of hashicorp/template from the dependency lock file\n- Using previously-installed hashicorp/null v3.1.0\n- Using previously-installed hashicorp/template v2.2.0\n- Using previously-installed volterraedge/volterra v0.10.0\n- Using previously-installed hashicorp/aws v3.60.0\n- Using previously-installed hashicorp/random v3.1.0\n\nTerraform has been successfully initialized!\n\nAn execution plan has been generated and is shown below.\nResource actions are indicated with the following symbols:\n  + create\n <= read (data resources)\nTerraform will perform the following actions:\n\n\n  # data.aws_instances.volterra[\"bu1\"] will be read during apply\n  # (config refers to values not yet known)\n <= data \"aws_instances\" \"volterra\"  {\n      + id                   = (known after apply)\n      + ids                  = (known after apply)\n\n..... truncated output ....\n\nvolterra_app_firewall.waf: Creating...\nmodule.vpc[\"bu2\"].aws_vpc.this[0]: Creating...\naws_key_pair.deployer: Creating...\nmodule.vpc[\"bu3\"].aws_vpc.this[0]: Creating...\nmodule.vpc[\"bu1\"].aws_vpc.this[0]: Creating... \naws_route53_resolver_rule_association.bu[\"bu3\"]: Creation complete after 1m18s [id=rslvr-rrassoc-example]\nApply complete! Resources: 90 added, 0 changed, 0 destroyed.\nOutputs:\nbu1JumphostPublicIp = \"192.0.2.10\"\nvpcId = \"{\\\"bu1\\\":\\\"vpc-example\\\",\\\"bu2\\\":\\\"vpc-example\\\",\\\"bu3\\\":\\\"vpc-example\\\"}\"\n",
+        "3f40f5b2311733832b412e336a913cb1fe4cb0de123a1f5cacbe3299819b671d": "./azure-setup.sh \nInitializing modules...\n\nInitializing the backend...\n\nInitializing provider plugins...\n- Reusing previous version of volterraedge/volterra from the dependency lock file\n- Reusing previous version of hashicorp/random from the dependency lock file\n- Reusing previous version of hashicorp/azurerm from the dependency lock file\n- Using previously-installed volterraedge/volterra v0.10.0\n- Using previously-installed hashicorp/random v3.1.0\n- Using previously-installed hashicorp/azurerm v2.78.0\n\nTerraform has been successfully initialized!\n\n..... truncated output ....\nazurerm_private_dns_a_record.inside[\"bu11\"]: Creation complete after 2s [id=/subscriptions/00000000-0000-4000-8000-000000000001/resourceGroups/scsmcn-rg-bu11-73da/providers/Microsoft.Network/privateDnsZones/shared.example.com/A/inside]\n\nApply complete! Resources: 58 added, 2 changed, 12 destroyed.\n\nOutputs:\nazureJumphostPublicIps = [\n\n  \"198.51.100.10\",\n\n]\n"
+      },
+      "output_sha256": "cb1fcff44e30da9c787eaed12aafe34bf5678fcbc02afcc72d1762efa49850c1"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post text, Terraform outputs and six images individually reviewed. Cloud resource/subscription IDs, jump-host public addresses, personal site/cluster names and message IDs normalized. Provider versions, resource names, build suffix, complete script sequence, topology, health/throughput and HTTP metrics preserved. No credentials or user/customer payload in displayed request excerpt; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d415edbaec4ea6c93ae3c64004d9ce15a73163e.png": "15fb0cd330033ca17bcc6064f0ce3d6f888ddc413c94ac7cfb025823151fb248",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9ad5a757608ccd42f1938c1cb134ec37a02ef4e8.png": "c1c9374884c3b9778bbb79a1c82966c4b1ae332889e5c8414dcde4c92b8206e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b5fc699caf4a58edbfa190efd2610bfb465d47c5.png": "2d685d62e694c83a7a6c9e0c3fe52e5deffa309dddc124bb31ec1c4bca03431d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd3e7d671ec1a1e950a2bdfd4eb603bfb9d48203.png": "720a366529f1847bdf865e9985d4060eebd5ece0497bde393497ae53e10c6ef7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c8fb31a486de31430ba034a8c791ed50fdbcbb45.png": "3bb036f002aa754226b708aba06ae9dc7ba4b70da6fc2cb8ea77f875ca871a77",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0ac9dc51c19ea5a804da7efc3e38227c29eab565.png": "1ab867284c85b113f2b59dac2c37ee7ae347c66c964b9a69cd6b6668bcf5484d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d415edbaec4ea6c93ae3c64004d9ce15a73163e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              487,
+              172,
+              646,
+              213
+            ],
+            "text": "example-azure",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              380,
+              257,
+              471,
+              283
+            ],
+            "text": "azure-site",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              230,
+              257,
+              338,
+              283
+            ],
+            "text": "azure-site",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              52,
+              257,
+              165,
+              283
+            ],
+            "text": "azure-site",
+            "size": 10
+          }
+        ],
+        "output_sha256": "3bdff08075f4e1f65f926e7bece46cd4340a08d9f01250820ad3cb823b225a38"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9ad5a757608ccd42f1938c1cb134ec37a02ef4e8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              94,
+              437,
+              528,
+              465
+            ],
+            "text": "\"cluster_name\": \"example-cluster\",",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ebe4290c176fd452d0582885d056ccdb669b2598d2df61dd093ea73d7152bf76"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b5fc699caf4a58edbfa190efd2610bfb465d47c5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              24,
+              350,
+              58
+            ],
+            "text": "example-azure-site",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              99,
+              112,
+              351,
+              147
+            ],
+            "text": "example-aws-site-2",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              99,
+              198,
+              351,
+              233
+            ],
+            "text": "example-aws-site-3",
+            "size": 15
+          }
+        ],
+        "output_sha256": "0fa3d047f3199ad69bc0b02820c95e37d83f5bd2392c963fd6352b673cebaeae"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd3e7d671ec1a1e950a2bdfd4eb603bfb9d48203.png": {
+        "labels": [
+          {
+            "rectangle": [
+              131,
+              426,
+              372,
+              450
+            ],
+            "text": "example-message",
+            "size": 12
+          }
+        ],
+        "output_sha256": "90b7f439f2ca9ce567b1fe684d463d07b338760ff75b184fdfa0910fc25afd2d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0ac9dc51c19ea5a804da7efc3e38227c29eab565.png": {
+        "labels": [
+          {
+            "rectangle": [
+              349,
+              181,
+              503,
+              209
+            ],
+            "text": "example-aws",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              34,
+              289,
+              143,
+              313
+            ],
+            "text": "aws-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              161,
+              289,
+              275,
+              313
+            ],
+            "text": "aws-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              286,
+              289,
+              331,
+              313
+            ],
+            "text": "site",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              551,
+              289,
+              640,
+              313
+            ],
+            "text": "site",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              647,
+              289,
+              757,
+              313
+            ],
+            "text": "site",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              777,
+              289,
+              871,
+              313
+            ],
+            "text": "site",
+            "size": 10
+          }
+        ],
+        "output_sha256": "3c4a6ae711f7bd89c20018087cfec3005d4d142be51ee503e16b38d5246bb7a6"
+      }
+    }
   }
 }
