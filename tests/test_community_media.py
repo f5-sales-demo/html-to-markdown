@@ -420,3 +420,67 @@ def test_exact_gif_rejects_transparency_and_excess_colors():
     second.putdata([(n, 1, 0, 255) for n in range(200)])
     with pytest.raises(ValueError, match="common exact"):
         encode_exact_gif([first, second], [100, 100], 0)
+
+
+def test_animation_frame_specific_labels_preserve_other_frames():
+    from html_to_markdown.community_media import transform_animation
+
+    source = io.BytesIO()
+    Image.new("RGB", (160, 40), "blue").save(
+        source,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (160, 40), "red")],
+        duration=[100, 200],
+        loop=0,
+    )
+    content = source.getvalue()
+    result = transform_animation(
+        content,
+        {
+            "animation": True,
+            "rectangles": [],
+            "frame_transforms": {
+                "1": {"labels": [{"rectangle": [2, 2, 158, 28], "text": "192.0.2.1", "size": 12}]}
+            },
+        },
+    )
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {
+            URL: {
+                "animation": True,
+                "frame_transforms": {
+                    "1": {
+                        "labels": [{"rectangle": [2, 2, 158, 28], "text": "192.0.2.1", "size": 12}]
+                    }
+                },
+                "output_sha256": hashlib.sha256(result).hexdigest(),
+            }
+        },
+    }
+    assert reviewed_media(content, URL, review) == (result, "image/png")
+    original, published = Image.open(io.BytesIO(content)), Image.open(io.BytesIO(result))
+    assert published.n_frames == 2
+    assert published.convert("RGBA").tobytes() == original.convert("RGBA").tobytes()
+    original.seek(1)
+    published.seek(1)
+    assert published.getpixel((3, 3)) == (255, 255, 255, 255)
+    assert published.getpixel((159, 39)) == (255, 0, 0, 255)
+    assert published.info["duration"] == 200
+
+
+@pytest.mark.parametrize("frames", [[], {"2": {}}, {"-1": {}}, {"01": {}}, {"0": None}])
+def test_animation_frame_policies_reject_unapplied_targets(frames):
+    from html_to_markdown.community_media import transform_animation
+
+    source = io.BytesIO()
+    Image.new("RGB", (10, 10), "blue").save(
+        source,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (10, 10), "red")],
+        duration=[100, 200],
+    )
+    with pytest.raises(ValueError, match="frame"):
+        transform_animation(source.getvalue(), {"frame_transforms": frames})

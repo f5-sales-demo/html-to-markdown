@@ -150,6 +150,19 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
     with Image.open(io.BytesIO(content)) as source:
         if source.format != "GIF" or getattr(source, "n_frames", 1) < 2:
             raise ValueError("animation transform requires an animated GIF")
+        frame_policies = transform.get("frame_transforms", {})
+        frame_count = getattr(source, "n_frames", 1)
+        if not isinstance(frame_policies, dict) or any(
+            not isinstance(key, str)
+            or not key.isascii()
+            or not key.isdecimal()
+            or str(int(key)) != key
+            or not 0 <= int(key) < frame_count
+            or not isinstance(value, dict)
+            or set(value) - {"rectangles", "labels"}
+            for key, value in frame_policies.items()
+        ):
+            raise ValueError("invalid animation frame policy")
         frames, durations = [], []
         # GIF counts repeats; APNG counts total plays. Zero means infinite in both.
         repeats = source.info.get("loop")
@@ -159,10 +172,15 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
             frame = source.convert("RGBA")
             clean = Image.new("RGBA", frame.size)
             clean.paste(frame)
+            specific = frame_policies.get(str(index), {})
+            frame_transform = {
+                "rectangles": transform.get("rectangles", []) + specific.get("rectangles", []),
+                "labels": transform.get("labels", []) + specific.get("labels", []),
+            }
             if transform.get("animation_format") == "gif":
                 # Solid glyph pixels keep the source palette exactly representable.
-                labels = transform.get("labels", [])
-                apply_labels_and_rectangles(clean, transform)
+                labels = frame_transform["labels"]
+                apply_labels_and_rectangles(clean, frame_transform)
                 draw = ImageDraw.Draw(clean)
                 for label in labels:
                     left, top, right, bottom = label["rectangle"]
@@ -171,7 +189,7 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
                 for label in labels:
                     draw_label(draw, label)
             else:
-                apply_labels_and_rectangles(clean, transform)
+                apply_labels_and_rectangles(clean, frame_transform)
             frames.append(clean)
             durations.append(source.info.get("duration", 0))
     expected_loop = plays
@@ -218,6 +236,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
     if not isinstance(transform, dict) or (
         not transform.get("rectangles")
         and not transform.get("labels")
+        and not (transform.get("animation") is True and transform.get("frame_transforms"))
         and transform.get("strip_metadata") is not True
         and transform.get("strip_gif_metadata") is not True
     ):
