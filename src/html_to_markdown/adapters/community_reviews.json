@@ -3612,7 +3612,39 @@
   "72851": {
     "article_hash": "400c4a8fd9df9f9d3c21a350a79244bbebd122cf12845087729f60af717cb748",
     "decision": "include",
-    "reason": "Distributed Cloud REST APIs and Terraform deployment of MCN and edge compute"
+    "reason": "Distributed Cloud REST APIs and Terraform deployment of MCN and edge compute",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected automation guide and four images; Terraform variables contain explicit tenant and path placeholders, contributor avatar and account removed, generic documentation cards retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/9/e/9ec8b41587e9e5f17c728385d7c25e692d6c33ee_2_444x250.jpeg": "c9b17e1dc18ae5d2614f7296be65793d9ab7649c5ad28ba28555dde87bbc2ae1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/0083bfffd2e1f54cf0bf328beaee192c543d037a.png": "0e31e27ef4a78579b81179b56a722a9b3b94b8a40cb7eb0e812d30d84c4aacb7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/45880a49eae9a95aef76b659f31a0841dd555ebd.png": "61ae50cc1f4d1b7d0196223f8af8d199b539a6ec65b4154e60758906ec8c7be1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d8f95e16e27590529488607206bfb29688d4a75.png": "c25549a8e08ee8ec9c72b51299856197fb595a5844e15578b675245b3cdaea4b"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d8f95e16e27590529488607206bfb29688d4a75.png": {
+        "rectangles": [
+          [
+            15,
+            60,
+            111,
+            94
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "38b33f1ea0f6c748f19e84c1a8b0d7fbcb94b35d48294f9e563730ec2eb85455"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/9/e/9ec8b41587e9e5f17c728385d7c25e692d6c33ee_2_444x250.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "379f0c88b016d0862d989345bb0d30c84d5221bb2ae9dbfc6c96334150963d15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/0083bfffd2e1f54cf0bf328beaee192c543d037a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "032dc660474727bfa49aba1c715c6b8154f36a8a09741f97ffb77a93ee082eeb"
+      }
+    }
   },
   "72910": {
     "article_hash": "16ead93f0b3621add89d410e28f7e694b77d3747dc3a0047f946291676731272",
@@ -8919,6 +8951,47 @@
         "strip_metadata": true,
         "rectangles": [],
         "output_sha256": "5df88e05048694730344eca9957a2e99b49e135905349c86f86e39444155f07a"
+      }
+    }
+  },
+  "76210": {
+    "article_hash": "34e5881387171ee92360e3daa8a09d437ebc2bee0603c95d6f0e63b9ca6c7ba4",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected resiliency zone guide and four images; origin names made synthetic, public Regional Edge site identifiers and generic constraint error retained, architecture and operational tradeoff graph contain no user data",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60b9f17c3a63dc49023c629c7229944a980c9a48.png": "773abc1ba1921f7c93f10bcabb93de607b3e00d090c08b7a25eecba326507e71",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/676a0afc6018783f52bdff834ecb1d1d493b04c9.png": "722b7142b9b078da3abcdb439b3048614eb0e249ac6a12431975db3d3912c6a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed555543e2db651645ef6ce2395f2bc52db2caf6.png": "c6744a75ad2b604b003762a0fb0d311aab26e52532c6d5e0881c3f031b7c20b1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/4/94eb1604961425d90593ce970a659a10849b1228.png": "e2b79eee8e70c5bc8055046a51910d3f012f1625a597216309d5d20e02703bd6"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60b9f17c3a63dc49023c629c7229944a980c9a48.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              29,
+              42,
+              316,
+              64
+            ],
+            "text": "example-origin",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              29,
+              88,
+              316,
+              110
+            ],
+            "text": "example-origin",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ae3d7e338aca30eea21220fb07b6b879cf8a8db7d76b167c8e58b5a4fe515ad7"
       }
     }
   }
