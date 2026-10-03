@@ -25002,5 +25002,225 @@
         "output_sha256": "3bd28dafcd7e032788808135e3c96be28db21ba09e6942fdc77a446b5bcc3b16"
       }
     }
+  },
+  "76327": {
+    "article_hash": "29abf31daa0f3435e99d3e166bc0d965176b8f3463139149f009be978947ad11",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and nine images. Synthetic Jira account/domain, reporter and assignee names, tenant/namespace/LB values and vulnerability object labels replace identifying material, including remnants of source masks. Token shown only as password dots, no value. Preserved endpoint findings, ticket creation fields, remediation and ticket status.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/25f001df9a29bd56288fe4e037b79dedeebd4eec.png": "00b5badec36a8fa49e657a223f647f9d619c4741460a98a7b936d49a28721faf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27814827ade036bde08008bca18e7c3746fdc8fd.png": "49d8c654248cb8262eec9b4ee9a53c8f04073e216dc0fd59e48d8c15ecae0d02",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d4a49250f086bea47392974186206e3d394cdad.png": "00ae5a55d2a3f23f6f8366301e1546e8836c5426faafb4f5586c22ad080f2d27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/65c8f17c1753cd3c623763d1a2f1604f95007de1.png": "cb6f357198b1e218497a1d8db1c281f479d559b6c569630b92fc7359a22f688a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2126800916efde82c28b298638f07421d5599dc.png": "11904f7e8d720dd4438934a595aae0ddc5e706e30b7a1d4c075018e75a10db2d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cf43dc737667cea58cbcd04906f05e16c496b231.jpeg": "805584cc2c90e747f14ef1c66cdd1eac1904c2bc597a7d74c1dfc40fd849a4e3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5bc2c662f72cd800e0f989b53cc0a9ddbe7a855.png": "2cf0e9d59806fdcb0a756870235e682a27f83020d6f4f441e82743adce4f66bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f0e01285948d26b35a644e881256e2f46fc2627a.png": "ff46c5b11e24a9ae897ccd3683b2be66307b8d884a93eb53c056e33c673bc395",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2151ac62f8175bd05f3a555fe73a255e3ade67fa.png": "3fc18c983c9f67992c14c181336b17ae6835c5111e40cb86f818497d4f31fc8c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d4a49250f086bea47392974186206e3d394cdad.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1290,
+              1307,
+              1780,
+              1360
+            ],
+            "text": "admin@example.com",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              1290,
+              1451,
+              1800,
+              1512
+            ],
+            "text": "example.atlassian.net",
+            "size": 30
+          }
+        ],
+        "output_sha256": "338aea1fda8764ce9f73a47d2bf16984eba2f75c51b52cfdb7a5e71f47472dd8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cf43dc737667cea58cbcd04906f05e16c496b231.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              673,
+              954,
+              1118,
+              988
+            ],
+            "text": "example-vulnerability",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              832,
+              1111,
+              1202,
+              1149
+            ],
+            "text": "example",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              832,
+              1150,
+              1155,
+              1187
+            ],
+            "text": "example",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              886,
+              1190,
+              1283,
+              1227
+            ],
+            "text": "example-load-balancer",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              789,
+              1260,
+              1000,
+              1300
+            ],
+            "text": "admin@example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "d3b5c60fb82c6fe86e4f374dac30f9cdb0ba224761346e06110940bbdde952be"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2151ac62f8175bd05f3a555fe73a255e3ade67fa.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2684,
+              410,
+              2954,
+              454
+            ],
+            "text": "Example Assignee",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2686,
+              543,
+              2957,
+              591
+            ],
+            "text": "Example Reporter",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              737,
+              1021,
+              1064,
+              1072
+            ],
+            "text": "admin@example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              863,
+              833,
+              1158,
+              875
+            ],
+            "text": "example",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              844,
+              882,
+              1164,
+              924
+            ],
+            "text": "example",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              890,
+              927,
+              1481,
+              980
+            ],
+            "text": "example-load-balancer",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              1014,
+              239,
+              1851,
+              282
+            ],
+            "text": "example-vulnerability",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1587,
+              640,
+              2082,
+              691
+            ],
+            "text": "example-vulnerability",
+            "size": 21
+          }
+        ],
+        "rectangles": [
+          [
+            2622,
+            396,
+            2681,
+            463
+          ],
+          [
+            682,
+            1461,
+            738,
+            1514
+          ],
+          [
+            2622,
+            538,
+            2681,
+            598
+          ]
+        ],
+        "output_sha256": "2022ac1c139c7ecca5840f6e5a4b13d2fdd118b918284bb2c98d6615072e3e62"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/25f001df9a29bd56288fe4e037b79dedeebd4eec.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cb9a21ebb57e6d511616092e74ca446781d44857e18d168d49dea756ec2fef48"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2126800916efde82c28b298638f07421d5599dc.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0a61bda34681d57e39ffd1c1356380021d83aebc917707786c2902c5f6596569"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f0e01285948d26b35a644e881256e2f46fc2627a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e51f0433c8457d6ce558eb48de861eece605aaa5b11a0ea4a095b46b1b5474a5"
+      }
+    }
   }
 }
