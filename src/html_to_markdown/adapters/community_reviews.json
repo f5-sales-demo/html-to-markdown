@@ -16678,5 +16678,362 @@
         "output_sha256": "c8c168af88d23804fc4e2a03efecace3dba9a028dddc8e419733c5681e0c7714"
       }
     }
+  },
+  "71492": {
+    "article_hash": "9ac72153617dfa6fd6e17975cea65a1afdad5cbae8375b3dab40059234dd0992",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and all seven images individually reviewed. Observed protected/client IPs, routed resource names, long event fingerprints, tunnel ID and facility address replaced or removed; public regional map and generic prototype rows retained. Alert correlation, bandwidth, event timing, attack types, mitigation architecture, tunnel state/endpoint fields and history preserved. No customer identity, payload or credentials. Metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/6356182834434006dbb0bdbde48b5c27cc6e4144.png": "7f6fcfcee7836d6ea7b9812208e46e585b8818c3e6d093301ea6ca172bcdb10c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7eddfa2f43703e251526e4f61e1563caf6d7deae.png": "3340a414b9bd32373b706c71b403ded16cc1957d58698e9e41f5e8140a611a29",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54752417d663bf5501c7f1f8963c183b1ee51727.png": "e6383c5bb20b93089338635c522de7216a82666e6e25ba7d6ea29463961ad9a5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/947dba3462550d3f5a87683f2c2b2fbcd7f820bd.png": "8fab7766bc0b4240b362feaa981c28ab3eca617bbb9d5d554f6f3dc9bc699313",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/26cf04d3dd989cacf978c0a66bfd79214446a099.jpeg": "c3ed784439ff00612e4efeade05271fa753ec53aa743ca9069938eb6e4ad9d4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2fda0ec77eff96a967e2360198dbef58646efb58.png": "28131ff3245fa89926afcef3115969166ee82722769fd2d39264c1d464eeabfd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fb19f84859e57375d5f410fff71a179040f2206b.jpeg": "d92196fe0264badc71db3266755246f4e2e1ce778d696da54cc6fb95f195cbb7"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/6356182834434006dbb0bdbde48b5c27cc6e4144.png": {
+        "rectangles": [
+          [
+            908,
+            4,
+            936,
+            31
+          ],
+          [
+            169,
+            312,
+            256,
+            580
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              632,
+              73,
+              700,
+              92
+            ],
+            "text": "example",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              261,
+              184,
+              326,
+              204
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              230,
+              326,
+              250
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              276,
+              326,
+              296
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              324,
+              326,
+              344
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              372,
+              326,
+              392
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              420,
+              326,
+              440
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              468,
+              326,
+              488
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              516,
+              326,
+              536
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              261,
+              561,
+              326,
+              581
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          }
+        ],
+        "output_sha256": "a7c8e2853b9573e336bef79fbd2483daaa409740e73e115c6f7d381a7dee76a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7eddfa2f43703e251526e4f61e1563caf6d7deae.png": {
+        "rectangles": [
+          [
+            903,
+            4,
+            936,
+            32
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              530,
+              71,
+              594,
+              91
+            ],
+            "text": "example",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              217,
+              125,
+              267,
+              143
+            ],
+            "text": "192.0.2.0/24",
+            "size": 7
+          }
+        ],
+        "output_sha256": "b71ff98ad03410874f90f3a3fc778b3e80109428c8a66cee7ad10dd8b186cc03"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54752417d663bf5501c7f1f8963c183b1ee51727.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              54,
+              310,
+              77
+            ],
+            "text": "example-tunnel",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              127,
+              111,
+              303,
+              164
+            ],
+            "text": "Example facility",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              553,
+              76,
+              643,
+              96
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              553,
+              97,
+              643,
+              117
+            ],
+            "text": "192.0.2.2",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6de4d554a8529124655180ef44e625866655dc2f37852032b19a1a1092fd7d2c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/947dba3462550d3f5a87683f2c2b2fbcd7f820bd.png": {
+        "rectangles": [
+          [
+            875,
+            15,
+            902,
+            43
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "d0a4eaeb3bd1fb90e20074603dea02307c97ce6609281c0c0ea568702934f67e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/26cf04d3dd989cacf978c0a66bfd79214446a099.jpeg": {
+        "rectangles": [
+          [
+            1140,
+            8,
+            1163,
+            33
+          ],
+          [
+            251,
+            330,
+            360,
+            597
+          ],
+          [
+            362,
+            334,
+            432,
+            601
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              847,
+              77,
+              918,
+              98
+            ],
+            "text": "example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              365,
+              193,
+              427,
+              215
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              238,
+              427,
+              260
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              287,
+              427,
+              309
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              335,
+              431,
+              355
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              382,
+              431,
+              402
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              430,
+              431,
+              450
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              478,
+              431,
+              498
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              526,
+              431,
+              546
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              365,
+              575,
+              431,
+              595
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          }
+        ],
+        "output_sha256": "78786ad9872da6c6081b3ebde11325eb80853975a2841ae711ab8ae2f4a1f58c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fb19f84859e57375d5f410fff71a179040f2206b.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "313ba9bba2bdf443071e866793640024ef19c99c7570b05b54548af944ecc54a"
+      }
+    }
   }
 }
