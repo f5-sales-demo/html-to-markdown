@@ -28822,5 +28822,146 @@
         "output_sha256": "3fcdfcdc027f3231308953b5a46f35afddf4d8c1df7ad37a40c1dc8ed274c9ed"
       }
     }
+  },
+  "74603": {
+    "article_hash": "d2c8dda417d93640dd3a42db033bf50df40df85ebd9aa5aa325d968ae2968519",
+    "decision": "include",
+    "reason": "Distributed Cloud focused private networking and RAG architecture",
+    "text_replacements": {
+      "nodes": {
+        "89788a6804267a4e04c61e56abcde25eee9831cb0d22c5e3da7c1236ea10184c": "The RAG setup, in lieu of vectorizing actual private and sensitive documents, utilized the OpenAI embedding LLM to process chunks taken from the classic H.G. Wells 1895 science fiction novel \u201cThe Time Machine\u201d in text or markdown format. \u00a0 The novel is one of many in the public domain through the Gutenberg Project. \u00a0 Two NFS folders supported by the NetApp ONTAP appliance in a Redmond, Washington office were used: \u00a0one for source content and one for supporting the ChromaDB vector database. \u00a0The NFS mounts are seen below, with the Megabytes consumed and remaining available seen per volume, the ONTAP address can be seen as 192.0.2.20.",
+        "a12d3506ad3f7c05f5cd802dcba848561c945f0a8760030f32ea6d227334854b": "192.0.2.20:/RAG_Source_Documents_2024\u00a0 1.9M\u00a0 511M\u00a0\u00a0 1% /mnt/rag_source_files",
+        "cc07289260832ab0e501b3218c05dfeb43d77412d2bd1ee450e0893a71d4d630": "192.0.2.20:/Vectors\u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 17M\u00a0 803M\u00a0\u00a0 3% /home/example/langchain-rag-tutorial-main/chroma2"
+      },
+      "output_sha256": "1e8573dfd666bbfa167025820a0655323f35629996cc1fa755c4f758bfd3f872"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and nine images; public-domain novel examples and topology preserved; synthetic local user path, storage address, Azure resource names and endpoint labels replace deployment identity; keys remain fully concealed in original screenshots; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/85725e51500fd884f3f09c3fb6afa9f0785c6a6b.png": "d606d5d71ad8194aade02ace5c8ae50fd3cc832f6774b3e5695f715a9c19a9f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/5/354092155e6327185f8d303ce38b122a482bfdf2.png": "93caac4510374276a096c6cb9f9e37d8eed96f39a7804b4b13bc440c30b28d52",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43d7e1368803a2f41c98c24e272284726c60bc36.png": "0050bc658f2b8908d76957cd1213030b9d6036e6b28f87cbf377561db3d6abc9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/458494b71191cf3a6087d917baf6030d35a1ba17.png": "d29ffdddd90f30f2aa3619cefc9372022cafaaf7f866f73959ea3138f68c6290",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/e/6e5e7d48ece7011f3fd9b95405fd0c34d7b767aa.png": "6b95e48fc9fbc8feb90c5d668c08c8860ea7d8771e47c0d50882bd5fc684a203",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b17bec576b5af2e8d938d252a5a7fb68ee1e911.png": "08115701b94ad511173d47df7c3ac7c10f73fd1ceb44ca9c43237419068c6386",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aa24d32f299b0051b6004684aee18c7c7d9751ea.png": "316338032692a9544fc2a590f14edf1c17ad380ffbfb3baf4cec75057394175d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dee686bfbcba525ad3d7ffe799086ede0de7353d.png": "75e31c5e781f84ed59a8fa2752c8c814e17354ee0955b02b5486c91736cfc31f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed4d059dc8ed5ad6c8af7dd7be968e17bb9c86dc.png": "a9eed81e636a778f2672310707fe2a7bb78f6300bd481a2e69be399fa84199d5"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/85725e51500fd884f3f09c3fb6afa9f0785c6a6b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              766,
+              137,
+              1023,
+              179
+            ],
+            "text": "example-ai",
+            "size": 31
+          },
+          {
+            "rectangle": [
+              153,
+              211,
+              550,
+              282
+            ],
+            "text": "example-ai",
+            "size": 50
+          },
+          {
+            "rectangle": [
+              791,
+              1416,
+              1418,
+              1456
+            ],
+            "text": "https://ai.example.com/",
+            "size": 31
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f45c051a10869d75084c259927688318ea5cc1b453f52ec62a6b465a3a6f0a07"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/5/354092155e6327185f8d303ce38b122a482bfdf2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              122,
+              11,
+              527,
+              90
+            ],
+            "text": "example-ai",
+            "size": 48
+          },
+          {
+            "rectangle": [
+              797,
+              583,
+              1745,
+              633
+            ],
+            "text": "example-private-endpoint.connection",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              2367,
+              579,
+              2879,
+              635
+            ],
+            "text": "example-private-endpoint",
+            "size": 30
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "c4e83d960ce2f747e2e4a67bcf816298f740b1ede7d1b77236825848eee1e57a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/458494b71191cf3a6087d917baf6030d35a1ba17.png": {
+        "labels": [
+          {
+            "rectangle": [
+              119,
+              6,
+              509,
+              80
+            ],
+            "text": "example-ai",
+            "size": 50
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "29f19093509bcd57303a5db2fd86d7e88589b54b374ecc58e215cf2f8d7cdc0f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43d7e1368803a2f41c98c24e272284726c60bc36.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "24002cbc401e7be45ea758424817304e02598df21aa26de239c5beee3cd2ebc1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/e/6e5e7d48ece7011f3fd9b95405fd0c34d7b767aa.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1acaa23f458d6d6c57ee6022b28b1cb2be5b64b81826cbd16a295b6cadade4ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b17bec576b5af2e8d938d252a5a7fb68ee1e911.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e09939c0a7ed6cfeadf26a49e27df7018fe50c407bd144be3497598be01a16e2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aa24d32f299b0051b6004684aee18c7c7d9751ea.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b314569231beee8c3debbd64529761c1df403a3d82a6868ce19186c52f472d9d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dee686bfbcba525ad3d7ffe799086ede0de7353d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "db2bdeed91cb1016bd4969e7250c7c9c7168dbf4c77d7a042add8f751e319495"
+      }
+    }
   }
 }
