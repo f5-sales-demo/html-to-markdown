@@ -19346,5 +19346,240 @@
         "output_sha256": "f67d899cfa63144fa54b9f5b686b842b9172abcca3c16c2f1a8fcf2071ada89f"
       }
     }
+  },
+  "70227": {
+    "article_hash": "0a306604608b0729dcb1082fabb215e0d34fa60af6b4d8f70ec8cea724664198",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and seven screenshots individually reviewed. Burp session cookie replaced with short synthetic example; demo domains, LB/WAF labels, client address, city and request IDs normalized. Juice Shop file listing, built-in easter-egg text, exact null-byte request path, WAF violation, monitoring/blocking settings and responses preserved. Encoded easter-egg string is stock application content, not credential. No real user payload; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1262a0fb5c719fadbeff974e4f2cfa8e4a504419.jpeg": "bdf067eb0213566ca7a03d262332a000f0edc9acbf75e53e257c1bbb24ecefb0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e2918e7024813613a824646bbc7bca8b473bfc7.jpeg": "6be9566207db9ff3b40b5ca60a7bb5236a7e27cec78f81cc6561a9ccb114d425",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b01bc73bb876818c8e6b25463299ef2f55c1c5f9.jpeg": "43a6a836e07ec20678a1421198b2303a26c71832cca07e84c891b1793643bdc0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f51c486e3090c3e267ea6bfd61c265428276fd7c.jpeg": "473286ab9324102ef9efa3849642d21c847319c92e215d9400fef9d525a945e2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6bdced5c8bcc57ee6b41e465b7b151e55d2272a9.jpeg": "97ad651854c04aa29dab08a63db68f3f6b7a5b8e72572c080f2ffe38d6b1be10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6506db7625ad51b3e638c1223f281372c013e47.jpeg": "50e121a73360b8fd7e667feb6c72a2654c2aaf4acc6f458148f08f9a901fd896",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fdcdc5f3f38558a462f726128b3d453d0cc83b1b.jpeg": "1237b50087a47b1a0515ee6ae92575149f9f9edd972bd4550d29ca9e8d726fbd"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1262a0fb5c719fadbeff974e4f2cfa8e4a504419.jpeg": {
+        "rectangles": [
+          [
+            3290,
+            20,
+            3315,
+            87
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              334,
+              53,
+              465,
+              91
+            ],
+            "text": "example-lb",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              310,
+              938,
+              594,
+              977
+            ],
+            "text": "192.0.2.10",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1897,
+              938,
+              2395,
+              977
+            ],
+            "text": "example-request",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1897,
+              987,
+              2396,
+              1030
+            ],
+            "text": "app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              310,
+              983,
+              633,
+              1024
+            ],
+            "text": "Example city",
+            "size": 22
+          }
+        ],
+        "output_sha256": "c309bda122a1f3d4d18a2134933d5226932fcc0266fac7153826ba972de84df2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e2918e7024813613a824646bbc7bca8b473bfc7.jpeg": {
+        "rectangles": [
+          [
+            38,
+            408,
+            3175,
+            534
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              122,
+              183,
+              1050,
+              235
+            ],
+            "text": "Request to https://app.example.com:443 [192.0.2.1]",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              38,
+              408,
+              840,
+              440
+            ],
+            "text": "GET /ftp/eastere.gg%2500.md HTTP/2",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              38,
+              441,
+              749,
+              477
+            ],
+            "text": "Host: app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              38,
+              478,
+              3175,
+              518
+            ],
+            "text": "Cookie: language=en; session=example",
+            "size": 24
+          }
+        ],
+        "output_sha256": "7e3daf8631a8e84918c15a389f7174ada0f3e81f4b8bc45436edd3cd7e9102a0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b01bc73bb876818c8e6b25463299ef2f55c1c5f9.jpeg": {
+        "rectangles": [
+          [
+            0,
+            92,
+            2371,
+            177
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              334,
+              15,
+              1280,
+              73
+            ],
+            "text": "app.example.com/ftp/suspicious_errors.yml",
+            "size": 24
+          }
+        ],
+        "output_sha256": "915cb2a7765252bafe7f27339af27c0985e6e2bbf5ed80df82fa4d8ee27b1403"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f51c486e3090c3e267ea6bfd61c265428276fd7c.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              42,
+              112,
+              190,
+              151
+            ],
+            "text": "example-waf",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              546,
+              155,
+              894,
+              195
+            ],
+            "text": "example-waf",
+            "size": 22
+          }
+        ],
+        "output_sha256": "660d8f146e72e5a3916a42fd0d98a9e547d52d0778dbd4e155a459107bd91072"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6506db7625ad51b3e638c1223f281372c013e47.jpeg": {
+        "rectangles": [
+          [
+            0,
+            101,
+            2375,
+            182
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              331,
+              16,
+              866,
+              73
+            ],
+            "text": "app.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "dd429310f7ec887db10a338b2bc60b3c04126a4709476d479e287aec27eafc4f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fdcdc5f3f38558a462f726128b3d453d0cc83b1b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              359,
+              111,
+              1256,
+              151
+            ],
+            "text": "https://app.example.com/ftp/eastere.gg",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              339,
+              286,
+              1012,
+              340
+            ],
+            "text": "example-request",
+            "size": 30
+          }
+        ],
+        "output_sha256": "c0736d5129fae2e137bb87a510835b5c0288b9b129b9a600d93e780964a2e2dd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6bdced5c8bcc57ee6b41e465b7b151e55d2272a9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "87c64d134c6731e666b91add7fde8397b02a9ef91570ae602b600b293aa728a2"
+      }
+    }
   }
 }
