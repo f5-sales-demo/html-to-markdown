@@ -20076,5 +20076,239 @@
         "output_sha256": "3db113211d413c49ec1acf967756a76d1fff743a08d44e9cd4bccc2a708c1544"
       }
     }
+  },
+  "70792": {
+    "article_hash": "f5bbd997da6a0153e23d0584d3bf77a6e5f5b9c0c42d73502acc9db3e0005055",
+    "decision": "include",
+    "reason": "Distributed Cloud WAAP and CDN service chaining is the primary solution",
+    "text_replacements": {
+      "nodes": {
+        "0430e0cded2e6376d2e51a23d1bc8c900e30520a159f2e67924beb625b0a3166": "metadata:\n  name: buytime-pool\n  namespace: waap-cdn\n  labels: {}\n  annotations: {}\n  disable: false\nspec:\n  origin_servers:\n    - public_name:\n        dns_name: origin.example.com\n      labels: {}\n  no_tls: {}\n  port: 80\n  same_as_endpoint_port: {}\n  healthcheck: []\n  loadbalancer_algorithm: LB_OVERRIDE\n  endpoint_selection: LOCAL_PREFERRED\n",
+        "cfab39b0f2512851ee6bab6f4bddd5eaec161f29d541d7abb7ca4434e22423ad": "metadata:\n  name: buytime-online\n  namespace: waap-cdn\n  labels: {}\n  annotations: {}\n  disable: false\nspec:\n  domains:\n    - waap.example.com\n  https_auto_cert:\n    http_redirect: true\n    add_hsts: true\n    port: 443\n    tls_config:\n      default_security: {}\n    no_mtls: {}\n    default_header: {}\n    enable_path_normalize: {}\n    non_default_loadbalancer: {}\n    header_transformation_type:\n      default_header_transformation: {}\n  advertise_on_public_default_vip: {}\n  default_route_pools:\n    - pool:\n        tenant: your-tenant-uid\n        namespace: waap-cdn\n        name: buytime-pool\n        kind: origin_pool\n      weight: 1\n      priority: 1\n      endpoint_subsets: {}\n  routes: []\n  app_firewall:\n    tenant: your-tenant-uid\n    namespace: waap-cdn\n    name: buytime-waf\n    kind: app_firewall\n  add_location: true\n  no_challenge: {}\n  user_id_client_ip: {}\n  disable_rate_limit: {}\n  waf_exclusion_rules: []\n  data_guard_rules: []\n  blocked_clients: []\n  trusted_clients: []\n  ddos_mitigation_rules: []\n  service_policies_from_namespace: {}\n  round_robin: {}\n  disable_trust_client_ip_headers: {}\n  disable_ddos_detection: {}\n  disable_malicious_user_detection: {}\n  disable_api_discovery: {}\n  disable_bot_defense: {}\n  disable_api_definition: {}\n  disable_ip_reputation: {}\n  disable_client_side_defense: {}\nresource_version: \"517528014\"\n",
+        "3aa98611b6f26b1f16ddbcd34833f9fc2f33168fc17d05e9e0eaaa16e2032b99": "example@host ~ % curl -I https://waap.example.com\nHTTP/2 200 \ndate: Mon, 17 Oct 2022 23:23:55 GMT\ncontent-type: text/html; charset=UTF-8\ncontent-length: 2200\nvary: Origin\naccess-control-allow-credentials: true\naccept-ranges: bytes\ncache-control: public, max-age=0\nlast-modified: Wed, 24 Feb 2021 11:06:36 GMT\netag: W/\"898-177d3b82260\"\nx-envoy-upstream-service-time: 136\nstrict-transport-security: max-age=31536000\nset-cookie: 1f945=example; Path=/; Domain=example.com; Expires=Sun, 17 Oct 2032 23:23:55 GMT\nset-cookie: 1f9403=example; path=/\nx-volterra-location: wes-sea\nserver: volt-adc\n",
+        "e2f7733423c910f5df77114d6c60043c15a8c1af8ff9a756bfbb7a41853afec8": "metadata:\n  name: buytime-cdn\n  namespace: waap-cdn\n  labels: {}\n  annotations: {}\n  disable: false\nspec:\n  domains:\n    - cdn.example.com\n  https_auto_cert:\n    http_redirect: true\n    add_hsts: true\n    tls_config:\n      tls_12_plus: {}\n  add_location: false\n  more_option:\n    cache_ttl_options:\n      cache_ttl_override: 1m\n  origin_pool:\n    public_name:\n      dns_name: waap.example.com\n    use_tls:\n      use_host_header_as_sni: {}\n      tls_config:\n        default_security: {}\n      volterra_trusted_ca: {}\n      no_mtls: {}\n    origin_servers:\n      - public_name:\n          dns_name: waap.example.com\n    follow_origin_redirect: false\nresource_version: \"518473853\"\n",
+        "aff3d8ab7364e5696a8be6dded89858299bb54d61eb4bced72fd113c4df6fc83": "example@host ~ % curl -I https://cdn.example.com      \nHTTP/2 200 \ndate: Mon, 17 Oct 2022 23:24:04 GMT\ncontent-type: text/html; charset=UTF-8\ncontent-length: 2200\nvary: Origin\naccess-control-allow-credentials: true\naccept-ranges: bytes\ncache-control: public, max-age=0\nlast-modified: Wed, 24 Feb 2021 11:06:36 GMT\netag: W/\"898-177d3b82260\"\nx-envoy-upstream-service-time: 63\nstrict-transport-security: max-age=31536000\nset-cookie: 1f945=example; Path=/; Domain=example.com; Expires=Sun, 17 Oct 2032 23:24:04 GMT\nset-cookie: 1f9403=example; path=/\nx-volterra-location: dal3-dal\nserver: volt-cdn\nx-cache-status: MISS\nstrict-transport-security: max-age=31536000\n",
+        "22b24ea03161a5453a575250a3d9601976f8fe2e59e43aa41fe1803a35dff7ef": "example@host ~ % curl -Gv \"https://cdn.example.com?<script>('alert:XSS')</script>\"\n*   Trying x.x.x.x:443...\n* Connected to cdn.example.com (x.x.x.x) port 443 (#0)\n* ALPN, offering h2\n* ALPN, offering http/1.1\n* successfully set certificate verify locations:\n*  CAfile: /etc/ssl/cert.pem\n*  CApath: none\n* (304) (OUT), TLS handshake, Client hello (1):\n* (304) (IN), TLS handshake, Server hello (2):\n* TLSv1.2 (IN), TLS handshake, Certificate (11):\n* TLSv1.2 (IN), TLS handshake, Server key exchange (12):\n* TLSv1.2 (IN), TLS handshake, Server finished (14):\n* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):\n* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):\n* TLSv1.2 (OUT), TLS handshake, Finished (20):\n* TLSv1.2 (IN), TLS change cipher, Change cipher spec (1):\n* TLSv1.2 (IN), TLS handshake, Finished (20):\n* SSL connection using TLSv1.2 / ECDHE-ECDSA-AES256-GCM-SHA384\n* ALPN, server accepted to use h2\n* Server certificate:\n*  subject: CN=cdn.example.com\n*  start date: Oct 14 23:51:02 2022 GMT\n*  expire date: Jan 12 23:51:01 2023 GMT\n*  subjectAltName: host \"cdn.example.com\" matched cert's \"cdn.example.com\"\n*  issuer: C=US; O=Let's Encrypt; CN=R3\n*  SSL certificate verify ok.\n* Using HTTP2, server supports multiplexing\n* Connection state changed (HTTP/2 confirmed)\n* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0\n* Using Stream ID: 1 (easy handle 0x14f010000)\n> GET /?<script>('alert:XSS')</script> HTTP/2\n> Host: cdn.example.com\n> user-agent: curl/7.79.1\n> accept: */*\n> \n* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!\n< HTTP/2 200 \n< date: Sat, 22 Oct 2022 01:04:39 GMT\n< content-type: text/html; charset=UTF-8\n< content-length: 269\n< cache-control: no-cache\n< pragma: no-cache\n< set-cookie: 1f945=example; Path=/; Domain=example.com; Expires=Fri, 22 Oct 2032 01:04:39 GMT\n< set-cookie: 1f9403=example; path=/\n< x-volterra-location: dal3-dal\n< server: volt-cdn\n< x-cache-status: MISS\n< strict-transport-security: max-age=31536000\n< \n<html><head><title>Request Rejected</title></head>\n<body>The requested URL was rejected. Please consult with your administrator.<br/><br/>\nYour support ID is example-request<br/><br/><a href='javascript&colon;history.back();'>[Go Back]</a></body></html>\n* Connection #0 to host cdn.example.com left intact\n"
+      },
+      "output_sha256": "fb290eb6634feaa8c1313ba61125654fa61eaa53d91091c5b8d771e08693db63"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose, YAML and curl outputs, and eight images individually reviewed. All session-cookie values replaced with short examples, personal shell name and demo origin/WAAP/CDN domains normalized. Screenshot tenant/object IDs, VTRP name, unrelated DNS zones and attack source normalized. Complete service-chain topology, config, HTTP header semantics, TLS handshake, cache MISS and WAF rejection preserved. No customer/user data or original secrets; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/000c01d93468d489f6a37fb9f0872fff6ebc1759.jpeg": "d5b1bc89a9b684bcdc0026c393278bfc8a781df324a7df9b855b6fc17bf09370",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/113d31b4288fa882fc88a84d9cc0a54c0f6537ba.jpeg": "f04240fbe5efd878dc507449b7083b08e16d59d95a1cb6c12b0623bff77e00a3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/20313a152a6019ccd6a6ae855553c0dc4fb07b93.png": "a4749216aa0ec80ac314c646b695761c0152e2f03dffde9bb7cf05ddbb8a033a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3bf115d125c6cb61d003dfb2f36c6d9008f45dff.jpeg": "2fa520d30165cfb9807edb864b3795ed5ca93054b9e775e9e85f9d017e6ca200",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8caaa4ed6fc389937160a15456a2a959fe7daf89.png": "76ab4495dee83cda1fc39ba58e123ad5deacf7f40d8f9c18460288e3b1c079f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b3ae61d90029e0c19a4f2cb0cf391ad73ed652cc.jpeg": "5b78c0eccf07218028c5c4410769b2b74a0031a6f07bd8a5eb0b887e989a6eed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/2721fbf637990092dbd498de4b0ab3d8bf3509c4.jpeg": "7323dfed6ef7f50ba7fc555f5d2fe0b2bee8cef4fd89a9278ca327763b0a7791",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/6/f66bb3c02890b1600f02ca7e48ce68126b864a33.png": "c2d3d22ee8473c60151f57f02d592f45bee8bfde29b771b56c09ad5a095253de"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/000c01d93468d489f6a37fb9f0872fff6ebc1759.jpeg": {
+        "rectangles": [
+          [
+            1260,
+            13,
+            1309,
+            48
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1021,
+              246,
+              1168,
+              284
+            ],
+            "text": "waap.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "f50d724156126248530cf995423f6ac06116da2cadf1dfdc34b941532144c795"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/20313a152a6019ccd6a6ae855553c0dc4fb07b93.png": {
+        "labels": [
+          {
+            "rectangle": [
+              973,
+              231,
+              1127,
+              273
+            ],
+            "text": "cdn.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1579,
+              80,
+              1888,
+              111
+            ],
+            "text": "\"example-object\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1579,
+              104,
+              1806,
+              131
+            ],
+            "text": "\"example-tenant\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1559,
+              712,
+              1891,
+              741
+            ],
+            "text": "\"example-status\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1599,
+              846,
+              1872,
+              873
+            ],
+            "text": "\"example-vtrp\",",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c1d0987a96bb1eb33c90109802ad7a56818d2dc42ea4c151ae3ad7ab1161a885"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8caaa4ed6fc389937160a15456a2a959fe7daf89.png": {
+        "rectangles": [
+          [
+            1860,
+            6,
+            1908,
+            48
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              808,
+              235,
+              1001,
+              268
+            ],
+            "text": "example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              808,
+              300,
+              1001,
+              335
+            ],
+            "text": "example.org",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              808,
+              365,
+              1001,
+              399
+            ],
+            "text": "example.net",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              808,
+              428,
+              1001,
+              463
+            ],
+            "text": "secondary.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "72d0f4b21875612d1d64c46618443407235a92536d3d773b1b04adc79b83a34c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b3ae61d90029e0c19a4f2cb0cf391ad73ed652cc.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              795,
+              645,
+              984,
+              672
+            ],
+            "text": "app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "c3e48df8283e77fca7d4cf6ee71363def6555aeecb0beff26b0a944fde3c4392"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/6/f66bb3c02890b1600f02ca7e48ce68126b864a33.png": {
+        "rectangles": [
+          [
+            1860,
+            6,
+            1908,
+            48
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1310,
+              552,
+              1430,
+              576
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              710,
+              914,
+              895,
+              938
+            ],
+            "text": "waap.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1310,
+              914,
+              1495,
+              938
+            ],
+            "text": "waap.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ee0962eea239879520f04b3abdbc3945bb214cf2ad543e5499477ef9bcc3c508"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/113d31b4288fa882fc88a84d9cc0a54c0f6537ba.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ad4c6e5baf97963b154464e3958219062c4423a836e88d1cb14ddf41c4141577"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3bf115d125c6cb61d003dfb2f36c6d9008f45dff.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e84ee3b8d81a7183494231baaeec04fcf8d0ac1168ef1ac2047abe115e3528e9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/2721fbf637990092dbd498de4b0ab3d8bf3509c4.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "004a3e0d58817335964530e992f32198f5999d915051796b2007d633436b3840"
+      }
+    }
   }
 }
