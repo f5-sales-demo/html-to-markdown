@@ -7457,7 +7457,353 @@
   "74672": {
     "article_hash": "d05f74a0ac9f7c9ef383bdad4fa134a4f5385edbee951ae3c9031404e051d94a",
     "decision": "include",
-    "reason": "Distributed Cloud HTTPS load balancer and customer-edge AI firewall integration"
+    "reason": "Distributed Cloud focused AI firewall reverse proxy architecture",
+    "text_replacements": {
+      "nodes": {
+        "8213e449e361037757c34a3747cdb09a3a37c08bc18e025ea621071fdee88ca0": "ai.example.com",
+        "7e63e2aad2885ec381cc78312695910d3e046ed7306c01b91fcd9c6c2c47d9b0": "ai.example.com",
+        "06098ace10f6980ff437fe99226dd97ff5cda9d692f5b874430e99ad4a29c4ee": "As highlighted, the transaction was successful at the HTTP layer, producing a 200 Okay outcome. \u00a0 The traffic originated in the municipality of Example City, in the United States, and was received into Distributed Cloud in F5\u2019s Toronto (tr2-tor) RE site. \u00a0 The full details around the targeted URL path, such as the OpenAI /v1/chat/completions target and the user-agent involved, vscode-restclient, are both provided.",
+        "f1c1c0fd21c34e3fcb0c9d047dc5e07c1a9cf151e0aa93b03f4edd6d98c0a975": "Following the yellow highlights above, the prompt was blocked, and the violation is \u201cSensitive Data\u201d. \u00a0The specific offending content, the synthetic street address, is flagged as a precluded entity type of \u201cmailing address\u201d. \u00a0 Other fields that might be potentially blocking candidates with Prompt\u2019s solution include various international passports or driver\u2019s license formats, credit card numbers, emails, and IP addresses, to name but a few.",
+        "30b53af8cf47362a2d26a5223f84e9d7b72b6cb94ec930f4df35bd095989919f": "https://ai.example.com/v1/chat/completions",
+        "fbba9c756ad3778dc5b8cd5251607631584f45e70ecb2bdea88866907c87cfbb": "--header \u2018authorization: Bearer EXAMPLE_TOKEN\u2019 \\",
+        "2fd2f2e1ed10061622cc0f51549c709bb9d7e0c88002487e12f3b64b34f172e5": "--header \u2018authorization: Bearer EXAMPLE_TOKEN\u2019 \\",
+        "8e663f4ef9494051bdb5f348661ed6afd0748391f719ccbb5fd96a3fceb8449d": "This is an example of a \u201cpositive security model\u201d, considered a gold standard by many riEXAMPLE_TOKEN organizations. \u00a0 Simply put, a positive security model allows what has been agreed upon through and rejects everything else. \u00a0 This ability to learn and review your own traffic, and then only present Prompt Security with LLM endpoints that an organization wants exposed is an interesting example of complementing an AI security solution with rich API layer features.",
+        "b2a5b238442564226454011bd3ba96e60277dd8eb4e70f92aebfec7b55c6cd3e": "http://ai.example.com",
+        "da04b4f4d09671110a247e77cbf1f11016ffa76668da25c0b50eecda72702ff5": "http://ai.example.com"
+      },
+      "output_sha256": "106564e742e5f9ad4970d5dacf03561086c82a1b3a2f986b85ae5932ec5de80e"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed all first-post prose and nine screenshots; replaced partial API keys with EXAMPLE_TOKEN, synthetic AI endpoint, mailing address, account names, email, request IDs, IPs, location and TLS fingerprint; preserved curl syntax, schema download, policy controls, token counts, latency and blocked outcomes; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19ff038603d3ed991fce7519bc1422169f7ff8e4.png": "2c5ee81067ff5797526692c87ad8504b95e898e76e8d0708c61a29d83406012c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c13d08e3dfb60cb73de48a0326d2345b11d43a1.png": "24d376d5474ef52e46549caf124fc758f17b3846ad026a991c62de30ed49b898",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0ba7ecebe06762703796e462b102b6abcd22a7f.png": "e8be365604123ee04198aeb0aa974047b17b6367b161ae7595f1eb53e542401b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11f2dc5ad7740da68de122f995bedde7594f96d.png": "72f00cd853ced3c7b7a07d8e5b78a79040e3faa5e66c52bbf5403504f945ebf0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a9c412e4a428416aee4b445f922dd983ef119a76.png": "174b0e8ce95692a1bea38e38c347eaa07a7e39739c68f60dbe5e75375b3b0391",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2df46041bc3f3c41e865f8dc1f708dfa270b900.png": "86b1c5a67c1dadd25d0f7b82c9bdffee97d9fb29e9ca28adcfc838a4d8288a18",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/0065bb5345625499c5fe6beb2a05fb5ee5d58ba7.png": "e5127a7f2bb2623061fabeae46e69b245f5598a56e99cf6cd7e07f210127d407",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/0541f2a25f3e7b5ee3cc079f9f9da5ce4d5e237c.png": "211e72c9e5b32eda7bad3d553b208e637a2b92c06623d30bcf7f08ccabf2a6f7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2793fc6aa91924a504980b74fa4b4fa4227131c.png": "8aed576a9c986e7bd6db7c49cbc2bcbc52396afbeae6f675abfe0aa927c77fb7"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19ff038603d3ed991fce7519bc1422169f7ff8e4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              707,
+              1255,
+              1773,
+              1292
+            ],
+            "text": "\"title\": \"example-llm-traffic-through-partner-ai-gw\",",
+            "size": 28
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "325b30164bfe8a8ab82185c4f38436a3ab5a856ac9892d92ef9fb8d6fa979cbf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0ba7ecebe06762703796e462b102b6abcd22a7f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              200,
+              76,
+              1115,
+              120
+            ],
+            "text": "https://ai.example.com/v1/chat/completions",
+            "size": 31
+          },
+          {
+            "rectangle": [
+              264,
+              129,
+              1713,
+              175
+            ],
+            "text": "'authorization: Bearer EXAMPLE_TOKEN'",
+            "size": 31
+          },
+          {
+            "rectangle": [
+              47,
+              338,
+              1681,
+              386
+            ],
+            "text": "Mailing address: 123 Example Street, Example City\"}],\"max_tokens\": 250,\"temperature\":0.7}'",
+            "size": 30
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0cd00bb673c1c139ebae0eed29b09bc88407d31925e9bdc0c1241f548b8f50f9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11f2dc5ad7740da68de122f995bedde7594f96d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              174,
+              131,
+              333,
+              157
+            ],
+            "text": "user@example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              175,
+              280,
+              488,
+              307
+            ],
+            "text": "example-app-id",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              175,
+              654,
+              285,
+              679
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "16c8ca16497103e1080ae9f62b57d1c6234742a3fc0dfb1fc439bd39898dc62f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a9c412e4a428416aee4b445f922dd983ef119a76.png": {
+        "labels": [
+          {
+            "rectangle": [
+              95,
+              1345,
+              455,
+              1565
+            ],
+            "text": "ai.example.com (example)",
+            "size": 24
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "e0d5ad846e35492d23a666ef84870f39f0762a4b93febc4bc4e14bcd47ba1ba8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2df46041bc3f3c41e865f8dc1f708dfa270b900.png": {
+        "labels": [
+          {
+            "rectangle": [
+              449,
+              3,
+              505,
+              20
+            ],
+            "text": "example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              30,
+              143,
+              110,
+              163
+            ],
+            "text": "example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              451,
+              194,
+              542,
+              220
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              663,
+              194,
+              737,
+              220
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              385,
+              349,
+              702,
+              371
+            ],
+            "text": "example-llm-ai-gw",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              385,
+              398,
+              670,
+              419
+            ],
+            "text": "example-message",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              401,
+              534,
+              509,
+              556
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              560,
+              503,
+              583
+            ],
+            "text": "Example City",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              585,
+              473,
+              606
+            ],
+            "text": "US",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              606,
+              650,
+              629
+            ],
+            "text": "Example ASN (64512)",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              633,
+              650,
+              655
+            ],
+            "text": "example-tls-fingerprint",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              682,
+              506,
+              704
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              708,
+              466,
+              730
+            ],
+            "text": "US",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              732,
+              506,
+              751
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1200,
+              678,
+              1301,
+              702
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              420,
+              818,
+              691,
+              841
+            ],
+            "text": "example-request",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              420,
+              866,
+              575,
+              889
+            ],
+            "text": "gateway.example.com",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "dda3f548d32a48818827d44d8264dd07f8f8adf2fcdcabf4e8dad97109da95bb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/0541f2a25f3e7b5ee3cc079f9f9da5ce4d5e237c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2733,
+              696,
+              3574,
+              752
+            ],
+            "text": "example-app-id",
+            "size": 37
+          },
+          {
+            "rectangle": [
+              3161,
+              1239,
+              3519,
+              1294
+            ],
+            "text": "123 Example Street",
+            "size": 35
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5fe8053ef7595ad54bd19e9ca710b9a45b88a84260f0f4f58f5ef99d2ed44867"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/0065bb5345625499c5fe6beb2a05fb5ee5d58ba7.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dd6228f84b70b19994048127735d13d93c958e62baeffe3da76b1cd27614533e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2793fc6aa91924a504980b74fa4b4fa4227131c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1423cff918e4bddec6f37be788b8d8336be5bf6e0250d201dd289c31710be00f"
+      }
+    }
   },
   "74697": {
     "article_hash": "8c9201a01fcdcf63932be4a773a9356720962d01703092373612ac5280c827ad",
