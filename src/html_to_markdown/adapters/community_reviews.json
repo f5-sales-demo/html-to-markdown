@@ -33302,5 +33302,244 @@
         "output_sha256": "61bedf3cda332fea61fcf0611f454d1fcd7edfeeea0ecaea1df18968beed8c39"
       }
     }
+  },
+  "70472": {
+    "article_hash": "f11120b6d3e1cb806116fd962300c360083cc25fb2980b1cf5a87250207eaccd",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and eleven static screenshots/diagram; synthetic app domains, source IP, request IDs, fingerprint, location/ASN and terminal prompts; preserved load-test metrics, four-per-minute threshold, product endpoint, response timing and 200/429 rate-limiter drop evidence; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/ced59e913de7bee53bcc6badf09e3a54ccbfb0a8.png": "e11acb3bd164e4eef8517c79c6181c64ca42cc0da4cf1d96c00a9af4faa683e2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1bd2453d267edb88ba72620887a7126b77d72374.png": "997398a2703b22931c188cd32d1bf1d7d9b68b9be4bdcce56db7212c74954599",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1f71433928bd7a9c10ee628ac7dcc437fd7782cd.png": "cb772338f9ffce032f1cbf6c5681c0c7877e57a22482478d1cee5eb7cb026d3c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33006c17dbd20650aeb011d3308d3585c5c781e3.jpeg": "cf116a0e4425373fff2094e29a42d79f545c52668c1ce3db06c1c26112dcc267",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d21f4c9e448971b8811497b1011d658baa2df37.jpeg": "b41810fcb022fca17c977aa7ce6d723230c1ba523ef80577410949c6b5c7dfe6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/51f7b2978184dc2f5a43a7accc1c361f531600b8.png": "7c4380018809eafca538522ae80eeeba1f9fee4d1089d326c0f0863b8bbec064",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/96b3a1549233d992d70df786c92759d4efbd61b1.png": "b9f9cfb00bf4623966c1bdf476e752bc5d83501aaf8adea0d25a8b632b4762e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0c41d2ccab91f7c53be891414cc472934043bf4.png": "d8216ad7ff2f5d3734dbea25f7c3c001c2a9e558d071fdb557031fcf21ae860c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6e023cdde6708f5d74d30eb61392ac9411f2650.png": "dee19743a3d001941f75499e72ca449205154287d2924ece6bc7adb265b777dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c87018761d9c1c3843c6290782696b077609026c.png": "4222c1d4acc2b4fe654f20a53d6f42442373d1bbbe6a9494fca9e247b1f3dd8d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c96a813b0a70e4ea222b7fc060f620cd77dd878e.png": "101d20c7e78c93138313fdebabc501e95b35fff9bf498168935c86a35c14d256"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1f71433928bd7a9c10ee628ac7dcc437fd7782cd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              167,
+              89,
+              608,
+              113
+            ],
+            "text": "https://app.example.com/product/OLJCESPC7Z",
+            "size": 15
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5b1c94f8d12231e9951edd34f93210ab3fb7dcdad7fcbd5cfe634a77bcacfc56"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/51f7b2978184dc2f5a43a7accc1c361f531600b8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              166,
+              83,
+              601,
+              111
+            ],
+            "text": "https://app.example.com/product/OLJCESPC7Z",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              251,
+              430,
+              580,
+              453
+            ],
+            "text": "example-request",
+            "size": 14
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0f00197038e2adba8abd450cb830fa2a272f1f00e1a3c4479937247f3adaf3a4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33006c17dbd20650aeb011d3308d3585c5c781e3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              244,
+              18
+            ],
+            "text": "example$ ./test.sh",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              461,
+              0,
+              701,
+              18
+            ],
+            "text": "example$ ./test.sh",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "923f023820faeff592cb93af9215efdd31ac9e5eb407b9df98c5a40c8bd0a05d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/96b3a1549233d992d70df786c92759d4efbd61b1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              137,
+              0,
+              230,
+              19
+            ],
+            "text": "Example City",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              137,
+              19,
+              460,
+              40
+            ],
+            "text": "Example ASN (64512)",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              137,
+              41,
+              364,
+              61
+            ],
+            "text": "example-fingerprint",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              137,
+              106,
+              174,
+              126
+            ],
+            "text": "US",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              814,
+              126,
+              924,
+              146
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              814,
+              149,
+              853,
+              168
+            ],
+            "text": "US",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              814,
+              168,
+              1060,
+              192
+            ],
+            "text": "example-request",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "78b3967ea5e02cbd925bdb3c167c85196358c87418c8bdb861dc147ff94c7376"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0c41d2ccab91f7c53be891414cc472934043bf4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              237,
+              335,
+              325,
+              357
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              137,
+              668,
+              226,
+              690
+            ],
+            "text": "192.0.2.10",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              121,
+              545,
+              362,
+              568
+            ],
+            "text": "example-message",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "9ccb4a935eb8b10a0b7efe823a2d79cd7f93991b7d9eacb3e0bc8538a9ae28e1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6e023cdde6708f5d74d30eb61392ac9411f2650.png": {
+        "labels": [
+          {
+            "rectangle": [
+              828,
+              0,
+              925,
+              20
+            ],
+            "text": "IP-192.0.2.10",
+            "size": 11
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "bdf982ea10babd7a30a65df7299e2788b11e9bc067fe939458812445f90fa9f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c87018761d9c1c3843c6290782696b077609026c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1067,
+              125,
+              1220,
+              166
+            ],
+            "text": "app.example.com",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f54a2d7a70822c9a52f7327c6885617b8de8b6a0c86a3d5746e053f70372d3c3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d21f4c9e448971b8811497b1011d658baa2df37.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "934b2ba40c4a0f6cdefd3d4879ae0ebe709222a13e220414ff37ec32be48ca11"
+      }
+    }
   }
 }
