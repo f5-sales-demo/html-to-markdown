@@ -26638,5 +26638,1030 @@
         "output_sha256": "ebad397b1fb5193c6ae1f67621d510bc3ccd42d05d9b5fef5d5c39af89c205b4"
       }
     }
+  },
+  "71451": {
+    "article_hash": "810dd4ee9c251f388ddaac0634b608d40d6f84673a320b759cf7b6727eef00e5",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and nine images. Synthetic source IPs and referrer hosts replace observed values on all raw log lines; dashboard domains, visitor IP/location and alert tenant labels sanitized. Preserved request paths, attack strings, response codes, counts, signatures, throughput/anomaly measurements, browser metadata and GUI filtering.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a6821e509b354fd3399fc8c70bf3e5a14ad4905.jpeg": "066f7a95099c32577b30a4fbd87b36f010326eb839d7df4e15386da6a15501ba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/369df14649711351367a0b3dad2648ddd819000c.png": "14320458ac7b31b30f618a67bbb0c8dfe184abb0ead313b21cca39782a07cf12",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38206655d5c8e37fa8d5a58ea9a98233f482bf05.jpeg": "dd188f670198b196f6bfb006c556c047f93d2af4cc774b1cefd6774b53773d05",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/479bcb49d1611bda498a0e56af65f302dcaf972d.png": "db9102c053f4bea297b93cfb92b9efe4c73e0fb663190e3e3e8e775d5f6403ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd6922aaee672f7042d14f28e923a940c7bb2e3c.png": "f024f14f981c06a004d9743b0406bd4c922ac15133d309ee97585875a899a5ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d19040e677f3f32148aff69a69c7c940f9e7eee0.jpeg": "707f7d0c3c912e57b18fc4af9870b2c49fadc30b419d6f9661d31d14fc5d6af1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8aee54dec31b8cffe6bc3c9d2d294e8d8621d8a.jpeg": "83f6441dd497a03923f44989223518054203974ea8d2ce367d0184399422965f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9fdb2d9745273936a72b73ec3a9caf5207bf68d3.png": "8363149488907dc02391e581ab5f5287140095152524dedddeab1ad25f33774f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b069e72dad2f996c6446b863f8c3c9b3cd404353.png": "c52a99a5f7981f9ed2e91a4fc66c393677ca975d7b8d9b84019c308c4c147503"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd6922aaee672f7042d14f28e923a940c7bb2e3c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2030,
+              520,
+              2549,
+              559
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1850,
+              1036,
+              2369,
+              1075
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              606,
+              2809,
+              645
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              692,
+              2809,
+              731
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              778,
+              2809,
+              817
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              864,
+              2809,
+              903
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              950,
+              2809,
+              989
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2250,
+              4,
+              2769,
+              43
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              90,
+              2809,
+              129
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2190,
+              176,
+              2709,
+              215
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2170,
+              262,
+              2689,
+              301
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              348,
+              2809,
+              387
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1850,
+              434,
+              2369,
+              473
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2250,
+              1122,
+              2769,
+              1161
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2290,
+              1208,
+              2809,
+              1247
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2030,
+              1724,
+              2549,
+              1763
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1850,
+              1810,
+              2369,
+              1849
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1830,
+              1896,
+              2349,
+              1935
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1930,
+              1982,
+              2449,
+              2021
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2030,
+              2068,
+              2549,
+              2107
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1910,
+              1294,
+              2429,
+              1333
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1890,
+              1380,
+              2409,
+              1419
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1930,
+              1466,
+              2449,
+              1505
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1930,
+              1552,
+              2449,
+              1591
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1890,
+              1638,
+              2409,
+              1677
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              6,
+              433,
+              40
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              92,
+              433,
+              126
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              178,
+              433,
+              212
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              264,
+              433,
+              298
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              350,
+              433,
+              384
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              436,
+              433,
+              470
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              522,
+              433,
+              556
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              608,
+              433,
+              642
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              694,
+              433,
+              728
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              780,
+              433,
+              814
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              866,
+              433,
+              900
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              952,
+              433,
+              986
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1038,
+              433,
+              1072
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1124,
+              433,
+              1158
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1210,
+              433,
+              1244
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1296,
+              433,
+              1330
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1382,
+              433,
+              1416
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1468,
+              433,
+              1502
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1554,
+              433,
+              1588
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1640,
+              433,
+              1674
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1726,
+              433,
+              1760
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1812,
+              433,
+              1846
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1898,
+              433,
+              1932
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              1984,
+              433,
+              2018
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              2070,
+              433,
+              2104
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          }
+        ],
+        "output_sha256": "b8eec0184b0a7f7bbc20bed3d9464a43c1778fbfdecf802822e76e57a0fdf6e2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9fdb2d9745273936a72b73ec3a9caf5207bf68d3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2284,
+              4,
+              2803,
+              45
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2164,
+              90,
+              2683,
+              131
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2284,
+              176,
+              2803,
+              217
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2164,
+              262,
+              2683,
+              303
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1844,
+              348,
+              2363,
+              389
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2284,
+              434,
+              2803,
+              475
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2284,
+              520,
+              2803,
+              561
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2024,
+              606,
+              2543,
+              647
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1844,
+              692,
+              2363,
+              733
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2244,
+              778,
+              2763,
+              819
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2244,
+              864,
+              2763,
+              905
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1784,
+              952,
+              2303,
+              991
+            ],
+            "text": "http://app.example.com:81/",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              6,
+              433,
+              40
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              92,
+              433,
+              126
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              178,
+              433,
+              212
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              264,
+              433,
+              298
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              350,
+              433,
+              384
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              436,
+              433,
+              470
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              522,
+              433,
+              556
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              608,
+              433,
+              642
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              694,
+              433,
+              728
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              780,
+              433,
+              814
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              866,
+              433,
+              900
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              0,
+              952,
+              433,
+              986
+            ],
+            "text": "::ffff:192.0.2.10",
+            "size": 25
+          }
+        ],
+        "output_sha256": "371480be0df323483a2b6a0fd4a6555beaa606108c168a4ebe3a6d54ad92ef1d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a6821e509b354fd3399fc8c70bf3e5a14ad4905.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              667,
+              492,
+              991,
+              539
+            ],
+            "text": "app.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              800,
+              1340,
+              1008,
+              1389
+            ],
+            "text": "192.0.2.10",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              482,
+              1340,
+              615,
+              1389
+            ],
+            "text": "Example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2407,
+              1320,
+              2673,
+              1399
+            ],
+            "text": "app.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "214a189add3a48e8e9675391a630d069f933a1127695b6f75318321eeb6a43c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/369df14649711351367a0b3dad2648ddd819000c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              20,
+              48,
+              110,
+              66
+            ],
+            "text": "app.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "4e11d7ad8262acb80b968454f7f95ab8c53ce0899ed97e0493b9ee220616b711"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38206655d5c8e37fa8d5a58ea9a98233f482bf05.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1129,
+              792,
+              1260,
+              818
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1129,
+              825,
+              1260,
+              851
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1129,
+              859,
+              1260,
+              885
+            ],
+            "text": "192.0.2.12",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1129,
+              892,
+              1260,
+              918
+            ],
+            "text": "192.0.2.13",
+            "size": 13
+          }
+        ],
+        "output_sha256": "0c8541f15bd871371ee254812200fb17ac197dccdb5754754dfc7422f461af14"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8aee54dec31b8cffe6bc3c9d2d294e8d8621d8a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              707,
+              171,
+              735
+            ],
+            "text": "IP-192.0.2.10",
+            "size": 13
+          }
+        ],
+        "output_sha256": "7873aa5ccbddf9f84f8d9c275d6dd93195300f121af420ea71bbc8224bd0cdf0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b069e72dad2f996c6446b863f8c3c9b3cd404353.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2300,
+              850,
+              3109,
+              1175
+            ],
+            "text": "request_throughput = 41144",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              903,
+              3109,
+              946
+            ],
+            "text": "labels: app_type=example; namespace=example;",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              948,
+              3109,
+              992
+            ],
+            "text": "tenant=example; vh_name=example-load-balancer",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              994,
+              3109,
+              1038
+            ],
+            "text": "starts at 2023-01-18T08:13:00Z; anomaly score=5.99",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1230,
+              3109,
+              1562
+            ],
+            "text": "response_throughput = 56055279.85",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1285,
+              3109,
+              1328
+            ],
+            "text": "labels: app_type=example; namespace=example;",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1330,
+              3109,
+              1374
+            ],
+            "text": "tenant=example; vh_name=example-load-balancer",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1376,
+              3109,
+              1420
+            ],
+            "text": "starts at 2023-01-18T08:13:00Z; anomaly score=1.00",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1640,
+              3109,
+              1970
+            ],
+            "text": "request_rate = 2245.50",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1710,
+              3109,
+              1753
+            ],
+            "text": "labels: app_type=example; namespace=example;",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1755,
+              3109,
+              1799
+            ],
+            "text": "tenant=example; vh_name=example-load-balancer",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2300,
+              1801,
+              3109,
+              1845
+            ],
+            "text": "starts at 2023-01-18T08:13:00Z; anomaly score=5.99",
+            "size": 19
+          }
+        ],
+        "output_sha256": "a39d218f7531a3c2012f45a6184f825c32767e1ac79c0d4f3ca0fc5579792d93"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/479bcb49d1611bda498a0e56af65f302dcaf972d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ed90dc5cadc885801da25dd79eca16a88cfe944afe4777f49c1bc0c7db7e04e1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d19040e677f3f32148aff69a69c7c940f9e7eee0.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f9f231e8fdaee0d8e2774c6109469d1c0a1a29db85f0b806c884629322f32a43"
+      }
+    }
   }
 }
