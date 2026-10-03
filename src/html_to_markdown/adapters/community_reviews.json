@@ -12142,5 +12142,136 @@
         "output_sha256": "e524ecb8a294082e8d4cbae5ff7c2b9187bcd17dcf0b4c6801e19d729935eae9"
       }
     }
+  },
+  "72877": {
+    "article_hash": "c0363034b2f111fbedcd4c409e7054ba5b641783a269de92a559878505411c7c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected NetApp replication guide and all six images; cloud site, account, workspace, connector and volume names made synthetic; no files or customer records are displayed, replication links and cloud placement retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/ba1e7584218c2d4ee9e4fe1f1790bbb2bfae370d.png": "50eaff775b0d44685b50e92a7c1eed1f6ef8c8e8b8268e8ec807559cc41081a3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3855a649b05f5edada552171e620fcec53d453ea.png": "a8942f9af842b3bb436035db4d5bb20449ef501e757a6f6e2d2fe44b3eddaaf9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/533f4d35f3db9b107f3e1f1dbb9f5dc5d7e06076.png": "edb5acffb3987d0923af22b8c807a39e8cee7d49ca4ed58f93563a2af14c3d2e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/4/94a86bd0cb17da84d905bc2570763152cc98cb9b.png": "bd128202e5e3bed63e73dc732295ffb6655079da382c339e4e8368c3a1302c42",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f89b538f3196cb87e8e8ed0c2e5f1711e0d26009.png": "6526d1ce0ca4a9084493677caea60ada0762b096210ce61b3f2307e94b35a8fc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f8f6aafdb177353e283ec3c7691f7117b3af367a.png": "5c650c19a7786061b953f03c3d59b0e81d0f5dff96d44fd5e790ad78d0ea825a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3855a649b05f5edada552171e620fcec53d453ea.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              90,
+              6,
+              306,
+              33
+            ],
+            "text": "example-ontap",
+            "size": 16
+          }
+        ],
+        "output_sha256": "360a6342f70c59ea1beb246c7fd2db95fee6aff8d2e8f33ebccd2fd0808aef7e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/533f4d35f3db9b107f3e1f1dbb9f5dc5d7e06076.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              25,
+              280,
+              51
+            ],
+            "text": "example-azure-ce",
+            "size": 16
+          }
+        ],
+        "output_sha256": "dd0f3904e928ef5ba5afb99c47217ffa67ff1aba501d0e59ecfe0b516745dc2c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f89b538f3196cb87e8e8ed0c2e5f1711e0d26009.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              67,
+              95,
+              241,
+              120
+            ],
+            "text": "example-ontap",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              66,
+              455,
+              222,
+              478
+            ],
+            "text": "example-azure-cvo",
+            "size": 14
+          }
+        ],
+        "output_sha256": "a1b060ff49f80850a696279d5af8c972ed808212e80a86b13b731d7f1da248a8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f8f6aafdb177353e283ec3c7691f7117b3af367a.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1337,
+              35,
+              1456,
+              60
+            ],
+            "text": "ExampleAccount",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1498,
+              34,
+              1632,
+              60
+            ],
+            "text": "ExampleWorkspace",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1660,
+              34,
+              1786,
+              60
+            ],
+            "text": "ExampleConnector",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              595,
+              374,
+              733,
+              396
+            ],
+            "text": "example-ontap",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              594,
+              731,
+              716,
+              755
+            ],
+            "text": "example-aws-cvo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "2364fb0724b911e457b98343b5dce540b8b3f83b4558cee71fb070e3aed593f7"
+      }
+    }
   }
 }
