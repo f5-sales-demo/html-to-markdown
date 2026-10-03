@@ -7628,7 +7628,293 @@
   "75882": {
     "article_hash": "8e3e5a8af2ddcea1b14f5acd845468f24e270de37bfabab2762057047f1437c8",
     "decision": "include",
-    "reason": "Distributed Cloud AppStack Tailscale proxy deployment and secure tailnet app exposure"
+    "reason": "Distributed Cloud AppStack multi-tailnet egress integration is primary",
+    "text_replacements": {
+      "nodes": {
+        "b672be46476be155118bca5e30de97b2dc64f249c4df773b6cf8755896c2ddd7": "\u00a0two tailnets (tailnet-a, tailnet-b)",
+        "23aed9b2a0ec4efd2500a7db9b7ab7a5d73e730398e02e9ea56a30ebc61ed8ab": "k8s_namespace = \"example\" container_registry = \"registry.example.com\" tailnets = [ { tailnet_name = \"tailnet-a\" tailnet_key = \"EXAMPLE_KEY_A\" use_k8s_secret = true services = [ { endpoint = \"openspeedtest.tailnet-a.ts.net\" protocol = \"tcp\" port = 3000 f5xc_origin_pool = \"example-pool-a\" } ] }, { tailnet_name = \"tailnet-b\" tailnet_key = \"EXAMPLE_KEY_B\" use_k8s_secret = true services = [ { endpoint = \"openspeedtest.tailnet-b.ts.net\" protocol = \"tcp\" port = 3000 f5xc_origin_pool = \"example-pool-b\" } ] } ]\n"
+      },
+      "output_sha256": "0eb2425c00c4b3874df1424a2b082f57c57ad17758873502b28777e95d122a85"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and seven images individually reviewed. Personal email/avatars, namespace, CE identities, tailnet IDs, partial auth-key strings, registry and pool names normalized consistently; observed tailnet addresses replaced with reserved examples. Architecture, Envoy/WireGuard relationships, RE/CE origin settings, scaling model, Terraform variable structure and commands preserved. No entered credentials or user/customer payload; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/129f4218624f672783fe6e137cd28a78d6eaacb7.png": "b0a51ec8ff6eb14d1414b0a0219becce6606782a8cd0c529e3db1f6a0f5f7cac",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/277a4856abbd1b74350970aeee2f9b398bb3a11f.png": "626b2d2c506f984499da5159723edb9673cca87fc1c44932edbef7ced8868def",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43d592afccaedd92b728cb64c21259a4f0549e09.png": "8938c8b685b5c4ec108be8be05d975d0476df8e7f69798da96ad635a690a5d7a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/503f98f4c558ddb590b31eeb4abf866ee50c13ba.png": "17f09951d8aa778a9d3f794da7818fccd9dc032a434494a6664b1b937874f9fc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9db6a94403d7fa6c7ef9187b1467a926d3f54e1a.png": "a7416b749b95fd8986e8c869451174c07aca20a49e92346bdc448ebdb6e3e18e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a3cb67975a9ffe249f476ebebb00fdbeff7db416.png": "a2481d3a3c3a8ba4d05aa532b61d05e1245e1864b71491e2d4b3600533ed8a5f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/7/87b1b72ab557fd807c16b5e746f7bce2228c0848.png": "42d7c550448ce7be422ce27715391b0ddd62551cbd43ab092c81d6e2e9fe8a24"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43d592afccaedd92b728cb64c21259a4f0549e09.png": {
+        "rectangles": [
+          [
+            843,
+            16,
+            881,
+            53
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              28,
+              23,
+              225,
+              49
+            ],
+            "text": "demo@example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              3,
+              390,
+              153,
+              415
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              474,
+              153,
+              499
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              558,
+              153,
+              583
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              664,
+              153,
+              689
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              295,
+              368,
+              399,
+              394
+            ],
+            "text": "192.0.2.1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              295,
+              451,
+              399,
+              478
+            ],
+            "text": "192.0.2.2",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              295,
+              535,
+              399,
+              562
+            ],
+            "text": "192.0.2.3",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              295,
+              619,
+              417,
+              646
+            ],
+            "text": "192.0.2.4",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              3,
+              451,
+              292,
+              478
+            ],
+            "text": "tailscale-egress-0-tailnet-a-ce1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              536,
+              292,
+              563
+            ],
+            "text": "tailscale-egress-0-tailnet-a-ce2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              619,
+              292,
+              662
+            ],
+            "text": "tailscale-egress-0-tailnet-a-re1",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c15c8dd7337b4a21c25f08afec4639e24a340d7bc3eb6f7859adbbcf4e2df438"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/503f98f4c558ddb590b31eeb4abf866ee50c13ba.png": {
+        "rectangles": [
+          [
+            846,
+            13,
+            884,
+            51
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              31,
+              19,
+              232,
+              49
+            ],
+            "text": "demo@example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              4,
+              381,
+              153,
+              410
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              300,
+              361,
+              421,
+              389
+            ],
+            "text": "192.0.2.1",
+            "size": 13
+          }
+        ],
+        "output_sha256": "0def20c63fe52b5f4119255e6cfdd28486faeca542cb48dc5ee2eb8333e3783b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a3cb67975a9ffe249f476ebebb00fdbeff7db416.png": {
+        "labels": [
+          {
+            "rectangle": [
+              224,
+              153,
+              391,
+              178
+            ],
+            "text": "tailscale-egress.example",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              224,
+              196,
+              391,
+              222
+            ],
+            "text": "tailscale-egress.example",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              421,
+              196,
+              513,
+              220
+            ],
+            "text": "example-ce",
+            "size": 12
+          }
+        ],
+        "output_sha256": "04a43cba5d4d3c6f109ee7f9df3aa7b0ce87716d7a5e0a79e5b64139e6f39bb5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/7/87b1b72ab557fd807c16b5e746f7bce2228c0848.png": {
+        "labels": [
+          {
+            "rectangle": [
+              164,
+              0,
+              220,
+              21
+            ],
+            "text": "example",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              72,
+              20,
+              208,
+              47
+            ],
+            "text": "example-vk8s",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              49,
+              608,
+              136,
+              634
+            ],
+            "text": "example-ce1",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              49,
+              653,
+              136,
+              679
+            ],
+            "text": "example-ce2",
+            "size": 11
+          }
+        ],
+        "output_sha256": "70bea116aed7f348d663f8f88c0948b0e508a84690b0aacd953b4110ac799d21"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/129f4218624f672783fe6e137cd28a78d6eaacb7.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2c55db05608ee7ee20031b4c9227c4252f9edfce00c1bc2dd0a6530da74afa31"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/277a4856abbd1b74350970aeee2f9b398bb3a11f.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "220eca8fd4f919b78da63f9a2f40617cd61dd1a73a03cefad35d48ddbf846c1f"
+      }
+    }
   },
   "75890": {
     "article_hash": "2316c5b8b97658638ece710ca1e47bda6e043c90799427e00065a6573ea9d003",
