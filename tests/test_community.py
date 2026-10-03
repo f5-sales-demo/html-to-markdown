@@ -805,6 +805,9 @@ async def test_failed_refresh_cannot_resume_previous_topic_bytes(tmp_path):
         "<p>Authorization: Bearer aaaaaaaaaaaaaaaaaaaa</p>",
         "<pre>Set-Cookie: session=aaaaaaaaaaaaaaaaaaaa; Secure; HttpOnly</pre>",
         "<pre>Cookie: session=aaaaaaaaaaaaaaaaaaaa; theme=light</pre>",
+        '<pre>Set-Cookie: session="aaaaaaaaaaaaaaaaaaaa"; HttpOnly</pre>',
+        "<pre>Cookie: theme=light; session=aaaaaaaaaaaaaaaaaaaa</pre>",
+        '<pre>curl --cookie session="aaaaaaaaaaaaaaaaaaaa" https://example.com</pre>',
     ],
 )
 def test_privacy_approval_never_overrides_remaining_credential_material(body):

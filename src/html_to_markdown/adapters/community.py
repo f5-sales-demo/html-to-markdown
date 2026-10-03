@@ -54,7 +54,8 @@ PRIVACY_PATTERNS = {
         re.I,
     ),
     "session-cookie": re.compile(
-        r"\b(?:Set-Cookie|Cookie)\s*:\s*[A-Za-z0-9_-]+\s*=\s*[A-Za-z0-9+/=_-]{16,}",
+        r"""(?:\b(?:Set-Cookie|Cookie)\s*:|--cookie(?:\s+|=))"""
+        r"""[^\r\n<>]*?\b[A-Za-z0-9_-]+\s*=\s*["']?[A-Za-z0-9+/=_-]{16,}""",
         re.I,
     ),
     "cloud-account": re.compile(r"\b\d{12}\b"),
