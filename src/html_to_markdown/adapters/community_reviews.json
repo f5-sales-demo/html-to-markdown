@@ -45485,5 +45485,400 @@
         "output_sha256": "c373b65928b067a30d74be05df70bdc648ad80199ba700ec9f12648869b417da"
       }
     }
+  },
+  "72827": {
+    "article_hash": "db629fbc8174a154db459678dd7cddc4e1637913092d2b9ece313948f1f37fb3",
+    "decision": "include",
+    "reason": "Distributed Cloud primary mTLS and XFCC deployment guidance",
+    "text_replacements": {
+      "nodes": {
+        "257dd1ff7981d73f482973df3070cba68131a2d6d7f979823b7ebb373d75a181": "\n\u00a0 \u00a0 openssl req -new -sha256 -subj \u201c/CN=custom.example.com\u201d -key cert-key2.pem -out cert2.csr\u00a0",
+        "77b83202069b61e0578b8d17d9ba72315c6791a346d80706b2dbaa82ca0c8bb3": "\n\u00a0 \u00a0 echo \u201csubjectAltName=DNS:custom.example.com\u201d >> extfile.cnf\u00a0",
+        "f0a1bd55a7afee7374a59bda713324e4ef48425067d74272018af43661af40a6": "\nMove above created CA certificate (ca-crt.pem) to /usr/local/share/ca-certificates/ca-crt.pem\u00a0 and modify \u201c/etc/hosts\u201d file by mapping the VIP(you can get this from your configured LB \u2192 DNS info \u2192 IP Addr) with domain, in this case the (custom.example.com).",
+        "c2fe60b14b83cf4a747b3e1111930fcca087500041183af5728ee4257ef29222": "custom.example.com",
+        "55cd9bf9fd34de8e327f5c172e24d21bc504b63d2d427b2ac61cccbd5a7c9226": "auto.example.com",
+        "c3de27f1b2734ca2ccf549f440413e7a14af159b3fce15beb78a0b9d230bc256": "http://custom.example.com",
+        "5e524325f093a98ac3a381b077adecf7a4e3a6ea7760cf54b0a8c947e580ffd2": "http://auto.example.com"
+      },
+      "output_sha256": "08c91a2fc28cb5966bbb7f489f7ca755f7336a2909bd643a5d9c6b4c57c3f51d"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose, commands and all 11 static images. Preserved OpenSSL key-generation and certificate-signing commands with synthetic domains, certificate filenames, HTTPS custom and automatic certificate options, mTLS and XFCC elements, origin weighting and priority, curl certificate/key options, response header field names and authentication diagram. Replaced screenshot certificate and chain bytes and fingerprint with explicit example placeholders; replaced demo domains, client IPs, request IDs, terminal identity and person-derived resource label, stripping image metadata. No private key bytes retained. Hash-bound transformed images visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b50b47b0e6b9d1a583dcb3f77cb023257f73cdd6.png": "88bd21fb512ffcff8b34baa992505ad66e1698e85bf86089488fa59884722a5e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/09c64a8ad6832879240d83c21b117725701f8375.png": "8e434d8ea718283d43c773ea0af4bb08ed3ddfca4199830635bb70e4efbafe15",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f2f6321028b67531ebcf38123928a2db938b57a.png": "1ac8ac07d91d1a1d1312511b2dc5362f2e8a11351584032cf06ae6ce379cfd51",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f2b02a43f40333b987c9df38241c417613a961a.png": "71b8efb17a8c467fe8bda0aedfec16e9f1200de609ced3f0125ad74a5d2b8060",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5fcd88aa32c2b6439e2bb17e8e6eca713f0561ef.png": "e6c70fcd3d31141dbc1bd8c235a4bdd7f024e9c3b8df60b289ed553c88e7789e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/825eb1966a390fc5e82126100bddf296ae37e374.png": "4eec7a5fbd0796af477f8445c41ee8dafa38ebc3a33097ba53e07fed7e1a316c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc331e94b083f93e199a2738f9ae28b5c26ba97f.png": "e70d8aee5f4dcc4a71b6d55aee266a941a477aef3097d1c9bbfefa8f547e7bca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0eab41fda63634f0c7bc5d92705ac7f8e547d77.png": "2c34e02d28768ee1c143e3dbb6d0a943a2a21c5ee7aaa6bdb90d4f0aec1cfea3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cce428aecd53d6349ad5f8f4194902777cde0f1f.png": "8dd9df475285bea0fbed2d64502b6f27b8a9ff7b8a6f5282b881e3563b161ddd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/3653d0676de33589f8aa5bfac86a21a1cb5b9ab6.png": "be61f9761724fe5622744b7fe940431516cbf747f7dc3fcefd623c2ae14ced5a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/81778715e4b92bbaebf484f34bc81e7836ab3577.png": "f514a62a1757b834701fcab72f7ca32ae8e33ceb3b222b0edb80ae31e9071354"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/b50b47b0e6b9d1a583dcb3f77cb023257f73cdd6.png": {
+        "rectangles": [
+          [
+            0,
+            330,
+            3179,
+            1380
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              10,
+              1000,
+              60
+            ],
+            "text": "example@demo:/home/example$",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1980,
+              10,
+              3179,
+              65
+            ],
+            "text": "https://auto.example.com/headers",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              242,
+              178,
+              790,
+              220
+            ],
+            "text": "\"auto.example.com\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              640,
+              255,
+              986,
+              292
+            ],
+            "text": "\"192.0.2.10\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              462,
+              292,
+              1270,
+              328
+            ],
+            "text": "\"EXAMPLE_REQUEST_ID_1\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              35,
+              345,
+              3179,
+              402
+            ],
+            "text": "\"X-Forwarded-Client-Cert\": \"Hash=EXAMPLE_CERTIFICATE_HASH;",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              35,
+              415,
+              3179,
+              472
+            ],
+            "text": "Cert=EXAMPLE_CERTIFICATE;Chain=EXAMPLE_CERTIFICATE_CHAIN;",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              35,
+              485,
+              3179,
+              542
+            ],
+            "text": "Subject=/CN=auto.example.com;URI=;DNS=auto.example.com\"",
+            "size": 26
+          }
+        ],
+        "output_sha256": "3676b9e49a96fdda90aa6ee4ef8561fa0f096d4f83c4efe7700c069203e7a92d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/09c64a8ad6832879240d83c21b117725701f8375.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1193,
+              339,
+              1520,
+              380
+            ],
+            "text": "auto.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1075,
+              1390,
+              1785,
+              1570
+            ],
+            "text": "EXAMPLE_CA_CERTIFICATE",
+            "size": 24
+          }
+        ],
+        "output_sha256": "362771618d21e588351bc40f23f23a6421e386ccde0df975b667824ddd26e0a9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5fcd88aa32c2b6439e2bb17e8e6eca713f0561ef.png": {
+        "labels": [
+          {
+            "rectangle": [
+              815,
+              629,
+              1020,
+              677
+            ],
+            "text": "demo-mtls",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3190,
+              500,
+              3560,
+              553
+            ],
+            "text": "mtls.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3190,
+              607,
+              3560,
+              691
+            ],
+            "text": "auto.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3190,
+              743,
+              3560,
+              827
+            ],
+            "text": "custom.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "549df68fe1e72c97413bab3aa6201c58e050674c373adccf646efb80534ed0b4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/825eb1966a390fc5e82126100bddf296ae37e374.png": {
+        "rectangles": [
+          [
+            0,
+            317,
+            3193,
+            1450
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              15,
+              2,
+              520,
+              51
+            ],
+            "text": "example@demo:~$",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1460,
+              1,
+              2400,
+              58
+            ],
+            "text": "https://custom.example.com/headers",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              260,
+              159,
+              900,
+              204
+            ],
+            "text": "\"custom.example.com\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              660,
+              237,
+              989,
+              276
+            ],
+            "text": "\"192.0.2.11\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              486,
+              276,
+              1300,
+              314
+            ],
+            "text": "\"EXAMPLE_REQUEST_ID_2\",",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              35,
+              330,
+              3193,
+              387
+            ],
+            "text": "\"X-Forwarded-Client-Cert\": \"Hash=EXAMPLE_CERTIFICATE_HASH;",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              35,
+              400,
+              3193,
+              457
+            ],
+            "text": "Cert=EXAMPLE_CERTIFICATE;Chain=EXAMPLE_CERTIFICATE_CHAIN;",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              35,
+              470,
+              3193,
+              527
+            ],
+            "text": "Subject=/CN=custom.example.com;URI=;DNS=custom.example.com\"",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              15,
+              1520,
+              540,
+              1579
+            ],
+            "text": "example@demo:~$",
+            "size": 28
+          }
+        ],
+        "output_sha256": "ef3400b7c3e2ae36b4889dff2c1a5cea5422845404a72470c8ceaa5c920e8bd2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cce428aecd53d6349ad5f8f4194902777cde0f1f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1230,
+              921,
+              1670,
+              970
+            ],
+            "text": "custom.example.com",
+            "size": 28
+          }
+        ],
+        "output_sha256": "94d512cbe3d86efa5ea766c8d7ff0fddb09e82b44deab32d031ce6518a614761"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/3653d0676de33589f8aa5bfac86a21a1cb5b9ab6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1020,
+              1153,
+              1880,
+              1360
+            ],
+            "text": "EXAMPLE_CA_CERTIFICATE",
+            "size": 26
+          }
+        ],
+        "output_sha256": "0c0dfb6893247ddbfe33195a55121aca468c6dcf5ac20d4739901aaa5fc59b4f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/81778715e4b92bbaebf484f34bc81e7836ab3577.png": {
+        "labels": [
+          {
+            "rectangle": [
+              805,
+              630,
+              1020,
+              679
+            ],
+            "text": "demo-mtls",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3180,
+              501,
+              3560,
+              554
+            ],
+            "text": "mtls.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3180,
+              608,
+              3560,
+              692
+            ],
+            "text": "test2.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              3180,
+              746,
+              3560,
+              829
+            ],
+            "text": "auto.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "0ae02d7cf5cd7fceb28d449d9d7d1d92df9e31b7322179e927711292064a3ac3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f2f6321028b67531ebcf38123928a2db938b57a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5e022866c655021d8c514e64d127343ae34950748a3ab676514bbfc66f2e7c0f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f2b02a43f40333b987c9df38241c417613a961a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f86911ae31f6be1d18a9e16548540e0fd98c97bedfcfa8313a730c968b485933"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc331e94b083f93e199a2738f9ae28b5c26ba97f.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "94cc4427a25456cdda15e97612d7551df4cf26c2e216446a5a45ffb5cfbe4e49"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0eab41fda63634f0c7bc5d92705ac7f8e547d77.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9d96b9819d71ea53e0b8885d82744664c941b7a8b26562b7383843fc97726f5b"
+      }
+    }
   }
 }
