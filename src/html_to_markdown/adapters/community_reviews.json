@@ -14931,5 +14931,240 @@
         "output_sha256": "12547509e39855c58ca8fb9977f0a4016ad3fccd4ea5909218f22aaa882ac09b"
       }
     }
+  },
+  "76791": {
+    "article_hash": "7c1acf0948f858a370ce360d005f1b768bea236a8608cbec4c34827419ad5d9f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose, both video thumbnails and all five animation frames individually reviewed. Observed IPs, routed resource names, personal namespace and TLS/JA4 fingerprints replaced with synthetic examples. Animated dashboard keeps exact decoded pixels outside reviewed label regions, all frames, duration and loop; mitigation notes, tooltip steps, traffic graphs, protocol/port rows and destination flags retained. Public provider ASN context retained. No credentials or customer payload; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/a/9ae60e681e44dcf3f3b923a1b72063420f54f9cc.gif": "c2f7478efd4c5ee51345e2c463b38944b72b3ff66daaf15bb4299bf03e5059a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/f/afc9e2dc181f876695fee6fb2020e238d03c2277.jpeg": "d137655d4d689101fbb07466654371425fc43a5e41f7e4f01a5740df05310922",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ceb9dfef2d2e73b67c90e5a000fb022e5d3be9e3.jpeg": "110416a85eb8df99c838174e531c4d2b0e51db9119ad306f5a8e86c4f2f1f22a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/f/afc9e2dc181f876695fee6fb2020e238d03c2277.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              21,
+              150,
+              98,
+              173
+            ],
+            "text": "example",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              406,
+              656,
+              545,
+              692
+            ],
+            "text": "example-tls",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              406,
+              692,
+              549,
+              720
+            ],
+            "text": "example-ja4",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              663,
+              654,
+              763,
+              679
+            ],
+            "text": "192.0.2.10",
+            "size": 10
+          }
+        ],
+        "output_sha256": "05f466c9c7b83efae6f04958a6b432f510b3b8af5dbaea344dadacd145580ec7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/a/9ae60e681e44dcf3f3b923a1b72063420f54f9cc.gif": {
+        "animation": true,
+        "rectangles": [],
+        "frame_transforms": {
+          "0": {
+            "labels": [
+              {
+                "rectangle": [
+                  563,
+                  74,
+                  686,
+                  92
+                ],
+                "text": "example-routed",
+                "size": 9
+              },
+              {
+                "rectangle": [
+                  211,
+                  127,
+                  257,
+                  143
+                ],
+                "text": "192.0.2.0/24",
+                "size": 7
+              }
+            ]
+          },
+          "1": {
+            "labels": [
+              {
+                "rectangle": [
+                  399,
+                  93,
+                  602,
+                  117
+                ],
+                "text": "example-routed",
+                "size": 11
+              },
+              {
+                "rectangle": [
+                  276,
+                  166,
+                  342,
+                  183
+                ],
+                "text": "192.0.2.0/24",
+                "size": 8
+              }
+            ]
+          },
+          "2": {
+            "rectangles": [
+              [
+                0,
+                0,
+                125,
+                36
+              ]
+            ],
+            "labels": [
+              {
+                "rectangle": [
+                  158,
+                  13,
+                  350,
+                  31
+                ],
+                "text": "event example-1 192.0.2.1",
+                "size": 9
+              }
+            ]
+          },
+          "3": {
+            "labels": [
+              {
+                "rectangle": [
+                  411,
+                  165,
+                  517,
+                  186
+                ],
+                "text": "192.0.2.1/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  199,
+                  517,
+                  220
+                ],
+                "text": "192.0.2.2/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  233,
+                  517,
+                  254
+                ],
+                "text": "192.0.2.3/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  267,
+                  517,
+                  288
+                ],
+                "text": "192.0.2.4/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  301,
+                  517,
+                  322
+                ],
+                "text": "192.0.2.5/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  335,
+                  517,
+                  356
+                ],
+                "text": "192.0.2.6/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  369,
+                  517,
+                  390
+                ],
+                "text": "192.0.2.7/32",
+                "size": 10
+              },
+              {
+                "rectangle": [
+                  411,
+                  403,
+                  517,
+                  424
+                ],
+                "text": "192.0.2.8/32",
+                "size": 10
+              }
+            ],
+            "rectangles": [
+              [
+                411,
+                155,
+                530,
+                421
+              ]
+            ]
+          },
+          "4": {}
+        },
+        "output_sha256": "7db61d331286fd622a1a42611b6f20709735c9b6b8e8226dceddf5fe3827caf2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/ceb9dfef2d2e73b67c90e5a000fb022e5d3be9e3.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3d370adb7fb6b35fdd8d4a02f657aef5520232f6f2f6ef26815ea15053f10932"
+      }
+    }
   }
 }
