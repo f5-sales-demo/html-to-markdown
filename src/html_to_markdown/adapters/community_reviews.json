@@ -13544,5 +13544,117 @@
         "output_sha256": "1bab00f40b985d262c5049a096b5fe6601a2621dfe577f85c0728400e6289090"
       }
     }
+  },
+  "75640": {
+    "article_hash": "c78cf1ce9f56c628ea9b971bff75e28164a7daaaec29f058833bf464f939e207",
+    "decision": "include",
+    "reason": "Distributed Cloud site debug command guide",
+    "text_replacements": {
+      "nodes": {
+        "3c542c8b849550fb23ffa525f4cae49551ce28865af8e8d525735f897c24e32b": "https://example.console.ves.volterra.io/web/home"
+      },
+      "output_sha256": "1734e4a1874fbc60f66c27003da562086f3c3b30c8ad8f21cf52c092eded96e9"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected debug command guide and five screenshots; tenant URL, connection addresses and runtime useragent fingerprint made synthetic; prior site and authorization token redactions retained; netstat status and generic request paths preserved",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bcd81df493a92eef9d5443a3865db000f693d2d.png": "86c07e62d15b705356d8f9101ab40c193f3886b3e62db20e7c603af97df03ae5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be40095c5eacb6e3aba8ea05504304f80a818577.png": "b990db5527c9ea94140f05435843bdb00a2bab9d3d636f152bf52bd97c672566",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6b8d14572043ef2653b253b5a0da57aee033c05.png": "fc493751bf0b3b8975221ce0ed660ecfda307ea5dec4ab840250ed081d86abfa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/557c7d24e3671912ad02ba562db95765c60c31e0.png": "ea302645472b73efb892de44ac38768922622c37eac8056bfcadd1380ca1a8b8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/997351cdddff63a4882810d786d80ac7be665f33.png": "7695b400c806b4695230b5b92c3b3084b6218cd856bc433ef97357fe01667b68"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be40095c5eacb6e3aba8ea05504304f80a818577.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              675,
+              524,
+              849,
+              545
+            ],
+            "text": "192.0.2.1:9505",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              675,
+              594,
+              849,
+              617
+            ],
+            "text": "192.0.2.2:18094",
+            "size": 12
+          }
+        ],
+        "output_sha256": "80e7c28bbc18ee92423aaad9d024fe520fc3515e05bbee31526a681092833698"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6b8d14572043ef2653b253b5a0da57aee033c05.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              20,
+              506,
+              849,
+              523
+            ],
+            "text": "-H 'X-Volterra-Useragent: EXAMPLE'",
+            "size": 8
+          }
+        ],
+        "output_sha256": "9fb1cfd742bcace36f3cd1be0c40080d934523a110ea82bf2f1bd10a17708af6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/5/557c7d24e3671912ad02ba562db95765c60c31e0.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              122,
+              12,
+              625,
+              38
+            ],
+            "text": "https://example.console.ves.volterra.io/api/operate",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              693,
+              337,
+              763,
+              359
+            ],
+            "text": "192.0.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              108,
+              354,
+              166,
+              376
+            ],
+            "text": "2.1:9505",
+            "size": 10
+          }
+        ],
+        "output_sha256": "48f18ff18c3e6df99eaa879df743bdbb73572efe8b3245871bb7a47dfd71463e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/997351cdddff63a4882810d786d80ac7be665f33.png": {
+        "rectangles": [
+          [
+            0,
+            889,
+            238,
+            919
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "eea40d8cde4a70720277389b7feaa94066cdcdf4486637d4c9c150b5e4686e46"
+      }
+    }
   }
 }
