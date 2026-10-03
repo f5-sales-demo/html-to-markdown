@@ -30564,5 +30564,82 @@
         "output_sha256": "a6967f68e37b33d5d6eeec33be7caa338a2f1f9b5a1d7d08fe0bddf5a909813c"
       }
     }
+  },
+  "77062": {
+    "article_hash": "a7b20ebd3c09d0da0118807edea225ce08baf182c56c194f70984bba50c1840c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused customer-authored MCP integration guide",
+    "text_replacements": {
+      "nodes": {
+        "91bd168f352177e6f36476db8b2b3f46eb583e41465bed5f11780c0b9bb61077": "\u201cCreate an HTTPS load balancer for test-namespace, attach a WAF policy in blocking mode, origin server at 192.0.2.10 port 80 with an HTTP health check, auto-cert on port 443 with HTTP redirect\u201d",
+        "9bce128654fb6af4c9a818dfef6ead3ef1340ec981a57afd080b01e30d3c3b11": "\u201cChange protocol from HTTP to HTTPS port 443, use automatic certificate management from XC, add origin server 192.0.2.10 port 80 with default HTTP health check\u201d",
+        "c6d1d1d7db381a0d9ee61a80052afab1d44cbe577454b250d062975b572ce1fc": "xc_create_origin_pool \u2192 creates origin pool with 192.0.2.10:80, references the healthcheck",
+        "326fe555cdf352f335398701fdce6135bf56cd10aa529fd2a2a2005c987e235a": "example-resource-id",
+        "90fe809309f1dcb8d380787790d0121e03b81b4dfb948286a5a74ed1ba205bd5": "https://mcp.example.com/mcp"
+      },
+      "output_sha256": "3f5b6275337415086deaaf1ff5cd400d2798152caf913d65b500e72337e4bec2"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full customer-authored prose and eight static code screenshots; synthetic origin address, creator email, resource ID, tenant and MCP endpoints; architecture, Terraform fallback, configuration, and upstream provenance preserved; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/cd5931b8c07d6edfcdd43a4d988b60ded85c7b6d.png": "953aedd978883fe6ac2d67f2338b3af1e59e31741d2d4e68a06a85714f2d2cc8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c06a596894f3efa487dba5642175de947f5eb6f.png": "4478b42a8188f7de203ed0484f69bf027364a204ed3b9b104fc997605df0f489",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9303e0208b51af0c200dfe23221209e3a6958f36.png": "42fae83e38311ca06bb32e4352bb9e4f1bb68e134ea025ab4f98222c29fc8a9e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a71ecfb03ec0ca52219be4105bcd10b4c8ea1cfc.png": "81f547eed395777572709c7daf292c1714315eaf30bdc4d75da2eb2b8e8fefc1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b661265416cc50e0fa06be3edf728af2e0ae2f19.png": "cc616d7f7ae9f5fc5366286f7997b470293e28d62a3554a6141ff1d79ded2dd5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/438b310596cce420440ae2746ea06660949e92b1.png": "c3031d83c35aa0fc532aebb6a9b43fa5baa88dd7cfaa2b374ec3d6b0f1fa5960",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/86f2b183d65815614243b907f5f7260b443c5fc6.png": "96a5ac270ed081afa97c5347d8731705c6c76f37603e7f94376a996d41656079",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d179f956b0eb5d798ffadf5f2298891f248d395a.png": "3bcd3c94c20d2c00b91b8faa33e0623fb45f5f36005de910ed6dc6b7ecff8c0b"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/cd5931b8c07d6edfcdd43a4d988b60ded85c7b6d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              280,
+              537,
+              1090,
+              572
+            ],
+            "text": "\"https://tenant.example.com/api\"",
+            "size": 23
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "6f7957f1fc260cc65804332f55dec5fddc25ff20dcc593ed2469f7f4e24a06b8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9303e0208b51af0c200dfe23221209e3a6958f36.png": {
+        "labels": [
+          {
+            "rectangle": [
+              130,
+              189,
+              552,
+              228
+            ],
+            "text": "\"creator_id\": \"user@example.com\"",
+            "size": 23
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "6251dcf1e96be9e666e5852ae13a00297e18f518869556f375bbe6552631bf57"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a71ecfb03ec0ca52219be4105bcd10b4c8ea1cfc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              271,
+              157,
+              676,
+              195
+            ],
+            "text": "\"https://mcp.example.com/mcp\"",
+            "size": 24
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "cb1d8de64eed7e549db9a05fee0b9d6d22607b77968e96b34ff172e9c28673f7"
+      }
+    }
   }
 }
