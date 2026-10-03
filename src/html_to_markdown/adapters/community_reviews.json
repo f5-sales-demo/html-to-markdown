@@ -29557,5 +29557,406 @@
         "output_sha256": "4904766ba15185d18fff98a2063329b9be69c51fd529c925540dfebdd8dfd1b9"
       }
     }
+  },
+  "72944": {
+    "article_hash": "494fc7c10fad855fa0b73aefb929dd8a32d0e6c04fba8a20aded819b96db4f9f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all nine dashboard screenshots; synthetic application names, CDN names, personal site labels, source IPs, countries and app domains preserve all service metrics, counts, charts, link names and health summaries; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1414688bb8531bc6dc7bb33e5f07260b2964bcca.jpeg": "c901511796ffcde3a18ec2cc9eca2549babd63ac588cae42aca5a061d8b9356c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/25cf69634e6a07158dfa5ba6f087cbd3f21f1e73.jpeg": "5b2c3347366d56ac8ab6468a25d4b95b88ad5977edccc9f2703ab5b93813d529",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7e91d8856be2566ce2f96630c3c5f295b688ddb2.jpeg": "f33426052bf753144022032c322e549b5a36c3fa5112490f607b00832d48faec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ac0b4b0e6f76383b8c367174a27f794853b428c8.jpeg": "95f99fb0be33d4750870df53af5325098c00f85e5af40cc2b1039530f6c86408",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3f7c5b0946eac92a0b25858146cf7dd7928d84a.jpeg": "e0a2c62b4032c68b26e3d24b89715549075cbdca0ef9c3fb625be5df1316745c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff57f811a705009d9964ecb72e987ddf50a76a98.jpeg": "9d17a9a7e4249137fffeb3b3153c70611c00b18f0f2b9ac5d845b20531da84dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11c8531e461ecb7453243c21fad8276953e0148c.jpeg": "48fe44617291ad4e43096b46c2f0f19bea69e153354d5dfb18b8ada6b2c5f5ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50849d6475f72137a944cbcce8446da744574cbe.jpeg": "34b795d57df40bb842bc7d10239ac27781f741e8df9aed35670b7e0653231ea7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/d/6d4707e1fd7591b48d83938fcae61de09282cfb4.jpeg": "3df09857722409526a2ec84106f6375ab922fe20f6408c09c0549ae0218cf9c3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1414688bb8531bc6dc7bb33e5f07260b2964bcca.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              2726,
+              830,
+              3253,
+              868
+            ],
+            "text": "example-app-1",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2726,
+              880,
+              3253,
+              918
+            ],
+            "text": "example-app-2",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2726,
+              930,
+              3253,
+              968
+            ],
+            "text": "example-app-3",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2726,
+              980,
+              3253,
+              1017
+            ],
+            "text": "example-app-4",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2726,
+              1030,
+              3253,
+              1067
+            ],
+            "text": "example-app-5",
+            "size": 19
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f21aa06a575cb33b39f6a5003cf44bb62c0c664ef2f9df1b1e22ade08b63959a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/25cf69634e6a07158dfa5ba6f087cbd3f21f1e73.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              521,
+              636,
+              885,
+              679
+            ],
+            "text": "script.example.com",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              2951,
+              634,
+              3366,
+              679
+            ],
+            "text": "https://app.example.com/",
+            "size": 23
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5b475b4d2a7e3014aa4057a0e79b57422990f3cca79814f5d40bb0451693e0ed"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7e91d8856be2566ce2f96630c3c5f295b688ddb2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              536,
+              1431,
+              900,
+              1464
+            ],
+            "text": "hk2-hkg <-> example-site-a",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              536,
+              1481,
+              900,
+              1519
+            ],
+            "text": "example-site-a <-> hk2-hkg",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              1496,
+              1384,
+              1860,
+              1421
+            ],
+            "text": "sg3-sin <-> example-site-a",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              1496,
+              1436,
+              1866,
+              1476
+            ],
+            "text": "hk2-hkg <-> example-site-a",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              2456,
+              1431,
+              2869,
+              1470
+            ],
+            "text": "sg3-sin <-> example-site-a",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              2456,
+              1892,
+              2895,
+              1929
+            ],
+            "text": "example-site-a <-> hk2-hkg",
+            "size": 21
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "f36a538d7a6c8889ee90ddad4c408406c3776bdc90653a7d36aa1ff7042ad0bb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3f7c5b0946eac92a0b25858146cf7dd7928d84a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              534,
+              1605,
+              808,
+              1642
+            ],
+            "text": "example-app-1",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              534,
+              1655,
+              813,
+              1695
+            ],
+            "text": "example-app-2",
+            "size": 21
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "dca5c8832dda903f277a7f9b5534784d8f9708bbcae2e1ce5593a34fcfc2f6b3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff57f811a705009d9964ecb72e987ddf50a76a98.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              496,
+              609,
+              956,
+              654
+            ],
+            "text": "example-cdn-regression",
+            "size": 30
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "5cf00c4217134927f11f713158d67fb3d08c37522e30925269ae0726db1c74c1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/d/6d4707e1fd7591b48d83938fcae61de09282cfb4.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              534,
+              1426,
+              754,
+              1462
+            ],
+            "text": "192.0.2.10",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1425,
+              1162,
+              1464
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1471,
+              754,
+              1507
+            ],
+            "text": "192.0.2.11",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1469,
+              1162,
+              1509
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1516,
+              754,
+              1552
+            ],
+            "text": "192.0.2.12",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1514,
+              1162,
+              1554
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1561,
+              754,
+              1597
+            ],
+            "text": "192.0.2.13",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1559,
+              1162,
+              1599
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1606,
+              754,
+              1642
+            ],
+            "text": "192.0.2.14",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1604,
+              1162,
+              1644
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1651,
+              754,
+              1687
+            ],
+            "text": "192.0.2.15",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1649,
+              1162,
+              1689
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              534,
+              1696,
+              754,
+              1732
+            ],
+            "text": "192.0.2.16",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              975,
+              1694,
+              1162,
+              1734
+            ],
+            "text": "US",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2414,
+              1421,
+              2812,
+              1462
+            ],
+            "text": "app.example.com",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2414,
+              1646,
+              2812,
+              1687
+            ],
+            "text": "app.example.com",
+            "size": 19
+          },
+          {
+            "rectangle": [
+              2414,
+              1691,
+              2812,
+              1732
+            ],
+            "text": "app.example.com",
+            "size": 19
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "0db27f2bbd094f807bedbb09d5653ad91ff849a9402a3ba4411c393000d5caef"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ac0b4b0e6f76383b8c367174a27f794853b428c8.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "451d0e247afdce0e67cf0bf07ff8c145c678ade6812ffe93312e21605d8a3cbd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11c8531e461ecb7453243c21fad8276953e0148c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f2614d559b25d314bdd55c4faed2f60e63cf5866346c652e83e725babb53af7e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50849d6475f72137a944cbcce8446da744574cbe.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d0b7d1bf278d74ba92af5830435d592291cbbc9c58e1c094725ab77d1a6e2cce"
+      }
+    }
   }
 }
