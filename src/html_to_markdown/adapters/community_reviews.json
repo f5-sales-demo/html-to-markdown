@@ -49088,5 +49088,164 @@
         "output_sha256": "f4288882c489d99db6690aaa1ad3e4f8b6be89f99ecc54e42c0e53a5c8433496"
       }
     }
+  },
+  "76015": {
+    "article_hash": "380df133550a3219c18055c69e1902561fb45797a546801d716959383f05d1c0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose, shell and cloud-init examples, and all 13 static images. Preserved SMSv2 deployment prerequisites, VM ID 100, host CPU and core/memory settings, QCOW2 version and import/resize commands, VirtIO and boot order, snippets storage and YAML with node-token placeholder, and successful site status. Replaced personal VM/site/search labels and MAC addresses with synthetic examples; image metadata stripped. No node token or private configuration bytes exposed. Hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1f552d163c17ddd945420bf256f1daeb8ecc8ffe.png": "d15649394dc6608e6ded01cca6723730b838e5fc34bf7d63d6fe7f89a984d992",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/27eb77e6781450abb1eb5ad54da23665b8db8acd.png": "3ffc8e226c608f2b5101aec5643452ed03ecd90e12bbee393d69f60dd7db7905",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/280cc3cbdfcdf5880c6ae3100dd2717dcacbe453.png": "5dc5a3bb75bbe33c8af719b8f1779ad41a9e6ccb40e42c8da5bbc25ca3155b22",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4c9076256f1d66a742fc5167feb79c839efc6b9f.png": "2fbfb45093f75683adf5ebb3b1f7c0a6cfb40e033b5dad32b244a5feba632394",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6fc4065434e01af824befe7ba87505ec735bc946.png": "da0a48dcada8a87850e4c5d6e9a6e1b8e7e1a72fa26895738f2292a3a067e53b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95ebe3b6042917478408b5978401842ec5447df9.png": "ca48cb2316c58035c8a1497a8037470ed0cd0c6c0b5501706b7588f9d37c1e08",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c08f79fd605c48194cad17d3d3e0d1cd837d5fab.png": "29aad2f8a28833edcd5750234b89c4df21a74d11ceb757ab5ce64cceb95297e0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c44b4ebdea324bc3f015cdbe4e66c927ba27cbcc.png": "4cc237f749ea1395a50ce8d88c36c796ca726270c46fe0055506ca6410f4ba2e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e57ef1e5c1e831c3f4bdfe0ac880e7ca6e0f5b4d.png": "740f2336c6cb463359333935b4522bee9bb555561106f60f93bdd1724c803bbf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2177ef745a09bf1b41218151c81a047a09bf1c1b.png": "ffa16b80f12e3adf6c80a0c7fcd38197d64090681f37f9ddce2f084c4ef3b5ae",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/504856860a5c08930ab5b4c9260f6bca229055a6.png": "12312425edaa00963fa0b91609ebcab612c2e0cc0ecfb9088e4c63d05a7bacb5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/b/ab9905d31c9a1d13d3810227f8771ec45570bfcd.png": "cf5a0a1054a1eb3ced9f31462ecc26ca6062ebc82b878f236246679733c94c71",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/ee5969c83d2d006fc00b2ba92fd56ca26b094ed5.png": "cd4c7173bdfc77095ee1a74f67e13ebcf23851a20cde3abcab7cbc6a3fc7c38d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/280cc3cbdfcdf5880c6ae3100dd2717dcacbe453.png": {
+        "labels": [
+          {
+            "rectangle": [
+              9,
+              7,
+              313,
+              30
+            ],
+            "text": "Virtual Machine 100 (demo-ce) on node nuc0",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              382,
+              279,
+              496,
+              299
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 9
+          }
+        ],
+        "output_sha256": "23de377816e972c961e4b5aa3e0f019252890a9f3fff84504957faca562981a2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c44b4ebdea324bc3f015cdbe4e66c927ba27cbcc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              80,
+              163,
+              192,
+              184
+            ],
+            "text": "demo-proxmox",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1066,
+              24,
+              1119,
+              45
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ce26fefada1d9a03aa7db73fea8f449d2cef80c53a3cb9fe15dc088e2049f3c8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e57ef1e5c1e831c3f4bdfe0ac880e7ca6e0f5b4d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              116,
+              143,
+              208,
+              165
+            ],
+            "text": "demo-ce",
+            "size": 12
+          }
+        ],
+        "output_sha256": "a5eb246cc6eb30f679922806dc9e4852d16e262f6a1280b9eedafc7f0c9e7de5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2177ef745a09bf1b41218151c81a047a09bf1c1b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              11,
+              7,
+              289,
+              29
+            ],
+            "text": "Virtual Machine 100 (demo-ce) on node nuc0",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              390,
+              252,
+              501,
+              274
+            ],
+            "text": "02:00:00:00:00:02",
+            "size": 9
+          }
+        ],
+        "output_sha256": "44b0d4a11dc6d8e836b5981391c8565fc66c96f9ab098cf745200a70c725c1fa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/504856860a5c08930ab5b4c9260f6bca229055a6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              309,
+              133,
+              449,
+              155
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 9
+          }
+        ],
+        "output_sha256": "42b9202aa1f56903418713826781b0193bcb5796563c4031e51d65451ec14f4f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/b/ab9905d31c9a1d13d3810227f8771ec45570bfcd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              12,
+              5,
+              285,
+              29
+            ],
+            "text": "Virtual Machine 100 (demo-ce) on node nuc0",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              399,
+              75,
+              485,
+              96
+            ],
+            "text": "demo-ce",
+            "size": 12
+          }
+        ],
+        "output_sha256": "dfcfae58799c6f23dc74e77f706b1457f669a61ef4e1216c8d708db86ddbb90d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95ebe3b6042917478408b5978401842ec5447df9.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d03d0517c661d2fc2826da333b732ff30d876b14e774f107d1a0e935bfd80ea6"
+      }
+    }
   }
 }
