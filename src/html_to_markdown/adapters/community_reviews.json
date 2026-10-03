@@ -6562,6 +6562,37 @@
     "decision": "exclude",
     "reason": "Generic BIG-IP DNS external monitor; XC is one stated usage example"
   },
+  "76498": {
+    "article_hash": "d88a14d02d976ea9b44d670c5277df6e23a2a681320b473c73c351a79a95e41c",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83391c54c436908d5e444a479c978d846beba65a.png": {
+        "output_sha256": "ab0f49e5d92c5af4f3df1c90760fcb34aface3be3c1fa862cafe99cb7dbe94ac",
+        "rectangles": [
+          [
+            582,
+            69,
+            599,
+            181
+          ]
+        ]
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/865844798d9c8ae8763842254298dea2d81b618b.png": "1613b10354c3900e533bf2fcd1bdeaf1d949400740e3adb18c880d7763650788",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1dd7e0eb5d8e09bcd307340b8310b4d59bee2973.png": "4f2bc33e8da8d9d441eb9aac1e235f4bd1234d147adf75cfcf812bef8949bebb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83391c54c436908d5e444a479c978d846beba65a.png": "b20829d5bbc88c73e58b8f0567a1ca86b961af2d6fce8995aa443f51bf2af0a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/05442ae37462665cc99006db9e7390ebdc673989.png": "08b9ba2d4f810602c106b95b94eeea38a8f4ea36d9f89e62770f864925f9e5dc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/2/12ac8c6ba04ee610704ce6e3dd3a4ef1b6daca4b.png": "a567826d4c3e4a28654078cbca03a1cb74bbe3b00175ded5f773341c5c0006fa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/9/291e6f486adf1cc0fee021db03dfb280321381cc.png": "711ae386d1cfef5e23e955e576b5ff27a90902b9ec7c1994122e29074b9346d5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/8/b8a4e52eb4fa3987e7c11a8257d6f7d931ae3420.png": "bba7868a59d9eba4eaa4003fcd27e826f4971a39442a89aa005e299235ccf0d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d2b8dcda8d6275b30358e63087df360af8c55dc0.png": "732fca62d6cf645e9dd12e15b9dbbeee4c188f02b895de3a6174ce76ae0afaad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff80fe9c83b91bdb12cd99e840d782342b61ce5a.png": "28ee25fa35fa1c8094f530f286139edd8d5c90e4da60f694b606c318d96c4065"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SIEM queries and nine aggregate charts; client IP legend cleared; domains already opaque and remaining fields are aggregate signatures or public tooling",
+    "reason": "Distributed Cloud aggregate SIEM analytics"
+  },
   "76511": {
     "article_hash": "1c09ba76523d198adf8c82d027ed966f77cd3f8b02d17270c7f77af508ca1f8e",
     "asset_redactions": {
