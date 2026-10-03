@@ -16615,5 +16615,68 @@
         "output_sha256": "13573f41f55efd9c21d47efd7736112dbced59661e920ffe969f9f0486a6473f"
       }
     }
+  },
+  "76604": {
+    "article_hash": "7a578ec5147e8edb00ea796ee676ea0e7d123209cfa7d930874b181a68069a88",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and seven screenshots individually reviewed. Author name/email comment and personal demo hostnames replaced; before/after content, HTTP-to-HTTPS link targets, regex query parameters, DEFER attribute, route references, injection settings and direct response JavaScript context preserved. No credentials or customer data. Other images retain identical pixels with metadata removed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6021f977e2cc8ad5ba39ccf01cd86316515ce565.png": "2e22a3a079398d2b7dffe8e5a911c8303b28be9fadb2f0587485ba1ccdf747f3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/741e2634e757d58e1e914d59fde3a6d3407bdbab.png": "b07db57233188c7f9591d3f6cb55d810a5f4c8b3ca4ec91e69f22637dddfcb0a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/81ffdb2e1bc80d2060799e0d3bb26bcc37616291.jpeg": "289c780fee88f30987e17e234c8f7c045861e847ca4643fc5233f5f63b6f22ea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50da7afb6c8a6c600c9c223ec1df9f98d7cbdf4c.png": "f3fb987d4e4d8b066f29ad61d0db65d10844bc92041b0438959f035d04014831",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/5169837c3daf359cea164c8acc49cb5abd881001.png": "fd44dc0d4b8370d13a18c01f59bd1e38c9d75d268e5a4a938713a09206cec561",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/883166b0be4d100da4f5a91ac17f512e3f3b1e11.png": "27d35868bc18f5171281215c5040ba064f4b7caa4f977051936504806ee316f7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/de669fe7172ba3d5408901ed0d7af7ec4dd2fb76.png": "1f79fc3ce4eca4dcf427cc91f25baaac18469711ee37b8343b4c73699c857130"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/81ffdb2e1bc80d2060799e0d3bb26bcc37616291.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              521,
+              48,
+              1109,
+              106
+            ],
+            "text": "app.example.com",
+            "size": 34
+          }
+        ],
+        "output_sha256": "1a21d8ccba3baefdc59582ac80e24df050815638789bdae0b3a3480ec7642b0a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50da7afb6c8a6c600c9c223ec1df9f98d7cbdf4c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              668,
+              640,
+              928,
+              659
+            ],
+            "text": "* Example reusable page rewrite script",
+            "size": 10
+          }
+        ],
+        "output_sha256": "7a7bc3c2bd5893786b400e9184ec123a616cda8e5fa7a180767d00ddfd742470"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/5169837c3daf359cea164c8acc49cb5abd881001.png": {
+        "labels": [
+          {
+            "rectangle": [
+              482,
+              32,
+              1089,
+              101
+            ],
+            "text": "app.example.com",
+            "size": 34
+          }
+        ],
+        "output_sha256": "c8c168af88d23804fc4e2a03efecace3dba9a028dddc8e419733c5681e0c7714"
+      }
+    }
   }
 }
