@@ -11039,5 +11039,353 @@
         "output_sha256": "c4263eb8d33753aa1e7e1087898a97f25a5726e737e84481052c6334784d8e87"
       }
     }
+  },
+  "74611": {
+    "article_hash": "5baba502730c2326eeb05fa3def2985c10562e665b484dc658f5214da565f44a",
+    "decision": "include",
+    "reason": "Distributed Cloud Proxmox automated site lab",
+    "text_replacements": {
+      "nodes": {
+        "e83c6a03ec4d0b174c3c602097f50a65d183f6e81ebd82d9301a1c09dbc2ecb4": "<br><br>$ source env.sh<br>$ kubectl get nodes -o wide \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 <br>  NAME \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0STATUS \u00a0 ROLES \u00a0 \u00a0 \u00a0 \u00a0AGE \u00a0 \u00a0VERSION \u00a0 \u00a0 \u00a0 INTERNAL-IP \u00a0 \u00a0 \u00a0 EXTERNAL-IP \u00a0 OS-IMAGE \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0KERNEL-VERSION \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 C \u00a0NTAINER-RUNTIME<br>  example-appstack-0-m0 \u00a0 Ready \u00a0 \u00a0ves-master \u00a0 159m \u00a0 v1.29.2-ves \u00a0 192.168.100.114 \u00a0 <none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 \u00a0 <br>  example-appstack-0-m1 \u00a0 Ready \u00a0 \u00a0ves-master \u00a0 159m \u00a0 v1.29.2-ves \u00a0 192.168.100.96 \u00a0 \u00a0<none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9<br>  example-appstack-0-m2 \u00a0 Ready \u00a0 \u00a0ves-master \u00a0 159m \u00a0 v1.29.2-ves \u00a0 192.168.100.49 \u00a0 \u00a0<none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9<br>  example-appstack-0-w0 \u00a0 Ready \u00a0 \u00a0<none> \u00a0 \u00a0 \u00a0 120m \u00a0 v1.29.2-ves \u00a0 192.168.100.121 \u00a0 <none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9<br>  example-appstack-0-w1 \u00a0 Ready \u00a0 \u00a0<none> \u00a0 \u00a0 \u00a0 120m \u00a0 v1.29.2-ves \u00a0 192.168.100.165 \u00a0 <none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9<br>  example-appstack-0-w2 \u00a0 Ready \u00a0 \u00a0<none> \u00a0 \u00a0 \u00a0 120m \u00a0 v1.29.2-ves \u00a0 192.168.100.101 \u00a0 <none> \u00a0 \u00a0 \u00a0 \u00a0Red Hat Enterprise Linux 9.2024.11.4 (Plow) \u00a0 5.14.0-427.16.1.el9_4.x86_64 \u00a0 cr \u00a0i-o://1.26.5-5.ves1.el9\n"
+      },
+      "output_sha256": "665145b9d66c86fb1e56c19b4ea1f77ac1034f6684f4c0442593cc05af070487"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected complete Proxmox Terraform lab guide, shell code and four images; personal site and host prefixes and MAC addresses made synthetic, avatar removed and global IPv6 replaced by documentation address; private lab subnet, DHCP relationships and node status retained; secret variables show names without values",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/cc56bf0cc5bef8a6fe0adc12b9597eda81dac9eb.jpeg": "6b6136074a41e2f0279a6ed7279e0d0e7e2f0b6acd3ccd14306770143afe5690",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5fb494de1e12758c80faf5a97e276302494bce5e.jpeg": "9035a645e2dcbde9ffd034c61157fcc65808cf648cf64028f51a77361e512996",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/88f063bd09bf9e0bef6d38555d23edb6e1e853a4.jpeg": "6a616bc45b5c9947dd74b90afcf6b9e9e4beedc35f0054da4ffce4831de19fc2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cd1602964d77f8b4282f93c2accaebf2b158e899.jpeg": "4c9b4f736ea0b925fe6d446c67f6e110d198e9979cba6fc5d486f2aaab1ec4ad"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/cc56bf0cc5bef8a6fe0adc12b9597eda81dac9eb.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              154,
+              114,
+              375,
+              164
+            ],
+            "text": "example-firewall",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              154,
+              233,
+              410,
+              282
+            ],
+            "text": "example-appstack",
+            "size": 20
+          }
+        ],
+        "output_sha256": "290e5cf952416e381a92e0c224aaf8e91ae0b30c429492d4f279de9f790324bd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5fb494de1e12758c80faf5a97e276302494bce5e.jpeg": {
+        "rectangles": [
+          [
+            2987,
+            21,
+            3058,
+            90
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              542,
+              50,
+              802,
+              99
+            ],
+            "text": "example-firewall",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              526,
+              905,
+              846,
+              955
+            ],
+            "text": "example-app-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              905,
+              1481,
+              955
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              987,
+              846,
+              1037
+            ],
+            "text": "example-m1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              987,
+              1481,
+              1037
+            ],
+            "text": "02:00:00:00:00:02",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1070,
+              846,
+              1120
+            ],
+            "text": "example-app-w2",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1070,
+              1481,
+              1120
+            ],
+            "text": "02:00:00:00:00:03",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1152,
+              846,
+              1202
+            ],
+            "text": "example-app-m1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1152,
+              1481,
+              1202
+            ],
+            "text": "02:00:00:00:00:04",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1234,
+              846,
+              1284
+            ],
+            "text": "example-app-w1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1234,
+              1481,
+              1284
+            ],
+            "text": "02:00:00:00:00:05",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1316,
+              846,
+              1366
+            ],
+            "text": "example-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1316,
+              1481,
+              1366
+            ],
+            "text": "02:00:00:00:00:06",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1397,
+              846,
+              1447
+            ],
+            "text": "example-m2",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1397,
+              1481,
+              1447
+            ],
+            "text": "02:00:00:00:00:07",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1481,
+              846,
+              1531
+            ],
+            "text": "example-app-w0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1481,
+              1481,
+              1531
+            ],
+            "text": "02:00:00:00:00:08",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              526,
+              1563,
+              846,
+              1613
+            ],
+            "text": "example-app-m2",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1229,
+              1563,
+              1481,
+              1613
+            ],
+            "text": "02:00:00:00:00:09",
+            "size": 16
+          }
+        ],
+        "output_sha256": "ac8b4901e7a43e67cf20e687c92637adfefafc69078e7ff896eb99356e838870"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/88f063bd09bf9e0bef6d38555d23edb6e1e853a4.jpeg": {
+        "rectangles": [
+          [
+            2987,
+            21,
+            3058,
+            90
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              542,
+              50,
+              802,
+              99
+            ],
+            "text": "example-firewall",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              559,
+              594,
+              922,
+              643
+            ],
+            "text": "example-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              559,
+              676,
+              922,
+              724
+            ],
+            "text": "example-m1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              559,
+              758,
+              922,
+              806
+            ],
+            "text": "example-m2",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              821,
+              1100,
+              1119,
+              1153
+            ],
+            "text": "example-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              821,
+              1216,
+              1119,
+              1269
+            ],
+            "text": "example-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2269,
+              908,
+              2598,
+              967
+            ],
+            "text": "example-m0",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2107,
+              1197,
+              2396,
+              1273
+            ],
+            "text": "2001:db8::1",
+            "size": 20
+          }
+        ],
+        "output_sha256": "13ebbfd81d4d15a571153edaf18b0f6a64c40674d0c686275cf365abd2c288c3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cd1602964d77f8b4282f93c2accaebf2b158e899.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e3f4a40fe5fc8d9adf76d2e24047c7f57e7fd9904cf612e3134b0b067099b470"
+      }
+    }
   }
 }
