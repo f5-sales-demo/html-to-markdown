@@ -10286,7 +10286,7 @@
     "decision": "include",
     "reason": "Distributed Cloud focused deployment or security guidance",
     "privacy": "approved",
-    "privacy_reason": "Individually inspected multi-cluster OpenShift mesh guide and both images; all-frame OCR and representative frames confirm fixed generic architecture, personal edge label replaced on every frame; lossless output preserves all 300 frames, timing, loop and pixels outside reviewed label",
+    "privacy_reason": "Individually inspected multi-cluster OpenShift mesh guide and both images; all-frame OCR and representative frames confirm fixed generic architecture, personal edge label replaced on every frame; exact palette GIF preserves all 300 frames, timing, loop and pixels outside reviewed label",
     "assets": {
       "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d865d878a790bd75d7ff715fba9e5b5ddc4ccaf3.gif": "8ad6571e273c1d44239c4ec32d90d75f863705307ec141de6ea43bae0c7979ec",
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/808bce14b8ccc1ef0dcff4019231d205b0188a34.jpeg": "1fa3ed7a10dd1516f5c3adb392da98f19a7b5d984baab637b90d5d5ff56def33"
@@ -10307,7 +10307,8 @@
             "size": 24
           }
         ],
-        "output_sha256": "d44e5774c3a2076d24b3add4037e7c57b5cd7acfaed4d7906a675eb2f6831693"
+        "output_sha256": "89bfe88163d1ce4958c196622e254035d91d648f77f364242cd17bd8684304cf",
+        "animation_format": "gif"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/808bce14b8ccc1ef0dcff4019231d205b0188a34.jpeg": {
         "strip_metadata": true,

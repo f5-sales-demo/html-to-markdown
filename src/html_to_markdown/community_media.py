@@ -109,8 +109,44 @@ def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
         draw_label(draw, label)
 
 
+def encode_exact_gif(frames: list[Any], durations: list[int], repeats: int | None) -> bytes:
+    """Use a common exact palette; reject any color approximation or transparency loss."""
+    colors: set[tuple[int, ...]] = set()
+    for frame in frames:
+        found = frame.getcolors(256)
+        if found is None or any(color[3] != 255 for _, color in found):
+            raise ValueError("GIF output requires at most 256 opaque colors")
+        colors.update(color for _, color in found)
+    if len(colors) > 256:
+        raise ValueError("GIF output requires a common exact palette")
+    ordered = sorted(colors)
+    mapping = {color: index for index, color in enumerate(ordered)}
+    palette = [component for color in ordered for component in color[:3]]
+    palette.extend([0] * (768 - len(palette)))
+    indexed = []
+    for frame in frames:
+        image = Image.new("P", frame.size)
+        image.putpalette(palette)
+        pixels = frame.get_flattened_data()
+        image.putdata([mapping[color] for color in pixels])
+        indexed.append(image)
+    output = io.BytesIO()
+    options = {"loop": repeats} if repeats is not None else {}
+    indexed[0].save(
+        output,
+        format="GIF",
+        save_all=True,
+        append_images=indexed[1:],
+        duration=durations,
+        disposal=1,
+        optimize=True,
+        **options,
+    )
+    return output.getvalue()
+
+
 def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
-    """Publish reviewed GIF pixels as lossless full-frame APNG with equivalent playback."""
+    """Encode every reviewed frame losslessly and verify equivalent playback."""
     with Image.open(io.BytesIO(content)) as source:
         if source.format != "GIF" or getattr(source, "n_frames", 1) < 2:
             raise ValueError("animation transform requires an animated GIF")
@@ -123,24 +159,44 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
             frame = source.convert("RGBA")
             clean = Image.new("RGBA", frame.size)
             clean.paste(frame)
-            apply_labels_and_rectangles(clean, transform)
+            if transform.get("animation_format") == "gif":
+                # Solid glyph pixels keep the source palette exactly representable.
+                labels = transform.get("labels", [])
+                apply_labels_and_rectangles(clean, transform)
+                draw = ImageDraw.Draw(clean)
+                for label in labels:
+                    left, top, right, bottom = label["rectangle"]
+                    draw.rectangle((left, top, right - 1, bottom - 1), fill="white")
+                draw.fontmode = "1"
+                for label in labels:
+                    draw_label(draw, label)
+            else:
+                apply_labels_and_rectangles(clean, transform)
             frames.append(clean)
             durations.append(source.info.get("duration", 0))
-    output = io.BytesIO()
-    frames[0].save(
-        output,
-        format="PNG",
-        save_all=True,
-        append_images=frames[1:],
-        duration=durations,
-        loop=plays,
-        disposal=0,
-        blend=0,
-        optimize=False,
-    )
-    result = output.getvalue()
+    expected_loop = plays
+    if transform.get("animation_format") == "gif":
+        result = encode_exact_gif(frames, durations, repeats)
+        expected_loop = repeats
+    else:
+        output = io.BytesIO()
+        frames[0].save(
+            output,
+            format="PNG",
+            save_all=True,
+            append_images=frames[1:],
+            duration=durations,
+            loop=plays,
+            disposal=0,
+            blend=0,
+            optimize=False,
+        )
+        result = output.getvalue()
     with Image.open(io.BytesIO(result)) as published:
-        if getattr(published, "n_frames", 1) != len(frames) or published.info.get("loop") != plays:
+        if (
+            getattr(published, "n_frames", 1) != len(frames)
+            or published.info.get("loop") != expected_loop
+        ):
             raise ValueError("animated output changed frame count or loop")
         for index, frame in enumerate(frames):
             published.seek(index)
@@ -175,7 +231,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
             raise PublicationBlockedError("community animation transform is invalid") from error
         if hashlib.sha256(result).hexdigest() != transform.get("output_sha256"):
             raise PublicationBlockedError("community animation differs from reviewed output")
-        return result, "image/png"
+        return result, "image/gif" if transform.get("animation_format") == "gif" else "image/png"
     if transform.get("strip_gif_metadata") is True:
         if transform.get("rectangles") or transform.get("labels"):
             raise PublicationBlockedError("GIF metadata policy cannot alter frame pixels")

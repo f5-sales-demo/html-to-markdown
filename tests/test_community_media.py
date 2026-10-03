@@ -372,3 +372,51 @@ def test_animation_without_loop_plays_once():
     )
     output = transform_animation(stream.getvalue(), {"rectangles": [[0, 0, 5, 5]]})
     assert Image.open(io.BytesIO(output)).info["loop"] == 1
+
+
+def test_exact_palette_animation_preserves_pixels_and_gif_loop():
+    from html_to_markdown.community_media import transform_animation
+
+    stream = io.BytesIO()
+    Image.new("RGB", (40, 40), "blue").save(
+        stream,
+        format="GIF",
+        save_all=True,
+        append_images=[Image.new("RGB", (40, 40), "red")],
+        duration=[100, 200],
+        loop=2,
+    )
+    policy = {"animation": True, "animation_format": "gif", "rectangles": [[0, 0, 5, 5]]}
+    content = stream.getvalue()
+    result = transform_animation(content, policy)
+    published = Image.open(io.BytesIO(result))
+    assert published.format == "GIF"
+    assert published.n_frames == 2
+    assert published.info["loop"] == 2
+    for n, color in enumerate([(0, 0, 255, 255), (255, 0, 0, 255)]):
+        published.seek(n)
+        assert published.convert("RGBA").getpixel((9, 9)) == color
+        assert published.convert("RGBA").getpixel((0, 0)) == (255, 255, 255, 255)
+        assert published.info["duration"] == [100, 200][n]
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {URL: {**policy, "output_sha256": hashlib.sha256(result).hexdigest()}},
+    }
+    assert reviewed_media(content, URL, review) == (result, "image/gif")
+
+
+def test_exact_gif_rejects_transparency_and_excess_colors():
+    from html_to_markdown.community_media import encode_exact_gif
+
+    with pytest.raises(ValueError, match="opaque"):
+        encode_exact_gif([Image.new("RGBA", (2, 2), (1, 2, 3, 0))], [100], 0)
+    image = Image.new("RGBA", (300, 1))
+    image.putdata([(n % 256, n // 256, 0, 255) for n in range(300)])
+    with pytest.raises(ValueError, match="256"):
+        encode_exact_gif([image], [100], 0)
+    first = Image.new("RGBA", (200, 1))
+    second = Image.new("RGBA", (200, 1))
+    first.putdata([(n, 0, 0, 255) for n in range(200)])
+    second.putdata([(n, 1, 0, 255) for n in range(200)])
+    with pytest.raises(ValueError, match="common exact"):
+        encode_exact_gif([first, second], [100, 100], 0)
