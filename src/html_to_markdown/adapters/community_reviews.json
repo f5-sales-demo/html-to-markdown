@@ -41697,5 +41697,285 @@
         "output_sha256": "b67b66a630b45bf5ae024e06ba1dbd5cf40f1b923d8902bb7cd04f3ee8050269"
       }
     }
+  },
+  "76491": {
+    "article_hash": "96bf7568a22b81db1c1b07be5a4110f50fbe8988d60b44f3dc57576481c7b68a",
+    "decision": "include",
+    "reason": "Distributed Cloud hybrid application delivery and security guide",
+    "text_replacements": {
+      "nodes": {
+        "492ad7593b33d19547fb7e784c9f74d401010f6893322b8ac85e35fa5a64d69d": "juice.example.com",
+        "b87b87c45f80257c233cbc9f33455545b59202fbda1d594ad7564c607165f146": "nginx.example.com"
+      },
+      "output_sha256": "d4b5f8aeebd2a56a19e15ed1acf63c1622971071ce9413264539755754d95417"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and twelve static images; synthetic application domains, namespace, request identifiers and client addresses; preserved workload diagrams, sample Juice Shop catalogue, WAF blocking response and benign versus blocked origin routing evidence; no credentials or real customer records; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/a/a8dff93242cc812b9bb9884c6ea3f6c31160fcdf_2_690x17.png": "6b6d899d8a61134f8485cd64b1b4ec988ed32bd785851ce57b39657781aa0a44",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7b1d5bd899b46dd7f21312328313cb7695d42857.jpeg": "d6b4ed94e9017ac0a67ad81cde47ab40bfcfb606218d1b95c73614d95daa0fa3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bc77d520278a13f7052faac32be43d890b7c5733.png": "e28f9b079b40110b9fd722b9d49cddf0671b385a901067ee032f6d95c33eb991",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/757aed8bf939402cb85643831aa96630ca142e9a.jpeg": "5a030abcc3ee7cefe469db1cf741cfe31f2af2f40091afa27378a7f3b7790ef7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d86aa6d8b149ba811187b9558b97025854c959d.png": "c7f075a9cc183b38fec992f49b50da9b7676a26729b13e58fb0a99f13989eab3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7b7c53c52afacfb052cb11c67118ffe84da7dd0.png": "e9411fbedf13753bfee47afd5f2cf915f4063ab17dd56b0d8ead2b8eac473be0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc699ec18ef21069e8037f87bf7927f9e7d3c0cd.png": "c160b13453db0985c6b441a8a2536842224d2f1a944eff539094ebe0002939e7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e36adb446c2f0f30711dbd9cd29b09d33824ab11.png": "ec4754d97df9281a95158b8b12e6629ef0e3772a98e76f48a9a9391fed9cfdcf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/3679d9bbfe69dab140318ca806ff3ea86c906c1f.png": "3a97e4ded3133e1b112c5cb24f8248da6a9c5ca245229faaa419e39a9cb42c5b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66f290fb975673e1dc73bd090e3f45735df5b190.jpeg": "c41a320ae9e7b9921a5d79dd786343ad2ad562a4f7cc97483466f57d7b47643c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/a/6a44d32dd755428b248bedd4bcded3136f86b575.png": "aad3025af6c94edd2c46c80cd8bc368fefa6711feec5f9deabe51ff029119989",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/5/851372f3b8e4895463ab1605f137cc5cecdab4bc.png": "8ef6ee6ee7ff5e9c20e343e46ef0344520e0e34794dd2321c46d994644a4f409"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/a/a8dff93242cc812b9bb9884c6ea3f6c31160fcdf_2_690x17.png": {
+        "labels": [
+          {
+            "rectangle": [
+              156,
+              1,
+              226,
+              17
+            ],
+            "text": "demo",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              590,
+              1,
+              690,
+              17
+            ],
+            "text": "nginx.example.com",
+            "size": 7
+          }
+        ],
+        "output_sha256": "969700f5d60fc06b00944eaebe5ff7b13bf08048c9c9861234df0721a0f5bb9d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7b1d5bd899b46dd7f21312328313cb7695d42857.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              309,
+              16,
+              780,
+              66
+            ],
+            "text": "juice.example.com/#/",
+            "size": 30
+          }
+        ],
+        "output_sha256": "b5f0a3636feb7184d2727d8a7f07edfe970073652df1ca73ec366e5eef9a6b24"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bc77d520278a13f7052faac32be43d890b7c5733.png": {
+        "labels": [
+          {
+            "rectangle": [
+              308,
+              14,
+              866,
+              68
+            ],
+            "text": "nginx.example.com/<script>",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              258,
+              179,
+              825,
+              222
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 28
+          }
+        ],
+        "output_sha256": "8ac477088353244933b383df3115cdcc719109d8c49b7bb4e524320021f2e5b1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d86aa6d8b149ba811187b9558b97025854c959d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              434,
+              8,
+              603,
+              39
+            ],
+            "text": "demo",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              400,
+              1214,
+              583,
+              1260
+            ],
+            "text": "192.0.2.10",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              400,
+              1359,
+              583,
+              1406
+            ],
+            "text": "192.0.2.10",
+            "size": 23
+          }
+        ],
+        "output_sha256": "6c1dcde60e572a1ba8ef00b8dfd2549fa0b5463a0d67db39599811946555b09e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7b7c53c52afacfb052cb11c67118ffe84da7dd0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              309,
+              14,
+              859,
+              66
+            ],
+            "text": "juice.example.com/<script>",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              258,
+              173,
+              820,
+              216
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 28
+          }
+        ],
+        "output_sha256": "2a608161163cf56ec64d0a82afee6f6da8e9a739e3e73ced853ff01def8011e0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e36adb446c2f0f30711dbd9cd29b09d33824ab11.png": {
+        "labels": [
+          {
+            "rectangle": [
+              305,
+              25,
+              766,
+              75
+            ],
+            "text": "nginx.example.com",
+            "size": 30
+          }
+        ],
+        "output_sha256": "75eaed59ae250959ec0d3090fdc1cbb426969d6009d25a4ca34ff8dae3f9a609"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/3679d9bbfe69dab140318ca806ff3ea86c906c1f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              606,
+              9,
+              840,
+              49
+            ],
+            "text": "demo",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              606,
+              103,
+              840,
+              143
+            ],
+            "text": "demo",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2264,
+              9,
+              2650,
+              49
+            ],
+            "text": "juice.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              2264,
+              103,
+              2650,
+              143
+            ],
+            "text": "dvwa.example.com",
+            "size": 25
+          }
+        ],
+        "output_sha256": "86c3997caba8c8a8852717a07677a15e447a33751a024896ec9a2ab64cf2c40a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/5/851372f3b8e4895463ab1605f137cc5cecdab4bc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              378,
+              9,
+              552,
+              38
+            ],
+            "text": "demo",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              349,
+              1071,
+              506,
+              1118
+            ],
+            "text": "192.0.2.10",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              349,
+              1197,
+              506,
+              1244
+            ],
+            "text": "192.0.2.10",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              349,
+              1323,
+              506,
+              1370
+            ],
+            "text": "192.0.2.10",
+            "size": 21
+          }
+        ],
+        "output_sha256": "2368a66bbb958031606d6b9cfb201c770880d46472a6e9e5efeeb0b933aed0f2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/757aed8bf939402cb85643831aa96630ca142e9a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cf0daa7d92908914f4534b35dee782039f16a0c9c651357118f32c09ea5aeabb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc699ec18ef21069e8037f87bf7927f9e7d3c0cd.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2d9a27fa52b955b32c9800f82e85204b8695b9b45b39d5a80cf0853a9c4c46f1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66f290fb975673e1dc73bd090e3f45735df5b190.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "de4eeff7d690c2c6dd043c72a0a7c093693d7c213035b652bf652ce361aea733"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/a/6a44d32dd755428b248bedd4bcded3136f86b575.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "31376d34a20cd8b59a1a4551e15490da2bae66704d19e6c1ccaeb9aacffa89c9"
+      }
+    }
   }
 }
