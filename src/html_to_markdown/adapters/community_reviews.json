@@ -6588,7 +6588,59 @@
   "75971": {
     "article_hash": "89d1730c16242016f7739127f5a02c5c03821b9753248a0f376d7ad7d2573fad",
     "decision": "include",
-    "reason": "Concrete Distributed Cloud host-header L7 route configuration with comparison examples"
+    "reason": "Concrete Distributed Cloud host-header L7 route configuration with comparison examples",
+    "text_replacements": {
+      "nodes": {
+        "28ae694a89a951795188f374d9efc41d654b030a1e5e32592507279bcb53ce3c": "a.example.com",
+        "0a3615a4e14959e6f54a28d2b74d9d1988de4cb53770ac8e38f03bdd955fbd53": "c.example.com",
+        "3438cc9c8fe919f17ac947f11bc2d7f74c2703192d7c3cb98bb1cd87ff0dbc95": "x.example.net",
+        "9f4d04879678a5d6b3d711ce8e68366e992f8546935d6a98f9aa5c9e34659be4": "when HTTP_REQUEST priority 500 {\n    switch -- [HTTP::host] {\n        \"a.example.com\" {\n            pool ab-pool\n        }\n        \"c.example.com\" {\n            pool cb-pool\n        }\n        \"x.example.net\" {\n            pool xy-pool\n        }\n    }\n}\n",
+        "f1234fe1405ed2a376d18be4a84e9e8ed13fd5f79673aa79ded36475bc9b4a51": "map $host $backend_upstream {\n    default       \"\";\n    a.example.com       ab-pool;\n    c.example.com       cb-pool;\n    x.example.net       xy-pool;\n}\nserver {\n    listen 80;\n    location / {\n        proxy_pass http://$backend_upstream;\n        proxy_set_header Host $host;\n  }\n}\n"
+      },
+      "output_sha256": "7bda87637ca4c451fb78c162637b1c094cd9103f2fd40c59e161807ffd7e9dd4"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected host-routing guide with complete iRule and NGINX code and four images; three illustrative domains replaced consistently with reserved examples in code, prose and header-match screenshots",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/23d80c4851b0e1fa86b4a2b33db790b715b61761.png": "c2309519323a8adbd4da4d1c8acffd9ac4e53de542cd28252e56a53ff99f816d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/912bc43cca1af092406502e0a7b55dccee560405.png": "46f0b202fade1c475c4142c346f9dee3112b06a33132c683dd31631a9fc14d5a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e43d5585ef36dc2b97255f3cf8be1027988bd5e6.png": "cb541d1648e27b3e76f100d66e7ee7e9f2b816e1b24094b093e4ccd5f81f1478",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/8/4847bf67e5a23ea81356adf07aadd8b7101ae7ea.png": "014cb3fce09232f8ca448cad2048792bb4a85656315771a2887590055ee21c3e"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/23d80c4851b0e1fa86b4a2b33db790b715b61761.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              495,
+              151,
+              653,
+              181
+            ],
+            "text": "a.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "759ca659c53939efbb99a17e2eaee9d13187d872c7bf4ee39142620ecfa44f1d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/912bc43cca1af092406502e0a7b55dccee560405.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              70,
+              225,
+              237,
+              251
+            ],
+            "text": "a.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "e826f285e5ec20502dd4945b909a47b554558ab0483a5383750d37b0103dbb2c"
+      }
+    }
   },
   "75975": {
     "article_hash": "11cfa96695af78edf838bc5ccc509e59074754670b93915a169b9fa8fcd62074",
@@ -9205,6 +9257,22 @@
         "rectangles": [],
         "output_sha256": "f8251465bad804c05de0d95083873a65ba9258c9c4f6b3763f7c426a644c9aa9"
       }
+    }
+  },
+  "74725": {
+    "article_hash": "35fd18dacec1e2300ec8c4638ad68e3c8352171909ee34810fdacb47009d3390",
+    "decision": "include",
+    "reason": "Distributed Cloud network firewall rule evaluation",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected firewall rule evaluation guide and seven diagrams and screenshots; C1 and S1 private lab addresses consistently demonstrate controlled test flows without identities or payload data, public DNS resolver is an explicit service destination in the deny rule",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/189a3ad9a1958b0ca25c187c9d9e64104ef8c339.png": "219f4bf5d6dee1e723c25f8078d8b272c2bff29fec8fc8647a6c3df240f7f44c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/f29d62326597249b0c083c04af3f5914cb7ec74b.png": "1ddf2b0a3c3e13117ceb43b001928257ee7b39513dd6d06846f95ebe8b1df0e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ce7acd84fcad75f9b9c6c7a469d8ac9f3375355.png": "f26dd86059e8edfbc785ac6771fc324465b2764818ecbe3610bfc160058fc8cc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3d3ba6be2c99c52f1fa76bd87fe1fcfa141b492b.png": "67d0c5f3706a007721c1b6881e1f3b43177ad62d89e37cc654f7c9e7dc7758e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9eba3ff63ba46453883d26d91fd5d45382998ee6.png": "76af3be41f803ad2c5eed96e826cda7926c247352b1f3db5502fb4740c400a27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/4/141f8fba2f7f274f4dfedb12768b00fe7128fbf8.png": "0463492262b6f8aad35aa069eb6fa5656a6d0a99a144f6472a89080baa354aee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f5dd14656f4a5363d14216063ed037e4bc1303f0.png": "08e88a495934f702a7ea8a73b956153c04f2b5f452f5249c3b9ed1e124b1ee09"
     }
   }
 }
