@@ -21223,5 +21223,203 @@
         "output_sha256": "fd6a8b6596e9d01c7224757f0769604ddeafb7fdae4aabd53d6f6c096742521b"
       }
     }
+  },
+  "70219": {
+    "article_hash": "7f244421b7bfafd9bbadcefa1e5e3eb0a85c991dc781af6c8ec4ff0c5a2f8334",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and seven screenshots. Replaced demo domain and visitor IP, ASN and location values with synthetic examples in browser and all timeline occurrences. Preserved forbidden path, threshold, scores, request counts, mitigation state and policy configuration. Remaining screenshots use generic demo resource names.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/968db8a62b4503287bf541d7a1aa22ab7747c3bf.png": "0bf2c48cb8c09c0ee271106f6155056773845bb63f04a118c77cd3228fc3fd1a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/73f3704b3245c743c6be7191aac46909453b689b.png": "1c8e619bbc82d383e0ac7979d11a657dc32d514328580cf3164f4a8b51873805",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a4df2d1d66d3a07c9be7e48ff8259b362b5947de.jpeg": "4e55c6c184dfa1c52f22b5a0f67d6d0b7c51f65a20eb8766e6ccbdd9f14efdc5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a8fbb8b09c62de7a3c7b3c998ba7890665566b06.png": "82159a53c4d2463e3d4b0ccaf565d800efb612334a915a5dbae7335d07db43e1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d9baeac481030935f371fec427cd9b9d03106e31.png": "0c97159b612bac7e1804cd30f27b4b46ed54e5e3b7c7262be4155555002219fd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/96f0004459161c3fd2abe5ca405e3da31ca3249f.jpeg": "f654f2fb12e7b2cb593b9e8f865ed1cbce040866b5471a3434201f43f6852cf4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/5/e5911621a401e5d8d7a066fc75c8c954169c594d.jpeg": "71947da6ae79a9267302b98e9fc858b12c666a47b6a9c4dbe2c34e942d52d25d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/73f3704b3245c743c6be7191aac46909453b689b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              2,
+              240,
+              28
+            ],
+            "text": "https://app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              269,
+              32,
+              486,
+              59
+            ],
+            "text": "app.example.com/delete",
+            "size": 14
+          }
+        ],
+        "output_sha256": "dfb78623277615ccf15d95f5dde450f0ec43694c7ca50822e82f0666d13dc92d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a8fbb8b09c62de7a3c7b3c998ba7890665566b06.png": {
+        "labels": [
+          {
+            "rectangle": [
+              414,
+              14,
+              557,
+              40
+            ],
+            "text": "IP-192.0.2.10",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              14,
+              53,
+              117,
+              76
+            ],
+            "text": "IP-192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1066,
+              352,
+              1171,
+              377
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              431,
+              326,
+              490,
+              351
+            ],
+            "text": "64512",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1066,
+              326,
+              1131,
+              351
+            ],
+            "text": "Example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1018,
+              523,
+              1126,
+              546
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              827,
+              583,
+              929,
+              608
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          }
+        ],
+        "output_sha256": "b8862e7731e1107d5b78514d4ca8d44955842f22eaf0a9cf54920f3bef206d4d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d9baeac481030935f371fec427cd9b9d03106e31.png": {
+        "labels": [
+          {
+            "rectangle": [
+              412,
+              14,
+              568,
+              40
+            ],
+            "text": "IP-192.0.2.11",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              14,
+              53,
+              130,
+              77
+            ],
+            "text": "IP-192.0.2.11",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1064,
+              350,
+              1181,
+              377
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              431,
+              325,
+              490,
+              349
+            ],
+            "text": "64512",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1065,
+              325,
+              1131,
+              349
+            ],
+            "text": "Example",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              432,
+              349,
+              513,
+              375
+            ],
+            "text": "Example",
+            "size": 13
+          }
+        ],
+        "output_sha256": "552319b8cf83132639991a036100c4e1d93ba2b155682c82eadc9957832a37cc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a4df2d1d66d3a07c9be7e48ff8259b362b5947de.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e55eee3ac981385b9514a693692b028dd8409d4a57d959806e950fc43e2a4141"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/6/96f0004459161c3fd2abe5ca405e3da31ca3249f.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "76afbe65b5eab5a00be29f8991769a6d32e330ca62183fa97a8bcb7c89d78107"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/5/e5911621a401e5d8d7a066fc75c8c954169c594d.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d1db0445921cb5f4c5265f125b1dcae21c1931572e3a4d1d2a9a47f421af6ff1"
+      }
+    }
   }
 }
