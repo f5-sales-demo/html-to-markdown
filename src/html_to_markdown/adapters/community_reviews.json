@@ -8640,7 +8640,165 @@
   "77018": {
     "article_hash": "aa7966cb5c1fbb757ac1190b376a50d8f7bb4609206d966c3e9587d33d2e3fb4",
     "decision": "include",
-    "reason": "Distributed Cloud authoritative DNS and synthetic monitoring in hybrid resiliency design"
+    "reason": "Distributed Cloud authoritative DNS and synthetic monitoring in hybrid resiliency design",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected DNS resiliency guide and five images; monitoring and query domains made synthetic, anonymized Acme case and public peer-review quote disclose no customer identity; DNS transfer architecture, performance charts and geographic aggregates retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38733e8541fa16e0ea2fab171d6ad4d7558fea15.jpeg": "6f24288b5a808f71d6ee73a93afce88ad56c0495fbfd0fd2271072c358117fb4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5d99a576435c3969a924415862baf9c97f7534d0.jpeg": "0ad6a0fe86aedfec426ec87e9f170e37ffe3dd0501a25949e1a9bc8efbd00a80",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63db65591109909808ed71bd5054e81ab495eabc.jpeg": "c4c962bba430dc545c1ad59c10bcd47c29f09dc17456442c0ef07a8369fc35ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a08fec904b8e1cd21c8b96c02cbc0fb7afbefd1a.jpeg": "aedd92067c31f6469710cbee1bfc45c2b0d7f1b988cc49304436f761bb3cf33c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8a5cf0e441e24dc3b0f801076e3c317195a4f926.jpeg": "d22f949243aba96d5a762844b71d7d84baf76baeb549c13b2e780efbdbc9a5a9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38733e8541fa16e0ea2fab171d6ad4d7558fea15.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1077,
+              1353,
+              1615,
+              1395
+            ],
+            "text": "dns.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "6ff5201f40c6694d3e96862528dd688b3cb23408dc5cb4524c2fa7423bb06fcc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a08fec904b8e1cd21c8b96c02cbc0fb7afbefd1a.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1834,
+              398,
+              2054,
+              435
+            ],
+            "text": "dns.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3306,
+              624,
+              3602,
+              649
+            ],
+            "text": "record1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              654,
+              3602,
+              679
+            ],
+            "text": "record2.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              683,
+              3602,
+              707
+            ],
+            "text": "record3.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              714,
+              3602,
+              739
+            ],
+            "text": "record4.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              743,
+              3602,
+              767
+            ],
+            "text": "record5.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              771,
+              3602,
+              795
+            ],
+            "text": "record6.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              801,
+              3602,
+              825
+            ],
+            "text": "record7.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              831,
+              3602,
+              855
+            ],
+            "text": "record8.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              861,
+              3602,
+              885
+            ],
+            "text": "record9.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              3306,
+              891,
+              3602,
+              915
+            ],
+            "text": "record10.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d8552cbef8dd2bb310f00580431b43a388e689c68addaa6db92cfcd14b767183"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5d99a576435c3969a924415862baf9c97f7534d0.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e017277e54d5c43b582e1461a2056111480ec5232077e9d6d5eca426e6b1f15a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63db65591109909808ed71bd5054e81ab495eabc.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8acb8c54a72586668a30d4fc3bc6ef6332116871e82fa61556e7586488d9ca50"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8a5cf0e441e24dc3b0f801076e3c317195a4f926.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d2a865ec8ddc4153b9d66e2dd0f716391764450fdac419e040448653f641963f"
+      }
+    }
   },
   "77026": {
     "article_hash": "c1710fb549ba59dcb4adce4e7d25df932b406853267726094e3fbf2f507be213",
