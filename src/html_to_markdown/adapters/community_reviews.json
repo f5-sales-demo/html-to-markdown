@@ -6240,7 +6240,66 @@
   "74979": {
     "article_hash": "417a94448c7594e2a4f64d15ec69442729f5a6fd6d2d9d5ea3be62c82d7c683f",
     "decision": "include",
-    "reason": "Distributed Cloud client certificate routing"
+    "reason": "Distributed Cloud client certificate routing",
+    "text_replacements": {
+      "nodes": {
+        "334a6438d042e56603cfe8209657de2dcbc0423de97391839da49094cec582d2": "I personally like the tool XCA, developed and maintained by the XCA maintainers (xca - ",
+        "633baccbc906eb82997f2e20bc883d77dce837d6e669044ddbfd5a8f0b47ab19": "https://www.example.com",
+        "7c92fc5b74c775f92c616bfa2a3a398aebf8fcb3b3b17601441ad47a919bc2a7": "app1.example.com",
+        "4c88093307f1c3f37d20a2befff24f103f8b65c3f558867dcc0bf6b73db3ffb9": "CN=app1.example.com",
+        "3bc06b730047fb7e323df91b7a52e0c0c1140bf2c75b3a1b2709b6df829b5873": "curl -k --cert app1.example.com.crt --key app1.example.com.pem --cacert Example_Root_CA.crt https://www20.example.com -vvv\n",
+        "8d09fe72d4fdccf9b323bc3774f06e8b9e6a99713f522a7b2311c467df1c494c": "CN=app2.example.com",
+        "34ca97c275885f9eb87d2e1fe7a166f0fea6f59eb96f68e7c7fbc66d7dbd49ab": "curl -k --cert app2.example.com.crt --key app2.example.com.pem --cacert Example_Root_CA.crt https://www20.example.com -vvv\n",
+        "b9f1ab6bfd9dd434e84cb50630353b7dae46d5bdf5f25385ebd565902ef5f8c2": "curl -k --cert app1.example.com.crt --key app1.example.com.pem --cacert Example_Root_CA.crt https://www20.example.com -vvv\n* Host www20.example.com:443 was resolved.\n* IPv6: (none)\n* IPv4: 192.0.2.131\n*   Trying 192.0.2.131:443...\n* Connected to www20.example.com (192.0.2.131) port 443\n* ALPN: curl offers h2,http/1.1\n* (304) (OUT), TLS handshake, Client hello (1):\n* (304) (IN), TLS handshake, Server hello (2):\n* (304) (OUT), TLS handshake, Client hello (1):\n* (304) (IN), TLS handshake, Server hello (2):\n* (304) (IN), TLS handshake, Unknown (8):\n* (304) (IN), TLS handshake, Request CERT (13):\n* (304) (IN), TLS handshake, Certificate (11):\n* (304) (IN), TLS handshake, CERT verify (15):\n* (304) (IN), TLS handshake, Finished (20):\n* (304) (OUT), TLS handshake, Certificate (11):\n* (304) (OUT), TLS handshake, CERT verify (15):\n* (304) (OUT), TLS handshake, Finished (20):\n* SSL connection using TLSv1.3 / AEAD-AES256-GCM-SHA384 / [blank] / UNDEF\n* ALPN: server accepted h2\n* Server certificate:\n*  subject: O=Example Corp; OU=Documentation; CN=www20.example.com; emailAddress=user@example.com\n*  start date: Jul 10 15:16:00 2024 GMT\n*  expire date: Jul 10 15:16:00 2025 GMT\n*  issuer: O=Example Corp; OU=Documentation; CN=RootCADev; emailAddress=user@example.com\n*  SSL certificate verify result: self signed certificate in certificate chain (19), continuing anyway.\n* using HTTP/2\n* [HTTP/2] [1] OPENED stream for https://www20.example.com/\n* [HTTP/2] [1] [:method: GET]\n* [HTTP/2] [1] [:scheme: https]\n* [HTTP/2] [1] [:authority: www20.example.com]\n* [HTTP/2] [1] [:path: /]\n* [HTTP/2] [1] [user-agent: curl/8.6.0]\n* [HTTP/2] [1] [accept: */*]\n> GET / HTTP/2\n> Host: www20.example.com\n> User-Agent: curl/8.6.0\n> Accept: */*\n> \n< HTTP/2 200 \n< date: Wed, 14 Aug 2024 14:02:38 GMT\n< expires: -1\n< cache-control: private, max-age=0\n< content-type: text/html; charset=ISO-8859-1\n< content-security-policy-report-only: object-src 'none';base-uri 'self';script-src 'nonce-EXAMPLE_NONCE' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp\n< p3p: CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"\n< server: volt-adc\n< x-xss-protection: 0\n< x-frame-options: SAMEORIGIN\n< set-cookie: AEC=REMOVED; expires=Mon, 10-Feb-2025 14:02:38 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax\n< set-cookie: __Secure-ENID=REMOVED; expires=Sun, 14-Sep-2025 06:20:56 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax\n< alt-svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\n< accept-ranges: none\n< vary: Accept-Encoding\n< x-envoy-upstream-service-time: 82\n< application: app1\n< x-volterra-location: pa2-par\n<\n",
+        "f4fe978570bdc887f6fb4506ce294481c7c0c31d4762db3f44fabb08a5247dd7": "http://app1.example.com",
+        "528e31e840d2ae77a16944d66575c558f6e17dd16d1d15d6f2f445c676e74cb7": "http://CN=app1.example.com",
+        "d8b085980ecced2d246bc751ab7340165f0231e35170c762aaed91d8b4ed527a": "http://CN=app2.example.com"
+      },
+      "output_sha256": "1ce80c9b359cb7bf4145b7a0afcd74e8302883d5184eef113ae36082d58095da"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected client certificate routing guide, full curl handshake example and all four images; domains, certificate attribution and source address are synthetic, cookies and nonce replaced with placeholders; 98 animated frames preserve certificate-to-pool routing, timing, loop and all pixels outside reviewed label",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e5e37d00179fd1065ff475effef96ffb2264778a.png": "18ec17a25e73af8fe4ef381d8399fb2cdf7801357b5428fee8b5158ceec136dd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5f2ec6e946305f58e96994f3445c56810253299f.png": "922ff8f0e3dee59864916640b941d4dff514d874f21c775c953107c3cd95ca3e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/2/728e9ee3b4fdbbeaf56ceebd51af8b4e35b41a57.gif": "e98a67210158c180fdcdb0aa1c33d5125414fd81ed4062031b610dc44e6a87ad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/5/8527fd644e0044a958da8e1cf49a4951aba2fb95.png": "7461aed7fc69c129a29620fee8ff660fbe87ef3bb4a47eaa64eaa7f317147dc4"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e5e37d00179fd1065ff475effef96ffb2264778a.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              24,
+              68,
+              350,
+              100
+            ],
+            "text": "example-client-cert-lb",
+            "size": 18
+          }
+        ],
+        "output_sha256": "62834054e1091a1f523fbceb4b4f7ad3fa0f36d935e03a4bbb589589b9097243"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/2/728e9ee3b4fdbbeaf56ceebd51af8b4e35b41a57.gif": {
+        "animation": true,
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              507,
+              355,
+              546
+            ],
+            "text": "CN=app1.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "264712f744dc5bde81ed95caaf1bad88b174887fa084e598336a77097b8e426b"
+      }
+    }
   },
   "74981": {
     "article_hash": "c3f38467b66d3aac7edfceea32bf4f5422dbb81cfe7c5a4aa8c3d46465036b86",
@@ -10081,6 +10140,41 @@
           }
         ],
         "output_sha256": "da0b6759727c2cb3bfbfcebae361c7f1f3ab89577f1515331763915f572db84f"
+      }
+    }
+  },
+  "72068": {
+    "article_hash": "09fdb5806696bb781c2a13a14541fab679f7d88fb98e761bf8f8e23141bc38d7",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected multi-cluster OpenShift mesh guide and both images; all-frame OCR and representative frames confirm fixed generic architecture, personal edge label replaced on every frame; lossless output preserves all 300 frames, timing, loop and pixels outside reviewed label",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d865d878a790bd75d7ff715fba9e5b5ddc4ccaf3.gif": "8ad6571e273c1d44239c4ec32d90d75f863705307ec141de6ea43bae0c7979ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/808bce14b8ccc1ef0dcff4019231d205b0188a34.jpeg": "1fa3ed7a10dd1516f5c3adb392da98f19a7b5d984baab637b90d5d5ff56def33"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d865d878a790bd75d7ff715fba9e5b5ddc4ccaf3.gif": {
+        "animation": true,
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1485,
+              70,
+              1700,
+              108
+            ],
+            "text": "example-edge",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d44e5774c3a2076d24b3add4037e7c57b5cd7acfaed4d7906a675eb2f6831693"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/808bce14b8ccc1ef0dcff4019231d205b0188a34.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c4c0625d13ed9254afc776ac2778fb25c47d7a160c462d882c94b62811411dcb"
       }
     }
   }
