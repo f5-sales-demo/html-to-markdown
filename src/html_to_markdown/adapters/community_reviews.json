@@ -24177,5 +24177,530 @@
         "output_sha256": "426975fcd85351c3388696921aec38f2498745c61674a9632afe9e4f0009e06b"
       }
     }
+  },
+  "70932": {
+    "article_hash": "d0e4eaacd9df8664e362e3d82dcc85919c4f4df923504d68019e61ea09d082a8",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed first-post prose and all eight images. Synthetic receiver/app domains, password, visitor IDs, source addresses, ASN and city plus profile removal preserve HTTP receiver config, parser code, log schema and corresponding parsed fields, attack classifications and event counts. Generic default Elastic demo password in prose is documented upstream default; no personal credential value retained.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0e54a22f06e9d7734bb1f2a60aede6a339681b1b.png": "8f93f348e47500456c435043a2ca6197045f15f4434875b6a998bd5547ca8f61",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a2269022a2fe44d890532f172a2f022ae6310aa.png": "0314139c4d3abfbe38435ddca1c154cfb339d3ab16d9ae554d5eed0b1cb92d3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7d0bac395b373e7dce8be70a8fedb05c54ddd959.png": "3ac26b02fc2b97c8ed8177dff4814759ad277e15c60232b8f03a2150d288793b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9269a367ecfa15d37ddac82e0f0c25cb94df6c62.png": "bf4cebb1c91a3e10b13dcccdd6ff9d528dd1b6bfa8f26b5dfdd37ada77d02fa6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a887736afe722f063460b346e6ab7352aa89036c.png": "7aa93ceb216c73ef0b1cab94686dcbc39a9498b9b08485b190b199628ba37606",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c99b7e61cf76a9d6b182c7c4b44542be6d41bc4d.png": "f4e1cb56355bfb98ea973ed3511808e9ca6d8091c69bca46eb31408179d8b5ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98ad3af02f27bd160df09b6d72c24e02d84fcd90.png": "f419eb04b032093c2721b7ed83f4407273b7cacf349b6e3c7c65bf8374770367",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/c/fc3fc4dffb1c3b83f1fd5cb746f7c9475d96888d.png": "96bc1a8679098090dae903988651a29c149870cc80caec5580fc52f064a6149e"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0e54a22f06e9d7734bb1f2a60aede6a339681b1b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              251,
+              580,
+              552,
+              625
+            ],
+            "text": "http://elk.example.com:8080",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              180,
+              377,
+              309,
+              418
+            ],
+            "text": "example",
+            "size": 17
+          }
+        ],
+        "output_sha256": "2d408429087ec78709634508532161fc2df935b7d9bb4d145cca65f85833b606"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a2269022a2fe44d890532f172a2f022ae6310aa.png": {
+        "rectangles": [
+          [
+            3700,
+            0,
+            3779,
+            229
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              279,
+              77,
+              1365,
+              129
+            ],
+            "text": "elk.example.com:5601/app/dashboards/example",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              369,
+              476,
+              705,
+              529
+            ],
+            "text": "app.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              379,
+              261,
+              545,
+              315
+            ],
+            "text": "Example",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1933,
+              1447,
+              2167,
+              1501
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1518,
+              2167,
+              1573
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1593,
+              2167,
+              1648
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1665,
+              2167,
+              1719
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1736,
+              2167,
+              1790
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1809,
+              2167,
+              1863
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1933,
+              1880,
+              2167,
+              1934
+            ],
+            "text": "192.0.2.10",
+            "size": 20
+          }
+        ],
+        "output_sha256": "cf140ea46fb372aa6d18c4ce11dbf05c9fdbd9e6393ffa67a1c7bbec0df5fa8f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7d0bac395b373e7dce8be70a8fedb05c54ddd959.png": {
+        "labels": [
+          {
+            "rectangle": [
+              378,
+              376,
+              529,
+              413
+            ],
+            "text": "\"EXAMPLE_PASS\"",
+            "size": 16
+          }
+        ],
+        "output_sha256": "5753c5878a8eb1028286f1184e30dc49ff9ae4f9ddf2ef3009d317e490849ce8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9269a367ecfa15d37ddac82e0f0c25cb94df6c62.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              429,
+              33
+            ],
+            "text": "ubuntu@example:~$",
+            "size": 17
+          }
+        ],
+        "output_sha256": "bed646b442e286a3018e2cb7a2719c39ce1100e9c65888f23f8ef5d39b814364"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c99b7e61cf76a9d6b182c7c4b44542be6d41bc4d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              226,
+              813,
+              280,
+              835
+            ],
+            "text": "192.0.2.10",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              226,
+              850,
+              280,
+              873
+            ],
+            "text": "192.0.2.11",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              625,
+              805,
+              707,
+              843
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              625,
+              843,
+              707,
+              880
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              920,
+              499,
+              1002,
+              517
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1183,
+              717,
+              1240,
+              735
+            ],
+            "text": "192.0.2.10",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              145,
+              814,
+              209,
+              838
+            ],
+            "text": "Example",
+            "size": 8
+          }
+        ],
+        "output_sha256": "6c2668b05709a9a1e249fb78631561e1062da802be2319cb4683b34ba83ddfa5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98ad3af02f27bd160df09b6d72c24e02d84fcd90.png": {
+        "labels": [
+          {
+            "rectangle": [
+              634,
+              238,
+              814,
+              275
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              617,
+              1315,
+              654
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              705,
+              1315,
+              742
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              793,
+              1315,
+              831
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              882,
+              1315,
+              919
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              970,
+              1315,
+              1007
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1102,
+              1058,
+              1315,
+              1095
+            ],
+            "text": "app.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1854,
+              643,
+              2179,
+              676
+            ],
+            "text": "EXAMPLE_VISITOR",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1850,
+              930,
+              1955,
+              964
+            ],
+            "text": "64512",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1850,
+              978,
+              2012,
+              1010
+            ],
+            "text": "Example ASN",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1850,
+              1023,
+              2040,
+              1058
+            ],
+            "text": "Example ASN (64512)",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1850,
+              1120,
+              2117,
+              1154
+            ],
+            "text": "app.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              877,
+              660,
+              1364,
+              704
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              877,
+              748,
+              1364,
+              792
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              877,
+              836,
+              1364,
+              880
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              877,
+              924,
+              1364,
+              968
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              877,
+              1012,
+              1364,
+              1056
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              877,
+              1101,
+              1364,
+              1145
+            ],
+            "text": "{\"action\":\"block\",\"domain\":\"app.example.com\"}",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1850,
+              468,
+              2703,
+              490
+            ],
+            "text": "{\"@timestamp\":\"2022-10-07T09:04:04Z\",\"visitor_id\":\"EXAMPLE_VISITOR\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              490,
+              2703,
+              512
+            ],
+            "text": "\"action\":\"block\",\"api_endpoint\":\"UNKNOWN\",\"app\":\"obelix\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              512,
+              2703,
+              534
+            ],
+            "text": "\"app_type\":\"ves-io-http-loadbalancer-maluser-demo\",\"as_number\":\"64512\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              534,
+              2703,
+              556
+            ],
+            "text": "\"as_org\":\"Example ASN\",\"asn\":\"Example ASN (64512)\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              556,
+              2703,
+              578
+            ],
+            "text": "\"attack_types\":[{\"name\":\"ATTACK_TYPE_PREDICTABLE_RESOURCE_LOCATION\"},",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              578,
+              2703,
+              600
+            ],
+            "text": "{\"name\":\"ATTACK_TYPE_PATH_TRAVERSAL\"}],\"authority\":\"app.example.com\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1850,
+              600,
+              2703,
+              622
+            ],
+            "text": "\"browser_type\":\"Firefox\",\"calculated_action\":\"block\"}",
+            "size": 16
+          }
+        ],
+        "rectangles": [
+          [
+            1850,
+            468,
+            2703,
+            632
+          ]
+        ],
+        "output_sha256": "73677372a4f5d6a5aa6dc40e1ac4e946743bb1ee13726dde68a7ea602cf6abbe"
+      }
+    }
   }
 }
