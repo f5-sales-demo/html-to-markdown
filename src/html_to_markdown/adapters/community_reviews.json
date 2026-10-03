@@ -23054,5 +23054,107 @@
         "output_sha256": "f5331423aef492aa47a16d85479f7b8546fe5695eef84846422bb5688263763c"
       }
     }
+  },
+  "72446": {
+    "article_hash": "b256cd83f9fd0b8c9bbd4628e864142a1abe3a86944b131fd5182b89b0b0e097",
+    "decision": "include",
+    "reason": "Distributed Cloud vK8s SAML deployment is primary",
+    "text_replacements": {
+      "nodes": {
+        "fca912e40a8565084242b95f829f245f8652e76cb27e9c22ca4ea663cc8a658b": "http://backend.example.com",
+        "0bfde19c7b35a259d847ea01944382d6201fffe6711b4149f0696b33a647d8d1": "# This is the backend application we are protecting with SAML SSO\nupstream my_backend {\n    zone my_backend 64k;\n\u200b\n    server backend.example.com;\n}\n\u200b\n# Custom log format to include the 'NameID' subject in the REMOTE_USER field\nlog_format saml_sso '$remote_addr - $saml_name_id [$time_local] \"$request\" '\n                    '$status $body_bytes_sent \"$http_referer\" '\n                    '\"$http_user_agent\" \"$http_x_forwarded_for\"';\n\u200b\n# The frontend server - reverse proxy with SAML SSO authentication\n#\nserver {\n    # Functional locations implementing SAML SSO support\n    include conf.d/saml_sp.server_conf;\n\u200b\n    # Reduce severity level as required\n    error_log /nginx/var/log/nginx/error.log debug;\n\u200b\n    listen 8080;\n    #listen 443 ssl; # Use SSL/TLS in production\n    #ssl_certificate         /etc/nginx/ssl/server.crt;\n    #ssl_certificate_key     /etc/nginx/ssl/server.key;\n\u200b\n\u200b\n    location / {\n        # When a user is not authenticated (i.e., the \"saml_access_granted\"\n        # variable is not set to \"1\"), an HTTP 401 Unauthorized error is\n        # returned, which is handled by the @do_samlsp_flow named location.\n        error_page 401 = @do_samlsp_flow;\n\u200b\n        if ($saml_access_granted != \"1\") {\n            return 401;\n        }\n\u200b\n        # Successfully authenticated users are proxied to the backend,\n        # with the NameID attribute passed as an HTTP header\n        proxy_set_header username $saml_name_id;\n        proxy_set_header Host backend.example.com;\n        proxy_pass http://my_backend; # The backend site/app\n\u200b\n        access_log /nginx/var/log/nginx/access.log saml_sso;\n    }\n}\n\u200b\n# vim: syntax=nginx\n",
+        "f336682047e1bb6a1a4fcdca306fcdf68df246ad68d3b55e7bcfd10bb3bbf8e2": "http://backend.example.com/"
+      },
+      "output_sha256": "fd7b1fc5c7fe3a4ac6d50e7bda4330f37ce3a5b555eb768eaba4ed50b2615938"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed first-post prose/code and eight images, including enlarged embedded console and stock dashboard thumbnails. Registry identity and backend hostname made synthetic; password shown only as configured with no value. Retained NGINX configuration, SAML module references, origin/service settings, forwarded headers and source IP persistence. Architecture includes generic stock application art, no user/customer records.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c346fa55c65b2baa62366328bf1d5c90090da85a.png": "9bc5e106ccaeb4785101d70088c977a4aaedcee473a668a6e98b0741c812e7c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c901ff08e12b0fffca02173c2622c3ab70b2abc4.png": "8dc3dc7cc17e852f556640496e5a02e404777e68eaddc00f65b985bebcfd0427",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7bef3960ae36180019b88bffca7a378e185afbf8.png": "a41038155b10de278bb62c00801d197722fa847d01871398584ccfc99a43300a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8c5abcadfa6d535d81e965169309ee87d8a999ab.png": "9f552971f027725256f17aac59f6badad8100878d24ef09f50c95f6d1a712936",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/959ac6ca20031d070d7da28f2f1d09b43c3e2212.jpeg": "acde9e81abea084b30d4171e5a871e1eea3251f4bd293939a91249cd714b122b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4ca75ccbf954affdca6fffc7940f18fed157071.png": "3651effd36f4bc08f9798cd71f889fb52a2fe39c0bb3127bc2c1c65a8f66d86f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/eb32dcb03bcb7535425875ab5ce71860e360fe20.jpeg": "8a2a2cc7dfed737929ee171840b5e454ae24d487362681946f7610858568de99",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed26bed724f4073d4d5c8dfd7b015610996ef577.png": "943993231b4e3d0f89380be39745d86162ed3992ed1dbbea4e40146e64a47545"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7bef3960ae36180019b88bffca7a378e185afbf8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              179,
+              401,
+              242
+            ],
+            "text": "example-registry",
+            "size": 39
+          },
+          {
+            "rectangle": [
+              1478,
+              253,
+              1835,
+              313
+            ],
+            "text": "example-registry",
+            "size": 35
+          },
+          {
+            "rectangle": [
+              1481,
+              890,
+              1974,
+              950
+            ],
+            "text": "registry.example.com",
+            "size": 35
+          },
+          {
+            "rectangle": [
+              1481,
+              1138,
+              1829,
+              1198
+            ],
+            "text": "example-user",
+            "size": 35
+          }
+        ],
+        "output_sha256": "86ce15de56636cd48c62f25563eabf799c5e467cea01457bd314f6498bfef2dc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c346fa55c65b2baa62366328bf1d5c90090da85a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5bc24aaf36591f1156bfd96127c29bf19e649986550e08052e57410d5649b56b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8c5abcadfa6d535d81e965169309ee87d8a999ab.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a39b19164fab336372ca01fcdc7edae0390b98901b110bedf51e27e9ad6858b5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/959ac6ca20031d070d7da28f2f1d09b43c3e2212.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4f444a9c0f6eb2e80d21c879579aa8f0e57d49b58258f069a9a22e2aae639201"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/4/b4ca75ccbf954affdca6fffc7940f18fed157071.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "221c8efe4ce9b412601d003699974da8e582a7a4e3c792a12d876ec265351236"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/eb32dcb03bcb7535425875ab5ce71860e360fe20.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b3fb351fd05239124a6e9ea7255c137c02bdb5cdcaff3dff34a33345119bbc90"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed26bed724f4073d4d5c8dfd7b015610996ef577.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f0912e9901f01e453fbb37b1aedc33ec34e9dfc7907e38b7a7faca95a968497e"
+      }
+    }
   }
 }
