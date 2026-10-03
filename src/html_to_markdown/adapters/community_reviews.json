@@ -37861,5 +37861,191 @@
         "output_sha256": "9fa98a7657b6afe18b95e312a5512ddd74edd07756fe7b77a1bf1b24ce321cfd"
       }
     }
+  },
+  "76243": {
+    "article_hash": "3f21cdff85989e1e82a25aa60da2443cc3b0e55fd9f11c18300d275d53690ea0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and ten static images; replaced personal Windows prompt, sample hostname and operational VIP with documentation examples; preserved curl resolve syntax, HTTP 301 location, ports, paths, SNI and rewrite controls; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/91bab548c46439dadffe35c26026c28b57a8c42d.png": "935d94c46c79dc9d71fd2758928915e08e1cb2a2d092e3a85d2b7fcd2425b186",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/66a612f2342d190a22e45b9679c27e42d18035c3.png": "da063082b4874837c1aa2251ba7cf8e023021244ab3cc969a368e585f4f21a0d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c3e406df82aa2e1fec7a7e5372d334cb90786ef0.png": "22cb3751070871f4b7ea0099323e23dd975f543a3ae46886f5bd4e60c34ec6bb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ee93709231bc14432c9b6c1d93a640c22bddecc0.png": "83dd38a52a68656acd7091423775a178f5f3b3b7a299cf17a8fd1ffe610630a3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f605171773c5adf69b9b96bb3d12a79ba5287ddb.png": "d5716edb9d6fa4be0ef8bef2a96318eb559536d031397b3b7e2a3f58801a8ac1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/e/1e73b772faffdcefdfd52326e09635c07969a75c.png": "01ea5eebcb874b8024b17d6376017a408738aa81d49d054e597dcf9304333baf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43bcdac2452af1c2fc1f7a5caf5b714f1c4c361c.png": "28ddf4650e3e005cc4376bd03753f76290de4bb75d534bdbb5ae953dfc09924f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64b92f992d4c6e8ea8b607a27bef815a4cfc22f6.png": "a725c15d0fa378b07e874ea61086f8ed01fd43dd82b186d10139e0c0ce82b1de",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b3ecc6d5108f88c3c4cf091703adacda762f96df.png": "7510f33bd943f3dfb9cb4d7859abc35721f6a1ccedd4592e4e7b26545e2c2690",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/4/d47eeebfaaada70f8d5428d878b36deb859a6cf2.png": "ba073f1d61670c98afa071fa0d3503282a7ea8d5df53d718d1208f8f8541df6d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/66a612f2342d190a22e45b9679c27e42d18035c3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              170,
+              58,
+              340,
+              86
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "ec96fa841a7b33848c8915947bf2ddb786ba804e57e8edcf2769aba63565d46f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c3e406df82aa2e1fec7a7e5372d334cb90786ef0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              8,
+              5,
+              1380,
+              34
+            ],
+            "text": "C:\\Users\\Example>curl http://app.example.com/test --resolve app.example.com:80:192.0.2.10 -kv",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              8,
+              33,
+              1380,
+              62
+            ],
+            "text": "* Added app.example.com:80:192.0.2.10 to DNS cache",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              8,
+              61,
+              1380,
+              90
+            ],
+            "text": "* Hostname app.example.com was found in DNS cache",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              8,
+              89,
+              1380,
+              118
+            ],
+            "text": "*   Trying 192.0.2.10:80...",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              8,
+              117,
+              1380,
+              146
+            ],
+            "text": "* Connected to app.example.com (192.0.2.10) port 80",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              115,
+              206,
+              351,
+              235
+            ],
+            "text": "app.example.com",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              8,
+              369,
+              720,
+              397
+            ],
+            "text": "< location: https://app.example.com:2443/test",
+            "size": 20
+          }
+        ],
+        "output_sha256": "b488380a8f6fe30a1a8ef044d61f420cb2c13c107e2b0a084141476122e756f2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/3/43bcdac2452af1c2fc1f7a5caf5b714f1c4c361c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              70,
+              538,
+              280,
+              560
+            ],
+            "text": "app.example.com:2443",
+            "size": 15
+          }
+        ],
+        "output_sha256": "da3528d50dc968958c3185a6860d383fdc40b624a6dd7012310db74c7eacdb30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64b92f992d4c6e8ea8b607a27bef815a4cfc22f6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              48,
+              30,
+              212,
+              44
+            ],
+            "text": "app.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              202,
+              16,
+              376,
+              30
+            ],
+            "text": "https://client.example.com/",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              76,
+              58,
+              239,
+              72
+            ],
+            "text": "https://client.example.com/",
+            "size": 8
+          }
+        ],
+        "output_sha256": "ca897691ddde6b4cfca0d000bc98275c25d49526dcaab9aeb58fddc1552d518d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/4/d47eeebfaaada70f8d5428d878b36deb859a6cf2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              224,
+              169,
+              380,
+              195
+            ],
+            "text": "app.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              224,
+              218,
+              400,
+              245
+            ],
+            "text": "app.example.com:81",
+            "size": 15
+          }
+        ],
+        "output_sha256": "4c040ca142ddd51927e3589d0e569cfe0cedd2fb487ed202242a904b7de7cd23"
+      }
+    }
   }
 }
