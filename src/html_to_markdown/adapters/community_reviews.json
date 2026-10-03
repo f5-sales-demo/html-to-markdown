@@ -41977,5 +41977,1092 @@
         "output_sha256": "31376d34a20cd8b59a1a4551e15490da2bae66704d19e6c1ccaeb9aacffa89c9"
       }
     }
+  },
+  "75785": {
+    "article_hash": "4781624387e3af5c043437f73d5e98af58fc3c8ed9fe46c48960892bb8064939",
+    "decision": "include",
+    "reason": "Distributed Cloud Network Connect, App Connect and API protection for RAG",
+    "text_replacements": {
+      "nodes": {
+        "f952fc5021ffdf1b893d029ce2684f8ee735b2b50dde3bcb78bf2a1cc4569120": "Segment-B: segment-b",
+        "284864b41775fa3090cd95f0d27a8eff3453c0cf1257236039be8aed42cf56ee": "Segment-A: segment-a",
+        "b76c2374fb386ac9aa59480c10051cfb395114da35f119e7046db20697de7c42": "inference.example.com"
+      },
+      "output_sha256": "287b7998ae88c5e2498402e166e25bdd4d405a0e5b18f5051d2c10930aa3aed4"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and all twenty-eight static images; public Red Hat source document and public-media model responses retained as example content; synthetic account, site, segment, storage initiator, MAC, client, endpoint and request identifiers; API key field empty; preserved RAG context template, model lists, iSCSI state, rate-limit and client-blocking results and architecture; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1bff01ba1b9d402c9a0c3a9e129054b97f74afc7.png": "edd31f7b39aace811253080b8a0e49b35d3afa0cb4609685302b4b1896197d77",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/929bd94855d745169b9164c4bd558a98715d0a57.png": "124c9f664e23a9b42474a5dc96c2eeaa80c379b82b5ff39e8b95b2562afce288",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c799a08453430f022f9fe29c403c44cdc082f30.jpeg": "38f4fc608bb713e9d51581676f330b2f60a5fa19288a8d9a03b73851d0332dc1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/163daf6326e11a16b8fa35bfe41dc6edc52a5701.png": "671e6fa4442f7f7fc345e08d6083be8590769e975ebf52bb4886d28e29e6e90d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/210443fdad58ee0aeaa988dad1a77962de08c893.png": "14391cca301a08a47b0d9014be968d313d4859d60c61c4b890fe20d6bd2be5aa",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a3dee31ed511cc754059c31e8de34c776ac9e63.jpeg": "8dfd93a05ddcf97a253bd5ee9106eadeda66537d8916f0f1a9225afee7c196b5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64f960234bf52ccf389068389406dd20ca93168b.jpeg": "ab11d60d0c665e3c56dbdaef8531451afcfa322b10c23dda3c6e8f57c1de86d0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c6545013102b2b8b8a0e065be5de69c477550f1.png": "92f67d81893174223283567b0150a7e042812f289273588ee44d5917a52228d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7b9cfb396c48ea0b9073b5a6b3ed1958316d9d09.png": "69043aae6ca7bd1a58f1e2a5ac899be035c82e6979760d51be0e252dc006d32e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82601cff6e0d74efa397fd8ed45e01de4287a56c.png": "e4ca64d0e36c0c0d4fd26e01c8bcba2f0207b551d447f5ebb99b3d8fbd8c51a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a203ab34d3b239edc19a9ab3f0a8bbb5b795f719.png": "16bd43f63819e74ff925f1c338bf5e83952e9654a4f71b6c4399de83b942b305",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a261110b9e27c478f2a6bfd3cda6d2270dac1904.png": "0896654ce108ae8b9efa9fac56eedf4dcba15db1f5aff6c53f5cf1d58451f4da",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a2d782ae4d979f407f0a31b16420dec8327687b6.png": "7d52fbb440140c21dd261543978381df531b3bcecfe0d5f38d0682238bf03e99",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc6d3319405fd34a66bfeaaa5057affdcaaa4e76.png": "20e6eab837c39c6ac07f3026edb4befc08e18dc31f6d67562018e6796139d39f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c23803ce5d428734a85711cd074920525d933909.png": "8abdba9d5449dc0c09441619e660b26fa5df796d24501b4e3e010d806748b4eb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d86a661cea89f315f929b270cc9cd443d8caf843.png": "7a36f57ef39a805c345615c33712775b2338289a10cf01c928733d017c6cc671",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/da4c7646f5ba10472779e00fa9c0704472155555.png": "a0d16341d43f017ea4d6fc647467d37fa12a81ca1eaa2f9c12786cffc5caee5a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbd63b45c3291e3d8a69fbfb9b39902e9be24468.png": "e5cbb54433e65c4629ebdf7dabd8b7424b5ec1c54263c2b4b10be1e1b4955797",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/edb55237dc9ff3dee674ecdc130d9abe5f210842.png": "b5fd0343e580ab4f8937cde697a733858b925aab680f29eaadf85fcfcdb7cc5e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/025ff17827ef58cfdff3a231cf5336bce2e063f1.png": "93c78e04b7188bcf59af67855c370eac564ba2782bb27765c7d1f079299abf53",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0af5e485303be69eeab8825f95249f68e814195b.png": "afb1203e3c67681b9400ee5d12fe80bbca9805461e75d17be8c36f3036573527",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/4/1411a5bc00954c94f72529c13729ea7771622f9e.png": "ae40025b28578c1c0637fca0ecf0db6deb05943ba0601d0694d56219b1b0759a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/8/385bac0a9fcb45619009a5ddead4a07de3f5db82.png": "123c73240eb6d366d1596feb5ec0d2919fae9f50728fd9ee107643f197240563",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/e/6e2977991569a0a96de53ce6c25f0ee974698d1a.png": "b2c9d575d9c7b4a891f84324fee8bf49600af1f333d3fca23becc54a0e6a2641",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9f59c39f1db88fc32441132c539ff635033f11f8.png": "86065f0f08b77d6b8a541c22fa9100f7a637682ca42a823055ba5a2d10995042",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c6f5a402b3930dc1a6e8a8632cb41956664618b8.png": "20c05022ab412fe4e637ee07c4acd281a0e9752650f8d9bf5f1643cf0015bebd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/3/e383003bcd6c8f2fe24542b98d495247e75cf785.jpeg": "a44bd6b9cfd8a0f2fa836df9efc2e52d256aca40372486c8e8e5188cfbca592b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f82182696d9df3fc7781d8a9475adc72208b03eb.png": "975ec4f8b07e4b9490c3a84f2d378776502d66e2c7d4b65ad1ebbab994e3c1f3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/929bd94855d745169b9164c4bd558a98715d0a57.png": {
+        "labels": [
+          {
+            "rectangle": [
+              407,
+              4,
+              450,
+              24
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              39,
+              127,
+              96,
+              150
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              362,
+              452,
+              449,
+              475
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1010,
+              452,
+              1250,
+              475
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1010,
+              478,
+              1230,
+              499
+            ],
+            "text": "inference.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              362,
+              624,
+              440,
+              645
+            ],
+            "text": "demo-ocp-vm",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              362,
+              646,
+              440,
+              667
+            ],
+            "text": "demo-ocp-vm",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              362,
+              668,
+              580,
+              691
+            ],
+            "text": "N:demo-segment-a",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              411,
+              790,
+              520,
+              812
+            ],
+            "text": "IP-192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              411,
+              875,
+              480,
+              894
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              550,
+              169,
+              641,
+              194
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1246,
+              166,
+              1380,
+              205
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              550,
+              222,
+              641,
+              247
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1246,
+              219,
+              1380,
+              258
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              550,
+              277,
+              641,
+              302
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1246,
+              274,
+              1380,
+              313
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              550,
+              331,
+              641,
+              356
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1246,
+              328,
+              1380,
+              367
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              550,
+              965,
+              641,
+              990
+            ],
+            "text": "192.0.2.177",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1246,
+              962,
+              1380,
+              1001
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "bd861e99e13ca4280acd27164ad849b6190a599cfddca911e841c9df521e5704"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0c799a08453430f022f9fe29c403c44cdc082f30.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              408,
+              310,
+              945,
+              350
+            ],
+            "text": "http://inference.example.com",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              341,
+              532,
+              872,
+              573
+            ],
+            "text": "http://inference.example.com",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              463,
+              771,
+              1220,
+              835
+            ],
+            "text": "Leave empty for models at http://inference.example.com/api/tags",
+            "size": 21
+          }
+        ],
+        "output_sha256": "2e9a1f6554ebd863756b63ef9b7e3445391c2c10caa8b26058fdc3f95ea769c9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a3dee31ed511cc754059c31e8de34c776ac9e63.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              10,
+              6,
+              2523,
+              54
+            ],
+            "text": "[root@demo-server ~]# curl http://inference.example.com/api/tags | jq -r '.models[].name'",
+            "size": 25
+          }
+        ],
+        "output_sha256": "209cf10a1815c207ac248f9d7831859915c667de4acf26ae16e878ca58e42e0d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/64f960234bf52ccf389068389406dd20ca93168b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              732,
+              9,
+              810,
+              39
+            ],
+            "text": "demo",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              60,
+              241,
+              150,
+              277
+            ],
+            "text": "demo",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              701,
+              335,
+              838,
+              372
+            ],
+            "text": "192.0.2.177",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              627,
+              609,
+              742,
+              643
+            ],
+            "text": "demo",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              625,
+              682,
+              1050,
+              723
+            ],
+            "text": "EXAMPLE_MESSAGE_ID",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              651,
+              867,
+              824,
+              908
+            ],
+            "text": "demo-ocp-vm",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              651,
+              908,
+              818,
+              940
+            ],
+            "text": "192.0.2.177",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              651,
+              1140,
+              824,
+              1174
+            ],
+            "text": "192.0.2.224",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              678,
+              1358,
+              1120,
+              1402
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              678,
+              1435,
+              1080,
+              1483
+            ],
+            "text": "inference.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1861,
+              1136,
+              2030,
+              1175
+            ],
+            "text": "192.0.2.177",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1902,
+              1475,
+              2100,
+              1515
+            ],
+            "text": "IP-192.0.2.177",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1902,
+              1280,
+              2020,
+              1318
+            ],
+            "text": "demo",
+            "size": 18
+          }
+        ],
+        "output_sha256": "d4c7b94bc059cb8b2cc62ca66e16043c1e2d68021d817f68baf5f457032ed18b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6c6545013102b2b8b8a0e065be5de69c477550f1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              606,
+              810,
+              733,
+              828
+            ],
+            "text": "inference.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1382,
+              168,
+              1640,
+              199
+            ],
+            "text": "ollama-demo-pod",
+            "size": 18
+          }
+        ],
+        "output_sha256": "ab32ccb23c09a669b37f277674dde4acf58adfbaa6a22969268b99172dd97669"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7b9cfb396c48ea0b9073b5a6b3ed1958316d9d09.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1137,
+              24,
+              1218,
+              47
+            ],
+            "text": "demo",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              876,
+              285,
+              1020,
+              320
+            ],
+            "text": "demo-ocp-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1036,
+              288,
+              1160,
+              312
+            ],
+            "text": "192.0.2.199",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              515,
+              703,
+              622,
+              725
+            ],
+            "text": "demo-ocp-vm",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1116,
+              625,
+              1215,
+              647
+            ],
+            "text": "demo-ocp-vm",
+            "size": 10
+          }
+        ],
+        "output_sha256": "3d4c0bbcf9dc88c90adc4ec6134cee1439d8081035bede610c6342db569b329c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82601cff6e0d74efa397fd8ed45e01de4287a56c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1640,
+              322,
+              2050,
+              351
+            ],
+            "text": "https://inference.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              701,
+              944,
+              879,
+              966
+            ],
+            "text": "inference.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              776,
+              968,
+              1017,
+              990
+            ],
+            "text": "https://inference.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "690527597380f0ff006f51d7152240bf78b0c362ae4529d8ec4b11537d76f2ef"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a2d782ae4d979f407f0a31b16420dec8327687b6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              772,
+              236,
+              994,
+              263
+            ],
+            "text": "userid-ip-192-0-2-177",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1283,
+              232,
+              1440,
+              262
+            ],
+            "text": "IP-192.0.2.177",
+            "size": 14
+          }
+        ],
+        "output_sha256": "bd6eff9f9a598a7b14d9d0ad1e165b2a4e958ea18cd445f7429473259d0b0c30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc6d3319405fd34a66bfeaaa5057affdcaaa4e76.png": {
+        "labels": [
+          {
+            "rectangle": [
+              10,
+              9,
+              1718,
+              31
+            ],
+            "text": "INFO [open_webui.routers.files] file.content_type: application/pdf",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              29,
+              1718,
+              68
+            ],
+            "text": "INFO [open_webui.routers.retrieval] save_docs_to_vector_db: document Red_Hat_Migration_Toolkit.pdf file-EXAMPLE_DOCUMENT_1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              68,
+              1718,
+              88
+            ],
+            "text": "INFO [open_webui.routers.retrieval] adding to collection file-EXAMPLE_DOCUMENT_1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              87,
+              1718,
+              107
+            ],
+            "text": "Collection file-EXAMPLE_DOCUMENT_1 already exists.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              106,
+              1718,
+              126
+            ],
+            "text": "INFO: 192.0.2.177 - \"GET /api/v1/chats/EXAMPLE_CHAT HTTP/1.1\" 200 OK",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              126,
+              1718,
+              146
+            ],
+            "text": "INFO: 192.0.2.177 - \"POST /api/v1/files/ HTTP/1.1\" 200 OK",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              145,
+              1718,
+              183
+            ],
+            "text": "INFO [open_webui.routers.retrieval] save_docs_to_vector_db: document Red_Hat_Migration_Toolkit.pdf EXAMPLE_DOCUMENT_2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              180,
+              1718,
+              202
+            ],
+            "text": "INFO [open_webui.routers.retrieval] Collection EXAMPLE_DOCUMENT_2 already exists.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              200,
+              1718,
+              222
+            ],
+            "text": "INFO [open_webui.routers.retrieval] adding to collection EXAMPLE_DOCUMENT_2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              10,
+              222,
+              1718,
+              239
+            ],
+            "text": "INFO: 192.0.2.177 - \"POST /api/v1/knowledge/EXAMPLE_DOCUMENT_2/file/add HTTP/1.1\" 200 OK",
+            "size": 11
+          }
+        ],
+        "output_sha256": "cd500df2aeeaa99c391eaa2d92bb3170437eba80b927c65f9ea2b1116647e47b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c23803ce5d428734a85711cd074920525d933909.png": {
+        "labels": [
+          {
+            "rectangle": [
+              735,
+              253,
+              1400,
+              301
+            ],
+            "text": "url='http://inference.example.com/api/chat'",
+            "size": 25
+          }
+        ],
+        "output_sha256": "e0eefeb70e1448dd19f2ccfc99f48c98bd6f88f6140278014753429e79f86e83"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/da4c7646f5ba10472779e00fa9c0704472155555.png": {
+        "labels": [
+          {
+            "rectangle": [
+              81,
+              266,
+              179,
+              294
+            ],
+            "text": "demo",
+            "size": 20
+          }
+        ],
+        "output_sha256": "81fdd36703f78b7d30230c1fe1bff15242bae7e2cbd1b6818d059b85154ce11c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbd63b45c3291e3d8a69fbfb9b39902e9be24468.png": {
+        "labels": [
+          {
+            "rectangle": [
+              665,
+              306,
+              724,
+              329
+            ],
+            "text": "demo-initiator",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              667,
+              382,
+              730,
+              405
+            ],
+            "text": "demo-initiator",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              697,
+              684,
+              920,
+              719
+            ],
+            "text": "iqn.1994-05.com.example:initiator",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              404,
+              384,
+              505,
+              410
+            ],
+            "text": "EXAMPLE_SERIAL",
+            "size": 10
+          }
+        ],
+        "output_sha256": "50b8ca17c3412b704fb84c0662ff1a43ca219eed017d8dfd8374d798d13f4272"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/edb55237dc9ff3dee674ecdc130d9abe5f210842.png": {
+        "labels": [
+          {
+            "rectangle": [
+              15,
+              26,
+              530,
+              51
+            ],
+            "text": "InitiatorName=iqn.1994-05.com.example:initiator",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              96,
+              84,
+              868,
+              108
+            ],
+            "text": "iqn.1992-08.com.example:storage:vs.4 (non-flash)",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              254,
+              108,
+              515,
+              131
+            ],
+            "text": "192.0.2.223:3260,1028",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              284,
+              128,
+              523,
+              151
+            ],
+            "text": "192.0.2.223:3260,1028",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              390,
+              242,
+              776,
+              266
+            ],
+            "text": "iqn.1994-05.com.example:initiator",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              348,
+              263,
+              487,
+              286
+            ],
+            "text": "192.0.2.177",
+            "size": 13
+          }
+        ],
+        "output_sha256": "3044b5ca0cd1a8549f59d8c2b5ef5894d65eeea19b5ee9e9a30b45c328cab32c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/025ff17827ef58cfdff3a231cf5336bce2e063f1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2065,
+              1280,
+              2270,
+              1322
+            ],
+            "text": "demo-ocp-vm",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2619,
+              1280,
+              2770,
+              1322
+            ],
+            "text": "demo-segment-a",
+            "size": 18
+          }
+        ],
+        "output_sha256": "3783eb2d7481f1624477281391b833977af351ab99fa62a52a35a95c864a40e1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0af5e485303be69eeab8825f95249f68e814195b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              50,
+              142,
+              77
+            ],
+            "text": "demo-ocp-vm",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              883,
+              294,
+              965,
+              318
+            ],
+            "text": "segment-a",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              129,
+              382,
+              315,
+              404
+            ],
+            "text": "demo-seattle-ce",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              926,
+              614,
+              1065,
+              638
+            ],
+            "text": "segment-b",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              640,
+              263,
+              738,
+              286
+            ],
+            "text": "02:00:5e:10:00:01",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              640,
+              295,
+              738,
+              317
+            ],
+            "text": "02:00:5e:10:00:02",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              726,
+              587,
+              822,
+              609
+            ],
+            "text": "02:00:5e:10:00:03",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              726,
+              618,
+              822,
+              640
+            ],
+            "text": "02:00:5e:10:00:04",
+            "size": 8
+          }
+        ],
+        "output_sha256": "b40d1eea5e318bf8ae7717c37e2c1ce019a65cf5a70dd99385eb5e720d304be7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/8/385bac0a9fcb45619009a5ddead4a07de3f5db82.png": {
+        "labels": [
+          {
+            "rectangle": [
+              301,
+              6,
+              850,
+              32
+            ],
+            "text": "http://inference.example.com/api/generate",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              301,
+              403,
+              850,
+              432
+            ],
+            "text": "http://inference.example.com/api/generate",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              301,
+              737,
+              850,
+              766
+            ],
+            "text": "http://inference.example.com/api/generate",
+            "size": 18
+          }
+        ],
+        "output_sha256": "237ad5485dff30fc6986b03cc412bf03774460b41585cc9b48013ebe9aeed3e5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c6f5a402b3930dc1a6e8a8632cb41956664618b8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              52,
+              215,
+              180,
+              240
+            ],
+            "text": "system/segment-a",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              448,
+              215,
+              740,
+              240
+            ],
+            "text": "system/segment-b",
+            "size": 13
+          }
+        ],
+        "output_sha256": "c91b0154e2d494e823a82f5cc3d27477738c38a340de3b63c34e0a472a23ed0f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/3/e383003bcd6c8f2fe24542b98d495247e75cf785.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              804,
+              10,
+              898,
+              47
+            ],
+            "text": "demo",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              69,
+              263,
+              162,
+              291
+            ],
+            "text": "demo",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              776,
+              1080,
+              945,
+              1117
+            ],
+            "text": "192.0.2.177",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1023,
+              1052,
+              1150,
+              1088
+            ],
+            "text": "demo-rosa",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1023,
+              1110,
+              1173,
+              1145
+            ],
+            "text": "192.0.2.154",
+            "size": 17
+          }
+        ],
+        "output_sha256": "ad23d4e03342cccedcb13a04655b5aa8b5572167f1cbfd63ce93aef8ffa15ba0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f82182696d9df3fc7781d8a9475adc72208b03eb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              5,
+              700,
+              40
+            ],
+            "text": "192.0.2.177:8080/c/EXAMPLE_CHAT",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              490,
+              299,
+              990,
+              335
+            ],
+            "text": "url='http://inference.example.com/api/chat'",
+            "size": 17
+          }
+        ],
+        "output_sha256": "fa88e269d19f3c6713bce18b07092081a864b9daefbfc73468d7db754a0d4a45"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/163daf6326e11a16b8fa35bfe41dc6edc52a5701.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0339e6ea543da14ca9d6d882a4fdc98c6d7a05548c96cf50fa72c6bbdde26b87"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d86a661cea89f315f929b270cc9cd443d8caf843.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e500d6aa220e3aaa60afb39fbe9caea700cf208ccee85d40e471a62339d8ea08"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9f59c39f1db88fc32441132c539ff635033f11f8.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8426712d9d40f9461e5abc1332d48eba9ecb5a6fa9841023562295acfde89970"
+      }
+    }
   }
 }
