@@ -1513,7 +1513,137 @@
   "70811": {
     "article_hash": "c063d98cf06a3938af44dcbd4a1d33e7a9d8015a5fedb95aa0fc4ac4edb61ce8",
     "decision": "include",
-    "reason": "Distributed Cloud CI/CD deployment and service-graph observability"
+    "reason": "Distributed Cloud CI/CD deployment and service-graph observability",
+    "privacy": "approved",
+    "privacy_reason": "Complete first-post prose and six images individually reviewed, including embedded console tiles. Distributed Cloud CI/CD governance, application topology and service graph are primary. Finance demo account suffix, faces, names and recipients removed or replaced; identifying external service label normalized. ArgoCD/CODESparks workflow, build/change/operate model, generic site placement, health colors and application metrics preserved. No customer data or credentials; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b236199288f00970192cad2895044c6d8c20e353.png": "513ab2d72a2336556b6f8257e9172263032c87526abbb7e5881f7864efa43a1f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd695a35873ef6a6dd6fe1e29c906ab9c476fcf4.png": "49415669ddbbca5c9960d8b252927d9971afd1647452e2a2ebbca7abb76b2d95",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e2f63059008cdcebe5420373e90f84687c2d2f01.jpeg": "c9bd0c5fdf830f9355587f9a6974156f95631788aff0b4ea8112a0df933b1e12",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/16a04386e8570b7be9a0b264fa10b59d7ec5e4e9.jpeg": "6659291a92e801784cb0f4d17853a5269a989c3609badd6a46b7ec2f74c701b0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/5/356e5dbc4a460f81a2c1e2bc65fe736c8c67b4ee.png": "9f09f29baa06539a3d5012dcf4f21d26ee97f6aa991fcac23438ed11b3c2e812",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/9/39d1cde62f39fadf84e66256ba055d38d7a452da.jpeg": "05dc82768b59ab7cc58338471633e858465c21e8a4d6e658e57b63960ce20092"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b236199288f00970192cad2895044c6d8c20e353.png": {
+        "rectangles": [
+          [
+            3308,
+            223,
+            3355,
+            269
+          ],
+          [
+            2354,
+            997,
+            2388,
+            1044
+          ],
+          [
+            2540,
+            997,
+            2570,
+            1044
+          ],
+          [
+            2720,
+            997,
+            2750,
+            1044
+          ],
+          [
+            2420,
+            227,
+            2490,
+            265
+          ],
+          [
+            3118,
+            793,
+            3190,
+            1080
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              2326,
+              1043,
+              2427,
+              1087
+            ],
+            "text": "User A",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2495,
+              1043,
+              2600,
+              1087
+            ],
+            "text": "User B",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2677,
+              1043,
+              2781,
+              1087
+            ],
+            "text": "User C",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3109,
+              795,
+              3183,
+              821
+            ],
+            "text": "User A",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              488,
+              1463,
+              774,
+              1508
+            ],
+            "text": "external.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "ef1d111269bc029086b96a97744c363e70fa4e613a7e9a178934e3aa57e3faaa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd695a35873ef6a6dd6fe1e29c906ab9c476fcf4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e064ba1155b8ea866114476f42bfbd2a48918034397de896df779a1e21920cc7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e2f63059008cdcebe5420373e90f84687c2d2f01.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2574f4263e9e60100bd1ab90ba12b3f87d5b6b865907054992f90cf7363c8047"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/6/16a04386e8570b7be9a0b264fa10b59d7ec5e4e9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0536448a622242b742b6a107c869f29f1740c2551fcdc0efaefdd9cb714e7be3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/5/356e5dbc4a460f81a2c1e2bc65fe736c8c67b4ee.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e5ba40a05900e622ac69af452fab0ccc85369fb010e6b53d90cf3681c5e67eda"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/9/39d1cde62f39fadf84e66256ba055d38d7a452da.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "799ee6ae843f749bc704ab19fe960859aec9c2c06bfab16c1d55436673f67043"
+      }
+    }
   },
   "70812": {
     "article_hash": "0a8ccc870ff870eef1b8df8de3b767ee9959986e3ccc98a5a3785da0e84291c8",
