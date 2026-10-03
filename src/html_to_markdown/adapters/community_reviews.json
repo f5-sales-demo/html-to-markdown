@@ -43643,5 +43643,1159 @@
         "output_sha256": "f4fccba86a8c0e88ff6807cc6c220fd1878949199937b93f367d3ea6ca2fbcb6"
       }
     }
+  },
+  "76600": {
+    "article_hash": "f7067c7e558fb70f910d9f68bec97779dd71b28a9a28bb6d71877627507059d1",
+    "decision": "include",
+    "reason": "Distributed Cloud CE Kubernetes pod service discovery and CNI routing guide",
+    "text_replacements": {
+      "nodes": {
+        "28bd4532f8f5555ec34b906c4e38ee409b801f3f8aa8ee7c3869b92ff18d0e5e": "VPC CIDR: 192.0.2.0/24",
+        "9823c5b016b0fc8e824dc7bebc246767bbbc03a36e4f9565f022e5f7631365d2": "One running with POD IP 192.0.2.116, another one with POD IP 192.0.2.76 and one running with POD IP 192.0.2.183.",
+        "6b830556599d78b07ecd5579c101f4d44d550da22ccee6aa65b8fb59e86161a8": "Figure 14: Testing connectivity to pod 192.0.2.116",
+        "88204456784793ee695e1bd59e38081cff292ea1d664cf1e9a10202035eb86cf": "Figure 15: Testing connectivity to pod 192.0.2.76",
+        "5a72f391f5dca84f50d448853cd3e24e08f8e0211299b64aeef33ee59647d49d": "Figure 16: Testing connectivity to pod 192.0.2.183",
+        "1db03011ecc679672d5af2cf7525ef5fcf372baa083424bc90d20aca72fc2e0d": "One infrastructure subnet (192.0.2.0/24) in which the following components are going to be deployed:",
+        "244447b01eff31f512fb6db56f040594924bcdd13557eb32f10e71b2b12bb0f7": "F5 XC CE single node (192.0.2.100)",
+        "e79ed8fba9d8d3f92b7fc27fef289840b9c0cb5818595bc8d84489c981687127": "Two Linux Ubuntu nodes (192.0.2.10 & 192.0.2.11)",
+        "80df79785fedb55d061572cc15be1c9c0bb51826105130e0414b1bc751b7d980": "PODs overlay subnet: 198.51.100.0/24",
+        "fbb0b6866c588414ac438a34b86f44c47f93ea9cd757ecc5495e8deac63a4269": "Services overlay subnet: 203.0.113.0/25",
+        "79d15cf642f5876351377a76d5340dd606e2d320bb1448d4459ea3afb2abb7f6": "One running on node \u201ck3s-1\u201d with POD IP 198.51.100.203 and the other one running on node \u201ck3s-2\u201d with POD IP 198.51.100.208.",
+        "7af6197d1d1563d1d55eb998499f4f495c1902b29921f46c8d5f8874a815c59b": "curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE=\"644\" \\\n  INSTALL_K3S_EXEC=\"--flannel-backend=none \\\n  --disable-network-policy \\\n  --disable=traefik \\\n  --disable servicelb \\\n  --cluster-cidr=198.51.100.0/24 \\\n  --service-cidr=203.0.113.0/25\" sh -\n\n# Export kubeconfig\nexport KUBECONFIG=/etc/rancher/k3s/k3s.yaml\n\n# Get token for worker nodes\nsudo cat /var/lib/rancher/k3s/server/node-token\n",
+        "4f49055ab3ba99ef6fa41c8814abeecdf0f5c73f21e0ad8460a26741c2e9447c": "IP_MASTER=192.0.2.10\nK3S_TOKEN=<token-from-master>\ncurl -sfL https://get.k3s.io | K3S_URL=https://${IP_MASTER}:6443 K3S_TOKEN=${K3S_TOKEN} sh -\n",
+        "9cbc70f5239d8ac13d39b973a9a9b20a8aea8467b6f05d855d3b09d1193ea874": "helm repo add cilium https://helm.cilium.io/\nhelm install cilium cilium/cilium --version 1.16.5 \\\n  --set=ipam.operator.clusterPoolIPv4PodCIDRList=\"198.51.100.0/24\" \\\n  --set kubeProxyReplacement=true \\\n  --set k8sServiceHost=192.0.2.10 \\\n  --set k8sServicePort=6443 \\\n  --set bgpControlPlane.enabled=true \\\n  --namespace kube-system \\\n  --set bpf.hostLegacyRouting=false \\\n  --set bpf.masquerade=true\n\n# Monitor installation\ncilium status --wait\n",
+        "785aeb76e88443c1b6459dfe86fdd915740bf39b4f4a381a3e02ab1e78896acb": "# BGP Cluster Config\napiVersion: cilium.io/v2alpha1\nkind: CiliumBGPClusterConfig\nmetadata:\n  name: cilium-bgp\nspec:\n  nodeSelector:\n    matchLabels:\n      bgp: \"true\"\n  bgpInstances:\n  - name: \"k3s-instance\"\n    localASN: 64496\n    peers:\n    - name: \"f5xc-ce\"\n      peerASN: 64497\n      peerAddress: 192.0.2.100\n      peerConfigRef:\n        name: \"cilium-peer\"\n---\n# BGP Peer Config\napiVersion: cilium.io/v2alpha1\nkind: CiliumBGPPeerConfig\nmetadata:\n  name: cilium-peer\nspec:\n  timers:\n    holdTimeSeconds: 9\n    keepAliveTimeSeconds: 3\n  gracefulRestart:\n    enabled: true\n    restartTimeSeconds: 15\n  families:\n  - afi: ipv4\n    safi: unicast\n    advertisements:\n      matchLabels:\n        advertise: \"bgp\"\n---\n# BGP Advertisement\napiVersion: cilium.io/v2alpha1\nkind: CiliumBGPAdvertisement\nmetadata:\n  name: bgp-advertisements\n  labels:\n    advertise: bgp\nspec:\n  advertisements:\n  - advertisementType: \"PodCIDR\"\n"
+      },
+      "output_sha256": "443e56bd6428ed6d681fed77cf20f77b20ac23e3740cd8c0fe921ccdf7aa5afb"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose, scripts and twenty-eight static diagrams and screenshots; synthetic infrastructure, pod and service addresses, personal terminal prompts and CE site labels; reserved ASNs; preserved Kubernetes discovery, CNI architecture, BGP fields, ping success and scaling output; kubeconfig contents absent and worker token placeholder only; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/0/c/0cda33e53890ad8b9c1d5b2de9ee1ea36b0bd0b2_2_690x57.png": "5b25ec73a1f74ab205b5236859e5aa523f86f04eafa030d91c0ceeb718e261cc",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/a/3/a3ddb8e82eb9505cb6587d091b7b1426ccd8499e_2_690x69.png": "dc1ad2e55170e6156c0c4733b6083f114e50e9e698586b6d8c9c03b5a992a03d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/08ed33ef85df0754a16da4880d476cd3908dd1e0.jpeg": "0c54394c8fd7dab0877c413feea068b53e3295e43d0203f47d64ef559920e276",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1743391805e45d5d045cc1cfb4cd79d47a89713e.png": "2ba7042ad3eaf1ebea756affe3a53bcbd4a461baec74e6c30c83961a1b95d9e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3893d12b118a1f9ce38bfd6fb23feaa129255ee3.png": "b359c48c4b95366e3d61df756e0298678ca54dec18adc7be1ccccd4e092de18d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/481fd0303f1354c872049beccfbf714bcae57b25.png": "10dd95cb2ec88d99993aaee2eeee1ce4be6fa0a2b8e403c1e4f4629719ba0ea8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/485adea10d0550f5c70959ec62cbf25b378e7d21.png": "ba417ba39bd1b18210ef69b8f91c0496ec60301da35afbcd58dc0feb56f56ad9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5e9d4fa08d6009ec3595d627cb377329129e8bbc.png": "76446941ae06a0ac1e7886fb34f448a5ee06c6560c182423c9aa12d66d56ac15",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/604e3015f94bf6e548a58781cf98b8f6d46937f3.png": "49703de8a65aa73b2d6d2c0fcbbe6da33bead0152d9d3609a90a7206637abaf6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/689687f60ba47072d55bc409ec3fd61fba4a6287.png": "77b5e78a4571cad9a3a5616690ea1047b86c94d4b01d81c6b3d1181997c44950",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/69c312e18b58b367a6ff6caa97c44f68d49db4e8.jpeg": "4ebcff05722f24f0fc5dcb8acb79d7530eadd3b62119c6579103c5e5161a8d8b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/823597996da300e3faffdbd7ede0090e0864aba1.png": "575f175abc489fa55dd00b4194202f04445667d4fff063c39127e35b161e44ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ace6eae9518e7980213335506661576afd227a1f.png": "ee521d38776202d9bd70c028e96c578000be349a4b1357d494d2db8e3bca5d04",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b195deb4343d0d771347db90e67d04d79619180f.png": "b7b7d6772a8e9ddbca0fa18e1cbd81f29412cb5f3c6c0def2a84d1f54b1fb687",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd1cfe7c5aa8304226e1159445d4e1109b020ac0.png": "d6dea899b17fd1d1e8d5d1ff8853548d396ee32d635213c70e5a09fc60fc640e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc10793f81dad835c5ed6ee3f9bce4755d397a2d.png": "6932a916abc6ed0220da6bf92ddcaa6247f05b69b9fe1f407d3b73638fcea938",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e6c0bc2f2da689635f53c0d1ce797db1b72fdb49.png": "e5d9a9c5346e68f3520bf54f585ab00cc2e25abe078677523bc0e9218efe161d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff61c2b4b05ea2dd42c6fb862aace41003de5cee.png": "1a00279a06318b70073fceef5c79229cedb737773b72585fa240992edf632b6d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/8/18a07158b9a13cb7605988de7fa1427816cd074d.png": "3d9d303513a60c0d1a3db59aed88d6f2f924d99be2308290e07bb9b6be4fcfcd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2eef56571fe3200fa63995332f6cf576b499970d.png": "d193f17126413ae23eb88b4b8343e8c3d769ff734be09926e902a03603f3a22d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/b/4b27319746d56db25c50effd7050682490f3a813.png": "c0ad0463c63f7bfb97219d862ddc864646676bf086928e8f3ad9ca05f32bbddf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c8b648bfc87a6392edf5945b3ca1cc924797df7.jpeg": "e630b72ae61ae29e62d43dff02c017bb9008b5cae42e035df319c80f9fccab0e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/c/6cc510817d996f39f6aefb0849425ea70c249d2a.png": "83d5f8a522793ed8c8578a6f2b5a5e4b3dd8113511449bccdd2581b3994f7098",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aaedc3385ac0fc1a13218f226a7d63f5da36e57f.png": "026c506a3bf99e546ead647f9b9e1d9f8a04ef57fe94b8fefd4380691c6c723f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/5/e5d61a9011bdf09f9b4922460ad68e1e5f0794ed.png": "f285b74cb907b7816b4ff1a64a4093c41f0693c4248086ec3128b336b79e43bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/efa0529240dbc6492362d26eb0262263f9cbb4f6.png": "def7a2e76647af15ce3796e693188851a565c08b1a7b3d79531b5832b45f1edc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f548094ad025f3de30c5dee293db9178d3ca104d.png": "9fc771dab18eecf56b1592d74bff418685141b93bccb10d5c09d2f029d2fc272",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fe5472ff6584324e65fcf287dccd05e0d70bd527.png": "ddf15f06125ec7be792ec0eb7cc3bf17ec6850e621d74373d58fb0ca7e389b93"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/0/c/0cda33e53890ad8b9c1d5b2de9ee1ea36b0bd0b2_2_690x57.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              88,
+              12
+            ],
+            "text": "demo@k3s-1:~$",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              0,
+              46,
+              89,
+              57
+            ],
+            "text": "demo@k3s-1:~$",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              372,
+              21,
+              458,
+              35
+            ],
+            "text": "198.51.100.203",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              372,
+              33,
+              458,
+              46
+            ],
+            "text": "198.51.100.208",
+            "size": 8
+          }
+        ],
+        "output_sha256": "6bdb45d4726ab6f80b354a12ab1aaffedf10d09578682ad6c9fa315dd3750392"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/a/3/a3ddb8e82eb9505cb6587d091b7b1426ccd8499e_2_690x69.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              104,
+              15
+            ],
+            "text": "demo@k3s-1:~$",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              245,
+              27,
+              357,
+              43
+            ],
+            "text": "203.0.113.1",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              245,
+              41,
+              357,
+              57
+            ],
+            "text": "203.0.113.111",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              245,
+              53,
+              357,
+              69
+            ],
+            "text": "203.0.113.23",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              360,
+              53,
+              438,
+              69
+            ],
+            "text": "192.0.2.2",
+            "size": 9
+          }
+        ],
+        "output_sha256": "6fa3e4f784ac5f93d7af258d6dd6ed5a5655b3b241f14869828affcf9b8d5ea9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/08ed33ef85df0754a16da4880d476cd3908dd1e0.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              240,
+              339,
+              470,
+              383
+            ],
+            "text": "192.0.2.0/24",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              464,
+              626,
+              708,
+              669
+            ],
+            "text": "192.0.2.0/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              464,
+              1564,
+              714,
+              1609
+            ],
+            "text": "192.0.2.32/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1438,
+              1564,
+              1688,
+              1609
+            ],
+            "text": "192.0.2.64/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              2413,
+              1564,
+              2663,
+              1609
+            ],
+            "text": "192.0.2.96/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              476,
+              1900,
+              726,
+              1945
+            ],
+            "text": "192.0.2.32/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1413,
+              1900,
+              1663,
+              1945
+            ],
+            "text": "192.0.2.64/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              2397,
+              1900,
+              2647,
+              1945
+            ],
+            "text": "192.0.2.96/27",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1166,
+              458,
+              1284,
+              491
+            ],
+            "text": "198.51.100.0/27",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1166,
+              1245,
+              1284,
+              1278
+            ],
+            "text": "198.51.100.0/27",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1166,
+              496,
+              1284,
+              529
+            ],
+            "text": "198.51.100.32/27",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1166,
+              1283,
+              1284,
+              1316
+            ],
+            "text": "198.51.100.32/27",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1166,
+              534,
+              1284,
+              567
+            ],
+            "text": "198.51.100.64/27",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1166,
+              1321,
+              1284,
+              1354
+            ],
+            "text": "198.51.100.64/27",
+            "size": 11
+          }
+        ],
+        "output_sha256": "53cf4f5003481f3e72b0604bdaaf33429217337d658d1b86dd0bfb2afde2a529"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3893d12b118a1f9ce38bfd6fb23feaa129255ee3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              740,
+              19
+            ],
+            "text": "demo@workstation ~ % curl https://eks.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              0,
+              340,
+              740,
+              359
+            ],
+            "text": "demo@workstation ~ % curl https://eks.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              0,
+              680,
+              740,
+              699
+            ],
+            "text": "demo@workstation ~ % curl https://eks.example.com",
+            "size": 13
+          }
+        ],
+        "output_sha256": "3e321dd2b48a2ec18ed51e951e55cf09a4597172c80f8d26645e2f78b3b2ed1e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/481fd0303f1354c872049beccfbf714bcae57b25.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              590,
+              14
+            ],
+            "text": "demo@k3s-1:~$ kubectl get deployment",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              48,
+              590,
+              62
+            ],
+            "text": "demo@k3s-1:~$ kubectl scale --replicas=3 deployment microbot",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              78,
+              590,
+              92
+            ],
+            "text": "demo@k3s-1:~$ kubectl get pods -o wide -n default",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              148,
+              590,
+              162
+            ],
+            "text": "demo@k3s-1:~$",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              493,
+              106,
+              599,
+              123
+            ],
+            "text": "198.51.100.175",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              493,
+              121,
+              599,
+              138
+            ],
+            "text": "198.51.100.203",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              493,
+              136,
+              599,
+              153
+            ],
+            "text": "198.51.100.208",
+            "size": 9
+          }
+        ],
+        "output_sha256": "11c879de256cecebcada2aef12b5c14d72a7b5205da1e7612bfd8d8eb6cd5b7d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/485adea10d0550f5c70959ec62cbf25b378e7d21.png": {
+        "labels": [
+          {
+            "rectangle": [
+              55,
+              94,
+              173,
+              131
+            ],
+            "text": "demo-eks",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              641,
+              136,
+              765,
+              167
+            ],
+            "text": "demo-eks",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              753,
+              811,
+              1133,
+              861
+            ],
+            "text": "system/demo-aws-ce",
+            "size": 27
+          }
+        ],
+        "output_sha256": "72e01866996f1d083295b923db2799f3ffbcfb43d27df06000f21a571a57fe3e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5e9d4fa08d6009ec3595d627cb377329129e8bbc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              331,
+              16,
+              475,
+              40
+            ],
+            "text": "203.0.113.217",
+            "size": 15
+          }
+        ],
+        "output_sha256": "67541a82bb3353e6e4c8d2bf7e99ec33ac6da38d09e844cbd576b8c099863f15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/689687f60ba47072d55bc409ec3fd61fba4a6287.png": {
+        "labels": [
+          {
+            "rectangle": [
+              896,
+              379,
+              1100,
+              408
+            ],
+            "text": "demo-aws-ce",
+            "size": 20
+          }
+        ],
+        "output_sha256": "e926087b4cc7202ffa25ad9c3a98e37c584a027ce55ead61d0f50e161c2b990e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/69c312e18b58b367a6ff6caa97c44f68d49db4e8.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              908,
+              26
+            ],
+            "text": "demo@workstation ~ % curl https://k8s.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              419,
+              908,
+              445
+            ],
+            "text": "demo@workstation ~ % curl https://k8s.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              840,
+              908,
+              864
+            ],
+            "text": "demo@workstation ~ %",
+            "size": 17
+          }
+        ],
+        "output_sha256": "857fa4a448a5f3131dfce796c0b78b32d14c2cb1fc0c4304b9fe2a19dc7c19f3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ace6eae9518e7980213335506661576afd227a1f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              956,
+              344,
+              1150,
+              378
+            ],
+            "text": "198.51.100.203",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              956,
+              395,
+              1150,
+              429
+            ],
+            "text": "198.51.100.208",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              956,
+              522,
+              1150,
+              556
+            ],
+            "text": "198.51.100.203",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              956,
+              574,
+              1150,
+              608
+            ],
+            "text": "198.51.100.208",
+            "size": 22
+          }
+        ],
+        "output_sha256": "512957063070e89dfa0609d794b9803f243ce0bc3b30b7792d9ba21e7d69ddf8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b195deb4343d0d771347db90e67d04d79619180f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              13,
+              58,
+              150,
+              89
+            ],
+            "text": "demo-bgp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              418,
+              57,
+              568,
+              87
+            ],
+            "text": "demo-bgp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              491,
+              176,
+              707,
+              204
+            ],
+            "text": "system/demo-ce",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              409,
+              305,
+              460,
+              330
+            ],
+            "text": "64498",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              691,
+              554,
+              744,
+              581
+            ],
+            "text": "64497",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              866,
+              554,
+              972,
+              581
+            ],
+            "text": "192.0.2.10",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              691,
+              598,
+              744,
+              625
+            ],
+            "text": "64497",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              866,
+              598,
+              972,
+              625
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          }
+        ],
+        "output_sha256": "739ad5b983978322effc3fef3e99f99857d6c8da0df2de4096ee704c66c491a0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc10793f81dad835c5ed6ee3f9bce4755d397a2d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              13,
+              74,
+              250,
+              101
+            ],
+            "text": "demo-aws-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              13,
+              152,
+              250,
+              181
+            ],
+            "text": "192.0.2.183",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              0,
+              552,
+              350,
+              581
+            ],
+            "text": "--- 192.0.2.183 ping statistics ---",
+            "size": 14
+          }
+        ],
+        "output_sha256": "7e40bf6d2cda60707564cdb7fb9d3744d060e95469372caa57062d7f4af9d51a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e6c0bc2f2da689635f53c0d1ce797db1b72fdb49.png": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              0,
+              448,
+              28
+            ],
+            "text": ">>> ping 198.51.100.203",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              4,
+              48,
+              448,
+              76
+            ],
+            "text": "--- 198.51.100.203 ping statistics ---",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              4,
+              120,
+              448,
+              148
+            ],
+            "text": ">>> ping 198.51.100.208",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              4,
+              168,
+              448,
+              196
+            ],
+            "text": "--- 198.51.100.208 ping statistics ---",
+            "size": 21
+          }
+        ],
+        "output_sha256": "f914c2fbd2e60f6a015a684cf0e06f972dc6d1a016e38d662083c91c818dbf4c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff61c2b4b05ea2dd42c6fb862aace41003de5cee.png": {
+        "labels": [
+          {
+            "rectangle": [
+              730,
+              232,
+              868,
+              262
+            ],
+            "text": "192.0.2.116",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              730,
+              264,
+              868,
+              294
+            ],
+            "text": "192.0.2.76",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              730,
+              296,
+              868,
+              326
+            ],
+            "text": "192.0.2.183",
+            "size": 13
+          }
+        ],
+        "output_sha256": "129533fb1d5dee88f6e6231b6f6bb7ca0716d2b637be393f4d016376589090a0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/8/18a07158b9a13cb7605988de7fa1427816cd074d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              93,
+              5,
+              321,
+              34
+            ],
+            "text": "demo-ce",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              225,
+              658,
+              350,
+              687
+            ],
+            "text": "192.0.2.100,",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              477,
+              658,
+              535,
+              687
+            ],
+            "text": "64498",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              42,
+              803,
+              149,
+              831
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              233,
+              803,
+              287,
+              831
+            ],
+            "text": "64497",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              42,
+              827,
+              149,
+              855
+            ],
+            "text": "192.0.2.11",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              233,
+              827,
+              287,
+              855
+            ],
+            "text": "64497",
+            "size": 14
+          }
+        ],
+        "output_sha256": "c0c28cbd5794f1cf81a5a19226c50b7adad13e09e67bdd71505265c4b1c116d6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2eef56571fe3200fa63995332f6cf576b499970d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              40,
+              252,
+              250,
+              281
+            ],
+            "text": "demo-aws-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              40,
+              327,
+              250,
+              356
+            ],
+            "text": "192.0.2.116",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              0,
+              697,
+              345,
+              724
+            ],
+            "text": "--- 192.0.2.116 ping statistics ---",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              72,
+              0,
+              271,
+              27
+            ],
+            "text": "demo-aws-ce",
+            "size": 15
+          }
+        ],
+        "output_sha256": "b5cb48a0a3bdad4e89066932eb71e25c0148bee57d4d7d41993ff255b02e8faa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/b/4b27319746d56db25c50effd7050682490f3a813.png": {
+        "labels": [
+          {
+            "rectangle": [
+              630,
+              0,
+              796,
+              21
+            ],
+            "text": "192.0.2.116",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              798,
+              0,
+              1244,
+              21
+            ],
+            "text": "eks-node-1.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              630,
+              20,
+              796,
+              41
+            ],
+            "text": "192.0.2.76",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              798,
+              20,
+              1244,
+              41
+            ],
+            "text": "eks-node-2.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              630,
+              40,
+              796,
+              61
+            ],
+            "text": "192.0.2.183",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              798,
+              40,
+              1244,
+              61
+            ],
+            "text": "eks-node-3.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "ff1907ddb16aa6320d1e16b616132cd620843bfca2ed47660aa961b0a756d7a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c8b648bfc87a6392edf5945b3ca1cc924797df7.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              908,
+              26
+            ],
+            "text": "demo@workstation ~ % curl https://k8s.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              416,
+              908,
+              442
+            ],
+            "text": "demo@workstation ~ % curl https://k8s.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              830,
+              908,
+              856
+            ],
+            "text": "demo@workstation ~ % curl https://k8s.example.com",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              1236,
+              908,
+              1262
+            ],
+            "text": "demo@workstation ~ %",
+            "size": 17
+          }
+        ],
+        "output_sha256": "035b4260c18b8849e4b121b263a77ff3c7ad900931b98a88520a14cc2d7e99fe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/c/6cc510817d996f39f6aefb0849425ea70c249d2a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              295,
+              91,
+              480,
+              125
+            ],
+            "text": "192.0.2.0/24",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              325,
+              140,
+              455,
+              167
+            ],
+            "text": "(192.0.2.10)",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              325,
+              529,
+              455,
+              556
+            ],
+            "text": "(192.0.2.11)",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              80,
+              295,
+              177,
+              316
+            ],
+            "text": "(192.0.2.100)",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              280,
+              283,
+              450,
+              311
+            ],
+            "text": "198.51.100.0/24",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              280,
+              667,
+              450,
+              695
+            ],
+            "text": "198.51.100.0/24",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              300,
+              304,
+              463,
+              330
+            ],
+            "text": "203.0.113.0/25",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              300,
+              688,
+              463,
+              715
+            ],
+            "text": "203.0.113.0/25",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              340,
+              326,
+              475,
+              351
+            ],
+            "text": "203.0.113.128/25",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              340,
+              710,
+              475,
+              736
+            ],
+            "text": "203.0.113.128/25",
+            "size": 13
+          }
+        ],
+        "output_sha256": "f20be7c8b1691c256290a8ca3e789236a821afd7a3a54bafc9b681654abfd00b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/e/fe5472ff6584324e65fcf287dccd05e0d70bd527.png": {
+        "labels": [
+          {
+            "rectangle": [
+              13,
+              73,
+              250,
+              102
+            ],
+            "text": "demo-aws-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              13,
+              150,
+              250,
+              179
+            ],
+            "text": "192.0.2.76",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              0,
+              552,
+              350,
+              581
+            ],
+            "text": "--- 192.0.2.76 ping statistics ---",
+            "size": 14
+          }
+        ],
+        "output_sha256": "aaf4ee2453ca5152fabe2c9a9d020fcb3b48ce4aecb3abefe02c7fa71b50a445"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1743391805e45d5d045cc1cfb4cd79d47a89713e.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f751873abfd3fdfe566d7b0cc6c6a7a4f5c30f7d8fba08849469d536496d9a81"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/823597996da300e3faffdbd7ede0090e0864aba1.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "80a8f8cb969702bba52f1496acb69b13dfb1f913802283f1f751e7d12c1b7418"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/a/aaedc3385ac0fc1a13218f226a7d63f5da36e57f.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cc1b353fce5c7917336b86ce02ad9c3f21d47d29dd86d8722aa8efeff48daee2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/5/e5d61a9011bdf09f9b4922460ad68e1e5f0794ed.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3fe4c3b688cf2127ac06894d8e742e2694e10e56b7b31717449e465d75051a4b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f548094ad025f3de30c5dee293db9178d3ca104d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7d363e902c9c2c38dec4734e5a6b3086ee5f8fea045a67221cd1eebe80c0da6b"
+      }
+    }
   }
 }
