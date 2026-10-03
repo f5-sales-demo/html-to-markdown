@@ -14851,5 +14851,85 @@
         "output_sha256": "f89332a56ec0832e7e426a6a33389ca196ec982501b4324b6b736d9a89475458"
       }
     }
+  },
+  "76448": {
+    "article_hash": "426020e556a7218694330d88036fca27a33c9005bef43ee7c9484cf17c2af679",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and four images individually reviewed, including enlarged embedded architecture dashboards. Exporter instructions contain no entered token or tenant values. Console avatars removed and runtime container IDs normalized; wildcard listener addresses, Docker image names, commands, ports, metrics, graphs and complete architecture preserved. No customer payload or identifying dashboard labels; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1daedb0718c4a46563186648af3893771c7bf4af.png": "65ad8afcf580bfa1a349bb24a8ba6c9e0283448c9c9ea83080121461a3b59edb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4901908609169cb4899af32d410b97c9055b2a18.jpeg": "11a6363c03234686e556f1e643f0da095497f986b6346e4b517f872dc2ac1e63",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5dda062382b4c081b96efbbf4e67ad36ec029fd0.png": "f47116f229cb92776b52355cd12248a534623b0efa499a96ed82ecdd5be11a0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/7/e76b716a0e28854e7f145b3688b82e574d7200c3.png": "8b1268a8385886e3853cb176ef341f48d14b9308a4a5d238448f6fc919968388"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1daedb0718c4a46563186648af3893771c7bf4af.png": {
+        "rectangles": [
+          [
+            3358,
+            15,
+            3456,
+            78
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "6592eebe9b33be186295391b05cff635f298c6b0ea03bd14f0b129d16ca44948"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5dda062382b4c081b96efbbf4e67ad36ec029fd0.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              132,
+              284,
+              182
+            ],
+            "text": "example-logstash",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              0,
+              266,
+              284,
+              316
+            ],
+            "text": "example-kibana",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              0,
+              399,
+              284,
+              449
+            ],
+            "text": "example-search",
+            "size": 26
+          }
+        ],
+        "output_sha256": "27f2e211672ff713ccdc31461129dd868174fb3585c3e5dea3a0aa6550f5527a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/7/e76b716a0e28854e7f145b3688b82e574d7200c3.png": {
+        "rectangles": [
+          [
+            3358,
+            0,
+            3456,
+            44
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "614c9b18f8780ba5ee18500159b7a3648db97b6d65d0cdeb25da05ca4b477084"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4901908609169cb4899af32d410b97c9055b2a18.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "12547509e39855c58ca8fb9977f0a4016ad3fccd4ea5909218f22aaa882ac09b"
+      }
+    }
   }
 }
