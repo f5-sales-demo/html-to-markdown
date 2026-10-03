@@ -11387,5 +11387,760 @@
         "output_sha256": "e3f4a40fe5fc8d9adf76d2e24047c7f57e7fd9904cf612e3134b0b067099b470"
       }
     }
+  },
+  "71879": {
+    "article_hash": "a8075dc45232b73d19f5162b6f56f2e3a02ebfc1047e9792fe935d23dc9adc88",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Sumo Logic logging guide and four images; all request IDs, source addresses and destination domains made synthetic in both dashboard and video still; account identity and embedded console avatar removed; attack categories and regional aggregates retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": "0451114a67c06d8236bb7e2249913b35b6660a1d5d8648f1dcd3a6378a00c6c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/092802fe12f782f076911c2f82fd815eeca94242.png": "55142de5b6cf783f5ad1fcebe237bc8bd5fe7ee60af6bce34e1d0d0d14c53301",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a0ae5378702f52b0375d8abd4d8a8386fa07cd3.png": "810823c99e1cfcd23dfed700b1b96646aa84d0c1740fa1fb7550d146661c574d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/c/bc60a27d9e0d6d5c457c5fe34b92135ce350e2f0.jpeg": "e02a59c9a893796f18d68696c88c2a07e646feac10c0e1c365e16370dcfbaa34"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/092802fe12f782f076911c2f82fd815eeca94242.png": {
+        "rectangles": [
+          [
+            0,
+            1690,
+            450,
+            1754
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1027,
+              1232,
+              1515,
+              1274
+            ],
+            "text": "example-request-1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1232,
+              1779,
+              1274
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1232,
+              2156,
+              1274
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1286,
+              1515,
+              1328
+            ],
+            "text": "example-request-2",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1286,
+              1779,
+              1328
+            ],
+            "text": "192.0.2.2",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1286,
+              2156,
+              1328
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1340,
+              1515,
+              1382
+            ],
+            "text": "example-request-3",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1340,
+              1779,
+              1382
+            ],
+            "text": "192.0.2.3",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1340,
+              2156,
+              1382
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1394,
+              1515,
+              1436
+            ],
+            "text": "example-request-4",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1394,
+              1779,
+              1436
+            ],
+            "text": "192.0.2.4",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1394,
+              2156,
+              1436
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1448,
+              1515,
+              1490
+            ],
+            "text": "example-request-5",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1448,
+              1779,
+              1490
+            ],
+            "text": "192.0.2.5",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1448,
+              2156,
+              1490
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1502,
+              1515,
+              1544
+            ],
+            "text": "example-request-6",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1502,
+              1779,
+              1544
+            ],
+            "text": "192.0.2.6",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1502,
+              2156,
+              1544
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1027,
+              1557,
+              1515,
+              1599
+            ],
+            "text": "example-request-7",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1544,
+              1557,
+              1779,
+              1599
+            ],
+            "text": "192.0.2.7",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1815,
+              1557,
+              2156,
+              1599
+            ],
+            "text": "app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "21132dd61b77d436b55b50262d4f3c4e21a37b4768fc3e35f3aaed188fc20a8e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/c/bc60a27d9e0d6d5c457c5fe34b92135ce350e2f0.jpeg": {
+        "rectangles": [
+          [
+            0,
+            651,
+            177,
+            680
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              369,
+              486,
+              544,
+              502
+            ],
+            "text": "example-request-1",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              486,
+              640,
+              502
+            ],
+            "text": "192.0.2.1",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              486,
+              779,
+              502
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              506,
+              544,
+              522
+            ],
+            "text": "example-request-2",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              506,
+              640,
+              522
+            ],
+            "text": "192.0.2.2",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              506,
+              779,
+              522
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              525,
+              544,
+              541
+            ],
+            "text": "example-request-3",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              525,
+              640,
+              541
+            ],
+            "text": "192.0.2.3",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              525,
+              779,
+              541
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              544,
+              544,
+              560
+            ],
+            "text": "example-request-4",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              544,
+              640,
+              560
+            ],
+            "text": "192.0.2.4",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              544,
+              779,
+              560
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              563,
+              544,
+              579
+            ],
+            "text": "example-request-5",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              563,
+              640,
+              579
+            ],
+            "text": "192.0.2.5",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              563,
+              779,
+              579
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              582,
+              544,
+              598
+            ],
+            "text": "example-request-6",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              582,
+              640,
+              598
+            ],
+            "text": "192.0.2.6",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              582,
+              779,
+              598
+            ],
+            "text": "app.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              369,
+              602,
+              544,
+              618
+            ],
+            "text": "example-request-7",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              550,
+              602,
+              640,
+              618
+            ],
+            "text": "192.0.2.7",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              649,
+              602,
+              779,
+              618
+            ],
+            "text": "app.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "8e8cd48f4e3fdd12dbb5816d74c1de7388a1ded280708c10321b8148345baab3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": {
+        "rectangles": [
+          [
+            2310,
+            32,
+            2340,
+            63
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "8f7adb7bd3c87b66ddac83daaa461efc2c9d2dbd39079a001ae8edfd88bb4188"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a0ae5378702f52b0375d8abd4d8a8386fa07cd3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9d81b1a75dd794178ae09e234d5dda5099a196b7e0d23a3ffba3a4e78ebade44"
+      }
+    }
+  },
+  "71880": {
+    "article_hash": "f2ad0591fe121631b37d1ab59c77b93891aa9412eb8e4018124a262cd689f127",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected New Relic logging guide and four images; event IDs, source addresses and destination domains made synthetic, account and presenter attribution removed along with embedded console avatar; log delivery architecture, category charts and event actions retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71050c8bd238d148bf4ee3198bba60f6269fa6a0.png": "d91164ea9b8d612d15d6c47e463f753be87f28c9284ddd2e043a120717572604",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7648082ee9a37e8c3c1b7e55b16c3383387732f3.jpeg": "40f9ffbd59ef2d484526a702a5ce1beaa63856be2dc09d0e3990b80e229e300f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": "0451114a67c06d8236bb7e2249913b35b6660a1d5d8648f1dcd3a6378a00c6c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9cc5b6f321642ac17ae2754ae6e437b0586db0aa.jpeg": "f93088df85717acfd06af6344b3db7bac773badba82d6bcd8c52a0d2eb9ea8ec"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71050c8bd238d148bf4ee3198bba60f6269fa6a0.png": {
+        "rectangles": [
+          [
+            0,
+            1625,
+            390,
+            1738
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1812,
+              1261,
+              2074,
+              1301
+            ],
+            "text": "example-request-1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1261,
+              2319,
+              1301
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1261,
+              2576,
+              1301
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1312,
+              2074,
+              1352
+            ],
+            "text": "example-request-2",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1312,
+              2319,
+              1352
+            ],
+            "text": "192.0.2.2",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1312,
+              2576,
+              1352
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1360,
+              2074,
+              1400
+            ],
+            "text": "example-request-3",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1360,
+              2319,
+              1400
+            ],
+            "text": "192.0.2.3",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1360,
+              2576,
+              1400
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1411,
+              2074,
+              1451
+            ],
+            "text": "example-request-4",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1411,
+              2319,
+              1451
+            ],
+            "text": "192.0.2.4",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1411,
+              2576,
+              1451
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1459,
+              2074,
+              1499
+            ],
+            "text": "example-request-5",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1459,
+              2319,
+              1499
+            ],
+            "text": "192.0.2.5",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1459,
+              2576,
+              1499
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1508,
+              2074,
+              1548
+            ],
+            "text": "example-request-6",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1508,
+              2319,
+              1548
+            ],
+            "text": "192.0.2.6",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1508,
+              2576,
+              1548
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1812,
+              1558,
+              2074,
+              1598
+            ],
+            "text": "example-request-7",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2076,
+              1558,
+              2319,
+              1598
+            ],
+            "text": "192.0.2.7",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2331,
+              1558,
+              2576,
+              1598
+            ],
+            "text": "app.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              983,
+              1495,
+              1208,
+              1539
+            ],
+            "text": "app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "c65d6e889fd4e658927f377049c33f395f36c97c74c78b53f48cd7cc7c402f37"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9cc5b6f321642ac17ae2754ae6e437b0586db0aa.jpeg": {
+        "rectangles": [
+          [
+            43,
+            411,
+            700,
+            490
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "108406ccdf38b22ad0988e9c769e47e77126ec63ab06ac10ef19f6fb088dc98a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f3181c0e0f4bd0225e38730e225778cdbea83153.png": {
+        "rectangles": [
+          [
+            2310,
+            32,
+            2340,
+            63
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "8f7adb7bd3c87b66ddac83daaa461efc2c9d2dbd39079a001ae8edfd88bb4188"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7648082ee9a37e8c3c1b7e55b16c3383387732f3.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "e524ecb8a294082e8d4cbae5ff7c2b9187bcd17dcf0b4c6801e19d729935eae9"
+      }
+    }
   }
 }
