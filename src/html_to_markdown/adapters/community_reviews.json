@@ -35081,5 +35081,466 @@
         "output_sha256": "5190289fb2c1777052fa2d27ff6962f291a2a1bb3206160b27580326555bf1db"
       }
     }
+  },
+  "69882": {
+    "article_hash": "733a3e77ddb44a6e05122ea3da509cd8d4565ebd10f6bbba3acb2e6a5d263a58",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and twenty-three static images; synthetic client addresses, TLS fingerprints, ASNs and city/country values consistently replace visitor identifiers; generic training user1 preserved; configuration, five-failure threshold, identifier types, suspicion timelines and challenges retained; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/41cbd9a5cfc856ff0f81cad1eb3152607750fc9f.png": "58954c7dc4beaf3ad0ee4ad0bacde36f4984e8050cfb56abd739efd197f35bb1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/056878e4d0b779ed9a802f1d934bd303c85e2789.png": "064a7ca778197ea46131fed3142f8ee38b43fec8b6fdc26753bcc8fb362d3ada",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/06390ce099e252f61433235f0ce38b6e93f00678.png": "e294f3a51ccfbc931ae2328eebd89faa676667a77d94ae73426d05510432e3f1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18ed2f456c3b8b5ec85bbd4767f76a96ad0cdc02.jpeg": "330fd35522e54bf98e1969230180ab7a172b8fb9aec890dd3e149f6f60961e62",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/381683703375844fe1c946da1fbcb076c45542d0.png": "a2fdffe61e2f66d4da07f041f0f658d9d9e9552c2d6fb258183d9101e95afb5e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/444a1bf23903a542883dae0b50cb58bc854bc677.png": "4f3802b7755940fcc660ed68ed6b81ab4d14e2c0d2d29bb79b560d1836e608ab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54dd15fb3e98335195fa58155662c80247cc1890.jpeg": "e6b8aafef593c8b316f46e2fe51db9cee9c9404e91642a70ce24ba2242b693e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/573190ef7e4a6e5be74c636753dd4ce3937b164d.jpeg": "249cf0d0fdce9a1f9ce968d6e4391ab3c33b015f5a95a050154df66f828e41af",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5b1f10c45bb3c129c8c1d335ab6194fe1f58a6e9.png": "db4e4cd892696942739d8dc5cd0eb6ac1d304c790f1d02bd6a2bd203ff366684",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6d21bb526a7f3d06c23bcd96edbdbc4a8ab02ac3.png": "e88ff57c0f5c9572a283d85ede5a190add89cb4e5823ff8edef12f1b82ac77eb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6f144a1dbf044a04157c2104b2a8137aea6e667a.png": "04d8a685518d661b0b6ea72d6866c8b17c964dd24c467b24a670e76c402a24ce",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7afb9893f583ef224ac26fe7af4fbe4e47a95668.png": "69c10d86bd86916988800196a9d3bbb69f4d487933e5be2e4b2a4fba3a779a05",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2578fe8b5a1e3dce04b00c41fb5035e84be6f5b.png": "fb8520a2d25545fb23f9a1b2f766f02bb5bd07f1d223699fd5110f113de20f10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c4ceabbe0567114673e711c6d18d2fe86e921381.png": "0be8bbe8249d29bceab462f23f15570c5ec4c4662cfaa6f01c7a8c52e05b802b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d1d00ee81650d724d2a24cecd1c576b52b0b6df3.jpeg": "0f87576959d4345a300616db6a33844787009fd5b9b3f40b99e9825d2d90b046",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ebd02a8fd02d3d44612cce459568e416fac1855c.png": "2c10a98febfc3e9463cad7dbbc99d7fc12468a56fd3861519b978156155f6fd8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/a/2aa536bc42b7d1fdfbb720869e0c2dfe54a1bfbf.png": "36ba74d1e1d0e14fea3e22fc9b6eaad4afda7d11a09ca5de9b514a74b6f7761e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e9b410fbc9f44745dbb9fea1230271fb4fdf01c.png": "4ef5b05ab395ecc4dd58cc7e08007a1c8d72fe11bc6607bf6592f878131d1df7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/1/a187715cb825ea24ef1d29be5db38f2a1020105d.png": "3bbba03c455de43a8a0121331ab306e3034a4174476e8f80f52ffdca7f5e541a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/2/b2a5f7d05c86f5384a1e6f4fa229fc6bbbf2be99.png": "92923534db5ff1508725e5134a62065d3d4dc08b5d2e671660a204b12ee65e04",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c9f7f1f7859d91db6013e24fb00c8f6c107d0f44.png": "8688b35b28993f904f41c9625c3c3abeaaf037e08e61681614a78bd1cbd8d818",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e649fdde42d9c8ff58a13825b4bd57a59efc3c40.jpeg": "74fb0b2d85780f3b61bcdf433da3fc1415b357633348a02a29243d3972be46f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/8/e84031311fbd7e492fedfab7619da4c64a3c91e5.png": "8707b3bceed04d3ec27e9d4ccc1726e833d0c6e63f1fa719c99e6eeef8b9ede8"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/41cbd9a5cfc856ff0f81cad1eb3152607750fc9f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              449,
+              22,
+              931,
+              51
+            ],
+            "text": "TLSFingerprint-EXAMPLE_FINGERPRINT",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              471,
+              357,
+              514,
+              378
+            ],
+            "text": "64512",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1087,
+              357,
+              1109,
+              378
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              472,
+              386,
+              530,
+              410
+            ],
+            "text": "Example City",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1087,
+              386,
+              1187,
+              407
+            ],
+            "text": "192.0.2.10",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              24,
+              82,
+              254,
+              105
+            ],
+            "text": "EXAMPLE_FINGERPRINT",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "8e6ed2db1e08d5d9c02bb966c97a6f5e66769c41b6e533fad926b9949acd4a82"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/056878e4d0b779ed9a802f1d934bd303c85e2789.png": {
+        "labels": [
+          {
+            "rectangle": [
+              475,
+              361,
+              518,
+              382
+            ],
+            "text": "64513",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1083,
+              361,
+              1105,
+              382
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              475,
+              380,
+              549,
+              421
+            ],
+            "text": "Example City",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1082,
+              384,
+              1156,
+              412
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "8ad44b8d2874a1e861612b71ebc4e089d991466b7ac668dd28995367168a3d7d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/06390ce099e252f61433235f0ce38b6e93f00678.png": {
+        "labels": [
+          {
+            "rectangle": [
+              454,
+              24,
+              1081,
+              53
+            ],
+            "text": "IP-192.0.2.10-TLSFingerprint-EXAMPLE_FINGERPRINT",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              475,
+              357,
+              518,
+              378
+            ],
+            "text": "64512",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1087,
+              357,
+              1110,
+              378
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              476,
+              386,
+              534,
+              410
+            ],
+            "text": "Example City",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1087,
+              385,
+              1187,
+              407
+            ],
+            "text": "192.0.2.10",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              29,
+              64,
+              257,
+              100
+            ],
+            "text": "IP-192.0.2.10-TLSFingerprint-EXAMPLE",
+            "size": 10
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "77075adfdce10437684b4c0b2822fa8d251f13af531d00e8ebe8bad51cd6cf0d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6d21bb526a7f3d06c23bcd96edbdbc4a8ab02ac3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              473,
+              349,
+              515,
+              370
+            ],
+            "text": "64512",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1087,
+              349,
+              1109,
+              370
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              473,
+              378,
+              532,
+              402
+            ],
+            "text": "Example City",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1086,
+              378,
+              1187,
+              399
+            ],
+            "text": "192.0.2.10",
+            "size": 8
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "b6d93ecb5d2cad1baf595ab235834dd948c35a95e4b5596802c7b3afc06533ee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2578fe8b5a1e3dce04b00c41fb5035e84be6f5b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              915,
+              48,
+              1641,
+              86
+            ],
+            "text": "IP-192.0.2.10-Header-Auth-User-user1",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              59,
+              134,
+              487,
+              163
+            ],
+            "text": "IP-192.0.2.10-Header-Auth-User-",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              958,
+              719,
+              1033,
+              750
+            ],
+            "text": "64512",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              2192,
+              719,
+              2227,
+              750
+            ],
+            "text": "US",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              959,
+              777,
+              1067,
+              814
+            ],
+            "text": "Example City",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              2191,
+              776,
+              2383,
+              808
+            ],
+            "text": "192.0.2.10",
+            "size": 17
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "98595bde88ddffd6573949d342a7086a643ea74a9b2a68ed7752d113de019710"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c9f7f1f7859d91db6013e24fb00c8f6c107d0f44.png": {
+        "labels": [
+          {
+            "rectangle": [
+              474,
+              353,
+              517,
+              374
+            ],
+            "text": "64513",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1088,
+              353,
+              1110,
+              374
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              474,
+              382,
+              549,
+              406
+            ],
+            "text": "Example City",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1087,
+              377,
+              1164,
+              403
+            ],
+            "text": "192.0.2.11",
+            "size": 13
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "927882aa37bd52f60f0fecf955a26704e402cab10ae6a8b5102c6195e59fc921"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/8/e84031311fbd7e492fedfab7619da4c64a3c91e5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              449,
+              23,
+              546,
+              48
+            ],
+            "text": "ASN-64512",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              24,
+              66,
+              92,
+              86
+            ],
+            "text": "ASN-64512",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              472,
+              356,
+              514,
+              377
+            ],
+            "text": "64512",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1085,
+              356,
+              1107,
+              377
+            ],
+            "text": "US",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              472,
+              385,
+              531,
+              409
+            ],
+            "text": "Example City",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1085,
+              385,
+              1185,
+              406
+            ],
+            "text": "192.0.2.10",
+            "size": 8
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "02c8c801dc81ceceafa0f772160b95ad1116752524aff84bd3aef2139aa3f4ca"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/18ed2f456c3b8b5ec85bbd4767f76a96ad0cdc02.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "29670f872b0f6726603271db1bced730e429b6a72531dbfc8ae9d0a6427b545b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54dd15fb3e98335195fa58155662c80247cc1890.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b0fc7a9910aa18a2f902a0de7007e20c64388d9cfc8f4584530128644b9aa92e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/573190ef7e4a6e5be74c636753dd4ce3937b164d.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d3a99dae1789a5cd8b0f3a34e6b6421f9bb6fc37069d323ed6372a2c9adf1d8a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d1d00ee81650d724d2a24cecd1c576b52b0b6df3.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "15cef13c9b940f5aa83a3ea5331ef40312cd1410200ee1bbe3cb9258c9623bd0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e649fdde42d9c8ff58a13825b4bd57a59efc3c40.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9a9299bbf3e228afe36c889f7ce9c611f61e2a35fea583589f8df263084a671f"
+      }
+    }
   }
 }
