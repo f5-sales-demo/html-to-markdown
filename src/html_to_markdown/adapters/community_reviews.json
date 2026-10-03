@@ -10529,7 +10529,296 @@
   "77242": {
     "article_hash": "70f1031da6f9113e33ac0a785dde3223c308a9f15b44a35b21125a1b045fae53",
     "decision": "include",
-    "reason": "Distributed Cloud CDN migration to HTTP load balancer integrated CDN"
+    "reason": "Distributed Cloud CDN migration to HTTP load balancer integrated CDN",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full migration instructions and all eight images. Certificate names and namespaces, source service UUIDs, personal domains and VIP labels replaced with consistent synthetic examples. Preserved same-certificate selection across old/new objects, TTL, CNAME transition, cache policy, specified VIP requirement, topology and decommissioning control.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/4/04d3a98b8f5aaef115bb1ff58b2342338ee57605.png": "fbd45f300188703758fac2f07cfafbb01aac758d72bab0f645c5ef1db7063b3a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/4/145eb3f94bfbbbee701ade65db57f0381656f21e.png": "ef94375435509e101b7215328097dbdf29102e0e25713129f2e850834584e57d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/3/23652e1e58c109439926bc3474472ccd5f7007f6.png": "01245d72152218049297c221534cce350b21f08350fb9243d15f3ddd94ced8b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/8/580d0cb5229903dcdd3bb754dc26be501febf0b4.png": "2cde6125724266193ab71ef4b707255483fa122e9477899433add7ce231ee995",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5bf2772105dd44f3b412b0f61a0c62129561c928.png": "5aa5d9660ab4eaa152e5ae6bb41879c3ee965719fdcf8d23c318b457ca0cd994",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76646cfd479b52014ec71f2f83dab1d94d8f2969.jpeg": "aaca81a251af5f0638d1b83d80261960861833216b14462ebcedb57d4cebec84",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/c/bc3a9dd28c3f73b3f949624572946cb39bc19c61.png": "f9c10c97c22187f60793efc07fb5dacb803363e3987ea3a4826621c5d38e823a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c53395c2aacabbf5429be9eef7fe99bc00ee5829.png": "4dbae9d2c636022492b3fefddcc94c6138638cac10efa5c3d017f6b70ac0889a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/4/145eb3f94bfbbbee701ade65db57f0381656f21e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              560,
+              1064,
+              783,
+              1099
+            ],
+            "text": "shared/migration-cert",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              550,
+              1114,
+              823,
+              1141
+            ],
+            "text": "shared/cdn-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              550,
+              1146,
+              823,
+              1175
+            ],
+            "text": "shared/migration-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              550,
+              1180,
+              823,
+              1206
+            ],
+            "text": "shared/example-dev-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              550,
+              1213,
+              823,
+              1239
+            ],
+            "text": "shared/example-test-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              550,
+              1242,
+              824,
+              1267
+            ],
+            "text": "shared/wildcard-example-com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1928,
+              1032,
+              2162,
+              1062
+            ],
+            "text": "shared/migration-cert",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1916,
+              1085,
+              2191,
+              1118
+            ],
+            "text": "shared/cdn-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1916,
+              1118,
+              2191,
+              1148
+            ],
+            "text": "shared/migration-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1916,
+              1149,
+              2191,
+              1181
+            ],
+            "text": "shared/example-dev-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1916,
+              1182,
+              2191,
+              1213
+            ],
+            "text": "shared/example-test-cert",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1916,
+              1216,
+              2191,
+              1249
+            ],
+            "text": "shared/wildcard-example-com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "db67cde9b0922093540848ede5dd3bec1a127d2c213556c66adac9817e251846"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/8/580d0cb5229903dcdd3bb754dc26be501febf0b4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              168,
+              998,
+              1082,
+              1049
+            ],
+            "text": "cdn.example.com",
+            "size": 33
+          },
+          {
+            "rectangle": [
+              1469,
+              989,
+              2433,
+              1040
+            ],
+            "text": "load-balancer.example.com",
+            "size": 33
+          }
+        ],
+        "output_sha256": "37d457294d6081b23b06f418a12a4e4f149d32099ced42781cff60090314834e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/6/76646cfd479b52014ec71f2f83dab1d94d8f2969.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              228,
+              424,
+              607,
+              479
+            ],
+            "text": "www.migrate.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              636,
+              424,
+              820,
+              479
+            ],
+            "text": "example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              228,
+              516,
+              607,
+              571
+            ],
+            "text": "cdn.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              636,
+              516,
+              820,
+              571
+            ],
+            "text": "example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              228,
+              607,
+              607,
+              662
+            ],
+            "text": "take2cdn.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              636,
+              607,
+              820,
+              662
+            ],
+            "text": "example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              228,
+              698,
+              607,
+              752
+            ],
+            "text": "testcdn.example.com",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              636,
+              698,
+              820,
+              752
+            ],
+            "text": "example",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1041,
+              426,
+              1374,
+              479
+            ],
+            "text": "CNAME: cdn.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "8d7e8ed1f284b4e2a5d537fd46ac3c7f504600f53e524f6ddcdcd3c9c8e9db15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/c/bc3a9dd28c3f73b3f949624572946cb39bc19c61.png": {
+        "labels": [
+          {
+            "rectangle": [
+              161,
+              294,
+              508,
+              336
+            ],
+            "text": "shared/example-vip",
+            "size": 25
+          }
+        ],
+        "output_sha256": "f2118914e0504e427ac1d3bb0fcbd0f9e8ca973c0d373c777713d02830d70f05"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/4/04d3a98b8f5aaef115bb1ff58b2342338ee57605.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5b10735c547ad808871e3d0c8256dd38c4337ad38f0f8b4b7720e4d08bc1dff3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5bf2772105dd44f3b412b0f61a0c62129561c928.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "35b028329eddf9b5d6a3dca3078307bd8de708552d34e79e6fa79ea9e93e609d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c53395c2aacabbf5429be9eef7fe99bc00ee5829.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "99d6ed05d92f8c1cad92dcbf96260b4edbcac71ac0e560fccbf9500c3f8f6793"
+      }
+    }
   },
   "77276": {
     "article_hash": "5244514d878667a255fd9dfe9ed2bcdb296e4efc11f597bf746d19f675532346",
