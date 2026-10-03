@@ -16320,5 +16320,170 @@
         "output_sha256": "d8760b88bcdc0c1bb4747df999565b7244dc25a7b86242494c4eefec3cacd249"
       }
     }
+  },
+  "71293": {
+    "article_hash": "c1c2653a59af1fcce52d7718f9bb56d521b7f126909ad15a7e9821f492741d78",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and seven diagrams/thumbnails individually reviewed. Cluster labels, pod/node discovery, control/data paths and all architecture alternatives preserved. Demo domains normalized and embedded finance screenshot faces, names, account suffix and transfer recipients replaced with synthetic values; sample metrics remain. No credentials or customer payload. Pixel-identical metadata removal for other images.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a089ed2b6bce92cb46cb4c367a4157ac8bff841.png": "45a5ca2c7c8c6bdcb5f9be8f27807ece9b76a77978c99ecd342b93e92f9aafdf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/75f5625e4f5b27bb9f8caf1252c0571c36a8b70b.png": "bbcae9983753b7d48d91c5ec9fd2c3cd12f146e53e1adafec04b111cad4c5906",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e96f1bd5c122181d08f2f6f133ef8639483ba9b2.png": "812bed221bee361e2ce08a28c2ee1e59c93156c0150f17e63ee1ff741626c9f3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/e/0e2a2a0cebf5b2d7ee53ddfeb52baf80d02e5c2a.png": "a28ea16e56d5e43cfb621cb1a3acd621c35a2254b266f18302046391db346990",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/36261292f44777e6743a29744227c3a1035b70a7.jpeg": "2945cbb12892b5aa3390b3afa01f6c846a1e6ff2bd7a9f7936e59188ab19e25c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7cc8e3cdeffa19a93b64268ba199726ee4d88bf3.png": "4733f9717fd9187420c096ec1cf4a8c0c3b6ded2388edf66cc84327bca88a12f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8a5d8308a7d2fab156a24519e3c93d791d48e571.png": "050e1820d727e69ab75c2aff56681001a06aa336690d9e9f0afeb4c89e2a3568"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8a5d8308a7d2fab156a24519e3c93d791d48e571.png": {
+        "rectangles": [
+          [
+            3420,
+            266,
+            3454,
+            301
+          ],
+          [
+            2776,
+            766,
+            2817,
+            826
+          ],
+          [
+            2897,
+            766,
+            2937,
+            826
+          ],
+          [
+            3019,
+            766,
+            3060,
+            826
+          ],
+          [
+            3280,
+            625,
+            3340,
+            854
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              2770,
+              819,
+              2875,
+              854
+            ],
+            "text": "User A",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2885,
+              819,
+              2992,
+              854
+            ],
+            "text": "User B",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3008,
+              819,
+              3116,
+              854
+            ],
+            "text": "User C",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3280,
+              642,
+              3340,
+              663
+            ],
+            "text": "User A",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              2830,
+              267,
+              2876,
+              289
+            ],
+            "text": "0000",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              136,
+              938,
+              765,
+              991
+            ],
+            "text": "https://nginx.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              115,
+              1495,
+              761,
+              1545
+            ],
+            "text": "https://arcadia.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              942,
+              1679,
+              1539,
+              1727
+            ],
+            "text": "https://arcadia.internal.local",
+            "size": 24
+          }
+        ],
+        "output_sha256": "1eb0d487042279594df480f173eeb88b1e8486e784164f0d6664f87f7871e2ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a089ed2b6bce92cb46cb4c367a4157ac8bff841.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5585dedb798f5d7ac549c3583d85596f234ec08a800c8b2024cff51beea502e0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/75f5625e4f5b27bb9f8caf1252c0571c36a8b70b.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a78b35fbdcc20578614673edf27b76774f91334740cd1ea10de6b3b55d60414c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e96f1bd5c122181d08f2f6f133ef8639483ba9b2.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "16dbeaa98cb7fade988a81a822fae2804256a3b69bbb0483c62ce40b67915e0c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/e/0e2a2a0cebf5b2d7ee53ddfeb52baf80d02e5c2a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8a7615accfe24371bcfb965a7f108c80956c996f894f73d5895d8cf8a62a540b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/6/36261292f44777e6743a29744227c3a1035b70a7.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "fdf3dbbf7dad1848596044b1c8f2db6497e8cd910e88f9adab6d4cb4859701ae"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7cc8e3cdeffa19a93b64268ba199726ee4d88bf3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "13573f41f55efd9c21d47efd7736112dbced59661e920ffe969f9f0486a6473f"
+      }
+    }
   }
 }
