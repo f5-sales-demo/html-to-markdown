@@ -2085,7 +2085,125 @@
   "70833": {
     "article_hash": "cb40721164acdb49457e92d4c4e72401d75c67bbe0afdce8522606414c15f344",
     "decision": "include",
-    "reason": "Demonstrates automated scalping mitigation with Distributed Cloud Bot Defense"
+    "reason": "Demonstrates automated scalping mitigation with Distributed Cloud Bot Defense",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and both images; synthetic shop endpoints and opaque labels for already obscured source preserve visible imports, polling, refresh, quantity entry and click flow; stock demo storefront contains no personal or credential data; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7a7f205adf7649e387d151418c66963d63b1a5c5.jpeg": "86c8294331cdcc947b22bd7c248e8c2bb0c45bd5a47c02c4b0011a75e19d487b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/9/d9ad8fe29851ce3f7508fe664a4eb644d092a9d2.jpeg": "e222fbc015753243c109beb85e3322fabd504d6c0a2a547998d89f4d641bd16f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7a7f205adf7649e387d151418c66963d63b1a5c5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              112,
+              599,
+              2679,
+              716
+            ],
+            "text": "Source obscured in original",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              305,
+              754,
+              1408,
+              802
+            ],
+            "text": "https://shop.example.com",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              497,
+              1046,
+              2989,
+              1112
+            ],
+            "text": "Selector obscured in original",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              246,
+              1139,
+              1605,
+              1203
+            ],
+            "text": "Condition obscured in original",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              117,
+              1402,
+              2547,
+              1473
+            ],
+            "text": "Source obscured in original",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              244,
+              1523,
+              578,
+              1573
+            ],
+            "text": "Source obscured",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              239,
+              1573,
+              3397,
+              1652
+            ],
+            "text": "Source obscured in original",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              461,
+              1819,
+              1557,
+              1860
+            ],
+            "text": "Selector obscured in original",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              305,
+              1865,
+              2555,
+              1913
+            ],
+            "text": "https://shop.example.com/checkout",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              477,
+              1953,
+              3523,
+              2003
+            ],
+            "text": "Selector obscured in original",
+            "size": 24
+          }
+        ],
+        "output_sha256": "ee50aae597095575f404571a2f36823579ef2d7d33b3aa049ea2e1e934608e31"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/9/d9ad8fe29851ce3f7508fe664a4eb644d092a9d2.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "24ce61d0e3a138b5d8d5592c3a5ff797bf76bfc23984afc98258784aed05c4b4"
+      }
+    }
   },
   "70890": {
     "article_hash": "a2cb8e48d7824375cff6e4b092111781e45135ebce70a7ec1bea35ce414be7fb",
