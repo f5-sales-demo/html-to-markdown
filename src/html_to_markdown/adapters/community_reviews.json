@@ -39887,5 +39887,1204 @@
         "output_sha256": "85c43e7705f27bc6232347e3c1d4cb1a55dd35f89315c5b0e7fd7476923bd102"
       }
     }
+  },
+  "74736": {
+    "article_hash": "d872a9887858a191aee81b94c653a311a635fdd1d582fa4dcbc79f2565f0c2e3",
+    "decision": "include",
+    "reason": "Distributed Cloud Regional Edge Virtual Site traffic-flow guide",
+    "text_replacements": {
+      "nodes": {
+        "f106da31b6a658ed21c15b262a064347b95f23da7533803efa757df596dcbfde": "US Client and EU client follow their local ISP BGP peering over the internet to find closest Regional Edge for the VIP IP address 192.0.2.183. For the US Client that happens to be New York, and the EU Client Paris.",
+        "83daf64f0803518d359f36b372791784ce16fb228ef65aaf9e2c25b262461b97": "192.0.2.44(US Client)",
+        "49fd036b95694b087760dca69f1066dba269099085f3be2ce2796cb9e05f7d58": "192.0.2.183(New York-VIP)",
+        "9eb918d5b488db739384c53433fbf687c214ac893c7f9a7a0fae4796191016c7": "192.0.2.13(New York-SNAT)",
+        "0e3c46fc097678ac24aaa9d85f5f68887b5bc3b913a03882a0869613e12de3be": "192.0.2.8(US Origin)",
+        "38435fcbe0e66d57d89fc47fa3a4be0fc4237c9283ba5f8f97a5ac8db5bbb690": "192.0.2.55(EU Client)",
+        "e8dfe3598696fae6ecd22c222afb6a5ba30aa7b0412506279d1dab782cbdc82e": "192.0.2.183(Paris-VIP)",
+        "892c0153f63895bb868c5f75540b36aa5fac40d1e5db697deb7798a9fdd47b7c": "192.0.2.17(Paris-SNAT)",
+        "8afccaf31a8c53aa7fe26cf3be13ad3154caec4251197056335adea5bd7841a8": "192.0.2.183(New York-VIP)",
+        "976c9f86256f8a57693f3f50c1c97b30af0f0eaa54ba173e8e61d32585e5df87": "192.0.2.183(Montreal-VIP)",
+        "d5cac3c4b241bd8453dd00aa6a76debddcf473113891c601a8fbd1ecf7b881d7": "192.0.2.15(Montreal-SNAT)",
+        "152df42a1fc3e6255432bae580f5f564a6646c0e0d9b2cd873f5955745374f24": "192.0.2.183(",
+        "db6c3009c4f1fb4cf5e6f5659af4b9bc6f8cd00e53dead67bad48097b938b460": "192.0.2.15("
+      },
+      "output_sha256": "05b5d00404e64543fb34ac069a398bc4aabfd242651f9b09092c136cb442fd88"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose, connection tables, nine static images and all 237 frames of four animations; documentation addresses and origin hostname preserve client, VIP, SNAT and origin relationships; generic virtual-site identity; hash-bound GIF transforms retain frame count, exact pixels, timing and looping; no customer data; metadata removed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/12f2ed2a883a05ad077c574f185464e2faaff5c1.jpeg": "6ddd3c6ccd89c141637315e30b2d7db35e7c880e203ed162a405cd36f9604fd4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1721f02f86fc25d8e21924600b913d2993ffa851.jpeg": "cdea5caa5e797bbe84eeff0f87a397cb7ba9b7bcb3468678b770ade323f7726e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/45b866ba6cf7d62e990af99e818224a5edacff59.jpeg": "a22979955ce85389d2aa60d31f02474b9dfd877cea0b413036cf47626f60e1c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48af62c668cfe11a9183d6126aafe370c2d4be47.jpeg": "623ac0785a07b46deafbd29b9a736215cc938a31bbb61646934056b0735d6bfc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4c63df8cb6a610997ce99fcee6491677a01126fd.gif": "fb117e18ef3af2e5ba3ac515076e281f7028459474583eeccedc402bf02035a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a57a04a9bf890c238ef212a3941ca7c918b9b0a5.jpeg": "b8512c5e3fd2ba3eaa6049db9f32fe2d96a45185eb9d41972d6cf0fd47060f3e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f956257c2736120e42a71c49a06119ad646ad191.jpeg": "2d0d3440d56d0dc243d76f86bc0fe5adc9db8a44cf4f0d78120d815f82870ad7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/60966aa0980bbfe4648b8912cafb97b5369e9ce4.jpeg": "7293f8d81df8412dc19ae6cec5337d4dc699e98c6c4514ec20fb7665e45844d1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/818f5aec072823743e7f4c81a48df4009b68e097.jpeg": "c9df67399e84bf0aababf0e7f73b1ebfb3ee4da7b15ff4e52b11ec65975ec442",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/0/901e07d20bf3899e38a476f7469dc8a224c208af.gif": "360dcc9e49c36be98dee4c20e652847a0aeaa4ec2c2df1db2d92d960861f38f5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/d/bda100c835e4c0688acd50ddf1e6ecd967b02dcc.gif": "d89381c687562cd82c2b95c1ed405c176c03e90d73f2068b71b520579cd9b5e1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/0/c08c3dd5953498918e94a88472430c2ae138e428.jpeg": "4ae280e25a49a6f0cbe111814a1d72899b9fad1fdc37c26285a15cef8736db2a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf2cb8da5b54b64355ab90a0a7b2fa7abfacda94.gif": "dd2dbe27b1577303942d9b9a57a3cc03c66d80116f17a9866a2430102a76ecaf"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48af62c668cfe11a9183d6126aafe370c2d4be47.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              67,
+              136,
+              260,
+              156
+            ],
+            "text": "shared/ip-192-0-2-183",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              47,
+              183,
+              250,
+              205
+            ],
+            "text": "shared/ip-192-0-2-183",
+            "size": 14
+          }
+        ],
+        "output_sha256": "5881111c8685da8c3cdea4eefbb0279324cb7cef696d5b90d2026db85cdd4b13"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/818f5aec072823743e7f4c81a48df4009b68e097.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              138,
+              275,
+              160
+            ],
+            "text": "origin.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              87,
+              273,
+              337,
+              296
+            ],
+            "text": "shared/americas-only-demo",
+            "size": 14
+          }
+        ],
+        "output_sha256": "af4f0062aee4d08a5ae90feee8b565e5c33fc6ca5a3e926f545ef91a10ba6f49"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4c63df8cb6a610997ce99fcee6491677a01126fd.gif": {
+        "animation": true,
+        "animation_format": "gif",
+        "labels": [
+          {
+            "rectangle": [
+              180,
+              0,
+              283,
+              23
+            ],
+            "text": "192.0.2.44",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              748,
+              0,
+              854,
+              23
+            ],
+            "text": "192.0.2.55",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              372,
+              611,
+              478,
+              637
+            ],
+            "text": "192.0.2.8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              67,
+              223,
+              162,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              67,
+              242,
+              165,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              196,
+              223,
+              291,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              196,
+              242,
+              294,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              326,
+              223,
+              421,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              326,
+              242,
+              424,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              455,
+              223,
+              550,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              455,
+              242,
+              553,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              585,
+              223,
+              680,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              585,
+              242,
+              683,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              714,
+              223,
+              809,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              714,
+              242,
+              812,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              844,
+              223,
+              939,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              844,
+              242,
+              942,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              973,
+              223,
+              1068,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              973,
+              242,
+              1071,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1103,
+              223,
+              1198,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1103,
+              242,
+              1201,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              72,
+              400,
+              169,
+              420
+            ],
+            "text": "192.0.2.11",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              201,
+              400,
+              298,
+              420
+            ],
+            "text": "192.0.2.12",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              331,
+              400,
+              428,
+              420
+            ],
+            "text": "192.0.2.13",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              460,
+              400,
+              557,
+              420
+            ],
+            "text": "192.0.2.14",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              590,
+              400,
+              687,
+              420
+            ],
+            "text": "192.0.2.15",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              719,
+              400,
+              816,
+              420
+            ],
+            "text": "192.0.2.16",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              849,
+              400,
+              946,
+              420
+            ],
+            "text": "192.0.2.17",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              978,
+              400,
+              1075,
+              420
+            ],
+            "text": "192.0.2.18",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1108,
+              400,
+              1205,
+              420
+            ],
+            "text": "192.0.2.19",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              581,
+              140,
+              687,
+              167
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              581,
+              474,
+              688,
+              502
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "e2c65d6323447857a9108fd696dfcc719eb0f251b742301109c3ce111b1f1ab8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/0/901e07d20bf3899e38a476f7469dc8a224c208af.gif": {
+        "animation": true,
+        "animation_format": "gif",
+        "labels": [
+          {
+            "rectangle": [
+              180,
+              0,
+              283,
+              23
+            ],
+            "text": "192.0.2.44",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              748,
+              0,
+              854,
+              23
+            ],
+            "text": "192.0.2.55",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              372,
+              611,
+              478,
+              637
+            ],
+            "text": "192.0.2.8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              67,
+              219,
+              162,
+              240
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              67,
+              238,
+              165,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              196,
+              219,
+              291,
+              240
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              196,
+              238,
+              294,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              326,
+              219,
+              421,
+              240
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              326,
+              238,
+              424,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              455,
+              219,
+              550,
+              240
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              455,
+              238,
+              553,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              585,
+              219,
+              680,
+              240
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              585,
+              238,
+              683,
+              260
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              72,
+              396,
+              169,
+              416
+            ],
+            "text": "192.0.2.11",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              201,
+              396,
+              298,
+              416
+            ],
+            "text": "192.0.2.12",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              331,
+              396,
+              428,
+              416
+            ],
+            "text": "192.0.2.13",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              460,
+              396,
+              557,
+              416
+            ],
+            "text": "192.0.2.14",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              590,
+              396,
+              687,
+              416
+            ],
+            "text": "192.0.2.15",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              719,
+              396,
+              816,
+              416
+            ],
+            "text": "192.0.2.16",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              849,
+              396,
+              946,
+              416
+            ],
+            "text": "192.0.2.17",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              978,
+              396,
+              1075,
+              416
+            ],
+            "text": "192.0.2.18",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1108,
+              396,
+              1205,
+              416
+            ],
+            "text": "192.0.2.19",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              581,
+              140,
+              687,
+              167
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              581,
+              466,
+              688,
+              495
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "e4c65209a2fc4741a6b587714b5116efe491c0131bf58a8f5f26df5fc831946a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/d/bda100c835e4c0688acd50ddf1e6ecd967b02dcc.gif": {
+        "animation": true,
+        "animation_format": "gif",
+        "labels": [
+          {
+            "rectangle": [
+              180,
+              0,
+              283,
+              23
+            ],
+            "text": "192.0.2.44",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              748,
+              0,
+              854,
+              23
+            ],
+            "text": "192.0.2.55",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              372,
+              611,
+              478,
+              637
+            ],
+            "text": "192.0.2.8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              67,
+              223,
+              162,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              67,
+              242,
+              165,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              196,
+              223,
+              291,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              196,
+              242,
+              294,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              326,
+              223,
+              421,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              326,
+              242,
+              424,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              455,
+              223,
+              550,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              455,
+              242,
+              553,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              585,
+              223,
+              680,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              585,
+              242,
+              683,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              714,
+              223,
+              809,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              714,
+              242,
+              812,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              844,
+              223,
+              939,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              844,
+              242,
+              942,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              973,
+              223,
+              1068,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              973,
+              242,
+              1071,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1103,
+              223,
+              1198,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1103,
+              242,
+              1201,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              72,
+              400,
+              169,
+              420
+            ],
+            "text": "192.0.2.11",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              201,
+              400,
+              298,
+              420
+            ],
+            "text": "192.0.2.12",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              331,
+              400,
+              428,
+              420
+            ],
+            "text": "192.0.2.13",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              460,
+              400,
+              557,
+              420
+            ],
+            "text": "192.0.2.14",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              590,
+              400,
+              687,
+              420
+            ],
+            "text": "192.0.2.15",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              581,
+              140,
+              687,
+              167
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              581,
+              474,
+              688,
+              502
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "ae128cf4a0c9b1d6ef2a0ac8d3b545ea0842fa75c276a084fc2873ad19acbc02"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf2cb8da5b54b64355ab90a0a7b2fa7abfacda94.gif": {
+        "animation": true,
+        "animation_format": "gif",
+        "labels": [
+          {
+            "rectangle": [
+              180,
+              0,
+              283,
+              23
+            ],
+            "text": "192.0.2.44",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              748,
+              0,
+              854,
+              23
+            ],
+            "text": "192.0.2.55",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              372,
+              611,
+              478,
+              637
+            ],
+            "text": "192.0.2.8",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              67,
+              223,
+              162,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              67,
+              242,
+              165,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              196,
+              223,
+              291,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              196,
+              242,
+              294,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              326,
+              223,
+              421,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              326,
+              242,
+              424,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              455,
+              223,
+              550,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              455,
+              242,
+              553,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              585,
+              223,
+              680,
+              244
+            ],
+            "text": "192.0.2.183",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              585,
+              242,
+              683,
+              264
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              72,
+              400,
+              169,
+              420
+            ],
+            "text": "192.0.2.11",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              201,
+              400,
+              298,
+              420
+            ],
+            "text": "192.0.2.12",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              331,
+              400,
+              428,
+              420
+            ],
+            "text": "192.0.2.13",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              460,
+              400,
+              557,
+              420
+            ],
+            "text": "192.0.2.14",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              590,
+              400,
+              687,
+              420
+            ],
+            "text": "192.0.2.15",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              581,
+              140,
+              687,
+              167
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              581,
+              474,
+              688,
+              502
+            ],
+            "text": "192.0.2.0/24",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "7e7254fa8b1771788c10ce939c36da927d28015c22047c4a394860ea9fc0a5dc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/12f2ed2a883a05ad077c574f185464e2faaff5c1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "edee6514291c80ea7f10b7e00fb2d44f09f6ea0d4ee0d39ba79a2912320f8ecf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1721f02f86fc25d8e21924600b913d2993ffa851.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1d86a738e79427529cd3da76f317bfafb2d8cf4d2aabfaedb6079f441e0576b0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/45b866ba6cf7d62e990af99e818224a5edacff59.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "eb7c49bbc332d816a41a8faa389f333f0e2f9af754bf3e977661ca8d0a61d7a7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a57a04a9bf890c238ef212a3941ca7c918b9b0a5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f1f3753c836c33a0704489def6cbc93b183ea18fce52d930db5307d6300fec1d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f956257c2736120e42a71c49a06119ad646ad191.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "38032d7e3c520e0466188418e7978c55dd8ab0922a22e26c1023277bc845b85a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/60966aa0980bbfe4648b8912cafb97b5369e9ce4.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "39830471446b296bf17a261f52da249d5ff33d230e99b7bd2311368b3d60c10c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/0/c08c3dd5953498918e94a88472430c2ae138e428.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "535114e16e9fa38cae8e35d86d76d2c2fcda65eda9727c3810ab69f524857419"
+      }
+    }
   }
 }
