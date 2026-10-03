@@ -26166,5 +26166,216 @@
         "output_sha256": "a242d7456426f4dd54e727c9df46f6ef9e6769a8be58d8680dc4922dcce90c12"
       }
     }
+  },
+  "72909": {
+    "article_hash": "c462230c9fbbe7c566204c5dc3fc4de8621e829c58501693805eda9e506b6ff9",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose/code and ten screenshots. Original pixelated response header fields replaced with clearly marked obscured-source labels and hidden command target with synthetic domain. Preserved all substantive request headers, changed characters, 403/200 outcomes, matcher transforms and AND/OR configuration. Generic host.domain.com values are author-provided placeholders; BIG-IP introduction is incidental comparison.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19a510748429e0aa4f2b6e2de1d381a2a001bcb5.jpeg": "14a4309add48b6139b104da83589a8074c3e7cae3c4454a3b72610b67f06a797",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2b8f4f3e5fce592ac03b10c7b7d7af093b0ff2ad.jpeg": "8a3e5049850a506c33cdaa81a67c8586f7193386cf228d6f337b57127c0b1575",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/518eec41d471ef7f95bfb7b76a63c157230b1f76.jpeg": "2b83b8c077ab53ad5c80e1c052c53697f5c2e037ae2187f1f3cc6b7f5227befd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62dbf70242abd0c6d36efd00c6628d3ca16d4dfb.jpeg": "ad18a863146328e5a66bf8415929954e66155d4f57cd53aa1d7b553a7bc816f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6555f4b787147e039f7015d7c615f6fd1788ca59.jpeg": "07e8dc3212c49484cee605628e95a66d92517bd0947551d476bee212da351c75",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f29cc864750a52a0b0e1a5da8721a314bf006307.jpeg": "899f514fb96cfc404fc91f73f83f229256d89a681264225676867bbe88f83612",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ccb8bd49f4a91dbf27659563d17cfd51285d777.jpeg": "8e90b65db9893ff4836990ca838ccbefe03f0c5cb74ae2bfd2155cc7a0ec8894",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e00afb91f9ac614e622d10b42fce9c62023a907.jpeg": "02508c3518361a21c67ebd810eab92fcf67fc87703caf608304840613f046176",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9c2b1b0eee53fd7c4103a01ab7c053d9243120a9.jpeg": "326a347266fd23d4a27dcd1ae3005956773a1d175f4c8ee1ba2f55575050de0d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/dfe7f6a110a23b45b17adecb65881e7a24c19e57.jpeg": "593a496f12968841b2df48b11581c1dcbdf451678caa8c7b36440e4365d97019"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/19a510748429e0aa4f2b6e2de1d381a2a001bcb5.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            169,
+            14
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              0,
+              679,
+              15
+            ],
+            "text": "https://app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2,
+              98,
+              712,
+              139
+            ],
+            "text": "Response headers obscured in original",
+            "size": 11
+          }
+        ],
+        "output_sha256": "834bf060d891581bc4ad76cb62ebc3ff2e9ddd9277ebfaa4c4e0bb581c2cd4ac"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2b8f4f3e5fce592ac03b10c7b7d7af093b0ff2ad.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            169,
+            14
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              0,
+              672,
+              15
+            ],
+            "text": "https://app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2,
+              98,
+              716,
+              139
+            ],
+            "text": "Response headers obscured in original",
+            "size": 11
+          }
+        ],
+        "output_sha256": "f25e327893307379d31b4d4682919965d959d503af72ee509fdf61d2c4706fa7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/518eec41d471ef7f95bfb7b76a63c157230b1f76.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            169,
+            14
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              0,
+              677,
+              15
+            ],
+            "text": "https://app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2,
+              98,
+              867,
+              222
+            ],
+            "text": "Response headers obscured in original",
+            "size": 11
+          }
+        ],
+        "output_sha256": "9f3c94ba3ccc9ad2cfd0480e9cb2d498ad9c015a4fdd50bb61e4f9b2dac6ac4b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62dbf70242abd0c6d36efd00c6628d3ca16d4dfb.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            169,
+            14
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              0,
+              672,
+              15
+            ],
+            "text": "https://app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2,
+              98,
+              818,
+              236
+            ],
+            "text": "Response headers obscured in original",
+            "size": 11
+          }
+        ],
+        "output_sha256": "eae9e7ce13db7ee9fed8f39f6108716ebd0f9ea152b5f7611f68a1d365455fce"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e00afb91f9ac614e622d10b42fce9c62023a907.jpeg": {
+        "rectangles": [
+          [
+            0,
+            0,
+            169,
+            14
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              0,
+              672,
+              15
+            ],
+            "text": "https://app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              2,
+              98,
+              826,
+              238
+            ],
+            "text": "Response headers obscured in original",
+            "size": 11
+          }
+        ],
+        "output_sha256": "c83babb978294cbf1e0ad47aaa99fb3b1e6feb642a68b84c26fed56c38d9c8ac"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6555f4b787147e039f7015d7c615f6fd1788ca59.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "621645b5d11601c1d6e32a702b816b20e8216e116759272b59a01a36ea7cfdf4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f29cc864750a52a0b0e1a5da8721a314bf006307.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a04f79d42c43c651fdca253a58caf3f5be367add827159fbfce4541b1129fc1f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ccb8bd49f4a91dbf27659563d17cfd51285d777.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8f33b6e5030f58057deec5c3a8beeb4e6f7aa7541e92ac478122893d7cd64df7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9c2b1b0eee53fd7c4103a01ab7c053d9243120a9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c38119038d54f4d506bdffd7460a84d4e4531e0a5b2125561c5c892005de5955"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/dfe7f6a110a23b45b17adecb65881e7a24c19e57.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "eb703420e4cae73fd8ac34ac384e1064fcd450cf3dfc4dee8a678ceb23fbfd26"
+      }
+    }
   }
 }
