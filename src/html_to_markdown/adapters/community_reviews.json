@@ -17771,11 +17771,11 @@
               1281,
               207
             ],
-            "text": "admin@example.local",
+            "text": "admin@example.com",
             "size": 14
           }
         ],
-        "output_sha256": "aa950fea431ae86d29398df5e653cede63b94beb254262646e638235ec78a2c3"
+        "output_sha256": "da06e9d329d07de4d9e6a2f02f87dcf17b1bf215858057074540c45366ef172e"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc6b2b4149c4cab4cb384d940360b0e71408f4cb.png": {
         "labels": [
