@@ -38423,5 +38423,1469 @@
         "output_sha256": "a9fbb121c838efc0bb8bdb8858da42acd62862305884f9259e5797e6251d9224"
       }
     }
+  },
+  "75748": {
+    "article_hash": "9a0842c92892bf16a5d561427c50c264b7834a89b717e2ac7ca7d3bcfc3f37bb",
+    "decision": "include",
+    "reason": "Distributed Cloud Network Connect segmentation and storage replication guide",
+    "text_replacements": {
+      "nodes": {
+        "bdfb08a78741d09dfc0eb4d745693dd46e936b6fd9e3928a0beb9b2551b82a78": "FSx-Dest::> \u00a0cluster peer create -address-family ipv4 -peer-addrs 192.0.2.221",
+        "c42aeea7f9570ac88634e840c93b71e002e310965db855dd566cffd554a2f70d": "Seattle ONTAP::> cluster peer create -address-family ipv4 -peer-addrs 192.0.2.36,192.0.2.202",
+        "136b90845b85fbdcdebbec6ecc0f3c887e6ea7bca4898663acdc31915b0f0794": "FSx-Dest::> snapmirror show -fields state,status",
+        "81aa9972a0d2813961f2481daecb8770bed521680bd368e2809350c658c20962": "vserver peer create -vserver svmfsx0 -peer-server svm2 -peer-cluster demo-netapp-cluster -local-name svm2 -application flexcache",
+        "b792a85c6a85627488d5d509e472cfd5e47d3c513c0fac26679040cba4f8bb78": " mount -t nfs -o nfsvers=3 192.0.2.104:/flexcache /seattle-files",
+        "e5618e2548a160f96f76f956e24a6730c284dd72c16ad0f8ce1203595a8e3838": "The resulting network activity, copying the remote files to the EC2 while simultaneously automatic loading of the CacheVol, is seen through the F5 XC Flow Analyzer, which has been set to report on a 10-minute window of traffic leaving the Seattle CE site (demo-seattle-ce) and targeting the AWS East-2 Transit Gateway (TGW) CE site (demo-aws-tgw)."
+      },
+      "output_sha256": "4ae830bddc24cc25c3992072973427b77f448c388975905307572080c52852c3"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose, commands and twelve static diagrams and screenshots; synthetic network ranges, storage and VPC identities, account and site names; preserved segmentation relationships, SnapMirror commands, mount syntax, storage capacities and flow measurements showing cache benefit; public-domain book test data contains no customer content; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2638bd6998da0bf173562f68af37a06671dcdd30.jpeg": "e147a3bfd445a301f1c8996287578adc0c2abf6eabc6fe6d0f6b8c3670334987",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2a4da630fffc1656cb8752759219c9cb9b84fc76.png": "2b37f30a5393d5fbe29613c4180afb78a3a80d028d47427526dee21a674b2b99",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e54c999c0b78b5444cc5cf44de2b85ec6b8f573.png": "d2ac245f95e5a3a43e742102bb939afd342cf807c237f279409935f1e2037a96",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c42f2a2dcaa544a2002e88d35f83d80f414964d7.png": "a62bac047ea8126ccfc633276e9c602d7c6aad717604d7fa2b8c4c2574c6daba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7aff0518a20d05373284769ebc6a4006391d741.jpeg": "fcc171c03ac02de1ea884225cccbcd741a041a1d4089e7e23c60a5a04f2860df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c874e2b69bcd16cde1116fe82d81226eb12fde1f.png": "6dfd91b3952c826cd049a505ffd16178e9fed75bedc8a060e91932c6c79a1e02",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e66732753b8309b1564f9da2de8db478da0c29c6.png": "d2fe7062f171d5b5290431aa57d04992c5d9b4d825de862651b5ea66a80c1e3d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e8e1748ca32005a4c944d4cd22a1ef02fe18d581.png": "65e6fffc983261b54c1535c7743ff32d0deb29dd4c96876a7f38ec19effda762",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/27cccb1e3b432717ad89284febe00d1b32dac0a1.png": "baf05886b779b176a5c903288361ace04709670c9eecbf3519d90bcb19a64de7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52bc90ed5c369340d6c2f3151b03fc83ada13ca8.png": "613c91a34e31d1d8df757d0da68200b06d6a90c60e3d48038ce43a8a88b9d373",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/3/53e3499ef5f016431d44baae7691a8eedee009ca.png": "21fd9e5435e91ad7019b89338d9979b7c98e5585cefba25b3c58d39a6ac501ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b79fd846e55d8a4e66b3f51b77229f193d02add.png": "a9ec65b3bcb2b9b0947207a55ae4fe48afb1786b7a5d86d6953d45181a556ef2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2638bd6998da0bf173562f68af37a06671dcdd30.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              246,
+              347,
+              380,
+              374
+            ],
+            "text": "192.0.2.0/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              246,
+              370,
+              399,
+              397
+            ],
+            "text": "192.0.2.0/27",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              246,
+              393,
+              399,
+              423
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              675,
+              347,
+              820,
+              374
+            ],
+            "text": "192.0.2.64/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              675,
+              370,
+              830,
+              397
+            ],
+            "text": "192.0.2.64/27",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              675,
+              393,
+              835,
+              423
+            ],
+            "text": "192.0.2.70",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1105,
+              347,
+              1280,
+              374
+            ],
+            "text": "192.0.2.128/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1105,
+              370,
+              1280,
+              397
+            ],
+            "text": "192.0.2.128/27",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1105,
+              393,
+              1280,
+              423
+            ],
+            "text": "192.0.2.130",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              659,
+              978,
+              840,
+              1012
+            ],
+            "text": "198.51.100.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              364,
+              1568,
+              545,
+              1598
+            ],
+            "text": "203.0.113.1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              364,
+              1594,
+              565,
+              1628
+            ],
+            "text": "203.0.113.10/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              948,
+              1568,
+              1130,
+              1598
+            ],
+            "text": "203.0.113.65",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              948,
+              1594,
+              1140,
+              1628
+            ],
+            "text": "203.0.113.70/26",
+            "size": 18
+          }
+        ],
+        "output_sha256": "22ce4bc2026637fbfe2418194c416a509e2eddf74563edd3e5328a4eee6b2543"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2a4da630fffc1656cb8752759219c9cb9b84fc76.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1212,
+              253,
+              1450,
+              300
+            ],
+            "text": "system/demo-ocp",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1212,
+              691,
+              1570,
+              744
+            ],
+            "text": "system/demo-production",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              1180,
+              758,
+              1610,
+              798
+            ],
+            "text": "system/demo-production-segment",
+            "size": 24
+          }
+        ],
+        "output_sha256": "4ff20a7c4986e5f4d021b9aa91a82a816e143301b6161fa32a761e2e319f57ba"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e54c999c0b78b5444cc5cf44de2b85ec6b8f573.png": {
+        "labels": [
+          {
+            "rectangle": [
+              260,
+              324,
+              670,
+              377
+            ],
+            "text": "192.0.2.0/26 subnet",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              174,
+              526,
+              385,
+              570
+            ],
+            "text": "192.0.2.0/26",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              173,
+              1013,
+              395,
+              1060
+            ],
+            "text": "192.0.2.64/26",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              3120,
+              415,
+              3370,
+              465
+            ],
+            "text": "192.0.2.128/26",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              3119,
+              749,
+              3380,
+              797
+            ],
+            "text": "192.0.2.192/26",
+            "size": 26
+          }
+        ],
+        "output_sha256": "f60fe18b777fda1b544515f28696785175a09bf83064dff759a9135a816d4618"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c42f2a2dcaa544a2002e88d35f83d80f414964d7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1723,
+              12,
+              1901,
+              37
+            ],
+            "text": "User/example",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              600,
+              279,
+              750,
+              335
+            ],
+            "text": "fsvol-example",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              777,
+              279,
+              927,
+              335
+            ],
+            "text": "fs-example",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              954,
+              279,
+              1100,
+              335
+            ],
+            "text": "svm-example",
+            "size": 14
+          }
+        ],
+        "output_sha256": "7ed0cb7202f18b24f3d83d9608401efb7d11f56dcd1b34b9b49911ec96e86a97"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c874e2b69bcd16cde1116fe82d81226eb12fde1f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              24,
+              4,
+              170,
+              28
+            ],
+            "text": "192.0.2.141 - PuTTY",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2,
+              128,
+              201,
+              151
+            ],
+            "text": "FSx-Dest::>",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2,
+              176,
+              201,
+              199
+            ],
+            "text": "FSx-Dest::>",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2,
+              208,
+              201,
+              231
+            ],
+            "text": "FSx-Dest::>",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              37,
+              244,
+              326,
+              267
+            ],
+            "text": "ubuntu@demo-ec2: /RAG_Secure_Documents",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              8,
+              270,
+              920,
+              291
+            ],
+            "text": "PING fsx.example.com (192.0.2.50) 56(84) bytes of data.",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              290,
+              920,
+              307
+            ],
+            "text": "64 bytes from fsx.example.com (192.0.2.50): icmp_seq=1 ttl=64 time=0.550 ms",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              306,
+              920,
+              324
+            ],
+            "text": "64 bytes from fsx.example.com (192.0.2.50): icmp_seq=2 ttl=64 time=0.260 ms",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              334,
+              920,
+              354
+            ],
+            "text": "--- fsx.example.com ping statistics ---",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              381,
+              1448,
+              403
+            ],
+            "text": "ubuntu@demo-ec2:/RAG_Secure_Documents$ sudo mount -t nfs fsx.example.com:/RAG_Secure_Documents /RAG_Secure_Documents",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              399,
+              920,
+              420
+            ],
+            "text": "ubuntu@demo-ec2:/RAG_Secure_Documents$ df -h",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              690,
+              615,
+              710
+            ],
+            "text": "fsx.example.com:/sdg",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              751,
+              752,
+              771
+            ],
+            "text": "fsx.example.com:/RAG_Secure_Documents",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              8,
+              770,
+              920,
+              785
+            ],
+            "text": "ubuntu@demo-ec2:/RAG_Secure_Documents$",
+            "size": 11
+          }
+        ],
+        "output_sha256": "07af73222005240e84e3d15e92a3a3a60221b84fb222e2cf6d151c4b2a40635e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e66732753b8309b1564f9da2de8db478da0c29c6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              233,
+              11,
+              560,
+              37
+            ],
+            "text": "https://192.0.2.218/sysmgr/v4/storage/volumes",
+            "size": 13
+          }
+        ],
+        "output_sha256": "6d65abcad6d24bf731b4fe276b963b2d0f94162f8f13d4eebc6de7e049c9981c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e8e1748ca32005a4c944d4cd22a1ef02fe18d581.png": {
+        "labels": [
+          {
+            "rectangle": [
+              37,
+              365,
+              220,
+              399
+            ],
+            "text": "192.0.2.0/26",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              37,
+              531,
+              240,
+              565
+            ],
+            "text": "192.0.2.64/26",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              37,
+              707,
+              245,
+              743
+            ],
+            "text": "192.0.2.128/26",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              35,
+              859,
+              240,
+              895
+            ],
+            "text": "192.0.2.192/26",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2213,
+              414,
+              2410,
+              451
+            ],
+            "text": "198.51.100.0/25",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2222,
+              812,
+              2430,
+              848
+            ],
+            "text": "198.51.100.128/25",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2228,
+              1136,
+              2430,
+              1173
+            ],
+            "text": "198.51.100.0/25",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2222,
+              1299,
+              2430,
+              1336
+            ],
+            "text": "198.51.100.128/25",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1930,
+              590,
+              2160,
+              622
+            ],
+            "text": "demo-site-red",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1927,
+              1002,
+              2185,
+              1034
+            ],
+            "text": "demo-site-blue",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1930,
+              1340,
+              2190,
+              1374
+            ],
+            "text": "demo-site-redblue",
+            "size": 20
+          }
+        ],
+        "output_sha256": "69ae544295b751a93b5456bde935068324fa73a28c265d13446adfdd84177bb1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/2/52bc90ed5c369340d6c2f3151b03fc83ada13ca8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              584,
+              447,
+              856,
+              489
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              3244,
+              1155,
+              3610,
+              1205
+            ],
+            "text": "demo-seattle-ce",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              833,
+              795,
+              1000,
+              840
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              789,
+              1390,
+              857
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              795,
+              1870,
+              839
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              777,
+              2220,
+              855
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              922,
+              1000,
+              967
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              916,
+              1390,
+              984
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              922,
+              1870,
+              966
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              904,
+              2220,
+              982
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1050,
+              1000,
+              1095
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1044,
+              1390,
+              1112
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1050,
+              1870,
+              1094
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1032,
+              2220,
+              1110
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1177,
+              1000,
+              1222
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1171,
+              1390,
+              1239
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1177,
+              1870,
+              1221
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1159,
+              2220,
+              1237
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1305,
+              1000,
+              1350
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1299,
+              1390,
+              1367
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1305,
+              1870,
+              1349
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1287,
+              2220,
+              1365
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1432,
+              1000,
+              1477
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1426,
+              1390,
+              1494
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1432,
+              1870,
+              1476
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1414,
+              2220,
+              1492
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1560,
+              1000,
+              1605
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1554,
+              1390,
+              1622
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1560,
+              1870,
+              1604
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1542,
+              2220,
+              1620
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1687,
+              1000,
+              1732
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1681,
+              1390,
+              1749
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1687,
+              1870,
+              1731
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1669,
+              2220,
+              1747
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1815,
+              1000,
+              1860
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1809,
+              1390,
+              1877
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1815,
+              1870,
+              1859
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1797,
+              2220,
+              1875
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          }
+        ],
+        "output_sha256": "9f5f5e3ba82dced517c5e2d55fb7405b3ddd7afcc035d0dbf4728c5e31d42da7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/3/53e3499ef5f016431d44baae7691a8eedee009ca.png": {
+        "labels": [
+          {
+            "rectangle": [
+              584,
+              447,
+              856,
+              489
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              3244,
+              1155,
+              3610,
+              1205
+            ],
+            "text": "demo-seattle-ce",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              833,
+              795,
+              1000,
+              840
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              789,
+              1390,
+              857
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              795,
+              1870,
+              839
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              777,
+              2220,
+              855
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              922,
+              1000,
+              967
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              916,
+              1390,
+              984
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              922,
+              1870,
+              966
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              904,
+              2220,
+              982
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1050,
+              1000,
+              1095
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1044,
+              1390,
+              1112
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1050,
+              1870,
+              1094
+            ],
+            "text": "192.0.2.41",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1032,
+              2220,
+              1110
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1177,
+              1000,
+              1222
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1171,
+              1390,
+              1239
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1177,
+              1870,
+              1221
+            ],
+            "text": "192.0.2.41",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1159,
+              2220,
+              1237
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1305,
+              1000,
+              1350
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1299,
+              1390,
+              1367
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1305,
+              1870,
+              1349
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1287,
+              2220,
+              1365
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1432,
+              1000,
+              1477
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1426,
+              1390,
+              1494
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1432,
+              1870,
+              1476
+            ],
+            "text": "192.0.2.41",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1414,
+              2220,
+              1492
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1560,
+              1000,
+              1605
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1554,
+              1390,
+              1622
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1560,
+              1870,
+              1604
+            ],
+            "text": "192.0.2.41",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1542,
+              2220,
+              1620
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1687,
+              1000,
+              1732
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1681,
+              1390,
+              1749
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1687,
+              1870,
+              1731
+            ],
+            "text": "192.0.2.41",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1669,
+              2220,
+              1747
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              833,
+              1815,
+              1000,
+              1860
+            ],
+            "text": "192.0.2.221",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1119,
+              1809,
+              1390,
+              1877
+            ],
+            "text": "demo-seattle-ce",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              1697,
+              1815,
+              1870,
+              1859
+            ],
+            "text": "192.0.2.36",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1980,
+              1797,
+              2220,
+              1875
+            ],
+            "text": "demo-aws-tgw",
+            "size": 23
+          }
+        ],
+        "output_sha256": "59e72437b870159aa449aa8b445955c93c3ea59f6bf5803e5021280afbf29a53"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b79fd846e55d8a4e66b3f51b77229f193d02add.png": {
+        "labels": [
+          {
+            "rectangle": [
+              196,
+              128,
+              610,
+              175
+            ],
+            "text": "demo-production-segment",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              653,
+              704,
+              1006,
+              750
+            ],
+            "text": "vpc-example-1",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              653,
+              794,
+              1006,
+              840
+            ],
+            "text": "vpc-example-2",
+            "size": 27
+          },
+          {
+            "rectangle": [
+              653,
+              877,
+              1220,
+              999
+            ],
+            "text": "ves-io-demo-seattle-node-0-ens224-0",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              653,
+              1045,
+              1220,
+              1165
+            ],
+            "text": "ves-io-demo-sanjose-node-0-ens224-0",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1260,
+              700,
+              1600,
+              750
+            ],
+            "text": "demo-aws-tgw",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1260,
+              790,
+              1600,
+              840
+            ],
+            "text": "demo-aws-tgw",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1260,
+              914,
+              1680,
+              968
+            ],
+            "text": "demo-seattle-ce",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              1260,
+              1080,
+              1680,
+              1133
+            ],
+            "text": "demo-sanjose-ce",
+            "size": 26
+          }
+        ],
+        "output_sha256": "12713dbd6acaf015fa9ee0746096fd0e8425f1a4ab26e53719998e937de52323"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7aff0518a20d05373284769ebc6a4006391d741.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "bc62b14492d3509863414c93892813ee4354c7f92602fce06c334fea7fd322c4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/27cccb1e3b432717ad89284febe00d1b32dac0a1.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "85c43e7705f27bc6232347e3c1d4cb1a55dd35f89315c5b0e7fd7476923bd102"
+      }
+    }
   }
 }
