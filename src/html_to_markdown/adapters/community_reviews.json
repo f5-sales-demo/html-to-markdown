@@ -1569,7 +1569,145 @@
   "70890": {
     "article_hash": "a2cb8e48d7824375cff6e4b092111781e45135ebce70a7ec1bea35ce414be7fb",
     "decision": "include",
-    "reason": "Distributed Cloud WAAP API discovery, inventory and security dashboards"
+    "reason": "Distributed Cloud WAAP API discovery, inventory and security dashboards",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected API discovery guide and five images; crAPI demo domains made synthetic in both endpoint tables; displayed sensitive fields are categories and counts, generic API graph and title cards have no returned personal values",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2b3942ba3d244c8093fe7995829ec1a3ede945d3.jpeg": "91ec189327233ffab499387eb075aa01cf2d2eee8639bb01e368263f62d9f1a6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/8/08ac8ff268e82862df57cdeeae0ae0ff7e675ca5.jpeg": "ea0ef3e1bcc11007612880a85c85504fda40bf915386c864d00b18308a45e632",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/501fa1667b44842bb3ba116842a63e26178e749b.jpeg": "f46bbaac0f54676d7af80440a5cfd6729f7f185f148954e1192c8e26cad69a04",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f1823fb90ffa6091675e375a43d57bf65dae84fc.jpeg": "63056c7eeae428f22d0d833ad56240236910c4764f159f158f52259ff91a9c6a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/4/f49667568b8a62bf5a211b15f1e6a1680a273926.jpeg": "63e8dd33ef877721d9d326b72fc0d122b36dd132b7ef332ed3db272090a23f33"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2b3942ba3d244c8093fe7995829ec1a3ede945d3.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1273,
+              631,
+              1484,
+              658
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1273,
+              691,
+              1484,
+              718
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1273,
+              751,
+              1484,
+              778
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1273,
+              811,
+              1484,
+              838
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1273,
+              936,
+              1484,
+              963
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "e3840c80706d7281ab9b14afe637d9babf4b07976b378e1833b11f5adaf0f1c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/501fa1667b44842bb3ba116842a63e26178e749b.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1250,
+              104,
+              1450,
+              131
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1250,
+              164,
+              1450,
+              191
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1250,
+              224,
+              1450,
+              251
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1250,
+              284,
+              1450,
+              311
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1250,
+              409,
+              1450,
+              436
+            ],
+            "text": "crapi.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "3af06fedbe97b7cd6a52db8645c66212991322d5ef9c525c3f1fea3e295cbff1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/8/08ac8ff268e82862df57cdeeae0ae0ff7e675ca5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8df3b7d0e54220d7bfc1309a7d4f2a49416e734f9c37c0b14ef9b0b8e76978f9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f1823fb90ffa6091675e375a43d57bf65dae84fc.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ffd365a1262092773b1eeda34ffb5e0cd4dd09854b2af254be4d7ad64af719db"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/4/f49667568b8a62bf5a211b15f1e6a1680a273926.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "033903c12e688996214dcbbe86ceb5885946e60911f450f97a13a32d530ec101"
+      }
+    }
   },
   "70911": {
     "article_hash": "6f8418d8ec7db4dacfc416d42d879b62b1f704e56f19d7a1c14d8ab8751535c0",
