@@ -49247,5 +49247,294 @@
         "output_sha256": "d03d0517c661d2fc2826da333b732ff30d876b14e774f107d1a0e935bfd80ea6"
       }
     }
+  },
+  "71257": {
+    "article_hash": "1d7cda8f295831cf92bf1cf4d2636b1e943c4f34e5a2c9951419e065ca255037",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 13 static images. Preserved fictional crAPI products, purchase balances and order IDs, normal and negative quantities, role escalation diagram with documentation email addresses, minimum 1 OpenAPI constraint, validation configuration and 403 event/result. Replaced demo endpoints with documentation domains, example passwords with EXAMPLE_SECRET, client IP/location/ASN and request support/event ID with synthetic examples; retained public regional-edge ID and browser/runtime versions. Image metadata stripped; hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/09585d21f199dee5a9d6453c7a5ddf63445057d7.jpeg": "f0187453c4796c089e3e641b889a6d73b6588522c5f1ff6deba288e2fae95880",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cb3fafe314c1ce9f051b4b0c078e8a2bffa114a.jpeg": "53968f12fd842274873f28e2d6e35a23aecbabcbf5d1ce1b9e52825005e77102",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fba9c2abb10c8dd5c2189c32f9c5233db40583b.jpeg": "8db5c2f1225f23c98be48677b4b5e0755e0f66c7b73c39c5e4ab6d8c77e4633e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63fc93d1262911ad35888e51cfa7e5ab1b330001.jpeg": "b4dba1b0180cc1ce2e6357cf79ee46e4d4ed2035825328300748c02a1472c6c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/734851fb3985a972186d65941c0551b8516e6d14.jpeg": "90d9c354b44f5526adae4e7fb59036cade7cee64358eddb60b89687ee1ba04d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/750b121ee4e83c46de11bca1be0c6f17d97e0415.jpeg": "fee0707346143eab463f499e36dc8b732bb1274ba0f688321e72831ef481d009",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/887524fa78c0758e8aaab6110b0667ccf2b0381f.jpeg": "c290a680af26c66d1369636ff47289aa8cdd1719dad8fab7976f85e0bbbc5835",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/889073297b836a1dff632f0fab171c2828e78d66.jpeg": "538d8fcb8888edf48b3f3948b6aa25e73ae768b6f492acf78ea1b8bfa24ed39e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95eb2c326d7435d2d4f093fb5ad916023013ace1.jpeg": "5102c7556a8a7bce1e408db3aa467dce995da436c966d22ef600970d4271bf30",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb5d45a06fe4ee84f6b1de74feb1bc3a2ebaecaf.jpeg": "66c5dc2559a0296b4e901d199ed4b84d5663d162fda9f5bc93e5c889db7f9139",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2b1498ea6606c09723b089353f1c119cc078d17.jpeg": "01b0ff363cb1494e7b2be38d684e4eaa32dfc8754dae7fc794f4a28a372ec5f4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc395c61d3a34b2a1e002c81f7009a7dae3067df.jpeg": "832dabccdf89acabf88bde0ff075d5762a46e8a61b0fa9704be8bb594e68a863",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/9/69ead2214b09905b9b1906abac61729ae8e4a6de.jpeg": "115f5977c58cfcf2b72d4741294b8a755df864e0070662a280c15aba84e11781"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/734851fb3985a972186d65941c0551b8516e6d14.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              368,
+              101,
+              957,
+              153
+            ],
+            "text": "https://crapi.example.com/shop",
+            "size": 26
+          }
+        ],
+        "output_sha256": "bdf1a04b7b5e31964ed8b1f69ba932c0656f94f5b2f13998e2c860a9f4fc7c97"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/887524fa78c0758e8aaab6110b0667ccf2b0381f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              314,
+              30,
+              1170,
+              88
+            ],
+            "text": "https://crapi.example.com/workshop/api/shop/orders",
+            "size": 28
+          }
+        ],
+        "output_sha256": "57faf1d3dbc48af4c8441c648dd7f177edfc49c9a43fb1ef0a3e32f4672891ab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/889073297b836a1dff632f0fab171c2828e78d66.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              355,
+              9,
+              950,
+              73
+            ],
+            "text": "https://crapi.example.com/shop",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              1140,
+              1842,
+              1970,
+              1891
+            ],
+            "text": "https://crapi.example.com/workshop/api/shop/orders",
+            "size": 22
+          }
+        ],
+        "output_sha256": "1b30be4b88894f82b5e22b798bbe880eb39cb2d229b72c4b3d587307b649ee3e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/95eb2c326d7435d2d4f093fb5ad916023013ace1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              480,
+              1250,
+              695,
+              1316
+            ],
+            "text": "Example City",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              797,
+              1250,
+              1035,
+              1300
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2434,
+              1229,
+              2670,
+              1310
+            ],
+            "text": "crapi.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              356,
+              1520,
+              605,
+              1568
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              356,
+              1571,
+              605,
+              1618
+            ],
+            "text": "Example City",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              356,
+              1720,
+              1090,
+              1767
+            ],
+            "text": "Example Network (64496)",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1898,
+              1518,
+              2460,
+              1569
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1898,
+              1569,
+              2300,
+              1618
+            ],
+            "text": "crapi.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d55c7e6ddd10757144e9cd40d6a96a787cb2f63c2bd0213f667e6f71e769f718"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb5d45a06fe4ee84f6b1de74feb1bc3a2ebaecaf.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              314,
+              24,
+              1169,
+              87
+            ],
+            "text": "https://crapi.example.com/workshop/api/shop/orders",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              473,
+              1365,
+              1144,
+              1424
+            ],
+            "text": "EXAMPLE_REQUEST_ID<h2>",
+            "size": 28
+          }
+        ],
+        "output_sha256": "937f844ae7a9760d43b9c266401b96bcd6b86c624c7d4d5c678b344f2772ab8e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2b1498ea6606c09723b089353f1c119cc078d17.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              560,
+              43,
+              1050,
+              77
+            ],
+            "text": "POST https://api.example.com/api/add-user",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              598,
+              180,
+              998,
+              210
+            ],
+            "text": "\"pass\": \"EXAMPLE_SECRET\"",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              598,
+              441,
+              998,
+              472
+            ],
+            "text": "\"pass\": \"EXAMPLE_SECRET\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              560,
+              591,
+              1050,
+              624
+            ],
+            "text": "POST https://api.example.com/api/add-user",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              598,
+              727,
+              998,
+              758
+            ],
+            "text": "\"pass\": \"EXAMPLE_SECRET\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              598,
+              1016,
+              998,
+              1049
+            ],
+            "text": "\"pass\": \"EXAMPLE_SECRET\",",
+            "size": 20
+          }
+        ],
+        "output_sha256": "ea65fcba979d4ae735c74ddc1df8ab0a7389d4614691c9d556a0ac27bfca5be4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/09585d21f199dee5a9d6453c7a5ddf63445057d7.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "316f75d26b512faf357faf8dbddac428a4e9faa1e4fbe6ebbfc6f84fa424319b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3cb3fafe314c1ce9f051b4b0c078e8a2bffa114a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "af74d9a07b8668277024a044dbf94e95f38e7cc09f63d637f131d946f924fc2b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fba9c2abb10c8dd5c2189c32f9c5233db40583b.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "6fdd4d1d705a078c9f9a4b868d770e0c7c8ccc6d0162bd980dba3fc73157bbd7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63fc93d1262911ad35888e51cfa7e5ab1b330001.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c1d9d337346d7249aff7072a19981050546421b1056ecc554f927929add3da21"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/750b121ee4e83c46de11bca1be0c6f17d97e0415.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "808f70df1bf2a7f59b8049b079045e66d55383b40baeb5639536d61252ecc754"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dc395c61d3a34b2a1e002c81f7009a7dae3067df.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "94cc70808533679db5e36bdbde0d30f180a92bdeedaad9f0a0c68866abba5541"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/9/69ead2214b09905b9b1906abac61729ae8e4a6de.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "71d5a32d8f78e2fae7c5efe7db9ad16c0ece8c79a216d89b9fc64ef8c319c15f"
+      }
+    }
   }
 }
