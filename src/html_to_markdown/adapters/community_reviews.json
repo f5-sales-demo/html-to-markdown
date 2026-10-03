@@ -7819,7 +7819,51 @@
   "77045": {
     "article_hash": "540371d4350c786f3a0ff6fac0a9de1fb4c9b6dfbe9b61eea135da04dbada46f",
     "decision": "include",
-    "reason": "Distributed Cloud AI WAF risk-scoring custom-policy configuration companion article"
+    "reason": "Distributed Cloud AI WAF risk-scoring custom-policy configuration companion article",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected custom AI WAF risk guide and six configuration screenshots; namespace and policy names made synthetic while all accuracy and risk action controls retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4015dfc487075e985ac993b15ae2242cf9f7700f.png": "28f293a262ca387c61434bb49c784aac47d2205809f294e76ad21be258099b29",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4cc2dfdeaa1c7d7a7a1faa6f25e18e6fe0705d9e.png": "d77d6ab8f60f3a2a9c9527b7d4255ef7e01eb41c023788674353dc2a9300e5af",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9936804dad02877234be4d27fdcef4cf4db10812.png": "8bb2159f52b1ad32fbda7ca421828ee6bc7a500ec93ee899fae78a5dd4af0c07",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a470ea8eeb2872c3ba27987137141ab2ab5897be.png": "51ae721552b1e8919b20d38794678cf2d3470878770c849c5c25ca57875acade",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d81cfcf3496df47a889a13891bd5647409b98931.png": "cb1706f4296528d8cdbaac31a5e342e4f00a7c5ed71a183516a61d8a75dd535e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f95cf619fea2374d420a4e7db58740672c0e831d.png": "ead2db2a1744f8781aba9915e048ca5420ef289c865406c518f285f6d8b0c333"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d81cfcf3496df47a889a13891bd5647409b98931.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              5,
+              27,
+              270,
+              56
+            ],
+            "text": "example-waf",
+            "size": 18
+          }
+        ],
+        "output_sha256": "e2db6168afb995a940f7a10d62cd3fb05ac126832f390a7c2acee79cf34d6b5b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f95cf619fea2374d420a4e7db58740672c0e831d.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              150,
+              111,
+              436,
+              136
+            ],
+            "text": "example/example-waf",
+            "size": 14
+          }
+        ],
+        "output_sha256": "17814e66c0f31a66833d5190fc1cceba54722bc6688976b12fb13e905c33d4a6"
+      }
+    }
   },
   "77046": {
     "article_hash": "b6038a644221a311bf3923861ac6cad1360de233104caefd5018a990453cd9b7",
@@ -9102,6 +9146,64 @@
           }
         ],
         "output_sha256": "ade8ba1823be7389934e1e46d20c5657ee97058d93846fbb1be956d93d268db4"
+      }
+    }
+  },
+  "77037": {
+    "article_hash": "99de4a93dedbcb055abfa81a70efd4aef5f92609096572c4f052851ee6bbd53c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused resiliency or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected complete fallback guide, tables and five images; Customer Edge names made synthetic, reserved example domain and address retained, DNS TTL and failover diagrams preserve both paths without user identity",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bb3560f67fe0f3e61266eafaf90caa0bdc171a8a.png": "d3f1c07e021e975275d006ad81ef9b4bc6d7e35921829770c2fc4917c0d1714a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e231c99ca58788b806764b75a4d8c099079b3156.png": "7aad95c6d028927188fba7b8238a326a85b80d61a2a8a5eca46fb401cd1eb83e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/58eaef47729401a3110900b215e98eb5c39a7b5c.png": "9fdc282e82ec3524f238a8ce548c4d56fecfe8c25ed45c7cd8ee7194bd805823",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8df6fcc37337ec906cb5110067a7d742371ef258.png": "f324b3d881f6cf8b2c330be9131113cdc29ea794fa942665455d19325bf545db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/d/8d8add6fac25eb823dd796a2e310e2a2ae8cf154.png": "c971c44bb2c0aec7289c0c02c66f26f7452b6ae2c7991684099e2f2476838bb2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bb3560f67fe0f3e61266eafaf90caa0bdc171a8a.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              360,
+              221,
+              605,
+              250
+            ],
+            "text": "example-customer-edge",
+            "size": 14
+          }
+        ],
+        "output_sha256": "2a01fd64295cdd13ef6260a9d790c9e2c5c37858ab3306fa58ae10b1e44eb4c8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8df6fcc37337ec906cb5110067a7d742371ef258.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              340,
+              201,
+              590,
+              232
+            ],
+            "text": "example-customer-edge",
+            "size": 14
+          }
+        ],
+        "output_sha256": "85278b9b7f282828bfc2a24cf833eb7f858ace4dc5c1a2452ebc52d3c8b3fe08"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e231c99ca58788b806764b75a4d8c099079b3156.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "fd012152bfe0116d19f31699a4b7c53faa557b857ea8548a63f3bbd0f03fa4ea"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/58eaef47729401a3110900b215e98eb5c39a7b5c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f8251465bad804c05de0d95083873a65ba9258c9c4f6b3763f7c426a644c9aa9"
       }
     }
   }
