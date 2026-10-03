@@ -46774,5 +46774,607 @@
         "output_sha256": "2597473fbcd7c34fcc08b1d0666a63d5a8e512f3174a26976570c0f0e0ba767e"
       }
     }
+  },
+  "71522": {
+    "article_hash": "fa0944835bbba5e85d1b4ee048c72314fcdfca9369ccddac680736c5b5a5961f",
+    "decision": "include",
+    "reason": "Distributed Cloud primary CSRF configuration and validation",
+    "text_replacements": {
+      "nodes": {
+        "b3f7e7b399dd37ccae16adeac61a23e5f72f1443d281806230c174c6e95907bf": "\u2022\tcurl -X POST  https://app.example.com -vvv\n\n\u2022\tcurl -X POST -H \"origin: other.example.com\" https://app.example.com -vvv\n\n\u2022\tcurl -X POST -H \"origin: app.example.com\" https://app.example.com -vvv\n"
+      },
+      "output_sha256": "b758c32a047c0854d4ff31ecbeb0259498ef3693033c8c2735f321453ca04435"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose, all three curl cases and 12 static images. Preserved CSRF source-origin configuration, single and multiple domain cases, POST and origin-header commands, TLS diagnostics and issuer, 403 invalid-origin versus 200 accepted-origin results, status/header fields and configuration controls. Replaced personal namespace, resource names and labels, tenant login label, demo domains, client connection address and terminal identity with consistent synthetic examples; stripped image metadata. All transformed images visually checked; incidental BIG-IP mention is only generic console tile text.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0fa5977c164eca65ca05504125427c9edb194126.png": "f89e3847bc011329eaba3fbd60c2967302ea4ffd51e12848df235990ee27f6d2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/21b5c4469485b6780396e268ce2eda3ac5f31259.png": "5771d0cf838745d5489f29f4114234298f07a8a8fcaec5a94d409eff7a78e1a9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2663aa3f9bc928cd3409d79cfd47f01317fd2133.png": "28a8844e5c6f66ceb382d7f506285c5846466a30a3fd43bafec5bbe09375855d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4893a67fd6d369513a04e1c6aff530dc6321a8e5.png": "ff012747d3a57ae295704106e15b0bf54358873ae3a6d2fc6c7a4b48ce622e8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48e082c607e738e2779f9de49ef8dcbc81e22c58.png": "5f7e059778fe9cc906c7cd63146d4dccbd5b7645a249c3bdc26d94a8ea2f4b6b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7b1a2b4656fbd2c0bc0d023ec01c11941645b399.png": "b03dc375fd6d56ecb60ee289cd5c62d4b392b806e8bdd2d4c173615b3274ecd6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3525101463eb552709c870a9c4412cb5e61bf78.png": "0d43810f8ae09b9c13eee55b94f668d563f61bb591f40c2f6ce5d2a2baa1ef4c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d80d93956f5c579ee8c362dd6cbfc45f4a303df0.png": "43c122e97ab3e0eefc90d22fd55d3fd821b9b4a9312b56b9524f14432be02bdd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ecf890f48e31ebaa8ac02edec4e7e7bec89564c4.png": "87eb093adb0c3b164edb6e1d78aaadd2336a3d3ce5471e971264645136532ad9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f95f1e17458c195a9a3a50f886a2bae733ae2dde.png": "1ce37df0510e769309b68941d32cdc92e7d6c9cf686740857bac1f69d01b0b5f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4e918381173cf83c439a3da74351f4d037d15ba4.png": "e7de3535b8043aacc4da0a6724ac45c69dddea0deb08d4e706a42d0b408f2da2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d12d756f7a7e4ead884f416d538bc8f374ee15e3.png": "4c1213248c292f8002236129cb29baf8af907159c78120ea562e57d41c562c80"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0fa5977c164eca65ca05504125427c9edb194126.png": {
+        "labels": [
+          {
+            "rectangle": [
+              34,
+              139,
+              209,
+              160
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              402,
+              168,
+              577,
+              190
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              518,
+              254,
+              710,
+              280
+            ],
+            "text": "demo-app",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              402,
+              342,
+              828,
+              366
+            ],
+            "text": "HTTPS loadbalancer for demo origin server",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              548,
+              538,
+              774,
+              562
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "8fcea1fa79cac05d95c7e91221a95cc889757ca01f2a74cef2c8936ddcd659ed"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/21b5c4469485b6780396e268ce2eda3ac5f31259.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              141,
+              212,
+              162
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              680,
+              279,
+              931,
+              302
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "29c2d25df8ea1f37b9bb1c470e0222e88945a7c8200e3004140e8da92e896b7a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2663aa3f9bc928cd3409d79cfd47f01317fd2133.png": {
+        "labels": [
+          {
+            "rectangle": [
+              34,
+              139,
+              213,
+              164
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              468,
+              251,
+              713,
+              278
+            ],
+            "text": "demo/demo-waf",
+            "size": 14
+          }
+        ],
+        "output_sha256": "71fa49916715b687d854af9d33dd5c014580bcdd343d3642c7de03159a3dd732"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4893a67fd6d369513a04e1c6aff530dc6321a8e5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              237,
+              2,
+              672,
+              22
+            ],
+            "text": "example@demo - zsh - 118x60",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              28,
+              842,
+              54
+            ],
+            "text": "example@demo> curl -X POST -H \"origin: other.example.com\" https://app.example.com -vvv",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              18,
+              74,
+              665,
+              85
+            ],
+            "text": "* Connected to app.example.com (192.0.2.20) port 443 (#0)",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              25,
+              270,
+              455,
+              282
+            ],
+            "text": "subject: CN=app.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              0,
+              310,
+              842,
+              338
+            ],
+            "text": "subjectAltName: host app.example.com matched certificate",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              18,
+              382,
+              406,
+              394
+            ],
+            "text": "Host: app.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              4,
+              550,
+              603,
+              562
+            ],
+            "text": "* Connection #0 to host app.example.com left intact",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              0,
+              573,
+              210,
+              586
+            ],
+            "text": "example@demo>",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              0,
+              58,
+              266,
+              72
+            ],
+            "text": "* Trying 192.0.2.20:443...",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              0,
+              420,
+              185,
+              433
+            ],
+            "text": "origin: other.example.com",
+            "size": 7
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            47,
+            175,
+            58
+          ]
+        ],
+        "output_sha256": "29f915870f5de168c7bd4b5e98d7892f3dfa36635e1fbd428825da02f05d6d5d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48e082c607e738e2779f9de49ef8dcbc81e22c58.png": {
+        "labels": [
+          {
+            "rectangle": [
+              27,
+              100,
+              154,
+              120
+            ],
+            "text": "demo-lb",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              446,
+              99,
+              575,
+              119
+            ],
+            "text": "demo-lb",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              147,
+              716,
+              166
+            ],
+            "text": "demo-app",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              474,
+              177,
+              772,
+              197
+            ],
+            "text": "HTTPS loadbalancer for demo origin server",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              413,
+              302,
+              600,
+              320
+            ],
+            "text": "app.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "b5d022a1cd05ee104d1bce764a482c1a9ef44e5d63db3f71f2ef283a23b9bb88"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7b1a2b4656fbd2c0bc0d023ec01c11941645b399.png": {
+        "labels": [
+          {
+            "rectangle": [
+              361,
+              2,
+              712,
+              24
+            ],
+            "text": "example@demo - zsh - 148x62",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              42,
+              1047,
+              70
+            ],
+            "text": "example@demo> curl -X POST -H \"origin: app.example.com\" https://app.example.com -vvv",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              73,
+              258,
+              86
+            ],
+            "text": "* Trying 192.0.2.20:443...",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              4,
+              89,
+              665,
+              101
+            ],
+            "text": "* Connected to app.example.com (192.0.2.20) port 443 (#0)",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              25,
+              285,
+              456,
+              297
+            ],
+            "text": "subject: CN=app.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              0,
+              324,
+              1047,
+              340
+            ],
+            "text": "subjectAltName: host app.example.com matched certificate",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              18,
+              383,
+              407,
+              396
+            ],
+            "text": "Host: app.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              0,
+              423,
+              435,
+              437
+            ],
+            "text": "origin: app.example.com",
+            "size": 7
+          }
+        ],
+        "output_sha256": "99b28602df14a03b56f068a2c01d57aec999dac9d924233992f84e26953ec1ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3525101463eb552709c870a9c4412cb5e61bf78.png": {
+        "labels": [
+          {
+            "rectangle": [
+              455,
+              172,
+              590,
+              196
+            ],
+            "text": "demo-tenant",
+            "size": 18
+          }
+        ],
+        "output_sha256": "cbc3b75940ff61e9a649e6da621e4ba12a328d5f453049c4cd323afc6ba51dd3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d80d93956f5c579ee8c362dd6cbfc45f4a303df0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              548,
+              6,
+              600,
+              24
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              45,
+              181,
+              100,
+              205
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              443,
+              286,
+              625,
+              313
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              685,
+              286,
+              745,
+              313
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1648,
+              264,
+              1885,
+              337
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "9999afc703363ccce9b132516cfeafa6af94318aa51481d1ac5eb4ea88551778"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ecf890f48e31ebaa8ac02edec4e7e7bec89564c4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              32,
+              88,
+              212,
+              111
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              401,
+              115,
+              583,
+              140
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              518,
+              203,
+              704,
+              226
+            ],
+            "text": "demo-app",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              401,
+              290,
+              834,
+              313
+            ],
+            "text": "HTTPS loadbalancer for demo origin server",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              548,
+              485,
+              786,
+              511
+            ],
+            "text": "app.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              548,
+              538,
+              786,
+              563
+            ],
+            "text": "other.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              548,
+              590,
+              786,
+              616
+            ],
+            "text": "ratings.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "a57b7403f58b36fc6a422ded142ec38b29f575449154162ee2f1073555725588"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4e918381173cf83c439a3da74351f4d037d15ba4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              33,
+              140,
+              212,
+              164
+            ],
+            "text": "demo-lb",
+            "size": 14
+          }
+        ],
+        "output_sha256": "44b475ee7eddc2895cf4483d58ebe9f7f2451ab54ecd3b5cdf29746164648f9d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d12d756f7a7e4ead884f416d538bc8f374ee15e3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              548,
+              6,
+              600,
+              25
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              46,
+              180,
+              101,
+              204
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              443,
+              288,
+              625,
+              314
+            ],
+            "text": "demo-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              685,
+              288,
+              745,
+              314
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1648,
+              264,
+              1885,
+              337
+            ],
+            "text": "app.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "71dae91f28c2ebefde571ff220082257dc14232fe7905369537d8be7c5152556"
+      }
+    }
   }
 }
