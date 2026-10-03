@@ -22240,5 +22240,411 @@
         "output_sha256": "7cf516b7c5ff35c9b322a342e7d1f392a61e9e2095c1254651a8e00827994eaf"
       }
     }
+  },
+  "74394": {
+    "article_hash": "c86e8f9705e51a78f2d92b05e0f92e82bb0a561ba0245ae09ba70921539f5135",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed entire NAS-over-XC first post and eight static images. Replaced Azure subscription and volume identifiers, profile remnants, host prompt and public client IP in every packet row with synthetic examples. Preserved NFS command/script, private server address, packet timing/lengths, throughput, service levels, quota and connectivity diagram. No file contents or customer records are shown.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0faba2d6d4288474c878b673b3af696f6e20730e.png": "0eaf917ae1f568f70938777c2b5eb67a94a943898cadeb06f03590828e304bca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8317062635f5653118635d20cdd445fcc1e46f64.png": "d9eff33ba555ec171e885b5b664dd59b1f87c8dc803537289d8041415b50ba47",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9753aabddd07f4979a864b5c0f9d2f4090975030.png": "a07050dc84dfa10649b33bffad5e140fd79a0929e33a47efdc8b21005b2cd242",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c8f28b4364401c36471b238d84c99dee8c4c615a.png": "3b360f36d293bdc20baadc55adbac5add9e0ec6c0631da743eb8ced44797931b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/09770a1858abe38b85c3c34146aaa42681a2b117.png": "b9c05c1089d50abefb5ee80619d6f3566e1d9b671d55feb9c4bda7f3ae42d3ca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/e/0e39ee8a29707d99c3a5104d97e2efea03a154aa.png": "893acb2eb7f7c28e82c28df4b711dc376d95ff2a6e5737105279e2126fd5891f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3adbc6f94f7d01a996be8ffaceeeb4193678af9d.png": "6d611c742ade5491f52695865287d8beb5b3027269b12fb599b5936d0c5753d3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/8/789d809f9326bc084430276eba2101b4c2d0aba7.png": "8122242d75760ae1f9def04687a72d17464f175c545e16996ee18cec79337203"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8317062635f5653118635d20cdd445fcc1e46f64.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              486,
+              24
+            ],
+            "text": "ubuntu@example-client:~$",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              0,
+              207,
+              484,
+              231
+            ],
+            "text": "ubuntu@example-client:~$",
+            "size": 17
+          }
+        ],
+        "output_sha256": "c8fb424a6ee175fdd040c8eee6602fcfe2fe30a9bea16e7d558375973202c929"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c8f28b4364401c36471b238d84c99dee8c4c615a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              208,
+              157,
+              298,
+              177
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              397,
+              181,
+              487,
+              201
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              397,
+              203,
+              487,
+              223
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          }
+        ],
+        "output_sha256": "6965724c81c7c1eb148eeaa0b5d2b5077a811fb02ef68de5ebd6c9eaad105d2f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/09770a1858abe38b85c3c34146aaa42681a2b117.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2151,
+              1356,
+              2876,
+              1405
+            ],
+            "text": "example-volume-id",
+            "size": 34
+          },
+          {
+            "rectangle": [
+              2156,
+              1731,
+              3493,
+              1794
+            ],
+            "text": "/subscriptions/EXAMPLE/resourceGroups/example",
+            "size": 34
+          }
+        ],
+        "rectangles": [
+          [
+            3454,
+            0,
+            3493,
+            99
+          ]
+        ],
+        "output_sha256": "6170049ed4f3246455dc63f6e22605f6cf7c08e83ca6f0fa8c72708c963f37a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3adbc6f94f7d01a996be8ffaceeeb4193678af9d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              417,
+              304,
+              580,
+              342
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              349,
+              962,
+              387
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              394,
+              962,
+              432
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              439,
+              580,
+              477
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              484,
+              580,
+              522
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              529,
+              580,
+              567
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              574,
+              580,
+              612
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              619,
+              580,
+              657
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              664,
+              580,
+              702
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              709,
+              580,
+              748
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              754,
+              580,
+              793
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              799,
+              580,
+              838
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              845,
+              580,
+              883
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              890,
+              962,
+              928
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              935,
+              962,
+              973
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              980,
+              580,
+              1018
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1025,
+              580,
+              1063
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1070,
+              580,
+              1108
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1115,
+              580,
+              1153
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1160,
+              580,
+              1198
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1205,
+              580,
+              1244
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              417,
+              1250,
+              580,
+              1289
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              1295,
+              962,
+              1334
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              1340,
+              962,
+              1379
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              795,
+              1386,
+              962,
+              1413
+            ],
+            "text": "192.0.2.10",
+            "size": 24
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "3d137e55f8a951a0077f44387b134f59f390846a7398e26123749149a63f944c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/8/789d809f9326bc084430276eba2101b4c2d0aba7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2156,
+              671,
+              2477,
+              722
+            ],
+            "text": "Example subscription",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              2156,
+              791,
+              2758,
+              842
+            ],
+            "text": "Example subscription ID",
+            "size": 30
+          }
+        ],
+        "rectangles": [
+          [
+            3450,
+            0,
+            3598,
+            102
+          ]
+        ],
+        "output_sha256": "994222b735331aaacda75cffd86a42ad7ac1d1db91a7bdf8fbff6663224737a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9753aabddd07f4979a864b5c0f9d2f4090975030.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a488be666813fe97dc3a21bc199f4b80b77ad809aee404829e5f2a1c898de921"
+      }
+    }
   }
 }
