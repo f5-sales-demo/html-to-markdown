@@ -1664,6 +1664,86 @@
     "decision": "exclude",
     "reason": "Recent-article holiday roundup; news digest outside content scope"
   },
+  "71266": {
+    "article_hash": "cad5accef698b9ee6578bc2867a17deed0a329427bf1a5fa078cc30ef3ca4362",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0a95914ce8abe3c4221f48e48154e6e045192f22.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              74,
+              548,
+              610,
+              642
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "ac7885f4114360128075aaaccea7188114b5d0ce028b407b7ea38a9f100ec48f",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/939c35aee3a58e5b42271b1f446b356ff9547b3e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              74,
+              548,
+              610,
+              642
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "f2c4c1381efabfc59a8973e0b792a4fc61336052ead25b60f69571c776827429",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/9/e9f8d3721ec1027df8f33da4cf11d60aa6f6c704.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              74,
+              548,
+              610,
+              642
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "7fd4879f887a5e397ee987ca34c1b313e7ee0dc33d738eb25c6aa6a7b48d037b",
+        "rectangles": []
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/efafa10cd0651a4e2b1db99f4cdaaff777270e3b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              74,
+              548,
+              610,
+              642
+            ],
+            "size": 18,
+            "text": "F5 technical demonstration"
+          }
+        ],
+        "output_sha256": "770f7ac2ef5456666f4ad92c269c9b16af07a04552d883594045b2683f5e61d4",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0a95914ce8abe3c4221f48e48154e6e045192f22.jpeg": "08509c7fce759ec7d5111b578f8ea804509e57e1f19408fe03e13e3598168d46",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/939c35aee3a58e5b42271b1f446b356ff9547b3e.jpeg": "cd7ee0852e00c88b74fe3ba8112fe30d312eccbb64cea83afe1553803de61267",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/a/9a30465e63749e2f98b22f3ebfe42052fb0a92e1.png": "f4274f93b818f56dc7685bc93dcbba8346fcb66421011def91bf1d2165addb4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/9/e9f8d3721ec1027df8f33da4cf11d60aa6f6c704.jpeg": "c81456ec11fb4ae0960bf4ad06f2bfa2eb3e2524ce50e976a509f03b60f8d2f9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/efafa10cd0651a4e2b1db99f4cdaaff777270e3b.jpeg": "c4f8c0467b2f7eb10311f848ec89c808660f81f6911674bc1a88049b349eaad3"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected fraud overview and five generic solution images; presenter labels made generic; no actual fraud or account records",
+    "reason": "Distributed Cloud fraud and risk overview"
+  },
   "71279": {
     "article_hash": "2be8db6f85f53de2422845c9fb17affd6935146c4869a7ab88f24e347a21b090",
     "decision": "exclude",
