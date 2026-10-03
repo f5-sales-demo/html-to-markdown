@@ -845,13 +845,13 @@
   },
   "69712": {
     "article_hash": "98d36f59962957aabecaa40a7aa1e8c3f6d4807ef04aab9f9643ad63cce8005b",
-    "decision": "include",
-    "reason": "Distributed Cloud Bot Defense onboarding and BIG-IP connector integration"
+    "decision": "exclude",
+    "reason": "Complete first-post review: BIG-IP primary implementation: imports and configures iApp templates and application services, JS injection and protected endpoints on BIG-IP 14.1-16.x; Distributed Cloud console provides service registration and monitoring. Excluded under the BIG-IP-focused content rule."
   },
   "69713": {
     "article_hash": "90ede16cc14163ddaa4d6f49ea0514393f4dfe64a9f702694244e02610d7bc56",
-    "decision": "include",
-    "reason": "Distributed Cloud Bot Defense onboarding and native BIG-IP connector integration"
+    "decision": "exclude",
+    "reason": "Complete first-post review: BIG-IP primary implementation: configures native BIG-IP 17.0 SaaS Bot Defense profiles, JS injection, endpoint enforcement, protection pool and SSL profile; Distributed Cloud supplies connector credentials and monitoring. Excluded under the BIG-IP-focused content rule."
   },
   "69723": {
     "article_hash": "11128b21d9320aacb45e8a952482e7195d4e862b4d79b5bc8f5c31bc82377f15",
@@ -3248,8 +3248,8 @@
   },
   "71685": {
     "article_hash": "340a89eb640a5b92dfca69dfc75286a9caeb74c6541896825c514806db28fcac",
-    "decision": "include",
-    "reason": "Distributed Cloud Bot Defense connector onboarding and monitoring via BIG-IP 17.1"
+    "decision": "exclude",
+    "reason": "Complete first-post review: BIG-IP primary implementation: configures BIG-IP 17.1 Bot Profiles, protection pools, SSL profiles and virtual-server service settings; Distributed Cloud console registration and monitoring support the BIG-IP connector deployment. Excluded under the BIG-IP-focused content rule."
   },
   "71780": {
     "article_hash": "7d8e673b8d8beca710a2e098627cd849a1f49907be1c36d9296aa7f720f4e980",
