@@ -7244,6 +7244,64 @@
     "privacy_reason": "Individually inspected Equinix application portability explanation and two generic topology maps; no customer locations",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "76933": {
+    "article_hash": "d42740e6f7377d3268853fc76ab76bb563ec9f8a80ac632e3c110e38eedfbc47",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/03bd005ab324203d3a4a37bf70300680c059d933.png": {
+        "labels": [
+          {
+            "rectangle": [
+              139,
+              134,
+              299,
+              153
+            ],
+            "size": 12,
+            "text": "example-api-lb"
+          },
+          {
+            "rectangle": [
+              176,
+              159,
+              290,
+              179
+            ],
+            "size": 10,
+            "text": "example-namespace"
+          },
+          {
+            "rectangle": [
+              247,
+              207,
+              496,
+              227
+            ],
+            "size": 12,
+            "text": "ves-io-apidef-example-api"
+          },
+          {
+            "rectangle": [
+              123,
+              328,
+              290,
+              349
+            ],
+            "size": 12,
+            "text": "api.example.com"
+          }
+        ],
+        "output_sha256": "aabc95c98c97b78b93ac19c69782f39bce57cad5489ef8f04b37e4ce57fea363",
+        "rectangles": []
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/03bd005ab324203d3a4a37bf70300680c059d933.png": "242e961ae16137e2ac5d293f30ecaae48d0e6efa9cf7face804a9156cb8105d8"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected namespace migration guide and YAML screenshot; namespace, object names and domain made synthetic while configuration keys retained",
+    "reason": "Distributed Cloud namespace migration guidance"
+  },
   "76970": {
     "article_hash": "20c6c5aee6ab9a730f844396e8428e92dfab40513d952a3c624c22df02aeb143",
     "assets": {},
