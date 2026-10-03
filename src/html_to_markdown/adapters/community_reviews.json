@@ -107,7 +107,7 @@
     "decision": "include",
     "reason": "Distributed Cloud MCN demonstrations address overlap, observability, security and transit routing",
     "privacy": "approved",
-    "privacy_reason": "Reviewed entire first-post text and all five static images. Synthetic object names, public addresses, SSH identity, console tenant, request ID and load generator labels replace identifying values; unrelated background terminal/profile chrome removed. Private routing ranges, connectivity arrows, ports, TGW topology, stock storefront and request telemetry preserved.",
+    "privacy_reason": "Reviewed full prose and five images. Synthetic example.com SSH identity, object names, public addresses, console tenant, request ID and load generator replace identifying values; background terminal/profile chrome removed. Routing ranges, arrows, ports, TGW topology, stock storefront and request telemetry preserved.",
     "assets": {
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d3299ceffd4dd73ba6ed6498db29dd075525b45.jpeg": "eb260051cdc689005a7666928f096ff1b304eb986551112444f4c4163cbbd778",
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b3c3ec0e09f85ad8d8975df56c7680046b8312c.jpeg": "19526948d56aec183fcebbf6739c91578474e9340b26b7cb0443177a0ad05fc6",
@@ -125,7 +125,7 @@
               300,
               484
             ],
-            "text": "ubuntu@example.local 9122",
+            "text": "ubuntu@example.com 9122",
             "size": 11
           },
           {
@@ -190,7 +190,7 @@
           }
         ],
         "rectangles": [],
-        "output_sha256": "7e9011c2f857f7655d6a5364fba48a0808044da1849479f587a9516563ceeaa4"
+        "output_sha256": "451d3e4c3cad276dd549a567f7049e0c7418cff7cf8d76ff8a982fff83ad9329"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7b3c3ec0e09f85ad8d8975df56c7680046b8312c.jpeg": {
         "rectangles": [
@@ -269,7 +269,7 @@
               513,
               641
             ],
-            "text": "ubuntu@example.local 9122",
+            "text": "ubuntu@example.com 9122",
             "size": 12
           },
           {
@@ -353,7 +353,7 @@
             "size": 12
           }
         ],
-        "output_sha256": "33bb10c262274f076778edc13eee4010642abc844be684d1f15ef6f68a0e5976"
+        "output_sha256": "8afe2bfa25b1a8f38e68901af0ee666e72600b12b182b0f2f084365c3bb9e1de"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/d/7d35b6b5d428daf425b30d8897423134a130b20d.jpeg": {
         "rectangles": [
