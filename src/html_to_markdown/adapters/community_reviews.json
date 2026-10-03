@@ -8994,5 +8994,115 @@
         "output_sha256": "ae3d7e338aca30eea21220fb07b6b879cf8a8db7d76b167c8e58b5a4fe515ad7"
       }
     }
+  },
+  "76269": {
+    "article_hash": "2aaf3ba1387fdd9952e1f6ed2515290cc5b33bd4f706c3c99829ed0bf47f92e2",
+    "decision": "include",
+    "reason": "Distributed Cloud focused automation or persistence guide",
+    "text_replacements": {
+      "nodes": {
+        "a6f82b6d803cd532c0afc7374ebfa4ca1b13e25c2780105aeef475d3db2c7faf": "https://example.console.ves.volterra.io",
+        "6a0c34f6efe015c752432dca8ca94c432784215b69df11db028f66b12413ba4d": "custom_proxy {\n      enable_re_tunnel = true\n      proxy_ip_address = \"192.0.2.254\"\n      proxy_port = 8080\n    }\n",
+        "514e075271cbe5a82217da175f7d12d17000bfdb68a6845199aceae21b91ad4b": "https://example.console.ves.volterra.io/api"
+      },
+      "output_sha256": "acbeb41d6bcf2fde243f05fb027e89e0de3de201a44f2683673258245a34115e"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected SMSv2 automation guide, complete Terraform and CLI code and five images; architecture contains generic interfaces and placeholder routes, image IDs and build names are public publisher catalog identifiers; tenant and proxy address made synthetic, passwords remain explicit placeholders",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e96bfd4014660923579f01e3476569119619fb6f.jpeg": "784c9378052f7742e59d94b081fd25b3046bde11cad30bcaa07ffba06a4d5396",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1eb5f1fe225ad1149aa981e02e321d9574ef46c1.jpeg": "33de70765d1eeeb972e20d05d4a6cf6f7732cceeefc0e9ed91f0a6d820d3824c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ebb1af281af7acce9ee19175760177c2ce5c5587.png": "e38238369f8de075178814da5f060f6d2c5a6407c06112ce8a2f358bc011183e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ce7f711ad87cf133a6a2f35e623eecdd65a0f68.jpeg": "cdabb62cccbb0bbabcbb8b6118d2ef08d200b3ab11a9dd96c106c4af6ebf5605",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c559a4c9f08402aecbc1e41bab90c764a9f94aba.jpeg": "bf4d754fc5b7994f212505e26b7bdee39335a8ba1cfed2c9b73abfb0debf48f3"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/e96bfd4014660923579f01e3476569119619fb6f.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4786484001efc7ea975f5814127226e6f43be2470c11511c2444eaab12013269"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1eb5f1fe225ad1149aa981e02e321d9574ef46c1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "88d6a2f77a097a39c8cd250e16526bc3a18b56eef79b077f64f8094e95d8845f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ce7f711ad87cf133a6a2f35e623eecdd65a0f68.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a8fbe6ce6c849cbeb6632e021e5a8f8a07ce47f857cb7f0294e655b001411d24"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/5/c559a4c9f08402aecbc1e41bab90c764a9f94aba.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "81db41cc8b25ed36518eab6f5ec0848de0dae08c43216f382f9a86cc67447334"
+      }
+    }
+  },
+  "76193": {
+    "article_hash": "733fea447a62ed07f39feb1547db5864461649c28080c54a0e014e7a2c5dab20",
+    "decision": "include",
+    "reason": "Distributed Cloud focused automation or persistence guide",
+    "text_replacements": {
+      "nodes": {
+        "472edac454c21c4abeff4049eafb1e8aef71de52896dcac8875bbd9fda83e593": "Client 1 (IP 192.0.2.1) hashed is always value x (here position 20)",
+        "87085f2dd9c1fb32769065b2e7b7f542ff10a244ef46afabec838cf5c4b1929b": "Client 2 (IP 192.0.2.2) hashed is always value y (here position 35)",
+        "b204c22fa0c5270f06c2590ae2d264dfdcb559d1fbc637f84416c116013e61b2": "curl -s https://echo.example.com | jq \".os.hostname\"\n"
+      },
+      "output_sha256": "d317153a3f64eb94b5ffe3513a89b47a4cc240bb0dfc6c47591963185341de08"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected persistence guide and five images; terminal identities, test endpoint and illustrative client IPs made synthetic, generic numbered server names and repeated outputs preserve the routing comparison",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/067385ca066c31d82fc326355c088f10e53b44dd.png": "6265344d3703e802af3ab27f251912bf2a54c5b694e112c63dde4fc1125aa81d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/451c0705429ab7a42a1649b78a523dfb3120539a.png": "be65d5040ed8b7431c6f6fa0944aa34291227e17aa86508d8d10d065657674d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5eecac66ff19a2c502ead309838f7b545aac5ae0.jpeg": "4afbf5dea3b32ff98c1c30c2b97dc39be36d19238b95ba91af96fda2f23a4259",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/3/531245230af7d2881beb83b9205a74754e7da42c.png": "ad5c8aeefa4a7ef90eb29e0ac97c203ef3a283130d29dd1f308840f4054ec26e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8b950d996a429dac33abd37523ff3293de4d9bca.png": "eb09a55da649e1e59c2d03ca9dff2c71d8f1e13648881f60bfc797b3c36a1a52"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/451c0705429ab7a42a1649b78a523dfb3120539a.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              230,
+              22
+            ],
+            "text": "example@host:~$",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              0,
+              393,
+              230,
+              417
+            ],
+            "text": "example@host:~$",
+            "size": 14
+          }
+        ],
+        "output_sha256": "88fa6b4a0b92f5753f08df7812b805ed6b8598ce97dca2731ca79bf0d66a7d04"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5eecac66ff19a2c502ead309838f7b545aac5ae0.jpeg": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              230,
+              22
+            ],
+            "text": "example@host:~$",
+            "size": 14
+          }
+        ],
+        "output_sha256": "ade8ba1823be7389934e1e46d20c5657ee97058d93846fbb1be956d93d268db4"
+      }
+    }
   }
 }
