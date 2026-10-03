@@ -295,6 +295,22 @@
     "privacy_reason": "Individually inspected WAF overview and generic icon and capability slide; no request or account data",
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
+  "69333": {
+    "article_hash": "71ad66e5c70b386f808c7096e67440b4b2ccdf27671d71789d4a25152468904a",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/36984450e31a8e7127103dd03bb2125a14dfb38e.png": "19be728485f1b554a1a190e40c69922065af69d6c497adedf212724657da6afc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4037f9d3cc280905d8d9f704b4074b4797814658.png": "0f254de7927fb39866d4ad426bb7a7e3528f6e0bf130266501b7236478e74ce1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/437cbb1f726b1877027176e54ac3d2268d17cb71.png": "e4a6cf6bafaf0c1a9f13521921839cdfd9ec848817002f7a07a60d2015406d4f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6437ab4fe2a69302c1c594104b43bb5cb7e516e7.png": "3ce1fd4ae620f90c6e77d85bf3f4c30e581f6d93b082f3d4d28c962e3a737aeb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f29e513ef8d709a7e8203f8de043cc646c48254e.png": "94259370f3d610045c62a7c0969ea99e225e5c70952987d98d1b0652d5707384",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3a66e29b2cc30e1bd3ebf3606ed8c7d57d70eeba.png": "ff733339098835418959c9d529766ba284dc545c9145c644d117726b5597b2f7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8adbb44e593a886c4d4f7001033fe5da62f1cb7e.png": "392cb0b125cd24c7ef50fb569796588bd53571e4d38da563246ab4ec589bc724"
+    },
+    "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected WAAP onboarding guide and seven blank configuration screenshots; no credentials or customer data",
+    "reason": "Distributed Cloud focused deployment, architecture or security guidance"
+  },
   "69337": {
     "article_hash": "c1ae7e9dee01a402dff75c02c4f9b7abd80f74b8a7fb98754be18019a189cb3e",
     "decision": "exclude",
@@ -7163,7 +7179,19 @@
   },
   "77008": {
     "article_hash": "2428c577752ca8614f0e2ed85131da4d35028872c14ce6036c125d6661097ef2",
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/2/2275755e9d93495077b8e4d6ce95ae05340bb729.jpeg": {
+        "output_sha256": "735c7f01c78d10511a8d45409b0f3d1c3d4d966f2efef9590e4b4c4a8046e958",
+        "rectangles": [],
+        "strip_metadata": true
+      }
+    },
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/2/2275755e9d93495077b8e4d6ce95ae05340bb729.jpeg": "f860f19eb64fae98884c43417d4487317884a7b27348eae892d5b8637e9323a2"
+    },
     "decision": "include",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected Web App Scanning integration guide and generic Juice Shop assessment policy screenshot; no scan results or user identities",
     "reason": "Distributed Cloud Web App Scanning exports findings for BIG-IP virtual patching and retesting"
   },
   "77018": {
