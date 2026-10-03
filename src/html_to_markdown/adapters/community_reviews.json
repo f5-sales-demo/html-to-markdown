@@ -24702,5 +24702,135 @@
         "output_sha256": "73677372a4f5d6a5aa6dc40e1ac4e946743bb1ee13726dde68a7ea602cf6abbe"
       }
     }
+  },
+  "70149": {
+    "article_hash": "506a8d722c843b5b2f2aee66d85994f285a9a1f7a1aeb43b3de1bb62fb9e6cda",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose and nine screenshots. Removed visible private-key fragment and key ID, filename identity, project labels and partially masked service-account email; replaced with explicit synthetic placeholders. Preserved JSON type and blindfold policy settings, key creation choices and credential workflow. No key material remains.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/453bea2239fcada09ea57c6eb708f93811508ce0.png": "658bc7fc3a7f13585873eaa9e8565347acecca322378e8b0214fa03de445c3f3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4c596f692843592ccc14bd9fc038451cf9e6214c.png": "b737b2b447695c9501ad3519a1d0d6395a16d40f22c5df48d2fc78b9b9da15f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f4f05a1f8af0cbbd7dfd3d33209d4f14c63c69f.png": "678a7caef47c6795968326765017843ca95ed176279d9fab57a630df4f62e13b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/80e2e152b13edfa707ca6ab321b4d41421807224.png": "86e5e2757e543e752d627f405d5b81d1b6f505c226054e4a8582f14f39ed43d3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/afd68c8f5fa972dc8f83a7fb55ae3beba2fdcaa1.png": "f827465381234bb8d932e7b7fe1c53abab1350ab9b18e728794be46252e9f46d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f99f6ee63d41c40ae5114cbc3142d1bdc07ff5ff.png": "bd713fa5d027c7d3b87973f1b0b7ace594348ed86ac92171a1598731a78c6ec5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8ac8ec1320a158cec1a47ba21f2c9d37621033fc.png": "5b4d99b22c8183a29298b1ac23522b5a2c1b87c2f36facdf6f1cc860547b82cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e60029b737a3ac1282b8554ad67248c0c90c862c.png": "b1d9ee202b3b2fa40ef8abe566e7b66f80a740bb759f16a8c5e5c4dcf48de7e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/ee5490a6f396352deaf5d835346753cbebe24828.png": "a3a2351c5efaa3b740fffc3a1bcbd4b0d2c3e7d951a12eefd4f869f5b0849053"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/453bea2239fcada09ea57c6eb708f93811508ce0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              227,
+              198,
+              572,
+              213
+            ],
+            "text": "\"private_key_id\": \"EXAMPLE_KEY_ID\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              222,
+              213,
+              574,
+              239
+            ],
+            "text": "\"private_key\": \"EXAMPLE_PRIVATE_KEY\"",
+            "size": 10
+          }
+        ],
+        "output_sha256": "03e48998e0400401e2077859ae4856b29d0235681b5974ca0adb05acaa79bc9e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4c596f692843592ccc14bd9fc038451cf9e6214c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              4,
+              239,
+              26
+            ],
+            "text": "Example project",
+            "size": 10
+          }
+        ],
+        "output_sha256": "ed4bfb2c51155242cddd7acd6b0a2afed8df90a9b8c4dede18b1f5c6c9f3b137"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f4f05a1f8af0cbbd7dfd3d33209d4f14c63c69f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              44,
+              240,
+              71
+            ],
+            "text": "example-key.json",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6ae61451a805cee3b73b3524a87c044972ef00078c079ab5bfb3354fddc5aad2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f99f6ee63d41c40ae5114cbc3142d1bdc07ff5ff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              2,
+              243,
+              26
+            ],
+            "text": "Example project",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              192,
+              164,
+              464,
+              180
+            ],
+            "text": "Email: service-account@example.com",
+            "size": 9
+          }
+        ],
+        "output_sha256": "8b7567f83ce51f10c8636314ca5699f6b12ec2f81d46282eaf68741efdc15dd6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/a/8ac8ec1320a158cec1a47ba21f2c9d37621033fc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              2,
+              243,
+              25
+            ],
+            "text": "Example project",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6a6c28d6a8b8787794c5441dbc47de0a8e3aa8bc92d09fc3463df808be5122f3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/ee5490a6f396352deaf5d835346753cbebe24828.png": {
+        "labels": [
+          {
+            "rectangle": [
+              126,
+              2,
+              243,
+              25
+            ],
+            "text": "Example project",
+            "size": 10
+          }
+        ],
+        "output_sha256": "31b5e716156c446e8052ede6893fb644c544b520057000c3be893914ab9fe0ae"
+      }
+    }
   }
 }
