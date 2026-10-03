@@ -6550,7 +6550,56 @@
   "75890": {
     "article_hash": "2316c5b8b97658638ece710ca1e47bda6e043c90799427e00065a6573ea9d003",
     "decision": "include",
-    "reason": "Distributed Cloud CE, App Connect and Network Connect simplify workload migrations"
+    "reason": "Distributed Cloud CE, App Connect and Network Connect simplify workload migrations",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected migration guide and six images; five architecture and migration slides have generic components, embedded OpenShift user name removed; video still shows private illustrative subnet and no personal fields",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/475b4de84b6f6641e9bb4bda987504799f698bcf.jpeg": "dd0a3f8427458272190c6806ab84f67c5613b1c2d82cc9360a1c693b41b80a2a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/59bc91960225e4ba96a5af3b4d89965b7a18c79a.jpeg": "87e6a48e629c9d9377f2a5bcda55b75cc9e2ef5c895a088c447f2c3dc0437892",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82a99d6304773d71615a8a6c30286ba07d932f87.jpeg": "13518332307033608c71cc982fee9faca473da29831ddb86242a93532ccc76c8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aabd6bacc3c95cda5dfd7f20fea7c2193891b996.jpeg": "c6769b5dfacb72832113d8445f4b098657cd9dc709f00946349c6c90ff425616",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f935763209b839d4748d4e2130c543c65a8c1477.jpeg": "a92810ec82c4830c70700538cf56f9ce5bb74f1a39cefdbb0e88debcee7253d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/952dba8af6a16bec0f938145ef70555f77b86578.jpeg": "5964d62fdf9f8b5e496c084cd7441727e7790f8ce74a8cae078d8a407a2ef509"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f935763209b839d4748d4e2130c543c65a8c1477.jpeg": {
+        "rectangles": [
+          [
+            1984,
+            817,
+            2118,
+            880
+          ]
+        ],
+        "labels": [],
+        "output_sha256": "d083a367c7f2aef6ceadd134804047c14872c2576c1cac44f245cde2470cc2c8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/475b4de84b6f6641e9bb4bda987504799f698bcf.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a98ddbaa37425f6b2148d366536ba054578758eff6c3c5b2f486dceaa778b37d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/59bc91960225e4ba96a5af3b4d89965b7a18c79a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "75c53e7d7bb76373b8bd854f9c6914a9ce405dd7ac9075d8743eb3822062143a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/82a99d6304773d71615a8a6c30286ba07d932f87.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dad17095489d5c030032faf1de47c8d18e4e2bbe725873fc9c2ea66b4fa023b6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aabd6bacc3c95cda5dfd7f20fea7c2193891b996.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b6cc7df2449b6f01baf5eea8a75bc827e0c7653c705b78367a0f7a22b657a6cd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/952dba8af6a16bec0f938145ef70555f77b86578.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5ae6a8a7e40cf0d5ec9107aa7467f08fc96b62c6dd749868b09bfe130d07b4d9"
+      }
+    }
   },
   "75900": {
     "article_hash": "61f9fbf27e09ce4df9923a333f79b1df45f1552ead3ed8d07a1552314e651ea9",
