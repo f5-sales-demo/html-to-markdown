@@ -9274,5 +9274,115 @@
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/4/141f8fba2f7f274f4dfedb12768b00fe7128fbf8.png": "0463492262b6f8aad35aa069eb6fa5656a6d0a99a144f6472a89080baa354aee",
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/5/f5dd14656f4a5363d14216063ed037e4bc1303f0.png": "08e88a495934f702a7ea8a73b956153c04f2b5f452f5249c3b9ed1e124b1ee09"
     }
+  },
+  "71465": {
+    "article_hash": "4d550870b549c233eb060e8ccd7fcc30b19fee6fdd51c0a60e07c865048666cf",
+    "decision": "include",
+    "reason": "Distributed Cloud multi-cluster path routing; BIG-IP examples explain prior architecture limitations",
+    "text_replacements": {
+      "nodes": {
+        "bcb2872ba11832e42e98abc1dc8db58efde6853823939de3c1c89de4e76dbb41": "a colleague"
+      },
+      "output_sha256": "625d14fd61ebffe7cb0bfaf15913f5d3ca0ff9d34a402485dabc035e17cfb69c"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected full multi-cluster path-routing guide and four diagrams; colleague identity removed, diagram domains and IPAM address made synthetic, YAML fields and routing arrows retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/15da6be96dbdb2b3753789af3a74782c2ec4a57b.png": "f58af4d5a3800453374c454ef3bdf834e87ddfe7718eac2f4a9d2177419e3695",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5d4946abacc85072aaeeef03ea1fd16dbe080678.png": "6eb7573f8957e590151ce488a47c68eed7ba32d386e34abc8a345e855c0c4e8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f5bcf80a48396fa4206dc71cc74f7f612b67c14f.png": "f8fbaf620e35bab65bdf3bf541e77f35fc9e1aa165613808b459b89fc2f0adbc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/59ee02f85a6135280b1db64f0896f74c3a3364fe.png": "56512bc1fe8c007afe39f4fa2028037300b3a48ca0c473a6d1f2e4e6af44e900"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f5bcf80a48396fa4206dc71cc74f7f612b67c14f.png": {
+        "rectangles": [
+          [
+            1125,
+            130,
+            1335,
+            144
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              798,
+              510,
+              986,
+              541
+            ],
+            "text": "www.example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "dc9e5697802f043e769657296fca2864637d5d30fe19eac96e279bc8b40fc068"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/59ee02f85a6135280b1db64f0896f74c3a3364fe.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1470,
+              618,
+              1810,
+              652
+            ],
+            "text": "host: app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2120,
+              372,
+              2530,
+              406
+            ],
+            "text": "name: example-ipam",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2120,
+              492,
+              2500,
+              526
+            ],
+            "text": "- host: app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2117,
+              551,
+              2490,
+              585
+            ],
+            "text": "host: app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2120,
+              666,
+              2500,
+              700
+            ],
+            "text": "- host: app.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2148,
+              696,
+              2430,
+              730
+            ],
+            "text": "ip: 192.0.2.10",
+            "size": 22
+          }
+        ],
+        "output_sha256": "f8817f2a6737b55d81ae536b608903038a1fd3ebe155f23d6336e9218e2b684a"
+      }
+    }
   }
 }
