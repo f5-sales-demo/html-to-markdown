@@ -9597,5 +9597,116 @@
         "output_sha256": "95afac2da992c681bf846b25137e81b8ea31479de022caeb72628b5b50b2d26a"
       }
     }
+  },
+  "71258": {
+    "article_hash": "5c1e25769ecdccb1134110a3571f8b5c2b27d644dc1b114c8c2ca13c34aaf24a",
+    "decision": "include",
+    "reason": "Distributed Cloud cookie and source IP persistence guide",
+    "text_replacements": {
+      "nodes": {
+        "0ef07f9fed7f2e9de466888218089bfac9cbf96508b341ddf295e36dda1b1cd7": "demo01.example.com",
+        "3723bab2d2dbc25de8f2511cb216cf471d97ccb76b6d72890d17fe3fc970983d": "demo02.example.com",
+        "7e639565574b8998815016c6daf8087ae383429015c67b7d05722c3456ea4c02": "example@host curl http://demo01.example.com -v<br>* Trying 192.0.2.10:80...<br>* Connected to demo01.example.com (192.0.2.10) port 80 (#0)<br>> GET / HTTP/1.1<br>> Host: demo01.example.com<br>> User-Agent: curl/7.83.1<br>> Accept: */*<br>><br>* Mark bundle as not supporting multiuse<br>< HTTP/1.1 200 OK<br>< date: Mon, 19 Dec 2022 14:25:30 GMT<br>< server: volt-adc<br>< expires: Thu, 19 Nov 1981 08:52:00 GMT<br>< cache-control: no-store, no-cache, must-revalidate<br>< pragma: no-cache<br>< vary: Accept-Encoding<br>< content-length: 176<br>< content-type: text/html; charset=UTF-8<br>< x-envoy-upstream-service-time: 6<br>< set-cookie: MyTastyCookie=EXAMPLE; Max-Age=60; Path=/; HttpOnly<br>< x-volterra-location: fr4-fra<br><<br><br><!DOCTYPE html><br><html><br><head><br><title>Server 2</title><br></head><br><body><br><h1>This is Server 2</h1><br></html>\n",
+        "19b06ada712ef5fb0eddf51d2d769f0f18c494feda0ae34eb5a84363b5a9862f": "example@host curl http://demo01.example.com -v --cookie MyTastyCookie=EXAMPLE<br>* Trying 192.0.2.10:80...<br>* Connected to demo01.example.com (192.0.2.10) port 80 (#0)<br>> GET / HTTP/1.1<br>> Host: demo01.example.com<br>> User-Agent: curl/7.83.1<br>> Accept: */*<br>> Cookie: MyTastyCookie=EXAMPLE<br>><br>* Mark bundle as not supporting multiuse<br>< HTTP/1.1 200 OK<br>< date: Mon, 19 Dec 2022 14:25:48 GMT<br>< server: volt-adc<br>< expires: Thu, 19 Nov 1981 08:52:00 GMT<br>< cache-control: no-store, no-cache, must-revalidate<br>< pragma: no-cache<br>< vary: Accept-Encoding<br>< content-length: 176<br>< content-type: text/html; charset=UTF-8<br>< x-envoy-upstream-service-time: 3<br>< x-volterra-location: fr4-fra<br><<br><br><!DOCTYPE html><br><html><br><head><br><title>Server 2</title><br></head><br><body><br><h1>This is Server 2</h1><br></html>\n",
+        "2f5fff80a7662d4f3d70791ab300314dfe9e895fc0c8ed238dfa08a389b07b05": "http://demo01.example.com",
+        "32a95e5e9d9ccde1682f019f1c1689d722367cd97d6b6a995e529e12b0db1c72": "http://demo02.example.com"
+      },
+      "output_sha256": "12e3dd5e2c25ebeffeb8a63fd7cae3eb175ac361d741d33ce81f320a7e97a8c8"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected persistence guide and complete curl request and response examples with five images; cookie value replaced with EXAMPLE, user, IPs and domains made synthetic; origin pool, header-match, cookie hash and persistence semantics retained",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a607ea9c0feae2a79ef9d0fea158d22ecd40917e.png": "4f00352f67f0fadc984032ca73e7a68199db3067fc319008c1fa64fb7880f7eb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ab1ba84b2244622fde3f97d7a98c9d51bcbf9ca.png": "5f18c0b13751c1bf1e9ed4030da8d4b718391645cada88c0d701cc64e6cc84d9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60359893baca6d8a5b66b48a2cdca0ef045d2036.png": "3e627e4adf499e840f62c31fb5e449bed09a1641d9c2d390f83534f6f6091f02",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/73e789ea871602348eeed57e446deda68c01db9c.png": "c28bd37709846d12f58f65354dccfbf00665d730069014e35c7f7d28557d5c32",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8ef855faf1fc6a026dca17eaa4495db2a99e88b2.png": "6012167d13d6c84ae409b525a731d2ab0e4748acb117a9b90a15974a3687a676"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a607ea9c0feae2a79ef9d0fea158d22ecd40917e.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              430,
+              246,
+              798,
+              292
+            ],
+            "text": "origin01.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              430,
+              319,
+              798,
+              367
+            ],
+            "text": "origin02.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "71bc210707fd982c3dbc0e60ecff3280db9b7190417ea70148be5db94c6d78d2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60359893baca6d8a5b66b48a2cdca0ef045d2036.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              1109,
+              622,
+              1430,
+              670
+            ],
+            "text": "demo01.example.com",
+            "size": 22
+          }
+        ],
+        "output_sha256": "9d0515cc83d01719304f5b4e1d1b277fbfaafdd7f0ed6deafb75b05aef5ced63"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/73e789ea871602348eeed57e446deda68c01db9c.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              204,
+              192,
+              440,
+              224
+            ],
+            "text": "https://demo01.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              204,
+              242,
+              440,
+              273
+            ],
+            "text": "https://demo02.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "5e860c30436989727fce3ff22cbe401c55fd2e2894fb0128802a5ee33a0bcebd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8ef855faf1fc6a026dca17eaa4495db2a99e88b2.png": {
+        "rectangles": [],
+        "labels": [
+          {
+            "rectangle": [
+              780,
+              165,
+              1000,
+              217
+            ],
+            "text": "ExampleCookie",
+            "size": 24
+          }
+        ],
+        "output_sha256": "da0b6759727c2cb3bfbfcebae361c7f1f3ab89577f1515331763915f572db84f"
+      }
+    }
   }
 }
