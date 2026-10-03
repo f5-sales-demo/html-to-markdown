@@ -1270,7 +1270,19 @@
   "70236": {
     "article_hash": "963f9bc0684c81e41ff9be6aea5c5821aea3f892045b14490a954f58674303de",
     "decision": "include",
-    "reason": "Demonstrates CAPTCHA defeat mitigation with Distributed Cloud Bot Defense"
+    "reason": "Demonstrates CAPTCHA defeat mitigation with Distributed Cloud Bot Defense",
+    "privacy": "approved",
+    "privacy_reason": "Individually inspected CAPTCHA defeat overview, threat taxonomy table and video still; screenshot shows a public service catalog and blank login fields without account, request or payment data",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1df98276a55083b3f3d3a885f30ac68fdef9860.jpeg": "6848ad1ff4de8712f1655fb221cb9c8f8fb294eccf6263076590db81cbca4e7a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1df98276a55083b3f3d3a885f30ac68fdef9860.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dc7d17226a7d718a903c73eba1b24cf07974b5f5dd6dabe04fdd7709f20f6a8e"
+      }
+    }
   },
   "70262": {
     "article_hash": "69433216bdff044139a986e16d8b07f5c67ebe939555958fdf164ea2f9254c55",
