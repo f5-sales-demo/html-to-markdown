@@ -23010,5 +23010,49 @@
         "output_sha256": "a488be666813fe97dc3a21bc199f4b80b77ad809aee404829e5f2a1c898de921"
       }
     }
+  },
+  "74613": {
+    "article_hash": "ca4f81c18e1bd6f5ec3a2905c43bc742cb005fc20f849852fd842fb78370feb5",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed all first-post architecture guidance and eight full diagrams. Generic HA node/site labels and routing diagrams contain no personal/customer values; generic app domain normalized to app.example.com. Preserved control/worker node quorum, tunnel topology, BGP/ECMP, VRRP/GARP, external proxy and DNS relationships.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1482b7bc95e832bca938108a668e1a10335110ec.png": "0239bc354022b121a5d5e39afb3b5111d913d450b682b2c524f25984f7ba849b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/53b43f7f079da145e5089d87ccece9428730e8e4.png": "5dc3bd9b977d95100a37e676fa8a3f0c5f8a24ec18114752b0e8a77e5795f080",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a852b9533890fe488300c03e9f2b2e5f6dcc6c4.png": "826d551c81d93ae808ff85e2da3673c9377f6c9661bedd0404fff48f8aa6f3df",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/057627b9805b89d349544db199a3b41c0a6c16f3.png": "ec96feb38aba6b9af8582116df77cc1a950c36970db975b1ea53d2e4f1bfc208",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/8/185fda1f9f41cbb7a7da404c00811c0f785dc081.png": "79e692b76dd17320c1fd7ed5a98fafd63ee524b876f9d31abcc91c7653a0476c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/a/2a217facc0293a74414bd6c3b69c953ac5f66480.png": "275a518cecbd0f9e3b42d4e203ef4566ab63e3f1dedb46e107b4d3f0e89e1a5f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4c10c1be079de719d3921ef9881477b8428a20dd.png": "d084119daf54643369738f9d815f1426c845cd7cc4d09399dd15dbc775653461",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6b1fae99fcb1f97641df77e5fc7f8a460a68eb5a.png": "a7cc06b259e006c8d3494a060fcbba824fc587a8d5f84f49b8e008780b738279"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4c10c1be079de719d3921ef9881477b8428a20dd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              675,
+              241,
+              883,
+              279
+            ],
+            "text": "app.example.com",
+            "size": 24
+          }
+        ],
+        "output_sha256": "f1965268d76b1d6732f8e359f9bc32cc72d45ad4ba3d85340db80df54181a91a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/057627b9805b89d349544db199a3b41c0a6c16f3.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "945a81827074de2e128d259313155bd50d65c71a00c8c387f8663e57470aac07"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/b/6b1fae99fcb1f97641df77e5fc7f8a460a68eb5a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f5331423aef492aa47a16d85479f7b8546fe5695eef84846422bb5688263763c"
+      }
+    }
   }
 }
