@@ -7600,9 +7600,122 @@
     "reason": "BIG-IP/legacy Shape JavaScript troubleshooting; XC only current product naming"
   },
   "75218": {
-    "article_hash": "e3f9a2cc2508d196c5c2f7020910105c347d5e3b468d862bb3d9aacf50f1904c",
     "decision": "include",
-    "reason": "Distributed Cloud user-identification configuration"
+    "reason": "Distributed Cloud user-identification configuration",
+    "article_hash": "e3f9a2cc2508d196c5c2f7020910105c347d5e3b468d862bb3d9aacf50f1904c",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d248e3b36cface7f46fbc1ad0cde53c3e7e05acf.png": "cede36e70be7d1c768ec61db2b92d8f9991b34907a9491941fb44cbfad057e55",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8c827cc9b3ee9834c6932b720c019ea5da7f6df.png": "067d604993ddfc087379321dfed4efa87a9fb85678919b464323c6c60e6d099b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fdea01cce383e0e5f2e79cfafbd6449186be8f63.png": "a20c02e185bd096c4790df1c362e75f50b59090a852e5c8942ad253de9876e5a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/d/0d1a835bb441878d11c0faa64d2e357957f42c74.png": "03606613912a98285af573b38fc950a74c8857d62904630756a26f0004a9c97b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/33cd3a23952848c9287c6959064fcaa3e8c6d89c.png": "a601b9514e7c95c41385c96d40aa0c03d97b5f4386105f07ee8ed27282b687a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/3/63362d6fc162a918b2975731545b487e656898fe.png": "7b538d6622b7487de4ebf1898ee8fe41794bf84ee027bea445150f421f59274b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/ebee0e783b9f19daec01ca4a773e4f0c1ad23035.png": "93d4ddcb0e5a736e238ca3e2228e00808951ceedf9f661d55b6210b3d8eeb080"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d248e3b36cface7f46fbc1ad0cde53c3e7e05acf.png": {
+        "labels": [
+          {
+            "rectangle": [
+              138,
+              226,
+              1166,
+              372
+            ],
+            "text": "\"user\": \"Cookie-token-EXAMPLE_SESSION\",",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              212,
+              372,
+              612,
+              402
+            ],
+            "text": ": \"example-https\",",
+            "size": 17
+          }
+        ],
+        "output_sha256": "c5eb95e5b9e3ff73b9576ad49ea17c76d3154a4ca0518f596830822fc1a796c9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/3/63362d6fc162a918b2975731545b487e656898fe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              246,
+              1,
+              366,
+              30
+            ],
+            "text": "example-https",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              188,
+              248,
+              379,
+              274
+            ],
+            "text": "Cookie-EXAMPLE_SESSION",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              311,
+              733,
+              425,
+              763
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              523,
+              758,
+              618,
+              787
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3e663f8218fa1ed84c59ec4eebe03e79e3066f1f5dbf3e3264235534ff3dc8b5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fdea01cce383e0e5f2e79cfafbd6449186be8f63.png": {
+        "labels": [
+          {
+            "rectangle": [
+              78,
+              117,
+              228,
+              141
+            ],
+            "text": "default/example-cookie",
+            "size": 12
+          }
+        ],
+        "output_sha256": "665d9cb40b88eca1c9f3db76c83bd9ecd6f38d88636f3d32db22baf047f09a12"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/b/ebee0e783b9f19daec01ca4a773e4f0c1ad23035.png": {
+        "labels": [
+          {
+            "rectangle": [
+              274,
+              764,
+              356,
+              793
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          }
+        ],
+        "output_sha256": "d5c59b7acf6f12bbfa951cd84c947f213a1a831d28cbc133baa89cc612f7da89"
+      }
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete Distributed Cloud first-post guidance and all seven screenshots. Replaced full JWT/session cookie data, personal resource labels and observed visitor/origin IPs with synthetic examples. Preserved identification modes, cookie protection settings, trusted header configuration, request schema and telemetry. BIG-IP mention introduces the XC-focused comparison."
   },
   "75232": {
     "article_hash": "84036d723b9c57849d51c4441d528389076ac75cf70a30fc427e958dfa24e632",
