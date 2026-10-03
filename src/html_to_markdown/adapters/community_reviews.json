@@ -46057,5 +46057,722 @@
         "output_sha256": "33c2a980dc6a636782bb68da219df5119da41209c20cf570fe715f4af44a5bde"
       }
     }
+  },
+  "72063": {
+    "article_hash": "5579c0ff02fbd5e40e8f0c15d66fd7947e222d73db4649544628a1ace6a2fb18",
+    "decision": "include",
+    "reason": "Distributed Cloud Account Protection and Authentication Intelligence primary integration guidance",
+    "text_replacements": {
+      "nodes": {
+        "b503bee8607d1e62926f5fc47eca5d86e2c5184af35d23abfee8c295ab5f2c8f": "https://shop.example.com:8443/index1"
+      },
+      "output_sha256": "2a5ce2da5b572f50a4773fcf96e04178ed0561d8f98d8584ae463171b199191f"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all 12 static images. Preserved ForgeRock authentication tree, Distributed Cloud Account Protection and Authentication Intelligence node behavior, two-minute default and seven-day extension, eligibility dc values e7 and ine, fraud recommendation, mock shopping and redirection outcomes, and cookie attribute names. All visible encoded cookie/token values replaced with explicit EXAMPLE_TOKEN values, screenshot demo domains and email/account attributes synthetic, masked password removed, bookmark chrome and image metadata stripped. Prose endpoint made synthetic; empty connector and decryption-key fields remain empty. Hash-bound output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/08a0c4066d0e1e31bb1e6eb4443d5658393cc4ae.png": "50c7bccb5e9fadbfff417663cc2fb9e18f65a80a624374428b0344eea33f9073",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1793c6430bec49e4be7877f0f1761ac329928e6c.png": "2fb8d5cc5f87d65263e199241bf72bda9489d605b6c59250c00c405660d6720a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/24438e4485adfb976e504f38bf014c77d5c096d2.jpeg": "3f36f3a048ebdd82c6d5fee96a507df96a6d249522f9683ffdfa834bf8292c84",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/466a961f6d713a5e237412bffe3e33c303330afa.jpeg": "20d86364dcde16a60ff9037f8fc23dacfa43c3584a4211236b30fa469d21d2c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9977ed7046c0c71e82324fcab3b8080a284a82c2.jpeg": "2d2a1465e258a3d207d15b0f7eb3daab0a7972ada5b3f0bb95207ba6faa8e60f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0b9a02ad012d2677d815d62ab7f8cc5371f6adb.jpeg": "4fd8474ff30621f5961bdff65fa5fbe99482835abc07ad16cea1b5d293cc475b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d42b48c4cadcca2ea7e14a454d3626edcec74051.jpeg": "c9cb5bb2c638d514832f640463b58e7530437c56dcae87d9e66ffdaf4e4d2747",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fe7557d336edc39ea8cddf7cf544b4a1bc938615.jpeg": "a89880f1313d2239ecd19bacd533aace10f8e1699309b378ff68a51e59935131",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11577f5893740df5cf82796b1bf5c1adaeed8760.jpeg": "1569f0b492ff5f9ed0bcfc8d52347398f7f2143a71369d2a26e6130fe981f1a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f966abbe37d4ba556241a88be5e9d88cbedc198.jpeg": "865a0cdd695df5f160263e601f4e2c68da83baa999521ca52331864364256007",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/4/94ede502dea987bbc229018389eba9274be983e6.jpeg": "20964a74961d8631f0125f5067973960375a6f34b64505e2e11e620aa4a6b94f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c8a08b5d027dc2017f4761a60a3c5c9a5dceeb43.jpeg": "b2846278d24a9102576889004b5b2cf31dd750db531ecb11082e44531183ce09"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1793c6430bec49e4be7877f0f1761ac329928e6c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              710,
+              539,
+              785,
+              570
+            ],
+            "text": "user@example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              710,
+              589,
+              780,
+              618
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 8
+          }
+        ],
+        "rectangles": [
+          [
+            710,
+            490,
+            784,
+            520
+          ]
+        ],
+        "output_sha256": "abfa4e3e35be23996069aa4e63a8b0772eaf5a81dd82df0af16ad9be895d5099"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/24438e4485adfb976e504f38bf014c77d5c096d2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              133,
+              46,
+              290,
+              72
+            ],
+            "text": "shop.example.com:8443/index1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              686,
+              950,
+              705
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              706,
+              950,
+              725
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              726,
+              950,
+              745
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              746,
+              950,
+              765
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              766,
+              950,
+              785
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              786,
+              950,
+              805
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              635,
+              806,
+              950,
+              825
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              686,
+              1148,
+              705
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              706,
+              1148,
+              725
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              726,
+              1148,
+              745
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              746,
+              1148,
+              765
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              766,
+              1148,
+              785
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              786,
+              1148,
+              805
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              954,
+              806,
+              1148,
+              825
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              30,
+              865,
+              209,
+              886
+            ],
+            "text": "https://shop.example.com:8443",
+            "size": 9
+          }
+        ],
+        "output_sha256": "0b4ec6b64ddbcf084162e678db171933be033b5911065817630a39917e783a2a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/466a961f6d713a5e237412bffe3e33c303330afa.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              139,
+              41,
+              296,
+              67
+            ],
+            "text": "shop.example.com:8443/index1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              681,
+              957,
+              700
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              701,
+              957,
+              720
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              721,
+              957,
+              740
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              741,
+              957,
+              760
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              761,
+              957,
+              780
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              781,
+              957,
+              800
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              801,
+              957,
+              820
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              681,
+              1159,
+              700
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              701,
+              1159,
+              720
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              721,
+              1159,
+              740
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              741,
+              1159,
+              760
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              761,
+              1159,
+              780
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              781,
+              1159,
+              800
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              961,
+              801,
+              1159,
+              820
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              32,
+              860,
+              219,
+              882
+            ],
+            "text": "https://shop.example.com:8443",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              265,
+              905,
+              1779,
+              968
+            ],
+            "text": "{\"r_t\":\"EXAMPLE_TOKEN\",\"fr\":20000,\"c\":\"EXAMPLE_TOKEN\",\"dc\":\"e7\",\"mf\":0,\"ft\":\"EXAMPLE_TOKEN\"}",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1564,
+              822,
+              1690,
+              879
+            ],
+            "text": "\"dc\":\"e7\"",
+            "size": 15
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "480897e52a3659d3ce3f6ccd12a06ae1652032838c8846b7e0f988cf235a0814"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0b9a02ad012d2677d815d62ab7f8cc5371f6adb.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              163,
+              11,
+              516,
+              41
+            ],
+            "text": "https://shop.example.com:8443/shop/p/bitcoin",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1582,
+              283,
+              1834,
+              309
+            ],
+            "text": "https://shop.example.com:8443/shop",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              872,
+              201,
+              899
+            ],
+            "text": "https://shop.example.com:8443/shop",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              905,
+              1048,
+              1110,
+              1076
+            ],
+            "text": "example-telemetry.js",
+            "size": 12
+          }
+        ],
+        "output_sha256": "7b2d1db3de04ef77a787118e437a35374e541fad5e367d717c808ddb96c74864"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d42b48c4cadcca2ea7e14a454d3626edcec74051.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              166,
+              12,
+              610,
+              39
+            ],
+            "text": "https://redirect.example.com/youareredirected.html",
+            "size": 14
+          }
+        ],
+        "output_sha256": "f7b856a9544295e9ba390db974704cf3b483adb8615f99a44f77bca4afb3df25"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f966abbe37d4ba556241a88be5e9d88cbedc198.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              163,
+              50,
+              620,
+              82
+            ],
+            "text": "https://redirect.example.com/youareredirected.html",
+            "size": 16
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            90,
+            1934,
+            123
+          ]
+        ],
+        "output_sha256": "0157fc17f773c68464bfb837e5e95fcb8873649c3cc054f9b3528ce27988daf3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/4/94ede502dea987bbc229018389eba9274be983e6.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1607,
+              967,
+              1676,
+              994
+            ],
+            "text": "shop.example.com",
+            "size": 6
+          }
+        ],
+        "output_sha256": "7f34c586bde37a0ca013b40693f6d1b1b8de9a3659b07251303fcc0212736b42"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/8/c8a08b5d027dc2017f4761a60a3c5c9a5dceeb43.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              137,
+              44,
+              294,
+              70
+            ],
+            "text": "shop.example.com:8443/index1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              686,
+              956,
+              705
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              706,
+              956,
+              725
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              726,
+              956,
+              745
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              746,
+              956,
+              765
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              766,
+              956,
+              785
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              786,
+              956,
+              805
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              641,
+              806,
+              956,
+              825
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              686,
+              1154,
+              705
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              706,
+              1154,
+              725
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              726,
+              1154,
+              745
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              746,
+              1154,
+              765
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              766,
+              1154,
+              785
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              786,
+              1154,
+              805
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              958,
+              806,
+              1154,
+              825
+            ],
+            "text": "shop.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              30,
+              865,
+              213,
+              886
+            ],
+            "text": "https://shop.example.com:8443",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              265,
+              910,
+              1774,
+              978
+            ],
+            "text": "{\"r_t\":\"EXAMPLE_TOKEN\",\"fr\":20000,\"c\":\"EXAMPLE_TOKEN\",\"dc\":\"ine\",\"mf\":0,\"ft\":\"EXAMPLE_TOKEN\"}",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1603,
+              848,
+              1699,
+              886
+            ],
+            "text": "\"dc\":\"ine\"",
+            "size": 12
+          }
+        ],
+        "rectangles": [],
+        "output_sha256": "ded9275b3a40c986e441958dce2a70bf7297b53c67f0750b4bf8001abc58821d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/08a0c4066d0e1e31bb1e6eb4443d5658393cc4ae.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7f4cc1134a4b45f837ed52080a063a03224cb933536e24a81ac140b5c1a037f8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9977ed7046c0c71e82324fcab3b8080a284a82c2.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "84097f00d0c705ba44f16818a0ed1fbdcf8e81ca039c59f7ed41fcc98497d0f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fe7557d336edc39ea8cddf7cf544b4a1bc938615.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "766cdd468522b5e571548532bf84e7dc58667b727bea6d7d8138d62743c15176"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/1/11577f5893740df5cf82796b1bf5c1adaeed8760.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "2597473fbcd7c34fcc08b1d0666a63d5a8e512f3174a26976570c0f0e0ba767e"
+      }
+    }
   }
 }
