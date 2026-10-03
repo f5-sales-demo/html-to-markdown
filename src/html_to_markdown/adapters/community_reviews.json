@@ -15166,5 +15166,362 @@
         "output_sha256": "3d370adb7fb6b35fdd8d4a02f657aef5520232f6f2f6ef26815ea15053f10932"
       }
     }
+  },
+  "70498": {
+    "article_hash": "b5a7b272687b628270335a82ff3a8b2ba40a66003b0cae63bc9884811ab9304f",
+    "decision": "include",
+    "reason": "Distributed Cloud Regional Edge WAAP deployment is the primary subject",
+    "text_replacements": {
+      "nodes": {
+        "83f7bc465b13f1b2963c63c1f4c2e8e50cc799f3e0c95a9d7d1c5c04eedf62c2": "https://bank.example.com"
+      },
+      "output_sha256": "eaf4f53a0567faf8187b47fde53d63e196b295c537fa81808f95b44bcd88d970"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and both images individually reviewed, with embedded demo UI enlarged. Bank domain normalized, screenshot account suffixes, faces, names and transfer recipients removed; architecture, user/RE/CE placement, application connectivity, IPsec paths and protection controls preserved. Private example origin address retained where it explains CE connectivity. Remaining finance UI is generic demonstration metrics, without entered customer data. Console screenshots contain no readable identifiers; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/2863edf58d70fd243e833c48acd4c3651e609132.jpeg": "6b4f908b2b284107e281fffed3e16253fc13aba1a42a504f7b2761ee3d89b708",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/99f12d2547578eeab3c4a93452fca9c64678e4a9.jpeg": "5d18c68d5837c34cdb8742511749fbd4f3bac22387f7178c9ffc874b9c9c51d7"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/2863edf58d70fd243e833c48acd4c3651e609132.jpeg": {
+        "rectangles": [
+          [
+            638,
+            309,
+            651,
+            319
+          ],
+          [
+            415,
+            438,
+            553,
+            469
+          ],
+          [
+            617,
+            402,
+            635,
+            447
+          ],
+          [
+            441,
+            309,
+            458,
+            319
+          ],
+          [
+            1524,
+            1188,
+            1537,
+            1198
+          ],
+          [
+            1300,
+            1316,
+            1439,
+            1346
+          ],
+          [
+            1503,
+            1280,
+            1521,
+            1325
+          ],
+          [
+            1326,
+            1188,
+            1344,
+            1197
+          ],
+          [
+            617,
+            1466,
+            630,
+            1476
+          ],
+          [
+            393,
+            1595,
+            532,
+            1626
+          ],
+          [
+            596,
+            1559,
+            614,
+            1604
+          ],
+          [
+            419,
+            1466,
+            437,
+            1476
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              398,
+              240,
+              649,
+              270
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              378,
+              1399,
+              631,
+              1430
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          }
+        ],
+        "output_sha256": "901d930987aa3cf80ad5bce41bdb7e607fde60a630435409e3c6ec413da1b4df"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/9/99f12d2547578eeab3c4a93452fca9c64678e4a9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cb35c88537fe65c7ec428e1ea7afd99be163195d125b9521e80cb2634218231f"
+      }
+    }
+  },
+  "70499": {
+    "article_hash": "cc5d927983ba9310fa0d98226c9ffc0d8404a4dedd3d9e2b3ad4600e446a1080",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and both images individually reviewed, with embedded demo UI enlarged. Bank domain normalized, screenshot account suffixes, faces, names and transfer recipients removed; architecture, user/RE/CE placement, application connectivity, IPsec paths and protection controls preserved. Private example origin address retained where it explains CE connectivity. Remaining finance UI is generic demonstration metrics, without entered customer data. Console screenshots contain no readable identifiers; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5b27fcc7b5f32cb4a9a1e19162a3866586227df.jpeg": "afcb4cb658376ad281d410c027436a3bc06c4a84ab6d15043ffa947f54091f55",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/079871917e26407232d0c29491e48348ed5db887.jpeg": "484335832b1576492e0e521f88b78aef52803219e446e036ac8d3b47dba27411"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5b27fcc7b5f32cb4a9a1e19162a3866586227df.jpeg": {
+        "rectangles": [
+          [
+            658,
+            418,
+            671,
+            429
+          ],
+          [
+            432,
+            550,
+            572,
+            580
+          ],
+          [
+            637,
+            513,
+            655,
+            559
+          ],
+          [
+            458,
+            418,
+            476,
+            428
+          ],
+          [
+            638,
+            1588,
+            651,
+            1599
+          ],
+          [
+            412,
+            1720,
+            551,
+            1750
+          ],
+          [
+            617,
+            1683,
+            635,
+            1729
+          ],
+          [
+            438,
+            1588,
+            455,
+            1598
+          ],
+          [
+            2119,
+            1295,
+            2132,
+            1306
+          ],
+          [
+            1894,
+            1428,
+            2033,
+            1458
+          ],
+          [
+            2098,
+            1390,
+            2116,
+            1437
+          ],
+          [
+            1920,
+            1295,
+            1938,
+            1305
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              420,
+              347,
+              669,
+              379
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              396,
+              1519,
+              651,
+              1549
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          }
+        ],
+        "output_sha256": "d413b8d1c13e52bc632b0c7c5d3bfcc21ff99e3bf4937c4a1bbaf3672db4e83e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/079871917e26407232d0c29491e48348ed5db887.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f3837cbc787860920e4e11eada66639fdb382178525d107ed5a2c198ff1414ea"
+      }
+    }
+  },
+  "70500": {
+    "article_hash": "37540af4207cb5b1b50c22b0c05f3280f7f079fc426ec7174af9ddb0588597d5",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Entire first-post prose and both images individually reviewed, with embedded demo UI enlarged. Bank domain normalized, screenshot account suffixes, faces, names and transfer recipients removed; architecture, user/RE/CE placement, application connectivity, IPsec paths and protection controls preserved. Private example origin address retained where it explains CE connectivity. Remaining finance UI is generic demonstration metrics, without entered customer data. Console screenshots contain no readable identifiers; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d97363663afd46006e0f4490774907400c9fa1cd.jpeg": "2ea57a6601ef7714b3dd8f54d2d6d70ddef3788d875ac169a7893941ca815015",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fd52ac49cbc8c6d8df80a1ee9c5669f5ac61bd3e.jpeg": "b51b7d9d9d3bd30cae46d1d93ea6957474613fb0c09852141cd9f6a6a0bff0ef"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d97363663afd46006e0f4490774907400c9fa1cd.jpeg": {
+        "rectangles": [
+          [
+            619,
+            358,
+            632,
+            369
+          ],
+          [
+            393,
+            491,
+            532,
+            521
+          ],
+          [
+            598,
+            453,
+            616,
+            500
+          ],
+          [
+            419,
+            358,
+            436,
+            368
+          ],
+          [
+            595,
+            1529,
+            608,
+            1539
+          ],
+          [
+            370,
+            1659,
+            509,
+            1690
+          ],
+          [
+            574,
+            1623,
+            592,
+            1668
+          ],
+          [
+            396,
+            1529,
+            414,
+            1539
+          ],
+          [
+            2088,
+            1222,
+            2101,
+            1232
+          ],
+          [
+            1862,
+            1352,
+            2002,
+            1383
+          ],
+          [
+            2067,
+            1316,
+            2085,
+            1361
+          ],
+          [
+            1888,
+            1222,
+            1906,
+            1232
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              375,
+              279,
+              610,
+              310
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              354,
+              1446,
+              598,
+              1478
+            ],
+            "text": "https://bank.example.com",
+            "size": 15
+          }
+        ],
+        "output_sha256": "4719ee19bf3b5960ab07fc2cabb0c180e0cb10c71ac732308506ea7667a6c925"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/d/fd52ac49cbc8c6d8df80a1ee9c5669f5ac61bd3e.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "fac43d79dc1f6dc7e0a8e8126d07045b44218b60d3147b9e09abbb934a0dc0b4"
+      }
+    }
   }
 }
