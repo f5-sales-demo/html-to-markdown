@@ -3,15 +3,18 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 import httpx
 from playwright.async_api import Browser, Playwright, async_playwright
 
 from .adapters.base import SourceAdapter
+from .adapters.community import BASE, CommunityClient, article_hash, topic_id
 from .errors import AuthenticationWallError, NotFoundError, ScrapeError
 from .models import FetchResult
 from .urls import validate_asset_url, validate_source_url
@@ -27,6 +30,8 @@ class Fetcher:
         self.retries = retries
         self.headed = headed
         self._http = httpx.AsyncClient(timeout=timeout, follow_redirects=False)
+        self.community_client = CommunityClient(self._http, retries=max(1, retries))
+        self.community_inventory_dir = Path("build/community-inventory")
         self._playwright: Playwright | None = None
         self._browser: Browser | None = None
 
@@ -68,6 +73,24 @@ class Fetcher:
         browser: bool = False,
     ) -> FetchResult:
         canonical = validate_source_url(adapter.source_id, url)
+        if adapter.source_id == "community-f5-com":
+            identifier = topic_id(canonical)
+            value = await self.community_client.topic(identifier)
+            reviews_path = self.community_inventory_dir / "reviews.json"
+            baseline = Path(__file__).with_name("adapters") / "community_reviews.json"
+            reviews = json.loads(baseline.read_text()) if baseline.exists() else {}
+            if reviews_path.exists():
+                reviews.update(json.loads(reviews_path.read_text()))
+            review = reviews.get(str(identifier), {})
+            if review.get("article_hash") != article_hash(value):
+                review = {}
+            return FetchResult(
+                url=canonical,
+                final_url=f"{BASE}/t/{identifier}",
+                status_code=200,
+                html=json.dumps(value),
+                headers={"community-review": json.dumps(review)},
+            )
         if adapter.browser_only or browser:
             return await self._browser_fetch(adapter, canonical)
         result = await self._http_fetch(adapter.source_id, canonical)
@@ -148,13 +171,29 @@ class Fetcher:
 
     async def fetch_asset(self, url: str) -> tuple[bytes, str]:
         canonical = validate_asset_url(url)
-        response = await self._http.get(canonical, headers=USER_AGENT_HEADERS)
-        response.raise_for_status()
-        return response.content, response.headers.get("content-type", "application/octet-stream")
+        if urlsplit(canonical).hostname in {"community.f5.com", "d20hrnpixdzcsd.cloudfront.net"}:
+            response = await self.community_client.request(canonical, asset=True)
+            return response.content, response.headers.get(
+                "content-type", "application/octet-stream"
+            )
+        for _ in range(10):
+            response = await self._http.get(canonical, headers=USER_AGENT_HEADERS)
+            if response.status_code in {301, 302, 303, 307, 308}:
+                canonical = validate_asset_url(
+                    urljoin(canonical, response.headers.get("location", ""))
+                )
+                continue
+            response.raise_for_status()
+            return response.content, response.headers.get(
+                "content-type", "application/octet-stream"
+            )
+        raise ScrapeError("asset redirect limit exceeded")
 
     async def resolve_redirect(self, source_id: str, url: str) -> str:
         """Resolve a source link without downloading each destination body."""
         current = validate_source_url(source_id, url)
+        if source_id == "community-f5-com":
+            return current
         for _ in range(10):
             response = await self._http.head(current, headers=USER_AGENT_HEADERS)
             if response.status_code in {301, 302, 303, 307, 308}:

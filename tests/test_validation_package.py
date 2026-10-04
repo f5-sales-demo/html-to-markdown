@@ -142,3 +142,19 @@ def test_duplicate_manifest_document_path_fails_packaging(tmp_path: Path) -> Non
     with pytest.raises(ValueError, match="duplicate manifest document path"):
         write_release(output, manifest)
     store.close()
+
+
+@pytest.mark.parametrize("title", ["Diagram title", "Diagram (overview)"])
+def test_local_image_title_does_not_become_part_of_asset_path(tmp_path: Path, title: str) -> None:
+    asset = tmp_path / "diagram.png"
+    asset.write_bytes(b"image")
+    metadata = PageMetadata(
+        sourceId="community-f5-com",
+        title="Article",
+        slug="article",
+        url="https://community.f5.com/t/73730",
+        category="F5 Technical Articles",
+    )
+    document = tmp_path / "index.md"
+    document.write_text(serialize_document(metadata, f'![Diagram](diagram.png "{title}")\n'))
+    assert not validate_document(document)

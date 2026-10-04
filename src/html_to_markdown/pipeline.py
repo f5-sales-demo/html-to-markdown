@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 import mimetypes
 from pathlib import Path
 from sqlite3 import Row
@@ -14,7 +15,14 @@ from bs4 import BeautifulSoup
 
 from .adapters import ADAPTERS
 from .adapters.base import SourceAdapter
-from .errors import AllowlistError, AuthenticationWallError, NavigationOnlyError, NotFoundError
+from .adapters.community import validate_community_publication
+from .community_media import reviewed_media
+from .errors import (
+    AllowlistError,
+    AuthenticationWallError,
+    NavigationOnlyError,
+    NotFoundError,
+)
 from .fetcher import Fetcher
 from .metadata import enrich_snapshot, normalize_source_date
 from .models import DiscoveredPage, DocumentRecord, PageStatus, utc_now
@@ -45,6 +53,7 @@ class Pipeline:
         self.concurrency = concurrency
         self.store = StateStore(output / "state.sqlite")
         self.fetcher = Fetcher(timeout=timeout, retries=retries, headed=headed)
+        self.fetcher.community_inventory_dir = output / "community-inventory"
 
     async def __aenter__(self) -> Pipeline:
         await self.fetcher.__aenter__()
@@ -137,8 +146,17 @@ class Pipeline:
                 try:
                     content, media_type = await self.fetcher.fetch_asset(asset.url)
                 except AllowlistError:
+                    if adapter.source_id == "community-f5-com":
+                        raise
                     rendered.body = rendered.body.replace(asset.placeholder, asset.url)
                     continue
+                if adapter.source_id == "community-f5-com":
+                    content, media_type = self._reviewed_asset(
+                        content,
+                        media_type,
+                        asset.url,
+                        json.loads(fetched.headers.get("community-review", "{}")),
+                    )
                 digest = hashlib.sha256(content).hexdigest()
                 suffix = self._asset_extension(asset.url, media_type)
                 asset_dir = page_dir / "assets"
@@ -233,15 +251,24 @@ class Pipeline:
         return str(soup)
 
     @staticmethod
+    def _reviewed_asset(
+        content: bytes, media_type: str, url: str, review: dict[str, object]
+    ) -> tuple[bytes, str]:
+        content, replacement_type = reviewed_media(content, url, review)
+        return content, replacement_type or media_type
+
+    @staticmethod
     def _asset_extension(url: str, media_type: str) -> str:
         media = media_type.split(";", 1)[0].strip().lower()
         suffix = mimetypes.guess_extension(media) or Path(urlsplit(url).path).suffix.lower()
         return suffix if re_safe_suffix(suffix) else ".bin"
 
     def validate(self) -> None:
+        validate_community_publication(self.output, self.store)
         validate_snapshot(self.output, self.store)
 
     def package(self, started_at: str, ended_at: str) -> Path:
+        validate_community_publication(self.output, self.store)
         if not (self.output / "quality-report.json").is_file():
             write_quality_reports(self.output)
         manifest = build_manifest(self.output, self.store, started_at, ended_at)
@@ -266,6 +293,7 @@ async def run_pipeline(
     quality_reference: Path | None = None,
     benchmark: Path | None = None,
     inventory_only: bool = False,
+    retain_previous: bool = False,
 ) -> Path:
     # pylint: disable=too-many-arguments
     started = utc_now()
@@ -294,7 +322,9 @@ async def run_pipeline(
             {adapter.source_id for adapter in pipeline.adapters(source)},
         )
         await pipeline.scrape(source, force=force)
-        reconcile_previous(output, pipeline.store, previous_manifest)
+        reconcile_previous(
+            output, pipeline.store, previous_manifest, retain_previous=retain_previous
+        )
         enrich_snapshot(output, pipeline.store)
         write_quality_reports(output, reference=quality_reference, benchmark=benchmark)
         pipeline.validate()

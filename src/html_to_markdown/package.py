@@ -23,9 +23,9 @@ from .urls import SOURCE_ROOTS
 from .validation import KnownDocument, validate_enriched_metadata, validate_related_targets
 
 MIB = 1024 * 1024
-MAX_ARCHIVE_BYTES = 256 * MIB
-MAX_EXPANDED_BYTES = 512 * MIB
-MAX_MEMBERS = 10_000
+MAX_ARCHIVE_BYTES = 1024 * MIB
+MAX_EXPANDED_BYTES = 1024 * MIB
+MAX_MEMBERS = 20_000
 MAX_MARKDOWN_BYTES = 2 * MIB
 MAX_ASSET_BYTES = 20 * MIB
 MANIFEST_SCHEMA_VERSION = 2

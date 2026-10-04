@@ -9,6 +9,8 @@ from typing import Annotated
 
 import typer
 
+from .adapters import ADAPTERS
+from .adapters.community import validate_community_publication
 from .logging import configure_logging
 from .package import (
     sha256_file,
@@ -22,13 +24,17 @@ from .state import StateStore
 from .validation import validate_snapshot
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
-Source = Annotated[str, typer.Option(help="all, docs-cloud-f5-com, my-f5-com, or www-f5-com")]
+Source = Annotated[
+    str, typer.Option(help="all, docs-cloud-f5-com, my-f5-com, www-f5-com, or community-f5-com")
+]
 Output = Annotated[Path, typer.Option(file_okay=False, help="Working/output directory")]
 
 
 def _check_source(source: str) -> str:
-    if source not in {"all", "docs-cloud-f5-com", "my-f5-com", "www-f5-com"}:
-        raise typer.BadParameter("must be all, docs-cloud-f5-com, my-f5-com, or www-f5-com")
+    if source != "all" and source not in ADAPTERS:
+        raise typer.BadParameter(
+            "must be all, docs-cloud-f5-com, my-f5-com, www-f5-com, or community-f5-com"
+        )
     return source
 
 
@@ -50,6 +56,9 @@ def run(
     inventory_only: Annotated[
         bool, typer.Option(help="Scrape only URLs pinned by --benchmark")
     ] = False,
+    retain_previous: Annotated[
+        bool, typer.Option(help="Retain verified prior documents when currently unavailable")
+    ] = False,
     verbose: Annotated[bool, typer.Option()] = False,
 ) -> None:
     """Discover, scrape, validate, and package a snapshot."""
@@ -68,6 +77,7 @@ def run(
             quality_reference=quality_reference,
             benchmark=benchmark,
             inventory_only=inventory_only,
+            retain_previous=retain_previous,
         )
     )
     typer.echo(archive)
@@ -130,6 +140,7 @@ def validate_command(
     """Validate hard document and artifact integrity."""
     store = StateStore(output / "state.sqlite")
     try:
+        validate_community_publication(output, store)
         validate_snapshot(output, store)
     finally:
         store.close()

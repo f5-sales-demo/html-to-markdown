@@ -1,5 +1,10 @@
 schema_version: 1
 classification_rules:
+  - source_id: community-f5-com
+    path_prefix: /t
+    product: distributed-cloud-services
+    content_type: knowledge_article
+    task_type: support
   - source_id: docs-cloud-f5-com
     path_prefix: /docs-v2
     product: null

@@ -9,6 +9,7 @@ from urllib.parse import parse_qsl, quote, unquote, urlencode, urlsplit, urlunsp
 from .errors import AllowlistError
 
 SOURCE_ROOTS = {
+    "community-f5-com": "https://community.f5.com",
     "docs-cloud-f5-com": "https://docs.cloud.f5.com/docs-v2",
     "my-f5-com": "https://my.f5.com/manage/s",
     "www-f5-com": "https://www.f5.com/products/distributed-cloud-services",
@@ -24,6 +25,8 @@ WWW_F5_SOLUTION_URLS = frozenset(
 
 ASSET_HOSTS = frozenset(
     {
+        "community.f5.com",
+        "d20hrnpixdzcsd.cloudfront.net",
         "docs.cloud.f5.com",
         "my.f5.com",
         "cdn.f5.com",
@@ -57,6 +60,13 @@ def validate_source_url(source_id: str, url: str) -> str:
     root_path = root.path.rstrip("/")
     if value.scheme != "https" or value.hostname != root.hostname:
         raise AllowlistError(f"URL is outside {source_id}: {url}")
+    if source_id == "community-f5-com":
+        if raw.netloc != "community.f5.com" or value.query or unquote(value.path) != value.path:
+            raise AllowlistError("community URL has forbidden host, encoding or query")
+        match = re.fullmatch(r"/t/(?:[A-Za-z0-9_-]+/)?([1-9][0-9]*)", value.path)
+        if not match:
+            raise AllowlistError("community URL is not a topic first post")
+        return f"https://community.f5.com/t/{match.group(1)}"
     if source_id == "www-f5-com":
         if (
             raw.netloc.lower() != root.hostname
@@ -101,6 +111,8 @@ def stable_path(source_id: str, url: str) -> PurePosixPath:
     relative = (
         parts.path.strip("/") if source_id == "www-f5-com" else parts.path[len(root) :].strip("/")
     )
+    if source_id == "community-f5-com":
+        return PurePosixPath("t", parts.path.rsplit("/", 1)[-1])
     if source_id == "my-f5-com":
         match = re.search(r"K\d{6,}", relative, re.IGNORECASE)
         relative = match.group(0).upper() if match else relative

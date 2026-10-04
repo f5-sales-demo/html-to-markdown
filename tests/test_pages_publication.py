@@ -75,12 +75,12 @@ def test_pages_and_release_workflows_use_immutable_publication_contract() -> Non
     assert "releases/latest" not in content_release
 
 
-def test_software_version_and_release_are_semver_1_2_0() -> None:
+def test_software_version_and_release_are_semver_1_3_0() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     package = (ROOT / "src/html_to_markdown/__init__.py").read_text(encoding="utf-8")
     release = (ROOT / ".github/workflows/release-software.yml").read_text(encoding="utf-8")
-    assert 'version = "1.2.0"' in pyproject
-    assert '__version__ = "1.2.0"' in package
+    assert 'version = "1.3.0"' in pyproject
+    assert '__version__ = "1.3.0"' in package
     assert "refs/tags/v" in release
     assert "uv build" in release
     assert "-name '*.whl' -o -name '*.tar.gz'" in release
