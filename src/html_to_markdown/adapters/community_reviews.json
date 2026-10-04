@@ -3165,7 +3165,173 @@
   "71319": {
     "article_hash": "179f7a443f7367ca784c8949210a00d903251dfac7d5b68fbbab0451bee87607",
     "decision": "include",
-    "reason": "Joint Distributed Cloud edge WAF and BIG-IP origin WAF deployment and CI/CD integration"
+    "reason": "Joint Distributed Cloud edge WAF and BIG-IP origin WAF deployment and CI/CD integration",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/0/0b4b31ae6bb45a41ab873b117b0ff833376498ac_2_690x41.png": "93d5f74a2903b3197f2855ec7e08e85a7a6bbfd71eaecedcec70f85e0ab42b4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/1/166b09868ba2d9e407a791cab5de4f5c62b9128c_2_690x40.png": "8b7344c0ce75534161ef8acb49d1ceb9055dc885e5fce2a01488cb2eb97c1068",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/1/19b01390ab93702a08700055a236b22a663f32d3_2_689x38.png": "827523cb1fecb9c59c21ac7546460dfe7e6c351ccbe87b9c6a6b6d3c2414f60f",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/3/33497915f964ef0ae0aab45220adca3941b1c998_2_690x22.png": "a7120a481fbab04c2014a4c6a1ab8106e15de3ccb60ac7b5371578f2b09b7c53",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/3/3437496f181f084ad38a23d59a9d3a932169e515_2_690x37.png": "4700e3fddbdefa1690b14bbf24dfdb954b787c1ac517d63ffc8b79e23e7976e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/4/454de7029c458ee4369b54c121aa075494d8d467_2_690x42.png": "8866c7afe0edda46d9fa79c413c02760bd044b809c045fe0aac2ff03bfa522a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/1/4/14070968fadd5f4bce5e9c44b4de487e48db091e_2_690x50.png": "986351cbcd1865df8575e03cc46ce7cfb5ee878bf6336a5e5145dbb26fe32710",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0eb5d56ffdb375d1448b5e0ccdecaa535249f950.png": "07b540933f15fcdc0d1e73c1da8330ab57ba4842fe3b7cc467674176a1f5e376",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/11cd657cd34ae86596de4652061292df1e2ad0cc.png": "a5924a905abc5d575ad947bfbec5654cb32db671f337a12a6ab094388068a012",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1887de3796e964ed3e834551bee10458b1f62f2f.png": "92bab9390a14de1efa3ab0bf54010a56b14e51601305d235bf36bcd9b193b12f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/86457e427a6128c11d7233d004699c9b33328cc0.jpeg": "0f25e478e77a87763a88d69849f4bb999bbf8286aeb1528d2472a49fe0a99043",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/920d358ca80ee7328635d4454dc8c94725334f7d.png": "496d1212d5e8127ce0fdcbeb4a496b824b747a48c354692d301f8f0f2169afdc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6b7045ddeb7bf2315ae3a7c16bd211918a364a3.png": "1b67c338db76de585949ff6737599555e2459ca805588a0f99c272cec2254304",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8f4db0e4510b91c4f831d734c69a9d4abef2df2.png": "582690b52e9a4ae33173ce3a529d158b3bbd766a5f5e6806204ce5e080a9db9e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4cf801402e9c608965d92688a5b9968c9d9e5247.jpeg": "5f415ed0fc45e3d4791f4ddc585ec8d0398299ade26a14166f5e58708c9b557f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/f/7ffb85d345f338b2407ec43656ce20c46a0be614.jpeg": "fb183018ff5850d0652a1e856f4d938763eaf5bec8fa615ce4b7c12276ff0727",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/d/8dbc4e119d19687ff90d9c2c2d402cc09c721269.png": "e8ab51396c4508e912ac10e14e9e9097f5d1bd5369da153d0017b788b48ab5de",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/0/a07e7102583b20654ac3b5ca0f1f4181d0d66795.png": "051703a3f6f73d8bcd03f1af078994e3dc104254adc956e3ad3de1feb6c07291",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c6a0de6d18688362eb78a0f4180c3694dc5b9121.png": "55ec63dc20b45820d67f79ca3175ce49579d225d87819c4254faa6db858a4c62"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8f4db0e4510b91c4f831d734c69a9d4abef2df2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              14,
+              130,
+              680,
+              163
+            ],
+            "text": "bigip_mgmt_ip = \"192.0.2.10\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              160,
+              680,
+              193
+            ],
+            "text": "bigip_mgmt_url = \"https://192.0.2.10\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              190,
+              680,
+              223
+            ],
+            "text": "bigip_password = \"EXAMPLE_SECRET\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              220,
+              680,
+              253
+            ],
+            "text": "bigip_public_vip = \"192.0.2.20\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              250,
+              680,
+              283
+            ],
+            "text": "bigip_public_vip_url = \"http://192.0.2.20\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "8049366f587a28c260a64544eaac7fb98c5fba4178151710362eed53932d9e45"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0eb5d56ffdb375d1448b5e0ccdecaa535249f950.png": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              122,
+              660,
+              154
+            ],
+            "text": "endpoint = \"juiceshop.example.com\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              4,
+              154,
+              560,
+              185
+            ],
+            "text": "xc_lb_name = \"demo-xclb\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              4,
+              185,
+              560,
+              215
+            ],
+            "text": "xc_waf_name = \"demo-xcw\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "e2dd9fe3e01b627c1883db981dea731cc0b06fca1c5a0280861dab8888cc2e6e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1887de3796e964ed3e834551bee10458b1f62f2f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              78,
+              78,
+              825,
+              115
+            ],
+            "text": "F5XC + BIG-IP Apply #2: demo commit pushed by demo-user",
+            "size": 20
+          }
+        ],
+        "output_sha256": "96dcd30bfceaf70c199031810bc67038156526ccf9d21dd1fcb71e3b61e56b52"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/6/c6a0de6d18688362eb78a0f4180c3694dc5b9121.png": {
+        "labels": [
+          {
+            "rectangle": [
+              82,
+              86,
+              850,
+              123
+            ],
+            "text": "F5XC + BIG-IP Destroy #6: demo commit pushed by demo-user",
+            "size": 20
+          }
+        ],
+        "output_sha256": "9e4b6aafb47ec923d1fe31394ce4c09cecad896852370ea297e6f8b97ec3ef7d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/f/7ffb85d345f338b2407ec43656ce20c46a0be614.jpeg": {
+        "rectangles": [
+          [
+            89,
+            560,
+            355,
+            627
+          ]
+        ],
+        "output_sha256": "32976d8dc358058889c02164f39f0840984e51c9a29de7c51ed45003c1a5cec2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/86457e427a6128c11d7233d004699c9b33328cc0.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "703f2ca0742162db2e177227433290d1fbe4874a8a2be041ada3a5e988671a9d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/c/4cf801402e9c608965d92688a5b9968c9d9e5247.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1aa59a8b18d6dd57ab4f8c1497fbfa13f683772d485cb72b6e87b3f58d3254b8"
+      }
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all 19 static screenshots/diagrams. Hybrid article materially deploys XC WAAP at the edge; retained Terraform XC configuration, CI/state workflow and BIG-IP origin architecture. Five hash-bound images replace exposed demonstration password, management/VIP IPs, endpoint/object identifiers, GitHub user identifiers and author credit; retain output keys, resources, timing, branch commands, variable names and architecture. All prose secrets are described or placeholders and remaining screenshots show sensitive/write-only values; strip metadata."
   },
   "71329": {
     "article_hash": "8051fb72f423ba4cb3b39db7c419ee06837e0035bd664d406e0d1f72b4599d77",
