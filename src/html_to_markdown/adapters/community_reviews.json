@@ -61468,5 +61468,293 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "69175": {
+    "article_hash": "c76f5a6ce1cc9ec52786c7cf2d09d331de76b912fb345cee4e2c8281c64fae0f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 17 static images. Replaced lab client addresses, decimal address forms, hostname, ASN and application SNI with synthetic values, maintaining identity relationships across blocking prefix and results. Preserved geography/country maps as policy context, allow/default-deny and deny/default-allow diagrams, 403 outcomes, selected service policies, public TLS protocol fingerprint and client-blocking configuration. Eight images use hash-bound labels; metadata removed with substantive pixel preservation.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2dbf1dc72398d18249e20823ef60cece327878b3.jpeg": "aae4ac89055e30b972401b9611bba0b009623ff24925340c639e3bbaa8f516d1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5988a0c8896bbcaa39b8b500d3978a1ea6b6a4a1.jpeg": "f102b687eb03890742fcdb9523c1bb295dd9f4cc3af304d6ba6a9b471d152834",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f7f66c78ffaef8a5f6deb7337e5ddc25705b128.png": "ed848d20299022c55102a5f014a74ac3ac1d678fa83b021db47ac75fc4501d43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8f90f8c07f88431f962e899f4d485846654c2a27.jpeg": "cabfacab6a2e0dfaa08f0f1eba00e347a9b063ef549208f0bf22ca56a3a01364",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c89ca2a1b20b617cec2cd0b66ab14f04ffd55dfe.png": "7256d817ae83289b26be362438a46c88599179e0e989e0610de831e7b3bf6f52",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/db5d7692ce4cbb2c36cb620225e9f5008c01e9b3.png": "7de74dae68e227b23983d9f3ac408c82bdf3a40cf204bd4e2e1b3427cdd1ec7a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e4e37c6346b057a6f0d9a87ff94d3116d4a3a3c5.jpeg": "6fa063388f4d8ed17f660e08f3858b6889293f8ca69d174ba4f0f8001a41e78a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e947526ae1f27ba5df1838c94b72a3b050034f5b.png": "e433079e3d2c701369bfb2b921369ed71764c11a3434c13117f50650f9aca186",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/eeffbb2f73bfb8123580c65ac6ef65998e6ce3d3.jpeg": "04fd81480f4d88acf9d21f1c0bd4510893e7319262f5c782ceff8bb84cd8bee1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/6/06a83d32548fa539bbb1545f61e253363a803945.png": "9479ecf9c388a4da4547d6d21ea4119ddda34eea0e2447df8b2c398216d7fe4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/7/17f56a5d00e493f694ca0b5e88f35e34dd6a4399.png": "c12f0c8bb59a1d9499ac7f75734969b5aadfa88ee177683cb39795facf343313",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/8/38112b4965903b50499579cb3d7d54e59ccbfc18.png": "d8283867837c53386dcbb0bf4bba65a960aee377ad0fe28e119feb73af8bf73f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/e/3e95bc03abbede5b689138d6b3d9eca5bcad02ac.png": "e2b45e62842a18d6e0f451c2a4f5d1498dc789c6fccd0b801e083904af007a3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f6c831716c0e623c049c881a29e1ac68e55d648.png": "05b000519eba56fa6ce6c632f13e46c0767e7a7cbcf2c5f4629bc25d953a5186",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7bd2be218d0214dfe6221832bd239d53bee6f19b.png": "78e4740c35eb8dccfb478bae7a6fa459703452ee992a964d57667bc06b236587",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc630280f0b1cf26d768c31070ef90a6ef3fef3f.png": "492222f7b77a25195efa0c4a6c43461d6d9ddeab62662636a10af911453a5f27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/ee140593c30ba02a1898507ea0f439b494a9ffda.png": "e7eb85344e505b434ec85222df2dd109f449733a55927a466c21d7b3fb3cdbe1"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2dbf1dc72398d18249e20823ef60cece327878b3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              153,
+              58,
+              421,
+              80
+            ],
+            "text": "3221226130",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              153,
+              78,
+              450,
+              97
+            ],
+            "text": "client1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              153,
+              99,
+              215,
+              116
+            ],
+            "text": "64496",
+            "size": 10
+          }
+        ],
+        "output_sha256": "17b59af45d55c180b349844c8348f46772a1668e50108faf70beb52caf4a2cd8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5988a0c8896bbcaa39b8b500d3978a1ea6b6a4a1.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              153,
+              45,
+              430,
+              62
+            ],
+            "text": "3221226130",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              153,
+              62,
+              452,
+              80
+            ],
+            "text": "client1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              153,
+              80,
+              222,
+              98
+            ],
+            "text": "64496",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              154,
+              451,
+              419,
+              466
+            ],
+            "text": "Example location",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              154,
+              468,
+              419,
+              483
+            ],
+            "text": "Example location",
+            "size": 10
+          }
+        ],
+        "output_sha256": "59abcb6eecf68a135fa58a01d9a2589402b523bf07d26353879d5d8a25ef5dc2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f7f66c78ffaef8a5f6deb7337e5ddc25705b128.png": {
+        "labels": [
+          {
+            "rectangle": [
+              280,
+              117,
+              342,
+              138
+            ],
+            "text": "64496",
+            "size": 10
+          }
+        ],
+        "output_sha256": "5837bc61b7fd3c84139ad05ce851c731eef46ba8179b9e166da27f94dd5da4c7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8f90f8c07f88431f962e899f4d485846654c2a27.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              52,
+              78,
+              145,
+              100
+            ],
+            "text": "192.0.2.79",
+            "size": 10
+          }
+        ],
+        "output_sha256": "0b293a533701c001bd28496fdf7367ce02ed06f0c8f5a674aded08829120a0f9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c89ca2a1b20b617cec2cd0b66ab14f04ffd55dfe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              253,
+              368,
+              423,
+              390
+            ],
+            "text": "192.0.2.79/32",
+            "size": 11
+          }
+        ],
+        "output_sha256": "b88204607e18d945ad41ae432736d98f5de3279d45cdfad8c7cdb1bd76387a5a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e4e37c6346b057a6f0d9a87ff94d3116d4a3a3c5.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              16,
+              42,
+              210,
+              65
+            ],
+            "text": "IP Details For: 192.0.2.141",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              157,
+              89,
+              395,
+              109
+            ],
+            "text": "3221226125",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              157,
+              108,
+              453,
+              127
+            ],
+            "text": "client1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              157,
+              125,
+              225,
+              144
+            ],
+            "text": "64496",
+            "size": 10
+          }
+        ],
+        "output_sha256": "2c001be66470a6da6c4c471a602859264492bd88167f56320c2998e5fd51e6f4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/eeffbb2f73bfb8123580c65ac6ef65998e6ce3d3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              22,
+              43,
+              208,
+              66
+            ],
+            "text": "IP Details For: 192.0.2.57",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              118,
+              85,
+              271,
+              104
+            ],
+            "text": "3221226041",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              118,
+              106,
+              271,
+              125
+            ],
+            "text": "client2.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              118,
+              125,
+              195,
+              145
+            ],
+            "text": "64497",
+            "size": 10
+          }
+        ],
+        "output_sha256": "b8d42c0b33fe8ee44fccaf2b9c0c483fc331432fa079968319cfe62315a5af78"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/b/7bd2be218d0214dfe6221832bd239d53bee6f19b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              127,
+              94,
+              280,
+              118
+            ],
+            "text": "\"app.example.com\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              120,
+              351,
+              278,
+              372
+            ],
+            "text": "\"EXAMPLE-AS(64496)\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              130,
+              370,
+              278,
+              392
+            ],
+            "text": "\"IP-192.0.2.141\",",
+            "size": 10
+          }
+        ],
+        "output_sha256": "36ca09373edd1e0bfc767ade1f225e2c3f6d61b1828da618d045f19832b1d5d0"
+      }
+    }
   }
 }
