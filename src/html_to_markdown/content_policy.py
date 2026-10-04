@@ -316,6 +316,8 @@ def migrate_content(
         and prior_audit.get("api_policy_sha256") == active.policy_digest
     )
     if apply and audit_matches:
+        if store:
+            purge_excluded_state(store, active)
         validate_curation(output)
         return dict(prior_audit["content_migration"])
     topics = curate_topics(output, store, apply=apply)
@@ -358,6 +360,12 @@ def migrate_content(
         # Keep original transformation evidence when reapplying migrated bytes.
         if not mappings:
             mappings = previous.get("mappings", [])
+        allowed_operations = {op["url"] for op in active.operations}
+        mappings = [item for item in mappings if not topic_policy.excludes(item["legacy_url"])]
+        for item in mappings:
+            item["related_operations"] = [
+                target for target in item["related_operations"] if target in allowed_operations
+            ]
         related = sorted({target for item in mappings for target in item["related_operations"]})
         if related:
             generated = (
