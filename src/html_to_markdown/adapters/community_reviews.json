@@ -5838,7 +5838,139 @@
   "72948": {
     "article_hash": "14ce8067556a9354c0073aa1f6c8657fa55e4a8154d7eff6321cf55406ea290e",
     "decision": "include",
-    "reason": "Joint Distributed Cloud WAAP, BIG-IP APM and Kubernetes ingress deployment"
+    "reason": "Joint Distributed Cloud WAAP, BIG-IP APM and Kubernetes ingress deployment",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete prose/code and all 21 static diagrams/screenshots. Hybrid solution substantively deploys XC WAAP and learns APIs at the edge; retain BIG-IP APM/CIS/IngressLink origin architecture. Five hash-bound transformations replace personal namespace, GitHub user identifiers and demonstration endpoint/object IDs; preserve OAS upload, API graph, output keys, feature flags and workflow. Other secrets are placeholders/descriptions or sensitive/write-only fields; diagrams carry no customer or user data; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/0/0e01f24d97dee84c0e600cc4829a534d2af9cf10_2_689x34.png": "c9e92c88f275351a667023a1d561869d7a33411f62e38393acd05ead6ff9a932",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/3/303678cb2ea16ccbc54f9c1c8cc91f2596b3872d_2_690x33.png": "a6bac2bddab000d11ef39bf5f95dfe5535920d725efa4162cec3b1dca051163d",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/6/6ec0c9f0744f340117a7e0a78d8d9e159030bc1c_2_690x22.png": "c412b5a52777179c5968b494d98812a6d1c7753228d2d0187012313ee8fe210f",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/7/7c48f61e0bd4fe4c5ac1f103a9663411aff67a68_2_690x40.png": "3e7864d29d442b561a331a1357f5e526f4f9a8642be7132d513c938bd56ed54a",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/8/8422c0ed7285a515ea685ef803fb614d91eb8909_2_690x37.png": "0388aac36cc81d0f29e3212f4fde7bf3e7ae2b1bc659813d1f6cc64579203356",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/d/d8213d92352b558803abfa7eebc054e465dcce6b_2_690x19.png": "044d087f8dff1b52408ef297217badc7593800660e7519e9e389954bf90502cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/b/d/bd53a45ef117133a2a706affb2990339ed68d713_2_690x22.png": "1f96c12f6c01d402d2d583ce7d5259555b9367a64b80e03238f2707bb619b67b",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/f/a/fa195416ecdedd3d70ebb0dd59abec18294ebf7f_2_690x37.png": "d1d7ff3236c40815f7a732ad70975497d1aeefed61003f9c972505e9d45801d6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1c0904f5222686d284c40136d07b640cd3f41091.png": "d9b6e91cc9e4eb4bfcd866bff08eb55b6eddba191e2fd7902a8eda8ae2b3e942",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2358009dd42845d59ec530a87a58b888858f0e2f.png": "cf2748450287716c07f92c9b030d074a8eab5bbca6307332820b7bd1cbeb86ba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31cc22c45eec4f6a22c244bcb607338a43152728.png": "dbbc35b38ee6e416cfdb7cf074eb1858a04189097a37f5821ca8e6e7ff65ff00",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4f49a16828b4f0009bb17d1a75b72467987416f4.png": "cb6e8c8b9cc79adea608c04b8736a2d4d78a87aa80fcbe8cde18d7c6098e44b7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/545076d3696a01f2b2af57e2c5bb0eefc934373e.png": "95806ac2111c9c5e08888349a4a63e3e06dc01bde021c5eb7cf8924c7ffb851b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/98d7adffc74e4cd013c949f125b0029da7b0b217.png": "26a98c3e2446345d99347602d56dff39c6006a1d45c6abf61e97ea7b794294c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c78a3b3265707ce7a7bdc86144ce7c08624173d8.png": "28df4dfd171187b8510782d806cb32b91cabc15a61dd293b3f674465b7c1a856",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc67827344f662f8cf41c58fe7aae0e176c22ff9.png": "afedc80b6b307e1115490a4b104e835052539b395fab7a76ca11313edb73964e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/02b41f511f6a649476e76a650fe01bbc04517120.png": "4f9b91aea805483948bb59086c6bf380ea5a566eb11e8daa9c0d07ebcdc64ab7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b55b0406959ef4736ff362d0dddda06f478c7d8.jpeg": "7954a8ae308d5caed497a9b205154bf4fd59b012144a536263a060ecbc725fc2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/5/85760d22773d1208ae8771235884d524e83bac92.jpeg": "d83ad77d528fd40757c5a697f1dcb61c1cb7f6b1fca25f514630fe4faf167ea3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9ce04a6641a2e9f160c3ea09b4afc789afcabc42.png": "04430c644843900f3db14e0abd53cfb7d6ad137b4706d36d3d50b083e8c3f5e8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/8/e86906227dbc4164452428618fea5a99ee87d7e3.png": "599e2aa9400231a07bb00f48f877a33278433435ee58405f1aedfa33bda78654"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/0/0e01f24d97dee84c0e600cc4829a534d2af9cf10_2_689x34.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              20,
+              285,
+              33
+            ],
+            "text": "F5XC + BIG-IP CIS + NIC Apply: demo-user",
+            "size": 8
+          }
+        ],
+        "output_sha256": "54ef64cb42b538e392a8a068d2fe530041018bf5c222f914c2973ead20725c0c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/f/a/fa195416ecdedd3d70ebb0dd59abec18294ebf7f_2_690x37.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              20,
+              285,
+              36
+            ],
+            "text": "F5XC + BIG-IP CIS + NIC Destroy: demo-user",
+            "size": 8
+          }
+        ],
+        "output_sha256": "4c4d2de039651472881095a5fdb9e177231fbb0d47219400d10bc7e9f71bad80"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2358009dd42845d59ec530a87a58b888858f0e2f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              204,
+              0,
+              257,
+              25
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a40646b34e6f1f97f2d5034be935f9f92fbec414fef1c3277ad34c11b5d6313e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc67827344f662f8cf41c58fe7aae0e176c22ff9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              338,
+              6,
+              421,
+              30
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "43737ddd41e2bff10cbadc283791048ed247a18011323589fa1f20f7607dcfc5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/c/9ce04a6641a2e9f160c3ea09b4afc789afcabc42.png": {
+        "labels": [
+          {
+            "rectangle": [
+              51,
+              79,
+              350,
+              102
+            ],
+            "text": "xc_waf_name = \"demo-xcw\"",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              51,
+              100,
+              375,
+              119
+            ],
+            "text": "endpoint = \"brewz.example.com\"",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              51,
+              120,
+              350,
+              140
+            ],
+            "text": "xc_lb_name = \"demo-xclb\"",
+            "size": 12
+          }
+        ],
+        "output_sha256": "7b20ad4de6219279fe2466036ca4638d3c94262193f51f5df8c199a5e8b790ab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b55b0406959ef4736ff362d0dddda06f478c7d8.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7b2a80777107818b721c580306cb536ca9bdaf418843b1b96c2b43bd222c35ab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/5/85760d22773d1208ae8771235884d524e83bac92.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4050714c109f0d38e8470fa3283c0cf9894ee4e5aad970ee3c02a1d5d3901181"
+      }
+    }
   },
   "73012": {
     "article_hash": "10f7e1599cda86ef053b92e6fa21537cdaec58029b117ae6c03bd0a3165bd66d",
