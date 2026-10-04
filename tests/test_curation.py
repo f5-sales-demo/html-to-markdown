@@ -1,6 +1,7 @@
 import copy
 import gzip
 import json
+import tarfile
 from pathlib import Path
 
 import pytest
@@ -125,7 +126,7 @@ def test_catalog_retirement_precedes_mapping_and_fallback() -> None:
     active = load_content_policy()
     raw_catalog = json.loads(
         gzip.decompress(
-            Path(__import__("html_to_markdown.content_policy", fromlist=["__file__"]).__file__)
+            Path(str(__import__("html_to_markdown.content_policy", fromlist=["__file__"]).__file__))
             .with_name("api_destination_catalog.json.gz")
             .read_bytes()
         )
@@ -304,7 +305,6 @@ def test_cli_archive_audit_separation_and_repeated_bytes(tmp_path: Path) -> None
     result = runner.invoke(app, ["curate-content", "--output", str(tmp_path)])
     assert result.exit_code == 0, result.exception
     assert [p.read_bytes() for p in paths] == before
-    import tarfile
 
     with tarfile.open(tmp_path / "html-to-markdown-content.tar.gz") as archive:
         assert "curation-audit.json" not in archive.getnames()

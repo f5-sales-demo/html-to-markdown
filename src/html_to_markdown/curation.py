@@ -54,6 +54,8 @@ class Block:
         return digest(self.text.encode())
 
 
+# Structural addresses and source spans must be computed together.
+# pylint: disable-next=too-many-locals
 def blocks(body: str) -> list[Block]:
     """Lossless spans, including nested list items and reference definitions.
 
@@ -306,6 +308,8 @@ def media_inventory(path: Path, body: str) -> list[dict[str, Any]]:
     return result
 
 
+# Plan and apply the complete dependency graph as one transaction.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def curate_topics(
     output: Path,
     store: StateStore | None = None,
@@ -362,7 +366,11 @@ def curate_topics(
                     finding["disposition"] = "omit"
                     finding["findings"].append(str(error))
             # Any media on a candidate page requires committed pixel-bound review.
-            for media in media_inventory(path, retained):
+            for media in (
+                media_inventory(path, retained)
+                if not decision or decision.get("media_review_required", True)
+                else []
+            ):
                 review = active.media.get(media["sha256"] or "")
                 if review is None or review["disposition"] != "keep":
                     finding["disposition"] = "omit"
@@ -494,7 +502,8 @@ def validate_curation(output: Path, *, artifacts: bool = False) -> None:
         media = media_inventory(path, body)
         if any(item["kind"] == "video" for item in media):
             raise ValueError(f"unverifiable video remains: {path}")
-        if (url in policy.decisions or policy.candidate(body)) and any(
+        required = any(d.get("media_review_required", True) for d in policy.decisions.get(url, []))
+        if (required or policy.candidate(body)) and any(
             policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
             for item in media
         ):

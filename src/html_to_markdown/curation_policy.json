@@ -4013,11 +4013,19 @@
             {
               "location": "# F5 WAF for Distributed Cloud@1/## Product Overview@1/### Public clouds@1:paragraph:38",
               "sha256": "abe921210f1cabc88b624ba557470180828cb801bab0454fdaa668c77ea2727c"
+            },
+            {
+              "location": "# F5 WAF for Distributed Cloud@1/## Resources@1/### Videos@1:paragraph:116",
+              "sha256": "275463e996a1d98dd90d306272466adbfc55c6fba968e41add7d9f8728db99a6"
+            },
+            {
+              "location": "# F5 WAF for Distributed Cloud@1/## Resources@1/### Videos@1:paragraph:118",
+              "sha256": "5a4f0b9be03b287d93433a48964c36964ea631003a8d2d23cb551dd05baffe2f"
             }
           ],
           "disposition": "keep",
           "input_sha256": "14b5f502bfee2b5626e49af3fca4a3016c8eb7f527c1dd2ffa0998d836c006a7",
-          "output_sha256": "1ada9603bcdd4c155dcfb43442689dc5b61f94438f6d7478a432cba398b4efe3",
+          "output_sha256": "b3902b0f91d05401deb8c2d0c9f258c0b66b269a1ae712154e52cc64ada3b9be",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf"
@@ -4043,6 +4051,1725 @@
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "### Bot Defense Demo:@1:paragraph:18",
+              "sha256": "ff5f51645bb53b8ebb495d557ec54964aba37c6af88fceeba473190c495233a1"
+            },
+            {
+              "location": "### Related Resources:@1:list_item:31",
+              "sha256": "0157cfd3bf0ac1725deef3dbfb3ae850b74b3ce248149e9daf7a8691c4aac313"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "f90d35dfc33c8110480c1b0e1fe1e00806bfeeca5727c72e0eb27ad315937889",
+          "media_review_required": false,
+          "output_sha256": "354b89cf83cc28b4792773f044d8dbd89421a200fc1bb38be3c050f0e83a0f9a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69204"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Conclusion@1:list_item:116",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "abaeebe0fcebbd1497dcd947def3ae1d07249e7c42b8ec90089f22c5c75820a4",
+          "media_review_required": false,
+          "output_sha256": "dd4c7ab80a78b588ff90e27ff59d54c487d94454e9ee176221f04fa89cb5783a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69250"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo time@1:paragraph:182",
+              "sha256": "8458e2e0ceaf40cfa84cb4409595ade38ad67dd543a3d11f12f0927eca344f51"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "bf20d7827200993c1789a2bd63469a238a4093759dd7d440c0834789608f1f00",
+          "media_review_required": false,
+          "output_sha256": "33009e3e28a362b8801bf90d9ef8ae39d132460ab2939384857e78f3b638da24",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69262"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "#### We might not wax that philosophically around here, but our heads are in the cloud nonetheless! Join the [F5 Distributed Cloud user group](https://community.f5.com/category/DistributedCloudUsers) today and learn more with your peers and other F5 experts.@1:paragraph:21",
+              "sha256": "80d3d258a514d687a78b670e45717713b511e56c183b528c854ac32bbf47478d"
+            },
+            {
+              "location": "#### We might not wax that philosophically around here, but our heads are in the cloud nonetheless! Join the [F5 Distributed Cloud user group](https://community.f5.com/category/DistributedCloudUsers) today and learn more with your peers and other F5 experts.@1:list_item:33",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "536ab967dd457edd90e0464a066cf95bfb3d374b2ef3b48f746fc19efe7b3a8e",
+          "media_review_required": false,
+          "output_sha256": "a3879624cd31fac93cd910686ea2b2a5d079dbb2cb960347117c5122c968ad05",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69322"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "#### We might not wax that philosophically around here, but our heads are in the cloud nonetheless! Join the [F5 Distributed Cloud user group](https://community.f5.com/category/DistributedCloudUsers) today and learn more with your peers and other F5 experts.@1:paragraph:15",
+              "sha256": "3cab58349deacbc153be19234e8806b6ddadd348b1238f104a559cf13a66b41f"
+            },
+            {
+              "location": "#### We might not wax that philosophically around here, but our heads are in the cloud nonetheless! Join the [F5 Distributed Cloud user group](https://community.f5.com/category/DistributedCloudUsers) today and learn more with your peers and other F5 experts.@1:list_item:23",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "5e657e0b42a3a9467f35ec04786342632df4d987e7095bce9ad32762e318c928",
+          "media_review_required": false,
+          "output_sha256": "1aa24e09201370feddc8b7f9316173fd580e5e897a323a5e14f8f0a45c2dd6e2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69323"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## OpenShift cloud services anywhere with F5 Distributed Cloud@1/### Azure Red Hat OpenShift (ARO) with F5 Distributed Cloud@1:paragraph:23",
+              "sha256": "11afedf4e81c00f4c5a7b7877e938ad51bcbb43361a632dc56a23948ac449a42"
+            },
+            {
+              "location": "## OpenShift cloud services anywhere with F5 Distributed Cloud@1/### Red Hat OpenShift on AWS (ROSA) with F5 Distributed Cloud@1:paragraph:29",
+              "sha256": "8cd7e37333aec51ea939407e716b70ed4a95df48fe957d8aa24ccb8433c04201"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6be10e0a9b693b81589cb19ac3eb4ad49a7965eebaf8dcffec2886499420bcf9",
+          "media_review_required": false,
+          "output_sha256": "27c045a957cc47c5d33469fceeede3e40afb1c81ed10e2143bbbd08c47691f1c",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69365"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:6",
+              "sha256": "f730d0d3b7c7474ba74ff5693edbab6f8d06ddc5a1ceb3d280086f870326392d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "688e90b6f1d1822553e72640b4d5982cd451fd7381cc43de3207d71525b498cb",
+          "media_review_required": false,
+          "output_sha256": "343c254b480fb23b3903d2f34d7a1e318d34897f5108062ba0ec3f4238068afb",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69578"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Introduction:@1:paragraph:2",
+              "sha256": "e3a39d861f5a63e90b32158855ad697085583ec704ecc07e3590c17c35ced52c"
+            },
+            {
+              "location": "## Credential Stuffing Demo:@1:paragraph:61",
+              "sha256": "dc4a9c20b353a7cb8622bf304f0955e48f20bc2d7477d47445f85cad1cbed529"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "a9170eb44c04c2b6e0d848bb514ba3269bef3da294d35333bdd6ffd99abb54aa",
+          "media_review_required": false,
+          "output_sha256": "ee530aa05787c35e2103485892c09347bacc52549afefaac4c10880f9f4acea1",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69584"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "### Client-Side Defense Demo:@1:paragraph:34",
+              "sha256": "376e10970cf84a12642ceaaa0853afe6947b6d8e89231e524e77306b077bf516"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "497bc5b4583736fd3def17aefdf0b7c19478ef220869c530dd4ee82fcb4727dc",
+          "media_review_required": false,
+          "output_sha256": "ecb539418da2aaade4862d242f95502cd9d97747c926e595ba2d2c6ec9459142",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69896"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Operationalizing Online Fraud Prevention Demo@1:paragraph:10",
+              "sha256": "50a69305d1e2c725ab7fbb6825c0ee07ea60e92b69445da385f505f32f991cf9"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e615b0444100039a1a9b7a08c07578170f2e1afb4ad2a6cbc7060ad316b35d35",
+          "media_review_required": false,
+          "output_sha256": "5ca6a2da6f9009130f5b0ec9dafbd7f5571702a722f30dbda2377d1d6fc10bc2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/69897"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **F5 Distributed Cloud Aggregator Management Introduction**@1:paragraph:10",
+              "sha256": "4a00a0e0baef9326ac7d618f06de2b2266c839db8f4830e99f1eca08dcea1557"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "76f99d1763025972efce3b9845cb137b46716e9126239de426b137335c98a398",
+          "media_review_required": false,
+          "output_sha256": "8d7838fff5f42c980dc6b3c3149dfdf9355dfa31025bf72ffbe99eecf5c2e038",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70120"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:14",
+              "sha256": "4cca073fbab4b93e5b0c9649bebb051584e59536ee71e6981e02ffee1468c1d6"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "db38829d88e466ec0d6402813d211bbe596625325e051f662f8314fc2dc6e59d",
+          "media_review_required": false,
+          "output_sha256": "ab2b7dc1bc3bc865c6aa5abea84a8c9ccbefcbb115b5b000ec8d74f5b3ae8292",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70138"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:92",
+              "sha256": "b756324f4c64324604cfc283d8c2567704765a69d783e5824bceccd18fc8727c"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "b767c38e508cefa9d0006052b89026f6ad23cd364939e5a7068b3d60cb7897e6",
+          "media_review_required": false,
+          "output_sha256": "90a7bf891affe2fa03186f51de7c56a0690fbfe1d3acb440e2102083795f0cd4",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70225"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Introduction:@1:paragraph:2",
+              "sha256": "fe49dd98205dc9c275b378ac83a9756d8f8b7bdd04d659c4f65fb8a8b6234ee6"
+            },
+            {
+              "location": "## CAPTCHA Defeat Demo:@1:paragraph:39",
+              "sha256": "5c996e023588ce66d912d6defc2992739ea64ecd9326239f0b2182a812088442"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "d62ab31d35bd2c4f5ff892608e195a87dc4cf724f748e03768df08306cd5af73",
+          "media_review_required": false,
+          "output_sha256": "159c4f3eb0fcf82cdc3aaa6eff4329530fbf032cc9b10d051625abb1094f8fbd",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70236"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## F5 Distributed Cloud Services to\u00a0enforce unified security policies across the distributed workloads@1:paragraph:13",
+              "sha256": "fc4c085fcd6e99666a18f3eb649af3200b15059bfc69e3eb65710bae723d3012"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "bdca0ecace4c448717b7e3d6e2a67fad2fcc74240c51f56f389d18c1ad0f59d1",
+          "media_review_required": false,
+          "output_sha256": "90503d8efe95519119367da649bd0f2a70f28c3dc4600dbe740d51584478f994",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70376"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Introduction:@1/### Carding Demo:@1:paragraph:43",
+              "sha256": "d588376808aceeb37aa23a5d7dcf93e4e7f3c371ccaea9cbb21b924720558d0e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "f5bb5e2c22de5b211d2532d63403a6c39d53ea09bc47dd8829004959e277eb95",
+          "media_review_required": false,
+          "output_sha256": "d41ab14286d5c35e322069f453dfd84f0b0815872b34f463ab706d5f9da7cdb2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70387"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:4",
+              "sha256": "d600c428092060444b6df2e01bb1f65b53db8c36ec6978cc5b5522f9247e8c1c"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "c30c249853fd0b088d7d2a981c6dff12d3bf30969f9f75c9d4f02f9b91fe55cd",
+          "media_review_required": false,
+          "output_sha256": "68f65773264208fc8d78aa18a95ace88fad0698e691b997da8481cd9da116204",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70410"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Use Case video@1:paragraph:45",
+              "sha256": "379f059c694fbcfc79182a590911e89e6513cbc256d0fe86dec75b62cc0dbb66"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "a34b698702cebb3f89ab852607eb4375a74a07a96034fab7a009b3f5e8b6c90c",
+          "media_review_required": false,
+          "output_sha256": "8c6231740b5274620ea53946b227dd836f882a78c3933a7d5b3c8417d20bc4e8",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70498"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Use Case video@1:paragraph:43",
+              "sha256": "ee5d8b406503fb28fd04ac84e5e656aea0de3dd58b900916cd0e4512b78bdab1"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "fa6a2f04bae41c684d7336acd0973e207e82d7a86affe46eec518e28028b99a4",
+          "media_review_required": false,
+          "output_sha256": "f47affb3501b623fe8b5001ceb7a7472980bb2043857d015956128d7f0f1ee4a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70499"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Use Case video@1:paragraph:55",
+              "sha256": "d0ad335e47626205c3685e898c862f414918b26a112e61a4ee22875d544f058d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "a979f8b0571029eed5c59fb591ba03a7649fad67f69f4c2311504b6dbaaa5e0e",
+          "media_review_required": false,
+          "output_sha256": "d0abb149c00d1143792c70931ecd86d69ea38646bffbb0985977d08a9ffe5f3b",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70500"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "#### We might not wax that philosophically around here, but our heads are in the cloud nonetheless! Join the [F5 Distributed Cloud user group](https://community.f5.com/category/DistributedCloudUsers) today and learn more with your peers and other F5 experts.@1:paragraph:121",
+              "sha256": "f302f965f9992266cce03a60ef9c50849b5c87bf770448b02f4fa1e8b047f30b"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "fa38afe1aeb5e8c4b596dbc424af21c7bbf7b97752eb7304b4b0cc9b60124606",
+          "media_review_required": false,
+          "output_sha256": "b466eb42f67148cd4235bc9264f4e7bd306c8c1fd097943520f0eebc0088d51b",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70579"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Conclusion@1:paragraph:124",
+              "sha256": "4a0bfae6a5e432730794959edd2b0bf328fb0ab1e367bfc4c12a2391c6069c94"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "5ebbfa5c4fa66a7aed3efd92ac744e3aa21b2f2be51d1d8797e46ef60f29a839",
+          "media_review_required": false,
+          "output_sha256": "8fd6c69a177cfce19241ca03656d36a3058309479c93644bef3eeb2a4172ec2e",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70580"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:16",
+              "sha256": "331fadafabfa0989f652619e547eca156c52fce35eeed6cd340af8c494cfb806"
+            },
+            {
+              "location": ":paragraph:20",
+              "sha256": "c8287f9a14d06805f79274c2bd24e4dec787a13c81ed2098463f2f2f2744cc0c"
+            },
+            {
+              "location": ":paragraph:24",
+              "sha256": "9d0305e7e0c19b5400e9f11651dcacff0429b1d48fd0d6f0826d1ad48b370080"
+            },
+            {
+              "location": ":paragraph:28",
+              "sha256": "797a9245b32f6019610bd7ec112ddd7fcc40896458e7eb9a0c5355fea16964b1"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "7b4bab9cd42d4ef67035dc2af6415cef4330468780866a6254fc7062ba867b00",
+          "media_review_required": false,
+          "output_sha256": "38778f1ca84e93e84da49d619818b47e7a6a2b246c9edc93544e8c5886d0a3ca",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70585"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:2",
+              "sha256": "a64d092b0973720c9604d16a7b04f62dd6c28446a7b0311fb73bb4322e878ddb"
+            },
+            {
+              "location": "##@1:paragraph:35",
+              "sha256": "65b38d1a8cd6c506886897adf36c611bc679ff608beaee0bc5742c9015a090b1"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9e855669a55de746133b6d991ebcefde7d41bcc4ebc99aa9cb35b64d5311df8b",
+          "media_review_required": false,
+          "output_sha256": "ec1614ac06d1a2d56511016abf52b863b3c53b082e732c296a29e95d84ca5be7",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70649"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Protecting your Applications from Vulnerability Scanning:@1:paragraph:38",
+              "sha256": "3b533182264c3a3355a040e73b931b3a6e869d3ba1acf5f0896aab31139b4c99"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "c328031b2ae64e6c9948d16cf9499f2dcb644b9c6155ae33282d73a2f4c4920f",
+          "media_review_required": false,
+          "output_sha256": "6db9f8132a57f005136b18ad0238eee5012f34e0cb695c9335984c8c1ed8cc5d",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70693"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Sniping Presentation:@1:paragraph:35",
+              "sha256": "6b68ca436dc0062ff20aef3b4bf5a3f8b53b1e265c878d4ff443875394bd30c9"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "553114644f01b1e85a71fd831f5a7f81dc47b1cbe19f629213a423284adf6a65",
+          "media_review_required": false,
+          "output_sha256": "85927ce9a2d89ce94645b0b7fe8fbb4a6c8d5d030d79ab3e5f37bbd3dc263af7",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70694"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "### Demo@1:paragraph:304",
+              "sha256": "b6fb3c3b1ad3bedc8a47c10353e3364422c9b1482331c28ce28bc1f8962f942c"
+            },
+            {
+              "location": "### Conclusion@1:paragraph:314",
+              "sha256": "999614bd92bd17f1404983dd70037c144b85a361067484687a9621d240036ed6"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9a98ae78777c9eee79133b20f592dfa54e2d5f247b6b8528c53ca81ebe40cfa2",
+          "media_review_required": false,
+          "output_sha256": "be88268e323d46ced4e9ac697bc4bf62cfc15eb82fc3accf309391737790796a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70792"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## \\*\\*Related Video:@1:paragraph:216",
+              "sha256": "c9d7699da8523fd543a6ece1a91d7465db1d25e30a7b5a06d94ac98617fdb88b"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "a580519419ca3d1aaac5d8b4517fb528477505d5544546aed7a03dafec2fea74",
+          "media_review_required": false,
+          "output_sha256": "022ce883d63915ba324e9244c246df1d19fc420414438e520b4786082ba67dc0",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70802"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Governance and Automation - Distributed Apps for Hybrid Cloud Architecture@1/### **Application Delivery Framework**@1:paragraph:37",
+              "sha256": "f363b6fe221137f9d6c2e3b0b8c4612365551033f344ed088423f1c9a40ecef2"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "ba162827c3796e59c6bf362ce697fc2b0ef2a83c407377dcb1222e79047d4607",
+          "media_review_required": false,
+          "output_sha256": "f1d9eaaf8221853093cc441e2b9b6526b34d4e1170763684e72dfbb1e758a7cb",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70811"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:30",
+              "sha256": "c3d7a2208924e8f783df6c183e876bf91fbcd3cf045bf6be6ab0b13b14d394eb"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "67b3d4708eeb35f0c560f7c6bde3a4d18ce413af16792e6638ac89845d72feff",
+          "media_review_required": false,
+          "output_sha256": "ada5b3441f86c4908b196aa630f9590ab9b72b1d570e98f711eac554e3114dad",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70812"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Defense against malicious bots with F5 Distributed Cloud Bot Defense**@1:paragraph:36",
+              "sha256": "d8181f1f501f89cb29a4369bf2838a2c88413ab5b4cc4f76a2ecd5817c4e8cda"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e6d1e2d608c702216ea62e256594f75994e7ddfee9f98fb37eb9279d6a7c7cc0",
+          "media_review_required": false,
+          "output_sha256": "07c3a45f225763d557f163bb81416f0567089427f53f2ec4aeb264c69f1b8075",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70813"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Scalping Demo:@1:paragraph:38",
+              "sha256": "32d32659d3d234a063bfb97329f9db80c13f1c0b28ebbf38b89e0d9de0ec053f"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "45a06297a432b3e5a17e846a2714736e47bf9d937eed176889e98fbf7725a13d",
+          "media_review_required": false,
+          "output_sha256": "b32bae0c5edcb347984cc9c12946e04482686647155b8c8d26f6d4b414c8a747",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70833"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "##@3:paragraph:60",
+              "sha256": "1bb6d62258e2b55f2f74fa9d951cf300d71de1d584496a5a350086d825518dfc"
+            },
+            {
+              "location": "## **F5 API Security: Out-of-Band API Discovery with BIG-IP, NGINX, and 3rd Party API Gateways**@1:paragraph:66",
+              "sha256": "3b92504e893059ee2f50104b7dc5cc365c9db3cf51a8c3c89c08c377b5bf7d2b"
+            },
+            {
+              "location": "## **Open API Specification management with F5 API Discovery and NGINX API Gateway**@1:paragraph:70",
+              "sha256": "4f4c5ecc1a0f7639ec72ee93ce4392632f854369674f09c929d565b3a4367375"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "1fe2d3247faeb02a3945ac800a01190979d989acacbc95e31b4b8bafac87ddb4",
+          "media_review_required": false,
+          "output_sha256": "6010ad0f8518fa0ff92c2048f668448b3dbe4c5e136e2a1daa2e5c403bf4054c",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70890"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "##@1:paragraph:40",
+              "sha256": "bc58bfbfcedb625833b5f33c93bbc81cf06006aeb532ddaa00a38a8e58602a5a"
+            },
+            {
+              "location": "##@1:list_item:56",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "517831d176508aae2a7c2b9ff9a5254e949e65c4ed1cb16b5462b9ab4f34bb11",
+          "media_review_required": false,
+          "output_sha256": "2d91dc60a0f16b23e4c1e7e147968a4d26a103b0ec6ff73688f5a0016e57cfa2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70911"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Demonstration:**@1:paragraph:32",
+              "sha256": "2a8d2785a1cded8eaef600042191dd75353736026e555f0979e9ad9b04b838d5"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6f06a938c4914520ad1de22209d1f980fda8d8c1ee1101099fe402254103292b",
+          "media_review_required": false,
+          "output_sha256": "0701b1996f675f104213e6486b8acf779726d331c718c70a7862c20f29a60f1b",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/70924"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Conclusion@1:paragraph:240",
+              "sha256": "1a50b1414d10530dd6920465e759d3556f54c4a86bbe0663afaf39e2ca0fe2e7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "ab35e69ccb2a8d36ef4b493840fbde787bcb6013a5a65f3f7c88e49123397288",
+          "media_review_required": false,
+          "output_sha256": "fa47475907fe3f3f7982c743cbe6dbd8088ac47419fe3d0ef8dcf32a77ebaefa",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71233"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Part 1 - Bridging the Silos@1:paragraph:22",
+              "sha256": "c50a9a73a4727b1fdaf1d53cec9162205c18ab97a8116b2af5443133a750cca7"
+            },
+            {
+              "location": "## Part 2 - Are You Human?@1:paragraph:30",
+              "sha256": "0064a30220fab1e2da66ce2dc8291cbfc28a31c3f52ac334edd0404d1533a091"
+            },
+            {
+              "location": "## Part 3 - Are You a Fraudster@1:paragraph:38",
+              "sha256": "55e809fd899344c6724e2a757c0e11ce2e36eac24682cc7352c2769a6ae70c10"
+            },
+            {
+              "location": "## Part 4 - Are You Who You Say You Are?@1:paragraph:46",
+              "sha256": "89f485000100ba87ab29581f8e749e7ff05bce1f018c840d06e816d6a453f0ce"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "11e6fd8bb79fd68a10c3dfa0e57d28cd057fd8ad370123c8f1ff38ff02cfb5fb",
+          "media_review_required": false,
+          "output_sha256": "58216a7c76cca99771832d277ac5be9f33a58690d9bf540c2f03cd4172096e5e",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71266"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Introduction**@1/### [Part 2 \u2013 Deployment Guide](https://community.f5.com/topic/313121)@1/#### Multi-Cluster, Multi-Cloud Networking (MCN) for Kubernetes with F5 Distributed Cloud (~15min)@1:paragraph:16",
+              "sha256": "039e5ed9b09b7cc6634bc73f28d9eb9d11c42abfeface05c3514e8ab52bf58b2"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "c151eb1437fe38467e5bfe4935b158b5be5b1e25190c97301e3bd03dca5706f5",
+          "media_review_required": false,
+          "output_sha256": "47f4c893e75ef01e2277564128179657880674406fccc3233e0140be139ac343",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71293"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Resources:**@1:list_item:58",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "d9bf05eef937b59865cfc54cabaa2b17d03c8587d4c2c367a3149feed384801e",
+          "media_review_required": false,
+          "output_sha256": "9b7d5342c7f2abc1a46a2a31bc790407338d497c2ec41856daf5ee39a6f79461",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71304"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Conclusion@1:paragraph:186",
+              "sha256": "54ad9fc35662b4f4a6a8bb41e56b905ab8a48d481f26acbf36dc313305d940a7"
+            },
+            {
+              "location": "## **Article Series:**@1:list_item:209",
+              "sha256": "b854af5d04145e5991274fecda2efb52cc8a38bc9db1cb167a41dbb353b64999"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "3a34682ce25f6197b2ba76f32b3fbd5942eb364862c4b9aa3017fe210c3be1d8",
+          "media_review_required": false,
+          "output_sha256": "bc00b2a709687f497ce66099550caf5bed8c3544327d95a2ffaeca39e0317235",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71319"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Dos Presentation:@1:paragraph:39",
+              "sha256": "1cfaf96408433bd65707f23c26171be443f00c165c94b9730356237ccac1cb86"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e5f9f3a29e9ec3d91e4c3ce141538d6ee8e660affcc2f32864a09b0e59f034b2",
+          "media_review_required": false,
+          "output_sha256": "468c2589ac62c25e1380c8d1ec16461f79a22bc73f89305adcd2c716aa7adbe8",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71398"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Conclusion:@1:paragraph:199",
+              "sha256": "f2461b48894f9e49b764050b4a78ab2d7c8ebfa48ecf22a0fd6e9ba4bd8dd47d"
+            },
+            {
+              "location": "## **Article Series:**@1:list_item:214",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9b399be46f39102709b10e9827335226598f35820d3623a658900a2dfc8e643f",
+          "media_review_required": false,
+          "output_sha256": "9cb3ce963efcce42452adac2d6aeca4872fd4fd3d7f34539ca92826d62e46917",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71413"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo Video@1:paragraph:57",
+              "sha256": "1da742606d541ec35571be8d402e7053226b99bf4db6dd53f85e1476d2be4e31"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "bb79a31152daa7f86232ad2cae6b6e21ea6416e9f28c1e6580a4e5d2b57b01f5",
+          "media_review_required": false,
+          "output_sha256": "95cbfc7bf1e20476a328d37aa3670a8cfb91e8e7e3a31d3228178bb9d81b7991",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71455"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## For further information or to get started:@1:list_item:72",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            },
+            {
+              "location": "## For further information or to get started:@1:list_item:76",
+              "sha256": "845dacd750ed3b3e44e2105bdfa32e36d613b2811d4540c93aae8e56a69f1aa5"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "11bbe84b6ccdf3a081e45ea806a37c7b1c557a647aba82e82ddc1bb8579c5814",
+          "media_review_required": false,
+          "output_sha256": "1267c356a67845464a4a788d48cec3497ca8d591f44600c106bbaf7e6f0c25e1",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71491"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:58",
+              "sha256": "65980868608245484b331487b5677c21e61df664b20b0067c9d7afbb230a5887"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "8e08a3fdf4f1fef2682d170dd4513a2def72cb55bbbc3d1d7f549073e63e761d",
+          "media_review_required": false,
+          "output_sha256": "53dac3bc1bc88857c28398e425491572c9c19ee60bb54429ce1c88bf0a9110c3",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71492"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## For further information or to get started:@1:list_item:97",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "10390c3491eaec91450fd1c287e8fa833d37e13712cf229faf9a9e1af9389351",
+          "media_review_required": false,
+          "output_sha256": "d08dc2e71d1f7ec3fefa82e1f4810fafffc69f639292949bbf34c4c6faa1dae3",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71522"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Introduction:**@1:paragraph:14",
+              "sha256": "80ba8504784c906432e01c5be99783717ca10c8ee69beecc88310d1e24883fbc"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "38cb9179899975cd9a03967f60ff973fe3cffb7ba853edc33f008dff754e6e8b",
+          "media_review_required": false,
+          "output_sha256": "35606119f54513d244d7ac27d23dbd6937299d4e269a7f9353f9cd75fc9976b8",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71529"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "### Video: Module 1 - Distributed Cloud L7 Networking to AWS@1:paragraph:8",
+              "sha256": "8db8107997724bcf82ff315ceaf6a6715c846469689cb831f1ec127b54e5d46f"
+            },
+            {
+              "location": "### Video: Module 2 - Distributed Cloud L7 Networking to Azure@1:paragraph:14",
+              "sha256": "bff0814aae812a9b16a85c3b9af8dd05b9f8ce459a870cb09fcc654160723386"
+            },
+            {
+              "location": "### Video: Module 3 - Distributed Cloud L3 between AWS and Azure via Global Network@1:paragraph:18",
+              "sha256": "c17cbc6b21fdacd1793673d71907b07a945c7266d1e53e747510bb6eead3baba"
+            },
+            {
+              "location": "### Resources@1:paragraph:41",
+              "sha256": "1cf9846fbc56a4e28916324b6107af848bfcbff70ed39fee4cd6a2bbd51a67df"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "91f0eaa6c53fc15b5f914e646b45b5b91f05c7ed9f0703c3b32783d27dd6dc6e",
+          "media_review_required": false,
+          "output_sha256": "71a2deada2f2e35aecf8a4e93c695a1e3306b255e1da4aa00f3ae599e034eab7",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71604"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Article Series:@1/### For further information or to get started:@1:list_item:191",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "2939f3af9c3357411895d46a8c00ee7d40de44750fff270a1af9274648c6bb5c",
+          "media_review_required": false,
+          "output_sha256": "17713f3232d3dc8ec9dd46139b7c3021816feee10dc00aa667bf9cac4bf22d74",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71704"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Check it Out**@1:paragraph:26",
+              "sha256": "71ef3c180434514b3a2aab82c6a6caf005f629337068014dea9b25dc913f7c63"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "0d1facfe986423d22a6432ac094a218e6c7627cf4b04bb4fa4894542c87afb2e",
+          "media_review_required": false,
+          "output_sha256": "7a13ef7a8c478b52dc4e265a6e18860d947f7f951125159f61fb6dec125abb7d",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71879"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Check it Out**@1:paragraph:28",
+              "sha256": "5aefdae5a0bce722de8a68e5221e6ea3e283c5aef4fd303497b73c982b6e3292"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "1f2518c15cca41939ef2e1e1eecac2558a8421c3748d0a1ce914a6efbfa3d067",
+          "media_review_required": false,
+          "output_sha256": "a4cd743667247d63006afad2993ed3a7cff4b0f44c36984b83a67698c8b0d951",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71880"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:27",
+              "sha256": "909da9c7026fa107487b130e69862c6a9eca8a864f193631eff8a218fcae3415"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e97da92084478279d428f9953e8f2d155c1dc4653dc39d28f861ef00e0ab803b",
+          "media_review_required": false,
+          "output_sha256": "dd84651aadf631bed86e75ad9ae5a16dc1e9ec416551c740ae37632aebce634a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71894"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Technical Demo:@1:paragraph:211",
+              "sha256": "baa0637a5f8694ef353d7367e3ab89c71cbe3ff76c7b78790ccb13cdba7a7bdd"
+            },
+            {
+              "location": "## Brightboard Video@1:paragraph:217",
+              "sha256": "c641f74f61e91684377eef0e1dd4c6f737613fc97c19acc804e7763c549e08fe"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "f7aea0a36f995fb8f825ee4c07f8e5bab96f5e9c189801774503e61018935e73",
+          "media_review_required": false,
+          "output_sha256": "4dcf558c5198657164584916cfe5700fbb1a5cb4edd76abf0917179baa80d168",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71924"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Conclusion**@1:paragraph:215",
+              "sha256": "dff5b2026df2cc5ac6c9d31757735c47471f6dbc0c6fc9af57b0aac510a42a18"
+            },
+            {
+              "location": "## **Article Series:**@1:list_item:230",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "8ee429ee9d186ca89c6b327f6fc9e1563eacaff7eb62e70f30d4bca9e8224cd5",
+          "media_review_required": false,
+          "output_sha256": "215cd8e4495bc00cffe38eb90c87742a713e32f98e2294e9832b6a40c93e2490",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71973"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:8",
+              "sha256": "02f56a17b904b619a61cf8be268aa72b02bea531065017f4fa790445f23497ff"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "695da1c83f403705d7551e730636f7177cacc4de8afa9870063b292265187906",
+          "media_review_required": false,
+          "output_sha256": "0917e891c8fff3f14892b6e777f6ab967fdc4d3ed938137a3a9aa3b9b6359485",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/71998"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Foundational Topics@1:paragraph:6",
+              "sha256": "204b1fd0e4b75c56a3a1691cc1af89024ab05852d1b5ae85aa6991598535a47f"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "c7387b34e4a56dc8895f632f54efbcc366017638e0c24f65a7c9aaed3994c6d7",
+          "media_review_required": false,
+          "output_sha256": "18372c70af3a89e3cd284ca6e8811a9fe9e2c12741b33a07932fb5775847a27e",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72005"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "##@3:list_item:131",
+              "sha256": "1155222a9e42ae8df767ca187e0ea47ebc0acdb768760746a96fce7d80771d29"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "45ad076f4ee06f3271f299adf05b266c5c7c37b3117141c5c8eebe3ccbe3552a",
+          "media_review_required": false,
+          "output_sha256": "fd5f086625f52e51907b5dcd40917b781ef55031bf3f41b9dcf9207a5bdc6540",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72064"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo Video - Multi-Cluster, Multi-Cloud Networking for Kubernetes - OpenShift Cluster Resiliency and Security with F5 WAAP@1:paragraph:16",
+              "sha256": "e2b7e7f00de4e4d049f5d44ae612ee13aacf699f30ea720646592899c7ae5b8e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "b86dd75016f5836e8e668105ce887120414681d640731392acf0c51f0aa13084",
+          "media_review_required": false,
+          "output_sha256": "8f5277ee765c0610da9879cc3b0984bfe1621efcfe08c8899bb43cf69c477a73",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72068"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:16",
+              "sha256": "1622e465ca70bf8383dfd20a185d1215b8ba931e8982a46b7344f4ac45513581"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "36c5738944de72fe6e61de577ba16cc0ee3024f4ffb0d3435b59c882100df020",
+          "media_review_required": false,
+          "output_sha256": "988bf218fc74c69192bd800c5bcea1132418c606ad9f5e9d26eb0687066fb828",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72133"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## OpenShift Anywhere with F5 Distributed Cloud Video Series@1/### Azure Red Hat OpenShift (ARO) with F5 Distributed Cloud@1:paragraph:57",
+              "sha256": "af8a6e1ec3d516288a83baf16c229cce85d88d5c666cc2d9feb05193004124ae"
+            },
+            {
+              "location": "## OpenShift Anywhere with F5 Distributed Cloud Video Series@1/### Red Hat OpenShift on AWS (ROSA) with F5 Distributed Cloud@1:paragraph:61",
+              "sha256": "d3319b4942e1548bc85387bcfa6f499723d5b408f27e7fcd53e42b0e3ed43aeb"
+            },
+            {
+              "location": "## OpenShift Anywhere with F5 Distributed Cloud Video Series@1/### F5 Distributed Cloud to Secure Multi-Cloud OpenShift Services@1:paragraph:65",
+              "sha256": "c7f9b0371c02781e264487e4b3c5274d7a001757371aa59aac8b893a8ef2f711"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6dae3851d33aba0875695646bd60a6811287d91fa349d20348e3541eba075b49",
+          "media_review_required": false,
+          "output_sha256": "f0f7d1cbd2e296073017a49c47ea135f80e411c514de2d4b34e37ade336b40f2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72251"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## CSD Onboarding Demo@1:paragraph:28",
+              "sha256": "61f4b4e4514535f94aee2b378a11c5be4109bf302ce6748846c959f842a06cd0"
+            },
+            {
+              "location": "## Additional Resources@1:list_item:41",
+              "sha256": "d4a7ec243ebaa952adf2c72434cec839ea9ad69f03f56de56cb592e83ea7f6fb"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "a729f1e7908fb1bf2fc4e205824c0f5f8942b1de419df419a7a8869d0a37cdbf",
+          "media_review_required": false,
+          "output_sha256": "032c8dbed2d61b4b53b4eefd2f15e39502aa3ab4cb27f8885c72e55dda9203db",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72321"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## F5 GraphQL Inspection and Protection Demo@1:paragraph:32",
+              "sha256": "7f633847696d2d198e1f7a7b90ed065c4e97598394ed54268e17c6b21de41d31"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "4ca3c5f387a281617fd4d142fc5259af632c2df683e66949d1396ca78c47e183",
+          "media_review_required": false,
+          "output_sha256": "c418eb45abe01514a049b2dd8bebfeba7bbc708b06063a89984894643ff66d78",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72363"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:77",
+              "sha256": "79cc9009241006f3e4d38715a602aa6d95de23c32bc368a66fc0c20f8519d36b"
+            },
+            {
+              "location": "## Additional Resources@1:paragraph:85",
+              "sha256": "25d29567b006d26c1d9954cec5249b753fb9b8355231c0b4cacc9ddffcbf70b3"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "50729dc660c1066d97e3fbc27a2d724f221156d228a2306b0e20694ea227f4e5",
+          "media_review_required": false,
+          "output_sha256": "b4f6bc7e803c47a38534d1ac27593c55bd10f4bfc7217f0f84560e5a5626ee8d",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72432"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "#### MODULE 3: Regional Edge (RE) Deployment@1:list_item:42",
+              "sha256": "691f6d685bdeaee3bb8d3fb1e38bef090735bfb9fc6b6a2a21cf429ed3f2e252"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e7a3442255446cba497d88ada54331637d8e88d76b9dc77f0fc2c4696ff6d6ef",
+          "media_review_required": false,
+          "output_sha256": "3f44d4640d4461081d07defee8a250415540405d6d5f928936bb9951152554f0",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72499"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Challenge 3: Enabling Blue-Green Deployments for OpenShift in Multi-Cloud Environments**@1/### **F5 Distributed Cloud DNS Load Balancer for OpenShift**@1:paragraph:21",
+              "sha256": "33693e27d78175ffd5426bdb9de0d08e80c02d35490a7d1705d57d4bc055586f"
+            },
+            {
+              "location": "## **Challenge 4: Interconnecting Multi-cluster OpenShift Applications in Multi-Cloud Environments**@1/### **Solution Overview: F5 Distributed Cloud App Connect for OpenShift**@1:paragraph:42",
+              "sha256": "5341b6adcb4f2a5ae3e424b2b9111b631f14dbe264359f01c329b33e7267ad81"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "c2630476077d6df01103e7f3456871aeff73070cd3dd98f880a299ead409ee6b",
+          "media_review_required": false,
+          "output_sha256": "e9846a0161a1a278094a158b01862be49a46ea931d0d539e93745a87702a545a",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72518"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "#### Multi-Cloud Networking Use-Case Overview@1:list_item:36",
+              "sha256": "b46d19f42a24cfe227c9be2dcb663a697c4ec0b39e3cb00442ac45a7d1044e93"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e88e787df5f886dff64415e009d04f16e76e94291ec765b5b4563b1432f59463",
+          "media_review_required": false,
+          "output_sha256": "648f555ed1d9ebb45245be0c6e46dd76045738f501865da26cbdef411db67425",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72590"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Mobile SDK Integrator Video@1:paragraph:36",
+              "sha256": "70a3c12d86629fbffab7c86028ce23d64696837bf72cdbbbd41846904b455b8b"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "32d54b79b1cd9806a440bfa06faea2bd3ef18c099de932cf625c17b46ab5e22f",
+          "media_review_required": false,
+          "output_sha256": "5daba62a4ab72d5961c4c6d6f901ef2f4cddfb104bdc9122aa1cad5069786293",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72849"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Introduction@1:list_item:48",
+              "sha256": "8c27ca97a2ef90ffbd52c5a6e264ac0b0a02674dac21bd08a805600cb94516aa"
+            },
+            {
+              "location": "## Demo Video@1:paragraph:84",
+              "sha256": "e15e877d1889bf4e742ecf0a796896006db16919dff2f83b29d00b84506c66ee"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "8e183a6f286107becdd285d2a47e35ef8d64a7a0c2cc50acc4d8a3b51ee00821",
+          "media_review_required": false,
+          "output_sha256": "ffa904a23d60d9967c373e439bd2899de4f15ab4ea073f6992a399f34b24e067",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72910"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "##@1:paragraph:235",
+              "sha256": "075496d967e1ce5d1d1cc4542dfd74951bdb4c8e1bd17376fa9a850f5a6fc01f"
+            },
+            {
+              "location": "## **Article Series:**@1:list_item:250",
+              "sha256": "4542e759d47ec4d19c64a677c83b8951ca5a6c5464d3273d084d4695097b98c7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "818a713b13d43cb663321ab5a2a6120280c6e404fb3bf1ec363754082a0e04c6",
+          "media_review_required": false,
+          "output_sha256": "b69a8e7560a225ba4a7eed1f9822ac81dc154337e9b39fe0754e38d9fc6acdfb",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/72948"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Hybrid Cloud Enablement@1:paragraph:90",
+              "sha256": "e79ff854313ae558937c099f2843bc60bf56ec483bc3a1bbd85925d7fe72399c"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6eda8a2c6532e0e5edd9b537a53831ebea0363cb5f8d8cadf8e321e9025bb24d",
+          "media_review_required": false,
+          "output_sha256": "688722055b7710badc54952a5c7426dd0ab4510179922b94e710f510d4ca77e7",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/73163"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## XC Bot Defense Scenarios@1/#### MODULE 4: [Deploy Bot Defense in GCP Using BIG-IP Connector for F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/README.rst)@1:list_item:68",
+              "sha256": "e87c31f72ff5380e6d3ddb26b98fa10e05cd47c729d1c9d69f0969e207600c3d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "8b88d0b42da9f65373788648da46cb926190e0dec6dd49016f32c4bf1389ef42",
+          "media_review_required": false,
+          "output_sha256": "b2fae9bbccbbb37d037f6a83c29928da2f9ff6e9f5a3cab161e10fc7209b7522",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/73351"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Introduction:@1/### Use case:@1:paragraph:20",
+              "sha256": "a57cec932d144693d7fbca666fa5187a2dd39009a7a23e2f7fa95d070d616da7"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "314a54f93946049b9b430219653e996a96e5406f282a5c7a9fa64e4555194736",
+          "media_review_required": false,
+          "output_sha256": "fad45f33354f5a3666e578aed5f410f19918f80ad8350d69cac03057265ee6df",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/73667"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "### **Check it Out**@1:paragraph:42",
+              "sha256": "f1350c13cb3345c2f8eeda26d9f4e5da6f6dad31e797dc1820587befe0fcdde5"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "7102f0b88507488486ce1b2d37fe53aa485ef66a5feb690ed93efb7d8e061efd",
+          "media_review_required": false,
+          "output_sha256": "277abc4690f75296eebdb06a2bae43b4b6c7bfbf23f09b6b68df86d98a16f395",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/74191"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:13",
+              "sha256": "f413e152ad4dfa221e096bed73f151b44199a1eb2c939e1cd3e5890080beb1de"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "d2cbfade5043ebb97a184346c0745da2396b56ac25dc3bc00a94e195951841f7",
+          "media_review_required": false,
+          "output_sha256": "a8fe1b7ed18f1f6f2d302376c1d89d79ad0d0c9e14869ea34fb651bed0b142fb",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/74396"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# Summary@1:paragraph:193",
+              "sha256": "49fda4f93b0c81f50ee1a6eccd53c617754a18155a204143d649da925d683d6e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "e9be7480de1f1d7cb49cbedcf81de912b7b57b4c5696f39fced223f4253e3722",
+          "media_review_required": false,
+          "output_sha256": "2211fba4d77adc945dd82af68c51e9aa8f7bc97db92d86ccba230985aabbf425",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/74743"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo movie@1:paragraph:103",
+              "sha256": "b6975f8e399d1c7eb4d8f66f5981400d38f46e684180c17eb6bd3c2d376686f1"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9a4f7497f3b7a9c2a19bf7cab290b3df4f7833fe3315c0118e183237545ed3e8",
+          "media_review_required": false,
+          "output_sha256": "e0978aff88dd96214066aa70ca0f061c74a7a2d97090c4c9fe74529d7f2ffb0b",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/75164"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:71",
+              "sha256": "e3f099387d74a34d47e535b36d01c05798cafb9fd7ed9b1ea950cdd7d4ed4d78"
+            },
+            {
+              "location": "## Demo@1:paragraph:73",
+              "sha256": "f9c6f5125fde76bee1b49037ece26f4d913293b0272d7013fe9c56e9012b977f"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "5b12998dbe00c63ad2da30c3cae82e4755bf5914abc5670164a43a4db258a982",
+          "media_review_required": false,
+          "output_sha256": "5dfc5a0f2d6f28aecaa776e2cddf4208d3d489844077af7bebfd9bc9346c780e",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/75890"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Step 8: Deploy Bot Detection Rules@1/### Bot Defense Advanced Self-Service Policy Management Demo:@1:paragraph:81",
+              "sha256": "abf0e375708a783615ab1fee911b7ce7b7e8b7c3ca1b31552b70aef3d49174c9"
+            },
+            {
+              "location": "## Step 8: Deploy Bot Detection Rules@1/### Related Resources:@1:list_item:86",
+              "sha256": "0157cfd3bf0ac1725deef3dbfb3ae850b74b3ce248149e9daf7a8691c4aac313"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "db0e56098118f462643e55cb33bd3bcb7837ae0e92f07b8578a49a52d7c4e7a6",
+          "media_review_required": false,
+          "output_sha256": "09f9f15f6753974587c94ebe136469f1cbc8c652196507d05910f421680bba93",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/75900"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Conclusion**@1:paragraph:84",
+              "sha256": "1ad46ed7aaa8f6cc9fb518452a50d664dd2d4ff6c73c5ec7c98df0d961d70376"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "7f2156e41b6d9d6c95312dcce850d960b38fe54b62c5d8d142e3858258556366",
+          "media_review_required": false,
+          "output_sha256": "c507b1acfaa9246b47d608767e2f3b1d825ebc0faadfab1ca647b9c7419f5cc9",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76024"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## AI Assistant at work across all these platforms:@1:paragraph:19",
+              "sha256": "4d0011be9832e2ae1e9072502142e930eca635693ac386e53483e6e58905b6d4"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6c83d0e938473249305d87961531dd4cf44de5c9a80b6e36e7ca95b2ceb6e38c",
+          "media_review_required": false,
+          "output_sha256": "8e7c00b022b8dcf748ab8c2722d1dd3c2e29664e6a634c83c959b9f59c6c08ed",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76062"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **F5 API Security Essentials**@1:paragraph:14",
+              "sha256": "5c18467885e2eeb995e5add36365287ad4a4c35a36bb8fc8a0077368575de16e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "eb5018e4252f674161cada3d64bf32b7ec28478ecca79ae36801ea9c67976465",
+          "media_review_required": false,
+          "output_sha256": "f8f16a8af7b4e6ffb355db5735e5c7f56a047f75908cfec7b207e38a9770aae4",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76231"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Key Features of F5 Distributed Cloud Web App Scanning@1:paragraph:19",
+              "sha256": "6186c56eb3e450d74dc3511d7c85ff60c7e6f639a6b3431ef2b7b54569e857b2"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "6fa7c7027d0008196425d579691b551525f2cb28fab9410de34bd4777815acc0",
+          "media_review_required": false,
+          "output_sha256": "18b8296da6e041bba6063c60709d00ea37be7bfcb71101c1816f63e806a137cc",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76232"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:30",
+              "sha256": "59b19dd548f562dfbdba6a582fe00e363ea8fda983b5fef5160df2174e90b842"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "8f22c8acdda64cd1b53cb6ceb2e9e8c8e1eb9751ac1b0b97e584e3e907371731",
+          "media_review_required": false,
+          "output_sha256": "273d366b8720f070f90de8d464c4926bd52d71edd6ef0383fae2c1a3ec25869f",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76461"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# Related URLs@1:paragraph:84",
+              "sha256": "4c293b12932ee08c012b05fa611a812716c60ba53911c6c3102bda08077490e1"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "4f334c49fe319497975705ecd856dc2f46192884a25aa2beaa724e6ca556338c",
+          "media_review_required": false,
+          "output_sha256": "383e41993b36fdfcf458d08127949da1b1dd40d10879ee4e2dd8e555183fc871",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76739"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# Related URLs@1:paragraph:94",
+              "sha256": "12fdef85a13a2f169c74ff8248b845e13af2f71f5369bf91192215d7bee30548"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "94585bbac66784e6321b54d2f414993f72c9651661bf64df93201ad47eea9053",
+          "media_review_required": false,
+          "output_sha256": "efef489b54768a5ba0816a241ac50b5aac7cf8926db9f1cfd9fc11000654b434",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76746"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## **Red vs Blue Demo**@1:paragraph:26",
+              "sha256": "7f070ec70b569baeb4f030d8090fddacfe65448d8de7e109c0d236304a09f63c"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "39fc7f89f23735a055161dcdafff6a384c0a4dcbb6497676a77a95e428d14a83",
+          "media_review_required": false,
+          "output_sha256": "b278931e65074c681f6fbb34ec0bc0640c15bf0b71d7f5a80e622bff928c4358",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76784"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:16",
+              "sha256": "286c3bf22f3af90bd380b2bbb0f2c3d13c2935db0dcbf042bd6392c7d9e59e74"
+            },
+            {
+              "location": "## L7 DoS Settings & Streamlined Observability@1:paragraph:24",
+              "sha256": "3badbc04365e466f8906618aaed1e442292d04e519f994a38fdf529250fb811c"
+            },
+            {
+              "location": "## Additional Resources@1:list_item:39",
+              "sha256": "2f51d3ac178fa75b3ac54b682e7aca5f77429d7b24660cc2a9ec250e40b5fa6e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "ff1578233086401fbfce56481d1d6824d6e4475194a4a2434e5795b2d3555f8e",
+          "media_review_required": false,
+          "output_sha256": "89b17c139fe9e8d20a3affcf7648e5d9411d0a14c38ff897c47b200989f8f2d8",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/76791"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:16",
+              "sha256": "23b6ceb2a18da48d3ea6950935113ef702586887ee7238afe52b8851406f4d2e"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "5b88efb3809df032b86134cbc375edce960b785299e3358f46870197260eb418",
+          "media_review_required": false,
+          "output_sha256": "9d170ee6494e5188a98d292860f36b9b3b1183d88cdc3c349955cac31f2a67b0",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77008"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Video Demonstration@1:paragraph:83",
+              "sha256": "12b81da1e7a373b152e9f10848163b54f5044a2dc8a69e747376c48bd7ea7382"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "b5e35cdb0ac181b3897cdfe4ef798659d7e1724d5e5e5c63bd2246849d8dec2c",
+          "media_review_required": false,
+          "output_sha256": "00a44dbf8455d0f69bc84528d15997b745c4eb708828f6b3a814590a77423b68",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77018"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Video Demonstration@1:paragraph:114",
+              "sha256": "454c6fb988a2b232ae25262993fa5bfa061d1d396fa5deadee3896d696308768"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9f0c3eacd573e86cdad6114ff5b6a6bf66051919218677d1cab7f6009652ec9e",
+          "media_review_required": false,
+          "output_sha256": "d2ccab53c0e3e3cbb9c80a8caaa9f3948568c416b30bfa99b882864d67fcd39b",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77024"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo Walkthrough@1:paragraph:52",
+              "sha256": "bb471fee0d339980e228455604815e32070df8bf646d1c9c9fb42a0084ccfe95"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "28deb371e73c1076dafb7f8a1bfd290a110ab9111106c4a899ba1ff6f0617d3d",
+          "media_review_required": false,
+          "output_sha256": "90b36f624ddc073db0d1e4475324079a27a68bfbb88e9be7c04d4f1f73e978cb",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77025"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:12",
+              "sha256": "40b7e24bd4a81f9f4d8b26d8c2ab665d86cd73d7e280d29f6232c484bd78bb0d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "d49e99895de376cb2714cc32081d14df14e0d89d77a0f9fa17a53fe72ece53c5",
+          "media_review_required": false,
+          "output_sha256": "bb162a8145f60ff088830794b632c2ab2940bb2afd70680eaa7cbc20ed1a3f64",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77042"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:61",
+              "sha256": "d51ca3702748ef951cbd65a5fb3a85432c7f1323e2ec2f8a9e66375dc0e32186"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "974b1a8e53ba14e8e1a17d3a056f415f277c574e5580626ce13baf0ec7dfea70",
+          "media_review_required": false,
+          "output_sha256": "d47d09e31742908c2dea39237cf7eaf522d4c1e9c779dd6358499ea9421e47b0",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77115"
+        },
+        {
+          "block_removals": [
+            {
+              "location": ":paragraph:12",
+              "sha256": "69216c8ac2bc7a03b8a218a2357bc6e1487e0f4481e86a502c1cacaaac383b35"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "3977df5493a46f2ad5414178f9e36423429aa283eeec1172f228e3c281bb0b1a",
+          "media_review_required": false,
+          "output_sha256": "f2bda4d4acd55975890cb750efa0286187077895794e9b94faaa4ffe6a066246",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77191"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:70",
+              "sha256": "ca6f38d4dfb33cc0722799a2facec11f1ff3b822ad92aa49b36e6c1bb0c06d5d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "93d8d5943879b8a10b7507b17f5aadbe5f9c4fbb18188006a3bd680a57819bf0",
+          "media_review_required": false,
+          "output_sha256": "d7d079d40e494af5d2e393a94961f07c6e637b68a581c4df48ecc01c22d65113",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77208"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:71",
+              "sha256": "ce85dc20d84cf450393c283a90921528eeab2c3f480e143485d50bd859a9d801"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "dc1279f42de8823d05c9901f58ab353ada62207dd1b55640586fa9e339063df3",
+          "media_review_required": false,
+          "output_sha256": "6bb8e5f5aa2dc2dc5a9b7eeaa38cbed53b1a931bb6e4c39fa13516684588902e",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77211"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:115",
+              "sha256": "e0b81cc5bfdbf51ed98dd9bc7d65390adf24904257676347466a4e31b0a3908d"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "3b82cc436ac72213516c3389627ab5af4e0c28678d3e7ba03394e2cc45d5dd8e",
+          "media_review_required": false,
+          "output_sha256": "563b8596755c8fe0245cbd395727d9cc0a4a9456b0ba99a74158a79927e35212",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77292"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "## Demo@1:paragraph:28",
+              "sha256": "d93837142fcf5856040fbe1515141d54fd1a695bbd3bbb9b786875cd06e6e361"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "9a9068b11768429129a9799c249cc381133f7d2a9cd7178617150122310ab368",
+          "media_review_required": false,
+          "output_sha256": "8aaec940a0d516b84fb2e0e5507f809e1e0de8798189b7d9cb51ee787bb3e2c0",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://community.f5.com/t/77407"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# AWS Pay-as-you-go for Distributed Cloud@1/## Objective@1:paragraph:25",
+              "sha256": "89a09e285e10662056706ae06b218408af61ce00fd7e6b0eb184015f84c33301"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "134ea30e2f09ca2869c5c68ec3a390b01826a3e16ba521aaa70790eb2267b889",
+          "media_review_required": false,
+          "output_sha256": "07ae24d42f1e0a4636f51ef03c755fb0a997e81807f614aba78fd5e7e48327ee",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/ways-to-purch/paygo-plan"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# F5 Distributed Cloud API Security@1/## Resources@1/### Videos@1:paragraph:118",
+              "sha256": "3dd92ece6c360410d2e7c9e46cc72f3f4858573f1ba28b666729eaa6395a432c"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "72f9e56b40e47422206ec18cbb0fcf72e214aba6e93d697bf6c533f2761267db",
+          "media_review_required": false,
+          "output_sha256": "473caea1ea66401226bb37a4e02fd1f7e8ae1831feb492a845ce8fd164058054",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://www.f5.com/products/distributed-cloud-services/api-security"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# F5 Distributed Cloud CDN@1/## Resources@1/###### FEATURED@1:paragraph:58",
+              "sha256": "e692ca9f190f716e4e015154bd63aa68b05738804dab3758ad08128b921e56b9"
+            },
+            {
+              "location": "# F5 Distributed Cloud CDN@1/## Resources@1/### F5 Distributed Cloud CDN: Faster apps, one-click enablement, lower costs@1/#### Videos@1:paragraph:72",
+              "sha256": "f90eb93ed1338736c0f93818e418b80d9cf57c1d63894f5235be51ac4d353958"
+            },
+            {
+              "location": "# F5 Distributed Cloud CDN@1/## Resources@1/### F5 Distributed Cloud CDN: Faster apps, one-click enablement, lower costs@1/#### Videos@1:paragraph:74",
+              "sha256": "78fe7b5a0b40677375dd884e457614e8d62db8c029153c230be763d9b23bfc08"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "4fb35195128a100c388eb741875e4635db474c148a983b7576a8998c632491de",
+          "media_review_required": false,
+          "output_sha256": "fe08c263ca398428d2b7ad2283aac2288c6bdb2d7e29622b7a8f01a34e1ddca2",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://www.f5.com/products/distributed-cloud-services/cdn"
+        },
+        {
+          "block_removals": [],
+          "disposition": "keep",
+          "input_sha256": "c0165c6d9c504a34d202bb09acef9dad5ddd2c1b99464eb7ed9768e3c927902f",
+          "media_review_required": false,
+          "output_sha256": "bb871ae631ee31d048e0465f7626fdc3ee53f5592fa9cd2bda44dab1cd311bac",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://www.f5.com/products/distributed-cloud-services/client-side-defense"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# F5 Distributed Cloud DNS@1/## Resources@1/### Video@1:paragraph:65",
+              "sha256": "8ed247a937816ab897865e5edb63a2d165c22d72f0c6dde164e8e45b4b7fd8f0"
+            },
+            {
+              "location": "# F5 Distributed Cloud DNS@1/## Resources@1/### Video@1:paragraph:67",
+              "sha256": "e4c24d94f31191bcbf1afab55441fa9982a6ab71eaf73ccb6c5221c81b1bb054"
+            },
+            {
+              "location": "# F5 Distributed Cloud DNS@1/## Resources@1/### Video@1:paragraph:69",
+              "sha256": "1d28cdb19828fe554e77401498576000e004f772a3f5fe004c6af669aa40b221"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "30dbbb8633d3e50d7a81820cd5cf462b31f926e108458a46414ffa57b9104441",
+          "media_review_required": false,
+          "output_sha256": "a2320249d1138b947394478733ff6d7253177fd99a35e49ce26be32fe4d55e98",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://www.f5.com/products/distributed-cloud-services/dns"
+        },
+        {
+          "block_removals": [
+            {
+              "location": "# F5 Distributed Cloud DNS Load Balancer@1/## Resources@1/### Featured@1:paragraph:64",
+              "sha256": "cc821ef9235ea685dd442a5196462c5bf8adfdd0458bb709b97a49f4f7cbd2f8"
+            },
+            {
+              "location": "# F5 Distributed Cloud DNS Load Balancer@1/## Resources@1/### Videos@1:paragraph:80",
+              "sha256": "46030bb01c916f72e3ae690eb30da575959ae8861fb47c939948f3b02d152be0"
+            }
+          ],
+          "disposition": "keep",
+          "input_sha256": "4a16454f34cc403e4a3cd9e370ca5a328ae4588e54d8a681017b39924007e43d",
+          "media_review_required": false,
+          "output_sha256": "4e5e9d4fe57779d47f61d5e14562844705436af82b1f6ce3c037b3401561bb40",
+          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "review_index": null,
+          "url": "https://www.f5.com/products/distributed-cloud-services/dns-load-balancer"
         }
       ],
       "evidence_inputs": [
@@ -4052,7 +5779,7 @@
         },
         {
           "path": "captured-documents.json.gz",
-          "sha256": "a62f95cb93948644389cefffa3103e4cb72774b3521eb2669d4440a2fde27c8b"
+          "sha256": "c4e38fea176436ef7bfb762b227b0c6bd02b38462cb65904014d5f1a4877866d"
         },
         {
           "decoded_sha256": "2dd4d33693c9e228bfb304d7558a2f50ca9cc0146407f8fb9b5f0ca7d7c56f3c",
