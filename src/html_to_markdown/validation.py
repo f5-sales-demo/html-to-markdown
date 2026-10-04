@@ -137,7 +137,13 @@ def validate_document(
     )
     if chrome:
         errors.append(f"{path}: site chrome remains")
-    for target in re.findall(r"!\[[^]]*]\(([^)]+)\)", body):
+    for target in re.findall(
+        r"""!\[[^]]*]\((<[^>]+>|[^\s)]+)(?:\s+(?:"[^"]*"|'[^']*'))?\)""", body
+    ):
+        # Markdown permits a quoted title after the image destination.
+        target = re.sub(r"""\s+([\"']).*\1$""", "", target).strip()
+        if target.startswith("<") and target.endswith(">"):
+            target = target[1:-1]
         is_remote = target.startswith(("http://", "https://"))
         asset_exists = (path.parent / target).resolve().is_file()
         if not is_remote and not asset_exists:

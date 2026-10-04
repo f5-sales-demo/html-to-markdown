@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "inventory_started_at": "2026-10-02T13:06:03Z",
-  "inventory_ended_at": "2026-10-02T14:30:23Z",
+  "inventory_ended_at": "2026-10-04T11:33:52Z",
   "complete": true,
   "topic_count": 8082,
-  "selection": "All first posts in the three public article categories; relevance reviewed, privacy approval pending",
+  "selection": "All first posts in the three public article categories; relevance and included article privacy reviewed",
   "topics": [
     {
       "id": 14,
@@ -23475,7 +23475,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "98894d0ee97ee6e9ea1db86217df3b2632e172918616f1e1d82e70b2cd194892",
       "decision": "include",
-      "reason": "Volterra API discovery, schema learning and Swagger export walkthrough",
+      "reason": "Volterra API discovery and schema generation",
       "tagged": false
     },
     {
@@ -43149,7 +43149,7 @@
       "category": "Community CodeShare",
       "article_hash": "7e7782badee558cd8f99170276cd4f9545c4cc34de71099b96284eb930c32b30",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -43185,7 +43185,7 @@
       "category": "Community CodeShare",
       "article_hash": "44ccfa729075ccfa4c63a55ef0de6c6632984849ed9db50fabc9116858066115",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -43212,7 +43212,7 @@
       "category": "Community CodeShare",
       "article_hash": "97f84d0978f1bf3e0e5901db418246bde3e3964f0751814073bb8256106adb11",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -43221,7 +43221,7 @@
       "category": "Community CodeShare",
       "article_hash": "bbd5bc6b2d297a835d82716a414e6f133a61f2dfa25065c83b476eb7e4bb057c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": false
     },
     {
@@ -43248,7 +43248,7 @@
       "category": "Community CodeShare",
       "article_hash": "f3c7f85a4c987162bb1f869925f2070f2b22e4642c19781f418aaa48b5e31206",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -43284,7 +43284,7 @@
       "category": "Community CodeShare",
       "article_hash": "4c33c8970512f27b5f8e2f330693473bc496fa32e853581194cba83d677f27c8",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -43302,7 +43302,7 @@
       "category": "Community CodeShare",
       "article_hash": "009e8c5bdd0087f46e2644660855d7349271172c491be817efa42764f5c2bee6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -49593,7 +49593,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b8f84dddc878759dedb637930c160a69a6e671200ca2ef26cb497e112aab0607",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Terraform deployment of Distributed Cloud multicloud connectivity is primary",
       "tagged": false
     },
     {
@@ -56874,7 +56874,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "6490c06d65b804a519ad7d36b86f8057aff46712a80e1d0737f824f83792d542",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud API or routing configuration guide",
       "tagged": true
     },
     {
@@ -56901,7 +56901,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "deaf6f54fe72e0afbd43c562200bab6163a8e2977f97f390210730f2a8758416",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -56919,7 +56919,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9f2a5390dbf8a42250a5359368776021f2d8470ef796a09e58735c97c493d20b",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -59106,7 +59106,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c76f5a6ce1cc9ec52786c7cf2d09d331de76b912fb345cee4e2c8281c64fae0f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59133,7 +59133,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a737724d2d74e8c19fe63675c9771e7c41ed473ed032294f666c4b219d3b13fd",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -59142,7 +59142,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3e214e4b83ce8ac2b9c29211353747417d99a11f6b5159fcc5ecb85e89615082",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -59196,7 +59196,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cae9ef7a7f3812d0888fa027efccd92b9294b1bb6fd71f1063b215f190ab0d11",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused DDoS guidance",
       "tagged": true
     },
     {
@@ -59223,7 +59223,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "535ae22aa80c335fda741a7a5ee7db900cae78cc8ec4cfaccfa1568e565c0a8c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment guide",
       "tagged": true
     },
     {
@@ -59241,7 +59241,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "af89d6901443604a24743fc44540daabd56c67f82721b5f9f16c2f8d865891ad",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused CE vk8s deployment guidance",
       "tagged": false
     },
     {
@@ -59295,7 +59295,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9d18c1bc0f017cbc46c50869f6b42d58ce788228573e60b263f73c6fd363ff1f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused service policy geofencing guidance",
       "tagged": true
     },
     {
@@ -59304,7 +59304,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f7c6337db1df5f34a7a650cdee48edd0bd3542dcef30c7ee627be2ad6aa0b6b7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -59313,7 +59313,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "45c9fb380cb64a181b04c1cfb2ad5342dd8f5074b3119db7a6efb8506d0a2051",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59322,7 +59322,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "71ad66e5c70b386f808c7096e67440b4b2ccdf27671d71789d4a25152468904a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -59367,7 +59367,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ddc0aada9d35b128627fdca406eb867800c397cfe90cfac78cbb023bde41cb57",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -59394,7 +59394,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d572e84cd8b53e09f6d00627cacebc38d824745a07fe2ed814c128f48ff941b6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59430,7 +59430,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "def61a6cab8f128eccc9c3bdc441a31e61e024c7c2a96a7cce39c2d55e7b14dd",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59574,7 +59574,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9196eb9245c387b0d0b6534105f796a74a4db9b737a477d96d8effbccfd4f2b9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused automatic certificate DNS challenge configuration",
       "tagged": false
     },
     {
@@ -59601,7 +59601,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "14e78c4e33e463338ad8ad93045faf3401ca22222b1b76f23e80f4eb991ae70d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -59718,7 +59718,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b2da03ea0ea650773b98810447730e9d56223d9b6f854ef2e9595843e9bf0bb0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59825,8 +59825,8 @@
       "url": "https://community.f5.com/t/69712",
       "category": "F5 Technical Articles",
       "article_hash": "98d36f59962957aabecaa40a7aa1e8c3f6d4807ef04aab9f9643ad63cce8005b",
-      "decision": "include",
-      "reason": "Distributed Cloud Bot Defense onboarding and BIG-IP connector integration",
+      "decision": "exclude",
+      "reason": "Complete first-post review: BIG-IP primary implementation: imports and configures iApp templates and application services, JS injection and protected endpoints on BIG-IP 14.1-16.x; Distributed Cloud console provides service registration and monitoring. Excluded under the BIG-IP-focused content rule.",
       "tagged": true
     },
     {
@@ -59834,8 +59834,8 @@
       "url": "https://community.f5.com/t/69713",
       "category": "F5 Technical Articles",
       "article_hash": "90ede16cc14163ddaa4d6f49ea0514393f4dfe64a9f702694244e02610d7bc56",
-      "decision": "include",
-      "reason": "Distributed Cloud Bot Defense onboarding and native BIG-IP connector integration",
+      "decision": "exclude",
+      "reason": "Complete first-post review: BIG-IP primary implementation: configures native BIG-IP 17.0 SaaS Bot Defense profiles, JS injection, endpoint enforcement, protection pool and SSL profile; Distributed Cloud supplies connector credentials and monitoring. Excluded under the BIG-IP-focused content rule.",
       "tagged": true
     },
     {
@@ -59889,7 +59889,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "27898aa6ef859bb7b21835cce3fc64493abc984befb8da4ee602339bc905ca99",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59907,7 +59907,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3133c91b04eca4067f9d717de8b2468d861df2ce09be5aee7a529ad2cc795da4",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59934,7 +59934,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "733a3e77ddb44a6e05122ea3da509cd8d4565ebd10f6bbba3acb2e6a5d263a58",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59952,7 +59952,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "60e6fdb097945e8de16a6287b8634aa77c2b002ee2b11bf71de09a016ac641e0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -59970,7 +59970,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c4cc164a5dea55c92a8a0d8c9a020088fac3e6096e6c9eeb2216e580762a7b24",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60087,7 +60087,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "39efd48fd59608f913de55068e846c69f15cff688ed1b4c0eec4aca42818f419",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60195,7 +60195,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5509bd5735f81ab2128df2ea5cee78131bd6d82448361716538b2b862eedfc12",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Bot Defense mitigation of credential stuffing is primary",
       "tagged": true
     },
     {
@@ -60276,7 +60276,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "896beaa72bf56d17ced0b633b6a128fbd156420d258c52a5238f83a4ee9f251a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -60285,7 +60285,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4f8a8d6f56a14ae06191ec9a6846398776b240aa7ea857f52e70faa35fb55362",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60321,7 +60321,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "44a2480a212514229f92dfd2fb489afd87264fc307daffc2522f468af33e2469",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60330,7 +60330,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "dc47fe6dde4cc30c721298b36206e5f2255c9a5c4fffbb60210c1bf6564470a1",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60348,7 +60348,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "43725b2ed8ba13cb1f322a44602e3ab0c460e85cedbdec3ec77fa671a8ae7487",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60384,7 +60384,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "506a8d722c843b5b2f2aee66d85994f285a9a1f7a1aeb43b3de1bb62fb9e6cda",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60402,7 +60402,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a3228047b1378e4fc92d4d9e83e477a9e3a0024627b639d5465c693b9e635ed5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Azure cloud credential setup",
       "tagged": true
     },
     {
@@ -60411,7 +60411,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "2692696b285b8c2360c5eaf62a2c6f66fca4cbd6f475c67d52f826005014d87c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud transit networking and site mesh deployment",
       "tagged": true
     },
     {
@@ -60420,7 +60420,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "21bd775fdecd07b1f8557a8cffe033058f251bca540f15e92313194ee5b59fa6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud multi-cluster application connectivity",
       "tagged": true
     },
     {
@@ -60465,7 +60465,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a3891ad16c7cd14d4180aae80778c66efc7c1094022f8ee6d96c027b27abb8c0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60510,7 +60510,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ce9dc7efd6ce601d498dcb4c963fcdcfbadb9d14cb235b3168cba2b2affa1164",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60519,7 +60519,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "2b59e769b4153464b1cb4fb727439f495cefd5b4170ea010b5c666ec1cd825c9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud overlap-address application connectivity",
       "tagged": true
     },
     {
@@ -60537,7 +60537,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7f244421b7bfafd9bbadcefa1e5e3eb0a85c991dc781af6c8ec4ff0c5a2f8334",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60564,7 +60564,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "09b9f4971e7a0edfdec3d4786f2cf8c7e70555b34afe2190e584adbcae275440",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60573,7 +60573,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0a306604608b0729dcb1082fabb215e0d34fa60af6b4d8f70ec8cea724664198",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60789,7 +60789,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "63cbe63b0a75da8f9a5b356d7371b54f0d2205d14a3b93a38690c8b66dbc237d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60807,7 +60807,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f32e9c426100ecb21436dc046a4a6ad082421ff531a01eda3d3707fc56ca3029",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60816,7 +60816,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5d12dbcb263626c1f1629883ca38437e1415bbf3d50b9c88b15a1fe00f104a1a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60825,7 +60825,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "360dcc88b6e47f4bf7b66d9c17ae1d4ab897a3c1fc5f8c3a58d34872febbbd99",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -60870,7 +60870,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5c552131eee4535a90f2e281ae91565d6e91292e3114ed80cdb4537b5664831f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60888,7 +60888,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "eb6e12b487c184877c6768f74f47021c96dd4b9780e7cca8d15be35e67bf7ecb",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -60897,7 +60897,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4eeea76967fbc126539f4f056bfd6fdb9c7c979db5705e9dd3cb433f3a7c9388",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment guide",
       "tagged": true
     },
     {
@@ -60924,7 +60924,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ba68ab1f332beecd2e716ae05e98f1060713731063a025fad1764214171c68aa",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud per-application Kubernetes failover with BIG-IP DNS background",
       "tagged": false
     },
     {
@@ -60987,7 +60987,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d108270453a47d715f4846b5b43d7efc0e3d77f9d5a1bc1af79adde1e0d6289c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61014,7 +61014,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0a1674cb1434dfadf7aadb5e925c679bf4199e33b8cfef50c889bd358ed6ba4d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61023,7 +61023,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f11120b6d3e1cb806116fd962300c360083cc25fb2980b1cf5a87250207eaccd",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -61104,7 +61104,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b5a7b272687b628270335a82ff3a8b2ba40a66003b0cae63bc9884811ab9304f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Regional Edge WAAP deployment is the primary subject",
       "tagged": true
     },
     {
@@ -61113,7 +61113,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cc5d927983ba9310fa0d98226c9ffc0d8404a4dedd3d9e2b3ad4600e446a1080",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61122,7 +61122,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "37540af4207cb5b1b50c22b0c05f3280f7f079fc426ec7174af9ddb0588597d5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61221,7 +61221,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8f4260eb1a76358026f0acd0076ce019596d5c09758c3c32dfc05073527c164e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CDN architecture, configuration and cache behavior are the primary subject",
       "tagged": true
     },
     {
@@ -61230,7 +61230,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "6035967509cfee038ecf0b7c63a22276aa21381c4bd8377f658b90175dec8986",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61239,7 +61239,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "595ab06e281273a7fee212cb1d7338117f41759c3bc58f0c873e919209144004",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud deployment or logging guide",
       "tagged": true
     },
     {
@@ -61374,7 +61374,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "fdb9319965df35711d275a8b93bee8483e708d5526d37184dd385f93360b5e6c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud deployment or logging guide",
       "tagged": false
     },
     {
@@ -61464,7 +61464,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3d41e9177ed4373871dcd560c62ca6df45d37530f24ec69c22daf2be9994e079",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud managed namespace and DNS over HTTPS deployment primary",
       "tagged": false
     },
     {
@@ -61473,7 +61473,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "35e524f2b9d79fe788abf334405facc61b0dd22d09b90bae1d43f2393dcafafe",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused split DNS TCP and UDP deployment guide",
       "tagged": true
     },
     {
@@ -61491,7 +61491,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f6ca9628e1c02eb67df29660896cf70748839867569395f8b9163b11130ef607",
       "decision": "include",
-      "reason": "Demonstrates vulnerability-scanner mitigation with Distributed Cloud Bot Defense",
+      "reason": "Distributed Cloud security or alert configuration guidance",
       "tagged": true
     },
     {
@@ -61509,7 +61509,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "1c96f28c36cea68fea502ce60f9e9c9aab73abcc8768b1b084d76636eca0be12",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61671,7 +61671,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f5bbd997da6a0153e23d0584d3bf77a6e5f5b9c0c42d73502acc9db3e0005055",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud WAAP and CDN service chaining is the primary solution",
       "tagged": true
     },
     {
@@ -61680,7 +61680,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a132a511a57e1afdcb04a5fe3ac8bfb1838556240b32734d4d4699d763eb733c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -61707,7 +61707,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5e37ac4dd9fa8afda1a240fe3cd2726e49ffb879ac766e8938ce0d824940e814",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -61842,7 +61842,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "6f8418d8ec7db4dacfc416d42d879b62b1f704e56f19d7a1c14d8ab8751535c0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -61869,7 +61869,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9d87abec5b024ca6ced5c3e50c92e39a1f62509065a6dac459007d0854dc0958",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud per-route WAF policy is primary",
       "tagged": true
     },
     {
@@ -61887,7 +61887,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d0e4eaacd9df8664e362e3d82dcc85919c4f4df923504d68019e61ea09d082a8",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62085,7 +62085,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "551a25057c50071c51ea1a8e6f1d54bd537d1987ebd8a5e13f636754ec7c1865",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -62094,7 +62094,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4405f482362afa93e1d2b04d098644d9f2135296f1885df7361d5146007f074e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -62130,7 +62130,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "539a7b9b7e592272933f5737806b50d9023d0bc438401afd8fca39d03530538e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -62202,7 +62202,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3dae2e6b8b65e548637557316b50844fc20c9104da43543c98a8e6f1eaf80d97",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62229,7 +62229,7 @@
       "category": "Community CodeShare",
       "article_hash": "b5757188e3e88e41b99e873473e1e28d206462fdb386ea85af53e0dfbe1de1a5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Layer 7 host routing",
       "tagged": true
     },
     {
@@ -62265,7 +62265,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e29aed83abe1ee3bd33f22e082a7dfe20b44c9c93ced320eb38a8363338eaea6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Kubernetes architecture options",
       "tagged": true
     },
     {
@@ -62328,7 +62328,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "2d4793ba7d6b88e85f8d795047e51bb82c9459cd27827f74868d31ea2c454109",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused DNS load balancing failover guidance",
       "tagged": true
     },
     {
@@ -62373,7 +62373,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "1d7cda8f295831cf92bf1cf4d2636b1e943c4f34e5a2c9951419e065ca255037",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62382,7 +62382,7 @@
       "category": "Community CodeShare",
       "article_hash": "5c1e25769ecdccb1134110a3571f8b5c2b27d644dc1b114c8c2ca13c34aaf24a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud cookie and source IP persistence guide",
       "tagged": true
     },
     {
@@ -62400,7 +62400,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cad5accef698b9ee6578bc2867a17deed0a329427bf1a5fa078cc30ef3ca4362",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud fraud and risk overview",
       "tagged": false
     },
     {
@@ -62427,7 +62427,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c1c2653a59af1fcce52d7718f9bb56d521b7f126909ad15a7e9821f492741d78",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62445,7 +62445,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4768f934ecb115229f873f08cf6aa10218ab5a1caf0fc5b7888af49b1117b52d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud regional TLS termination is primary",
       "tagged": true
     },
     {
@@ -62481,7 +62481,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8051fb72f423ba4cb3b39db7c419ee06837e0035bd664d406e0d1f72b4599d77",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Kubernetes egress control",
       "tagged": true
     },
     {
@@ -62535,7 +62535,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "df981365817ad3b6920e68a38a000def0c78274baa059ddd3af1ef0f3ad87d04",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud API SDK generation and certificate expiration helper",
       "tagged": true
     },
     {
@@ -62562,7 +62562,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cba3dea91f03516c35b6727812db07e3434a651de38338b28874dfbf38809c88",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62616,7 +62616,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cae88bb06a2b3206a43f58e9df11a7d56be92987c44c4b48e340e75b8a7b481d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud private connectivity orchestration",
       "tagged": true
     },
     {
@@ -62625,7 +62625,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "866a746d0828a1819fd260ad315970921c8b001711e9b7fea1b03821e0475af8",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62634,7 +62634,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "65dfdcdb1117d167bbee3607a65f48c19ad235714d6dc1a414766c2f6a32fcd8",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud AppStack and CE offline survivability setup and validation",
       "tagged": true
     },
     {
@@ -62652,7 +62652,7 @@
       "category": "Community CodeShare",
       "article_hash": "216fddcc128cb829696e3e2c5832c1e5c6a4441cb86c4358ecc242c7ed8c09d6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused header and cookie manipulation guide with incidental BIG-IP comparison",
       "tagged": true
     },
     {
@@ -62688,7 +62688,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "810dd4ee9c251f388ddaac0634b608d40d6f84673a320b759cf7b6727eef00e5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62724,7 +62724,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4d550870b549c233eb060e8ccd7fcc30b19fee6fdd51c0a60e07c865048666cf",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud multi-cluster path routing; BIG-IP examples explain prior architecture limitations",
       "tagged": true
     },
     {
@@ -62760,7 +62760,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "de6ae536d212395a6bf517ab51a1632e00166a8fd9f5744a43aa4729e2cfc558",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62769,7 +62769,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9ac72153617dfa6fd6e17975cea65a1afdad5cbae8375b3dab40059234dd0992",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62796,7 +62796,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "fa0944835bbba5e85d1b4ee048c72314fcdfca9369ccddac680736c5b5a5961f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud primary CSRF configuration and validation",
       "tagged": true
     },
     {
@@ -62814,7 +62814,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0364f90085476bf89b0aabb28cd3539fcbf995fe309cdf7cb48dda938b24197e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62841,7 +62841,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "bce0b4588dd349f2f3fc7c38b3f938ae55110d1b664c8c033b4e1dcf1bd7f6ea",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62850,7 +62850,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ebd39ef6820e85e0e8e397739086e95ca0021c9c52d627798b720f1bfc936f8e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62877,7 +62877,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ab754f59220b0a9dfdb52548eb9599ed9405dc6bbc1cbe2339346537247354ca",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -62904,7 +62904,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "bbed5e08c2d6d61dcd759bfd6d50267d1fbe54794e67f37736980193de936574",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud RE/CE workload placement, HA database and vK8s networking is primary",
       "tagged": true
     },
     {
@@ -62931,7 +62931,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "90f154ed4d8f060065ba555f06b77cec5d3c35a7fa17bf1e8261fec471622d67",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -62940,7 +62940,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5032dc7ec677e2013218a6f2e1b39b9ce494b008639f5129ec871439969d1222",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Bot Defense mitigation of insecure-design scalping is primary",
       "tagged": true
     },
     {
@@ -62975,8 +62975,8 @@
       "url": "https://community.f5.com/t/71685",
       "category": "F5 Technical Articles",
       "article_hash": "340a89eb640a5b92dfca69dfc75286a9caeb74c6541896825c514806db28fcac",
-      "decision": "include",
-      "reason": "Distributed Cloud Bot Defense connector onboarding and monitoring via BIG-IP 17.1",
+      "decision": "exclude",
+      "reason": "Complete first-post review: BIG-IP primary implementation: configures BIG-IP 17.1 Bot Profiles, protection pools, SSL profiles and virtual-server service settings; Distributed Cloud console registration and monitoring support the BIG-IP connector deployment. Excluded under the BIG-IP-focused content rule.",
       "tagged": true
     },
     {
@@ -63003,7 +63003,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cd115f208541fd38ebaf57f48a2c985ac665f05c426e61e10f173b5872818835",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63102,7 +63102,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "925268c4b9d303a570d00ec9cf9d3a757c68d1ed4695cc333cd5cdf5029e393c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63147,7 +63147,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3184befd613612d4fbfef4c94f37bd73d98cb465a2913015ee12052e66ba8298",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -63237,7 +63237,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "577c8a92c4000481453b13fa83caf0c94eb98fd88d938a692cd3c9cf18197990",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -63246,7 +63246,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a8075dc45232b73d19f5162b6f56f2e3a02ebfc1047e9792fe935d23dc9adc88",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63255,7 +63255,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f2ad0591fe121631b37d1ab59c77b93891aa9412eb8e4018124a262cd689f127",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63273,7 +63273,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "6eda3ebe883e4e388997f13c176adb0ddbc48af69355c7d6234b8f46b761af74",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud security or alert configuration guidance",
       "tagged": true
     },
     {
@@ -63309,7 +63309,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "531913662115f194254f126afe1ef51e21005056ce37188423051eeddf449343",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused Cloudflare Bot Defense guide",
       "tagged": true
     },
     {
@@ -63345,7 +63345,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8d2c442bcdae313c165d1d51d470bbe3e10b359815b134e6201cd5f4ce30cab6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63408,7 +63408,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "edcec0c49a6de7b33f7eb297aeafc8f553695a41e8b939cf222e6ef1c6a2ec08",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -63561,7 +63561,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5579c0ff02fbd5e40e8f0c15d66fd7947e222d73db4649544628a1ace6a2fb18",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Account Protection and Authentication Intelligence primary integration guidance",
       "tagged": true
     },
     {
@@ -63570,7 +63570,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "12b6d97f6f471ae4f022e6e2bb21bae3157120f9a5ebba3ac56ad452e4314dcd",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -63579,7 +63579,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "09fdb5806696bb781c2a13a14541fab679f7d88fb98e761bf8f8e23141bc38d7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63651,7 +63651,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e637cd41e24ca15d22459c49b8634f4918687985422fc7841dbc85c4c545d65c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud ForgeRock integration",
       "tagged": true
     },
     {
@@ -63732,7 +63732,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7f817f5a79601a24d9c7092743ab8301e75ac2858c54cc7058e6302282af3004",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -63741,7 +63741,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b75aab41117c5f23eef470bd29a7f20566f894ed8600208a61b6328fabeb2e42",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -63777,7 +63777,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "87094bdd207010f6772014925bbcd4b10e1e9f5efdca8d6682fe1d6682c1ebf7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud orchestrated Palo Alto service insertion",
       "tagged": true
     },
     {
@@ -63849,7 +63849,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4c6fe926b0153d3826d0fc1e0acffb311b2e62eb64b3e73013856b70ac28ce42",
       "decision": "include",
-      "reason": "Distributed Cloud GraphQL discovery and protection demonstration",
+      "reason": "Distributed Cloud GraphQL discovery and inspection configuration",
       "tagged": false
     },
     {
@@ -63894,7 +63894,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "113047517dfb593bf3089e2875f30b2f0459085290838f124500064357fc8272",
       "decision": "include",
-      "reason": "Migrates iRule behavior to Distributed Cloud service policies and L7 routes; privacy review required",
+      "reason": "Migration of iRule functionality to Distributed Cloud service policies and L7 routes is the primary instructional outcome",
       "tagged": true
     },
     {
@@ -63930,7 +63930,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b256cd83f9fd0b8c9bbd4628e864142a1abe3a86944b131fd5182b89b0b0e097",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud vK8s SAML deployment is primary",
       "tagged": true
     },
     {
@@ -63984,7 +63984,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "079bda93bd430346c16021b86c8f97fcd9cc77a6c61852cb7b2acf1c189c2228",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -64002,7 +64002,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f6cf45cbea045e1d94dc698be521f671158d02acf734d360c691ab72c4d0afe5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -64011,7 +64011,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c8aded08ddb1d3beec14b96a5cc303a02ef4ce077df354782b35e445412963c3",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -64047,7 +64047,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7180ef1a935dd354c55f6da8e904016794070239c74d608ccb48eb9d26e0f658",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -64056,7 +64056,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d3acecc2088965dfc7353521ae14b56df1050397b21148eaf76e1b3576629a92",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -64092,7 +64092,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e4273ae55d9d9eab5665385e93ac94b701a0168808d78760ed56d741dc8d32c5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud alert ingestion and tenant-aware SOAR integration is the primary subject",
       "tagged": true
     },
     {
@@ -64101,7 +64101,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "36702f265ecb32afc8b629c9b96551e29e88ba98e11b451f3a6793680e0b92fb",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64110,7 +64110,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "71a25872cafd6182ae3e0a8487e66fa0b33fac827bf7e55fa6dbaae31ef3d50b",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64128,7 +64128,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "88c8443738e16493219f6b05d54ef403dcf1201e4ce5c9770abae69a09a515ca",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CDN or networking guide",
       "tagged": true
     },
     {
@@ -64209,7 +64209,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0f646f9823de1b672f20422cebb7e728cef12ebf56c89d9b2bfaedcd5b8eb27d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud complete multicloud network and app walkthrough",
       "tagged": true
     },
     {
@@ -64227,7 +64227,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5e3d2ac3b5bf299be9bb104f6022ed082a8b117a1b8a12deec28399b574e0476",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64335,7 +64335,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ef755dcdd1681083d50a49821425c63baae34e3734e07bc30136c14d33d00789",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CDN or networking guide",
       "tagged": true
     },
     {
@@ -64461,7 +64461,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ca9564ae089e0529d486d9068adf72ffa61afb88edf4ff1a8437b9ead8cb0f13",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud secure multicloud network features",
       "tagged": true
     },
     {
@@ -64506,7 +64506,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "41ff1d8a4392ff466bcf085d7c2997a5a8b02278000d468f51826cf2add71cac",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud mobile application shield overview",
       "tagged": true
     },
     {
@@ -64515,7 +64515,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "db629fbc8174a154db459678dd7cddc4e1637913092d2b9ece313948f1f37fb3",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud primary mTLS and XFCC deployment guidance",
       "tagged": true
     },
     {
@@ -64533,7 +64533,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "47bd4bd08d3dc691c3bd7830a404c614ea17ef4f5b5102a7b5755e1daa6dcad1",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud customer edge routing; BIG-IP comparison is incidental",
       "tagged": true
     },
     {
@@ -64560,7 +64560,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9cc765f9b80c4cf4e36e365d377d716161c619dd543409e999a6dd8d29059af4",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud automation configuration guide",
       "tagged": true
     },
     {
@@ -64578,7 +64578,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "090abbc7ee45260907f65494e0e65a256062471005b645e82e1033bd4e9e0e78",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64614,7 +64614,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c0363034b2f111fbedcd4c409e7054ba5b641783a269de92a559878505411c7c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64650,7 +64650,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c462230c9fbbe7c566204c5dc3fc4de8621e829c58501693805eda9e506b6ff9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64686,7 +64686,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "494fc7c10fad855fa0b73aefb929dd8a32d0e6c04fba8a20aded819b96db4f9f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64785,7 +64785,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "734fe7b7015a9ae453907c6ebc85382ac5647a6e88f90e73b35b75639f1a6bb3",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud application delivery configuration guide",
       "tagged": true
     },
     {
@@ -64902,7 +64902,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ba917ce32fdc8959da4eb4cd6026bfdb8602697106a246dce362f6e636817cde",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -64956,7 +64956,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b1106928e3921714f07033d724a4367f2a55ac87e4ded19945090071b95b821e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Customer Edge integration with HPE GreenLake",
       "tagged": true
     },
     {
@@ -64965,7 +64965,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8ce61e2cb99223ea7d3585b0d8d19b8bc5e77d5ffc9129a8a52ee3e56c5def43",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -65055,7 +65055,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "64f8f42e0453e33fbe98e8d34064b7cc10d4d85d377486472795a6d3992f2aa6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -65127,7 +65127,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "937655f4eec09190e736af58075114f2f4ba88332d6827ef618b7ff0844e627a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65154,7 +65154,7 @@
       "category": "Community CodeShare",
       "article_hash": "bfd443d5578f420060b10db4932062f22b157f5c8deea45e1f6c7e6f6b5aafa7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -65208,7 +65208,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "39bf5a17197f07521077c9620fa703ad4bbcd390e47dba509de60b8a58aa8fc0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -65226,7 +65226,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "29665521747ac0d23a5b0f8e23d8bf26ceaf773d5320ded2a8820208f9e42946",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused CE ACI BGP deployment",
       "tagged": true
     },
     {
@@ -65235,7 +65235,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "da06d701767d4e3a5dcdd59ca60ad73a8db3f95cabd8bd74f2f59579ac399245",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": true
     },
     {
@@ -65271,7 +65271,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "51a4011732ce23de8fcce999dd71e68ec6086feda3fe9605ea05dc9d2f0e4fcc",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -65280,7 +65280,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "658855f2c3b7e61685ac4587c46661df2c5846396267d9f37d2dec8209cdf88d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65316,7 +65316,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ba2ab917bd3b9cafde6a30f426d6dffa2b3f4a9feb94c5a7ec47d4f56650086f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -65397,7 +65397,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e59577caa4ead0dc9ad7f70b3be7fed1639c417e2b135a43281d9f00d6053b3f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65415,7 +65415,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "36870883eaa5047d37bd397ab2da78df52aea3d5a93adeacec768f96e4790330",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65442,7 +65442,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a79eeca1f24a22b4abaee93124e89ab5c9a53a094308be0f1cbfe9a73eda001c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -65469,7 +65469,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "551488c34e4a5d6a66e677ab81274e3b20751737644ce65dd6693050f6d4c49a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud listener logic; BIG-IP is comparison context",
       "tagged": true
     },
     {
@@ -65685,7 +65685,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "50740ced45fbeccf11bd63acbeb5342a70c767a5b5bb1d92f56581ff3ea49fd7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud secure mesh and AppStack demonstrate multicluster resilience during controlled chaos experiments",
       "tagged": false
     },
     {
@@ -65694,7 +65694,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cbcf85ae35ef630dd1f5750a374d777e98020c3e6a57ae2455ab2d8b2d71cfa3",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65703,7 +65703,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "816b3d3e8ac0c81311971632afa3778b6fcb4997ae87e7e4d3c4dcdcdc8ff182",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65712,7 +65712,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9b5c915b3efad14d2a1f9417103fbf91e55d9b81f40c8cf27a49c78dd9ac24c8",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE Layer Two and VRRP deployment primary",
       "tagged": true
     },
     {
@@ -65757,7 +65757,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "78c8656d328ae79ba007ebde862b63fc9aced20f9a89cb865997a41e06e99d14",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -65784,7 +65784,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5cc848ad80fce27139bf265df16e2a4d85d25ba7f140a8a4704c18b1fe7d0239",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -65802,7 +65802,7 @@
       "category": "Community CodeShare",
       "article_hash": "5a86595a02a4a234684d8ce502ad7536365d4290f57410cfcfa027629f50e51f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": true
     },
     {
@@ -65892,7 +65892,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "639f0bc52569d9b16be3223d74301a23496c764f676973493cadd2014ed506ac",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -65910,7 +65910,7 @@
       "category": "Community CodeShare",
       "article_hash": "e4683540c38c24e73ba6ce79ea606b6ef8b3581b3cd2c708a8ea3b84e895ff20",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud vk8s workload deployment of unprivileged NGINX",
       "tagged": true
     },
     {
@@ -65928,7 +65928,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "363e5c3c4b4f84440be2da33b7078aaa5e943d58e1096d919e6c5a4c77825619",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Network Connect and App Connect extend AWS VPC Lattice across regions and sites",
       "tagged": true
     },
     {
@@ -65964,7 +65964,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ab8e6b74c6ed97028925af098f1cdf340229f37e10ff6f485aa6b05269748312",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE lifecycle automation with Ansible is the primary subject",
       "tagged": true
     },
     {
@@ -65982,7 +65982,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e9e69f7780df873b50a22b97adab465c11528fd5329dc2af8e2d01b385ed0686",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -66045,7 +66045,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a55f3ab33e80f59b7989f3643ea67d6cf93ee2f8cf32546e31ded84c733ebf8e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66135,7 +66135,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c86e8f9705e51a78f2d92b05e0f92e82bb0a561ba0245ae09ba70921539f5135",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66234,7 +66234,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7e7f2bacd9aab9563f58969b136a9a034fb5844b2d81a8e9c20ece21bf803cb4",
       "decision": "include",
-      "reason": "Migrates BIG-IP maintenance-page iRule functionality to Distributed Cloud AppStack",
+      "reason": "Distributed Cloud App Stack replaces maintenance-page iRule behavior using local NGINX and priority-zero fallback",
       "tagged": false
     },
     {
@@ -66369,7 +66369,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d18243b5cbcdf48e1e778d2a5c35260cfea7eec192a305d0f8ef1133e44a764e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE clustering and virtual-site high availability deployment comparison",
       "tagged": true
     },
     {
@@ -66405,7 +66405,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d2c8dda417d93640dd3a42db033bf50df40df85ebd9aa5aa325d968ae2968519",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused private networking and RAG architecture",
       "tagged": false
     },
     {
@@ -66423,7 +66423,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5baba502730c2326eeb05fa3def2985c10562e665b484dc658f5214da565f44a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Proxmox automated site lab",
       "tagged": true
     },
     {
@@ -66432,7 +66432,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ca4f81c18e1bd6f5ec3a2905c43bc742cb005fc20f849852fd842fb78370feb5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66468,7 +66468,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "86c5ec9384492b69d20584d4b466c75f0d2f996b5f416b0fddde1e4a6f519c99",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -66495,7 +66495,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d39380f0cb1ff299f26d7e6b1c870ee46bff2cdb2ed692be395a1bb32d5cac58",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused Customer Edge OS migration guide",
       "tagged": false
     },
     {
@@ -66504,7 +66504,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f287d55c56fc8cde97c331d9ef7692e353cb2f071e637f662f34fb35a7ebf073",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66522,7 +66522,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d05f74a0ac9f7c9ef383bdad4fa134a4f5385edbee951ae3c9031404e051d94a",
       "decision": "include",
-      "reason": "Distributed Cloud HTTPS load balancer and customer-edge AI firewall integration",
+      "reason": "Distributed Cloud focused AI firewall reverse proxy architecture",
       "tagged": true
     },
     {
@@ -66531,7 +66531,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8c9201a01fcdcf63932be4a773a9356720962d01703092373612ac5280c827ad",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -66540,7 +66540,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f41cfb8aa4864ac03a62cfd2a08a42385f6f87f1cf5aef45010fad5946f3d545",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66594,7 +66594,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f35892af36f0dc49fe18a0ac1c1c524e4959beb9f02426229215bb5b0cf427de",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -66621,7 +66621,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "35fd18dacec1e2300ec8c4638ad68e3c8352171909ee34810fdacb47009d3390",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud network firewall rule evaluation",
       "tagged": false
     },
     {
@@ -66630,7 +66630,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d872a9887858a191aee81b94c653a311a635fdd1d582fa4dcbc79f2565f0c2e3",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Regional Edge Virtual Site traffic-flow guide",
       "tagged": true
     },
     {
@@ -66648,7 +66648,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "fa4980970f9c0ef769af611b093bdf08185862a548a62e39a8fa45cb1b7440d9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66666,7 +66666,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e9736f3da8169706d67ba94540fa26924d6cbd459b8703a2ec58d49f6f5b9fd2",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -66693,7 +66693,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "02937946c96d7afc5e5aef2661f8243f06eb96a92e0cba07c3f05948db467f8d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -66711,7 +66711,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f31926ef1ce9c6992b5dcbe3accc11a4d09e16df3239a1904d4735e0dee9f3c2",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -66846,7 +66846,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4f17fd25a2cf09b4c225618c32f7245915d2dab143ef2770ac83c51a565f6c6d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud virtual Kubernetes deployment of NGINX Unit WebAssembly service with HTTP load balancing and WAF",
       "tagged": false
     },
     {
@@ -66855,7 +66855,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "417a94448c7594e2a4f64d15ec69442729f5a6fd6d2d9d5ea3be62c82d7c683f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud client certificate routing",
       "tagged": true
     },
     {
@@ -66981,7 +66981,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8877f05eefb34880f036637f8e450811347b434fb627ebc7db0fd476353f4aff",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -66990,7 +66990,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a8c49718dc4d1dfdca8d504f1f4b5ff7f3f2b6613e51ac328b2c45ac8e4701ec",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -67017,7 +67017,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b9cc69b7a0f6c480414e20850485eaca4af3fa5d5466db050813e975f415685b",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud automation configuration guide",
       "tagged": true
     },
     {
@@ -67116,7 +67116,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "98c1f4bc7bb7a5d3863363e0064853974ceb4e373449d54bf39af3a9296d500d",
       "decision": "include",
-      "reason": "Distributed Cloud intent-based application connectivity across Nutanix and cloud services",
+      "reason": "Distributed Cloud intent-based application connectivity across Nutanix, cloud and Kubernetes",
       "tagged": true
     },
     {
@@ -67215,7 +67215,7 @@
       "category": "Community CodeShare",
       "article_hash": "e3f9a2cc2508d196c5c2f7020910105c347d5e3b468d862bb3d9aacf50f1904c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud user-identification configuration",
       "tagged": false
     },
     {
@@ -67233,7 +67233,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "84036d723b9c57849d51c4441d528389076ac75cf70a30fc427e958dfa24e632",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -67323,7 +67323,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f2ec65e92cdd1c13dfeb7884e01f308c789a0b5d54fefbc397d46a5642c3550d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -67350,7 +67350,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "47b5852556b17616aecca49bfc7caeb492ddffa7e3b88e22592d8e9766c41812",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -67394,8 +67394,8 @@
       "url": "https://community.f5.com/t/75354",
       "category": "F5 Technical Articles",
       "article_hash": "ee2f68447b2a25f3608462b7c3303cc34ac6a21425107e00d183589c2117eaf2",
-      "decision": "include",
-      "reason": "Distributed Cloud Bot Defense and BIG-IP APM integration workflow",
+      "decision": "exclude",
+      "reason": "First-post review: BIG-IP APM primary guide. Implementation configures BIG-IP LTM virtual servers, forwarding iRule, APM per-session and per-request policies and native connector profiles; Distributed Cloud Bot Defense is a service integration rather than the primary deployment subject. Excluded under the BIG-IP-focused content rule.",
       "tagged": false
     },
     {
@@ -67593,7 +67593,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "1dbae9a8681e8f973ab999ff130d8a67edca09461bc3dba13cacd9a6ae314526",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud API security primary for ROSA model serving",
       "tagged": false
     },
     {
@@ -67656,7 +67656,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4960727afcfbdc2bf40ae2ee24af60263566a5656bed297be030a95f8002fc34",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -67710,7 +67710,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "53ea26fe1cec11dd9a5d538f5e08950cccd0fe2879f567a9e6c3d35173cb9d11",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -67764,7 +67764,7 @@
       "category": "Community CodeShare",
       "article_hash": "6a180a15d211fccaceed8a6a97ad41ee0be2afbcee67111a0adbc4be5a9c0758",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused configuration article",
       "tagged": false
     },
     {
@@ -67773,7 +67773,7 @@
       "category": "Community CodeShare",
       "article_hash": "c78cf1ce9f56c628ea9b971bff75e28164a7daaaec29f058833bf464f939e207",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud site debug command guide",
       "tagged": false
     },
     {
@@ -67818,7 +67818,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "00be81fca9a0d4ae24fff442a6a928282f69250e74be1b8c817078208941b66d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud application delivery configuration guide",
       "tagged": false
     },
     {
@@ -67908,7 +67908,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "87107b42a7505e73f0088078a346c69cb30dce2145d1d0c390311057cd0b7103",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -67953,7 +67953,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9a0842c92892bf16a5d561427c50c264b7834a89b717e2ac7ca7d3bcfc3f37bb",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Network Connect segmentation and storage replication guide",
       "tagged": false
     },
     {
@@ -68034,7 +68034,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4781624387e3af5c043437f73d5e98af58fc3c8ed9fe46c48960892bb8064939",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Network Connect, App Connect and API protection for RAG",
       "tagged": false
     },
     {
@@ -68169,7 +68169,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "07e7c2717bb5daf539b5030fa53796dfe9ae560041a405194f7e815615e27a7b",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -68205,7 +68205,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8e3e5a8af2ddcea1b14f5acd845468f24e270de37bfabab2762057047f1437c8",
       "decision": "include",
-      "reason": "Distributed Cloud AppStack Tailscale proxy deployment and secure tailnet app exposure",
+      "reason": "Distributed Cloud AppStack multi-tailnet egress integration is primary",
       "tagged": false
     },
     {
@@ -68322,7 +68322,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7ec0112422ed8f9b1718095ead9d6dc8b0add4ca9ca1c0312837ef94d1cbf9aa",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -68592,7 +68592,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "380df133550a3219c18055c69e1902561fb45797a546801d716959383f05d1c0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -68628,7 +68628,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c1a02d956affd574c51f4171d0120a03518b7d31234808f7ab42e14eb46b4032",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud App Connect and Nutanix cloud migration with overlapping origins and consistent application security",
       "tagged": false
     },
     {
@@ -68664,7 +68664,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4b7dd5b265d8f6f7bc40318f1fb10e54108a3c6d75fea7395f9612d9b61807a9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": true
     },
     {
@@ -68673,7 +68673,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "dcbf41b7b9b2572627a65de3bf4523e7ed29b6c5e8bab010a6e892213c2dc4f0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -68772,7 +68772,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "739d1d354df2bc89c787130f8f03d28ebb8ebc11793c3c2cfae5b838503ba27e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud routed DDoS guide",
       "tagged": false
     },
     {
@@ -68862,7 +68862,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9d0ab8d86ceeac7c93e14c6dcdaa1cb4ffa1e0608653cbfea343f0cfc5ba40b1",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE BGP and application overflow guidance",
       "tagged": false
     },
     {
@@ -68970,7 +68970,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c9d7c30b0d025f3a0ee785ef201c621cb0fcc30ba12fde63a6922c55b77f325f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud AppConnect securely exposes a remote database MCP server",
       "tagged": false
     },
     {
@@ -69078,7 +69078,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "daced6d80c294643c5230a9ee678365935cfa300572cd93c91deb2e6d0bac317",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE publication and security for KServe inference",
       "tagged": false
     },
     {
@@ -69096,7 +69096,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "733fea447a62ed07f39feb1547db5864461649c28080c54a0e014e7a2c5dab20",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused automation or persistence guide",
       "tagged": false
     },
     {
@@ -69150,7 +69150,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "34e5881387171ee92360e3daa8a09d437ebc2bee0603c95d6f0e63b9ca6c7ba4",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69231,7 +69231,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4192f0274b3097b4fda89ae6bda1f7326c3a4f850f3f7da5972f7a0f9b85c3b4",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69240,7 +69240,7 @@
       "category": "Community CodeShare",
       "article_hash": "0a41e935af97e6fb931f8ef96b787a89f7f86b3c324a266f8552b8f72ba20a9b",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud split DNS is primary",
       "tagged": true
     },
     {
@@ -69258,7 +69258,7 @@
       "category": "Community CodeShare",
       "article_hash": "3f21cdff85989e1e82a25aa60da2443cc3b0e55fd9f11c18300d275d53690ea0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": true
     },
     {
@@ -69339,7 +69339,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0bbe541cf9a361af63d34c8e2432f56f88270d4a85578aa63870fa3cb0cce1db",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69357,7 +69357,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "2aaf3ba1387fdd9952e1f6ed2515290cc5b33bd4f706c3c99829ed0bf47f92e2",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused automation or persistence guide",
       "tagged": false
     },
     {
@@ -69411,7 +69411,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e473ae3d10f5ea43fabf939fe9e7a3cfa89f9cc5a2283da1424ed46d79dd3871",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -69510,7 +69510,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0ecfe75bb8d7b562dc26a0a5ea00af4f6333d28787cbd06ba3557d253ca44408",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Global Log Receiver integration with ELK",
       "tagged": false
     },
     {
@@ -69519,7 +69519,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5881d989117ed8c62ee61e83434fcdbceb44167357d623bfa1c6fe788a29dfc0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -69528,7 +69528,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "78ed51669d01cc9a0135ced564bb1e6a8bf6bc23181fb75162db8e17a5c86c1e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69537,7 +69537,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "3bc0f0ecbe26d236d56d51ff0b63bc617ea51d10d30dc5f0d46b2817f454125f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69546,7 +69546,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "29abf31daa0f3435e99d3e166bc0d965176b8f3463139149f009be978947ad11",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69690,7 +69690,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5bc22487416ad90c56627b547596b46d167e4e235fce7ecd4b8bc2483f8847ab",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69780,7 +69780,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "426020e556a7218694330d88036fca27a33c9005bef43ee7c9484cf17c2af679",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -69798,7 +69798,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d4da5a4dd622fcf8e7a2141979e8e68e33ec5d5c05c31d8cacb8854d12e72524",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": false
     },
     {
@@ -69825,7 +69825,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "6fcf12b65219958895f242be99c055e66d2637c1afdfc2bc23ff26e8c4962d2b",
       "decision": "include",
-      "reason": "Distributed Cloud Bot Defense scoped dev/test bypass using IP prefix sets and service policy",
+      "reason": "Distributed Cloud scoped developer Bot Defense policy",
       "tagged": false
     },
     {
@@ -69834,7 +69834,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "03fe56cb8ffd1172fc37123ec54e6384bda6414a25e04a4e1e5134ebb81f563a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -69843,7 +69843,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "85d85a6d8aff68f2bdba9c847217db9941dc6d1682295b7345136b3d5b53705e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -69861,7 +69861,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "915128aa03d169d1ecc8ac04c3c8b23cdd66db4089f7347bf98516fa967c8589",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud customer edge automated AWS deployment",
       "tagged": false
     },
     {
@@ -69933,7 +69933,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "96bf7568a22b81db1c1b07be5a4110f50fbe8988d60b44f3dc57576481c7b68a",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud hybrid application delivery and security guide",
       "tagged": true
     },
     {
@@ -69960,7 +69960,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d88a14d02d976ea9b44d670c5277df6e23a2a681320b473c73c351a79a95e41c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud aggregate SIEM analytics",
       "tagged": false
     },
     {
@@ -70068,7 +70068,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0b046713856bb19bcec48717e2ca6a3d6bb9b2e24893717593044357bbd2e697",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70176,7 +70176,7 @@
       "category": "Community CodeShare",
       "article_hash": "4524c979b03cee3e0a495bbff130136562d2b7d357160d37f8975163840b6fac",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud routing and persistence guide",
       "tagged": true
     },
     {
@@ -70248,7 +70248,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f7067c7e558fb70f910d9f68bec97779dd71b28a9a28bb6d71877627507059d1",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE Kubernetes pod service discovery and CNI routing guide",
       "tagged": false
     },
     {
@@ -70257,7 +70257,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7a578ec5147e8edb00ea796ee676ea0e7d123209cfa7d930874b181a68069a88",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70320,7 +70320,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "09e22bb63410040f4f77740d27760877f4db15364883e4ee1b14e90d375fdff1",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70473,7 +70473,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "cd84a445592bfaaa611e215df40c080881ed4d26fd9b6b5682149fc53822e5ed",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -70554,7 +70554,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "185355b54346d60578d47d13267be9f66e448236502daeb50b0daa7ce8434e69",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Global Log Receiver forwarding integration",
       "tagged": false
     },
     {
@@ -70590,7 +70590,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "bb2096ca1a592d312363475225eabd6d5ac32f1cf7fd408183821b4cfed04a02",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -70617,7 +70617,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "0499a961c9476172ceada954eb45d94c06b8b5f78d3cf8e99d89f59168383a70",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70626,7 +70626,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "64771287a66589a1caa5dd9d39106adb64bcbb7349b7414cd6b31c91e8d7f905",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CE BGP integration with Nutanix Flow for secure VPC application delivery",
       "tagged": true
     },
     {
@@ -70653,7 +70653,7 @@
       "category": "Community CodeShare",
       "article_hash": "7043d3024c92c9e6b01e2445fdec9e7f0288eec367f1e01fb3e7917d357ff7fc",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud API or routing configuration guide",
       "tagged": true
     },
     {
@@ -70671,7 +70671,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e2c8bb569a47426ae48742181369321b6e8d1de70624be6889a825d2ed202cf5",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud and Nutanix Flow extend segmented networks and enforce microsegmentation",
       "tagged": false
     },
     {
@@ -70761,7 +70761,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "2382d9e29e1fb975bfedc333295b0c1d444b19d8194b8191aa15d79bd733f999",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70806,7 +70806,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "84eade28831f667338771b6eec5cbaf870b1ee969e31adfdde188dc875c4e64f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -70842,7 +70842,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7c1acf0948f858a370ce360d005f1b768bea236a8608cbec4c34827419ad5d9f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -70941,7 +70941,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f928d6646c1ef854a3a1439ed3459147de0dc02450ca8b279184996b86796065",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud origin-subset client IP routing guide",
       "tagged": false
     },
     {
@@ -71202,7 +71202,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "1be0f8d0fbd526b659f8c2a17edb8b319391452a8678292a48be02ee493acf66",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71220,7 +71220,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "d42740e6f7377d3268853fc76ab76bb563ec9f8a80ac632e3c110e38eedfbc47",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud namespace migration guidance",
       "tagged": false
     },
     {
@@ -71301,7 +71301,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "20c6c5aee6ab9a730f844396e8428e92dfab40513d952a3c624c22df02aeb143",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud secondary DNS API automation",
       "tagged": false
     },
     {
@@ -71319,7 +71319,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "8f61a854de181d5e3467271657fb2958989f484ba88902790aa4b074491b8208",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71454,7 +71454,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "06c9fc8c66d85c0debc4ce4caac69f36d1ed7876b6e1c0f3e88f37028d36dc9f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud routing and persistence guide",
       "tagged": false
     },
     {
@@ -71463,7 +71463,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "87f5b7b7415955057bf17d1df27779d22a4e776df69e662b99a0b5fe81299e50",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -71472,7 +71472,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c1710fb549ba59dcb4adce4e7d25df932b406853267726094e3fbf2f507be213",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71526,7 +71526,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "99de4a93dedbcb055abfa81a70efd4aef5f92609096572c4f052851ee6bbd53c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused resiliency or security guidance",
       "tagged": false
     },
     {
@@ -71544,7 +71544,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "ed746b8333ffba0ad255fb88fa3d3f80f094c043cd9c43ee810b4a58f2ebf49d",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71580,7 +71580,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "4c2448a7ea11126d15830abc79c1da35b2fa96c979bcd1802990c6ae989e144e",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused article",
       "tagged": false
     },
     {
@@ -71625,7 +71625,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a7b20ebd3c09d0da0118807edea225ce08baf182c56c194f70984bba50c1840c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused customer-authored MCP integration guide",
       "tagged": true
     },
     {
@@ -71715,7 +71715,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "a985fc58ba1e7599fa68546657c8a7770d87070c9789fc5ecccfa93900e9b0ef",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud CDN architecture options",
       "tagged": false
     },
     {
@@ -71751,7 +71751,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e68e7ae31cdad16b4e1178471c6366e299a60d69dcc1e391b2ef449c981fc631",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71769,7 +71769,7 @@
       "category": "Community CodeShare",
       "article_hash": "d9ed1cb3e291e855b612261a4305698c66bbff5daa67d1a868e60b04fc5b858c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -71886,7 +71886,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "eab3bd9a1f20de5ae1c4313c92f2a38d982f4bb6bdf7f7a1d80301200dd67467",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -71922,7 +71922,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "340da185fd55b4707c79547b05ffc13bbf166a4cf54d4292c68b40541d8227af",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -72003,7 +72003,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c1d5f7563e9bf61f0958282a73da8ed51105af8117ce16e7af6ee710f90c49b9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -72021,7 +72021,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "e79b66bc602304dfe83e91afda5c7f4af39453917229f14f5603574c55a55276",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -72075,7 +72075,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "9bd34e1418fa2d3faaccf2377f069baf63b51ef44a2ce6e22707e3fa98ee06ec",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": false
     },
     {
@@ -72156,7 +72156,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "5512f28712c33ce33c04ce2ee60dc5c07054694e3c3d7852ee9e41af36ae2e83",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment or security guidance",
       "tagged": false
     },
     {
@@ -72201,7 +72201,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "c091fdb94d16e0bb6fdcbee2bbe395ab43e1930c94df03b5747f2f50329fb43c",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Terraform assertion and integration test guide",
       "tagged": false
     },
     {
@@ -72291,7 +72291,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "7f7d8772a16f2cbf019e7321d497c5cd6862bfee63403298cfcb74ad611ed343",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused AI WAF risk-scoring mitigation walkthrough",
       "tagged": false
     },
     {
@@ -72435,7 +72435,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "575749f83ee04909cf77a3a0c90724f7681b0aeaffaeebfa89a5b14b99f75d53",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -72444,7 +72444,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "649dbf6bc6fb7d2129c0cdc07c646a1be348800f0fa441f70de1426a5ddebac0",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -72453,7 +72453,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "f9ae5d7679dda342756bbd937436a3f8783eac19dd4d5657bddec220c5f4d6f6",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -72462,7 +72462,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b2845da25caf1291381cb5a6a67d4c4cdb72046c745646e16f0402ab454a6fb7",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
@@ -72534,7 +72534,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "609839d9f01b1fd4775fb29137436ec86617662dc3de65adedf5bcaa2d84e22f",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud Proxy Protocol origin-pool guidance",
       "tagged": false
     },
     {
@@ -72597,7 +72597,7 @@
       "category": "F5 Technical Articles",
       "article_hash": "b03e266fc5a82249d26c37a918d64ad0895611380f2af8d08d6075383869d386",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud load balancer configuration article",
       "tagged": false
     },
     {
@@ -72642,7 +72642,7 @@
       "category": "Community CodeShare",
       "article_hash": "145065f74c80495bff67287472b4bd87dc8efbb08c3a5dedb75c39e8400ee3c9",
       "decision": "include",
-      "reason": "Distributed Cloud focused title; BIG-IP body mentions are incidental or integration context",
+      "reason": "Distributed Cloud focused deployment, architecture or security guidance",
       "tagged": true
     },
     {
