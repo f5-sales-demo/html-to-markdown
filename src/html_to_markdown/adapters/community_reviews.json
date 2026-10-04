@@ -64774,5 +64774,161 @@
         "output_sha256": "a1af28ce48cffdf8b4807e123e06bbc2dc894fb7e7ab65e2dbe98b8a86ec55ab"
       }
     }
+  },
+  "71704": {
+    "article_hash": "cd115f208541fd38ebaf57f48a2c985ac665f05c426e61e10f173b5872818835",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and all 20 static screenshots/diagrams. Six hash-bound transformations replace personal namespace, GitHub user identifiers and demonstration app domain/object names; preserve Brewz API routes and graph, classification counts, Terraform XC protection/discovery flags, endpoint schema, deployment workflow and output keys. Other secrets are descriptions/placeholders or sensitive/write-only fields; no customer or user data remains; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/1X/a0e726cf8451245f78719c719d0c4ee3c03817b0_2_690x40.png": "eaf9636ebbea579feabd11aee92b6c18f5e5bb57d5cc39471384692f65f09cca",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/0/04bb9919bc38e1d0f96e5183b84f69e713ad7850_2_690x22.png": "ed8d7f4cc1c31b212ea75ba8ee3b1f43186d435f0b1915ede5f6b5203e927b81",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/3/32023e959a099f4c71aa2b9279a25a53209d69ff_2_690x27.png": "825d8eb5ec91e6fdc93522bd8e4bdd9f010cef200f23c74c73e59ee0fafae08f",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/4/42dadb4aa46efeced389189ccd3a131e82bf7956_2_690x35.png": "c69302b3b911b8b24c2dea3d918b208e8c2f6bbf5dfaeebd11d28c6a586d9e6a",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/9/9a528e1c8a91b1ee457f969d698370097a261c6d_2_690x59.png": "9e95555de5b09eb394c4e19b06b07a26b1351f3ccb0bc1af0b707345fea921e5",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/b/b399cb6cc4eb59e62c8cd056cab2009056fb3b3f_2_690x58.png": "874037615abd358513e2dcdd8abbdd1024d9c255688efba93c47d92c552d8b48",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/e/ea4c483517be79a688667e7069e9a17d214fa556_2_690x38.png": "b82679ced9c9caf8a86a3b1e401a65148e8bcb799df356d32b02a39bda9887a6",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/f/f5f5a9f37c82513eb4c486050ba7ca98546c332a_2_690x37.png": "dff3aa334f0e1a82839f81759d7560e3ae5e813222287a9fe9c25f5df5961293",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/3/d/3d680670d86dcc58a52e1c2a264b2644459d9067_2_690x89.png": "6a80091db5deb49dcd79913e4cf0032ef249759d582d3a81c4dbd601140e2e83",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/5/e/5eec3437cb22ac37a912de3d9eecfce885a6fd41_2_690x30.png": "5a286579391c2e7cfa95b482f3f3f51a904747345f9a79bbe608a17fcce42249",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/9/a/9a7c6e67f04c6d0b0597c979cb19da1012565513_2_690x34.png": "e6761ff1d5a19d0b0f165da7a232df908b0571b9f895e6f552ce037dd5fadefd",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/f/9/f904a3a154723fb8244bcec62bf3febc16edc253_2_690x39.png": "f2db097214c19d8a7bc3dbc0fd1fb3c691fe4e97d94b59db522c7843ab2b59e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/21178a8dc7c9edf6d6fb559920cf35dbbd9126cb.png": "aa469f89074586a6120c5868c265bc5ceacf3c5a38ebb31ceec1e44fb5694c9b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4bea6709beb1b2f0551e27fee1bf59e59bac79f1.png": "925b8432416a8ed6b5c801e0ca29c08084040a3a0f986c38d1ba26701b7794b4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62f4566bda25dfbf688bad8c743c246f5a6b7d64.jpeg": "aba8dcb181fb7a7d00e4616344716278b77c4c67be0d913bb7e2474154de29c8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fc0da0a7c0384170e63a2787911f83e370255e7.png": "ba0c176ee29c0cdd883dbad3f23dac78403d9f2c8eaa8b3543391c93eae67a3e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2fad4cec5ebd02216976835cc1d5aabe173187dd.png": "4be937e89bec14eb74ba0781e4692ebd57d15eb5760310aca0243bb4464a57bb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/5/6521c32c1e1bd7a0bfd12f4aefbf46b1697a2a39.png": "572a6ec123660dd614ff7598cbadda2be6c982b348dfdfc6b77ba79744bc2b0d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/2/92ad2f4362af360e83784170695e07cb2bf95d5d.png": "5da8350bf1197d3ffa8f4828546b98de47bea23abc23d07df2203fb1b805c91c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/9/d933a06826425abe584fe54ab41181262106bb37.png": "1335e13095510eee4cc29da9adefdf309a70409ebc6fac84b5ebcdcec08b28e4"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/e/ea4c483517be79a688667e7069e9a17d214fa556_2_690x38.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              21,
+              240,
+              36
+            ],
+            "text": "F5XC APIP + NIC Destroy: demo-user",
+            "size": 8
+          }
+        ],
+        "output_sha256": "c8a87640f0856c4bcc9a3c2ac5fb013e691e8de2449b91e220778d213d12439d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/f/f5f5a9f37c82513eb4c486050ba7ca98546c332a_2_690x37.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              21,
+              240,
+              36
+            ],
+            "text": "F5XC APIP + NIC Apply: demo-user",
+            "size": 8
+          }
+        ],
+        "output_sha256": "d721691f05c968f424322669f613a2076f095a74b88d42808ebb77e4abb47a41"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/3/d/3d680670d86dcc58a52e1c2a264b2644459d9067_2_690x89.png": {
+        "labels": [
+          {
+            "rectangle": [
+              34,
+              47,
+              221,
+              61
+            ],
+            "text": "xc_waf_name = \"demo-xcw\"",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              34,
+              60,
+              232,
+              74
+            ],
+            "text": "endpoint = \"brewz.example.com\"",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              34,
+              73,
+              221,
+              87
+            ],
+            "text": "xc_lb_name = \"demo-xclb\"",
+            "size": 8
+          }
+        ],
+        "output_sha256": "ed9ad1f5c44e0ee08e00dc6c30556936e7c5125457c422b0b786324d0dc1afaf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/9/9a528e1c8a91b1ee457f969d698370097a261c6d_2_690x59.png": {
+        "labels": [
+          {
+            "rectangle": [
+              43,
+              17,
+              238,
+              30
+            ],
+            "text": "brewz.example.com/products",
+            "size": 8
+          }
+        ],
+        "output_sha256": "b8d83db472fe7d58b698f4531b447be86bb9cf11aa07803b0daca696b3a047c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fc0da0a7c0384170e63a2787911f83e370255e7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              8,
+              38,
+              92,
+              56
+            ],
+            "text": "brewz.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              260,
+              38,
+              344,
+              56
+            ],
+            "text": "brewz.example.com",
+            "size": 7
+          }
+        ],
+        "output_sha256": "f7b88040e0c12b10fcff3b484b6530b8322fac48fccdd40ffaf1eb122986098e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/2/92ad2f4362af360e83784170695e07cb2bf95d5d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              166,
+              4,
+              204,
+              21
+            ],
+            "text": "demo",
+            "size": 8
+          }
+        ],
+        "output_sha256": "7e57ae1052155c36c26ae4430fefcdde6413a2a0cb9ff600c206d04ef219ca71"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62f4566bda25dfbf688bad8c743c246f5a6b7d64.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8843aa186a1139391e758a979b4368778dbb266ae968cd51db8dd930b9da8a83"
+      }
+    }
   }
 }
