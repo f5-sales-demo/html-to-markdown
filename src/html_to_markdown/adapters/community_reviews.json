@@ -68247,5 +68247,591 @@
         "output_sha256": "3eff9e82694e9cddd55a6af416ade72f590b4dba0e79c856a27b9c3b76b5d640"
       }
     }
+  },
+  "74218": {
+    "article_hash": "363e5c3c4b4f84440be2da33b7078aaa5e943d58e1096d919e6c5a4c77825619",
+    "decision": "include",
+    "reason": "Distributed Cloud Network Connect and App Connect extend AWS VPC Lattice across regions and sites",
+    "text_replacements": {
+      "nodes": {
+        "103e2fa01300704dced4d0145b64f1065672612014dbc7807e538dbc51339934": "[ec2-user@ip-10-0-15-28 ~]$ nslookup demo-x-svcs.us-east-1.on.aws",
+        "10bab288e8ca97990137b954ec8760818fe5f39ea51bb91020036582907e55d3": "Name: demo-x-svcs.us-east-1.on.aws",
+        "5fa2c1a28162b2b316ccbd35ca03c2a9c707ff77fe9e01806d5fd2b2ce680a1c": "On our EU-NORTH-1 test instance, we will not resolve the DNS name of app.example.com to one of the CE ENI IPs \u00a0(",
+        "db5a625b619ea73a9abb1ca2b2d83747ad80a37ae8a784ba22ee4ffd3d4bfc39": "\u00a0[ec2-user@ip-10-200-210-196 ~]$ nslookup app.example.comServer: 10.200.0.2Address: 10.200.0.2#53\u00a0Non-authoritative answer:Name: app.example.comAddress: 10.200.255.24Name: app.example.comAddress: 10.200.1.164Name: app.example.comAddress: 10.200.11.75\u00a0[ec2-user@ip-10-200-210-196 ~]$\u00a0"
+      },
+      "output_sha256": "d814ee4c937c2fd6a180d5fb400fef1d49e99d6d5b4914569d2810e7e6bc12ea"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and all 21 static images reviewed. Personal object names, service identifiers and application domains replaced with consistent synthetic regional examples. Lab private addressing and link-local protocol examples retained; routing outputs, host-header and XFF behavior, latency DNS, per-API failover and all topologies preserved. Metadata stripped without changing substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1cc6ab23251dfd6e4623eeab7a44074cff87b5be.png": "b682a4d5e79724a751f76b91d5a225c48ed8c6696a7fb60e4514c8c0ba395ffd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f4e204c7b69bd593a07e94da2245a7714276000.png": "c8d99c9361453ec32a7ff39b7639afd4fe264996d63fffba670460482e91bf58",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3949d4aa3492a59026473f1b4d7c5e7ddedee34d.png": "f748648fb30f98758e13dc7dac910399dbf03b541dabe3f195c50904c8b80bf2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ac8b107c85b383bca9047fd82571f657a8d0ac4.png": "7697f9808e0bd18ddd14812b0b89767479758e495ad27a1a06eb9729c5a68b3c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/424d1b990c0dbe89bf188cc2a22d43c9ebcb15b1.png": "c008b63718f95530b21e631059d754ff927cb176a2b49e809566f7ceef0c4ea0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/69ddfba3ca2c03af3a412583186af3e5b36cd400.png": "8a48795d18e0d47c1774cfafdb43bd94a0ae0ce8d9c961e8483f17a9634e0f70",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7bc4ad8a060500a40ad04d900ca4e3fb8e2a5ac4.png": "ee34f8faa3fa9b1e0ee08a166622bfa7800905e7c140971ca09f445227ad2c08",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8bffbe113a88b6001e60cc194c84523a4d5f51f2.png": "9670bdabb0c1a39d40fbe68fbc688d58097ff030715458d54f6c28db3dce7753",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c1da2d014658c59c77beb46fa49cbf42ca7a659.png": "19f019b3dd0af301a358ce66a5bd1c8027a147952802f89f46d7e38443d79a81",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8cbbc6c47cb5be2234312688eef876e3e6c18c1a.png": "d2b431cd38efd16bd23fcb8c5e453c48a974ec7faaa737d52ac2fb4eda1789e2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb39abcc44585e097cbf9619f2a73207979acba6.png": "88d61ccaaa4b4b7870102ffc849f8b935ff5a2e662930f4ab9b361d7a805c800",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d0876f30af338c7571f03539408e8aa717b07b06.png": "4b21ba996cfd69e11b25f50289cda62aa3d8970bb935879013e7384dade82a63",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa789bb5a40d89dcd0c6555dbf9995279cbe1f4b.png": "f28d2ea326824e8f0e36b2ef1ddb8fa63a324f4ed75bc1c6dd8bbf09275be6d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/c/1ccc508f29b0c9d922722d1b306c3b1099c1c4d8.png": "21e473075a85a16e9cae51a150423e0f32591d252e4d45a52c34aeb9730ef3a7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f137b9e6125d0c50e77d6d8ab486ba3a5d6664a.png": "9bb699abcd7548fe06889ed728bdee90410f884a969d32f093db3fc3172825d0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/45a8c4e4a1fbb4bdb2d73d43153d3ae29e5c4568.png": "82f1ca9c3041fac1056089b842a1471ab3d76b6aa871f9bd19d137a998efec46",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83114fd40e1389400f832a4fe904b1c3efe6895f.png": "f963b571da7f1575848f0933ced8a97b4b806d4363fec49dcfef2feb9aa88f3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/880159b75128e254a6e9029ce205dcfe99b4a626.png": "a60e8360ef4691a7044723162dff2c3bdb388dfc7c418f5a6484ff4af9c41a43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9f6a5446c38bd92608e0407f369d75c9f63ab208.png": "dfc3fd71c6651ee3fe974e37a2444802651fa191bc2a216d5385c3df4e6a5157",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b796b25627192805567434d3fffd2c85eb2b9bdc.png": "e74d579be08155029fd41c6f8d6ad7533c78ae4f8cd98d812d737028908a465c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6ee5834e9b267e3457c267486b500d36af5484b.png": "b5c8594dc95d89418f102bbbeca53363b7f630a6f5f0085fdb65825dc597494d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/1cc6ab23251dfd6e4623eeab7a44074cff87b5be.png": {
+        "labels": [
+          {
+            "rectangle": [
+              116,
+              48,
+              275,
+              68
+            ],
+            "text": "app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              704,
+              190,
+              865,
+              213
+            ],
+            "text": "app.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "2f84fbf6abee22b76be2b574a91edcac8ab8c4d6bf843a56aeac070c2b825bf3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f4e204c7b69bd593a07e94da2245a7714276000.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              129,
+              218,
+              143
+            ],
+            "text": "demo-east",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              128,
+              298,
+              747,
+              311
+            ],
+            "text": "demo-east.vpc-lattice-svcs.us-east-1.on.aws",
+            "size": 8
+          }
+        ],
+        "output_sha256": "220d2ab67a8df196aa3605d7e8e156535d5b0cddf369b0e7a94e953bf836cd54"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3949d4aa3492a59026473f1b4d7c5e7ddedee34d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              57,
+              86,
+              281,
+              109
+            ],
+            "text": "demo-us-west-tgw-lattice-pool",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              286,
+              480,
+              490,
+              505
+            ],
+            "text": "demo-west.vpc-lattice-svcs...",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              513,
+              480,
+              659,
+              505
+            ],
+            "text": "demo-us-west-2-tgw",
+            "size": 12
+          }
+        ],
+        "output_sha256": "f18eaba6bd8e6cf549a9def241f042dfb2cf07af371e9692dd94ce9d08ff3a16"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3ac8b107c85b383bca9047fd82571f657a8d0ac4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              103,
+              64,
+              280,
+              84
+            ],
+            "text": "demo-vpc-lattice-internal",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              64,
+              232,
+              242,
+              254
+            ],
+            "text": "app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              292,
+              663,
+              480,
+              687
+            ],
+            "text": "demo-vpc-lattice-internal",
+            "size": 12
+          }
+        ],
+        "output_sha256": "0b89dca469ea78184f38f5a5fa87a4bc1b939bcc16881ee5bcb6bd584fed0ba4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/424d1b990c0dbe89bf188cc2a22d43c9ebcb15b1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              60,
+              94,
+              245,
+              117
+            ],
+            "text": "demo-vpc-lattice-internal",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              286,
+              486,
+              495,
+              512
+            ],
+            "text": "demo-east.vpc-lattice-svcs...",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              513,
+              486,
+              712,
+              512
+            ],
+            "text": "demo-lattice-site-us-east-1",
+            "size": 12
+          }
+        ],
+        "output_sha256": "f0eb9177c19b1e27f104c0175874c41e11bce1cbc44fe856b8afc5b26cc0bf40"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/69ddfba3ca2c03af3a412583186af3e5b36cd400.png": {
+        "labels": [
+          {
+            "rectangle": [
+              56,
+              98,
+              214,
+              121
+            ],
+            "text": "demo-global-network",
+            "size": 12
+          }
+        ],
+        "output_sha256": "40b2ebba3bc229cc610a8f84c4180453a867063ab0c0eb4911e7a53c58e44080"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7bc4ad8a060500a40ad04d900ca4e3fb8e2a5ac4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              133,
+              127,
+              220,
+              143
+            ],
+            "text": "demo-east",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              133,
+              297,
+              753,
+              312
+            ],
+            "text": "demo-east.vpc-lattice-svcs.us-east-1.on.aws",
+            "size": 9
+          }
+        ],
+        "output_sha256": "76f8d52d7f3b92befb030e93463ebadc8c0385e2acdb7a7ddf43e12e22319205"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8bffbe113a88b6001e60cc194c84523a4d5f51f2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              133,
+              126,
+              222,
+              142
+            ],
+            "text": "demo-east",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              133,
+              297,
+              788,
+              311
+            ],
+            "text": "demo-east.vpc-lattice-svcs.us-east-1.on.aws",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              133,
+              476,
+              222,
+              492
+            ],
+            "text": "demo-west",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              133,
+              647,
+              791,
+              661
+            ],
+            "text": "demo-west.vpc-lattice-svcs.us-west-2.on.aws",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              11,
+              338,
+              499,
+              353
+            ],
+            "text": "[ec2-user@ip-10-200-210-196 ~]$ curl http://app.example.com/txt",
+            "size": 9
+          }
+        ],
+        "output_sha256": "63910815c422245f4930fcf842f0b820c6be0f25ea0da6ac47dded598c743b83"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8cbbc6c47cb5be2234312688eef876e3e6c18c1a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              67,
+              106,
+              290,
+              129
+            ],
+            "text": "demo-network-connect-inside",
+            "size": 12
+          }
+        ],
+        "output_sha256": "35c844de46e5684b638c1e6243f36f659b96aa071c73fdd27860cf311d1d0541"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb39abcc44585e097cbf9619f2a73207979acba6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              127,
+              123,
+              218,
+              139
+            ],
+            "text": "demo-east",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              114,
+              293,
+              791,
+              308
+            ],
+            "text": "demo-east.vpc-lattice-svcs.us-east-1.on.aws",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              127,
+              473,
+              218,
+              489
+            ],
+            "text": "demo-west",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              114,
+              643,
+              791,
+              658
+            ],
+            "text": "demo-west.vpc-lattice-svcs.us-west-2.on.aws",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              3,
+              333,
+              821,
+              353
+            ],
+            "text": "[ec2-user@ip-172-16-1-22 ~]$ curl http://app.example.com/txt --resolve app.example.com:80:172.16.1.118",
+            "size": 9
+          }
+        ],
+        "output_sha256": "7ff85652f1bdc8aa06bcbc23b2c5d06a8e8086616a5a9ab83d7bc1464e0866a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa789bb5a40d89dcd0c6555dbf9995279cbe1f4b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              95,
+              175,
+              510,
+              196
+            ],
+            "text": "demo-west.vpc-lattice-svcs.us-west-2.on.aws",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              149,
+              328,
+              420,
+              350
+            ],
+            "text": "system/demo-us-west-2-tgw",
+            "size": 12
+          }
+        ],
+        "output_sha256": "28d39c648582c867061db4ba94e170bdd560383bae9f0c4f3614283a83b94af0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/c/1ccc508f29b0c9d922722d1b306c3b1099c1c4d8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              68,
+              114,
+              238,
+              138
+            ],
+            "text": "app.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "66449a58ba2d243016050d7a52e4b3232035015450e8fe7d273b2bd3b46012d2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2f137b9e6125d0c50e77d6d8ab486ba3a5d6664a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              400,
+              232,
+              575,
+              255
+            ],
+            "text": "demo-spoke-site-eu-1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              400,
+              280,
+              565,
+              303
+            ],
+            "text": "demo-us-west-2-tgw",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              400,
+              328,
+              600,
+              352
+            ],
+            "text": "demo-lattice-site-us-east-1",
+            "size": 12
+          }
+        ],
+        "output_sha256": "9da32485cd288073f1b9e776de4b07f9dd4136a496ec21b982f61f35ff97e474"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/5/45a8c4e4a1fbb4bdb2d73d43153d3ae29e5c4568.png": {
+        "labels": [
+          {
+            "rectangle": [
+              120,
+              40,
+              280,
+              64
+            ],
+            "text": "app.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              704,
+              173,
+              871,
+              212
+            ],
+            "text": "app.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "c2ce4f66be37a9b256418b077ec2159ebccdd4e4edd4955722ab7ae7b808ae9a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83114fd40e1389400f832a4fe904b1c3efe6895f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              938,
+              157,
+              1040,
+              177
+            ],
+            "text": "demo-west-tgw",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              120,
+              602,
+              219,
+              623
+            ],
+            "text": "demo-eu-1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              938,
+              1047,
+              1040,
+              1068
+            ],
+            "text": "demo-east-1",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a3ad5a88ee16dd7ae8470efbeb1d2aeb3d1f747ddc52f19fa72f135b8364e426"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/8/880159b75128e254a6e9029ce205dcfe99b4a626.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              124,
+              220,
+              141
+            ],
+            "text": "demo-west",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              128,
+              293,
+              755,
+              310
+            ],
+            "text": "demo-west.vpc-lattice-svcs.us-west-2.on.aws",
+            "size": 9
+          }
+        ],
+        "output_sha256": "7e9c0e158516ff853531803b67957db80455ab935519e0518a039e35eae9c5b5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/f/9f6a5446c38bd92608e0407f369d75c9f63ab208.png": {
+        "labels": [
+          {
+            "rectangle": [
+              27,
+              125,
+              230,
+              151
+            ],
+            "text": "demo-spoke-site-eu-1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              974,
+              748,
+              1173,
+              774
+            ],
+            "text": "demo-global-network",
+            "size": 13
+          }
+        ],
+        "output_sha256": "90378fb75de925c72305f04ce31880ace23be4edbcddc8178ed3d5f2a16b0922"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b796b25627192805567434d3fffd2c85eb2b9bdc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              302,
+              174,
+              713,
+              204
+            ],
+            "text": "demo-vpc-lattice-internal",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              302,
+              228,
+              713,
+              252
+            ],
+            "text": "demo-us-west-tgw-lattice-pool",
+            "size": 13
+          }
+        ],
+        "output_sha256": "e143862906e89b399433da7040c568593cd86cbc67fad4fbb31c2f86b4e8477b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8c1da2d014658c59c77beb46fa49cbf42ca7a659.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ea672ebcc1cb2b56fb352ce7d17c4ff3a00f8da65da23198ab960a5d865dba49"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d0876f30af338c7571f03539408e8aa717b07b06.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b961b3f4586163e493d41baf636d0ca85603525595a2895ec639c12f4e83116c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d6ee5834e9b267e3457c267486b500d36af5484b.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be2704e780b8fa9ae2640ed9809189dfa9e95241125a5b8600c0a363cae08e80"
+      }
+    }
   }
 }
