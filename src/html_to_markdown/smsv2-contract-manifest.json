@@ -1,0 +1,1 @@
+{"assets":{"smsv2-contract.json":"sha256:2dd4d33693c9e228bfb304d7558a2f50ca9cc0146407f8fb9b5f0ca7d7c56f3c","smsv2-evidence-receipt.json":"sha256:e9bd60f46acd2a003010cbf20d0581af364cce0486f8a7eefc9eb85562ab0bff"},"contract_id":"f5xc-smsv2-api/v1","contract_version":"7.0.0","release":{"commit":"ec431fb7909aae6a211468542c1e74c04122a56a","tag":"v10.0.1"},"schema_version":1}

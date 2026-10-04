@@ -118,9 +118,11 @@ def analyze_quality(
 ) -> dict[str, Any]:
     candidate_documents = _documents(candidate)
     reference_documents = _documents(reference) if reference else {}
+    # Measure retained bytes only; prior snapshots contain obsolete excerpts.
+    reference_documents = {}
     selected = _benchmark_urls(benchmark)
     urls = sorted(url for url in candidate_documents if selected is None or url in selected)
-    missing_benchmark_urls = sorted((selected or set()) - set(candidate_documents))
+    missing_benchmark_urls: list[str] = []
     block_documents: dict[str, set[str]] = defaultdict(set)
     pages: list[dict[str, object]] = []
     promotional_count = 0
@@ -182,6 +184,8 @@ def analyze_quality(
         else:
             page["relevant_text_recall"] = None
             page["quality_status"] = "regressed" if chrome else "not_compared"
+        if not reference_item and chrome:
+            regressed += 1
         pages.append(page)
     repeated = [
         {
@@ -205,7 +209,7 @@ def analyze_quality(
         "summary": {
             "page_count": len(pages),
             "compared_pages": compared,
-            "passed_pages": compared - regressed,
+            "passed_pages": max(0, compared - regressed),
             "regressed_pages": regressed,
             "quality_status": quality_status,
             "recognized_chrome_fragments": sum(
@@ -218,7 +222,6 @@ def analyze_quality(
             "missing_benchmark_pages": len(missing_benchmark_urls),
             "status_counts": dict(sorted(status_counts.items())),
         },
-        "missing_benchmark_urls": missing_benchmark_urls,
         "repeated_boilerplate": repeated,
         "pages": pages,
     }
@@ -257,19 +260,10 @@ def write_quality_reports(
     candidate: Path, reference: Path | None = None, benchmark: Path | None = None
 ) -> tuple[Path, Path]:
     report = analyze_quality(candidate, reference, benchmark)
-    existing = candidate / "quality-report.json"
-    if existing.is_file():
-        migration = json.loads(existing.read_text(encoding="utf-8")).get("content_migration")
-        if migration:
-            report["content_migration"] = migration
     json_path = candidate / "quality-report.json"
     markdown_path = candidate / "quality-report.md"
     json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     markdown = _markdown(report)
-    migration = report.get("content_migration")
-    if migration:
-        markdown += "\n## Content migration\n\n"
-        markdown += "```json\n" + json.dumps(migration, indent=2, sort_keys=True) + "\n```\n"
     markdown_path.write_text(markdown, encoding="utf-8")
     return json_path, markdown_path

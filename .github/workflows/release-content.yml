@@ -96,6 +96,12 @@ jobs:
             build/quality-report.json
             build/quality-report.md
             build/publication.json
+      - name: Upload curation evidence separately
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: curation-audit-${{ github.run_id }}
+          if-no-files-found: error
+          path: build/curation-audit.json
       - name: Publish changed snapshot
         if: steps.changed.outputs.value == 'true'
         env:

@@ -260,10 +260,15 @@ class Pipeline:
             if len(resolved) >= 100:
                 anchor["href"] = canonical
                 continue
+            if load_content_policy().excludes(canonical):
+                anchor["href"] = canonical
+                continue
             try:
                 final_url = await self.fetcher.resolve_redirect(adapter.source_id, canonical)
-                resolved[canonical] = final_url
-                anchor["href"] = final_url
+                resolved[canonical] = (
+                    canonical if load_content_policy().excludes(final_url) else final_url
+                )
+                anchor["href"] = resolved[canonical]
             except Exception:  # pylint: disable=broad-exception-caught
                 resolved[canonical] = canonical
                 anchor["href"] = canonical

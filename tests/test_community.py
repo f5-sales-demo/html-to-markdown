@@ -628,8 +628,11 @@ async def test_media_review_binds_exact_image_bytes(tmp_path, approved, expected
         ),
         70152,
     )
+    value["id"] = 79999
+    value["post_stream"]["posts"][0]["topic_id"] = 79999
     image = "https://d20hrnpixdzcsd.cloudfront.net/original/routing-diagram.png"
     content = b"synthetic diagram bytes"
+    value = validate_topic(value, 79999)
     review = {
         "article_hash": article_hash(value),
         "decision": "include",
@@ -656,7 +659,7 @@ async def test_media_review_binds_exact_image_bytes(tmp_path, approved, expected
     pipeline = Pipeline(tmp_path)
     await pipeline.fetcher.close()
     pipeline.fetcher = Fetch()
-    pipeline.store.discover([DiscoveredPage(source_id="community-f5-com", url=BASE + "/t/70152")])
+    pipeline.store.discover([DiscoveredPage(source_id="community-f5-com", url=BASE + "/t/79999")])
     records = await pipeline.scrape("community-f5-com")
     assert len(records) == expected
     if approved:

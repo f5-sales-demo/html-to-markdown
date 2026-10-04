@@ -12,6 +12,7 @@ import typer
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
 from .content_policy import load_content_policy, migrate_content
+from .curation import curate_topics
 from .logging import configure_logging
 from .metadata import enrich_snapshot
 from .models import DiscoveredPage, PageStatus
@@ -213,9 +214,11 @@ def examine_content_command(
 ) -> None:
     """Print deterministic mapping and impact evidence without modifying content."""
     evidence = migrate_content(output, policy=load_content_policy(policy), apply=False)
+    evidence["topic_inventory"] = curate_topics(output, apply=False)
     typer.echo(json.dumps(evidence, indent=2, sort_keys=True))
 
 
+@app.command("curate-content")
 @app.command("migrate-content")
 def migrate_content_command(
     output: Output = Path("build"),
