@@ -8941,7 +8941,1685 @@
   "74630": {
     "article_hash": "c49e7a18085b172b47654eb9fae03be7228aa253aef7fe8926fa473eb919676d",
     "decision": "include",
-    "reason": "Distributed Cloud secondary authoritative DNS with BIG-IP hidden primary and automation"
+    "reason": "Distributed Cloud secondary authoritative DNS with BIG-IP hidden primary and automation",
+    "text_replacements": {
+      "nodes": {
+        "cd229ff1193e5f5bbc399e6f632f8046244e4641d9440c30f01132b847ad01bb": "example.com",
+        "a938e9f1cc9bfc41a31d8d5f2a0428713e9cd782fbe5a3219584ae21b7d8bf9d": "sales.example.com",
+        "27cccc9f79a3f782ed111fedc6eb80ca89730e580d214e589e639b013ad50ad6": "www.example.com",
+        "c0f1df333be890146d4416e74ad0a8af0cf89b480809c1f88f4e2154ecf22c1b": "<em>www.example.com\u00a0CNAME\u00a0www.gslb.example.com</em><br><em>gslb.example.com NS ns1.f5clouddns.com<br><br></em>\n",
+        "5ea30abc81d734bdaeb151d4f651be08c28a04ddbcae47b6a2ac4e8dcf5a1223": "www.gslb.example.com",
+        "65c9764462a0ec4d80cb74b1a15a31a5a956202017af9b1802389f8aad4408bb": "gtm1.example.com",
+        "b3dcd69c8d0dc654d5e64374ddad0e623d8394a30edb7790c1f416a79f1736f5": "gtm2.example.com",
+        "53b9b67d50f30b5f92f427c765683c4e998ff56d765f963a0d0f9fe7dca6dfef": ", which resolves to 192.0.2.2",
+        "76eb49421d783774f24ff848eeacf3cc44a9a3f48e76bf9813b206eff444dd23": "(i.e. I\u2019m assigning 192.0.2.1 and 192.0.2.2 as the members of the pool)",
+        "bfbf6ddc6eaa2a82f707d2c746232d251024790bcab58e92b5851e30f42b35dc": "gslb.example.com",
+        "8dd0df529f58acb1bbcea5d7efe5c2f24ff9b2103949dac4dddf2dfa726a943f": "www.glsb.example.com"
+      },
+      "output_sha256": "a8b916e9cc31e7e17a326a8ae361cc335c59367cbda42400f91f8cb8eeca7f08"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and all 26 static images reviewed. Synthetic example.com zones, RFC 5737 origin addresses and workstation identity replace operational examples consistently. DNS infrastructure provenance and public DNSSEC records retained; no TSIG secret material present in media. Hidden-primary and XC secondary roles, API DNSLB conversion, delegation, DNSSEC output, TTLs, record types, failover monitor, pool methods, cron interval and all meaningful diagrams preserved. Metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/033ef979418309656a491670655b3c373ff14eae.png": "2e78e8204f05732c26823965ce48470075f48f9665d33c760ce6358292169aeb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/095c0ee6739e47bdfd1fb8f127f27548c309f2ff.png": "b60c8b64d7c6643d1bc9dd4a0b3a80d916c7efa1e541a334fd144be57c0d9a09",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0ddbccf7476b306f50b8c07ac3810956aeacf713.png": "478648d5fc2897ba15ade26c23ca32cb80f14ff4b83c043109820c01f806ff5c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/12c87250a26961950a45a2afeee6388834881d7a.png": "3409a47ad291b83b714a4629c6c6a0fc1c9aaf7b10f5839d6f511e641b7f0cea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2819aeb5964350f9b3a6a05ce44b30a2318f1b8a.png": "1c5dd1297ec2ae423abd036b6a1324f21413849aaf827ad65958da2ea39c8146",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2fc98ee05feb50064db58923fbcd15968de5e63d.png": "5da90a3aebe24b2b54de9fd4abab7aaef6ff2f32b3b3cf0e8940d8e3f7dcfe4b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38e501b93b1ab5712740ef47501b01788bc1a2de.png": "bafc203638ea4ce2b433b18f0358b7212b20dcb94baf7aac59a3dce89c271ef6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48a1b3d408fb99e8a37e1782d06d7e8eceeb3fff.png": "662269f55fb0904587754a1466c75bc77fde3fe7fe2ae460b219f3ca6c289f7c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/598f263bf2fbed2122220cef3189a4736e10f86d.png": "346e38cdb530419fb20a4b9f1adce09655a0f881d8aecaaea36731d67992249e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/701b2ab6b9277e1a26f6de6d5ed1daef4067ba4b.png": "6211e21f7a2f354f55f9858c2d6e7c7c91a53bf98001d84764390ac7f4d26572",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76e88fdea1ed21e59e54e36e64dba221894a0c56.png": "088cb7395faed281f0cf0380694abd9cd561ef1fb7829afef20e975d1452301f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7d722b5502f1c942121df9b16fafa5d712afbf83.png": "1dc8285f2d9b72b921db9875ec056fabfc24c32e6452ff867dc60b861281bd96",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9745b938ab51a604946c1b4f390b454313a5a993.png": "d4cb687c543b9916f7d1705ec7186e0e621f006b2f16763689585078832431c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a57f794225cb159a86577f0e40ae2a893a947090.png": "2ed26299f5648f0c8f5a6fc1631a916eaaefce466a3782506814fe20faccf712",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b656455117fb364c2c6e05492d51dc1813131e22.png": "a791ea78c404d2d306624e70165dfe65b9c5c61cd5c1ebf4d96ccedf236d86c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bea323458a0f5788b7b6f242a3bcde8312f2e059.png": "7185462fc82469b298f17f30bea6710fb79457988706a24595641527f95a1b2f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0a4fdde93d3fdbb58258e924fc59a70ebdf8a651.png": "3b39898649be50859a037f37d78b510696c3b36bf19499a20a3a2cccabfd9aa1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/1595a8fe842e9eac9008362f309a07c05d6943be.jpeg": "6c8989c6d3d4bb43494ca99656ba0147359181063da6237e466716454bbe7875",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1d279d8b96c1e21d91ec51b1a4dfe9fb32437bca.png": "7860f561715c4b4db5dce68434ef8440f733cab5198deb1e6d8797b668ff7ddb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e5ccfed23992bc4145e1e6d7b033b190dff10cd.png": "650b4848276bc52e1e179c245e3c5cbb330817a34e9f3f687fbceb28ef3fad7b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/0/3054367154cf3c86224253f8e62ded654b31040e.png": "094553e1ffdc72183c9b5041855eb0cd7f7842c8f7d1b331fa8a94a007f79164",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/3170166aa89f36a184628cb329c279d2aea2dbaf.png": "e63d63c921381fcc052338abc4c3e454c7f88530abf7b141db4c3f6408736035",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/e/3e171795139a892249253913103269de1e018643.jpeg": "a9e7841e4660db8a22b597320faaf09a5127576f1cc011992b303217cbc2520b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98a632d6631a704c7bae56396eeed95a051ae636.png": "ab0dee3e6ee37b2a967e3afd545906a09b2b4dcece0e45e335203be060dfe84e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/df2450e6462f964ae7f5572e5828a32169f60b68.png": "7f3e2e131d83a3a4e8cd2f8f9596e03be8de57ba54363710f846fc05cd1a757f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fb1d6bf6fcbcd9e9d16b0c5ab4bbe39397c7a3f1.png": "cc64066c23bb3d1fcd93dec1a65f8b55a0b2ae8ed445a533fec37ab42a6452c1"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/033ef979418309656a491670655b3c373ff14eae.png": {
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              17,
+              203,
+              55
+            ],
+            "text": "example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "db16a723658bb8ebe735f03fa84508a2a4e8898ba3c5061101454594fb10d187"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/095c0ee6739e47bdfd1fb8f127f27548c309f2ff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              24,
+              109,
+              210,
+              131
+            ],
+            "text": "gslb.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              24,
+              206,
+              330,
+              233
+            ],
+            "text": "dnslb-www-gslb-example-com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              638,
+              359,
+              783,
+              380
+            ],
+            "text": "192.0.2.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              638,
+              403,
+              783,
+              424
+            ],
+            "text": "192.0.2.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              588,
+              819,
+              837,
+              853
+            ],
+            "text": "dnslb-site-gslb-example-com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              588,
+              862,
+              837,
+              896
+            ],
+            "text": "dnslb-www-gslb-example-com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b5757e6c814c2278ccced1d714b1c07bc274b55bbf80fb5b635afcccb8b59fa7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0ddbccf7476b306f50b8c07ac3810956aeacf713.png": {
+        "labels": [
+          {
+            "rectangle": [
+              181,
+              222,
+              343,
+              241
+            ],
+            "text": "Who is www.example.com?",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              341,
+              278,
+              550,
+              298
+            ],
+            "text": "TXT example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              823,
+              314,
+              1004,
+              351
+            ],
+            "text": "example.com NS gtm1.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              126,
+              423,
+              342,
+              444
+            ],
+            "text": "www.example.com A 192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              599,
+              497,
+              880,
+              517
+            ],
+            "text": "example.com NS gtm1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              599,
+              527,
+              880,
+              547
+            ],
+            "text": "gtm1.example.com A 192.0.2.53",
+            "size": 10
+          }
+        ],
+        "output_sha256": "aff13a575637b250c0649cefe42a100311bdabe10a94969247c9a8ae3f96bb39"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/12c87250a26961950a45a2afeee6388834881d7a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              365,
+              230,
+              480,
+              253
+            ],
+            "text": "example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "5bb0050dda994df19fa01cd05224bad3f43d4117103feebc5a778c787a6442ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2fc98ee05feb50064db58923fbcd15968de5e63d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              6,
+              633,
+              31
+            ],
+            "text": "demo@workstation scripts % dig sales.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              45,
+              440,
+              66
+            ],
+            "text": "; <<>> DiG 9.10.6 <<>> sales.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              217,
+              239,
+              238
+            ],
+            "text": ";sales.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              274,
+              630,
+              298
+            ],
+            "text": "sales.example.com. 60 IN A 192.0.2.2",
+            "size": 12
+          }
+        ],
+        "output_sha256": "57910c2872ef9d03f5aac8ccfcb3c5ea327e18b154643c12f2e7b1756bbdf0f7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/38e501b93b1ab5712740ef47501b01788bc1a2de.png": {
+        "labels": [
+          {
+            "rectangle": [
+              191,
+              65,
+              322,
+              88
+            ],
+            "text": "www.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "1bc285e232f59c01f067cd1692edc2d44cedd112babd5765fe44625d9ed87b95"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/48a1b3d408fb99e8a37e1782d06d7e8eceeb3fff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              41,
+              59,
+              161,
+              77
+            ],
+            "text": "gslb.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              41,
+              94,
+              161,
+              114
+            ],
+            "text": "example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              141,
+              202,
+              242,
+              223
+            ],
+            "text": "example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              66,
+              286,
+              171,
+              308
+            ],
+            "text": "*.gslb.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              66,
+              328,
+              165,
+              350
+            ],
+            "text": "example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              430,
+              57,
+              730,
+              77
+            ],
+            "text": "example.com NS ns1.f5clouddns.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              430,
+              77,
+              732,
+              96
+            ],
+            "text": "gslb.example.com NS ns1.f5clouddns.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              430,
+              130,
+              731,
+              149
+            ],
+            "text": "example.com NS gtm1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              430,
+              148,
+              731,
+              169
+            ],
+            "text": "gslb.example.com NS gtm1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              184,
+              398,
+              474,
+              418
+            ],
+            "text": "example.com and gslb.example.com changes from",
+            "size": 10
+          }
+        ],
+        "output_sha256": "3ebce39a08680aba221cdb5236be27b21505740f0cb109166337129adb5fe2df"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/701b2ab6b9277e1a26f6de6d5ed1daef4067ba4b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              275,
+              184,
+              366,
+              205
+            ],
+            "text": "example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              275,
+              257,
+              368,
+              278
+            ],
+            "text": "gslb.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "8110b36af6e0fd157965eac210f011a4bc9b826ed4fe1dc0c5853e044f80658e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/76e88fdea1ed21e59e54e36e64dba221894a0c56.png": {
+        "labels": [
+          {
+            "rectangle": [
+              277,
+              123,
+              620,
+              148
+            ],
+            "text": "www.gslb.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "fcc1d8eb3d74408ded4ffd410800de624783f14988feb4567e88250c95aa32bb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7d722b5502f1c942121df9b16fafa5d712afbf83.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              102,
+              250,
+              124
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              139,
+              680,
+              162
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              177,
+              680,
+              200
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              216,
+              680,
+              239
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              254,
+              680,
+              277
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              292,
+              680,
+              315
+            ],
+            "text": "gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              331,
+              680,
+              354
+            ],
+            "text": "gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              369,
+              680,
+              392
+            ],
+            "text": "ww2.gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              408,
+              680,
+              431
+            ],
+            "text": "ww2.gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              446,
+              680,
+              469
+            ],
+            "text": "www.gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              492,
+              484,
+              680,
+              507
+            ],
+            "text": "www.gslb.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1224,
+              139,
+              1455,
+              159
+            ],
+            "text": "gtm1.example.com hostmaster.gtm1.example.com...",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              1224,
+              369,
+              1340,
+              390
+            ],
+            "text": "192.0.2.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1224,
+              408,
+              1340,
+              429
+            ],
+            "text": "192.0.2.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1224,
+              446,
+              1340,
+              467
+            ],
+            "text": "192.0.2.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1224,
+              484,
+              1340,
+              505
+            ],
+            "text": "192.0.2.2",
+            "size": 12
+          }
+        ],
+        "output_sha256": "2ca331299c7aaebff0148e6ef8173e0a1d7edd03116004d616a5aeb6f4b058e2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9745b938ab51a604946c1b4f390b454313a5a993.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              1176,
+              27
+            ],
+            "text": "demo@workstation scripts % dig example.com +trace",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              41,
+              451,
+              61
+            ],
+            "text": "; <<>> DiG 9.10.6 <<>> example.com +trace",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              724,
+              172,
+              746
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              743,
+              172,
+              765
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              3,
+              914,
+              1176,
+              936
+            ],
+            "text": "example.com. 3600 IN SOA gtm1.example.com. hostmaster.gtm1.example.com. 2024050509 300 100 604800 86400",
+            "size": 12
+          }
+        ],
+        "output_sha256": "5298ac800eb8dc8ab0d7899daf1eab754bc39c2befeffac4d231be7dfcdc1026"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a57f794225cb159a86577f0e40ae2a893a947090.png": {
+        "labels": [
+          {
+            "rectangle": [
+              16,
+              42,
+              160,
+              63
+            ],
+            "text": "gslb.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              601,
+              375,
+              744,
+              397
+            ],
+            "text": "DNS LB: dnslb-www-gslb-example...",
+            "size": 8
+          }
+        ],
+        "output_sha256": "042ebe40f5680c46e4de2cbcf662236bb62519c744194cff7a74beacf8b3994b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b656455117fb364c2c6e05492d51dc1813131e22.png": {
+        "labels": [
+          {
+            "rectangle": [
+              251,
+              383,
+              454,
+              426
+            ],
+            "text": "192.0.2.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1723,
+              383,
+              1876,
+              426
+            ],
+            "text": "192.0.2.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              251,
+              451,
+              454,
+              494
+            ],
+            "text": "192.0.2.2",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1723,
+              451,
+              1876,
+              494
+            ],
+            "text": "192.0.2.2",
+            "size": 24
+          }
+        ],
+        "output_sha256": "29b51731a884ae62cc1e3c01ad87413cb6cc716cc6c18d6935e02e69af2d3f1c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bea323458a0f5788b7b6f242a3bcde8312f2e059.png": {
+        "labels": [
+          {
+            "rectangle": [
+              39,
+              51,
+              282,
+              75
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              51,
+              840,
+              75
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              82,
+              282,
+              106
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              82,
+              840,
+              106
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              113,
+              282,
+              137
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              113,
+              840,
+              137
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              145,
+              282,
+              169
+            ],
+            "text": "gslb.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              145,
+              840,
+              169
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              176,
+              282,
+              200
+            ],
+            "text": "gslb.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              176,
+              840,
+              200
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              207,
+              282,
+              231
+            ],
+            "text": "gtm1.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              207,
+              840,
+              231
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              238,
+              282,
+              262
+            ],
+            "text": "marketing.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              238,
+              840,
+              262
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              269,
+              282,
+              293
+            ],
+            "text": "sales.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              269,
+              840,
+              293
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              300,
+              282,
+              324
+            ],
+            "text": "support.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              300,
+              840,
+              324
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              39,
+              332,
+              282,
+              356
+            ],
+            "text": "ww2.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              599,
+              332,
+              840,
+              356
+            ],
+            "text": "example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              82,
+              1170,
+              107
+            ],
+            "text": "gtm1.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              113,
+              1225,
+              137
+            ],
+            "text": "gtm1.example.com. hostmaster...",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              145,
+              1170,
+              169
+            ],
+            "text": "gtm2.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              176,
+              1170,
+              200
+            ],
+            "text": "gtm1.example.com.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              207,
+              1145,
+              232
+            ],
+            "text": "192.0.2.53",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              238,
+              1145,
+              263
+            ],
+            "text": "192.0.2.6",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              269,
+              1145,
+              294
+            ],
+            "text": "192.0.2.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              300,
+              1145,
+              325
+            ],
+            "text": "192.0.2.9",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              987,
+              332,
+              1230,
+              355
+            ],
+            "text": "ww2.gslb.example.com.",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ce09fa4c57d2898c05222e97fc1e806a8fa37a78cd2f1a46561dce0b19883743"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/a/0a4fdde93d3fdbb58258e924fc59a70ebdf8a651.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              16,
+              184,
+              48
+            ],
+            "text": "example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              198,
+              337,
+              336,
+              359
+            ],
+            "text": "gtm1.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              198,
+              354,
+              336,
+              377
+            ],
+            "text": "gtm2.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "eb1177fe949063f942886623f298c2fe9e233121db6a8eb487c3a75c931104a8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/1595a8fe842e9eac9008362f309a07c05d6943be.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              18,
+              244,
+              46
+            ],
+            "text": "example.com.",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              4,
+              45,
+              244,
+              73
+            ],
+            "text": "example.com.",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              7,
+              320,
+              992,
+              347
+            ],
+            "text": "sales.example.com. 60 IN A 192.0.2.2",
+            "size": 18
+          }
+        ],
+        "output_sha256": "2e2c974d8936a78727dcdd78a56724cef47038f20aa3665832471c8c797eba2c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1d279d8b96c1e21d91ec51b1a4dfe9fb32437bca.png": {
+        "labels": [
+          {
+            "rectangle": [
+              88,
+              30,
+              235,
+              64
+            ],
+            "text": "example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "3c3174221c30d8ebd3113958e47e2b4b6624c42233c1bcafa083873081e758f2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e5ccfed23992bc4145e1e6d7b033b190dff10cd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              482,
+              56,
+              632,
+              80
+            ],
+            "text": "example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              245,
+              91,
+              442,
+              111
+            ],
+            "text": "www.example.com is 192.0.2.1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              149,
+              302,
+              364,
+              325
+            ],
+            "text": "who is www.example.com?",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              482,
+              462,
+              638,
+              487
+            ],
+            "text": "example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "6fce1c642f1631f41d8e4ff6eec20ec2a9cb53cd9fcbece98a3e4845c1cf5698"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/0/3054367154cf3c86224253f8e62ded654b31040e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              125,
+              372,
+              244,
+              399
+            ],
+            "text": "192.0.2.1:80",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              601,
+              372,
+              673,
+              397
+            ],
+            "text": "192.0.2.1",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b1ef4b42deb0bfdc158ead588470d85391a5ad81bb01b9d17535220bd4eebb30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/3170166aa89f36a184628cb329c279d2aea2dbaf.png": {
+        "labels": [
+          {
+            "rectangle": [
+              517,
+              950,
+              710,
+              1001
+            ],
+            "text": "192.0.2.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1506,
+              950,
+              1690,
+              1001
+            ],
+            "text": "192.0.2.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              517,
+              1018,
+              710,
+              1069
+            ],
+            "text": "192.0.2.2",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1506,
+              1018,
+              1690,
+              1069
+            ],
+            "text": "192.0.2.2",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2254,
+              950,
+              2455,
+              1001
+            ],
+            "text": "192.0.2.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2254,
+              1018,
+              2455,
+              1069
+            ],
+            "text": "192.0.2.2",
+            "size": 24
+          }
+        ],
+        "output_sha256": "b5b8d457f9155ee41053aeba86982cb4c1230d9464e5975795c186cb7689ab27"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/e/3e171795139a892249253913103269de1e018643.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              12,
+              244,
+              40
+            ],
+            "text": "example.com.",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              4,
+              36,
+              244,
+              64
+            ],
+            "text": "example.com.",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              457,
+              11,
+              791,
+              34
+            ],
+            "text": "gtm1.example.com.",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              457,
+              35,
+              791,
+              59
+            ],
+            "text": "gtm2.example.com.",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3,
+              229,
+              800,
+              254
+            ],
+            "text": "couldn't get address for 'gtm2.example.com': not found",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3,
+              299,
+              797,
+              324
+            ],
+            "text": "sales.example.com. 60 IN A 192.0.2.2",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3,
+              323,
+              797,
+              347
+            ],
+            "text": "example.com. 50 IN NS gtm1.example.com.",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3,
+              347,
+              800,
+              375
+            ],
+            "text": ";; Received 94 bytes from 192.0.2.53#53(gtm1.example.com) in 10 ms",
+            "size": 14
+          }
+        ],
+        "output_sha256": "57cd7ff1bf4e2273e28e2dcc56366dd76869755b573ec9decb8d3ff2d06afb0b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/98a632d6631a704c7bae56396eeed95a051ae636.png": {
+        "labels": [
+          {
+            "rectangle": [
+              189,
+              139,
+              300,
+              159
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              321,
+              232,
+              338
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              321,
+              683,
+              338
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              346,
+              232,
+              363
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              346,
+              683,
+              363
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              371,
+              232,
+              388
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              371,
+              683,
+              388
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              396,
+              232,
+              413
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              396,
+              683,
+              413
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              421,
+              232,
+              438
+            ],
+            "text": "gslb.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              421,
+              683,
+              438
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              446,
+              232,
+              463
+            ],
+            "text": "gslb.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              446,
+              683,
+              463
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              471,
+              232,
+              488
+            ],
+            "text": "gtm1.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              471,
+              683,
+              488
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              496,
+              232,
+              513
+            ],
+            "text": "marketing.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              496,
+              683,
+              513
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              521,
+              232,
+              538
+            ],
+            "text": "sales.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              521,
+              683,
+              538
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              39,
+              547,
+              232,
+              564
+            ],
+            "text": "support.example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              547,
+              683,
+              564
+            ],
+            "text": "example.com.",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              796,
+              371,
+              995,
+              393
+            ],
+            "text": "gtm1.example.com. hostmaster...",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              796,
+              470,
+              924,
+              492
+            ],
+            "text": "192.0.2.53",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              796,
+              495,
+              924,
+              517
+            ],
+            "text": "192.0.2.6",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              796,
+              520,
+              924,
+              542
+            ],
+            "text": "192.0.2.2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              796,
+              545,
+              924,
+              567
+            ],
+            "text": "192.0.2.9",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e88e45c11a53d64e15fe4e02081896ebb89df12a14237b456ed2de7b70ff0af8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/df2450e6462f964ae7f5572e5828a32169f60b68.png": {
+        "labels": [
+          {
+            "rectangle": [
+              539,
+              25,
+              736,
+              57
+            ],
+            "text": "example.com.",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              325,
+              250,
+              483,
+              280
+            ],
+            "text": "example.com.",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              337,
+              297,
+              494,
+              328
+            ],
+            "text": "example.com.",
+            "size": 18
+          }
+        ],
+        "output_sha256": "9f6a0966eb13b77ee4e1b49b62c7534bd1030951907a0326e9ad7d44bb1290ad"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/b/fb1d6bf6fcbcd9e9d16b0c5ab4bbe39397c7a3f1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              23,
+              154,
+              216,
+              175
+            ],
+            "text": "sales.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              24,
+              237,
+              195,
+              262
+            ],
+            "text": "a:sales.example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              245,
+              319,
+              440,
+              344
+            ],
+            "text": "sales.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              796,
+              321,
+              928,
+              341
+            ],
+            "text": "192.0.2.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              796,
+              340,
+              928,
+              355
+            ],
+            "text": "AS64496 (example)",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              24,
+              457,
+              1047,
+              485
+            ],
+            "text": "Reported by gtm1.example.com on 5/19/2024 at 12:56:42 AM (UTC -5), just for you.",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              195,
+              237,
+              270,
+              264
+            ],
+            "text": "Find Problems",
+            "size": 9
+          }
+        ],
+        "output_sha256": "887168c1b06afdc7311404ba9a56c79fd776de9fcf73712f56df35d2db320433"
+      }
+    }
   },
   "74632": {
     "article_hash": "86c5ec9384492b69d20584d4b466c75f0d2f996b5f416b0fddde1e4a6f519c99",
