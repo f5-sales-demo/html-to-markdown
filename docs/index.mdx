@@ -22,7 +22,8 @@ This project converts public source pages to Markdown and publishes a curated co
 Curation policies keep the collection focused and useful. More policies can be added as the
 collection grows.
 
-<CardGrid class="hierarchy-cards">
+<div className="hierarchy-cards">
+<CardGrid>
   <Card title="Trunk · The collection" icon="open-book">
     Start with the complete collection and its sources. Each publication is a verified snapshot
     you can browse or download. [Explore sources](#collection).
@@ -36,6 +37,7 @@ collection grows.
     Document summaries help you choose the right page before opening it. [Find a document](#corpus-search).
   </Card>
 </CardGrid>
+</div>
 
 <div id="collection"></div>
 <CorpusBrowser />
@@ -48,6 +50,6 @@ collection grows.
 - [Snapshot details](/html-to-markdown/snapshot/snapshot-provenance.json): identify the exact published snapshot.
 
 <style>{`
-  .hierarchy-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  @media (max-width: 50rem) { .hierarchy-cards { grid-template-columns: 1fr; } }
+  .hierarchy-cards .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 50rem) { .hierarchy-cards .card-grid { grid-template-columns: 1fr; } }
 `}</style>
