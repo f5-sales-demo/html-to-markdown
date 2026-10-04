@@ -64930,5 +64930,631 @@
         "output_sha256": "8843aa186a1139391e758a979b4368778dbb266ae968cd51db8dd930b9da8a83"
       }
     }
+  },
+  "71924": {
+    "article_hash": "531913662115f194254f126afe1ef51e21005056ce37188423051eeddf449343",
+    "decision": "include",
+    "reason": "Distributed Cloud focused Cloudflare Bot Defense guide",
+    "text_replacements": {
+      "nodes": {
+        "f4e06aee1051181bb5107bfcdb3a24d43dba970a2a1279734516669a37e60c05": "https://sales.example.com/"
+      },
+      "output_sha256": "54b363f692f80d494794e1edc2bf7d4719d5397245a6190f548d36906d462be2"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and all 43 static images. Sixteen hash-bound media transformations plus text replacements remove account emails/IDs, zone/app IDs, demonstration domains/worker endpoints, and presenter face/credit; preserve whiteboard labels and arrows, worker code with CONFIG placeholder and license, routes, creation/save controls, mitigation options and dashboard metrics. Juice Shop products are fictional demo content; remaining UI has blank fields or opaque source redactions. No customer or user data remains; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/5/2/521240f43c9c1018114351baf884580ec0c645fe_2_444x250.png": "8a241dce99bab7f045ca398b9b8f4bd06f8215310794e9d37f1ef5c9806d916a",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/a/4/a4ed31b222a902bc724e5a9aeaf9f77e94087ca4_2_444x250.png": "4ea79734956e6b97ad450ac88cba012ae5767c559ed21ad705338a3892562710",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/99aa7fb6c1b140e2780a1f3117d4c759dee5e7a9.png": "ce67542781b7c4939e114210d6e9f63fe0c944aa9258ed145ffd4f3034f3ec87",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a959b1deac1db4361a1d942517b27a947f5cf59.png": "d65451abb7a561c12218b5b20e3259ed2aab4c56d51e0da38a5cd9e9028163d5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/10dbcb6d2c5c980830660b5a875ee9af54c5273a.png": "117ddeb1495265caaf03151dac79e16908070da0fc575b319e1eb8e485ddb322",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/15e503660cab24ff4ba29b0ac3e9f3818c07db4e.png": "cae0c64eb413a91686d0b93d2b6bb524d63aa16213952ae89ec6c6b936b647c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1cee435f5693874d9381842f1ee2f58795b5a15b.png": "eb4780a219e36e81b02becf313227cbc838a517d2d670d839896fcab2c60fab9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/276af1800da3f4290c48f0144bf022d71be837b1.jpeg": "4d0070f450399341a2d3f59eb8e9cf55467a99378d78b765e922662affbe583d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33716fa004400762c100239608332cf4a616b2bf.png": "144c3536f68b9589322d448740a45d67192f6b8b560a1d41e6239546cbd8163e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/41895e267a5075cc7b589a25385c272e53f0e4ec.png": "10ba0cf22c221b514c7c30c8f48e5f0d1b1d6736bdcef487e1cd12864fde4f93",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fb60cfb831b8ab7ed94107f0798ef9222fde8c6.png": "293f44cf198422f8307295999310a70808ea35b90b7b75f68077aa1a8a2023c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/55fc5fcc138fcbcbeca423840ab32f4918660413.png": "91f40a8ae8713cbe9fd6f38edbd7e4b2094750a245d413236986cd5535dd95e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5dc0647094ac4b6136d858f35616b2b690d761d6.png": "bd3456f6709b3864832267b9bf2180cce022b1d1a2693e3120c2c5ce0a8f3577",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5e9c3e32600351ff7494d22a4ff9e9e7a56f3001.png": "1bb64a7f14fbfc2b43933cc0fe0314c1c7f18255db8c0c1383e8a9373d141bef",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5ebdf1d7566df31c07f63f10012f43114579a38d.png": "08385aa550def4c10bf9412c0a713e141af6e56d99707570e7bf578f76e03c79",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6beb000aaab731de13aa929f606eef479b07a8c6.png": "8c23f4ce5c1e611a6463b67cead7db9c0c8879fd817adfba22a1fda1f77c6558",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7714193e387b7442442852821e145fa9489cfc8c.png": "64ab6056355c118c777fa82e4e780335a26c46e1e4bd635480e7bc48bf588d89",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8e12f0366c50d627b0f6ba0607bddfcb052bb97d.png": "448156a1b9df94b74333275e4a3830f6e3c2381c436783610c9a5aaaa7afdeba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/91445916f43b4e58b3d2c5243753ac41245faddb.png": "c0014cb62b9e05b5f50526ac52e8a76576a613f38cb59e92cc6571a51efcc268",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b59a9373de09dd600a2c44be20e67dac1078fe4.png": "97674411bf90da64670c237d8e6f8719c42e777ce7c42df3cf14aa45ed01e8c1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab3e10f0ed3cbbf5ba1aa0d9dc2e000f7e63e815.png": "5e254796ccba7e33d4c3bd6bfefea836df55e484f44657c7f8f6bc0d02ed3645",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7085773b347ea04da921b63588ad82cf4d64d69.png": "feea0e66545e06941f9eea5dbf6f22326376dc779764a09de68a4fa7ecb5780e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0cf1b4574159238c68ca2c2a2224a20d7d74990.png": "37037f685187434fa984264bf0d7abc0aa59a6762983478243ea3565dbb1c326",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c50bd8ed9e103bd2cc04c3b1cd01bb74add4c680.png": "8801ab062be38dd681fbf74e8961ec1909c9b5b56da8ee3debc56068af39120a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/caee183420d528abc35f5b94e293eae3c98bb2b0.png": "411c4c996c605a6962eb6f355019d3d57d78177962db9b27a98b22c42a797ab8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d91aa1bf1142c979e147efb5a0bcb3728d6a1f7d.png": "17e6914c27873126b1a6ddbfb2453708bf884b6eb7323c16230eef4a22b0818c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed12eac77a51b061e29c8f368da8fb7b6d8f75e2.png": "ffc244787e9a45e5971ff6f578892ddd01cbd4ab373002ee6101814d970d3295",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f39243ad3cb8b1e40d2e36dc9fc3628ebb26d3c8.png": "1891076593a2b21e107a6da772133c09b6ebf5ac482c31ff54144cb04cf4f750",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/facc4b9fd281450fc4d2c16e52c21ed359a90ebc.png": "e3ab37910e2f857abb45298be6d846582e22fb41b26aae1371e6c8a899e45922",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fb897ec1d461209ae3c33a8f5daed2cdebd68dfb.png": "ddd7a852120579016311e0b07bc052b3fc3a5f91859c22806ffdf9b5ae0f973a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/02cb5c375c1794cbc647fe82923e2c4b94b9fe90.png": "166f1e5c9fe7a92570a8e62846c506ee239cf617d160c9486672dd66e56d7a85",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/b/0b10f5fc4f0b19f4876aa376d0e16906847ab362.png": "f75bf401930050cace15c8c20b24f6a1f2fececbd8312d3c52af3b2041bf07e5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/c/3cf77056d1a0761ee4bff674c2b1b5d592dc2f04.png": "f8146b33216cda1aaa1e7d0992cf5baf220afa852f6b828fce061e6af72a4c7f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/e/3ed8b5d6841acb6794b4b9bb4370957d4408ee87.jpeg": "d44971e4afeddac9910772680f6eda4c0b2edc99e547a011c4e1eb48ebf83cbb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/b/4bf2b9c30d3815cb3db6597458a28c715e72ea75.png": "f0efd7b7cde9116acc2eb0f8b7434dda6ad84fe779f61cf9778a96e70355678d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/0/901a92336bdec7d3d3da7358bf04dd5e584565ab.png": "1e9d298339554d0b37cce7a897a375a877c50e664b61319cb9458405956f95cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/95396675f0e25d278ff0e91cc5a52bc0580e9f4f.png": "98ff6dc4bda4a492f0020bfcfa22ce3f2313bdaf239ee218d502b989815140d6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/2/a2f1a8a5c433c9413cb83cff3683528d7214eeb5.png": "644cfbf5fd9252304fc17a8b355959222abb423371bf2afe2b4a0852bf144e65",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b06a87b8efe487b571035dd37886f4880529da86.png": "42b66e783b5697c866b89d14172b90e6ddb8f86a65ff213f07ddd5f58140d5d3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c230bcfb2d3b7f21649971e12457b3d2c2a064f7.png": "eec8db7b36c0aeccf1bbaae98819721a4784714c95dfba148f80edcf458e3f16",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/0/d02d3c407f3a49c101bf4ea4963ab5024329ff0c.jpeg": "c12e4f0294364e794704722df39629032d139942d277ff3b7e5851455245d08f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/5/d5f55ffed280992d0e6a5a48372117afa3437ca6.png": "9c153f5339da2ba12ac657c2c6315892e3e0004a77b93ee336efc843e5871bf1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/dae2313d46b4bf5fd8cf14abd52fbc6da41c0ca6.png": "f95dba4a915a80af88d751899a0fe76c32b6101c428306608fb05ce13b2b4c89"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/41895e267a5075cc7b589a25385c272e53f0e4ec.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              18,
+              222,
+              49
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              763,
+              105,
+              957,
+              134
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              655,
+              197,
+              792,
+              223
+            ],
+            "text": "example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "101e87c855372e7ad264311c5d059cbe8f00a21bcd81951cc34d1944883153f0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5dc0647094ac4b6136d858f35616b2b690d761d6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              222,
+              108
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1374,
+              324,
+              1590,
+              354
+            ],
+            "text": "demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1374,
+              460,
+              1705,
+              491
+            ],
+            "text": "00000000000000000000000000000001",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              546,
+              322,
+              706,
+              348
+            ],
+            "text": "demo-worker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e3648370a5f3bc3fe05f951976e6aa7f8d37932172cfe57f2acabf1a604ec1e1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f39243ad3cb8b1e40d2e36dc9fc3628ebb26d3c8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              222,
+              108
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              938,
+              327,
+              1260,
+              359
+            ],
+            "text": "https://demo-worker.demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              938,
+              859,
+              1330,
+              887
+            ],
+            "text": "https://demo-worker.demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              761,
+              306,
+              913,
+              332
+            ],
+            "text": "demo-worker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "74dda602aaf4e0fe681d0b9d2c1a40b574620c610aec712b38ee9fd8679f7739"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fb897ec1d461209ae3c33a8f5daed2cdebd68dfb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              222,
+              108
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              731,
+              396,
+              910,
+              426
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              531,
+              258,
+              890,
+              286
+            ],
+            "text": "demo-worker.demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              840,
+              628,
+              1222,
+              658
+            ],
+            "text": "demo-worker.demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              605,
+              95,
+              741,
+              122
+            ],
+            "text": "demo-worker",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              514,
+              151,
+              816,
+              188
+            ],
+            "text": "demo-worker",
+            "size": 18
+          }
+        ],
+        "output_sha256": "f738c8db30e276932fb7676faf4baed2c98c6623c85739c083e000dfbc864a26"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/02cb5c375c1794cbc647fe82923e2c4b94b9fe90.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              222,
+              108
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1374,
+              324,
+              1590,
+              354
+            ],
+            "text": "demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1374,
+              460,
+              1705,
+              491
+            ],
+            "text": "00000000000000000000000000000001",
+            "size": 12
+          }
+        ],
+        "output_sha256": "899e81ef2fd272fd89bf6e5828031762f2a76c1b0a123c99968c490ee4547aa8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/5/95396675f0e25d278ff0e91cc5a52bc0580e9f4f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              222,
+              108
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              731,
+              396,
+              910,
+              426
+            ],
+            "text": "demo@example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              531,
+              258,
+              890,
+              286
+            ],
+            "text": "demo-worker.demo.workers.dev",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              604,
+              95,
+              740,
+              119
+            ],
+            "text": "demo-worker",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              513,
+              151,
+              815,
+              188
+            ],
+            "text": "demo-worker",
+            "size": 18
+          }
+        ],
+        "output_sha256": "e4aa4fb074dc8313cc20df36aa2c70fb350b2c93d8144fee773e66367073b3a5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/10dbcb6d2c5c980830660b5a875ee9af54c5273a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              36,
+              134,
+              180,
+              162
+            ],
+            "text": "*.example.com/*",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              41,
+              269,
+              176,
+              293
+            ],
+            "text": "demo-worker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6e1c3e9f052d306d8939e2545e75529fe4dfb63df9820e0e87c409cc8120bd7a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/55fc5fcc138fcbcbeca423840ab32f4918660413.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              194,
+              107
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              663,
+              520,
+              821,
+              565
+            ],
+            "text": "*.example.com/*",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              665,
+              412,
+              1329,
+              446
+            ],
+            "text": "The Service demo-worker was assigned to the route *.example.com/*",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1119,
+              525,
+              1271,
+              568
+            ],
+            "text": "demo-worker",
+            "size": 18
+          }
+        ],
+        "output_sha256": "6d344b81b6c33d012bb7cc02c14db53a4c6a3427843175080e7c408216a96930"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7085773b347ea04da921b63588ad82cf4d64d69.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              194,
+              107
+            ],
+            "text": "example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b2484150441378d9fe56ac702586456fd1b29f195430cc228e283eca05c8fe4c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed12eac77a51b061e29c8f368da8fb7b6d8f75e2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              78,
+              194,
+              107
+            ],
+            "text": "example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1338,
+              950,
+              1580,
+              979
+            ],
+            "text": "00000000000000000000000000000002",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1338,
+              1054,
+              1580,
+              1082
+            ],
+            "text": "00000000000000000000000000000001",
+            "size": 10
+          }
+        ],
+        "output_sha256": "29ca0c917539f503fbb540dfb4083a93238f879803ce23042f12107e95a391af"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/15e503660cab24ff4ba29b0ac3e9f3818c07db4e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              903,
+              123,
+              1268,
+              155
+            ],
+            "text": "https://demo-worker.demo.workers.dev/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              20,
+              76,
+              163,
+              101
+            ],
+            "text": "demo-worker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "2fc923d172f93c350c3589dc71de047e180e25207470a56fd0bfa13b8029be4d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b06a87b8efe487b571035dd37886f4880529da86.png": {
+        "labels": [
+          {
+            "rectangle": [
+              903,
+              123,
+              1268,
+              155
+            ],
+            "text": "https://demo-worker.demo.workers.dev/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              20,
+              76,
+              163,
+              101
+            ],
+            "text": "demo-worker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d480308c1c481fb69ffe8a25505a2307960346d584c96ba67381c41c96117bce"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/c/3cf77056d1a0761ee4bff674c2b1b5d592dc2f04.png": {
+        "labels": [
+          {
+            "rectangle": [
+              909,
+              431,
+              1114,
+              459
+            ],
+            "text": "00000000000040008000000000000001",
+            "size": 8
+          }
+        ],
+        "output_sha256": "10a0c417832bf5a1daf91ece221d529ec39cebfe0aa98def752fcde57eb67eb1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/5/d5f55ffed280992d0e6a5a48372117afa3437ca6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              322,
+              11,
+              899,
+              37
+            ],
+            "text": "https://sales.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "b40ef262ac63db4e018e2b893fa28704ce13999c9fd6f1c88140b567956a93f1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/0/d02d3c407f3a49c101bf4ea4963ab5024329ff0c.jpeg": {
+        "rectangles": [
+          [
+            43,
+            489,
+            288,
+            643
+          ]
+        ],
+        "output_sha256": "4c2cef69abcd21943a228021c2a6a98f74af170f5b70694f6e1053a8621d1ce6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/e/3ed8b5d6841acb6794b4b9bb4370957d4408ee87.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              548,
+              198,
+              724,
+              427
+            ],
+            "text": "Presenter omitted",
+            "size": 14
+          }
+        ],
+        "output_sha256": "34adc4af845e39dba4439e73952dc6f79dff2730c43f82b0eec5e9419c4adc87"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/99aa7fb6c1b140e2780a1f3117d4c759dee5e7a9.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "65aa59626153b0295904ae5be3db5d8dc8c0c8fb490b46ae25754c4f23974eb4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a959b1deac1db4361a1d942517b27a947f5cf59.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4d30bff39c441f54ae731c54b78288a782085c00a20766f73e1efd979507bee3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1cee435f5693874d9381842f1ee2f58795b5a15b.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ca75be3cc79570a8a31aedfa533d3c86579c916ad8ca7b163081ab111ed9d92d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/276af1800da3f4290c48f0144bf022d71be837b1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cc868ab585e9211c23d8a5499a04cc7de6cb87fcc932c0405d5c04733c3ef346"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/33716fa004400762c100239608332cf4a616b2bf.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "305ea0bb1645d8433fd9668cccfd8fea0acb14159708194b934786c13a78ece7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5ebdf1d7566df31c07f63f10012f43114579a38d.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "904de2d9592f750015957b17784ac0c36fd8bffabcd8f9873b03caee41af1b1a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6beb000aaab731de13aa929f606eef479b07a8c6.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0117846b18ae4b175ee094b05ec13827e5c961195a1ecf9559e21b4959aaa7c5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b59a9373de09dd600a2c44be20e67dac1078fe4.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "79de060bf3414693c0e85a6192e1a219823b3fc62c207359f259d37109e7ba30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab3e10f0ed3cbbf5ba1aa0d9dc2e000f7e63e815.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9d32b0d76a2236bc2900d3cfd77998ee14b1c5cbb270e32a0ae8dfce3e7f07cc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0cf1b4574159238c68ca2c2a2224a20d7d74990.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "79021efe7646cf28c2eb099c1b2315256c8c38e27d3925e12b95d8f09e8736ae"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/b/0b10f5fc4f0b19f4876aa376d0e16906847ab362.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "884777e433bfed2b0252c6ee8c5752c778d04b85b4e1ad331d38ce0d8ec7a28a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/b/4bf2b9c30d3815cb3db6597458a28c715e72ea75.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3eff9e82694e9cddd55a6af416ade72f590b4dba0e79c856a27b9c3b76b5d640"
+      }
+    }
   }
 }
