@@ -7924,7 +7924,346 @@
   "74446": {
     "article_hash": "7e7f2bacd9aab9563f58969b136a9a034fb5844b2d81a8e9c20ece21bf803cb4",
     "decision": "include",
-    "reason": "Migrates BIG-IP maintenance-page iRule functionality to Distributed Cloud AppStack"
+    "reason": "Distributed Cloud App Stack replaces maintenance-page iRule behavior using local NGINX and priority-zero fallback",
+    "text_replacements": {
+      "nodes": {
+        "c7c908ce7accfeb2bc5e3b9a29cfd93ba4b8640d6bd9ab2071af46d7b4c12fd6": ".\u00a0 Under Service Name, we have to use the format \u201cservicename.namespace:cluster-id\u201d to point to our workload. In my case, it was \u201cmaintenance-page.demo:demo-cluster\u201d since I had the following:",
+        "5d13292b2775b479b8c9c59c578d702c25cfeced6ca2e38f03a27c8b144ddb20": ": demo",
+        "d5cc726d634b8961dd8906bf1613295f08a994c2b5e5a339edb5559439163ca0": ": demo-cluster"
+      },
+      "output_sha256": "239b8555f416ba4ca6311c5fdb3ac5ad7e8735588e207818517c3b1f6bfaac43"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 20 static images. Included as Distributed Cloud App Stack migration guidance; BIG-IP iRule is the reference behavior being replaced. Replaced personal registry/user/namespace/cluster/site/tenant identifiers with synthetic values. Preserved complete iRule and NGINX config, maintenance artwork and static assets, private-registry setup, service naming format, port 8080, origin health checks, weight 1/priority 0 failover and application recovery examples. Ten images use hash-bound labels; remaining screenshots contain no user data; metadata removed without altering substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0642dfe82c02f792937d50e18a23925d3c83b1a0.png": "b3418bd0082e75b1c4e0ef5435d698cb65c20203a5d4d545ef39daec1f849f0f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2823b43f2ec1dc7d7743eeac17f7b36cbf26ffeb.png": "7fb813eb4a8c132887a8a91ec419ad65a3182fbbf285a97e16982ec00a181755",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31f8c5209f775e787fb4fbb13a09b930154508fb.png": "6bfd8f653c27189174a5033874bdfdb6d862a219ad6fd0412f23d24e217fb2ab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3e84da499777a571c85384c7e705943ddfbb8ab4.png": "a8ef3aef38da48ab0115ce85cab7338c3b5e087cadeb4938a1ccf95f04f72b68",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6b5562808e3af431491da399f9afebd251d5e9d1.png": "a77b8320ca32f637b758c7fbedb999c802c6a2ee5215ea6d847bdb798d4be63e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ac473a2e553dcc52eb4fe8ce756bd88bf933dfd.png": "cf44744f6c09ca4fbb7275735d667dc7cd8a0a23e4ba67b7268728ae17009562",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83930c8ef99be14bbc29e83cd24e8b369215b3b0.png": "75a7d8dc15ea29e908e180f3df65d1fef1ded08a7084341901c478be55a2da2c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a46289837afbfc5c1fe0f4329097225aa679a1d0.png": "ded16e5a0ff3e6ac0221fcdfa288ff7d5663e77968bbe5a4c938f4886b0ae7a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b26f188b2a473cae518f847cb760b1c3523ee04d.png": "355418d981cdb062b22813eb40d3a108529a877e17f8f7546834f3dcad4f689a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c9c7a74c4d21bc0cff6162063f5021b1c7adea1d.png": "80de115a74a5f0835d85a3979cf15e43954879ea6aa2e1e7d43bad129a45758d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdf8e60f10a529eaabd39d870f62eb6efb57a471.png": "84f2d39befbb0fb7f738d0a931aab5ad8084222a50a38fff5fa962f18eca332d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e7a27830e2ff65c28dfe0f624270423a9703729f.png": "934e36a1e341c3fe20ac87fff9dcb05665a2edfaee1ae568b8e77b86306da61d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/1/01b32201ef0e4f4af8e4dc86414c3acafb103205.png": "57dd27f5243de0d967bf04c9f42ceb6b380924a3a8beac8fecce61c951af44f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/e/1e8d4d396de70189321b7ac31fa3cfce1437076b.png": "67e82e4104eea19f1b8597cd0246188555fa33e3467ebd6d8614a28b499f63f4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/8/68206b992cd5e52fa2869601616f9bc723b13815.png": "9f228ffcc24acfc7c6d16eff8bf2676f4bb3627fb24096492d9fc55677ffcc0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/7140ca693dd19034514e36208bf2715f6ada99dc.png": "09803efb9a6219925789460d34fd3626b8c0010247b4e9105c26246ca70d9855",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/816e35ed17c40c1bcb3b6091f0175d1a899ba8a9.png": "3c445f2b432e3bbc3b2d6d8c6c2d41d1dfaf231afe27751351f90a7981427625",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a77ffd010f54ca388a67613e5f8a5a299967f629.png": "b661ec7076b313780772a166b7554796f39ff1b8185dfe4464f270fea0b9865e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b764714e2c5c6805fc19d853343de40badf3188c.jpeg": "cfc0c41602c36af036a62c05a865775cb34d6c0cfba23c9639ba603fcc685d59",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7a455e7b2d439f1e1663280f2e53b42ece122df.png": "1a1bba023356db3ec27aadf8488c2cec6f7ab9b4213d763758d9df0659d50d7f"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2823b43f2ec1dc7d7743eeac17f7b36cbf26ffeb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              460,
+              8,
+              541,
+              28
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              42,
+              162,
+              120,
+              183
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "878264874bae22c5e76a51c893483069ff22f7f65fa074dd2e55fb3197ddc92b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3e84da499777a571c85384c7e705943ddfbb8ab4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              508,
+              5,
+              581,
+              27
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              43,
+              162,
+              123,
+              183
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "bac2c1996f9ff8fb79cb7cc0dad300001e928b5aae4d1fc624e22ce1168e0fdc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7ac473a2e553dcc52eb4fe8ce756bd88bf933dfd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              384,
+              258,
+              747,
+              286
+            ],
+            "text": "maintenance-page.demo:demo-cluster",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              394,
+              405,
+              580,
+              435
+            ],
+            "text": "demo/demo-site",
+            "size": 12
+          }
+        ],
+        "output_sha256": "6468df0824082521f2d3cf20a711bfa43fc6ad83d5172a7d958d4bacadf6fb1c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/83930c8ef99be14bbc29e83cd24e8b369215b3b0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              343,
+              290,
+              680,
+              315
+            ],
+            "text": "example/maintenance-page",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              397,
+              438,
+              590,
+              465
+            ],
+            "text": "demo/demo-registry",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ec76aacd2874a2d5b4b026b54390ebbe753ed01a403ec1d6e9e11e311d087326"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a46289837afbfc5c1fe0f4329097225aa679a1d0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              455,
+              7,
+              547,
+              29
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              41,
+              161,
+              123,
+              185
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              309,
+              247,
+              452,
+              275
+            ],
+            "text": "demo-cluster",
+            "size": 12
+          }
+        ],
+        "output_sha256": "9e1a2af6bf885e9c2b40f1883f72fea85429000ba7d8a6eb97dc0a49bf54cebe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e7a27830e2ff65c28dfe0f624270423a9703729f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              456,
+              7,
+              549,
+              27
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              367,
+              30,
+              538,
+              59
+            ],
+            "text": "demo-cluster",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              43,
+              161,
+              120,
+              183
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "daabf34301ecd3694b221b7ee78f0bdddcb2995030fc850737976e03967424bf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/e/1e8d4d396de70189321b7ac31fa3cfce1437076b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              30,
+              78,
+              165,
+              102
+            ],
+            "text": "demo-lb",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              373,
+              180,
+              606,
+              205
+            ],
+            "text": "demo/maintenance-pool",
+            "size": 12
+          }
+        ],
+        "output_sha256": "d4fa2f441f333370f1f8cf909a26e3192ddf24c25536dfc8b2fbd4f64ec446a9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/1/816e35ed17c40c1bcb3b6091f0175d1a899ba8a9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              484,
+              300,
+              650,
+              327
+            ],
+            "text": "maintenance-page.demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              660,
+              302,
+              745,
+              327
+            ],
+            "text": "demo-site",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              637,
+              775,
+              737,
+              804
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              958,
+              774,
+              1150,
+              806
+            ],
+            "text": "example-corp",
+            "size": 12
+          }
+        ],
+        "output_sha256": "d6d63eeedaa19a50b1ad7138aacd5231180159e5aa265bf3a622d8a8823acb3e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a77ffd010f54ca388a67613e5f8a5a299967f629.png": {
+        "labels": [
+          {
+            "rectangle": [
+              318,
+              101,
+              453,
+              131
+            ],
+            "text": "demo-registry",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              314,
+              470,
+              457,
+              504
+            ],
+            "text": "example-user",
+            "size": 12
+          }
+        ],
+        "output_sha256": "607d91a9fecba6aacbb213877a984a6d7189ec2f795e519a7ea669a33bf97cec"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7a455e7b2d439f1e1663280f2e53b42ece122df.png": {
+        "labels": [
+          {
+            "rectangle": [
+              456,
+              5,
+              549,
+              27
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              368,
+              30,
+              550,
+              59
+            ],
+            "text": "demo-cluster",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              44,
+              161,
+              124,
+              184
+            ],
+            "text": "demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "29c23703ed413d230ac6f23b255d87b06aa9b225036d1407307965c2f853c0da"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b764714e2c5c6805fc19d853343de40badf3188c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3da012235917d86bec698b00c9b3c0f45fde3bb39eb516594dda4a657dca74ab"
+      }
+    }
   },
   "74471": {
     "article_hash": "f4c608e8efa38a54dad8c63cb5b391614856e8f837e5150b248232e292003ac1",
