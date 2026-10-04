@@ -1090,20 +1090,20 @@
         {
           "block_removals": [
             {
-              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## Existing CE Site models@1:section:72",
-              "sha256": "7b6b963f15281574f15215135802a4a168f3eab1073f4f6af278b5ef16d23d27"
-            },
-            {
-              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## Feature parity gaps@1:section:118",
-              "sha256": "14d3595363e0a2c724c2664e518ef49008e0f2b976fa8c7372b91101b49a697e"
-            },
-            {
               "location": "# Customer Edge - Secure Mesh Site FAQs@1/## General FAQs@1:paragraph:62",
               "sha256": "a525ee0570c38d4a9d2c4bc5df360b91a5bb90400882ec449d94cbecda38f7f9"
             },
             {
               "location": "# Customer Edge - Secure Mesh Site FAQs@1/## General FAQs@1:paragraph:64",
               "sha256": "2dae7a573302fa270a2beb43952969ae7f8f7f5e5a5707999493852331ba2349"
+            },
+            {
+              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## Existing CE Site models@1:section:72",
+              "sha256": "7b6b963f15281574f15215135802a4a168f3eab1073f4f6af278b5ef16d23d27"
+            },
+            {
+              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## Feature parity gaps@1:section:118",
+              "sha256": "14d3595363e0a2c724c2664e518ef49008e0f2b976fa8c7372b91101b49a697e"
             }
           ],
           "disposition": "keep",
@@ -1939,12 +1939,32 @@
         {
           "block_removals": [
             {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:45",
+              "sha256": "b15ba48e5dfe3ea888e143870c46bc5dff926d5150bd46492759a35c56ab2427"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:63",
+              "sha256": "f7dacad0dc7e38a59730c73cfa3464538e1a2fceee6084827e12f57dfaddce7f"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:67",
+              "sha256": "d6152adc1748e44442e8de4b97fb06ef9de9c57b1f0589a4900186145c305b78"
+            },
+            {
               "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:73",
               "sha256": "53bc39e8884c719a0e256b0d9b0d66da8e83ccf1f4e51ba34ea48778980caae2"
             },
             {
               "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:75",
               "sha256": "26f5846f3145e5d99adbf299bd138dbacd5704ce2028c7b026dbde83ff079139"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:153",
+              "sha256": "b9957a3cf5c8fb5f396f4b062daeb86cd48210e4d7c55d08ad1e261f08d494ba"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:205",
+              "sha256": "54e77e9e0fb8314b95bb1ddde60563ed443d4662f65af7dd67e8296b65f537b1"
             },
             {
               "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:341",
@@ -2023,6 +2043,26 @@
               "sha256": "5233c0d310b05e0601598391ededa7697f22cff35ea827242b3d40ef799311b3"
             },
             {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:985",
+              "sha256": "71fde3cb8b6349d3b6254ea387a0c2690f07888a74d135efb575b7d83f31d699"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:989",
+              "sha256": "ba0580d37977c6c5b5a38d5409437ad9a8040accc20560c453833f847f598494"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1073",
+              "sha256": "3ae90bc40182cab902ffc7b0127e41983788c01a8ed8ea580a44a9baaebec11c"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1109",
+              "sha256": "3ae90bc40182cab902ffc7b0127e41983788c01a8ed8ea580a44a9baaebec11c"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1181",
+              "sha256": "6b6538e3882dc8c5d609381441a32487d9dc523d8c3136d9b9787ab38863756f"
+            },
+            {
               "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1183",
               "sha256": "f714831309b3fe956199473670bac923fa3c30124a4f104e912200ed1ca9ebbc"
             },
@@ -2033,12 +2073,20 @@
             {
               "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1187",
               "sha256": "f2c3f7bf2bbf1f6e109e368639dc022721a1ae3887fd25e8b0dfc135afe0efcf"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1199",
+              "sha256": "6b6538e3882dc8c5d609381441a32487d9dc523d8c3136d9b9787ab38863756f"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## References@1:list_item:1384",
+              "sha256": "32e953c488d1335ead6b2fd09460d8b74feafaa77bd8e65345645fc2aef1adf4"
             }
           ],
           "disposition": "keep",
           "input_sha256": "43ec34d4700c60760c8564fb00819e1eebda7e004c114763cc09394862c81fe3",
-          "output_sha256": "0ffb485d29b0addb609fd6d5f739e330dab56b8302e8770c4d760dd54f2ce14e",
-          "reason": "retained node release support and current SMSv2 facts; complete obsolete release entries removed",
+          "output_sha256": "a08b2c39415805c498a5f8522bac580346d6cae5594e3f56ff0ed340d6cd3db7",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 129,
           "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/node-sw-release-notes"
         },
@@ -2090,8 +2138,44 @@
               "sha256": "5c9c7ef676547de1c052f3e51e35acd9c62ec832af9c616928c37cf544970ba2"
             },
             {
+              "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Global Virtual Network@1:paragraph:24",
+              "sha256": "cf6de31d627410d93d75aaae1de246abdd26b9ccf391edaec59dcfb302ccf1f7"
+            },
+            {
               "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Configuring Network Interfaces@1:section:40",
               "sha256": "23849c185ec1b11d70394e2dcc1984e5f7f60ce58a77b0213d35bedffe710fc5"
+            },
+            {
+              "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Configuring Virtual Networks to a Site@1:list_item:60",
+              "sha256": "846de7e7ff55ccba8e4d22633a2e2379f1d45b50410ecba3881ff98730588e24"
+            },
+            {
+              "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Configuring Virtual Networks to a Site@1:list_item:61",
+              "sha256": "0935f4a139f2b8b28e2cceec7ae2ab4bc5f2e30242532069e37b1333eae2e098"
+            },
+            {
+              "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Configuring Virtual Networks to a Site@1:paragraph:63",
+              "sha256": "5d695049aed2ca804c8a8e126c57283ab341617537ee5b9d9099cadbc4366168"
+            },
+            {
+              "location": "# Networking@1/## Virtual Networks and Network Interfaces@1/### Configuring Virtual Networks to a Site@1:hr:65",
+              "sha256": "f52d711103d50a437830c6fbcd04fb4bab49a0f82f6d26d1c791c6e8488dd090"
+            },
+            {
+              "location": "# Networking@1/## Network Connectors@1:paragraph:69",
+              "sha256": "1d59e59a174e95d3de2b1d4034c86bd6d32e9b0dcb8dfb13e9126387a08d7d34"
+            },
+            {
+              "location": "# Networking@1/## Network Connectors@1:list_item:71",
+              "sha256": "d70e5d35841e20c99b91c2b2ffbe927e9b9c1aa102ff00323b9bccfc164f7d29"
+            },
+            {
+              "location": "# Networking@1/## Network Connectors@1:list_item:72",
+              "sha256": "c29a90bdbc194acc4ae808d376ed91aca44e8bbd4cf8028dca8fc4d5014768c3"
+            },
+            {
+              "location": "# Networking@1/## Network Connectors@1:list_item:75",
+              "sha256": "c8fa2abd83128e9a4062681dfb6fd34bcae2557538c5779ac1a2d0ebaee69511"
             },
             {
               "location": "# Networking@1/## Network Connectors@1/### Configuring Network Connectors@1:section:77",
@@ -2100,7 +2184,7 @@
           ],
           "disposition": "keep",
           "input_sha256": "0fd65ffafd4e5527d98f48b0c5c3573813b65ef648e4d46d92c246a6808b1bc4",
-          "output_sha256": "bcb98232884d6c505b74a4ae3af26af70ff64d05296e0c7869625dbf5c331921",
+          "output_sha256": "715eb696006a600bfc53504e37179e5f15a5555b89c16a11e491ac397ceb3401",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 134,
           "url": "https://docs.cloud.f5.com/docs-v2/platform/concepts/networking"
@@ -3574,10 +3658,15 @@
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/cloud-cred-ref"
         },
         {
-          "block_removals": [],
+          "block_removals": [
+            {
+              "location": "# Changelogs@1:paragraph:4",
+              "sha256": "fc79565a21669fcfcc34aec3b799b99168c8de1df49719a69a2cbf060b486405"
+            }
+          ],
           "disposition": "keep",
           "input_sha256": "67fa34bfa24c9d8e3033b9d15307a6f10edade494a7f8b3332144b0125d25898",
-          "output_sha256": "67fa34bfa24c9d8e3033b9d15307a6f10edade494a7f8b3332144b0125d25898",
+          "output_sha256": "54bc5ca9591e4febfe76c4463bd581e29ae952961ce82a562170c933c56c73ec",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/all-changelogs"
@@ -4067,7 +4156,7 @@
           "input_sha256": "f90d35dfc33c8110480c1b0e1fe1e00806bfeeca5727c72e0eb27ad315937889",
           "media_review_required": false,
           "output_sha256": "354b89cf83cc28b4792773f044d8dbd89421a200fc1bb38be3c050f0e83a0f9a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69204"
         },
@@ -4082,7 +4171,7 @@
           "input_sha256": "abaeebe0fcebbd1497dcd947def3ae1d07249e7c42b8ec90089f22c5c75820a4",
           "media_review_required": false,
           "output_sha256": "dd4c7ab80a78b588ff90e27ff59d54c487d94454e9ee176221f04fa89cb5783a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69250"
         },
@@ -4097,7 +4186,7 @@
           "input_sha256": "bf20d7827200993c1789a2bd63469a238a4093759dd7d440c0834789608f1f00",
           "media_review_required": false,
           "output_sha256": "33009e3e28a362b8801bf90d9ef8ae39d132460ab2939384857e78f3b638da24",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69262"
         },
@@ -4116,7 +4205,7 @@
           "input_sha256": "536ab967dd457edd90e0464a066cf95bfb3d374b2ef3b48f746fc19efe7b3a8e",
           "media_review_required": false,
           "output_sha256": "a3879624cd31fac93cd910686ea2b2a5d079dbb2cb960347117c5122c968ad05",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69322"
         },
@@ -4135,7 +4224,7 @@
           "input_sha256": "5e657e0b42a3a9467f35ec04786342632df4d987e7095bce9ad32762e318c928",
           "media_review_required": false,
           "output_sha256": "1aa24e09201370feddc8b7f9316173fd580e5e897a323a5e14f8f0a45c2dd6e2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69323"
         },
@@ -4154,7 +4243,7 @@
           "input_sha256": "6be10e0a9b693b81589cb19ac3eb4ad49a7965eebaf8dcffec2886499420bcf9",
           "media_review_required": false,
           "output_sha256": "27c045a957cc47c5d33469fceeede3e40afb1c81ed10e2143bbbd08c47691f1c",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69365"
         },
@@ -4169,7 +4258,7 @@
           "input_sha256": "688e90b6f1d1822553e72640b4d5982cd451fd7381cc43de3207d71525b498cb",
           "media_review_required": false,
           "output_sha256": "343c254b480fb23b3903d2f34d7a1e318d34897f5108062ba0ec3f4238068afb",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69578"
         },
@@ -4188,7 +4277,7 @@
           "input_sha256": "a9170eb44c04c2b6e0d848bb514ba3269bef3da294d35333bdd6ffd99abb54aa",
           "media_review_required": false,
           "output_sha256": "ee530aa05787c35e2103485892c09347bacc52549afefaac4c10880f9f4acea1",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69584"
         },
@@ -4203,7 +4292,7 @@
           "input_sha256": "497bc5b4583736fd3def17aefdf0b7c19478ef220869c530dd4ee82fcb4727dc",
           "media_review_required": false,
           "output_sha256": "ecb539418da2aaade4862d242f95502cd9d97747c926e595ba2d2c6ec9459142",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69896"
         },
@@ -4218,7 +4307,7 @@
           "input_sha256": "e615b0444100039a1a9b7a08c07578170f2e1afb4ad2a6cbc7060ad316b35d35",
           "media_review_required": false,
           "output_sha256": "5ca6a2da6f9009130f5b0ec9dafbd7f5571702a722f30dbda2377d1d6fc10bc2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/69897"
         },
@@ -4233,7 +4322,7 @@
           "input_sha256": "76f99d1763025972efce3b9845cb137b46716e9126239de426b137335c98a398",
           "media_review_required": false,
           "output_sha256": "8d7838fff5f42c980dc6b3c3149dfdf9355dfa31025bf72ffbe99eecf5c2e038",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70120"
         },
@@ -4248,7 +4337,7 @@
           "input_sha256": "db38829d88e466ec0d6402813d211bbe596625325e051f662f8314fc2dc6e59d",
           "media_review_required": false,
           "output_sha256": "ab2b7dc1bc3bc865c6aa5abea84a8c9ccbefcbb115b5b000ec8d74f5b3ae8292",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70138"
         },
@@ -4263,7 +4352,7 @@
           "input_sha256": "b767c38e508cefa9d0006052b89026f6ad23cd364939e5a7068b3d60cb7897e6",
           "media_review_required": false,
           "output_sha256": "90a7bf891affe2fa03186f51de7c56a0690fbfe1d3acb440e2102083795f0cd4",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70225"
         },
@@ -4282,7 +4371,7 @@
           "input_sha256": "d62ab31d35bd2c4f5ff892608e195a87dc4cf724f748e03768df08306cd5af73",
           "media_review_required": false,
           "output_sha256": "159c4f3eb0fcf82cdc3aaa6eff4329530fbf032cc9b10d051625abb1094f8fbd",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70236"
         },
@@ -4297,7 +4386,7 @@
           "input_sha256": "bdca0ecace4c448717b7e3d6e2a67fad2fcc74240c51f56f389d18c1ad0f59d1",
           "media_review_required": false,
           "output_sha256": "90503d8efe95519119367da649bd0f2a70f28c3dc4600dbe740d51584478f994",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70376"
         },
@@ -4312,7 +4401,7 @@
           "input_sha256": "f5bb5e2c22de5b211d2532d63403a6c39d53ea09bc47dd8829004959e277eb95",
           "media_review_required": false,
           "output_sha256": "d41ab14286d5c35e322069f453dfd84f0b0815872b34f463ab706d5f9da7cdb2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70387"
         },
@@ -4327,7 +4416,7 @@
           "input_sha256": "c30c249853fd0b088d7d2a981c6dff12d3bf30969f9f75c9d4f02f9b91fe55cd",
           "media_review_required": false,
           "output_sha256": "68f65773264208fc8d78aa18a95ace88fad0698e691b997da8481cd9da116204",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70410"
         },
@@ -4342,7 +4431,7 @@
           "input_sha256": "a34b698702cebb3f89ab852607eb4375a74a07a96034fab7a009b3f5e8b6c90c",
           "media_review_required": false,
           "output_sha256": "8c6231740b5274620ea53946b227dd836f882a78c3933a7d5b3c8417d20bc4e8",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70498"
         },
@@ -4357,7 +4446,7 @@
           "input_sha256": "fa6a2f04bae41c684d7336acd0973e207e82d7a86affe46eec518e28028b99a4",
           "media_review_required": false,
           "output_sha256": "f47affb3501b623fe8b5001ceb7a7472980bb2043857d015956128d7f0f1ee4a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70499"
         },
@@ -4372,7 +4461,7 @@
           "input_sha256": "a979f8b0571029eed5c59fb591ba03a7649fad67f69f4c2311504b6dbaaa5e0e",
           "media_review_required": false,
           "output_sha256": "d0abb149c00d1143792c70931ecd86d69ea38646bffbb0985977d08a9ffe5f3b",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70500"
         },
@@ -4387,7 +4476,7 @@
           "input_sha256": "fa38afe1aeb5e8c4b596dbc424af21c7bbf7b97752eb7304b4b0cc9b60124606",
           "media_review_required": false,
           "output_sha256": "b466eb42f67148cd4235bc9264f4e7bd306c8c1fd097943520f0eebc0088d51b",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70579"
         },
@@ -4402,7 +4491,7 @@
           "input_sha256": "5ebbfa5c4fa66a7aed3efd92ac744e3aa21b2f2be51d1d8797e46ef60f29a839",
           "media_review_required": false,
           "output_sha256": "8fd6c69a177cfce19241ca03656d36a3058309479c93644bef3eeb2a4172ec2e",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70580"
         },
@@ -4429,7 +4518,7 @@
           "input_sha256": "7b4bab9cd42d4ef67035dc2af6415cef4330468780866a6254fc7062ba867b00",
           "media_review_required": false,
           "output_sha256": "38778f1ca84e93e84da49d619818b47e7a6a2b246c9edc93544e8c5886d0a3ca",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70585"
         },
@@ -4448,7 +4537,7 @@
           "input_sha256": "9e855669a55de746133b6d991ebcefde7d41bcc4ebc99aa9cb35b64d5311df8b",
           "media_review_required": false,
           "output_sha256": "ec1614ac06d1a2d56511016abf52b863b3c53b082e732c296a29e95d84ca5be7",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70649"
         },
@@ -4463,7 +4552,7 @@
           "input_sha256": "c328031b2ae64e6c9948d16cf9499f2dcb644b9c6155ae33282d73a2f4c4920f",
           "media_review_required": false,
           "output_sha256": "6db9f8132a57f005136b18ad0238eee5012f34e0cb695c9335984c8c1ed8cc5d",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70693"
         },
@@ -4478,7 +4567,7 @@
           "input_sha256": "553114644f01b1e85a71fd831f5a7f81dc47b1cbe19f629213a423284adf6a65",
           "media_review_required": false,
           "output_sha256": "85927ce9a2d89ce94645b0b7fe8fbb4a6c8d5d030d79ab3e5f37bbd3dc263af7",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70694"
         },
@@ -4497,7 +4586,7 @@
           "input_sha256": "9a98ae78777c9eee79133b20f592dfa54e2d5f247b6b8528c53ca81ebe40cfa2",
           "media_review_required": false,
           "output_sha256": "be88268e323d46ced4e9ac697bc4bf62cfc15eb82fc3accf309391737790796a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70792"
         },
@@ -4512,7 +4601,7 @@
           "input_sha256": "a580519419ca3d1aaac5d8b4517fb528477505d5544546aed7a03dafec2fea74",
           "media_review_required": false,
           "output_sha256": "022ce883d63915ba324e9244c246df1d19fc420414438e520b4786082ba67dc0",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70802"
         },
@@ -4527,7 +4616,7 @@
           "input_sha256": "ba162827c3796e59c6bf362ce697fc2b0ef2a83c407377dcb1222e79047d4607",
           "media_review_required": false,
           "output_sha256": "f1d9eaaf8221853093cc441e2b9b6526b34d4e1170763684e72dfbb1e758a7cb",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70811"
         },
@@ -4542,7 +4631,7 @@
           "input_sha256": "67b3d4708eeb35f0c560f7c6bde3a4d18ce413af16792e6638ac89845d72feff",
           "media_review_required": false,
           "output_sha256": "ada5b3441f86c4908b196aa630f9590ab9b72b1d570e98f711eac554e3114dad",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70812"
         },
@@ -4557,7 +4646,7 @@
           "input_sha256": "e6d1e2d608c702216ea62e256594f75994e7ddfee9f98fb37eb9279d6a7c7cc0",
           "media_review_required": false,
           "output_sha256": "07c3a45f225763d557f163bb81416f0567089427f53f2ec4aeb264c69f1b8075",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70813"
         },
@@ -4572,7 +4661,7 @@
           "input_sha256": "45a06297a432b3e5a17e846a2714736e47bf9d937eed176889e98fbf7725a13d",
           "media_review_required": false,
           "output_sha256": "b32bae0c5edcb347984cc9c12946e04482686647155b8c8d26f6d4b414c8a747",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70833"
         },
@@ -4595,7 +4684,7 @@
           "input_sha256": "1fe2d3247faeb02a3945ac800a01190979d989acacbc95e31b4b8bafac87ddb4",
           "media_review_required": false,
           "output_sha256": "6010ad0f8518fa0ff92c2048f668448b3dbe4c5e136e2a1daa2e5c403bf4054c",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70890"
         },
@@ -4614,7 +4703,7 @@
           "input_sha256": "517831d176508aae2a7c2b9ff9a5254e949e65c4ed1cb16b5462b9ab4f34bb11",
           "media_review_required": false,
           "output_sha256": "2d91dc60a0f16b23e4c1e7e147968a4d26a103b0ec6ff73688f5a0016e57cfa2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70911"
         },
@@ -4629,7 +4718,7 @@
           "input_sha256": "6f06a938c4914520ad1de22209d1f980fda8d8c1ee1101099fe402254103292b",
           "media_review_required": false,
           "output_sha256": "0701b1996f675f104213e6486b8acf779726d331c718c70a7862c20f29a60f1b",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/70924"
         },
@@ -4644,7 +4733,7 @@
           "input_sha256": "ab35e69ccb2a8d36ef4b493840fbde787bcb6013a5a65f3f7c88e49123397288",
           "media_review_required": false,
           "output_sha256": "fa47475907fe3f3f7982c743cbe6dbd8088ac47419fe3d0ef8dcf32a77ebaefa",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71233"
         },
@@ -4671,7 +4760,7 @@
           "input_sha256": "11e6fd8bb79fd68a10c3dfa0e57d28cd057fd8ad370123c8f1ff38ff02cfb5fb",
           "media_review_required": false,
           "output_sha256": "58216a7c76cca99771832d277ac5be9f33a58690d9bf540c2f03cd4172096e5e",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71266"
         },
@@ -4686,7 +4775,7 @@
           "input_sha256": "c151eb1437fe38467e5bfe4935b158b5be5b1e25190c97301e3bd03dca5706f5",
           "media_review_required": false,
           "output_sha256": "47f4c893e75ef01e2277564128179657880674406fccc3233e0140be139ac343",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71293"
         },
@@ -4701,7 +4790,7 @@
           "input_sha256": "d9bf05eef937b59865cfc54cabaa2b17d03c8587d4c2c367a3149feed384801e",
           "media_review_required": false,
           "output_sha256": "9b7d5342c7f2abc1a46a2a31bc790407338d497c2ec41856daf5ee39a6f79461",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71304"
         },
@@ -4720,7 +4809,7 @@
           "input_sha256": "3a34682ce25f6197b2ba76f32b3fbd5942eb364862c4b9aa3017fe210c3be1d8",
           "media_review_required": false,
           "output_sha256": "bc00b2a709687f497ce66099550caf5bed8c3544327d95a2ffaeca39e0317235",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71319"
         },
@@ -4735,7 +4824,7 @@
           "input_sha256": "e5f9f3a29e9ec3d91e4c3ce141538d6ee8e660affcc2f32864a09b0e59f034b2",
           "media_review_required": false,
           "output_sha256": "468c2589ac62c25e1380c8d1ec16461f79a22bc73f89305adcd2c716aa7adbe8",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71398"
         },
@@ -4754,7 +4843,7 @@
           "input_sha256": "9b399be46f39102709b10e9827335226598f35820d3623a658900a2dfc8e643f",
           "media_review_required": false,
           "output_sha256": "9cb3ce963efcce42452adac2d6aeca4872fd4fd3d7f34539ca92826d62e46917",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71413"
         },
@@ -4769,7 +4858,7 @@
           "input_sha256": "bb79a31152daa7f86232ad2cae6b6e21ea6416e9f28c1e6580a4e5d2b57b01f5",
           "media_review_required": false,
           "output_sha256": "95cbfc7bf1e20476a328d37aa3670a8cfb91e8e7e3a31d3228178bb9d81b7991",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71455"
         },
@@ -4788,7 +4877,7 @@
           "input_sha256": "11bbe84b6ccdf3a081e45ea806a37c7b1c557a647aba82e82ddc1bb8579c5814",
           "media_review_required": false,
           "output_sha256": "1267c356a67845464a4a788d48cec3497ca8d591f44600c106bbaf7e6f0c25e1",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71491"
         },
@@ -4803,7 +4892,7 @@
           "input_sha256": "8e08a3fdf4f1fef2682d170dd4513a2def72cb55bbbc3d1d7f549073e63e761d",
           "media_review_required": false,
           "output_sha256": "53dac3bc1bc88857c28398e425491572c9c19ee60bb54429ce1c88bf0a9110c3",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71492"
         },
@@ -4818,7 +4907,7 @@
           "input_sha256": "10390c3491eaec91450fd1c287e8fa833d37e13712cf229faf9a9e1af9389351",
           "media_review_required": false,
           "output_sha256": "d08dc2e71d1f7ec3fefa82e1f4810fafffc69f639292949bbf34c4c6faa1dae3",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71522"
         },
@@ -4833,7 +4922,7 @@
           "input_sha256": "38cb9179899975cd9a03967f60ff973fe3cffb7ba853edc33f008dff754e6e8b",
           "media_review_required": false,
           "output_sha256": "35606119f54513d244d7ac27d23dbd6937299d4e269a7f9353f9cd75fc9976b8",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71529"
         },
@@ -4860,7 +4949,7 @@
           "input_sha256": "91f0eaa6c53fc15b5f914e646b45b5b91f05c7ed9f0703c3b32783d27dd6dc6e",
           "media_review_required": false,
           "output_sha256": "71a2deada2f2e35aecf8a4e93c695a1e3306b255e1da4aa00f3ae599e034eab7",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71604"
         },
@@ -4875,7 +4964,7 @@
           "input_sha256": "2939f3af9c3357411895d46a8c00ee7d40de44750fff270a1af9274648c6bb5c",
           "media_review_required": false,
           "output_sha256": "17713f3232d3dc8ec9dd46139b7c3021816feee10dc00aa667bf9cac4bf22d74",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71704"
         },
@@ -4890,7 +4979,7 @@
           "input_sha256": "0d1facfe986423d22a6432ac094a218e6c7627cf4b04bb4fa4894542c87afb2e",
           "media_review_required": false,
           "output_sha256": "7a13ef7a8c478b52dc4e265a6e18860d947f7f951125159f61fb6dec125abb7d",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71879"
         },
@@ -4905,7 +4994,7 @@
           "input_sha256": "1f2518c15cca41939ef2e1e1eecac2558a8421c3748d0a1ce914a6efbfa3d067",
           "media_review_required": false,
           "output_sha256": "a4cd743667247d63006afad2993ed3a7cff4b0f44c36984b83a67698c8b0d951",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71880"
         },
@@ -4920,7 +5009,7 @@
           "input_sha256": "e97da92084478279d428f9953e8f2d155c1dc4653dc39d28f861ef00e0ab803b",
           "media_review_required": false,
           "output_sha256": "dd84651aadf631bed86e75ad9ae5a16dc1e9ec416551c740ae37632aebce634a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71894"
         },
@@ -4939,7 +5028,7 @@
           "input_sha256": "f7aea0a36f995fb8f825ee4c07f8e5bab96f5e9c189801774503e61018935e73",
           "media_review_required": false,
           "output_sha256": "4dcf558c5198657164584916cfe5700fbb1a5cb4edd76abf0917179baa80d168",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71924"
         },
@@ -4958,7 +5047,7 @@
           "input_sha256": "8ee429ee9d186ca89c6b327f6fc9e1563eacaff7eb62e70f30d4bca9e8224cd5",
           "media_review_required": false,
           "output_sha256": "215cd8e4495bc00cffe38eb90c87742a713e32f98e2294e9832b6a40c93e2490",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71973"
         },
@@ -4973,7 +5062,7 @@
           "input_sha256": "695da1c83f403705d7551e730636f7177cacc4de8afa9870063b292265187906",
           "media_review_required": false,
           "output_sha256": "0917e891c8fff3f14892b6e777f6ab967fdc4d3ed938137a3a9aa3b9b6359485",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/71998"
         },
@@ -4988,7 +5077,7 @@
           "input_sha256": "c7387b34e4a56dc8895f632f54efbcc366017638e0c24f65a7c9aaed3994c6d7",
           "media_review_required": false,
           "output_sha256": "18372c70af3a89e3cd284ca6e8811a9fe9e2c12741b33a07932fb5775847a27e",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72005"
         },
@@ -5003,7 +5092,7 @@
           "input_sha256": "45ad076f4ee06f3271f299adf05b266c5c7c37b3117141c5c8eebe3ccbe3552a",
           "media_review_required": false,
           "output_sha256": "fd5f086625f52e51907b5dcd40917b781ef55031bf3f41b9dcf9207a5bdc6540",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72064"
         },
@@ -5018,7 +5107,7 @@
           "input_sha256": "b86dd75016f5836e8e668105ce887120414681d640731392acf0c51f0aa13084",
           "media_review_required": false,
           "output_sha256": "8f5277ee765c0610da9879cc3b0984bfe1621efcfe08c8899bb43cf69c477a73",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72068"
         },
@@ -5033,7 +5122,7 @@
           "input_sha256": "36c5738944de72fe6e61de577ba16cc0ee3024f4ffb0d3435b59c882100df020",
           "media_review_required": false,
           "output_sha256": "988bf218fc74c69192bd800c5bcea1132418c606ad9f5e9d26eb0687066fb828",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72133"
         },
@@ -5056,7 +5145,7 @@
           "input_sha256": "6dae3851d33aba0875695646bd60a6811287d91fa349d20348e3541eba075b49",
           "media_review_required": false,
           "output_sha256": "f0f7d1cbd2e296073017a49c47ea135f80e411c514de2d4b34e37ade336b40f2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72251"
         },
@@ -5075,7 +5164,7 @@
           "input_sha256": "a729f1e7908fb1bf2fc4e205824c0f5f8942b1de419df419a7a8869d0a37cdbf",
           "media_review_required": false,
           "output_sha256": "032c8dbed2d61b4b53b4eefd2f15e39502aa3ab4cb27f8885c72e55dda9203db",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72321"
         },
@@ -5090,7 +5179,7 @@
           "input_sha256": "4ca3c5f387a281617fd4d142fc5259af632c2df683e66949d1396ca78c47e183",
           "media_review_required": false,
           "output_sha256": "c418eb45abe01514a049b2dd8bebfeba7bbc708b06063a89984894643ff66d78",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72363"
         },
@@ -5109,7 +5198,7 @@
           "input_sha256": "50729dc660c1066d97e3fbc27a2d724f221156d228a2306b0e20694ea227f4e5",
           "media_review_required": false,
           "output_sha256": "b4f6bc7e803c47a38534d1ac27593c55bd10f4bfc7217f0f84560e5a5626ee8d",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72432"
         },
@@ -5124,7 +5213,7 @@
           "input_sha256": "e7a3442255446cba497d88ada54331637d8e88d76b9dc77f0fc2c4696ff6d6ef",
           "media_review_required": false,
           "output_sha256": "3f44d4640d4461081d07defee8a250415540405d6d5f928936bb9951152554f0",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72499"
         },
@@ -5143,7 +5232,7 @@
           "input_sha256": "c2630476077d6df01103e7f3456871aeff73070cd3dd98f880a299ead409ee6b",
           "media_review_required": false,
           "output_sha256": "e9846a0161a1a278094a158b01862be49a46ea931d0d539e93745a87702a545a",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72518"
         },
@@ -5158,7 +5247,7 @@
           "input_sha256": "e88e787df5f886dff64415e009d04f16e76e94291ec765b5b4563b1432f59463",
           "media_review_required": false,
           "output_sha256": "648f555ed1d9ebb45245be0c6e46dd76045738f501865da26cbdef411db67425",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72590"
         },
@@ -5173,7 +5262,7 @@
           "input_sha256": "32d54b79b1cd9806a440bfa06faea2bd3ef18c099de932cf625c17b46ab5e22f",
           "media_review_required": false,
           "output_sha256": "5daba62a4ab72d5961c4c6d6f901ef2f4cddfb104bdc9122aa1cad5069786293",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72849"
         },
@@ -5192,7 +5281,7 @@
           "input_sha256": "8e183a6f286107becdd285d2a47e35ef8d64a7a0c2cc50acc4d8a3b51ee00821",
           "media_review_required": false,
           "output_sha256": "ffa904a23d60d9967c373e439bd2899de4f15ab4ea073f6992a399f34b24e067",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72910"
         },
@@ -5211,7 +5300,7 @@
           "input_sha256": "818a713b13d43cb663321ab5a2a6120280c6e404fb3bf1ec363754082a0e04c6",
           "media_review_required": false,
           "output_sha256": "b69a8e7560a225ba4a7eed1f9822ac81dc154337e9b39fe0754e38d9fc6acdfb",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/72948"
         },
@@ -5226,7 +5315,7 @@
           "input_sha256": "6eda8a2c6532e0e5edd9b537a53831ebea0363cb5f8d8cadf8e321e9025bb24d",
           "media_review_required": false,
           "output_sha256": "688722055b7710badc54952a5c7426dd0ab4510179922b94e710f510d4ca77e7",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/73163"
         },
@@ -5241,7 +5330,7 @@
           "input_sha256": "8b88d0b42da9f65373788648da46cb926190e0dec6dd49016f32c4bf1389ef42",
           "media_review_required": false,
           "output_sha256": "b2fae9bbccbbb37d037f6a83c29928da2f9ff6e9f5a3cab161e10fc7209b7522",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/73351"
         },
@@ -5256,7 +5345,7 @@
           "input_sha256": "314a54f93946049b9b430219653e996a96e5406f282a5c7a9fa64e4555194736",
           "media_review_required": false,
           "output_sha256": "fad45f33354f5a3666e578aed5f410f19918f80ad8350d69cac03057265ee6df",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/73667"
         },
@@ -5271,7 +5360,7 @@
           "input_sha256": "7102f0b88507488486ce1b2d37fe53aa485ef66a5feb690ed93efb7d8e061efd",
           "media_review_required": false,
           "output_sha256": "277abc4690f75296eebdb06a2bae43b4b6c7bfbf23f09b6b68df86d98a16f395",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/74191"
         },
@@ -5286,7 +5375,7 @@
           "input_sha256": "d2cbfade5043ebb97a184346c0745da2396b56ac25dc3bc00a94e195951841f7",
           "media_review_required": false,
           "output_sha256": "a8fe1b7ed18f1f6f2d302376c1d89d79ad0d0c9e14869ea34fb651bed0b142fb",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/74396"
         },
@@ -5301,7 +5390,7 @@
           "input_sha256": "e9be7480de1f1d7cb49cbedcf81de912b7b57b4c5696f39fced223f4253e3722",
           "media_review_required": false,
           "output_sha256": "2211fba4d77adc945dd82af68c51e9aa8f7bc97db92d86ccba230985aabbf425",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/74743"
         },
@@ -5316,7 +5405,7 @@
           "input_sha256": "9a4f7497f3b7a9c2a19bf7cab290b3df4f7833fe3315c0118e183237545ed3e8",
           "media_review_required": false,
           "output_sha256": "e0978aff88dd96214066aa70ca0f061c74a7a2d97090c4c9fe74529d7f2ffb0b",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/75164"
         },
@@ -5335,7 +5424,7 @@
           "input_sha256": "5b12998dbe00c63ad2da30c3cae82e4755bf5914abc5670164a43a4db258a982",
           "media_review_required": false,
           "output_sha256": "5dfc5a0f2d6f28aecaa776e2cddf4208d3d489844077af7bebfd9bc9346c780e",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/75890"
         },
@@ -5354,7 +5443,7 @@
           "input_sha256": "db0e56098118f462643e55cb33bd3bcb7837ae0e92f07b8578a49a52d7c4e7a6",
           "media_review_required": false,
           "output_sha256": "09f9f15f6753974587c94ebe136469f1cbc8c652196507d05910f421680bba93",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/75900"
         },
@@ -5369,7 +5458,7 @@
           "input_sha256": "7f2156e41b6d9d6c95312dcce850d960b38fe54b62c5d8d142e3858258556366",
           "media_review_required": false,
           "output_sha256": "c507b1acfaa9246b47d608767e2f3b1d825ebc0faadfab1ca647b9c7419f5cc9",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76024"
         },
@@ -5384,7 +5473,7 @@
           "input_sha256": "6c83d0e938473249305d87961531dd4cf44de5c9a80b6e36e7ca95b2ceb6e38c",
           "media_review_required": false,
           "output_sha256": "8e7c00b022b8dcf748ab8c2722d1dd3c2e29664e6a634c83c959b9f59c6c08ed",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76062"
         },
@@ -5399,7 +5488,7 @@
           "input_sha256": "eb5018e4252f674161cada3d64bf32b7ec28478ecca79ae36801ea9c67976465",
           "media_review_required": false,
           "output_sha256": "f8f16a8af7b4e6ffb355db5735e5c7f56a047f75908cfec7b207e38a9770aae4",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76231"
         },
@@ -5414,7 +5503,7 @@
           "input_sha256": "6fa7c7027d0008196425d579691b551525f2cb28fab9410de34bd4777815acc0",
           "media_review_required": false,
           "output_sha256": "18b8296da6e041bba6063c60709d00ea37be7bfcb71101c1816f63e806a137cc",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76232"
         },
@@ -5429,7 +5518,7 @@
           "input_sha256": "8f22c8acdda64cd1b53cb6ceb2e9e8c8e1eb9751ac1b0b97e584e3e907371731",
           "media_review_required": false,
           "output_sha256": "273d366b8720f070f90de8d464c4926bd52d71edd6ef0383fae2c1a3ec25869f",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76461"
         },
@@ -5444,7 +5533,7 @@
           "input_sha256": "4f334c49fe319497975705ecd856dc2f46192884a25aa2beaa724e6ca556338c",
           "media_review_required": false,
           "output_sha256": "383e41993b36fdfcf458d08127949da1b1dd40d10879ee4e2dd8e555183fc871",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76739"
         },
@@ -5459,7 +5548,7 @@
           "input_sha256": "94585bbac66784e6321b54d2f414993f72c9651661bf64df93201ad47eea9053",
           "media_review_required": false,
           "output_sha256": "efef489b54768a5ba0816a241ac50b5aac7cf8926db9f1cfd9fc11000654b434",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76746"
         },
@@ -5474,7 +5563,7 @@
           "input_sha256": "39fc7f89f23735a055161dcdafff6a384c0a4dcbb6497676a77a95e428d14a83",
           "media_review_required": false,
           "output_sha256": "b278931e65074c681f6fbb34ec0bc0640c15bf0b71d7f5a80e622bff928c4358",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76784"
         },
@@ -5497,7 +5586,7 @@
           "input_sha256": "ff1578233086401fbfce56481d1d6824d6e4475194a4a2434e5795b2d3555f8e",
           "media_review_required": false,
           "output_sha256": "89b17c139fe9e8d20a3affcf7648e5d9411d0a14c38ff897c47b200989f8f2d8",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/76791"
         },
@@ -5512,7 +5601,7 @@
           "input_sha256": "5b88efb3809df032b86134cbc375edce960b785299e3358f46870197260eb418",
           "media_review_required": false,
           "output_sha256": "9d170ee6494e5188a98d292860f36b9b3b1183d88cdc3c349955cac31f2a67b0",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77008"
         },
@@ -5527,7 +5616,7 @@
           "input_sha256": "b5e35cdb0ac181b3897cdfe4ef798659d7e1724d5e5e5c63bd2246849d8dec2c",
           "media_review_required": false,
           "output_sha256": "00a44dbf8455d0f69bc84528d15997b745c4eb708828f6b3a814590a77423b68",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77018"
         },
@@ -5542,7 +5631,7 @@
           "input_sha256": "9f0c3eacd573e86cdad6114ff5b6a6bf66051919218677d1cab7f6009652ec9e",
           "media_review_required": false,
           "output_sha256": "d2ccab53c0e3e3cbb9c80a8caaa9f3948568c416b30bfa99b882864d67fcd39b",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77024"
         },
@@ -5557,7 +5646,7 @@
           "input_sha256": "28deb371e73c1076dafb7f8a1bfd290a110ab9111106c4a899ba1ff6f0617d3d",
           "media_review_required": false,
           "output_sha256": "90b36f624ddc073db0d1e4475324079a27a68bfbb88e9be7c04d4f1f73e978cb",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77025"
         },
@@ -5572,7 +5661,7 @@
           "input_sha256": "d49e99895de376cb2714cc32081d14df14e0d89d77a0f9fa17a53fe72ece53c5",
           "media_review_required": false,
           "output_sha256": "bb162a8145f60ff088830794b632c2ab2940bb2afd70680eaa7cbc20ed1a3f64",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77042"
         },
@@ -5587,7 +5676,7 @@
           "input_sha256": "974b1a8e53ba14e8e1a17d3a056f415f277c574e5580626ce13baf0ec7dfea70",
           "media_review_required": false,
           "output_sha256": "d47d09e31742908c2dea39237cf7eaf522d4c1e9c779dd6358499ea9421e47b0",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77115"
         },
@@ -5602,7 +5691,7 @@
           "input_sha256": "3977df5493a46f2ad5414178f9e36423429aa283eeec1172f228e3c281bb0b1a",
           "media_review_required": false,
           "output_sha256": "f2bda4d4acd55975890cb750efa0286187077895794e9b94faaa4ffe6a066246",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77191"
         },
@@ -5617,7 +5706,7 @@
           "input_sha256": "93d8d5943879b8a10b7507b17f5aadbe5f9c4fbb18188006a3bd680a57819bf0",
           "media_review_required": false,
           "output_sha256": "d7d079d40e494af5d2e393a94961f07c6e637b68a581c4df48ecc01c22d65113",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77208"
         },
@@ -5632,7 +5721,7 @@
           "input_sha256": "dc1279f42de8823d05c9901f58ab353ada62207dd1b55640586fa9e339063df3",
           "media_review_required": false,
           "output_sha256": "6bb8e5f5aa2dc2dc5a9b7eeaa38cbed53b1a931bb6e4c39fa13516684588902e",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77211"
         },
@@ -5647,7 +5736,7 @@
           "input_sha256": "3b82cc436ac72213516c3389627ab5af4e0c28678d3e7ba03394e2cc45d5dd8e",
           "media_review_required": false,
           "output_sha256": "563b8596755c8fe0245cbd395727d9cc0a4a9456b0ba99a74158a79927e35212",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77292"
         },
@@ -5662,7 +5751,7 @@
           "input_sha256": "9a9068b11768429129a9799c249cc381133f7d2a9cd7178617150122310ab368",
           "media_review_required": false,
           "output_sha256": "8aaec940a0d516b84fb2e0e5507f809e1e0de8798189b7d9cb51ee787bb3e2c0",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://community.f5.com/t/77407"
         },
@@ -5677,7 +5766,7 @@
           "input_sha256": "134ea30e2f09ca2869c5c68ec3a390b01826a3e16ba521aaa70790eb2267b889",
           "media_review_required": false,
           "output_sha256": "07ae24d42f1e0a4636f51ef03c755fb0a997e81807f614aba78fd5e7e48327ee",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/ways-to-purch/paygo-plan"
         },
@@ -5692,7 +5781,7 @@
           "input_sha256": "72f9e56b40e47422206ec18cbb0fcf72e214aba6e93d697bf6c533f2761267db",
           "media_review_required": false,
           "output_sha256": "473caea1ea66401226bb37a4e02fd1f7e8ae1831feb492a845ce8fd164058054",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/api-security"
         },
@@ -5715,7 +5804,7 @@
           "input_sha256": "4fb35195128a100c388eb741875e4635db474c148a983b7576a8998c632491de",
           "media_review_required": false,
           "output_sha256": "fe08c263ca398428d2b7ad2283aac2288c6bdb2d7e29622b7a8f01a34e1ddca2",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/cdn"
         },
@@ -5725,7 +5814,7 @@
           "input_sha256": "c0165c6d9c504a34d202bb09acef9dad5ddd2c1b99464eb7ed9768e3c927902f",
           "media_review_required": false,
           "output_sha256": "bb871ae631ee31d048e0465f7626fdc3ee53f5592fa9cd2bda44dab1cd311bac",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/client-side-defense"
         },
@@ -5748,7 +5837,7 @@
           "input_sha256": "30dbbb8633d3e50d7a81820cd5cf462b31f926e108458a46414ffa57b9104441",
           "media_review_required": false,
           "output_sha256": "a2320249d1138b947394478733ff6d7253177fd99a35e49ce26be32fe4d55e98",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/dns"
         },
@@ -5767,7 +5856,7 @@
           "input_sha256": "4a16454f34cc403e4a3cd9e370ca5a328ae4588e54d8a681017b39924007e43d",
           "media_review_required": false,
           "output_sha256": "4e5e9d4fe57779d47f61d5e14562844705436af82b1f6ce3c037b3401561bb40",
-          "reason": "remove unverifiable embedded video blocks; independent complete text retained",
+          "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://www.f5.com/products/distributed-cloud-services/dns-load-balancer"
         }
