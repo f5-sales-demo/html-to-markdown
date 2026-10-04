@@ -3706,7 +3706,172 @@
   "71973": {
     "article_hash": "c72a10da749a98aa9cb3be8c00d686ff6621a1d1f58484f2c6ae54ba750a40aa",
     "decision": "include",
-    "reason": "Distributed Cloud Bot and DDoS defense deployment with BIG-IP origin WAF"
+    "reason": "Distributed Cloud Bot and DDoS defense deployment with BIG-IP origin WAF",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/2X/3/3437496f181f084ad38a23d59a9d3a932169e515_2_690x37.png": "4700e3fddbdefa1690b14bbf24dfdb954b787c1ac517d63ffc8b79e23e7976e6",
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/e/5/e50cd41321cd79b8478647d85284f41f1fde35fe_2_690x31.png": "b120d958721f15b6b97d3f3b9bf1b881ee268e99fae640a9a4435906266508bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0eb5d56ffdb375d1448b5e0ccdecaa535249f950.png": "07b540933f15fcdc0d1e73c1da8330ab57ba4842fe3b7cc467674176a1f5e376",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/11cd657cd34ae86596de4652061292df1e2ad0cc.png": "a5924a905abc5d575ad947bfbec5654cb32db671f337a12a6ab094388068a012",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/920d358ca80ee7328635d4454dc8c94725334f7d.png": "496d1212d5e8127ce0fdcbeb4a496b824b747a48c354692d301f8f0f2169afdc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9841c52f9344e5f6a05ab0d8e0b783835af69723.png": "f8e550f6bc2ecf330414a54f15447cd1131c79e8666b4f9fa3b1a91502150409",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7736bb589432a3bae682af4089feee9d65781e5.jpeg": "2d7a98eb91bdcb2a53f5ea9d85ac7bb83cb482c7f7cb3e73ed2c62ab2a34799e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6b7045ddeb7bf2315ae3a7c16bd211918a364a3.png": "1b67c338db76de585949ff6737599555e2459ca805588a0f99c272cec2254304",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d6886da17f827f02ec19ce3b2c3414afd8941007.png": "6a597331ea12cf865f3375239ce1da7dc2d3dd690d9cfa9b214a89e391817d28",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f5535b0debe051043a4e1b2d7c804272952f2a57.png": "dac0eb1d05cb39bee000f2578e33bcbf09f038fe827d84798f0e1d9843184d60",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8f4db0e4510b91c4f831d734c69a9d4abef2df2.png": "582690b52e9a4ae33173ce3a529d158b3bbd766a5f5e6806204ce5e080a9db9e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/0949e006e4bee7b0ef95a0545bc62f91e106026b.png": "fc4a7ec3bdc18a9dc8eec0a07c37883f287ce309a60727864d0799bb42966b9e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/33862ccb6b6c3cb409bb32a7f3259ec5c53e67e0.jpeg": "96227c3210cf37c043628321f01fd48dd85f8e8073ef7aef55ad873a874a0ce3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/d/5d07ba2ca19be5c19b837e7b979af5446def9d47.png": "a6dff2d67be46a241d97d6f5cf45b8fe2d4562a46c9222f6079518252d6d4e23",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/80d0e0b1687190c551fdb09a0f8d416ea3c414d5.png": "2c8225b46094621f60bea57cb2fe024d99327d0d8dd438716ec97858a73a7bff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/839d62a3c33e71eb7e8dbe9a5edc3b5ef9a34b5a.jpeg": "f05a9b04f2cee3f81cfea9ef4d26c6a5557950ab30e43c19828be0f742da3b27",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/d/ad49a2c768af2169b3a5a1cce2f067f536152603.png": "a1810acd0dd3b146f1b35b6f14b77ae331f9f7eb27669c447d9e45bada1565ab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b036a2acab0719648270e84b3b179ecd5e339ca4.png": "af8813febd61ae5bab6c4ca9e1defdd4176ccadabaa4371b9893c9eb5ddb9431"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f8f4db0e4510b91c4f831d734c69a9d4abef2df2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              14,
+              130,
+              680,
+              163
+            ],
+            "text": "bigip_mgmt_ip = \"192.0.2.10\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              160,
+              680,
+              193
+            ],
+            "text": "bigip_mgmt_url = \"https://192.0.2.10\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              190,
+              680,
+              223
+            ],
+            "text": "bigip_password = \"EXAMPLE_SECRET\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              220,
+              680,
+              253
+            ],
+            "text": "bigip_public_vip = \"192.0.2.20\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              14,
+              250,
+              680,
+              283
+            ],
+            "text": "bigip_public_vip_url = \"http://192.0.2.20\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "8049366f587a28c260a64544eaac7fb98c5fba4178151710362eed53932d9e45"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0eb5d56ffdb375d1448b5e0ccdecaa535249f950.png": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              122,
+              660,
+              154
+            ],
+            "text": "endpoint = \"juiceshop.example.com\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              4,
+              154,
+              560,
+              185
+            ],
+            "text": "xc_lb_name = \"demo-xclb\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              4,
+              185,
+              560,
+              215
+            ],
+            "text": "xc_waf_name = \"demo-xcw\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "e2dd9fe3e01b627c1883db981dea731cc0b06fca1c5a0280861dab8888cc2e6e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/3X/e/5/e50cd41321cd79b8478647d85284f41f1fde35fe_2_690x31.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              16,
+              270,
+              30
+            ],
+            "text": "F5XC + BIG-IP Destroy: demo-user",
+            "size": 8
+          }
+        ],
+        "output_sha256": "a4160002ddcd9895366fbfeff81c93538d888470a3a776f7776cdf552c201bf4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/9/0949e006e4bee7b0ef95a0545bc62f91e106026b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              64,
+              70,
+              805,
+              107
+            ],
+            "text": "F5XC + BIG-IP Apply #5: demo commit pushed by demo-user",
+            "size": 20
+          }
+        ],
+        "output_sha256": "d2e7624b64eadc03bb39ed923b430966c5138c14435f3e0a8db49fb4f859ca20"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/839d62a3c33e71eb7e8dbe9a5edc3b5ef9a34b5a.jpeg": {
+        "rectangles": [
+          [
+            87,
+            560,
+            355,
+            627
+          ]
+        ],
+        "output_sha256": "8bd5a56141ea501b4c0d4687a6e96690d7957906acbf8ef7a78d60bce847ec30"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7736bb589432a3bae682af4089feee9d65781e5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0a70a7b4786d513047367c8187347bd5a8f56d2208048039ffd8d1c7751ec4e7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/33862ccb6b6c3cb409bb32a7f3259ec5c53e67e0.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c7a3228ca38b53b6d0a6ceb5dacae42b0c474604f2bb2bcef3b7d8919e7d6387"
+      }
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose, Terraform flags and all 18 static media. XC Bot/DDoS edge protection is substantive; retain hybrid BIG-IP origin architecture and workflow. Five hash-bound transformations remove exposed demo password, management/VIP addresses, endpoint/object IDs, GitHub user identifiers and author credit; shared media transformations match prior reviewed bytes. Other secrets are placeholders/descriptions or sensitive/write-only values; preserve outputs, timing, architecture and feature flags; strip metadata."
   },
   "71996": {
     "article_hash": "153f92aaa9c61b4b709a29c76825dd5c85edb7ac8a8f43e7c9eff3386cd3df2f",
