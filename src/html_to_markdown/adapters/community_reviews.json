@@ -12856,12 +12856,12 @@
     "text_replacements": {
       "nodes": {
         "e955ea81c2e55d0c15d892e700c0dc49a37559696c9724e4dcf99a509d99af2e": "kasmn.example.com",
-        "de7e0552c54ad04c87adf530a24c61f27b5aee27778cf4c0fbf4672b12823971": "kubectl create secret tls tls-secret --cert=/home/demo/certificates/combined-cert.pem --key=/home/demo/certificates/combined-key.pem\n",
+        "de7e0552c54ad04c87adf530a24c61f27b5aee27778cf4c0fbf4672b12823971": "kubectl create secret tls tls-secret --cert=/home/<USER>/certificates/combined-cert.pem --key=/home/<USER>/certificates/combined-key.pem\n",
         "7ff0c152e81d7d67ecee75756719feb872eae5cb6720ea103bbd70465df560bc": "example.com",
         "97cb7f662d6fe218e8821680c77745c0ca037d446a1185aabd1e6e208ce032d4": "http://kasmn.example.com",
         "3c9be0f980cc71b76ba7872a6abd604bf1e7f47a24f471201437a5b15aef7153": "http://example.com"
       },
-      "output_sha256": "705ceb1b9d89028d5a294138de6793895c02f9a91c9f2518f938c6e2f9d92e96"
+      "output_sha256": "1c8682e05079d361b649861d79ebf5a06fe1e095cc5bfe83a9d0ee7f318ea845"
     },
     "privacy": "approved",
     "privacy_reason": "Full first-post prose and all 31 static images reviewed. Personal paths, shell identity, namespace, tenant, object labels, domains and profile portrait replaced or removed; public service IP uses RFC 5737. Lab private topology retained. All three deployment methods, Helm commands and output, VirtualServer template, TLS, health-check API, CE origin discovery, dual origin pools, WAF, WebSocket upgrade and application dashboards preserved. No credential bytes published; image metadata stripped.",
@@ -13276,7 +13276,7 @@
               1950,
               62
             ],
-            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/demo/.kube/config",
+            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/<USER>/.kube/config",
             "size": 20
           },
           {
@@ -13286,7 +13286,7 @@
               1950,
               90
             ],
-            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/demo/.kube/config",
+            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/<USER>/.kube/config",
             "size": 20
           },
           {
@@ -13300,7 +13300,7 @@
             "size": 20
           }
         ],
-        "output_sha256": "0ee9aac4587fd97210cce3498758d1401015a8bdac36836e6af2008ac134ce78"
+        "output_sha256": "9d0548f662f593807490277513bfb86c65eb6ccce11b9470922fc114132c5d5d"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0cc605c0be5ab5b293bc51d1f3a4ea9971aad40f.png": {
         "labels": [
@@ -13321,7 +13321,7 @@
               804,
               29
             ],
-            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/demo/.kube/config",
+            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/<USER>/.kube/config",
             "size": 9
           },
           {
@@ -13331,7 +13331,7 @@
               804,
               43
             ],
-            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/demo/.kube/config",
+            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/<USER>/.kube/config",
             "size": 9
           },
           {
@@ -13373,7 +13373,7 @@
             313
           ]
         ],
-        "output_sha256": "1713beac1c69a78e68793f8a9a2d023fb13282285f3ea413fa9de777277fa3e9"
+        "output_sha256": "e1f9baca09fe14543062885ffd9b88c97d4c1d35e1fae9944081cf481acfcb9a"
       },
       "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64607f4caf420867990133097b8eae73cefaae83.jpeg": {
         "labels": [
