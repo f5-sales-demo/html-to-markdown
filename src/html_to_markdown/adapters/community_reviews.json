@@ -52438,5 +52438,296 @@
         "output_sha256": "13ed3c5435c528979b0444a028bdd7700c46733166f8be9410d8d0b07452690b"
       }
     }
+  },
+  "70684": {
+    "article_hash": "3d41e9177ed4373871dcd560c62ca6df45d37530f24ec69c22daf2be9994e079",
+    "decision": "include",
+    "reason": "Distributed Cloud managed namespace and DNS over HTTPS deployment primary",
+    "text_replacements": {
+      "nodes": {
+        "2763da7ee54cb6e6b665446589f5e1a0ea3162c596dc8bae53a01d63fbd10ee6": "openssl req -x509 -nodes -subj '/CN=dns.example.com' -newkey rsa:4096 -keyout /etc/ssl/private/dns.key -out /etc/ssl/certs/dns.pem -sha256 -days 3650\n",
+        "a1cd5d93975d70bc911ae85f9ff770472b2415cabbcf194b408b8beb8fd48490": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: bind-doh-dep\n  labels:\n    app: bind\n  annotations:\n    ves.io/sites: system/demo-azure,system/demo-cluster-100,system/demo-test\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: bind\n  template:\n    metadata:\n      labels:\n        app: bind\n    spec:\n      containers:\n      - name: bind\n        image: mcoleman81/bind-doh\n        env:\n        - name: DOCKER_LOGS\n          value: \"1\"\n        - name: ALLOW_QUERY\n          value: \"any\"\n        - name: ALLOW_RECURSION\n          value: \"any\"\n        - name: DNS_FORWARDER\n          value: \"8.8.8.8, 8.8.4.4\"\n        - name: DNS_A\n          value: example.com=192.0.2.10,example.org=192.0.2.10\n",
+        "6c2979e8517d39c72ac7a3703a8e8c74cced9c4af7a635807404cab24f0020aa": "apiVersion: v1\nkind: Service\nmetadata:\n  name: bind-services\n  annotations:\n    ves.io/sites: system/demo-azure\nspec:\n  type: ClusterIP\n  selector:\n    app: bind\n  ports:\n    - name: dns-udp\n      port: 53\n      targetPort: 5553\n      protocol: UDP\n    - name: dns-tcp\n      port: 53\n      targetPort: 5353\n      protocol: TCP\n    - name: dns-http\n      port: 80\n      targetPort: 8888\n      protocol: TCP\n    - name: nginx-http-listener\n      port: 8080\n      targetPort: 8080\n      protocol: TCP\n    - name: nginx-https-listener\n      port: 4443\n      targetPort: 4443\n      protocol: TCP\n",
+        "7d678735f3bb9aa86cdd1a18a6bbc733d9de3170e219a08177a87f34b3607500": "Based on everything we have done, we know that the service name will be our [servicename].[namespace created previously], in my case it will be bind-services.demo. We will need that value in a few steps when creating our Origin Pool.",
+        "553cc2b190bb08e000e4429ec9661bcffd384b2444bb1280a85729c4edcbdde5": "kubectl get services -n demo\n\nNAME            TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)                                  AGE\n\nbind-services   ClusterIP   192.0.2.193   <none>        53/UDP,53/TCP,80/TCP,8080/TCP,4443/TCP   3h57m\n"
+      },
+      "output_sha256": "66cd581319045037d7f9cf3696ed832451cf727c9700908c99b7cda200340ce2"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 15 static images. Replaced personal host, terminal, social, site and application identifiers and documentation addresses; retained DNS over HTTPS routing, public resolver addresses, upstream provenance, YAML, NGINX ports, certificates generation paths and response HTML. Six images use hash-bound synthetic labels; metadata removed without changing remaining pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/335a1441c8275d5c6981922d4ed67f1cd207de26.png": "7168fcf8fab4d907e54f7ffeffe49deca2127245649357bf0c2ad450b9205a4f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4dea450d42383383b278f149afb8043b353e2d9c.png": "5a2a69bb89d17877408d1e0b475e7c3d67c764f23f95816d67a6aa2756416ea7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/59606916c3b4ea398b3e34493d8e062152d7ba88.png": "dc1b182266cf126608900ea51151f40a3331efa32aadcc2c12ab9b3dfb36b05b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/75efb3502dad749ae76426bb643493f4e5904f93.png": "3497dce6dec8d492ccacb4ce009986a179c3cc8aac3663bd88d9977bb73c63ff",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b687c1f88d9fc93897463ffd28bc96a1790192fc.png": "efddda633fb81cd1f60b28551ee10f250e2bc984a280ea2d12ba9b68307804b6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c66022860a06ed6a789773c6ec977694efac8cf3.png": "8ef064908914b876805187eb1e0c9ab2879d0c9a880cc54fc75f7152ada959bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d796dd6e0f0544c365acffd3bffa842283d4612a.png": "dce5b23278623be364eade55f45bc94987feadf276d216fc3976e189ad7aa32c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fee47ce4cfaab76ad506dcd9352e74f11d1030e8.png": "6fc61409fb19124eb1de046b85dd95f449e4ad4e49a55ca7525bd3254bb01552",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fb7f1e101bef9227574fe6190945acbd2440eb6.png": "9838ef54a3e2701ac7579b2096a4322b62e0805a0e0cae04be69a17cd3a5ca55",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/0/103fdfafe32e1687c5da0ce214ace6caa037a4fa.png": "677b1242cf5527e8725f7b6b0197b3c426d6067d7b9891d641447212cb7b575c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/d/1d98c03df8f4333df25768fbc2875804be3ee8ba.png": "2c8df8d579e895a4fd2d28c5e38222b0a8aa47fbd8f10a336c4c1e474f783fdf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/9/794939ea3f6bd192cf74222f358e51bd7283a814.png": "840fdbc0006e2d2f9e7bacd070a5b1b05d4d52d22ac55c4466003ef4a473c3bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/0/a08391b424d202aa26bc678e604df232fc8671fd.png": "a346e078cb380be2761fecf732b0dcdcd12e5c0dbc77c0407558cd644b80e203",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/7/b7157bb8616f14626140af4013beb66e9f685945.png": "203d73a2e25ce965a16ee33f62e03d7e352216dca858979ef030c56e886fdd30"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4dea450d42383383b278f149afb8043b353e2d9c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              120,
+              248,
+              340,
+              274
+            ],
+            "text": "system/demo-cluster-100",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3d6a5d22ba1505fccaece1427021f81509d3f1a94c0801e07131797bbc724aae"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b687c1f88d9fc93897463ffd28bc96a1790192fc.png": {
+        "labels": [
+          {
+            "rectangle": [
+              138,
+              265,
+              326,
+              292
+            ],
+            "text": "bind-services.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              180,
+              480,
+              389,
+              506
+            ],
+            "text": "system/demo-cluster-100",
+            "size": 12
+          }
+        ],
+        "output_sha256": "73f77e32ec7374e2967222554c061483298e1eec65ad88817eb3f9118ba66abe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c66022860a06ed6a789773c6ec977694efac8cf3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              418,
+              137,
+              865,
+              182
+            ],
+            "text": "doh:www.example.com",
+            "size": 32
+          },
+          {
+            "rectangle": [
+              506,
+              240,
+              735,
+              284
+            ],
+            "text": "192.0.2.10",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              609,
+              390,
+              1130,
+              443
+            ],
+            "text": "tcp/udp:www.example.com",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              773,
+              458,
+              1004,
+              504
+            ],
+            "text": "192.0.2.10",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              987,
+              775,
+              1224,
+              825
+            ],
+            "text": "192.0.2.10",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              1396,
+              981,
+              1740,
+              1028
+            ],
+            "text": "www.example.com",
+            "size": 32
+          }
+        ],
+        "output_sha256": "bdf4e8bf6005b2d15d768142d006447d53ad855c0a85f2c0a2311dd12812be4f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fee47ce4cfaab76ad506dcd9352e74f11d1030e8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              402,
+              0,
+              474,
+              30
+            ],
+            "text": "demo-app",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a1c50753f377d7b41083054c49b92a885846b84ac411d609bd4204e82830ad9a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/f/0fb7f1e101bef9227574fe6190945acbd2440eb6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              216,
+              180,
+              366,
+              204
+            ],
+            "text": "bind-services.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              216,
+              239,
+              366,
+              263
+            ],
+            "text": "bind-services.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              216,
+              300,
+              366,
+              324
+            ],
+            "text": "bind-services.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              388,
+              180,
+              516,
+              204
+            ],
+            "text": "demo-azure",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              388,
+              239,
+              538,
+              263
+            ],
+            "text": "demo-cluster-100",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              388,
+              300,
+              507,
+              324
+            ],
+            "text": "demo-test",
+            "size": 12
+          }
+        ],
+        "output_sha256": "49a227179ec9688eb5ac3fdfadc208a99359e17189afd886b201e07ad523eb76"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/0/103fdfafe32e1687c5da0ce214ace6caa037a4fa.png": {
+        "labels": [
+          {
+            "rectangle": [
+              357,
+              42,
+              699,
+              64
+            ],
+            "text": "Desktop - example@demo - zsh",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              58,
+              68,
+              820,
+              85
+            ],
+            "text": "example@demo> curl --doh-url https://doh.example.com/dns-query http://www.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              60,
+              166,
+              966,
+              183
+            ],
+            "text": "<!-- <script async defer src=\"https://telemetry.example.com/js/example.js\"></script> -->",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              99,
+              331,
+              241,
+              349
+            ],
+            "text": "www.example.com:",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              60,
+              362,
+              963,
+              395
+            ],
+            "text": "<p class=\"output\"><a href=\"https://www.example.com/profile/\">Profile</a></p>",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              58,
+              514,
+              284,
+              534
+            ],
+            "text": "example@demo>",
+            "size": 12
+          }
+        ],
+        "output_sha256": "bcdb96f2f1e165d5bb4bbc9aca5872c0cd5539b0204d8cd36bba97f51f0f5dd5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
