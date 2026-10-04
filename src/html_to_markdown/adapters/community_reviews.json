@@ -70969,5 +70969,428 @@
         "output_sha256": "25fb5f9603f69335033f38875f438ef5c70b90fbb1d29f3fca3a3516e3d404db"
       }
     }
+  },
+  "74971": {
+    "article_hash": "4f17fd25a2cf09b4c225618c32f7245915d2dab143ef2770ac83c51a565f6c6d",
+    "decision": "include",
+    "reason": "Distributed Cloud virtual Kubernetes deployment of NGINX Unit WebAssembly service with HTTP load balancing and WAF",
+    "text_replacements": {
+      "nodes": {
+        "cffeaa11ae184d1226645006431181029616851dec6213ea4acbee8ddbbb046b": "http://wasm.example.com/"
+      },
+      "output_sha256": "2327bd6a98b4586123465e0132e357017b59dc16c45681d8c686fd7401cecb70"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose, complete Dockerfile, entrypoint script and all 21 static images reviewed. Personal namespace, object names and application domain synthesized in screenshots and linked prose. Registry screenshot already uses an example FQDN. Authoritative NGINX maintainer attribution retained in upstream Dockerfile. vK8s workload, service-name syntax, port 8000, regional-edge selectors, HTTP advertisement, WAF policy and Wasm response preserved. Metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/84a8b7025bddf1cd36ed63bcbcb912065f0e7701.png": "f3110e0985a0d9985edfeecb5c1ecdfcbe82adcda25d23e0347c5ce6d6ef1be7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/defeeaf4ffee2a86bdc99f2971dbe0db4b2e4896.png": "e73a526b39d8e92149843eaad8e05f8e1c66890a56abf5a6f1f47924e6a51294",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2277ce155c53003884c2bd8d492193cd520b3446.png": "0b0306b51a98bfa6733550d251b58809ac3a01396cedb4486ec842109cd5b9fd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2c8afa2b1201672e005f934f5767fb72997fc66d.png": "5a5399fbd58c21f1ae5b9168522676304871e71eec92687c95f351402624879f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/350bfb5961af75b545c1ac3355320082e8a9deee.png": "fd4347f4f47fe37766989a9578ff9c73840c7d31243026f45c5f852ad43c69da",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/52b6046ffe5cba1a799ac848051f7f5fb1b8c8c6.png": "efb223647028eabddef8394d999220c10257072afa26c4ddeab334d7f060b5b6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5a7ef1a811598441bd505bb9c420596fef2fa3e9.png": "b3be78dab777e2eeff280021d76f3fa7696ac0ca4a70d41851fe370da08694bc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8671d29de17cf32d22738dce82173f576205b98a.png": "dda1743730da8fa63d127e46535bb3beaa1b5394c73d9f08848eaac9e6d58968",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9eaad0d2e38a235c3ee4eb6f1f9f21da8db335e5.png": "a31d657d417b035c1169837a74420a0e9fc8707dc633e26fbe52e0fb5c4cedbf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca26496322b958fb440fd187369b2fac05859948.png": "483eac9dd624a47a1a5cb6b56ba219ed9b177703e1a9ab405ec7c2069f6b2884",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2fb50d06887d4535c216266c666dc5e667e43ca2.png": "5dbadb411e649e45829dd7c824e8547f0e43adf5d2860449c2c6d181b2673c32",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/8/6848ce502698003a286f65bdae0d8cc11cbccd4a.png": "2b535bc48640611b1463e881a8e39f90068d62cb7fe01428c84114d6cae356c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e2551da7e6794fb52b37175bfb294e18e351623.png": "688cc326d11e10e514854ac7722ba6e205a242b5aca169ef518f3cf16840978b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/0/a0268e5d30cd49702bb556e004e5a01f785434c9.png": "9feb0277f7b9cdf9c35242f70ece7eae36a8852f347c5f14860dc413da54ed0f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/e/aeb664475c1abc5c13d9000ff38e5553d0394881.png": "c5156647a58fc69928bd54b6006ed946f8de216e7c6b2efec3b27e638ec6da69",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1a7a86055882a654c5069a9f8d1ad9b06735c8a.png": "20e9bffe505d32c950948cf7a12a703e895f82bf3efd679495bbedc2bd518209",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/da55b04791cfefc365b1f9c62747c28c07049f47.png": "9c0f6c08cab29b970597db324eaeaebcfc1ee72b7fba57b0258a8d286179df94",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dec4c65c6ad53547026601549b070accdceb301b.png": "095147d97036bdc19c1582c2bc20fcaf782409e8d50fef311a4d039e7c4aeff1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/eef8da46a358f7912c2a92188465d209ea01d519.png": "f066c3cde94437bec4892979ca15dc384cd7e5759a7d81de2f04c841cd7b86c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/fa0e6e680ca7646563728bafb353ea9a7c22a14b.png": "fd076c8da467d3189843533cbd3aad3a6b7a377e827a416bf08d9fe5d09bbc8d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/faf1b986c4f66d79f74770b361cf781d7a876096.png": "1b2ea8b45e81a056c42a8656b13eef66a56693fcd50193ec5640ac27153780e9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2277ce155c53003884c2bd8d492193cd520b3446.png": {
+        "labels": [
+          {
+            "rectangle": [
+              40,
+              161,
+              122,
+              183
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              458,
+              3,
+              518,
+              26
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              310,
+              246,
+              411,
+              269
+            ],
+            "text": "demo-vk8s",
+            "size": 12
+          }
+        ],
+        "output_sha256": "13cbaeccc57d20f654b353d729d3639e05ec9ccf71637cdf4579b1623fc7594b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/350bfb5961af75b545c1ac3355320082e8a9deee.png": {
+        "labels": [
+          {
+            "rectangle": [
+              441,
+              156,
+              611,
+              177
+            ],
+            "text": "demo-unit-wasm",
+            "size": 12
+          }
+        ],
+        "output_sha256": "30edb4c1ac579171b652177f2856f74456858c910a157f6f8a8366f98d1a0684"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/52b6046ffe5cba1a799ac848051f7f5fb1b8c8c6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              43,
+              166,
+              125,
+              188
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              458,
+              3,
+              518,
+              26
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              281,
+              31,
+              475,
+              58
+            ],
+            "text": "Cluster: demo-vk8s",
+            "size": 12
+          }
+        ],
+        "output_sha256": "a0d197320465fb13cebf0d8f7b0c7328430633b92b317dd1d4d854803a8f5ea0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8671d29de17cf32d22738dce82173f576205b98a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              237,
+              210,
+              260
+            ],
+            "text": "demo-unit-wasm",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              423,
+              48,
+              601,
+              75
+            ],
+            "text": "demo-unit-wasm",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              620,
+              500,
+              762,
+              525
+            ],
+            "text": "unit-wasm.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              802,
+              498,
+              953,
+              525
+            ],
+            "text": "demo-vk8s-sites",
+            "size": 12
+          }
+        ],
+        "output_sha256": "0323073c5f0aee6f46cb86d06e1b4e9f260120848ce30693e57e73f322972c5c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9eaad0d2e38a235c3ee4eb6f1f9f21da8db335e5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              241,
+              210,
+              264
+            ],
+            "text": "demo-unit-wasm",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              500,
+              309,
+              685,
+              335
+            ],
+            "text": "unit-wasm.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              522,
+              464,
+              738,
+              489
+            ],
+            "text": "demo/demo-vk8s-sites",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3c1c71c999ab5ff094ea77db15f18d78581c6b3c47b7946a2b5291362b6a8cf7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca26496322b958fb440fd187369b2fac05859948.png": {
+        "labels": [
+          {
+            "rectangle": [
+              557,
+              487,
+              847,
+              515
+            ],
+            "text": "wasm.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "9d3e9266fa52462f00d9bae63c042abf97819d4aca6d10a88cc966bb52863bab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/f/2fb50d06887d4535c216266c666dc5e667e43ca2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              40,
+              161,
+              122,
+              183
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              458,
+              3,
+              518,
+              26
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "fe848b5dde364db93ff694e7a15522d2ad612a2409a1ea42f9072cb4ac82552b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/8/6848ce502698003a286f65bdae0d8cc11cbccd4a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              219,
+              11,
+              632,
+              38
+            ],
+            "text": "wasm.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "06a2f43dc4d5a87f7f2fe1de007a5d6ce8c46e1b24031941d10c4271aa6d1fc4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8e2551da7e6794fb52b37175bfb294e18e351623.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              236,
+              210,
+              259
+            ],
+            "text": "demo-unit-wasm",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              496,
+              308,
+              688,
+              332
+            ],
+            "text": "unit-wasm.demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              521,
+              460,
+              736,
+              485
+            ],
+            "text": "demo/demo-vk8s-sites",
+            "size": 12
+          }
+        ],
+        "output_sha256": "db92bfc28e3e44ed0a976e86d8b6037fe3cd9ba17f51eaaa7656245f5c246722"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/0/a0268e5d30cd49702bb556e004e5a01f785434c9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              472,
+              284,
+              704,
+              310
+            ],
+            "text": "demo/demo-cr-nginx",
+            "size": 14
+          }
+        ],
+        "output_sha256": "9fd9dbd8128eb4f456e7198b5af61549d2ee564150193b94235c5bd56eeccf05"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1a7a86055882a654c5069a9f8d1ad9b06735c8a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              39,
+              163,
+              121,
+              185
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              458,
+              3,
+              518,
+              26
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              310,
+              249,
+              410,
+              272
+            ],
+            "text": "demo-vk8s",
+            "size": 12
+          }
+        ],
+        "output_sha256": "e3891abeee588fccaa372cf64872870bbd55a568c3d797e0d88f7f09de1f10b9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/da55b04791cfefc365b1f9c62747c28c07049f47.png": {
+        "labels": [
+          {
+            "rectangle": [
+              488,
+              381,
+              713,
+              405
+            ],
+            "text": "demo/demo-blocking",
+            "size": 12
+          }
+        ],
+        "output_sha256": "afb27274c917e4d45c56d3595a39c9a6784e824bfa1fd93a8801ad4d5a54a4a9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/e/dec4c65c6ad53547026601549b070accdceb301b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              166,
+              127,
+              188
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              458,
+              8,
+              518,
+              29
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "ad76f6247cc07e94315e382b142418c3d026552919e6f76cc6f5799a06661dea"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/eef8da46a358f7912c2a92188465d209ea01d519.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              237,
+              210,
+              260
+            ],
+            "text": "demo-unit-wasm",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              433,
+              155,
+              617,
+              180
+            ],
+            "text": "demo-vk8s-sites",
+            "size": 14
+          }
+        ],
+        "output_sha256": "b08fdf17a482ceb5844abd48dfc37b2c73ddfdfadad9e99b2ebc16ca2d1419b7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/faf1b986c4f66d79f74770b361cf781d7a876096.png": {
+        "labels": [
+          {
+            "rectangle": [
+              437,
+              155,
+              557,
+              182
+            ],
+            "text": "demo-vk8s",
+            "size": 14
+          }
+        ],
+        "output_sha256": "86d0eae48b2af3fa49d590af0ac3a4234431c1b7f192288f58acbe34d5a50979"
+      }
+    }
   }
 }
