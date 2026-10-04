@@ -8793,7 +8793,460 @@
   "75164": {
     "article_hash": "98c1f4bc7bb7a5d3863363e0064853974ceb4e373449d54bf39af3a9296d500d",
     "decision": "include",
-    "reason": "Distributed Cloud intent-based application connectivity across Nutanix and cloud services"
+    "reason": "Distributed Cloud intent-based application connectivity across Nutanix, cloud and Kubernetes",
+    "text_replacements": {
+      "nodes": {
+        "4ca67a282c70106223d9f269ec19f0e7515db52353b7dc0cef7e02f19bbfe14f": "The application runs on VLAN 100 (192.0.2.1) in the data center, while clients are in the branch office. The load balancer configuration is as follows:",
+        "86b63c77e3230bf6b65e1b745ea82b230dafdf35b7848ded73b0b06db14603f1": "app.example.com",
+        "782d30018f9561f87dc58ce57ad9768e7e9b2e01418a9a67b474602c02e643ba": "Endpoint (Origin pool): Onpre-VLAN100 VRF, 192.0.2.1",
+        "b50d72b6bfa0f3067d32fd4e1b3d59a0b162111f8f4702b22b6a047fb5763c51": ",\u201d which resolves to a VIP or CE interface address. The CE identifies the application\u2019s location, and since the endpoint is in the same CE within the Onpre-VLAN100 VRF, it sets the source IP as the CE and forwards traffic to 192.0.2.1.",
+        "e34fdf596edccc0dec68281d19c9beea139f599c0e499e103ad72573706ea307": " AWS-VPC VRF, 203.0.113.1",
+        "f3435628f35dd27ffa464bd08fcc524c536120e647b384cb4e39cdba2f827a74": " Onprem-vlan100 VRF, 192.0.2.1 / AWS-VPC VRF, 203.0.113.1",
+        "74b3cd2d3b4114d8bde88571ab264cde67f62f7b1faae6549731ce73cc30645f": "http://app.example.com"
+      },
+      "output_sha256": "03697a49f3b5e91e464c9185c40fb8387028404d8910c49d7222f7a499156511"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 15 static images. Replaced application domain, documentation topology addresses, client address and personal deployment identifiers. Preserved SNAT/DNAT mapping relationships, source and destination connectivity, load balancer origin changes, VRFs, VLAN 100, routing diagrams, API observability and response status/latency. Five images use hash-bound synthetic labels; remaining architecture/API diagrams contain no user data; metadata removed with pixel preservation.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/479fa4aca430ea25098055258fd81e5e823bb53c.png": "01e9d3c6e0b8d6646fb1e6543c8d87db79f5f107dae5543f9574f8147a670abd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c80b110e5462eb51351ba0ccc3e7d2fd6c32844e.png": "894c297e18ce46d704ebc3157657537135337c73c14f5fcc1b15db2235e6ae0b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/098f01f37c1302560ff73d4a3c1609f2c226498f.png": "80b914068dc3fbb2316cdbf4e649f73e46b76b15aeef268ff5b3875565c26b3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/26e5f5490918b1f8433b6535f8246f6027f05c0e.png": "32cc440dc44218de529a582d76791a5c6c4e058690e25cd7f9decbce31a55986",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b72b551a57a3f43deb4d206570ec3d16ae3edcf.png": "6fc8030586210b4fc4eeceff08e93a9154acda101253a6f4305008f7d65d9bbb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/573561fcc6c9e414837d85ea60c9240fb9b1b838.png": "3bff6938c9fa96d884288e1f3db0d462a24cf58dd5fbbae5045241fe48a49d6c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/576b7d3de509b4c1fca8245148101b6fe1f89002.png": "3e9b93fba7232bfc5887d238189cef2dbdcebc550bfbb0bb837ae0449a74600f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bdd32c9e0e51ff7a4a62a2dc0f6c28490ffb16f6.png": "95ae7b6b76094e13becc7705762d0b14212b729a5d5fea1ff0ee5c96d4835864",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c9e43926ed5843e6e28edd4ec7f9c4d8158e6610.png": "db6dd9d1d758a1916eeea7e306b45593a090dc247988f3a35ddd1e0b64d13ae7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/ed52a03c37b3ccf6c87774537647220b27b0f0e3.png": "a267cec73cbfd967c24f119d7bbc46eddc74ecc19c43c635edee53035a104f76",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6c7c85a0290a08cb29dfbcdc83a59b4f8435a81.png": "268a8a4468732afd1ceb8e63280be2496e742463d60283d98379bb0c7c687459",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/2612d245d0c8ce3d0b794418b382bab54cf5009d.png": "9e4d3048d0e8b3db445fd09cad1cff527f088cda84242e94c0cc93374be1418f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a73a94a67de9d34b526d0a73a0ee5cc1c685847.png": "8208d526618bbd03d5ac02f671b16dc90407cdfac0e7040fe21243d6f233af8d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8bf6aba0c61a11a93ada60554f8d15150cd11ae2.png": "a59b7a7356e96e44c1fac56d383c87479dbd028a3e598c60f2042038686a017f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/0/d0594734678c2c1b6b5de8946216d7f2c2f5213b.jpeg": "f5672f3a0706407241995c3423d0b0c02a725fd9219435f276bc4a583ab9390a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/479fa4aca430ea25098055258fd81e5e823bb53c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              292,
+              89,
+              445,
+              108
+            ],
+            "text": "Endpoint: 192.0.2.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              292,
+              111,
+              489,
+              133
+            ],
+            "text": "Load Balancer: 192.0.2.254",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              786,
+              109,
+              936,
+              135
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              308,
+              328,
+              472,
+              350
+            ],
+            "text": "Endpoint: 198.51.100.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              308,
+              354,
+              516,
+              375
+            ],
+            "text": "Load Balancer: 192.0.2.254",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              15,
+              135,
+              150,
+              158
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              15,
+              327,
+              171,
+              351
+            ],
+            "text": "198.51.100.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              797,
+              312,
+              961,
+              337
+            ],
+            "text": "192.0.2.0/24",
+            "size": 16
+          }
+        ],
+        "output_sha256": "33e5565b1224e0512d86815970eef34a3b4c5c3119c3e77344611ef8dbbd8374"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c80b110e5462eb51351ba0ccc3e7d2fd6c32844e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              376,
+              200,
+              395
+            ],
+            "text": "192.0.2.204",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              128,
+              434,
+              200,
+              451
+            ],
+            "text": "192.0.2.204",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              128,
+              492,
+              200,
+              510
+            ],
+            "text": "192.0.2.204",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              128,
+              550,
+              200,
+              569
+            ],
+            "text": "192.0.2.204",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              356,
+              299,
+              380
+            ],
+            "text": "demo-app",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              380,
+              299,
+              405
+            ],
+            "text": "demo-frontend",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              414,
+              299,
+              437
+            ],
+            "text": "demo-app",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              438,
+              299,
+              463
+            ],
+            "text": "demo-frontend",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              470,
+              299,
+              494
+            ],
+            "text": "demo-app",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              494,
+              299,
+              519
+            ],
+            "text": "demo-frontend",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              530,
+              299,
+              552
+            ],
+            "text": "demo-app",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              220,
+              553,
+              299,
+              580
+            ],
+            "text": "demo-frontend",
+            "size": 9
+          }
+        ],
+        "output_sha256": "7595477d9b82a3a001353e30f6c9fa555c32a2add67d93f8cfe3fdf9d7ffa35a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/573561fcc6c9e414837d85ea60c9240fb9b1b838.png": {
+        "labels": [
+          {
+            "rectangle": [
+              725,
+              183,
+              968,
+              214
+            ],
+            "text": "Connect app.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              440,
+              374,
+              768,
+              400
+            ],
+            "text": "LB: app.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              440,
+              401,
+              774,
+              431
+            ],
+            "text": "Endpoint: AWS VPC red: 203.0.113.1",
+            "size": 15
+          }
+        ],
+        "output_sha256": "2edcbcb875e5161b83b351a44d1f8c09e1a1e63a67f66c890d3d3718ddbf10ae"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bdd32c9e0e51ff7a4a62a2dc0f6c28490ffb16f6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              725,
+              183,
+              968,
+              214
+            ],
+            "text": "Connect app.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              440,
+              375,
+              832,
+              401
+            ],
+            "text": "LB: app.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              440,
+              402,
+              832,
+              432
+            ],
+            "text": "Endpoint: Onprem-vlan100: 192.0.2.1",
+            "size": 15
+          }
+        ],
+        "output_sha256": "a5eaaf73a74c1e4a1c489e6a3225ce5daf9743ef878bed82ab51f9e2890101bb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/a/4a73a94a67de9d34b526d0a73a0ee5cc1c685847.png": {
+        "labels": [
+          {
+            "rectangle": [
+              210,
+              32,
+              345,
+              57
+            ],
+            "text": "203.0.113.1 = AWS APP",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              210,
+              57,
+              345,
+              78
+            ],
+            "text": "203.0.113.2 = App-B",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              158,
+              136,
+              354,
+              157
+            ],
+            "text": "App-A: SNAT 198.51.100.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              158,
+              158,
+              355,
+              182
+            ],
+            "text": "AWS App: DNAT 203.0.113.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              400,
+              136,
+              625,
+              159
+            ],
+            "text": "AWS App: DNAT 192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              785,
+              155,
+              940,
+              180
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              157,
+              383,
+              354,
+              404
+            ],
+            "text": "Branch: SNAT 192.0.2.20",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              157,
+              405,
+              354,
+              428
+            ],
+            "text": "App-B: DNAT 192.0.2.10",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              394,
+              383,
+              596,
+              404
+            ],
+            "text": "Branch: SNAT 198.51.100.15",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              394,
+              405,
+              596,
+              428
+            ],
+            "text": "App-B: DNAT 203.0.113.2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              15,
+              185,
+              160,
+              211
+            ],
+            "text": "192.0.2.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              15,
+              377,
+              158,
+              403
+            ],
+            "text": "192.0.2.10",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              797,
+              362,
+              970,
+              391
+            ],
+            "text": "192.0.2.0/24",
+            "size": 16
+          }
+        ],
+        "output_sha256": "c136810d0ed484b553b8e132710a5d5031fb74fdb4effa0b3cd475ab81b6136e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/0/d0594734678c2c1b6b5de8946216d7f2c2f5213b.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "eed97b5c7b483643fa5404d94b62604acc21b1fd2af2b5ffa0d4d25e45d7f100"
+      }
+    }
   },
   "75201": {
     "article_hash": "92d59efb4edaa17d1008a3d8610703fb3d613795538e64498fa93dbde8000ac4",
