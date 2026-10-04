@@ -157,8 +157,8 @@ remain immutable; publish migrated content under a new receipt-pinned snapshot t
 ## Curated collection landing page
 
 The landing page explains source-to-Markdown conversion and curation. Its hero
-and trunk/branch/leaf cards introduce the collection, sources/topics, and complete
-documents. `CorpusBrowser` comes from the pinned docs-builder and derives its
+introduces the documentation collection without exposing conceptual design labels
+or adding sections to fill a template. `CorpusBrowser` comes from the pinned docs-builder and derives its
 source cards, topic cards, document summaries, breadcrumbs and search from the
 verified mounted snapshot. It never maintains a separate manual page inventory.
 

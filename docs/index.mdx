@@ -3,53 +3,27 @@ title: F5 Docs Corpus
 description: Curated Markdown converted from public F5 documentation, support articles, community guides, and product pages.
 template: splash
 hero:
-  title: Source pages. Curated Markdown.
-  tagline: Browse public F5 content converted into clean, linked Markdown. Explore sources and topics, read complete documents, or use the same collection with your tools.
+  title: Curated F5 documentation in Markdown
+  tagline: Product documentation, support articles, community guides, and solution pages converted to linked Markdown. Browse the collection or use it with your documentation tools.
   actions:
-    - text: Browse the collection
+    - text: Browse documentation
       link: '#collection'
       icon: right-arrow
     - text: Open Markdown index
       link: /html-to-markdown/llms.txt
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
 import CorpusBrowser from '@components/CorpusBrowser.astro';
 
-## A collection you can navigate
-
-This project converts public source pages to Markdown and publishes a curated collection.
-Curation policies keep the collection focused and useful. More policies can be added as the
-collection grows.
-
-<div className="hierarchy-cards">
-<CardGrid>
-  <Card title="Trunk · The collection" icon="open-book">
-    Start with the complete collection and its sources. Each publication is a verified snapshot
-    you can browse or download. [Explore sources](#collection).
-  </Card>
-  <Card title="Branches · Sources and topics" icon="right-arrow">
-    Choose a source, then narrow your search through topic and category summaries.
-    Each branch links to the documents it contains. [Browse topics](#collection).
-  </Card>
-  <Card title="Leaves · Complete documents" icon="document">
-    Read the converted Markdown with headings, examples, links, and images.
-    Document summaries help you choose the right page before opening it. [Find a document](#corpus-search).
-  </Card>
-</CardGrid>
-</div>
+Curation policies select relevant content and remove material outside the collection’s scope.
+The converted documents retain their headings, examples, links, and images.
 
 <div id="collection"></div>
 <CorpusBrowser />
 
-## Use the curated Markdown
+## Markdown indexes and snapshot details
 
-- [Source and topic index](/html-to-markdown/llms.txt): start browsing the collection.
+- [Source and topic index](/html-to-markdown/llms.txt): browse documentation by source and topic.
 - [Complete document inventory](/html-to-markdown/llms-full.txt): find every published document.
-- [Verified snapshot manifest](/html-to-markdown/snapshot/manifest.json): inspect document and asset counts.
-- [Snapshot details](/html-to-markdown/snapshot/snapshot-provenance.json): identify the exact published snapshot.
-
-<style>{`
-  .hierarchy-cards .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  @media (max-width: 50rem) { .hierarchy-cards .card-grid { grid-template-columns: 1fr; } }
-`}</style>
+- [Snapshot manifest](/html-to-markdown/snapshot/manifest.json): inspect document and asset counts.
+- [Publication details](/html-to-markdown/snapshot/snapshot-provenance.json): identify the published snapshot.
