@@ -12880,9 +12880,1174 @@
     "reason": "Distributed Cloud focused deployment, architecture or security guidance"
   },
   "77407": {
-    "article_hash": "8caecec0b2f5f96ff6e3c0ab22583e00374ac442fbf9f2616c4c0a8a16583d79",
     "decision": "include",
-    "reason": "Distributed Cloud Bot Defense traffic classification demonstration"
+    "reason": "Distributed Cloud Bot Defense traffic classification demonstration",
+    "article_hash": "8caecec0b2f5f96ff6e3c0ab22583e00374ac442fbf9f2616c4c0a8a16583d79",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/00e17ecae1d8e52b8a6c67a904a448b1292db887.jpeg": "a35cbe0384457518d000dd5d24d078d753822c78262a137f3c8015b8f13098d9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/0513c1c1ed69166c839bacc17e1f4c0157d06c29.png": "038b74a14984a177337b6372a0f5e63202e02521da875e56a51643fc09ce6e9e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2151e3a1b44bf3a3a7b54acf820210f88da03335.jpeg": "0ed3f89559487d366fbc81c6fedb9d8003fcf20d9e2da2cc3a4b52c2381dad10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/33e1b779faab628d004ca0e4447556654c1f1ab9.jpeg": "07cd6ae0e1d9ece84259c0c0e10d74bb2b6e2d8b6831c81ab11776cc9ac774e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/7/373b1ad8dfd4b47a053609ccbb782106228fe5ae.jpeg": "574fd7a8d048f88b642e5e95794d3a2b8f599283e17d7e8a02a14a8f55858b0a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/d/4dc9bb59dc6c546f1ef2fded64a479f047af66bf.jpeg": "d7096ea61b7586ae636f3262cd09a8be7fac244d105abc009766f0f4f5e3bac4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/7/675fabaab4e86323dc8830ef0b6c0b50b792091d.jpeg": "9e97a78e378a7d26b64f1531d1e9797b35f1339f27caecc80f46b18109540b5e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/c/6cbcf351097197707119e224d90c139192e767ed.webp": "5fd389b481c96136c7df1f4ac3e6124b1df2c9ac8043fa40873a5c992296df3b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/3/73450e82408b625e9fd310d02e3956eb3f12763b.jpeg": "24067b4f4b1167bfa87d938b8683a3a7bf0ca2cbdc71d180c3a19c300e95a270",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/77db4a668b2f84bc04563d85d3a652904f4810a3.webp": "512b1e4a7042e69f42ce4326d35987e8d45866937d816efb9932215ec4748de2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/802235e4debc83dd10bffe77edf941222f6440dd.jpeg": "f04db28036f895f3f4136691220f6cab1e8d8d726760c39d4569a231c7791d57",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/8214b6330096690342cbeba5ab6d0c100d1539c7.jpeg": "3badedaa4831cee0c90126d259eaccdbe9114de60a9fe334df5ad0b95ada6898",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7e71555786bd945a69089dc63c1decf1042ae3e.jpeg": "b07e48360bb408fceb680250c2b48270e19b0a874d9521150545b37549aa120c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c2b037220ad22b6415d835c7b0c23f1b65094588.webp": "eac048582cc15b20566b4fd8041a4cedc330d1baaad0ce282bdd0142ca53589c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/802235e4debc83dd10bffe77edf941222f6440dd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1070,
+              427,
+              1290,
+              459
+            ],
+            "text": "user@example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              819,
+              861,
+              1100,
+              903
+            ],
+            "text": "example-test",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              819,
+              958,
+              1100,
+              1000
+            ],
+            "text": "example-prod-1",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              819,
+              1054,
+              1100,
+              1096
+            ],
+            "text": "example-prod-2",
+            "size": 20
+          }
+        ],
+        "output_sha256": "8c0e66ecd483f04e17f879c39a2c5a82a7695c02906620122da2798fcb0c7e55"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/0/00e17ecae1d8e52b8a6c67a904a448b1292db887.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              18,
+              155,
+              45
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              81,
+              155,
+              108
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              144,
+              155,
+              171
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              208,
+              155,
+              235
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              272,
+              155,
+              299
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              336,
+              155,
+              363
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              400,
+              155,
+              427
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              464,
+              155,
+              491
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              0,
+              528,
+              155,
+              555
+            ],
+            "text": "arcadia.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "5205de0500a5eba77b5303325816f097dc2a6feae60123783dbfdf0c7129473e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/1/2151e3a1b44bf3a3a7b54acf820210f88da03335.jpeg": {
+        "rectangles": [
+          [
+            24,
+            18,
+            840,
+            83
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              282,
+              167,
+              331,
+              181
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              193,
+              331,
+              207
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              219,
+              331,
+              233
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              245,
+              331,
+              259
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              271,
+              331,
+              285
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              297,
+              331,
+              311
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              323,
+              331,
+              337
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              349,
+              331,
+              363
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              375,
+              331,
+              389
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              401,
+              331,
+              415
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              427,
+              331,
+              441
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              282,
+              449,
+              331,
+              463
+            ],
+            "text": "192.0.2.20",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              167,
+              435,
+              181
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              193,
+              435,
+              207
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              219,
+              435,
+              233
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              245,
+              435,
+              259
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              271,
+              435,
+              285
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              297,
+              435,
+              311
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              323,
+              435,
+              337
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              349,
+              435,
+              363
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              375,
+              435,
+              389
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              401,
+              435,
+              415
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              427,
+              435,
+              441
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              449,
+              435,
+              463
+            ],
+            "text": "Example Network",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              623,
+              198,
+              825,
+              219
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 9
+          }
+        ],
+        "output_sha256": "f921cf3ae6183b89e9aa5db06ce90da107f0759cbc52b6e70aa7c13e5816ece5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/33e1b779faab628d004ca0e4447556654c1f1ab9.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              251,
+              884,
+              375,
+              913
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              251,
+              941,
+              375,
+              970
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              251,
+              998,
+              375,
+              1027
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              431,
+              884,
+              560,
+              913
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              941,
+              560,
+              970
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              998,
+              560,
+              1027
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              786,
+              884,
+              937,
+              913
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              786,
+              941,
+              937,
+              970
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              786,
+              998,
+              937,
+              1027
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "418dad649a3e427d611228cb2b3c4f301521c514475d3b3472b8e51096277d19"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/7/373b1ad8dfd4b47a053609ccbb782106228fe5ae.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              994,
+              247,
+              1027
+            ],
+            "text": "arcadia.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "ba0062e1a038d7ab472b05699e1235bc0aa54ba320abe437bf3eb429bd840ead"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/d/4dc9bb59dc6c546f1ef2fded64a479f047af66bf.jpeg": {
+        "rectangles": [
+          [
+            24,
+            17,
+            840,
+            64
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              188,
+              299,
+              235,
+              313
+            ],
+            "text": "192.0.2.30",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              188,
+              318,
+              235,
+              332
+            ],
+            "text": "192.0.2.30",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              188,
+              337,
+              235,
+              351
+            ],
+            "text": "192.0.2.30",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              188,
+              356,
+              235,
+              370
+            ],
+            "text": "192.0.2.30",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              188,
+              375,
+              235,
+              389
+            ],
+            "text": "192.0.2.30",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              249,
+              299,
+              299,
+              313
+            ],
+            "text": "Example Net",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              249,
+              318,
+              299,
+              332
+            ],
+            "text": "Example Net",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              249,
+              337,
+              299,
+              351
+            ],
+            "text": "Example Net",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              249,
+              356,
+              299,
+              370
+            ],
+            "text": "Example Net",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              249,
+              375,
+              299,
+              389
+            ],
+            "text": "Example Net",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              363,
+              299,
+              423,
+              313
+            ],
+            "text": "arcadia.example.com",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              363,
+              318,
+              423,
+              332
+            ],
+            "text": "arcadia.example.com",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              363,
+              337,
+              423,
+              351
+            ],
+            "text": "arcadia.example.com",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              363,
+              356,
+              423,
+              370
+            ],
+            "text": "arcadia.example.com",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              363,
+              375,
+              423,
+              389
+            ],
+            "text": "arcadia.example.com",
+            "size": 6
+          }
+        ],
+        "output_sha256": "20c3bef908f1dd334463c022c71844330662a5b023914f45dff0710fc7e2dc96"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/7/675fabaab4e86323dc8830ef0b6c0b50b792091d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              341,
+              397,
+              835,
+              455
+            ],
+            "text": "arn:aws:bedrock-agentcore:us-east-1:EXAMPLE_ACCOUNT:browser/example-browser",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              887,
+              397,
+              1190,
+              427
+            ],
+            "text": "example-browser",
+            "size": 14
+          }
+        ],
+        "output_sha256": "9e9657131421cf4bcea30c1706d2b744a59817c088acfd0b9635c8f0e1a4feb3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/3/73450e82408b625e9fd310d02e3956eb3f12763b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              250,
+              575,
+              375,
+              604
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              631,
+              375,
+              660
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              687,
+              375,
+              716
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              743,
+              375,
+              772
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              799,
+              375,
+              828
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              855,
+              375,
+              884
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              911,
+              375,
+              940
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              250,
+              967,
+              375,
+              996
+            ],
+            "text": "192.0.2.10",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              431,
+              575,
+              555,
+              604
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              631,
+              555,
+              660
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              687,
+              555,
+              716
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              743,
+              555,
+              772
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              799,
+              555,
+              828
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              855,
+              555,
+              884
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              911,
+              555,
+              940
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              431,
+              967,
+              555,
+              996
+            ],
+            "text": "Example Network",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              785,
+              575,
+              944,
+              604
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              631,
+              944,
+              660
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              687,
+              944,
+              716
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              743,
+              944,
+              772
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              799,
+              944,
+              828
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              855,
+              944,
+              884
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              911,
+              944,
+              940
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              785,
+              967,
+              944,
+              996
+            ],
+            "text": "arcadia.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1470,
+              327,
+              1750,
+              349
+            ],
+            "text": "arcadia.example.com",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1470,
+              383,
+              1896,
+              410
+            ],
+            "text": "arcadia.example.com/trading/auth.php",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1470,
+              413,
+              1750,
+              461
+            ],
+            "text": "https://arcadia.example.com/trading/login.php",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1470,
+              773,
+              1920,
+              806
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 14
+          }
+        ],
+        "output_sha256": "8f285114e2e946fdc2c143499515e8d22239ffcd74e9e05ac7d975dfb5d70122"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/7/77db4a668b2f84bc04563d85d3a652904f4810a3.webp": {
+        "rectangles": [
+          [
+            52,
+            35,
+            1868,
+            140
+          ]
+        ],
+        "output_sha256": "542ed30f079b55e52cae110bfdd2983bfd6f370f570ab4bf5291485329336a05"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/8214b6330096690342cbeba5ab6d0c100d1539c7.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              85,
+              750,
+              1778,
+              788
+            ],
+            "text": "/Users/example/git/f5-aws-bedrock-agent/.venv/bin/python /Users/example/git/f5-aws-bedrock-agent/src/main_bedrock.py",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              348,
+              830,
+              740,
+              869
+            ],
+            "text": "example-browser",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              387,
+              907,
+              1000,
+              946
+            ],
+            "text": "https://arcadia.example.com",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              387,
+              946,
+              746,
+              987
+            ],
+            "text": "example-browser",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              512,
+              1138,
+              650,
+              1178
+            ],
+            "text": "(example)",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              512,
+              1178,
+              650,
+              1218
+            ],
+            "text": "(example)",
+            "size": 16
+          }
+        ],
+        "output_sha256": "04ffba41a0a2dec327939527c60702274b8fdf622d337c6a764ac68b1ccea6f1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7e71555786bd945a69089dc63c1decf1042ae3e.jpeg": {
+        "rectangles": [
+          [
+            24,
+            16,
+            840,
+            65
+          ],
+          [
+            266,
+            324,
+            390,
+            343
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              268,
+              286,
+              390,
+              310
+            ],
+            "text": "EXAMPLE_USER",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d9551a145779d6e78989483a0d1042df2bfaf3b71d3b14d6f9ea39f85df241f4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c2b037220ad22b6415d835c7b0c23f1b65094588.webp": {
+        "rectangles": [
+          [
+            52,
+            35,
+            1868,
+            144
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              869,
+              241,
+              1140,
+              262
+            ],
+            "text": "https://arcadia.example.com/",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1618,
+              409,
+              1833,
+              446
+            ],
+            "text": "arcadia.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              748,
+              540,
+              1040,
+              563
+            ],
+            "text": "https://arcadia.example.com/",
+            "size": 11
+          }
+        ],
+        "output_sha256": "4bd3e3986a90f2b5f05174fa916516be8dfbdc3bb328792846d390a45918870e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/c/6cbcf351097197707119e224d90c139192e767ed.webp": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "36edc23fd35e516c1902581b9de197d7ffb3283f4c0766fb70890c1e5bae329f"
+      }
+    },
+    "text_replacements": {
+      "nodes": {
+        "7aa0e3c8874037c9f7092291de176bffd45e240c277f74223dba2df2de3222ea": "\n\nimport random\n\nimport string\n\nimport time\n\n\n\nfrom selenium import webdriver\n\nfrom selenium.webdriver.common.by import By\n\nfrom selenium.webdriver.support.ui import WebDriverWait\n\nfrom selenium.webdriver.support import expected_conditions as EC\n\n\n\n\n\ndef generate_random_string(length):\n\n    characters = string.ascii_letters + string.digits\n\n    random_string = ''.join(random.choices(characters, k=length))\n\n    return random_string\n\n\n\n\n\ndef login(username: str, password: str):\n\n    options = webdriver.ChromeOptions()\n\n    options.add_argument(\"--no-sandbox\")\n\n    options.accept_insecure_certs = True\n\n    base_url = \"https://arcadia.example.com\"\n\n    driver = webdriver.Chrome(options=options)\n\n    driver.request_interceptor = lambda request: setattr(request.headers, 'X-Bot-Name', 'MyAwesomeJusBot')\n\n    driver.get(base_url + \"/trading/login.php\")\n\n    wait = WebDriverWait(driver, 10)\n\n    username_field = wait.until(\n\n        EC.presence_of_element_located((By.NAME, \"username\"))\n\n    )\n\n    username_field.send_keys(username)\n\n    password_field = driver.find_element(By.NAME, \"password\")\n\n    password_field.send_keys(password)\n\n    login_button = driver.find_element(By.CSS_SELECTOR, \"button.btn-primary\")\n\n    login_button.click()\n\n    time.sleep(1)\n\n\n\n\n\nif __name__ == \"__main__\":\n\n    for iteration in range(100):\n\n        user = generate_random_string(8)\n\n        generated_password = generate_random_string(8)\n\n        login(user, generated_password)\n"
+      },
+      "output_sha256": "a3d4bb647b3740f90350c34ad3cfdf80e0c5c4e3938aac221679b9ffa5998019"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and Selenium code plus all 14 static images. Distributed Cloud Bot Defense primary; preserved human/bad/known bot classifications, agentic detection rule names and on/off states, WBA status and public User-Agent documentation, chart counts, simulated random-login code and managed browser workflow results. Replaced demo domains, account-specific browser ARN/ID, local user paths and login names, email and infrastructure labels, client IP/network and bot cookies with synthetic examples or EXAMPLE_TOKEN; removed masked login password and browser/account chrome including conversation URL, preserving mock Arcadia content. Image metadata stripped; hash-bound output visually checked."
   },
   "75295": {
     "article_hash": "f2ec65e92cdd1c13dfeb7884e01f308c789a0b5d54fefbc397d46a5642c3550d",
