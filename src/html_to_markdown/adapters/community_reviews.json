@@ -56831,5 +56831,272 @@
         "output_sha256": "7a33fbd3242b9a58496b24e7da52d0232d5898618a68caa2304115ef38fbe260"
       }
     }
+  },
+  "76414": {
+    "article_hash": "5bc22487416ad90c56627b547596b46d167e4e235fce7ecd4b8bc2483f8847ab",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 16 static images. XC load balancer/API/Bot protection is the primary subject; BIG-IP appears as a future integration reference. Replaced lab origin/client addresses and domains with synthetic values. Preserved repeated origin relationships, public RE identifiers, request/response latency, bot/attack metrics, login/signup/shop endpoint methods, mitigation body/status, API schemas and sensitive-data category counts without sensitive values. Four images use hash-bound labels; all media metadata removed without altering remaining substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/00aab97dcb86fdf3af0dc2f0d10d7a3b9b56ac65.png": "b4de4d961aa3bacbbfdec9b351d47c8a4485fc80bd2532f4bc7ae52492f3d72b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/14432aaa8cbd37c8897103d1742213bdcd6c7a98.png": "d59e0246311e2335dfca229d21c1ef9450230be7c8c7dad22b7f980a1cdba0a8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/359c962e596342dd17e502a5b03d9f73dfe7c8a7.png": "8c12bbc8fc8524590dbbd77de3ff53076424539049d1c8441f3437dcf4d8763e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3a7d3e38f003448265d4cb8f33b19baae6ebbf56.png": "07c6ae969b2ee5126ad7a8585b0ee9a08340523752c068c65a1b8952d7dd0a76",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a465dd98e9b2b6d868706abbe3e51db0dd8cd8f2.png": "35237b4d6feb73a812cb4826042a9f3b8c1581123103118f75e9c417435fb2ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0de32944a0a439dff20926a6050006c2edee04f.png": "e43e0033075d32a700fd1355cfca2ed8c81d8f6246b76f9f1d6dd9a191b81c73",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c52a518f9d66f41762caaa15e6602ae105f4071b.png": "9fabedec54127a3d12cf1bc1208acbfdf3758cd52e60bce0e21eb2c1830a8745",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ceb5dfe7f4d2e95d82a190a31140d957df556173.png": "34a7f59ae5444290380b7170e0c9b855da74fe0403bd47ab34067b12069dd59f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d3999f0d6788e5b8bf3c5013de070f972505acf7.png": "88bbfe6393b0ee0993e9b436083c85321779e2984587403b1114da59670a6168",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/0/100def4a76eccae35de23cf6a0c4eb2bd1e5de82.png": "7b759365737cfcf4ad26485c722ced25b0db8e742e519c050eb45e9d74f583cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/3/339f7ef628eda8529755abeb500828dea1a0f5b0.png": "c329151894cf59b121dfccf4cd192a1c253bc06bfb086e38d97b60b69fab4cf9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8b9f20f744dac6f221d099d9090c2f0b382e53c0.png": "c90646fa381bbfb9120eb325c8692de35e2300ed2c47e99ffce16d3c86263f5c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b00cae24098ca05b4733d7c6ef851cef9cef0abd.png": "4b424390a4318e11988ec0baa08168422d7d85244cb6fb0fb562436d917ab496",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/3/c3275d8c7ec1d2ba13bce38c25d95f2dce8d7b9e.png": "2b33fffb2a7353fb7e639fda2e20dd56a7fc29afb34742c12eeafea81a4029f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/b/db31ebd38abd6c44e23172c0c061394f4240e71b.png": "bb3401bec57e655b5a43871cf48a212783ea24a0757ea2d53a01d1c8edf46353",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f9722ab1d4991c54247899f495213a1b06196347.png": "1fd04ee031b0e97b619a0307e78617c40b4edb17bc035be5bad5e4e194b65b44"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/00aab97dcb86fdf3af0dc2f0d10d7a3b9b56ac65.png": {
+        "labels": [
+          {
+            "rectangle": [
+              54,
+              162,
+              241,
+              183
+            ],
+            "text": "S:origin.example.com/ 192.0.2.222",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              194,
+              241,
+              215
+            ],
+            "text": "S:203.0.113.85/ STATIC",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              226,
+              241,
+              247
+            ],
+            "text": "S:origin.example.com/ 192.0.2.79",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              258,
+              241,
+              279
+            ],
+            "text": "S:203.0.113.85/ STATIC",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              289,
+              241,
+              310
+            ],
+            "text": "S:203.0.113.85/ STATIC",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              321,
+              241,
+              342
+            ],
+            "text": "S:origin.example.com/ 192.0.2.36",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              353,
+              241,
+              374
+            ],
+            "text": "S:origin.example.com/ 192.0.2.36",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              384,
+              241,
+              405
+            ],
+            "text": "S:origin.example.com/ 192.0.2.168",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              416,
+              241,
+              437
+            ],
+            "text": "S:origin.example.com/ 192.0.2.79",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              54,
+              447,
+              241,
+              468
+            ],
+            "text": "S:origin.example.com/ 192.0.2.26",
+            "size": 9
+          }
+        ],
+        "output_sha256": "58668cfbaeeda3dce95be02719ada41165ccacf5a82d09ccabe81bcf9a7a43ba"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0de32944a0a439dff20926a6050006c2edee04f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              332,
+              286,
+              464,
+              302
+            ],
+            "text": "crapi.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "fe1a15cbafb8d4895dcd2ac4f13e3c943b38266144c6daa323aaa091948bbf51"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/b/8b9f20f744dac6f221d099d9090c2f0b382e53c0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              312,
+              137,
+              466,
+              155
+            ],
+            "text": "crapi.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "7cfa4b0ef4c54a06f7affb4b711b1f057c09f0f2e2f1fdaaed3191fc2f861903"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b00cae24098ca05b4733d7c6ef851cef9cef0abd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              230,
+              226,
+              297,
+              246
+            ],
+            "text": "192.0.2.24",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              734,
+              221,
+              825,
+              251
+            ],
+            "text": "bot.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              230,
+              259,
+              297,
+              279
+            ],
+            "text": "192.0.2.24",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              734,
+              254,
+              825,
+              284
+            ],
+            "text": "bot.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              230,
+              292,
+              297,
+              312
+            ],
+            "text": "192.0.2.24",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              734,
+              287,
+              825,
+              317
+            ],
+            "text": "bot.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              230,
+              325,
+              297,
+              345
+            ],
+            "text": "192.0.2.24",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              734,
+              320,
+              825,
+              350
+            ],
+            "text": "bot.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              230,
+              358,
+              297,
+              378
+            ],
+            "text": "192.0.2.24",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              734,
+              353,
+              825,
+              381
+            ],
+            "text": "bot.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "9319ce0604c43bd44516afdcdaed49dc4d45859352bfe33adf14fb908bb93371"
+      }
+    }
   }
 }
