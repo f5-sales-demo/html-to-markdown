@@ -51378,5 +51378,1065 @@
         "output_sha256": "50b24b510d7b0ad33939149447922ea92549d329eb7ffee94b72b842c4ccef06"
       }
     }
+  },
+  "73529": {
+    "article_hash": "39bf5a17197f07521077c9620fa703ad4bbcd390e47dba509de60b8a58aa8fc0",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all 15 static images. Preserved Firefox/curl TLS fingerprints as protocol examples, cipher-suite selection and 91-versus-five lists, ClientHello field names, service-policy match, header-injection variable, HTTP 200/403 results, Juice Shop fictional catalogue/artwork, curl options and versions. Replaced cookies, Socket.IO session IDs, TLS random/session values and corresponding capture hex with explicit placeholders; replaced demo domains, client IPs/location/network, terminal identity, namespace and request IDs; stripped browser bookmarks, account labels and image metadata. Hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/5d0918ab69aff900809b414f7b10e760f5968c11.png": "b75b0f0140d92c1523c2c4fe6d165a97c8e3dbd501428a2a3a5a89ce808427d3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/018834378b83a5cda2dd248474bb0b624241ddb2.jpeg": "4ae3155123cb6d7e5bcf72de35baddc283b34e0a82c15b67d8d00c51d62e7d77",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0cb9d1bca71826995d9d63509738fd731a653326.jpeg": "c6d6b962288998e3cf9ad59e704166fcf8dbfe2b369131963e115056f2f64b36",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3eccb5da9d3f6f32e98de9ff3d7fe97cc648efdd.jpeg": "b917f13be7711744052696cae09eda562d02aec30f95a45df2040524c55ee15b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4fc1e09c9eceb3b06764a272a89e5990717f6fda.png": "0021d6f395ecefa685cbe8f3c335fd3c1e274fda7f0d0f10d802b2ccf6d2c507",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5013a8ce6281e4f1a3ef58963eabe64edf6adca4.png": "1f95ed7492a4d7bb51c13a6f7748312bf2add78e4f4c194307bf56fd092ff255",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f870f52914751911681c9c11890766c3a3ea51f.png": "ff62ca48432d7f94ff017bd1c04d735c3cfabc028a7616de7ce0467f5a3d0596",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/79d8be39ddd1e39d5d3f5fc34168aa5d24397d60.jpeg": "2037a51ed51378382d795e7d2e152f4c0d38c816280f4cf6bd3a9ce78a955d39",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7c5ff24eb76418a249ef7a60105c238e8c68691c.png": "d00de3f310355680940938e930c8be77119d9bedc31f38bbbc3356112227bf0a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f6bfb1ec9dfe7b3ee9251ab864eda350f5dde48.jpeg": "8d733e4d9b9c62027a94dc24ed767b050990878c6751ab957abd3af53df4a381",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dd6e90fda06775d28f2865205657f6c7ec4828d.jpeg": "f056fffeecc9829ce46d51c13607117c0008f911fe2f5116d1138b1b4877c248",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aa226e08925c8e86e088bf6b6b2f9ea542b618f3.png": "9df211abbabf288ac4456adb3dbd88696e1502e682f7354100ae55d8ddae0d82",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ced99fd645df04de27e524ee2736ed60ef7c9d5.png": "33d408801035dba54cd05fa40b0cfdf58ca8f275078f922018885a5a1a4dff9b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/3161e1f9bf61e900b487e2874b5689550cd05eec.jpeg": "a20313206b3cbc4863a4e703ceadfd627d923e192b6de6e82b1922a16877f175",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/5/75eafabea44b053623ef9ea082fd589488888549.jpeg": "95ded04095c4180b8b59b63d4dc5154a49481a75897e635daef732b2e8c32382"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/018834378b83a5cda2dd248474bb0b624241ddb2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              525,
+              9,
+              710,
+              27
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              38,
+              77,
+              278,
+              96
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              38,
+              302,
+              278,
+              321
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              38,
+              574,
+              278,
+              593
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              38,
+              799,
+              278,
+              818
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              86,
+              124,
+              210,
+              146
+            ],
+            "text": "\"192.0.2.10\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              86,
+              141,
+              180,
+              162
+            ],
+            "text": "\"Example City\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              86,
+              190,
+              241,
+              213
+            ],
+            "text": "\"EXAMPLE_LOCATION\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              92,
+              206,
+              342,
+              229
+            ],
+            "text": "\"Example Network (64496)\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              86,
+              223,
+              184,
+              244
+            ],
+            "text": "\"EXAMPLE_POSTAL\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              538,
+              336,
+              562
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              86,
+              620,
+              212,
+              642
+            ],
+            "text": "\"192.0.2.20\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              84,
+              638,
+              224,
+              658
+            ],
+            "text": "\"Example City\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              86,
+              685,
+              245,
+              707
+            ],
+            "text": "\"EXAMPLE_LOCATION\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              86,
+              702,
+              307,
+              724
+            ],
+            "text": "\"Example Network (64497)\",",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              86,
+              720,
+              188,
+              741
+            ],
+            "text": "\"EXAMPLE_POSTAL\",",
+            "size": 10
+          }
+        ],
+        "output_sha256": "8ff861362de84f608f65ad8b722cafff22bd3c6e62fce9d26d6bf34ee9fc0ec0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0cb9d1bca71826995d9d63509738fd731a653326.jpeg": {
+        "rectangles": [
+          [
+            2760,
+            91,
+            2798,
+            123
+          ],
+          [
+            267,
+            893,
+            3060,
+            1016
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              327,
+              171,
+              905,
+              218
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              434,
+              214,
+              1045,
+              260
+            ],
+            "text": "https://juice.example.com/",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              269,
+              904,
+              3060,
+              943
+            ],
+            "text": "set-cookie: example-cookie=EXAMPLE_TOKEN; Path=/; Domain=juice.example.com",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              269,
+              947,
+              3060,
+              993
+            ],
+            "text": "set-cookie: example-session=EXAMPLE_TOKEN; path=/",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              327,
+              1128,
+              905,
+              1174
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 28
+          }
+        ],
+        "output_sha256": "e07cefbd734c51d99395d269421df91deaf682ee43290a2e34f783746e497dca"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3eccb5da9d3f6f32e98de9ff3d7fe97cc648efdd.jpeg": {
+        "rectangles": [
+          [
+            2760,
+            91,
+            2798,
+            123
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              634,
+              173,
+              1055,
+              217
+            ],
+            "text": "example@demo:~",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              634,
+              573,
+              1055,
+              617
+            ],
+            "text": "example@demo:~",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              634,
+              851,
+              1055,
+              895
+            ],
+            "text": "example@demo:~",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              741,
+              614,
+              1360,
+              665
+            ],
+            "text": "https://juice.example.com/",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              942,
+              733,
+              1632,
+              779
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 26
+          }
+        ],
+        "output_sha256": "8a7a8c1daf54e16e03f2786933e402e461500d34cca7f4a2ec7b505b825df993"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5013a8ce6281e4f1a3ef58963eabe64edf6adca4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              136,
+              239,
+              339,
+              263
+            ],
+            "text": "\"juice.example.com\",",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              179,
+              346,
+              751,
+              370
+            ],
+            "text": "\"EIO=4&transport=polling&t=EXAMPLE_TIME&sid=EXAMPLE_SESSION\",",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              179,
+              429,
+              266,
+              457
+            ],
+            "text": "\"demo\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              132,
+              499,
+              558,
+              525
+            ],
+            "text": "\"Example Network (64496)\",",
+            "size": 12
+          }
+        ],
+        "output_sha256": "23c67d2d2943838e79a0f71026a51890a2aad76705e85e2a7b1b2e9c095c049d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f870f52914751911681c9c11890766c3a3ea51f.png": {
+        "rectangles": [
+          [
+            0,
+            235,
+            1082,
+            594
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              468,
+              5,
+              614,
+              28
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              35,
+              72,
+              208,
+              92
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              82,
+              90,
+              363,
+              111
+            ],
+            "text": "https://juice.example.com/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              162,
+              137,
+              455,
+              159
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              35,
+              184,
+              208,
+              205
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          }
+        ],
+        "output_sha256": "50f4b9bbbc85c4d78f7faaf49e6ff778d903d4c8df7807adc6bdb6a50d35c596"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/79d8be39ddd1e39d5d3f5fc34168aa5d24397d60.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              214,
+              143,
+              299,
+              167
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              214,
+              165,
+              299,
+              186
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              405,
+              143,
+              527,
+              167
+            ],
+            "text": "198.51.100.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              405,
+              165,
+              527,
+              186
+            ],
+            "text": "198.51.100.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              166,
+              384,
+              769,
+              404
+            ],
+            "text": "EXAMPLE_TLS_RANDOM",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              172,
+              419,
+              800,
+              440
+            ],
+            "text": "EXAMPLE_SESSION_ID",
+            "size": 14
+          }
+        ],
+        "rectangles": [
+          [
+            895,
+            250,
+            1167,
+            393
+          ]
+        ],
+        "output_sha256": "2478f68c5c2b2923410f0c964cdda1883f1f0c11032f61da4287484ce559741b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7c5ff24eb76418a249ef7a60105c238e8c68691c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              414,
+              164,
+              528,
+              188
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              156,
+              293,
+              275,
+              316
+            ],
+            "text": "192.0.2.20",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1000,
+              293,
+              1262,
+              316
+            ],
+            "text": "EXAMPLE_REQUEST_ID",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1000,
+              319,
+              1240,
+              337
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a88569a1cd64ea9397892907652a852976d0837aec0d58f9e9a8dfd78e73498e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f6bfb1ec9dfe7b3ee9251ab864eda350f5dde48.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              311,
+              54,
+              570,
+              80
+            ],
+            "text": "https://juice.example.com/#/",
+            "size": 14
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            87,
+            1282,
+            119
+          ]
+        ],
+        "output_sha256": "4d33f868318728d044fa8910d05989396da6c8bb1c0a237c823795343ec9482c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8dd6e90fda06775d28f2865205657f6c7ec4828d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              330,
+              54,
+              618,
+              83
+            ],
+            "text": "https://juice.example.com/#/",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              169,
+              459,
+              305,
+              476
+            ],
+            "text": "juice.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1190,
+              821,
+              1709,
+              856
+            ],
+            "text": "Cookie: example-cookie=EXAMPLE_TOKEN",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1190,
+              920,
+              1400,
+              941
+            ],
+            "text": "Host: juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              170,
+              453,
+              308,
+              476
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              477,
+              308,
+              500
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              501,
+              308,
+              524
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              525,
+              308,
+              548
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              549,
+              308,
+              572
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              573,
+              308,
+              596
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              597,
+              308,
+              620
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              621,
+              308,
+              644
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              645,
+              308,
+              668
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              669,
+              308,
+              692
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              693,
+              308,
+              716
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              717,
+              308,
+              740
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              741,
+              308,
+              764
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              765,
+              308,
+              788
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              789,
+              308,
+              812
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              813,
+              308,
+              836
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              837,
+              308,
+              860
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              861,
+              308,
+              884
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              885,
+              308,
+              908
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              909,
+              308,
+              932
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              933,
+              308,
+              956
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              170,
+              957,
+              308,
+              980
+            ],
+            "text": "juice.example.com",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            87,
+            1709,
+            120
+          ],
+          [
+            310,
+            575,
+            694,
+            649
+          ],
+          [
+            310,
+            958,
+            694,
+            986
+          ],
+          [
+            1190,
+            821,
+            1709,
+            920
+          ],
+          [
+            170,
+            978,
+            308,
+            987
+          ]
+        ],
+        "output_sha256": "daeda26a7fd42e8e2500bae64b0f90ee3310acf3757a2f166d786a3e86f993a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ced99fd645df04de27e524ee2736ed60ef7c9d5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              524,
+              8,
+              734,
+              30
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              37,
+              76,
+              279,
+              97
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              88,
+              94,
+              353,
+              115
+            ],
+            "text": "https://juice.example.com/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              167,
+              141,
+              475,
+              163
+            ],
+            "text": "EXAMPLE_REQUEST_ID<h2>",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              37,
+              186,
+              279,
+              209
+            ],
+            "text": "example@demo:~/torghost",
+            "size": 12
+          }
+        ],
+        "output_sha256": "27796a0f33da59212cbd9f3d3665c4963cc045b7ffde2e2528a4f413e6fb2a36"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/1/3161e1f9bf61e900b487e2874b5689550cd05eec.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              214,
+              143,
+              299,
+              167
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              214,
+              165,
+              299,
+              186
+            ],
+            "text": "192.0.2.10",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              161,
+              409,
+              749,
+              433
+            ],
+            "text": "EXAMPLE_TLS_RANDOM",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              188,
+              444,
+              799,
+              466
+            ],
+            "text": "EXAMPLE_SESSION_ID",
+            "size": 14
+          }
+        ],
+        "rectangles": [
+          [
+            892,
+            253,
+            1167,
+            447
+          ]
+        ],
+        "output_sha256": "04857cdcef0d76d092f757ec8d8f0d3de4510de5df418db637aa632f972e0a6e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/5/75eafabea44b053623ef9ea082fd589488888549.jpeg": {
+        "rectangles": [
+          [
+            0,
+            471,
+            1085,
+            597
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              468,
+              7,
+              614,
+              29
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              35,
+              58,
+              209,
+              79
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              80,
+              76,
+              397,
+              96
+            ],
+            "text": "https://juice.example.com/ --head",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              349,
+              1085,
+              398
+            ],
+            "text": "set-cookie: example-cookie=EXAMPLE_TOKEN; Path=/; Domain=juice.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              369,
+              1085,
+              398
+            ],
+            "text": "set-cookie: example-session=EXAMPLE_TOKEN; path=/",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              35,
+              442,
+              209,
+              463
+            ],
+            "text": "example@demo:~",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              0,
+              398,
+              1085,
+              427
+            ],
+            "text": "server: volt-adc",
+            "size": 12
+          }
+        ],
+        "output_sha256": "13ed3c5435c528979b0444a028bdd7700c46733166f8be9410d8d0b07452690b"
+      }
+    }
   }
 }
