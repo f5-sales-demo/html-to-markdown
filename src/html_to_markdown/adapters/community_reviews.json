@@ -57098,5 +57098,305 @@
         "output_sha256": "9319ce0604c43bd44516afdcdaed49dc4d45859352bfe33adf14fb908bb93371"
       }
     }
+  },
+  "74216": {
+    "article_hash": "e4683540c38c24e73ba6ce79ea606b6ef8b3581b3cd2c708a8ea3b84e895ff20",
+    "decision": "include",
+    "reason": "Distributed Cloud vk8s workload deployment of unprivileged NGINX",
+    "text_replacements": {
+      "nodes": {
+        "4ac139c4d81af57b46a72ed2eb9d384e50929acabaa1f7a64a329c44bf3ddf4d": "After that you can reference the auto created kubernetes Cluster-IP service in a origin pool, using the workload name and the XC namespace (for example demo-nginx.default).",
+        "b24d5bb74bdfec5926c70d055198eec940da7d02f1feabb2a0d0346731d7f73c": "You can log into the virtual kubernetes like any other k8s environment using a cert and then you can run the command \u201ckubectl rollout restart deployment/demo-nginx\u201d. Just download the SSL/TLS cert."
+      },
+      "output_sha256": "48d8e331d6ed98136ce038a4d3de9dba73236e774d048632641c48d083e42d1e"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 17 static images. Replaced personal workload/container/service/configmap/virtual-site labels and upstream address with synthetic values. Preserved public NGINX/DNS image references, proxy_protocol and log variables, mount paths, port 8080, service discovery, RE node identifiers, resource options, kubectl rollout restart and kubeconfig menu without certificate bytes. Eleven images use hash-bound labels; metadata removed without changing remaining substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/ff6e4098d0fbf8e24971ce8870b4c6a35defe855.png": "fb1578c99df58ec8aac78aae008fbe9540d75e181634f3fb4314c1e73fea20e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1ca285ca37b02044bc3261e8de69cd7fe7d10292.png": "22632c9aaa679e8bd5aa958cf3be337c42d3d373b1345d71dd9649d05823a686",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2a615072d952905a063baa6a6941d31f7dc62d1e.png": "3ddef227004eedb27f0ab0cae0c3a289a9ec834dd8340a6b935a2ae892da28db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3c69cde85cbd4cb796c287fffb22bcada2ca11d0.png": "be29cf15f3510bae40994c178d6bc69735205db4ffb98a1e24d5fd96dc750084",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/507da420e7e40fcebe7f49d1c9cf81147ababc55.png": "0a7ae6432f177a3f1439031ee92745d9a5740d1292f5321600512a03e01a6399",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/575d0bf0a3559833b1ac3e2a0c9a5635ef8bb476.png": "b666497ab0382213d5e4a6ac414bb1f472d3b41af61b4cfe90ff2f21d8bd0c20",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c0c3fac764a4d1060df042467e04c0f93dd0e4a.png": "17187f627339e1cfc0ea5267c4a0811dc5ab3cbdbd143856a858fd5549ab67c9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d97c8b3b216ff3fa02e731fd5b010c26b8807f5.png": "c5da2b733adadeab81c3103c1a485ca03f28d5339c5f9cd1bbda0c77aa634110",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aa731d292a1c0b6baab8ea53bfbe25cdb46454e0.png": "acd0a3096f5313c006d1b31d1340182f02b8a3e8057bd9d96d995dc4753357c9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7417eafa7d46cc4d459a14a6cd7615fe7290d13.png": "55d0c94091d67299e66e216929f8311657ce070fb9540926b25f101e21df99e0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fbc5dcb58d75358c8cc4a85984444f9ad170508d.png": "19a5835f0b0f4c1fa28368be1d39741fac848b152b1eca551d66fb5c3e861fd2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc00cb02bb4959f3ea45ae68dde9e8ac4d26a256.png": "05be3dafffd05e3d9c3d3ac081d2e4c787f1419acc23a1038d04c83bd04033cf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/a/1a700df34efc2888091cbaf6d8292016130b6891.png": "50e06453085b1913f62f64689cf7dc483eca643f3ea870764fafec3eba6c5382",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/0/7033bf1042fc36e6838c4fd334156160bb96b521.png": "a6f59e327dd87ed853eaea5e293a9a0cd72a1330fd75e71b06beab437e094268",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83a20c7b1896a385ab323c1d4a25c6139b9612e0.png": "37f68e8c33494c87ae921f2a1a85e0356c0933b588972e5abcea7c58158cc581",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/6/b6f6e588db0d055a8b7d6096509bda7e4426a7c7.png": "12232b6d44af7b519c03f2bbf7ab9cf3049e62ca2ef62460b5a60364952fe5fe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6df12846525f13a096622b41991a0375daf9711.png": "94d8c44688c260ed5936a8edf6c35fb0936eacefe86d3d40f7d992eecba053d2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/ff6e4098d0fbf8e24971ce8870b4c6a35defe855.png": {
+        "labels": [
+          {
+            "rectangle": [
+              461,
+              109,
+              590,
+              134
+            ],
+            "text": "demo-workload",
+            "size": 12
+          }
+        ],
+        "output_sha256": "25361eaa4b0c1552744d2578865580726ca93a8f9c6300cb64f56876aa1109e9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1ca285ca37b02044bc3261e8de69cd7fe7d10292.png": {
+        "labels": [
+          {
+            "rectangle": [
+              29,
+              89,
+              112,
+              109
+            ],
+            "text": "demo-nginx",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              487,
+              191,
+              646,
+              207
+            ],
+            "text": "server 192.0.2.1:10000;",
+            "size": 10
+          }
+        ],
+        "output_sha256": "285840af036f18a921c0b2c6daaba9b3ac0306790dafd7618aba2cb53a5a1347"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2a615072d952905a063baa6a6941d31f7dc62d1e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              27,
+              80,
+              111,
+              101
+            ],
+            "text": "demo-nginx",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              475,
+              96,
+              610,
+              116
+            ],
+            "text": "demo-nginx",
+            "size": 11
+          }
+        ],
+        "output_sha256": "da4f414f46dc2a78e5917aa7662131226e10bc721905d1af77b0f1d02c0d3f62"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/507da420e7e40fcebe7f49d1c9cf81147ababc55.png": {
+        "labels": [
+          {
+            "rectangle": [
+              19,
+              4,
+              623,
+              25
+            ],
+            "text": "log_format demo '$proxy_protocol_addr - $remote_addr - $remote_user [$time_local] - $proxy_add_x_forwarded_for",
+            "size": 10
+          }
+        ],
+        "output_sha256": "0e95da9ce8e4acedf0bb2a54b94fb06ccbd219dad44c3544c35e171eb3ad2e1a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/575d0bf0a3559833b1ac3e2a0c9a5635ef8bb476.png": {
+        "labels": [
+          {
+            "rectangle": [
+              105,
+              46,
+              226,
+              66
+            ],
+            "text": "demo-nginx-re-pool",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              221,
+              183,
+              326,
+              205
+            ],
+            "text": "demo-nginx.default",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              377,
+              182,
+              449,
+              205
+            ],
+            "text": "demo-eu",
+            "size": 10
+          }
+        ],
+        "output_sha256": "1709e6c099d99e7c574bb758a0c5d8867f0937d503dae42bee93592928d49ae4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c0c3fac764a4d1060df042467e04c0f93dd0e4a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              121,
+              48,
+              203,
+              69
+            ],
+            "text": "demo-dnsutil",
+            "size": 10
+          }
+        ],
+        "output_sha256": "cb5e539dfdfcbcbee22ff77d19da13eaf2ea433f65de0b14fbe8139fa503d309"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aa731d292a1c0b6baab8ea53bfbe25cdb46454e0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              61,
+              110,
+              155,
+              135
+            ],
+            "text": "demo-nginx",
+            "size": 10
+          }
+        ],
+        "output_sha256": "1c19bf22d63a2d16005243fcc10b2cd5b9583e9098ad68da4dce03a44640ee25"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b7417eafa7d46cc4d459a14a6cd7615fe7290d13.png": {
+        "labels": [
+          {
+            "rectangle": [
+              23,
+              90,
+              109,
+              111
+            ],
+            "text": "demo-nginx",
+            "size": 11
+          }
+        ],
+        "output_sha256": "155fd658279d3acff921ac7b3cd935ecf6cd30cca99b50fa1e3dadc34ea5c822"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fc00cb02bb4959f3ea45ae68dde9e8ac4d26a256.png": {
+        "labels": [
+          {
+            "rectangle": [
+              225,
+              148,
+              336,
+              175
+            ],
+            "text": "demo-nginx.default",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              411,
+              148,
+              480,
+              175
+            ],
+            "text": "demo-eu",
+            "size": 11
+          }
+        ],
+        "output_sha256": "0c87d4ec298e6b0d318c5ae3c66d8715f2a621f2148de19f61d3d47e235b3c86"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83a20c7b1896a385ab323c1d4a25c6139b9612e0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              112,
+              169,
+              210,
+              192
+            ],
+            "text": "demo-bind",
+            "size": 11
+          }
+        ],
+        "output_sha256": "d96359d4c3ea935c14240922c09649796f227b8496d8f9db89c4f824b59e6541"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/6/b6f6e588db0d055a8b7d6096509bda7e4426a7c7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              127,
+              194,
+              260,
+              219
+            ],
+            "text": "demo-bind",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              127,
+              237,
+              260,
+              263
+            ],
+            "text": "demo-new",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              127,
+              280,
+              260,
+              307
+            ],
+            "text": "demo-nginx",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              820,
+              194,
+              1040,
+              219
+            ],
+            "text": "sites: system/demo-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              820,
+              237,
+              1040,
+              263
+            ],
+            "text": "sites: system/demo-site",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              820,
+              280,
+              1040,
+              307
+            ],
+            "text": "demo-eu",
+            "size": 11
+          }
+        ],
+        "output_sha256": "9ddb5f6e9debb871efa12f6ad0aee57f727c75694433a557071f9a1621ef83a3"
+      }
+    }
   }
 }
