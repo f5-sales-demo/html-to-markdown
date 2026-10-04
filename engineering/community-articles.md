@@ -69,7 +69,8 @@ The complete production-path candidate contains 1,445 documents and 5,518 assets
 Every accepted community URL appears once and both prior releases are fully retained.
 Its archive is 825,250,970 bytes, expanded payload is 887,720,885 bytes, and it has
 6,967 members. Archive verification passes under the user-authorized 1 GiB limit.
-Docs-control issue #2336 tracks the coordinated verifier increase.
+Docs-control PR #2337 merged at e6c1b8c7731a5b67bff692b29484e8a11f0fdfbf.
+Pages pins that workflow and verifier for the coordinated 1 GiB increase.
 
 The history audit flags only earlier synthetic example addresses and standard OS
 user paths; current HEAD is clean. These were corrected to reserved domains and explicit
