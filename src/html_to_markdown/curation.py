@@ -494,12 +494,11 @@ def validate_curation(output: Path, *, artifacts: bool = False) -> None:
         media = media_inventory(path, body)
         if any(item["kind"] == "video" for item in media):
             raise ValueError(f"unverifiable video remains: {path}")
-        if url in policy.decisions or policy.candidate(body):
-            if any(
-                policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
-                for item in media
-            ):
-                raise ValueError(f"unreviewed media remains: {path}")
+        if (url in policy.decisions or policy.candidate(body)) and any(
+            policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+            for item in media
+        ):
+            raise ValueError(f"unreviewed media remains: {path}")
         if policy.references(body, str(metadata["url"]), set()):
             raise ValueError(f"retired reference remains: {path}")
     for name in ("quality-report.json", "quality-report.md", "manifest.json") if artifacts else ():
