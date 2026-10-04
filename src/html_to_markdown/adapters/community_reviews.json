@@ -57398,5 +57398,498 @@
         "output_sha256": "9ddb5f6e9debb871efa12f6ad0aee57f727c75694433a557071f9a1621ef83a3"
       }
     }
+  },
+  "71393": {
+    "article_hash": "cba3dea91f03516c35b6727812db07e3434a651de38338b28874dfbf38809c88",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 17 static images. Replaced bearer tokens, personal author/email values, unmasked identifiers, lab addresses and domains with explicit synthetic values. Preserved Data Guard before/after masking, JSON field paths and response shape, users email/password/username comparison, compliance settings, VIOL_DATA_GUARD and information leakage evidence, status codes and Juice Shop/VAmPI demo structure. Nine images use hash-bound replacements; remaining screenshots contain no user data; metadata removed without altering substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/0ac66196bed3c544014abc9e404da71613fd34f8.png": "b622b48bb86cc167f1284da0a390d2a045068ee066b9cbf72d6302766a5202c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fbb769dc5b7c34e29ff3b59f795f018572554f77.jpeg": "753f9e457c7c16085b98a59b157ee247fe698fbe0c6281b2287d2bd6ef97033f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0084c6ea0f4387a549c1ea33a598d1880afbb346.png": "5ff6854f5dc8e808657b9653e033410fd5f05a30fc93fb66cab9d77e49eb0caf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3b8312863bce4e7fbf8b6046840f98e2be2edaf8.jpeg": "fb39d9a9fab886bc1c965db270f39beb13b641238bca034f08cd861389b01a00",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54cd6a90e8c9e0f71ad20c872b58995caba0d74c.png": "804d5d752d4a157cf625ec8fb67d3ca2aee1be6a21954ddc6fd612804391d377",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7a30ca66abba00ff2b5ea9e025a702d45566d572.png": "828edad84ede91417f13ddaf021ad002263534a08f08d90e2a35b9d56dda02ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8a2c0c4884e1741c41bccecb6d15cf0000b60dc7.png": "743d68205cf7e3201f14c7374c7cdaa7891050a6ce1577f2eb3f9e21a739b89b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9481de0065fd17e8b60a16c66d316c25771c19e2.png": "9a2aef988e77c73b0169de74c555b9971aa121627b3b2c4a90b11745c06dc51c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11f5ffbf5d662d27df18bcaa2566c92b0fb85a6.jpeg": "5d2c5eb3747acf31c0a8c3718ab2ccf6a454dd1c20bd108b78ddba4702b7ad32",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b084bf8eb99b0a64e5dafbe0bee2a0ff5f2ed957.jpeg": "3c75d3bf4dc2c160d30a051e6f84309ed11ce6872882a7f49d52f158670975b4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f607ea7bc6b2b3567cf0ac5a2e0949d2008f2749.jpeg": "dc20d8f014bd6eca2c88bd505722d2302fbbf2447b7421451293b19da300e103",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fdfc1b215adb22d3768c6e83a021e218eaa8bf34.png": "bc3a921956fea83480286aef9bd32333ee2b274337cd48c62a20377b565d2725",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/072ac0835f69369fd46a598b7b3e4b7f80f46b31.png": "f4e364fc10b59900917a055d8d09314403c0214fd07b72ea33f92e71000633b4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5fcb668beae22cd6a97b76e17367ef209a9ca555.jpeg": "1392bb7f7c0e8539af8a3a02e0ca4c57be99e4cba5d04930335354137dceb768",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66372aea6bd1dd65f5ac43e061296ab2b5e553a3.jpeg": "274d744f7dd5cdda2dffdba30390655eeb6d939361c3a7113155584882a32d8c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83f74b593041d304b68cca90b57ffeb0f64e311c.png": "a2bd03ec1d465b3d0619c9edc54ba5f8251d71a4c61e4f31373b2286f0b6e65e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef28c7e6d26015df6e861098c0ec743206ad2a67.png": "bebd3d1029181f4af740a49047b4dd1eddc6ec8a752dc9a14e3768a3bc8218cc"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fbb769dc5b7c34e29ff3b59f795f018572554f77.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              798,
+              54,
+              930,
+              96
+            ],
+            "text": "demo-juice",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1300,
+              1820,
+              1550,
+              1870
+            ],
+            "text": "192.0.2.68",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2930,
+              1812,
+              3255,
+              1880
+            ],
+            "text": "juice.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "e658e0435caa6e2832f53fef719e51316affee16c8fe3998aad0546083ed70d0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3b8312863bce4e7fbf8b6046840f98e2be2edaf8.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              169,
+              1705,
+              217
+            ],
+            "text": "https://juice.example.com/rest/products/1/reviews",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1538,
+              425,
+              2220,
+              478
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              535,
+              1218,
+              942,
+              1260
+            ],
+            "text": "\"user@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              535,
+              1620,
+              942,
+              1660
+            ],
+            "text": "\"user@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              469,
+              1755,
+              860,
+              1798
+            ],
+            "text": "\"user@example.com\"",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              574,
+              1575,
+              2700,
+              1618
+            ],
+            "text": "\"Masked synthetic ID: ***-**-0001\"",
+            "size": 24
+          }
+        ],
+        "output_sha256": "2740e15275fbd460d3cfae4f91db4635ffa3d7efc35e1c1f8d9373036a46f70f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8a2c0c4884e1741c41bccecb6d15cf0000b60dc7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              2400,
+              384,
+              2720,
+              426
+            ],
+            "text": "api.example.com",
+            "size": 20
+          }
+        ],
+        "output_sha256": "a02f12c0faa19aa86653dc72d2f7ea5f399933096f8ebb58b90eaa45b56bb60a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b084bf8eb99b0a64e5dafbe0bee2a0ff5f2ed957.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              317,
+              152,
+              1730,
+              201
+            ],
+            "text": "http://192.0.2.57/rest/products/1/reviews",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              530,
+              1324,
+              936,
+              1364
+            ],
+            "text": "\"user@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              530,
+              1749,
+              936,
+              1789
+            ],
+            "text": "\"user@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              466,
+              1863,
+              860,
+              1907
+            ],
+            "text": "\"user@example.com\"",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              365,
+              1681,
+              2610,
+              1726
+            ],
+            "text": "\"message\": \"Synthetic invalid ID: 000-00-0001\",",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d982f75aa28c650b55b8917c618474cdb8a4187c45f323368958c03de873647b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f607ea7bc6b2b3567cf0ac5a2e0949d2008f2749.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              303,
+              166,
+              1770,
+              221
+            ],
+            "text": "https://juice.example.com/rest/products/30/reviews",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1527,
+              430,
+              2210,
+              479
+            ],
+            "text": "EXAMPLE_TOKEN",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              522,
+              1250,
+              922,
+              1296
+            ],
+            "text": "\"user@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              360,
+              1205,
+              950,
+              1249
+            ],
+            "text": "\"message\": \"Masked ID: ***-**-0001\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              360,
+              1564,
+              2110,
+              1610
+            ],
+            "text": "\"message\": \"Synthetic card masked: ************0001\",",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d0bb1c1c89f48fac2ae95326e85f115b627500458b2765113db2d4316c312528"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fdfc1b215adb22d3768c6e83a021e218eaa8bf34.png": {
+        "labels": [
+          {
+            "rectangle": [
+              65,
+              19,
+              955,
+              68
+            ],
+            "text": "https://api.example.com/users/v1/_debug",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              264,
+              125,
+              1050,
+              174
+            ],
+            "text": "https://api.example.com/users/v1/_debug",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              913,
+              408,
+              1780,
+              450
+            ],
+            "text": "Bearer EXAMPLE_TOKEN",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              356,
+              1300,
+              786,
+              1336
+            ],
+            "text": "\"user1@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              356,
+              1336,
+              966,
+              1372
+            ],
+            "text": "\"EXAMPLE_SECRET\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              356,
+              1516,
+              786,
+              1552
+            ],
+            "text": "\"user2@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              356,
+              1552,
+              966,
+              1588
+            ],
+            "text": "\"EXAMPLE_SECRET\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              356,
+              1732,
+              786,
+              1768
+            ],
+            "text": "\"user3@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              356,
+              1768,
+              966,
+              1804
+            ],
+            "text": "\"EXAMPLE_SECRET\",",
+            "size": 20
+          }
+        ],
+        "output_sha256": "8e4a44c7583c6d5482e89656026d25f82932299ddcd0fcf29d9d30ec5e1d0629"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/7/072ac0835f69369fd46a598b7b3e4b7f80f46b31.png": {
+        "labels": [
+          {
+            "rectangle": [
+              65,
+              19,
+              955,
+              69
+            ],
+            "text": "https://api.example.com/users/v1/_debug",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              264,
+              127,
+              1050,
+              176
+            ],
+            "text": "https://api.example.com/users/v1/_debug",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              913,
+              409,
+              1780,
+              452
+            ],
+            "text": "Bearer EXAMPLE_TOKEN",
+            "size": 24
+          }
+        ],
+        "output_sha256": "78ff8124ba9e4b92fa3d3a898a7af939fab8c9f20237f237897a6c648506e584"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/6/66372aea6bd1dd65f5ac43e061296ab2b5e553a3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1213,
+              1157,
+              1550,
+              1200
+            ],
+            "text": "user@example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1213,
+              1306,
+              1550,
+              1342
+            ],
+            "text": "user@example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1213,
+              1340,
+              2090,
+              1444
+            ],
+            "text": "Synthetic invalid ID: 000-00-0001",
+            "size": 24
+          }
+        ],
+        "output_sha256": "c3f83b77c5775c365e349a1b77cd9abc33744a95686f42f49abe6b1fa400b0cb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef28c7e6d26015df6e861098c0ec743206ad2a67.png": {
+        "labels": [
+          {
+            "rectangle": [
+              264,
+              124,
+              1065,
+              173
+            ],
+            "text": "https://api.example.com/users/v1/_debug",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              362,
+              1300,
+              792,
+              1336
+            ],
+            "text": "\"user1@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              362,
+              1516,
+              792,
+              1552
+            ],
+            "text": "\"user2@example.com\",",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              362,
+              1732,
+              792,
+              1768
+            ],
+            "text": "\"user3@example.com\",",
+            "size": 20
+          }
+        ],
+        "output_sha256": "04236dff0e68682993c423ed6740bf6cf532dc55cf1bd2f08f56199656c93778"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0084c6ea0f4387a549c1ea33a598d1880afbb346.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "d31753108eb25aab856638265231f74740786e068d54ea836c405478e00bea02"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54cd6a90e8c9e0f71ad20c872b58995caba0d74c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "94093890316703f61222c465ecb7f036eb17c0be80379da45c234356c21d0687"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9481de0065fd17e8b60a16c66d316c25771c19e2.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3f1e6a9e9501129e1daa4d288d49788c9cf6965d4cded49398c09fc5d4b6f9cc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a11f5ffbf5d662d27df18bcaa2566c92b0fb85a6.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5a8e62ca8de26c6de39fd6053cd4778585517a58546604c53f272f9cb23dcf38"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/f/5fcb668beae22cd6a97b76e17367ef209a9ca555.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a23f99f5a3c8d8886b3a4600864776a63dc1340cba1157aa0650eb3bd19e272b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/83f74b593041d304b68cca90b57ffeb0f64e311c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f906e1b149545031a1b3fe8bed0c64243bcdf7e7e4859bbbf2fd5e9b772313fd"
+      }
+    }
   }
 }
