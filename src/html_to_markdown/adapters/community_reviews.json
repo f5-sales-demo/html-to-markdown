@@ -58890,5 +58890,607 @@
         "output_sha256": "8b1366806e0013ccc0bfb0df8bd0c915808f73af373f319029cd7c345f6e20f4"
       }
     }
+  },
+  "74649": {
+    "article_hash": "f287d55c56fc8cde97c331d9ef7692e353cb2f071e637f662f34fb35a7ebf073",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 21 static images. Replaced receiver password, username, webhook address, tenant/resource/pod/alert fingerprints and encoded metric URLs with synthetic values. Preserved blindfold secret workflow, basic authentication configuration, receiver/policy/active-policy references and alert JSON schema, firing status, KubePodNotReady and expired certificate cases, timestamps, severity and routing. Thirteen images use hash-bound synthetic replacements; remaining media contains no user data; metadata removed without altering substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a3a185456e11e1cdb172e5c1c703d9281cf93f4a.jpeg": "f5cb214439b94714bffab72e67618260fc2458af088da6a5ddbd4b17193d20f7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/13a752944ca6cd04c269a99bf8205f8aea80b454.jpeg": "5ae274d6c309cf558062dc9c2208986e740949392a7a9fd40986f4b7d21c9b2f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b9ad19bae30aa8c73818e29d1f2e418df4b2db3.jpeg": "b7eb1950c185fda8a6789af1558403a143bf77bf4173d6e656c60876bac1f037",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/42d45925333693a27dd5cdf1d868f4722e4c57ec.jpeg": "705abb6193d68522de0a0ab7ff11d66e4416d7396c7c3f65f1654287e5ef10c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43473ce770fe91b1f5b37ca7a4cf2ada05947465.jpeg": "32785dac5fedaf7180ac5dbf8064efcd9432c4db5c467ce55557f93038c9f8c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/45e43659593209c0307cce9ff55b1b28e6dee09c.jpeg": "ee846c9dee11789f0598b1c57bd017d7a0750e8b85acca441487bb661fec7130",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50be12e58fa59edc812869946c012b1f08f90234.jpeg": "0057bb5ff010cca12e3a2185b48893688e0f1d53db0d3956487bfb6c1ebababd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63c5d76e89d8cc4de992784981978f324deec0c7.jpeg": "eb315fb40f795ad6c2496d4d4a69510c6086d348a6b3b9f81dad0e68dc6bf3c3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8fefff4e178dc017efc6887f0f9a47479c802903.jpeg": "e153dcb29bed4c1522e2f467ff337c3ed81e8267e08719a2520d34c5c85dcfd0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a794614dc454fbe07f9bf34fb04a65bb16ca6d1c.jpeg": "67236e70feca99972f1a1f322fdcc9808a3d4b2f141cd830b2f198a1134d73bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c5794c2c7d18e4db3c886ff6081c32d210c8be7a.jpeg": "862b8e6afacbaab5fff6b71957221486511a8b33d6c996dcbc5b18a0b026b62f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ceb20566b8276c24862098a3111cabeb494f7d54.jpeg": "69cfae5329705efc11ecbf162dff19a6c8032da0ae76cbb334a52edfdbfcaca2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cfc97944ff9ddb8423b1f4a5de5e74b6bdc2c334.jpeg": "809ced24cf7cf0cad43d120086f9612aea96fd6f12f0419a66c8ca2e77e03116",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa10b8beebcf93ea3fe544bd141a66b90c8ef0f2.jpeg": "fd3287cf666f1b7ca5a6ff5c45fc24a68042b518fdbc96f77b3670e7ce517b6f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/7/17ae7879e5f31afab758d577116a439c34a940c1.jpeg": "fc9fe919b64b2b3da517ac5993696635b8da7bb385d849450713eb6c57b38c68",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3dc7dbbce5a1c1f8134e16993e26d31711ebde28.jpeg": "439f105b4ae2d8cfe825f185cac14d73df6a0b346bbc2a64d7b8cf082b29a28f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4ea5127cded42ea8e3a34fc0dc2fb188ffecd69a.jpeg": "542cb86961cd60e1489707ed3fd8566c349f528d6bc105fa6a3f59f284cf80b0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/82720533b1c978ebe63a70b03af6d6bd6c6f4f32.jpeg": "d9d7042c3bbf53bd4aa44690d7e3bda23b8c5507e16c37d2b74d11cd352e9b58",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/8690146f94f390bc5b62d8b4b2dac58aabd98506.png": "c0631f03ae5a1aaaa01706c874653305161b75b48361d127ca713b86947858ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c27b05a85dd8734b267ba3db090109bc2eee16db.jpeg": "f111b46aca8ef95ceef6a1795f98b328855036a7ceac29e9c35bc8f8e6bbf5ae",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f8c784af34831049c84a19f2792e530ac8d4cb0f.jpeg": "485291ba661f49024994d33ead2a1f8e02dfcdaecc0b362b464801fdda268fae"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/13a752944ca6cd04c269a99bf8205f8aea80b454.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1235,
+              865,
+              1550,
+              915
+            ],
+            "text": "EXAMPLE_SECRET",
+            "size": 22
+          }
+        ],
+        "output_sha256": "8eb41a409b0eb8d129231d8c6f4b56254b16eedc9845bc1d559ee6447d7d1b01"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/42d45925333693a27dd5cdf1d868f4722e4c57ec.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1295,
+              1045,
+              1600,
+              1090
+            ],
+            "text": "example-user",
+            "size": 22
+          }
+        ],
+        "output_sha256": "49c46ae8584ab9cb6a3ea525a084cf67454b7c7b2390d28cd126e0ad77f1653b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/45e43659593209c0307cce9ff55b1b28e6dee09c.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1295,
+              1080,
+              1600,
+              1130
+            ],
+            "text": "example-user",
+            "size": 22
+          }
+        ],
+        "output_sha256": "b779109c968b1f04f951b5ca22420b8cfce7513a4ae68df7a6e607d5a471e741"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/50be12e58fa59edc812869946c012b1f08f90234.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              360,
+              735,
+              700,
+              790
+            ],
+            "text": "xc-alerts-demo",
+            "size": 22
+          }
+        ],
+        "output_sha256": "5cc015018b2dbc8bf5250d5ae17dc48065c3a16405d72c611fe1248bc0d69afb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/63c5d76e89d8cc4de992784981978f324deec0c7.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              360,
+              623,
+              720,
+              680
+            ],
+            "text": "demo-all-alerts",
+            "size": 22
+          }
+        ],
+        "output_sha256": "111c78ea407d97bd4e1025a91e48af40a71e96e9769f70783c1b269f38598788"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c5794c2c7d18e4db3c886ff6081c32d210c8be7a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1235,
+              865,
+              1900,
+              921
+            ],
+            "text": "https://webhook.example.com:5000/webhook",
+            "size": 22
+          }
+        ],
+        "output_sha256": "a2679fb86f002cf4cdb5f79d05e728d19e2849ce37fa40dc9b26ad406cfedea0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cfc97944ff9ddb8423b1f4a5de5e74b6bdc2c334.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              2780,
+              622,
+              3110,
+              678
+            ],
+            "text": "example-corp",
+            "size": 22
+          }
+        ],
+        "output_sha256": "74b6e3e876b44f74ed00baa7329236a91b4be1f28c0d2be14e7097c48be3dbcb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fa10b8beebcf93ea3fe544bd141a66b90c8ef0f2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              125,
+              624,
+              470,
+              680
+            ],
+            "text": "demo-all-alerts",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2130,
+              622,
+              2450,
+              684
+            ],
+            "text": "example-corp",
+            "size": 22
+          }
+        ],
+        "output_sha256": "0ca20f1b6c106445a66e263d22394a1f42997e9cc4203ef177e19e32bdd4d031"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3dc7dbbce5a1c1f8134e16993e26d31711ebde28.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1070,
+              392,
+              1500,
+              439
+            ],
+            "text": "demo-all-alerts",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1280,
+              1225,
+              1750,
+              1290
+            ],
+            "text": "shared/xc-alerts-demo",
+            "size": 22
+          }
+        ],
+        "output_sha256": "cbaf268949b8d1932ff9b5b5d678b2579115318e7adbbe45cd5066730dcd3ada"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/e/4ea5127cded42ea8e3a34fc0dc2fb188ffecd69a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              540,
+              35,
+              1000,
+              86
+            ],
+            "text": "webhook.example.com",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              91,
+              339,
+              1113,
+              383
+            ],
+            "text": "\"receiver\": \"example-corp_shared_xc-alerts-demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              305,
+              681,
+              1577,
+              725
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              305,
+              719,
+              1095,
+              763
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              305,
+              757,
+              934,
+              801
+            ],
+            "text": "\"pod\": \"nginx-example-pod\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              305,
+              909,
+              793,
+              953
+            ],
+            "text": "\"tenant\": \"example-corp\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              305,
+              1023,
+              2703,
+              1067
+            ],
+            "text": "\"description\": \"Pod example-resource has been in a non-ready state for longer than 10 minutes\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              234,
+              1213,
+              3807,
+              1257
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              234,
+              1251,
+              829,
+              1295
+            ],
+            "text": "\"fingerprint\": \"0000000000000001\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              1517,
+              1434,
+              1561
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              1555,
+              952,
+              1599
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              1593,
+              791,
+              1637
+            ],
+            "text": "\"pod\": \"nginx-example-pod\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              1745,
+              650,
+              1789
+            ],
+            "text": "\"tenant\": \"example-corp\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              1973,
+              1434,
+              2017
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              2011,
+              952,
+              2055
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              162,
+              2049,
+              791,
+              2093
+            ],
+            "text": "\"pod\": \"nginx-example-pod\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              100,
+              180,
+              560,
+              232
+            ],
+            "text": "Demo XC Alerts",
+            "size": 24
+          }
+        ],
+        "output_sha256": "c28eddad148759b7ee507b58229404b859d0b5ab13c2700788300282113f8bca"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/82720533b1c978ebe63a70b03af6d6bd6c6f4f32.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              173,
+              58,
+              1255,
+              106
+            ],
+            "text": "\"receiver\": \"example-corp_shared_xc-alerts-demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              413,
+              409,
+              1915,
+              456
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              413,
+              449,
+              855,
+              495
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              413,
+              565,
+              975,
+              612
+            ],
+            "text": "\"tenant\": \"example-corp\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              413,
+              604,
+              1377,
+              652
+            ],
+            "text": "\"vh_name\": \"ves-io-cdn-loadbalancer-demo-lb\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              413,
+              721,
+              2755,
+              768
+            ],
+            "text": "\"description\": \"TLS Automatic Certificate for virtual host demo/example-lb has expired\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              333,
+              916,
+              3800,
+              963
+            ],
+            "text": "\"generatorURL\": \"https://metrics.example.com/prometheus/graph?g0.expr=ALERTS\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              90,
+              955,
+              1215,
+              1003
+            ],
+            "text": " ",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              333,
+              994,
+              997,
+              1041
+            ],
+            "text": "\"fingerprint\": \"0000000000000001\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1267,
+              1755,
+              1314
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1307,
+              695,
+              1353
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1423,
+              815,
+              1470
+            ],
+            "text": "\"tenant\": \"example-corp\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1462,
+              1217,
+              1510
+            ],
+            "text": "\"vh_name\": \"ves-io-cdn-loadbalancer-demo-lb\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1696,
+              1755,
+              1743
+            ],
+            "text": "\"identifier\": \"example-corp/demo/example-resource\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1736,
+              695,
+              1782
+            ],
+            "text": "\"namespace\": \"demo\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1852,
+              815,
+              1899
+            ],
+            "text": "\"tenant\": \"example-corp\",",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              253,
+              1891,
+              1217,
+              1939
+            ],
+            "text": "\"vh_name\": \"ves-io-cdn-loadbalancer-demo-lb\",",
+            "size": 22
+          }
+        ],
+        "output_sha256": "3bb2289f399b5b96c364863a0b951adfb74e4644a86d7e337a199b3f52671a15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/2/c27b05a85dd8734b267ba3db090109bc2eee16db.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1236,
+              310,
+              1700,
+              360
+            ],
+            "text": "xc-alerts-demo",
+            "size": 22
+          }
+        ],
+        "output_sha256": "b57b9261eb5348859aef02b24fd6d27a6e91086a89781c2abf2ce85518bedc3d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/8/f8c784af34831049c84a19f2792e530ac8d4cb0f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1360,
+              608,
+              1810,
+              660
+            ],
+            "text": "shared/demo-all-alerts",
+            "size": 22
+          }
+        ],
+        "output_sha256": "8b0561d2a232c49a0ccbca9511c4b86cd09880db40c9da16e8c570f2544e8feb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a3a185456e11e1cdb172e5c1c703d9281cf93f4a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "346bb7a77f868536f5fbfac18df95aed8fa2253e575a24b08153ef2da5d82c16"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b9ad19bae30aa8c73818e29d1f2e418df4b2db3.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "069b529c5bd96ba41910827d5053a7d9dc99a52a870e076dffd187de7a10b3f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43473ce770fe91b1f5b37ca7a4cf2ada05947465.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "560b90055f07b5c1bd8e8c4099cce108f95be6e8fb4eb1db5f4fbc4a36a85460"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8fefff4e178dc017efc6887f0f9a47479c802903.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c7e49e0a5a631515026e5849cf6cad3e8d8d3c50a1861de76e5bc9209cd9e39c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a794614dc454fbe07f9bf34fb04a65bb16ca6d1c.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "6dc8f5fb9d8f92914c8dc3d0ae8bbf2084a2f4a46254b4e70d9a7a75f3c23cb4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ceb20566b8276c24862098a3111cabeb494f7d54.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f95154186ddb75c6f56a3cf431398c5f8b1d9473449250fcb2693a5e2998207e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/7/17ae7879e5f31afab758d577116a439c34a940c1.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "1f30fc06ebcc6ff94a5d4aae72cd1a9b3139f4c0a8462932c42dab4109c5085a"
+      }
+    }
   }
 }
