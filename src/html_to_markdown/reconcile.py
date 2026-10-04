@@ -6,6 +6,7 @@ import json
 import shutil
 from pathlib import Path
 
+from .content_policy import load_content_policy, purge_excluded_state, record_exclusion
 from .models import DiscoveredPage, PageStatus
 from .state import StateStore
 from .urls import infer_source, validate_source_url
@@ -34,6 +35,9 @@ def include_previous_urls(
         url = document.get("url")
         if not isinstance(source, str) or not isinstance(url, str) or source not in source_ids:
             continue
+        if load_content_policy().excludes(url):
+            record_exclusion(store, url, "previous_release")
+            continue
         store.discover([DiscoveredPage(source_id=source, url=url)])
         provenance = document.get("provenance", {})
         if isinstance(provenance, dict) and existing.get(url) in {None, PageStatus.DISCOVERED}:
@@ -50,7 +54,10 @@ def include_inventory_urls(store: StateStore, inventory: Path | None, source_ids
     pages: list[DiscoveredPage] = []
     for url in urls:
         source = infer_source(url)
-        if source is not None:
+        if load_content_policy().excludes(url):
+            record_exclusion(store, url, "benchmark")
+            continue
+        if source is not None and source in source_ids:
             pages.append(DiscoveredPage(source_id=source, url=validate_source_url(source, url)))
     store.discover(pages)
 
@@ -83,6 +90,7 @@ def reconcile_previous(
     *,
     retain_previous: bool = False,
 ) -> None:
+    purge_excluded_state(store)
     prior_manifest = _load(previous_manifest)
     prior_documents = {
         str(item["url"]): item

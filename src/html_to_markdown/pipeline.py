@@ -17,6 +17,12 @@ from .adapters import ADAPTERS
 from .adapters.base import SourceAdapter
 from .adapters.community import validate_community_publication
 from .community_media import reviewed_media
+from .content_policy import (
+    load_content_policy,
+    migrate_content,
+    purge_excluded_state,
+    record_exclusion,
+)
 from .errors import (
     AllowlistError,
     AuthenticationWallError,
@@ -84,6 +90,13 @@ class Pipeline:
         else:
             groups = await asyncio.gather(*(adapter.discover(self.fetcher) for adapter in adapters))
             pages = [page for group in groups for page in group]
+        retained = []
+        for page in pages:
+            if load_content_policy().excludes(page.url):
+                record_exclusion(self.store, page.url, "discovery")
+            else:
+                retained.append(page)
+        pages = retained
         self.store.discover(pages)
         log.info(
             "discovery_complete",
@@ -94,6 +107,7 @@ class Pipeline:
 
     async def scrape(self, source: str, *, force: bool = False) -> list[DocumentRecord]:
         adapters = {adapter.source_id: adapter for adapter in self.adapters(source)}
+        purge_excluded_state(self.store)
         rows = self.store.pending(list(adapters), force=force)
         semaphore = asyncio.Semaphore(self.concurrency)
 
@@ -111,7 +125,7 @@ class Pipeline:
         return records
 
     # Asset and source metadata are committed with the document as one operation.
-    # pylint: disable-next=too-many-locals
+    # pylint: disable-next=too-many-locals,too-many-statements
     async def _scrape_one(
         self, adapter: SourceAdapter, url: str, source_last_modified: str | None = None
     ) -> DocumentRecord | None:
@@ -127,6 +141,11 @@ class Pipeline:
             extracted.metadata.canonical_url = validate_source_url(
                 adapter.source_id, fetched.final_url
             )
+            if load_content_policy().excludes(extracted.metadata.canonical_url):
+                record_exclusion(self.store, url, "canonical_redirect")
+                with self.store.connection:
+                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
+                return None
             extracted.html = await self._resolve_redirects(
                 adapter,
                 fetched.final_url,
@@ -264,12 +283,16 @@ class Pipeline:
         return suffix if re_safe_suffix(suffix) else ".bin"
 
     def validate(self) -> None:
+        migrate_content(self.output, self.store)
+        enrich_snapshot(self.output, self.store)
         validate_community_publication(self.output, self.store)
         validate_snapshot(self.output, self.store)
 
     def package(self, started_at: str, ended_at: str) -> Path:
+        migrate_content(self.output, self.store)
+        enrich_snapshot(self.output, self.store)
         validate_community_publication(self.output, self.store)
-        if not (self.output / "quality-report.json").is_file():
+        if not (self.output / "quality-report.md").is_file():
             write_quality_reports(self.output)
         manifest = build_manifest(self.output, self.store, started_at, ended_at)
         return write_release(self.output, manifest)
@@ -325,6 +348,7 @@ async def run_pipeline(
         reconcile_previous(
             output, pipeline.store, previous_manifest, retain_previous=retain_previous
         )
+        migrate_content(output, pipeline.store)
         enrich_snapshot(output, pipeline.store)
         write_quality_reports(output, reference=quality_reference, benchmark=benchmark)
         pipeline.validate()

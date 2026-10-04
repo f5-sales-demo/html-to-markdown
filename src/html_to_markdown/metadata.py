@@ -284,7 +284,11 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
 
     for url, metadata in enriched.items():
         canonical_url = metadata.canonical_url or url
-        targets = set(store.candidate_links(url)) | curated.get(canonical_url, set())
+        targets = (
+            set(store.candidate_links(url))
+            | curated.get(canonical_url, set())
+            | {item.canonical_url for item in metadata.related_documents}
+        )
         related: list[RelatedDocument] = []
         for target_url in targets:
             try:

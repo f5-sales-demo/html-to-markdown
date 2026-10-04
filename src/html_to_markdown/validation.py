@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from .content_policy import validate_content_policy
 from .errors import AllowlistError, PublicationBlockedError, ValidationError
 from .models import Lifecycle, PageMetadata
 from .render import content_hash, split_document
@@ -156,6 +157,7 @@ def validate_snapshot(
     store: StateStore,
 ) -> None:
     """Validate only artifact integrity; crawl and quality findings are advisory."""
+    validate_content_policy(output)
     errors: list[str] = []
     paths = sorted(output.glob("content/*/**/index.md"))
     known_urls: set[str] = set()
