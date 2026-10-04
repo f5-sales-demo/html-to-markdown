@@ -53347,5 +53347,1756 @@
         "output_sha256": "f7052eb7d48de73feaa364c2b8999bbf759e948510921974dd777bf823d69c82"
       }
     }
+  },
+  "76644": {
+    "article_hash": "09e22bb63410040f4f77740d27760877f4db15364883e4ee1b14e90d375fdff1",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 15 static images. Preserved migration scenarios across VMware, Nutanix, OpenShift and Azure, old/new traffic arrows, origin distribution, Juice Shop paths and WAF block evidence. Ten screenshots replace lab namespace, load balancer, site/origin labels, client addresses and application authority with consistent synthetic identifiers. Five architecture diagrams have no user data. Image metadata removed without changing substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/018a2105b3f0c61d87774c29853351cfc4ea7710.jpeg": "0c4597899582feb7e2ae42ef3eda5083a68b722db371f41d2ae7e79f6c994592",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/037b79d0e4368100a155c5e470e2323d0d3fa587.jpeg": "8ed752ed05b26a53b6f0cc10457dfcde87e2140f1dd843f456c8632aba50887d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1eb29a37f020965a754e8d4bec134a8ddce49631.jpeg": "4c4b8420b34376d44164172459f5d53fe55704a11c099d1f8b4d5a1a9f6d5ca0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/289a711cf9d8e08a5a0a61808d8e2a1868beac72.jpeg": "7a6fbf7d0de3ff290264b47a65e615d0f8e642bacd21e3b38721737b6e9c9f7c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/394f0cb56b1060b8ffa6e4e046aeea4c552f118e.jpeg": "6ba81b5d4405c64b28518d30b4a5bfce22d1e9746d55e22bdf314ecea36b77e8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/757aed8bf939402cb85643831aa96630ca142e9a.jpeg": "5a030abcc3ee7cefe469db1cf741cfe31f2af2f40091afa27378a7f3b7790ef7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9802fd7a6ef70035f027a45db450970a775d7d16.png": "be1fb56cc7af98b0526d4d2d2802434fc133636b3e2e372718d8bb763256d202",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0fe471dcceb04dee4bcb2474dbb0d207a3042a2.jpeg": "7d8de7da8705d4a44ddb28e97563763f0bc00cd934f1c4fdb0949e770d5b9a40",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb0fb0f9daef2d296e210c6a2494c91a1ff94426.jpeg": "92e57328b826d6b1d984b63f5fcf5e29736a93e81766bc2e6c15f9451839dd0e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f36ef64d7f5ce1269b7cb9709fd5ec87cd784730.jpeg": "293accee97c43daad3b62eada608ddd76f19d004ff4efd3fb53ebded6b72b009",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/a/1a1de207b4e85ea399bb8c88b5bb295fce3aba2b.jpeg": "c9a4366b89851142399f698f0c1c05529b15fc3ee35645fa1058f06d507c43db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/594eb100ca7ef6b628957ee8c0e6deef69c9efd8.png": "ee7a6d8adb1f6b22fe8ac30cfe9100b303910441db62f83e18f6c22ba7be576f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b58277af438f667f6e87fa43ebc40e5f14072e9.jpeg": "4732efa965a5d0730ed67e7ba4f84b2c7e7ebf641a2fbb71dd1181e6c616e7cc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/5/656a5967cdf5bf3b4fe5869616235db83ea7a8d0.jpeg": "3d38fd05409fcd8c5bfd4b7570b7feb4685819f3ef0170b17ba2e55b9da9b653",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/f/8f5aae3899a66d52b49e31e7bab4ddabbc33c776.png": "aedc384e4ec855e2433ef51dbe301e99ca70a0711812a261442993a44fc532a5"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/018a2105b3f0c61d87774c29853351cfc4ea7710.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              463,
+              518,
+              653,
+              550
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              678,
+              653,
+              710
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              838,
+              653,
+              870
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              998,
+              653,
+              1030
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1158,
+              653,
+              1190
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1318,
+              653,
+              1350
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1478,
+              653,
+              1510
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1638,
+              653,
+              1670
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1798,
+              653,
+              1830
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1958,
+              653,
+              1990
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              490,
+              957,
+              523
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              650,
+              957,
+              683
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              810,
+              957,
+              843
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              970,
+              957,
+              1003
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1130,
+              957,
+              1163
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1290,
+              957,
+              1323
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1450,
+              957,
+              1483
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1610,
+              957,
+              1643
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1770,
+              957,
+              1803
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1930,
+              957,
+              1963
+            ],
+            "text": "demo-azure",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "095c1a5853012be36eef43982d95510125e52f9a27464746b68b15a61c9facf7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/037b79d0e4368100a155c5e470e2323d0d3fa587.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              780,
+              463,
+              1007,
+              501
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              491,
+              655,
+              523
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              623,
+              1007,
+              661
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              651,
+              655,
+              683
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              783,
+              1007,
+              821
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              811,
+              655,
+              843
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              943,
+              1007,
+              981
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              971,
+              655,
+              1003
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1103,
+              1007,
+              1141
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1131,
+              655,
+              1163
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1263,
+              1007,
+              1301
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1291,
+              655,
+              1323
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1423,
+              1007,
+              1461
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1451,
+              655,
+              1483
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1583,
+              1007,
+              1621
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1611,
+              655,
+              1643
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1743,
+              1007,
+              1781
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1771,
+              655,
+              1803
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              780,
+              1903,
+              1007,
+              1941
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              1931,
+              655,
+              1963
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "7edc4cbdf12644ac68b7eb4f9c8ad5d384e2487cb4cc4f3fa08be3b4f49d57d6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1eb29a37f020965a754e8d4bec134a8ddce49631.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              458,
+              519,
+              648,
+              551
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              679,
+              648,
+              711
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              839,
+              648,
+              871
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              999,
+              648,
+              1031
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1159,
+              648,
+              1191
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1319,
+              648,
+              1351
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1479,
+              648,
+              1511
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1639,
+              648,
+              1671
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1799,
+              648,
+              1831
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              458,
+              1959,
+              648,
+              1991
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              491,
+              949,
+              529
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              651,
+              949,
+              689
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              811,
+              949,
+              849
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              971,
+              949,
+              1009
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1131,
+              949,
+              1169
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1291,
+              949,
+              1329
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1451,
+              949,
+              1489
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1611,
+              949,
+              1649
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1771,
+              949,
+              1809
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              773,
+              1931,
+              949,
+              1969
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "54336a2d721f5f9416859331a2e841d961ab0a14b44dc31e4349e63bd1e69864"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/289a711cf9d8e08a5a0a61808d8e2a1868beac72.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              457,
+              505,
+              651,
+              537
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              665,
+              651,
+              697
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              825,
+              651,
+              857
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              985,
+              651,
+              1017
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1145,
+              651,
+              1177
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1305,
+              651,
+              1337
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1465,
+              651,
+              1497
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1625,
+              651,
+              1657
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1785,
+              651,
+              1817
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              457,
+              1945,
+              651,
+              1977
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              477,
+              993,
+              510
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              637,
+              993,
+              670
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              797,
+              948,
+              835
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              957,
+              993,
+              990
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1117,
+              993,
+              1150
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1277,
+              993,
+              1310
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1437,
+              993,
+              1470
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1597,
+              993,
+              1630
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1757,
+              999,
+              1795
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              772,
+              1917,
+              948,
+              1955
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "ab121dcfc7df118738749bee822b001c699237a8d1232fee4f8ea16c41c18ca7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/394f0cb56b1060b8ffa6e4e046aeea4c552f118e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              813,
+              1349,
+              1008,
+              1381
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2433,
+              1325,
+              2745,
+              1403
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "b1b331df9de56828dd1d6ce451ac40a81fce871a1331d7162e136ea0060c8304"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0fe471dcceb04dee4bcb2474dbb0d207a3042a2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              812,
+              1349,
+              1003,
+              1381
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2433,
+              1325,
+              2745,
+              1403
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "e5b18f4b418a30ef3a23ab4276fc1f82196655bd0fe12c57e1b2c40e2961f908"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb0fb0f9daef2d296e210c6a2494c91a1ff94426.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              814,
+              1349,
+              1004,
+              1381
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2433,
+              1325,
+              2745,
+              1403
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "552dccd404e61250a358f550d84baf7282a1fcf263a2d9153028de81ffd347fd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f36ef64d7f5ce1269b7cb9709fd5ec87cd784730.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              452,
+              452,
+              646,
+              484
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              612,
+              646,
+              644
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              772,
+              646,
+              804
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              932,
+              646,
+              964
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1092,
+              646,
+              1124
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1252,
+              646,
+              1284
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1412,
+              646,
+              1444
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1572,
+              646,
+              1604
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1732,
+              646,
+              1764
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              452,
+              1892,
+              646,
+              1924
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              424,
+              994,
+              462
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              584,
+              994,
+              622
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              744,
+              943,
+              782
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              904,
+              994,
+              942
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1064,
+              994,
+              1102
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1224,
+              994,
+              1262
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1384,
+              943,
+              1422
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1544,
+              943,
+              1582
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1704,
+              994,
+              1742
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              767,
+              1864,
+              994,
+              1902
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "9a0330a648856fb320d4288f1467635c038403b03f1ab594f47c811531f070fb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/a/1a1de207b4e85ea399bb8c88b5bb295fce3aba2b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              463,
+              516,
+              653,
+              548
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              676,
+              653,
+              708
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              836,
+              653,
+              868
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              996,
+              653,
+              1028
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1156,
+              653,
+              1188
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1316,
+              653,
+              1348
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1476,
+              653,
+              1508
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1636,
+              653,
+              1668
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1796,
+              653,
+              1828
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              463,
+              1956,
+              653,
+              1988
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              488,
+              999,
+              521
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              648,
+              999,
+              681
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              808,
+              999,
+              841
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              968,
+              1005,
+              1006
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1128,
+              999,
+              1161
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1288,
+              999,
+              1321
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1448,
+              1005,
+              1486
+            ],
+            "text": "demo-nutanix",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1608,
+              999,
+              1641
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1768,
+              999,
+              1801
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              778,
+              1928,
+              999,
+              1961
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "9cdbc0fece9f23d29a879eadefad737cf807f73df035bd8c97b6ef1ae1e8b451"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/5/656a5967cdf5bf3b4fe5869616235db83ea7a8d0.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              460,
+              526,
+              650,
+              558
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              694,
+              650,
+              726
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              870,
+              650,
+              902
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1038,
+              650,
+              1070
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1198,
+              650,
+              1230
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1358,
+              650,
+              1390
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1526,
+              650,
+              1558
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1702,
+              650,
+              1734
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              460,
+              1870,
+              650,
+              1902
+            ],
+            "text": "192.0.2.68",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              498,
+              996,
+              531
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              666,
+              951,
+              704
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              842,
+              996,
+              875
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1010,
+              996,
+              1043
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1170,
+              996,
+              1203
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1330,
+              951,
+              1368
+            ],
+            "text": "demo-ocp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1498,
+              996,
+              1531
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1674,
+              996,
+              1707
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              1842,
+              996,
+              1875
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              775,
+              2002,
+              996,
+              2035
+            ],
+            "text": "demo-vmware",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              405,
+              58,
+              605,
+              112
+            ],
+            "text": "demo-lb",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              494,
+              10,
+              675,
+              55
+            ],
+            "text": "demo-namespace",
+            "size": 18
+          }
+        ],
+        "output_sha256": "3dd7dc3ed4a97999825184de9399c9cb2dffc9dcc4ae8f23cb9ce4f1a55b543f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/757aed8bf939402cb85643831aa96630ca142e9a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "cf0daa7d92908914f4534b35dee782039f16a0c9c651357118f32c09ea5aeabb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9802fd7a6ef70035f027a45db450970a775d7d16.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4fad30062b7fea25df62ff24d983a36dd84c0fb0519832930bf1586569d2ab08"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/9/594eb100ca7ef6b628957ee8c0e6deef69c9efd8.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ce3566b0d084ecd951f844adfb9a8fd42ee3c3320da4a63690cc9ec668a18aa6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b58277af438f667f6e87fa43ebc40e5f14072e9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "03859ce37c86152da977355e137d8b4801f6adc218d89e199bcca5ba3a3e3a08"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/f/8f5aae3899a66d52b49e31e7bab4ddabbc33c776.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "38282ee2ef8a655241a67ad9e035cf07f4c49e7ed2d5f5b3bd2904c38dd8cbb8"
+      }
+    }
   }
 }
