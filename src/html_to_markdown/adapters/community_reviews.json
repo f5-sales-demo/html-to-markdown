@@ -100244,5 +100244,1513 @@
         "output_sha256": "d0cb6a60ce2485fc1a4b2080d80293719f391ca43552e240ede97e29fde1de71"
       }
     }
+  },
+  "76746": {
+    "article_hash": "e2c8bb569a47426ae48742181369321b6e8d1de70624be6889a825d2ed202cf5",
+    "decision": "include",
+    "reason": "Distributed Cloud and Nutanix Flow extend segmented networks and enforce microsegmentation",
+    "text_replacements": {
+      "nodes": {
+        "00bc14b9346d65650df07e52593a78a1ae4c823a8a232d6caee095e71cb3db19": "demo-overlay-dev3",
+        "a06dad11b96fd77d9a1dcfafe9ee5f2c8dc77595ee1d50a4dad1384af96ddf2c": "demo-segment",
+        "f1beaf667d16c6f26cfb3b0fe0c21d0e41cde52d5110e011fb090f4e96206496": "10.170.84.0/24",
+        "3aaa225673dcbccf552d47a4ce8e7a7b429f16bb5a86a942983a149352c0d8a8": "demo-nyc"
+      },
+      "output_sha256": "d4b890150673603931e1e560db4db175833a49e8864c81a8581f5ce9d6ada3c9"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and all 18 static images reviewed. Personal CE and segment names, MACs and VM identifiers synthesized; public-looking lab addresses consistently moved to private topology and remote hops to RFC 5737. All interface mappings, BGP prefixes and route types, bidirectional ping and SCP outputs, default gateways, project categories, permitted and blocked policy arrows and subnet extension configuration preserved. No password bytes shown. Metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2c99e3f0ea111f99203804b9436f13f52dad1334.png": "c03318405772b8c225be1eb10dfde0ba6d1e32db30338c55d6aca844171bc556",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4cb481771140369f033de4f15b6a25f4876c0d7a.png": "5bfca59fa662a271dc25f9e17a96dfcbfcdf923b08b2601b75124be8c028a150",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/52ea1b78dc57473ae1000471e32663a1cab44f70.png": "6756e54fac49f901aa649218dae5b7d3f4a76cb293b90cc93cf1146108b81058",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8011073840b76589722d796e7fc6b848b2d32c1c.png": "19f4da004568b440770380ec2147f0b3463af5b8b851f93c379294fd2b913f58",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/98b5395c502c5295a300352722f8335a10a8a20e.png": "98910d78f18c16739549aeb2bf77d053d4e5f482f53248520a3c4fe0f5be7d43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b937f7c44a85d74f3b90e81ccf303ee60034d27a.png": "2382941cc56dc0e4e0e6d48f27c7d31c0519e4e53ce099005c49d8414ee2e743",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb9e9d36da61440d5a7d4f321276658144d4e11d.png": "652fd5f97da54953207beb767c694e3e704dbef1f528efcd3f05a5a39974a8f2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/df0b13058cb05f1b641c08f3dd1599bf172198c8.png": "18c07e0895aa36a27104381c4cac7447705840123c2c738f26a445473c02f261",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ffb2e3031a19004dd0036f9502ad6b0e579b62d2.png": "5a38e5894aa32315c9bb75db2580ab76b0ac39dc805d55ca820fd24fa2c9c93c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/1597b3f1a4b52604ac74139b031163ad526fcd48.png": "d1321765a69868d7ed35afcb004e53ad40a183102e2a9c98f8ad79e7c52a20c2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2eaa8686f677973544bd79ac4ada013c95e7c377.png": "f31f3c7c416776cd73df6f7970dcb08a7c379364056b4e4a365cfe4028ca4748",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2ec6ea0e4b1dc02c081cdbd7fdb28ed35d36ec90.png": "ad623d10c5804a5052181715aecb6672674beccc41ec8109ec4e4f4bce849c09",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/34cda27802d584144bdea5fef1aa34431bdce2b4.png": "1beaaaf9c8efdbddb7ceca3abd476e4bcbc7e6eb91e1364b067ce4fee2981271",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/821601cc9e0a3d0d45c2f11ef4a3c8d2dd207052.png": "f0d26ef31c20a73f09a759e46becd9dfacccb6328c79f2b64606d8e7e6b75a86",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8eb3f5a72c0cf71244c3fd3c628ee81af3a5d08d.png": "f8e9e51227ff87ef2412b4cfbc6f249bfc79102009f30fa71a756eff3c252e2f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e01a184d2656c2319f028c9461e916602d2091ca.png": "18ad4a5d3c1dd876d64c92a9c57d4978b7fda3bb0b298ae3548e07ff2bba7880",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/a/eaa71c48b2c86313707f8afbeb2c7d43f15cd00f.jpeg": "d1efe6e88c6d00db674ce356dcf129018b298e51aee541db1982f1a77a976ac9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed5904cb9333b82e18d335109d6f57ece4351288.png": "a383111fc3a058c96b22f56400897c38747929271e313def969f7156ac6b72f9"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2c99e3f0ea111f99203804b9436f13f52dad1334.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1145,
+              304,
+              1244,
+              326
+            ],
+            "text": "demo-nyc",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              990,
+              1247,
+              1095,
+              1270
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              157,
+              426,
+              354,
+              459
+            ],
+            "text": "demo-nyc",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              319,
+              919,
+              543,
+              956
+            ],
+            "text": "demo-nyc",
+            "size": 14
+          }
+        ],
+        "output_sha256": "467a953868aa31ab53c9fa32de073fb3e446d188a8b78da0c419f77bc761c92c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4cb481771140369f033de4f15b6a25f4876c0d7a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1360,
+              326,
+              1513,
+              349
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              45,
+              103,
+              287,
+              135
+            ],
+            "text": "demo-nyc",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              326,
+              599,
+              579,
+              636
+            ],
+            "text": "demo-nyc",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              916,
+              684,
+              1224,
+              715
+            ],
+            "text": "MAC Address: 02:00:00:00:00:02",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1135,
+              1164,
+              1514,
+              1197
+            ],
+            "text": "system/demo-segment",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1370,
+              383,
+              1546,
+              413
+            ],
+            "text": "02:00:00:00:00:02",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1830,
+              380,
+              2304,
+              415
+            ],
+            "text": "demo-segment",
+            "size": 14
+          }
+        ],
+        "output_sha256": "6d4c1db6b55126f3b9e7fef228cb66046a98defcad4b10363923650492181a8f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/52ea1b78dc57473ae1000471e32663a1cab44f70.png": {
+        "labels": [
+          {
+            "rectangle": [
+              769,
+              370,
+              877,
+              392
+            ],
+            "text": "10.170.8439",
+            "size": 12
+          }
+        ],
+        "output_sha256": "975ea19a43414655087306927dfb421acc48493ff0c65352ce0d3c30c0ddbc58"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8011073840b76589722d796e7fc6b848b2d32c1c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1042,
+              375,
+              1162,
+              397
+            ],
+            "text": "10.170.91.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1042,
+              431,
+              1166,
+              453
+            ],
+            "text": "10.170.92.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1042,
+              487,
+              1166,
+              509
+            ],
+            "text": "10.170.83.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1042,
+              542,
+              1166,
+              564
+            ],
+            "text": "10.170.84.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1376,
+              375,
+              1464,
+              397
+            ],
+            "text": "10.170.9114",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1376,
+              431,
+              1469,
+              453
+            ],
+            "text": "10.170.9214",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1376,
+              487,
+              1468,
+              509
+            ],
+            "text": "10.170.8311",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1376,
+              542,
+              1468,
+              564
+            ],
+            "text": "10.170.84.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1710,
+              375,
+              1804,
+              397
+            ],
+            "text": "10.170.91.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1813,
+              375,
+              1923,
+              397
+            ],
+            "text": "10.170.9100",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1710,
+              431,
+              1808,
+              453
+            ],
+            "text": "10.170.92.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1817,
+              431,
+              1932,
+              453
+            ],
+            "text": "10.170.9200",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1710,
+              487,
+              1807,
+              509
+            ],
+            "text": "10.170.83.2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1817,
+              487,
+              1930,
+              509
+            ],
+            "text": "10.170.83.100",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1710,
+              542,
+              1813,
+              564
+            ],
+            "text": "10.170.84.51",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1823,
+              542,
+              1936,
+              564
+            ],
+            "text": "10.170.84.100",
+            "size": 12
+          }
+        ],
+        "output_sha256": "db266a4e17fccd4f19db00714c3bead7fd20f38846a50dcbe2c921dd73fe32a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/98b5395c502c5295a300352722f8335a10a8a20e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1532,
+              645,
+              1655,
+              671
+            ],
+            "text": "demo-node",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              50,
+              39,
+              354,
+              79
+            ],
+            "text": "Site: demo-nyc",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              89,
+              509,
+              304,
+              542
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              967,
+              774,
+              1243,
+              812
+            ],
+            "text": "demo-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              2026,
+              1135,
+              2223,
+              1173
+            ],
+            "text": "demo-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              368,
+              774,
+              619,
+              812
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              643,
+              1267,
+              953,
+              1297
+            ],
+            "text": "demo-segment",
+            "size": 14
+          }
+        ],
+        "output_sha256": "7383458f494ab419faaeafd585895275986bbdc3e98fd2f02ca82bb24b12b428"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b937f7c44a85d74f3b90e81ccf303ee60034d27a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1440,
+              1159,
+              1545,
+              1181
+            ],
+            "text": "10.170.84.39",
+            "size": 12
+          }
+        ],
+        "output_sha256": "0244415cde7f153ea9a9c8ca52ddea10a3520ec88dfd33dd496005905188cf29"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cb9e9d36da61440d5a7d4f321276658144d4e11d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              373,
+              356,
+              497,
+              378
+            ],
+            "text": "10.170.83.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              373,
+              406,
+              497,
+              428
+            ],
+            "text": "10.170.84.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              373,
+              456,
+              493,
+              478
+            ],
+            "text": "10.170.91.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              373,
+              506,
+              498,
+              528
+            ],
+            "text": "10.170.92.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              707,
+              555,
+              815,
+              577
+            ],
+            "text": "10.170.84.39",
+            "size": 12
+          }
+        ],
+        "output_sha256": "1fd2dcd5460ea35ad0658d800dfe93fd5937cd1a9f924c31e89b3848eec6a006"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/df0b13058cb05f1b641c08f3dd1599bf172198c8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              60,
+              552,
+              196,
+              577
+            ],
+            "text": "10.170.84.0/24",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              60,
+              612,
+              207,
+              637
+            ],
+            "text": "10.170.84.39/32",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              849,
+              372,
+              952,
+              395
+            ],
+            "text": "10.170.84.1",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1390,
+              432,
+              1516,
+              459
+            ],
+            "text": "demo-nyc",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              1390,
+              492,
+              1516,
+              519
+            ],
+            "text": "demo-nyc",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              1724,
+              364,
+              1834,
+              387
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1723,
+              448,
+              1960,
+              483
+            ],
+            "text": "demo-segment",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              850,
+              431,
+              978,
+              457
+            ],
+            "text": "192.0.2.80",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              850,
+              491,
+              979,
+              517
+            ],
+            "text": "192.0.2.72",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              29,
+              32,
+              394,
+              69
+            ],
+            "text": "Site: demo-overlay-dev3",
+            "size": 18
+          }
+        ],
+        "output_sha256": "d818c26e8c72c3daff7ea71276a7432396259ece666a14228e21be83ebd4a3aa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ffb2e3031a19004dd0036f9502ad6b0e579b62d2.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1723,
+              361,
+              1831,
+              384
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1722,
+              445,
+              1959,
+              480
+            ],
+            "text": "demo-segment",
+            "size": 25
+          },
+          {
+            "rectangle": [
+              59,
+              489,
+              195,
+              514
+            ],
+            "text": "10.170.84.0/24",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1389,
+              489,
+              1595,
+              516
+            ],
+            "text": "demo-overlay",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              59,
+              549,
+              195,
+              574
+            ],
+            "text": "10.170.84.0/24",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1389,
+              549,
+              1595,
+              576
+            ],
+            "text": "demo-overlay",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              25,
+              33,
+              269,
+              70
+            ],
+            "text": "Site: demo-nyc",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              850,
+              490,
+              989,
+              518
+            ],
+            "text": "192.0.2.112",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              850,
+              550,
+              989,
+              578
+            ],
+            "text": "192.0.2.72",
+            "size": 12
+          }
+        ],
+        "output_sha256": "1505782477de888c6966a758af9c3e7512bec3dd316e7ea83d88f8661b90d8de"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/1597b3f1a4b52604ac74139b031163ad526fcd48.png": {
+        "labels": [
+          {
+            "rectangle": [
+              111,
+              33,
+              373,
+              65
+            ],
+            "text": "demo-overlay",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              66,
+              445,
+              176,
+              468
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              282,
+              852,
+              430,
+              876
+            ],
+            "text": "10.170.84.39,",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              51,
+              1032,
+              191,
+              1053
+            ],
+            "text": "10.170.77.13",
+            "size": 11
+          }
+        ],
+        "output_sha256": "bb595ab52e899f6c0a76c3b58e068ba25646829b55fc447d5cc9c5a3a853d52a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2eaa8686f677973544bd79ac4ada013c95e7c377.png": {
+        "labels": [
+          {
+            "rectangle": [
+              62,
+              450,
+              172,
+              473
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              499,
+              797,
+              647,
+              821
+            ],
+            "text": "10.170.84.39,",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              28,
+              35,
+              393,
+              75
+            ],
+            "text": "Site: demo-overlay-dev3",
+            "size": 18
+          }
+        ],
+        "output_sha256": "69016d20a24b2d1c014bd788c18e646eadd512c3861396cf76aafe3c6d0c1720"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2ec6ea0e4b1dc02c081cdbd7fdb28ed35d36ec90.png": {
+        "labels": [
+          {
+            "rectangle": [
+              100,
+              435,
+              208,
+              458
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              317,
+              666,
+              425,
+              689
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1323,
+              550,
+              1431,
+              573
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              46,
+              34,
+              330,
+              78
+            ],
+            "text": "Site: demo-nyc",
+            "size": 18
+          }
+        ],
+        "output_sha256": "269a4fa6a72d0665afe620ab18a2b42239c7e959e6f60208ce8c989b2ca99854"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/34cda27802d584144bdea5fef1aa34431bdce2b4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              595,
+              375,
+              736,
+              397
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              822,
+              375,
+              926,
+              397
+            ],
+            "text": "10.170.91.39",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              822,
+              425,
+              930,
+              447
+            ],
+            "text": "10.170.92.39",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              595,
+              475,
+              736,
+              497
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              822,
+              475,
+              930,
+              497
+            ],
+            "text": "10.170.84.39",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              595,
+              524,
+              744,
+              546
+            ],
+            "text": "02:00:00:00:00:01",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              822,
+              524,
+              930,
+              546
+            ],
+            "text": "10.170.83.39",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              605,
+              417,
+              798,
+              455
+            ],
+            "text": "02:00:00:00:00:02",
+            "size": 14
+          }
+        ],
+        "output_sha256": "e1b96f5974830e062922b8e901789a6735b976f8557646f35637c4038fe3a415"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/2/821601cc9e0a3d0d45c2f11ef4a3c8d2dd207052.png": {
+        "labels": [
+          {
+            "rectangle": [
+              98,
+              463,
+              211,
+              486
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1428,
+              582,
+              1542,
+              606
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              331,
+              703,
+              445,
+              727
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1180,
+              703,
+              1304,
+              727
+            ],
+            "text": "10.170.92.39",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              332,
+              765,
+              445,
+              789
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1180,
+              765,
+              1301,
+              789
+            ],
+            "text": "10.170.91.39",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              331,
+              828,
+              445,
+              851
+            ],
+            "text": "demo-node",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              331,
+              890,
+              445,
+              914
+            ],
+            "text": "demo-node",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              51,
+              39,
+              417,
+              75
+            ],
+            "text": "Site: demo-overlay-dev3",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1184,
+              887,
+              1360,
+              920
+            ],
+            "text": "10.170.84.39",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              2109,
+              1175,
+              2334,
+              1205
+            ],
+            "text": "demo-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              898,
+              821,
+              1182,
+              854
+            ],
+            "text": "demo-aws-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              898,
+              887,
+              1182,
+              921
+            ],
+            "text": "demo-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              953,
+              1266,
+              1298,
+              1297
+            ],
+            "text": "demo-segment",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1184,
+              821,
+              1380,
+              854
+            ],
+            "text": "10.170.83.39",
+            "size": 14
+          }
+        ],
+        "output_sha256": "7ede28bd4d053642225f7389ac952a4c48c9567ad46d14bca2ddda73ea2f03a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8eb3f5a72c0cf71244c3fd3c628ee81af3a5d08d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              393,
+              5,
+              451,
+              29
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              661,
+              6,
+              816,
+              27
+            ],
+            "text": "user@10.170.84.52",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              979,
+              426,
+              1236,
+              460
+            ],
+            "text": "10.170.84.52/24",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1023,
+              466,
+              1211,
+              499
+            ],
+            "text": "10.170.84.1",
+            "size": 23
+          },
+          {
+            "rectangle": [
+              32,
+              0,
+              1183,
+              30
+            ],
+            "text": "demo - user@dev3-vm-2 - ssh user@10.170.84.52",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              7,
+              61,
+              1120,
+              90
+            ],
+            "text": "default via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.52 metric 100",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              7,
+              91,
+              1120,
+              120
+            ],
+            "text": "8.8.8.8 via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.52 metric 100",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1756,
+              360,
+              1942,
+              386
+            ],
+            "text": "EXAMPLE_VM_ID",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1753,
+              432,
+              1900,
+              466
+            ],
+            "text": "10.170.84.52",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1934,
+              75,
+              2094,
+              103
+            ],
+            "text": "demo-host",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1291,
+              683,
+              1518,
+              709
+            ],
+            "text": "192.0.2.130/32",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1291,
+              752,
+              1518,
+              778
+            ],
+            "text": "10.170.84.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              7,
+              143,
+              1167,
+              176
+            ],
+            "text": "10.170.84.0/24 dev ens3 proto kernel scope link src 10.170.84.52 metric 100",
+            "size": 18
+          }
+        ],
+        "output_sha256": "cf51d84f5beefdf4fec6dc989bf1349bab319d5119b6b14f0eeb3bb7384b5c0f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/0/e01a184d2656c2319f028c9461e916602d2091ca.png": {
+        "labels": [
+          {
+            "rectangle": [
+              32,
+              0,
+              1183,
+              30
+            ],
+            "text": "demo - user@dev3-vm-8 - ssh user@10.170.84.58",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              7,
+              61,
+              1120,
+              90
+            ],
+            "text": "default via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.58 metric 100",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              7,
+              91,
+              1120,
+              120
+            ],
+            "text": "8.8.8.8 via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.58 metric 100",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1753,
+              432,
+              1900,
+              466
+            ],
+            "text": "10.170.84.58",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1756,
+              360,
+              1942,
+              386
+            ],
+            "text": "EXAMPLE_VM_ID",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1934,
+              75,
+              2094,
+              103
+            ],
+            "text": "demo-host",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1291,
+              698,
+              1518,
+              724
+            ],
+            "text": "192.0.2.130/32",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1291,
+              767,
+              1518,
+              795
+            ],
+            "text": "10.170.84.0/24",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              926,
+              425,
+              1213,
+              463
+            ],
+            "text": "IP: 10.170.84.58/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              951,
+              466,
+              1213,
+              500
+            ],
+            "text": "GW: 10.170.84.1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              7,
+              143,
+              1167,
+              176
+            ],
+            "text": "10.170.84.0/24 dev ens3 proto kernel scope link src 10.170.84.58 metric 100",
+            "size": 18
+          }
+        ],
+        "output_sha256": "002b6805458e62416a31d2c860ec411c3937d9e59845cad330358eacfc76e7c1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/a/eaa71c48b2c86313707f8afbeb2c7d43f15cd00f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              8,
+              1,
+              221,
+              33
+            ],
+            "text": "10.170.84.1",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              849,
+              1,
+              1079,
+              33
+            ],
+            "text": "10.170.84.58",
+            "size": 22
+          }
+        ],
+        "output_sha256": "d03d5dc51095ab818c1227c3ac656faa95d24e4b4613a71b55f01a99abf46a78"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/ed5904cb9333b82e18d335109d6f57ece4351288.png": {
+        "labels": [
+          {
+            "rectangle": [
+              6,
+              128,
+              205,
+              156
+            ],
+            "text": "10.170.84.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              695,
+              128,
+              868,
+              154
+            ],
+            "text": "10.170.84.58",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              6,
+              153,
+              166,
+              179
+            ],
+            "text": "10.170.84.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              630,
+              153,
+              803,
+              179
+            ],
+            "text": "10.170.84.58",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              846,
+              255,
+              1076,
+              287
+            ],
+            "text": "10.170.84.58/24",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              886,
+              291,
+              1053,
+              322
+            ],
+            "text": "10.170.84.1",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              1135,
+              128,
+              1334,
+              156
+            ],
+            "text": "10.170.84.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1824,
+              128,
+              1996,
+              154
+            ],
+            "text": "10.170.84.52",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1135,
+              153,
+              1295,
+              179
+            ],
+            "text": "10.170.84.1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1759,
+              153,
+              1931,
+              179
+            ],
+            "text": "10.170.84.52",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1981,
+              255,
+              2211,
+              287
+            ],
+            "text": "10.170.84.52/24",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2021,
+              291,
+              2188,
+              322
+            ],
+            "text": "10.170.84.1",
+            "size": 21
+          },
+          {
+            "rectangle": [
+              7,
+              54,
+              1107,
+              79
+            ],
+            "text": "default via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.58 metric 100",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              7,
+              79,
+              1107,
+              104
+            ],
+            "text": "8.8.8.8 via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.58 metric 100",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1136,
+              54,
+              2236,
+              79
+            ],
+            "text": "default via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.52 metric 100",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1136,
+              79,
+              2236,
+              104
+            ],
+            "text": "8.8.8.8 via 10.170.84.1 dev ens3 proto dhcp src 10.170.84.52 metric 100",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              337,
+              2,
+              909,
+              28
+            ],
+            "text": "demo - user@dev3-vm-8 - ssh user@10.170.84.58",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1465,
+              2,
+              2180,
+              28
+            ],
+            "text": "demo - user@dev3-vm-2 - ssh user@10.170.84.52",
+            "size": 14
+          }
+        ],
+        "output_sha256": "77ffdeae004f0a20e91a0a7cf09ce96523f9a8ba68d93c7207fd5ea30c65e0b1"
+      }
+    }
   }
 }
