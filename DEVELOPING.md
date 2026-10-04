@@ -153,3 +153,17 @@ and the specification's source operation link. Any failure prevents output promo
 Commit the qualified catalog and its updated policy digest together. Runtime migration
 performs no network discovery or model inference. Previously published snapshots
 remain immutable; publish migrated content under a new receipt-pinned snapshot tag.
+
+## Curated collection landing page
+
+The landing page explains source-to-Markdown conversion and curation. Its hero
+and trunk/branch/leaf cards introduce the collection, sources/topics, and complete
+documents. `CorpusBrowser` comes from the pinned docs-builder and derives its
+source cards, topic cards, document summaries, breadcrumbs and search from the
+verified mounted snapshot. It never maintains a separate manual page inventory.
+
+Every card has a canonical Markdown destination. The browser supports ordinary
+index links without JavaScript and progressively narrower cards with JavaScript.
+Captured Markdown and assets remain unchanged; display summaries omit capture
+dates and invisible text. Curation is an extensible collection feature, not a
+showcase for any individual policy.
