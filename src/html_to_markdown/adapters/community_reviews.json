@@ -63660,5 +63660,296 @@
         "output_sha256": "8bd659ad7028a62d5932d3315485df3e8418fb29b329a6d30d63d97f5ac0a95b"
       }
     }
+  },
+  "70802": {
+    "article_hash": "a132a511a57e1afdcb04a5fe3ac8bfb1838556240b32734d4d4699d763eb733c",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full prose and all 20 static images; seven hash-bound transformations replace CloudShell host addresses, AWS account ARN/function suffixes, origin identifiers, personal application name and Bot Defense application ID. Other screenshots contain blank input fields or pre-existing opaque redactions and generic demos. Preserve architecture, Lambda@Edge event roles, installer command, endpoint mitigation/body settings, CloudShell upload, rollback and Secrets Manager guidance, and monitoring metrics; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6626b2cfd087e7f947490d0fb8957ba3c3ffeb1e.png": "165721440217b0455375410631b6ae0a8c3631f5b4f8e20b42867de1fb1937be",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/746d5764fc06fa020c1041e0ce684d19413df4cf.jpeg": "e527fa705ff32fef2ce258b8586b44e6b7904f77fa4badc43a53a7ad366c637c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b3c593b984919b1d7cc9a1c0041abf905e3722d.jpeg": "5e65858614a734ce45523499d26df7dc0dc2d6a132575c200dd951641359891f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a271a4111ddc70f526b92ad85ef42cd461ef39ce.png": "27f72d607893e8dd553550c31075bd6f49d7e119b0fd53bd40605cce8da93a0b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b74e083c267cbf5a95463a47243c8ce53a57a338.png": "34a997e5210f7c4388e0bd27e6ed88ade7d1980a3c84386ffa51ef002ed358b8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2ff8c264254fa9842aeafb196449cc91da24dcb.png": "3bc84f84ee979813d940c1941aed939f8bf5362b7d680711397238053fb322eb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdb4b0f2824c5c8c07fccae7e4462f5676bb0801.jpeg": "587de740b12780f81ede09e5267c53b4c3ae665a88433b64d1e0159078d95e97",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2fabd9f98e7316120aa0eb18d60eb72ad5e9f2e.jpeg": "5d7d2c6901d0d02610aacb4b14f84597b22d2a1ac3c2886968ec83bb82e3f6ae",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d477c8582e23fce9111af96d879ac04681bb5ebb.jpeg": "ae8fb4e09851cd1e6d630ca016a2a9a599d80e0273e642ed08b20b765f72123b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e64d10fb3d98cfdbc5abacf9c91af00d98239a25.jpeg": "06bb71052caf106fd26fb52aaf58cdcb630242ce1656ff521a2345c37808f633",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e894fd2f986ac20cb993b8bfe6b152ae8b419f4c.png": "34bc7784f7e293f42f650e51444a51260aed53af5bffae0806752311c17fd58a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/eeed8864b48c46a6d001605b192b665b95bc7b5a.jpeg": "6a565532c86affb62d0f44fdf771f8d3f592717b49a9897c609b4d97a8176167",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f99c5651c51d9ed9afda551398ebe3db0b0b0a5d.jpeg": "6ddef44399b1b58beb81c5b34d9a31da9c2b238cbe45c90b4a18efdb060bb4d3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e1fb08ef68da114d3ac2bc541ca7ca678880209.jpeg": "bc820c145f1a359902c524bccf345c3c288ed45dff323c73d9538552f069571e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50ba477963b233707f0763ab86085f16629d6b72.jpeg": "70a892e976945fcdbd4d25ff7e5161dce09bd9f6013fe3687307afad3c3ecb6a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c89b460584c2d725b218416cf1362457fc22bf3.jpeg": "9c5e0ab405d17e4acf2bb4a3b28fa54a7325f7997c47bc33a22666ca89b18f80",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/1/b110691cc9b44a88b3cb6ad2b21718777e04a225.png": "e9a018ed1149d10d5a57a83d0ffb69494a989790cae5d821ed00f83d6ebad3b0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/f/bf8beb91a11b2b3f889f7068d5f23418f0788950.jpeg": "4e3f71c826c09e98e6a96d1f0b459405c0db948b6c4615138c5385bc33ed23bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c17a6b83102ae5abddabda622959e976c153f897.png": "6c0fa14ecac00116a849ab242727cf6bdaca59ece800acd0325a1e4f6952ea66",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff0c6427b877d4133ecf58bc797f5ff6255e98dd.jpeg": "d3cfd3aea4d5b146e0fe079678d9ad61d8ebc358ae78be45742d5ba2fb9af385"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6626b2cfd087e7f947490d0fb8957ba3c3ffeb1e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              10,
+              120,
+              344,
+              134
+            ],
+            "text": "[cloudshell-user@demo-host ~]$ Try these commands to get started!",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              10,
+              142,
+              350,
+              158
+            ],
+            "text": "[cloudshell-user@demo-host ~]$ bash f5tool --install config.json",
+            "size": 8
+          }
+        ],
+        "output_sha256": "7918d6bf29b2081eddb3e6591b4601aae1dd7d6a5c0941eb4e764d61e923d5db"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e894fd2f986ac20cb993b8bfe6b152ae8b419f4c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              10,
+              120,
+              350,
+              136
+            ],
+            "text": "[cloudshell-user@demo-host ~]$ Try these commands to get started!",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              10,
+              143,
+              350,
+              160
+            ],
+            "text": "[cloudshell-user@demo-host ~]$",
+            "size": 8
+          }
+        ],
+        "output_sha256": "44ac31c18536eefbda2917d59e5de2ad780e05f797ccf3d545290c28b62ed4b0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9b3c593b984919b1d7cc9a1c0041abf905e3722d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              474,
+              39,
+              1325,
+              84
+            ],
+            "text": "serverlessrepo-F5BotDefense-F5BotDefense-DEMO",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              156,
+              124,
+              1740,
+              206
+            ],
+            "text": "serverlessrepo-F5BotDefense-F5BotDefense-DEMO",
+            "size": 40
+          },
+          {
+            "rectangle": [
+              988,
+              634,
+              1510,
+              690
+            ],
+            "text": "F5BotDefense-DEMO",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2317,
+              900,
+              3320,
+              990
+            ],
+            "text": "arn:aws:lambda:us-east-1:000000000000:function:serverlessrepo-F5BotDefense-F5BotDefense-DEMO",
+            "size": 18
+          }
+        ],
+        "output_sha256": "6225e23f81f1fae8e9680ff7ce22182bc92242e5248aa9ecb692b10ff7d8bad2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c2ff8c264254fa9842aeafb196449cc91da24dcb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              527,
+              224,
+              670,
+              249
+            ],
+            "text": "demo-origin",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              527,
+              248,
+              670,
+              273
+            ],
+            "text": "demo-origin",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              527,
+              272,
+              670,
+              297
+            ],
+            "text": "demo-origin",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              422,
+              441,
+              589,
+              462
+            ],
+            "text": "arn:aws:lambda:us-east-1:000000000000:function:DEMO",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              422,
+              476,
+              589,
+              497
+            ],
+            "text": "arn:aws:lambda:us-east-1:000000000000:function:DEMO",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              422,
+              511,
+              589,
+              532
+            ],
+            "text": "arn:aws:lambda:us-east-1:000000000000:function:DEMO",
+            "size": 6
+          }
+        ],
+        "output_sha256": "dfbed7896053b0acc42653384bd0a314085cd8de36922953b0b64ed08399a992"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f99c5651c51d9ed9afda551398ebe3db0b0b0a5d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              295,
+              435,
+              1213,
+              483
+            ],
+            "text": "serverlessrepo-f5ConnectorCl-f5ConnectorCloudFront-DEMO",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              295,
+              510,
+              1095,
+              567
+            ],
+            "text": "serverlessrepo-F5BotDefense-F5BotDefense-DEMO",
+            "size": 24
+          }
+        ],
+        "output_sha256": "026a43d92b5728ed7b35c1b8ad38a35001cd64aa2c749c157e67b4738822981a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/c/5c89b460584c2d725b218416cf1362457fc22bf3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              420,
+              1932,
+              720,
+              1964
+            ],
+            "text": "ves-io-http-loadbalancer-demo-evershop",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b7d6badc7cc5f5f6498169f5cf1168bfb9f5b77c6354fb16e18147ef060fbbbf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/f/ff0c6427b877d4133ecf58bc797f5ff6255e98dd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1648,
+              433,
+              2070,
+              478
+            ],
+            "text": "00000000000040008000000000000001",
+            "size": 18
+          }
+        ],
+        "output_sha256": "f6dedeb238264b88a97e739afe493c778ac17664571108ba020b4eca351ef044"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/746d5764fc06fa020c1041e0ce684d19413df4cf.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0b77bcd5211fa61defe53d028828e083dab39c252d51f8a736e0848b411c32df"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdb4b0f2824c5c8c07fccae7e4462f5676bb0801.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7781ff4d17f2e54bc4f9d6d24ca8efe9bb0b0a0f15123547888172e738ae14cb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d2fabd9f98e7316120aa0eb18d60eb72ad5e9f2e.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c7801d46652e92c2e0df6d7a202e885c4035b769d90992444d080a7b697a6879"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d477c8582e23fce9111af96d879ac04681bb5ebb.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c2f676a0e03c55056d2cf10217e504e854cc0c7a78a929c6ba2928efcdafca3b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e64d10fb3d98cfdbc5abacf9c91af00d98239a25.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "59e94d1453728ac43bf994062cef96cadf3d00fbe501bf5e10d12f20287f124f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/eeed8864b48c46a6d001605b192b665b95bc7b5a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "c85dac0738aca6e83630c477476efd360848524e61e98b827268bc166a8567d0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e1fb08ef68da114d3ac2bc541ca7ca678880209.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "21a4a9f1cc6cb8effec6eb81d50a957c13176025022f40b50e8539694fc7b48b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/50ba477963b233707f0763ab86085f16629d6b72.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "88405b5c1f256283cfbbe65e81da62e90f16a96c249485f5433e54765031a82b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/f/bf8beb91a11b2b3f889f7068d5f23418f0788950.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "0d2ba46c035a22127cbbb327a7078baa092d56c4ff607a2e178365d4c18424c8"
+      }
+    }
   }
 }
