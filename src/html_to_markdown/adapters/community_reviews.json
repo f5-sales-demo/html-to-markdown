@@ -60116,5 +60116,1310 @@
         "output_sha256": "76c4f80ad6d6eecf8340a07214d18c6486961f132e77877adda2aa0e1a713193"
       }
     }
+  },
+  "74012": {
+    "article_hash": "50740ced45fbeccf11bd63acbeb5342a70c767a5b5bb1d92f56581ff3ea49fd7",
+    "decision": "include",
+    "reason": "Distributed Cloud secure mesh and AppStack demonstrate multicluster resilience during controlled chaos experiments",
+    "text_replacements": {
+      "nodes": {
+        "42a6afd206237f2f6f19dc68ab204aa3748be306ca1e6f8346c27b15a6c7982c": "As shown after 4s latency injected to frontend (served from demo-mesh-eks1), user/probe unable to get to frontend and subsequent request return 503 error as no available site to handle the introduce network latency. End user will received 503 error \u2013 \u201capplication down\u201d",
+        "34d626a38392b1b3142645ad56b0423db15174d44e3c59c63ead29cc6a99c846": "From XC request logs shown traffic seamlessly transition from \u201cdemo-mesh-eks1\u201d to \u201cdemo-mesh-gke1\u201d",
+        "fdc190644e8f3f0a4260d9ae1b9167daf648246a6846fdfb1e9df1114fc867cb": "Similar backup site (\u201cdemo-mesh-aks1\u201d) will be added via CI/CD Pipeline into the money-transfer apps/api to provide high redundancy.",
+        "2d01eb2e7d49eec4c3bd77a4361ae62643751629c70e6e9c6747dd94e59351f5": "From XC logs, you can see that money-transfer served from demo-ves-ocp-sg transition to demo-mesh-aks1 seamlessly",
+        "ba718ccc5c95b8b3b17134cf82141b65474a91a4add6f3aca3047fe645c8b7a0": "While refer-friend module still remain in demo-ves-ocp-sg as refer-friend apps/api are healthy in demo-ves-ocp-sg"
+      },
+      "output_sha256": "38f70102885aee99e03ec09d5095d8f3ef10e8127a63b3c06992ebd2d7de63ed"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 24 static images. Replaced personal deployment/account/client identifiers, addresses, browser URLs, support IDs and Arcadia contacts/avatars with synthetic values. Retained fictional financial demo values, application architecture, source/destination site relationships, EKS-to-GKE and OCP-to-AKS failover, priority-zero backup pools, crash-loop status, four-second latency injection, continuous HTTP probes, 503 failure and resilience 0%/100% results. Eighteen images use hash-bound synthetic replacements; metadata removed without changing substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/2024181a15be7b44055c733a867375a27ce05010.png": "587daa521a057364347c5efd8841598bdce40e8e1e17ad387fc0a187e12704d4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bec3e29db4c61b4987faf3499964b62fae83be53.png": "f7d99b2d810377e56f14c69726df37b0c0098cab79446104771a9dd2b6d15ebc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f94535a4224d8307ef95fd2d0d20705f33979d7.png": "4234e8f515b2e67f40aaebcd5f28c62edd03f8dc8441ef67fba90f4a835527a4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2716873acb083e2a303ef34106fa228ebe12c6cf.png": "0834f706d6060da664713260ba1825c759d42fee9b237a4218c27121c3b98c66",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d837474359209ee285fe3d229bfd4e126f6839b.jpeg": "3dd4aa8cebf02007d45ee7a5b5b3792e97995ca9643c33cc562769e0a0361084",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/36a0eed62a5dd4f8d2f4f01ad9a5da1681b3a92d.png": "8f73a78b21a97d04a4ccb54170302fd2f4304df52b299ba058d873788f9264a6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/595634d83beaa37017dd2d9c3c8b9a945646ea8c.png": "df6cbae15e55518ef05b7b6e17a50502de6613e2d64c8bc5ce1b04bd7f0c15c3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/633f0ee65ee4e568f7fad3caaad19855a0b56d3b.png": "9f8a97316771dc7424bc55a34042d9e652cdcd52ff9464b525a7d817f07db61b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6afc3dc765bac8e4c3f2cae565088241b9495c89.png": "93152d772a8b75830c61df2a12580d6d0633d65ab411477425d589df1a50d859",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71f58936cb673afddb3636118b8de788352f3876.png": "1a7926ad7bca6ba563b89ef66899419c1a57f64bc628dfbaa6338861072c1cc2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/822af6e7c655ac8abe59a950de2e7c1d398d5bf7.jpeg": "298eaf6687ad74b5b74e6d6df59b315761f4a38403b0501645341aa5e7b7a667",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/903638069d1164ccbc8e7399493dfc429b83d786.png": "c352e06df169cd428bbb5e099eccabbacd974c63729eec66053bd28515616def",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/90fed94b281c34e678f944dcf7a92f4fb31a1784.png": "73b95f8d7530c76e348da56a7a8a32c16b73eb34273bcb22af1e6a920bdcb017",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9c7eeda231b064532fd97e47db5609d6c5cf7e6f.png": "5ea49d8e3e574e85c6f499b0c7112686a138e81dbbebab0a94c37115afd9bdce",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aae6dca4ce58437297174d2838e8dbac16b5c28a.png": "d5566a6ae985650b63339e455b641a5d7b8de70337ccbf89e31f2ba9a80401a5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b1775a66ecd74932806cd936fdeb8e2761dc0562.png": "ad069957d279e332cd580dbc7f51acced879e157f873ad221f897df8660c9bd7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b26163dc843c790e024a80cede8ec8ec8200a6fd.png": "edfbd2f38ebe35aa1f9d0e7597fcb2fb797f2d7650ab794592fa90d81b33b599",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b4a8a88a4c685fa0ec846a108cb5d652c4f31e10.jpeg": "b49fb417d0898a2b61fecdbc0552f085a1142c9d1b350ed2bbd2aaec39adb479",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba5f708f71439fcc827b0c63476bc6b51427c801.png": "612ba86de87a7f019aec9690dba4c13c941a4e65f8adc92124ef2b395488aec4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7dc6efd8a1861406ccfcdf727be1c5c9a06fcb4.png": "d163f82b420dd2db90fd1bad8ccf6002cde103879f8aa27ef5f34a3c4f8f2cb7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/4/049a5063d7d78dc841891c1576ecce6abf684e5b.png": "7c04ef5f615dc3e1788b674798af3e8ad04c411560627b6b08544035e42c1aa6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/51aca9f17c0dd06d9963e4bb14306ad87dd69344.jpeg": "95e9beae30313be20ef628b0be91901c027b237178bda86b2fd12338103f8518",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9e93a5e5b0693c97489ae42dfb8469fb036d59ea.png": "1f245285614b7962de265113f2bfa246b5b149933ac62cdfd3d83a0b1931bfd7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d2fbfc85dcc46f9c85fd9af35663c8c84588a9ec.png": "7cafbf559c1acc175c17a1cb05ab252e9ea9692b1303377658558f1af3fb0313"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f94535a4224d8307ef95fd2d0d20705f33979d7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              442,
+              234,
+              652,
+              270
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              434,
+              652,
+              470
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              632,
+              652,
+              668
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              832,
+              595,
+              867
+            ],
+            "text": "198.51.100.16",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              1031,
+              595,
+              1067
+            ],
+            "text": "198.51.100.16",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              1231,
+              595,
+              1267
+            ],
+            "text": "198.51.100.16",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              197,
+              991,
+              231
+            ],
+            "text": "demo-mesh-aks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              397,
+              991,
+              430
+            ],
+            "text": "demo-mesh-aks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              596,
+              991,
+              630
+            ],
+            "text": "demo-mesh-aks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              796,
+              1001,
+              835
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              994,
+              1001,
+              1033
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              773,
+              1194,
+              1001,
+              1233
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          }
+        ],
+        "output_sha256": "2f455a32bd5983a96b3e91b5b4e4d1412b3d99157cecb48e5e63717dfe7106dd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d837474359209ee285fe3d229bfd4e126f6839b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              270,
+              90,
+              495,
+              142
+            ],
+            "text": "demo-ves-ocp-sg,",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              489,
+              90,
+              597,
+              142
+            ],
+            "text": "demo-...",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              300,
+              373,
+              342
+            ],
+            "text": "demo-appstack1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              436,
+              382,
+              471
+            ],
+            "text": "demo-mesh-aks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              570,
+              383,
+              606
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              706,
+              388,
+              747
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              840,
+              382,
+              882
+            ],
+            "text": "demo-sglab1-dc1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              140,
+              976,
+              393,
+              1018
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          }
+        ],
+        "output_sha256": "cd081d045b68a5186f79a1743574bb6ec8063488d0f6d9695e5f80b270d085ce"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/36a0eed62a5dd4f8d2f4f01ad9a5da1681b3a92d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              521,
+              492,
+              652,
+              525
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1169,
+              487,
+              1465,
+              521
+            ],
+            "text": "demo-mesh-eks1-infra",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              521,
+              672,
+              660,
+              705
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              521,
+              853,
+              655,
+              886
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 16
+          }
+        ],
+        "output_sha256": "ab2c620b756369ca97db851267f166f1ef59a3d6fce5b278c99c89ffa4aecdb3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/633f0ee65ee4e568f7fad3caaad19855a0b56d3b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              815,
+              1140,
+              938,
+              1187
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              815,
+              1305,
+              938,
+              1337
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1082,
+              1436,
+              1262,
+              1468
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              815,
+              1466,
+              938,
+              1498
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1082,
+              1598,
+              1262,
+              1630
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              815,
+              1623,
+              938,
+              1669
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1082,
+              1758,
+              1262,
+              1790
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              815,
+              1788,
+              938,
+              1820
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          }
+        ],
+        "output_sha256": "8357b5671fc372100c285ffaa8d8bbbf26abd23d93ecb5a136779e3b17c81cf4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6afc3dc765bac8e4c3f2cae565088241b9495c89.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1660,
+              119,
+              1940,
+              152
+            ],
+            "text": "192.0.2.1",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              158,
+              1940,
+              191
+            ],
+            "text": "192.0.2.2",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              197,
+              1940,
+              230
+            ],
+            "text": "192.0.2.3",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              236,
+              1940,
+              269
+            ],
+            "text": "192.0.2.4",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              275,
+              1940,
+              308
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              314,
+              1940,
+              347
+            ],
+            "text": "192.0.2.6",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              353,
+              1940,
+              386
+            ],
+            "text": "192.0.2.7",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              392,
+              1940,
+              425
+            ],
+            "text": "192.0.2.8",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1660,
+              431,
+              1940,
+              464
+            ],
+            "text": "192.0.2.9",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              117,
+              2820,
+              154
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              156,
+              2820,
+              193
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              195,
+              2820,
+              232
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              234,
+              2820,
+              271
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              273,
+              2820,
+              310
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              312,
+              2820,
+              349
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              351,
+              2820,
+              388
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              390,
+              2820,
+              427
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1985,
+              429,
+              2820,
+              466
+            ],
+            "text": "demo-node.compute.internal",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              430,
+              0,
+              2730,
+              42
+            ],
+            "text": "demo-eks.ap-southeast-2.eksctl.io:example:v1.24.17",
+            "size": 20
+          }
+        ],
+        "output_sha256": "75690fe938c41b3bd64756ebdd2e191cd4864dae7e96b84ceec507b06d9d46b2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/71f58936cb673afddb3636118b8de788352f3876.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1872,
+              398,
+              2232,
+              454
+            ],
+            "text": "app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "0ebaaf10a4edb19e91511e7f0dd64747fa87163ad85d9f31478a71208dda9426"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/903638069d1164ccbc8e7399493dfc429b83d786.png": {
+        "labels": [
+          {
+            "rectangle": [
+              438,
+              68,
+              640,
+              103
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              438,
+              259,
+              640,
+              294
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              438,
+              451,
+              640,
+              486
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              438,
+              643,
+              640,
+              678
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              438,
+              835,
+              640,
+              870
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              438,
+              1026,
+              640,
+              1062
+            ],
+            "text": "192.0.2.110",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              756,
+              225,
+              977,
+              263
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              756,
+              417,
+              977,
+              455
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              756,
+              608,
+              977,
+              646
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              756,
+              800,
+              977,
+              838
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              756,
+              992,
+              977,
+              1030
+            ],
+            "text": "demo-ves-ocp-sg",
+            "size": 16
+          }
+        ],
+        "output_sha256": "381b44984103f50af205bc763d00b4a5a3e875967f138e9219dc1cfd6efc1b01"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/90fed94b281c34e678f944dcf7a92f4fb31a1784.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1943,
+              1152,
+              2218,
+              1199
+            ],
+            "text": "demo-appstack1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2247,
+              705,
+              2504,
+              752
+            ],
+            "text": "demo-...ocp-au",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2526,
+              1411,
+              2812,
+              1451
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2334,
+              1676,
+              2590,
+              1723
+            ],
+            "text": "demo-...ocp-sg",
+            "size": 16
+          }
+        ],
+        "output_sha256": "1cb0c86cac8e3ed174fa71c5be3d4a8ac7eb31d876159a63300e14c0f6019f07"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9c7eeda231b064532fd97e47db5609d6c5cf7e6f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              798,
+              156,
+              1103,
+              191
+            ],
+            "text": "demo-mesh-eks1-infra",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              2389,
+              1129,
+              2840,
+              1171
+            ],
+            "text": "https://app.example.com/status",
+            "size": 16
+          }
+        ],
+        "output_sha256": "f0b501808a9baa938160a9cfbbc5164313f7b9013212acbd8fbc8bfdf061d81e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aae6dca4ce58437297174d2838e8dbac16b5c28a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              720,
+              956,
+              843,
+              988
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1092,
+              843,
+              1124
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1229,
+              843,
+              1261
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1366,
+              843,
+              1398
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1503,
+              843,
+              1535
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1640,
+              843,
+              1672
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              720,
+              1776,
+              843,
+              1808
+            ],
+            "text": "203.0.113.192",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              931,
+              1137,
+              963
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              1067,
+              1137,
+              1099
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              1204,
+              1137,
+              1236
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              1341,
+              1137,
+              1373
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              1478,
+              1137,
+              1510
+            ],
+            "text": "demo-mesh-gke1",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              981,
+              1751,
+              1136,
+              1783
+            ],
+            "text": "demo-mesh-eks1",
+            "size": 16
+          }
+        ],
+        "output_sha256": "4e7da232e2ecfeb9efa7213b4b22677d0f0bf4a1cb833ee99fae9fb4a9bb7f3d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b26163dc843c790e024a80cede8ec8ec8200a6fd.png": {
+        "labels": [
+          {
+            "rectangle": [
+              526,
+              511,
+              693,
+              545
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 16
+          }
+        ],
+        "output_sha256": "fa844025da118aba7ed5edaf44cd48dc73e2d2e067297e5c9cb10459160b95a3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/ba5f708f71439fcc827b0c63476bc6b51427c801.png": {
+        "labels": [
+          {
+            "rectangle": [
+              803,
+              184,
+              1114,
+              220
+            ],
+            "text": "demo-mesh-eks1-infra_",
+            "size": 16
+          }
+        ],
+        "output_sha256": "71b3f1c9f392e3ede3a9f798f1fe14d159b4f31ad7e881ef4ee78d4f499aaaa6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d7dc6efd8a1861406ccfcdf727be1c5c9a06fcb4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              475,
+              448,
+              760,
+              485
+            ],
+            "text": "demo-mesh-eks...",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              530,
+              514,
+              696,
+              549
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              442,
+              73,
+              1210,
+              143
+            ],
+            "text": "[demo-eks-prod] Chaos Infrastructures",
+            "size": 24
+          }
+        ],
+        "output_sha256": "af9c057a05c9285ebcab695fea4bab7994c4d727fe1c6cb5ebfd0595627cc305"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/4/049a5063d7d78dc841891c1576ecce6abf684e5b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              175,
+              1246,
+              1160,
+              1300
+            ],
+            "text": "https://app.example.com/status",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              413,
+              1386,
+              920,
+              1439
+            ],
+            "text": "https://app.example.com/status",
+            "size": 16
+          }
+        ],
+        "output_sha256": "f8240898dc0204a4e0022812a92ee600354dec7f66631372ff6e97191a333638"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/1/51aca9f17c0dd06d9963e4bb14306ad87dd69344.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              254,
+              19,
+              773,
+              51
+            ],
+            "text": "https://app.example.com/status",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              0,
+              0,
+              2852,
+              101
+            ],
+            "text": "https://app.example.com/trading/index.php",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1380,
+              481,
+              1590,
+              520
+            ],
+            "text": "user@example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1435,
+              676,
+              1620,
+              713
+            ],
+            "text": "EXAMPLE_ID",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              511,
+              1510,
+              654,
+              1710
+            ],
+            "text": "Example A",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              769,
+              1510,
+              912,
+              1710
+            ],
+            "text": "Example B",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1027,
+              1510,
+              1170,
+              1710
+            ],
+            "text": "Example C",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1285,
+              1510,
+              1428,
+              1710
+            ],
+            "text": "Example D",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1543,
+              1510,
+              1686,
+              1710
+            ],
+            "text": "Example E",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2370,
+              1000,
+              2580,
+              1510
+            ],
+            "text": "Synthetic recipients",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2700,
+              130,
+              2835,
+              204
+            ],
+            "text": "Example user",
+            "size": 14
+          }
+        ],
+        "output_sha256": "feb32314f76b089dd3d89daa3ccf29985bbd101d597f2399df8df3249c59d0b8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/bec3e29db4c61b4987faf3499964b62fae83be53.png": {
+        "labels": [
+          {
+            "rectangle": [
+              976,
+              1380,
+              1055,
+              1550
+            ],
+            "text": "Example A",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1242,
+              1380,
+              1328,
+              1550
+            ],
+            "text": "Example B",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1540,
+              1380,
+              1629,
+              1550
+            ],
+            "text": "Example C",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              2202,
+              111,
+              2690,
+              188
+            ],
+            "text": "Example user",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2260,
+              1040,
+              2438,
+              1545
+            ],
+            "text": "Synthetic transaction recipients",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b3ac90880b906c8d01cdee1b05cbda457350329f9922d5a8630d624614159892"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2716873acb083e2a303ef34106fa228ebe12c6cf.png": {
+        "labels": [
+          {
+            "rectangle": [
+              598,
+              3,
+              1015,
+              36
+            ],
+            "text": "demo-ocp:example:v1.26.11+7dfc52e",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1438,
+              93,
+              1594,
+              122
+            ],
+            "text": "192.0.2.1",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1438,
+              121,
+              1594,
+              150
+            ],
+            "text": "192.0.2.2",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1438,
+              149,
+              1594,
+              178
+            ],
+            "text": "192.0.2.3",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1438,
+              177,
+              1594,
+              206
+            ],
+            "text": "192.0.2.4",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1438,
+              205,
+              1594,
+              234
+            ],
+            "text": "192.0.2.5",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1438,
+              233,
+              1594,
+              262
+            ],
+            "text": "192.0.2.6",
+            "size": 14
+          }
+        ],
+        "output_sha256": "b7baef962936537340e99f2576bddf069289ad6bc471a19834a1995e089bff2f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d2fbfc85dcc46f9c85fd9af35663c8c84588a9ec.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              1612,
+              107
+            ],
+            "text": "https://app.example.com/trading/index.php",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              8,
+              181,
+              706,
+              232
+            ],
+            "text": "Your support ID is EXAMPLE_REQUEST_ID",
+            "size": 20
+          }
+        ],
+        "output_sha256": "9653e30c177522cf543370aaa085cf3eb053f6847dd270f8dbfe552cad49871e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/2024181a15be7b44055c733a867375a27ce05010.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "b2034cb4b9f6b0690b332461ca69b51a2da56e26a4ef62ce1ef4b43c4c0aa07d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/595634d83beaa37017dd2d9c3c8b9a945646ea8c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5f79c08c25e20e6cdfa448087849dc1d4142dfcc66b6a3c946317e83254e25c9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/822af6e7c655ac8abe59a950de2e7c1d398d5bf7.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "912f7fe1393fa7f56d71bcd8e32f4d3096f824e3af4a5d6ffd91a45cae8d0bfa"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b1775a66ecd74932806cd936fdeb8e2761dc0562.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "51ce4747150f5cee0c151c5b4bcdc7d674e322e28d15413c9d277975f74eb6ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b4a8a88a4c685fa0ec846a108cb5d652c4f31e10.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5019623b40ce5bd79caff4096b0115f8362258b82b1aace59e41430de7fc54da"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/e/9e93a5e5b0693c97489ae42dfb8469fb036d59ea.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dcdf41b5a5af3ddf65a0894761a265ba468316a72988dd2ecf4c192dcd000b56"
+      }
+    }
   }
 }
