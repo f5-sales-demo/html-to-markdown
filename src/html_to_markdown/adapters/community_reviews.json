@@ -61421,5 +61421,52 @@
         "output_sha256": "dcdf41b5a5af3ddf65a0894761a265ba468316a72988dd2ecf4c192dcd000b56"
       }
     }
+  },
+  "69900": {
+    "article_hash": "c4cc164a5dea55c92a8a0d8c9a020088fac3e6096e6c9eeb2216e580762a7b24",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 16 static images. Replaced tenant label on empty login form with a synthetic organization; no credentials were entered. Preserved Fast ACL source/destination/port choices, policer and protocol-policer workflows, outside interface VIP selection and all policy controls. Other images contain no user data; metadata stripped with pixel preservation; public quote attribution retained.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": "47e5aa7af4cc0cdb99868477ec404ad426cbdfd2dc77b9ca792e9404b4f6e0cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/3163e60a5fdbd82348f3c937e01847c565a30475.png": "170e47f14b3b5394e891d7c4c7d9bfc1ea27fc581560b60cc5b63f2ac3b50ad3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": "b58a7822027c26c2dca433a74e3be4c18ef9748aa1601272f04da76e4d34240b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/96cb773d65473b560b96d4cab742c153904fc3cf.png": "e4828a7a4cbc527bf4447fce53e3f768378dcf606decef7b3755bfc90d46ed2e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cc2c3936e278c8505c1e12874a221abe6161e543.png": "e42a57058397545671623599ee3196292d4af89d20229ca715f11fc0347c1713",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ce7f11081737f239f9688ef094900ef8187a8162.png": "9dd94fd5b8fcda193332bbcb38f9cb83110398bc614650dc1f63df87c0c7c44b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d276ce587968f7ec8f11415d66598f59c4f34287.png": "314aa3c560eb3ff0adb1f48f9f82121b82412f5afe66b32eb5a407fefde10490",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e4fc156bd3c290d7575401cc446c861d163a2d66.png": "63deb75a89602e017ff9de8a95419e9c96c8e504cdcf01efa4e668678a310445",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f18f86923c293d74f0dc33db67d8176c0cf8013e.png": "2be7f0acbb42b297f49b8d103edcd99a5ae6f68a4e186cab9a909e031646de21",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fe412f7f57efe4d25eae7d75b4add2b9d1a058e8.png": "bbb50c1db2ed01b4eabeeec958e76fb6b0df7927c93424ef6fc54ae4f3ae7a4f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/5/05ec1965ca1d738faa5a64a632308489a0675975.png": "747256ce371a7b17272ce2050ef7f0f45121cd3ac75edb929ebeb11ecb6e93c6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/15f46f0a9b9c75a3ca42aba29b6920867d39978d.png": "59289685f9c98c9d3a0afeabe61c372e4703427d68e30d9149a3b5535e7eabf7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/3/93862ec467b4837d502613c39ce294059afdd738.png": "b26b012ba4ae8e8b33630eba33903df417f1cecc011561c88fb4496dd1535fca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a75fb990c3d0dc4e8eff17df5fcb3cfde9d1d354.png": "fbad14fdb4d1c20fb78777f76c3856a65a370a97c3193822546c9d4423842365",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/f/df1a638de237cbb9e0084f07d7a677be0a52bcdb.png": "801dee32d7c5d2e768feb30c1592d1ba53fbcfea1013341a5e24455dbb6ff6e9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/3/e3a110b0e8039deb10da89a1093c80cbe235c447.png": "5860d093320f5661ebc7b43396ea7e41ba32e5a295331d4531de9dc0310d78cc"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/62129ab7c5c6e90fe87868b927b17ecc5c6866ac.png": {
+        "labels": [
+          {
+            "rectangle": [
+              616,
+              359,
+              773,
+              388
+            ],
+            "text": "example-corp",
+            "size": 14
+          }
+        ],
+        "output_sha256": "a147b4b094731215b26e7b85d0547d5f291da965491de6344134de45101873e7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/fb16a98f0889ddfc28c98264912360891c626f98.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+      }
+    }
   }
 }
