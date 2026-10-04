@@ -49536,5 +49536,491 @@
         "output_sha256": "71d5a32d8f78e2fae7c5efe7db9ad16c0ece8c79a216d89b9fc64ef8c319c15f"
       }
     }
+  },
+  "75932": {
+    "article_hash": "7ec0112422ed8f9b1718095ead9d6dc8b0add4ca9ca1c0312837ef94d1cbf9aa",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose, cluster peer commands and all 14 static images. Distributed Cloud Network Connect secure replication primary. Preserved NetApp SnapMirror DP/RW types, capacity/status, volume relationships, Bedrock model selection, five-sentence chunking and file formats, product-release-note corpus and RAG answer/attributions, and segment topology. Replaced personal login/account/key-pair labels, EC2 and storage resource IDs, account-specific URL path, private addresses/CIDRs and bookmark chrome with synthetic examples; metadata stripped. No credentials or customer document content retained. All hash-bound transformed output visually checked.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/9afb89c73d912ddfb0521d2d655ab05dd8987ea0.png": "ff2e8ddae8dcc57e081004b0aef5dc7fa827efa2a31e55864cf1badd4231bc69",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c2c811a6a07ccec5e033567c32a10a884b3d6840.png": "aebfdcdfe3d4800db8c2ae57bb5bf8e3a687e33ece207c2849dd96d6db0e1396",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/23cb95e0852d10199a4585dd6186be1e42877d91.png": "4669007cc79f89b9e1882cb55faf3204e8d72dafa4e1ed17245c6725bf2eacb7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5600d7d604515d8cfb2bb8bcc26592145141039c.png": "fdcc349d836a7f4e03e5ca09c4ff7ba690b49e440c1fd0848167ede49faaabd7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f592cac88683e4bec4a4b5e4edfd347a6c80966.png": "d45a7fddd84ca0482558af1f5b0321065fe0bab903050b59393c44ac5b1fe5b5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be8f3c45b69790ce3aa33af42f800192cd33498e.png": "0979a1ff741855152c093288e8907b8fb589c0a653df95817f7b57087542ecea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c4ca5ebc17e84483e548ad0e0f7b8589c7d70816.png": "3a2c1c2d6195acc055d8052314fedafbb6bd26c4adfb17a009768f21246cc11e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e28d4fbe5f4a939078594fe8c3decad0ee6525a0.png": "7335b05f6c46ea2c5a7d66a8b94a1b73ffd18cab71c8697884798f43c127f7db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e8e1748ca32005a4c944d4cd22a1ef02fe18d581.png": "65e6fffc983261b54c1535c7743ff32d0deb29dd4c96876a7f38ec19effda762",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/feb9bbb64fb7722d2f5408f54505e4ba796105f6.png": "b8dfa1ff3a5ef69cf5b91c013f94e8e48fa1a4cb0f5e21649890952014669b01",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/26e772d6bf70f4a3e06a2f5ebeb63f5e015787b7.png": "c980323733512aaf7caacb4ceeab135e7f6adcdb8b3c511540751a99ab6f42fb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/461fc86674e91ebf908902af89f9a3f56f94fe2a.png": "6ef113caec431039826559e30def27f819f8fb1b9ee9cd9f86a97415aa11ea2b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf5562f43df59f9ba237a749d15ad655ec1e0b08.png": "f44c54f9545ad6d97b4b737d4d641df8c502ac4f502befd2d749a59607c701f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d1a9d3855caa725f44253f684935bac3e62e8caf.png": "68997b31a951329ff75848a502fb2c37f0c14834a33321a6ad37049dc242f1d1"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/9afb89c73d912ddfb0521d2d655ab05dd8987ea0.png": {
+        "rectangles": [
+          [
+            0,
+            103,
+            3454,
+            203
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              3190,
+              256,
+              3390,
+              310
+            ],
+            "text": "Example Account",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2752,
+              1393,
+              3120,
+              1453
+            ],
+            "text": "example-ai-engine",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2752,
+              1521,
+              3110,
+              1584
+            ],
+            "text": "i-EXAMPLE_INSTANCE",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2752,
+              1771,
+              3300,
+              1837
+            ],
+            "text": "example-key-pair",
+            "size": 24
+          }
+        ],
+        "output_sha256": "f3b82be4ea38584998ed7c711a60ff7ff1a848880890e3956111dfb392b7678e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/23cb95e0852d10199a4585dd6186be1e42877d91.png": {
+        "rectangles": [
+          [
+            3360,
+            0,
+            3638,
+            90
+          ]
+        ],
+        "output_sha256": "7f35599896a9349b8c34ea1194eb4625f3c07530a76760609995797d353524ce"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f592cac88683e4bec4a4b5e4edfd347a6c80966.png": {
+        "rectangles": [
+          [
+            0,
+            100,
+            2569,
+            180
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              1190,
+              1620,
+              1670,
+              1673
+            ],
+            "text": "example-vpc - 192.0.2.0/24",
+            "size": 22
+          }
+        ],
+        "output_sha256": "a6a4ba7d4b90742c369c0cc95ab4b428f0491fdaa93d772e307dd15ff925bf54"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be8f3c45b69790ce3aa33af42f800192cd33498e.png": {
+        "rectangles": [
+          [
+            3360,
+            90,
+            3492,
+            195
+          ]
+        ],
+        "output_sha256": "d15ca63c8ddae88a14d47a85acb94920a092b78d8b1b2c3f0c36ee700a4bbb92"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c4ca5ebc17e84483e548ad0e0f7b8589c7d70816.png": {
+        "labels": [
+          {
+            "rectangle": [
+              3240,
+              22,
+              3746,
+              85
+            ],
+            "text": "user@example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2855,
+              22,
+              3110,
+              85
+            ],
+            "text": "Example Account",
+            "size": 14
+          }
+        ],
+        "output_sha256": "c1d8492171abd1b360c1a553bd210bcdfe02349119547c48fb6e2d3c4984a7c0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e28d4fbe5f4a939078594fe8c3decad0ee6525a0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              3460,
+              39,
+              3655,
+              91
+            ],
+            "text": "user@example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              3190,
+              39,
+              3370,
+              91
+            ],
+            "text": "Example Account",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              3220,
+              1590,
+              3460,
+              1645
+            ],
+            "text": "EXAMPLE_ACCOUNT_ID",
+            "size": 20
+          }
+        ],
+        "output_sha256": "5e5688256961d4267b9ac2a784eaad0651ec384a0489d4e190c91ab8106d970f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e8e1748ca32005a4c944d4cd22a1ef02fe18d581.png": {
+        "labels": [
+          {
+            "rectangle": [
+              37,
+              365,
+              185,
+              398
+            ],
+            "text": "192.0.2.0/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              37,
+              530,
+              185,
+              562
+            ],
+            "text": "192.0.2.64/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              37,
+              704,
+              185,
+              740
+            ],
+            "text": "192.0.2.128/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              34,
+              858,
+              190,
+              897
+            ],
+            "text": "192.0.2.192/26",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2208,
+              414,
+              2388,
+              451
+            ],
+            "text": "198.51.100.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2212,
+              810,
+              2394,
+              848
+            ],
+            "text": "203.0.113.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2216,
+              1133,
+              2400,
+              1170
+            ],
+            "text": "198.51.100.0/24",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2212,
+              1296,
+              2395,
+              1331
+            ],
+            "text": "203.0.113.0/24",
+            "size": 18
+          }
+        ],
+        "output_sha256": "51e399bbd3244fb2fcb5806c422e4496281b2b44724fa29bbc91b35a76b1cddd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/feb9bbb64fb7722d2f5408f54505e4ba796105f6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              3435,
+              151,
+              3598,
+              213
+            ],
+            "text": "user@example.com",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              3102,
+              154,
+              3270,
+              212
+            ],
+            "text": "Example Account",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              465,
+              14,
+              2290,
+              69
+            ],
+            "text": "https://console.workloads.netapp.com/wlmfsx/onprem/example-account/example-cluster",
+            "size": 28
+          },
+          {
+            "rectangle": [
+              2930,
+              475,
+              3210,
+              531
+            ],
+            "text": "example-storage-link",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              2040,
+              709,
+              2275,
+              764
+            ],
+            "text": "192.0.2.218",
+            "size": 26
+          }
+        ],
+        "output_sha256": "7a3e45244e21865337172f97b99c8cd21e9d3157cf26ecd08739f7f86277296e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/6/26e772d6bf70f4a3e06a2f5ebeb63f5e015787b7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              724,
+              482,
+              1340,
+              535
+            ],
+            "text": "EXAMPLE_VOLUME_UUID",
+            "size": 30
+          },
+          {
+            "rectangle": [
+              724,
+              607,
+              1200,
+              660
+            ],
+            "text": "EXAMPLE_VOLUME_ID",
+            "size": 30
+          }
+        ],
+        "output_sha256": "c0021098083c7bc225ed569b806fbdcb63cb5663518f1caff14b82602b8c4203"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/f/cf5562f43df59f9ba237a749d15ad655ec1e0b08.png": {
+        "rectangles": [
+          [
+            0,
+            90,
+            3320,
+            192
+          ]
+        ],
+        "labels": [
+          {
+            "rectangle": [
+              3190,
+              240,
+              3320,
+              304
+            ],
+            "text": "Example Account",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1610,
+              1045,
+              2045,
+              1116
+            ],
+            "text": "EXAMPLE_VOLUME_ID_1",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2080,
+              1045,
+              2450,
+              1116
+            ],
+            "text": "EXAMPLE_SVM_ID",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1610,
+              1209,
+              2045,
+              1280
+            ],
+            "text": "EXAMPLE_VOLUME_ID_2",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2080,
+              1209,
+              2450,
+              1280
+            ],
+            "text": "EXAMPLE_SVM_ID",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1610,
+              1370,
+              2045,
+              1441
+            ],
+            "text": "EXAMPLE_VOLUME_ID_3",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2080,
+              1370,
+              2450,
+              1441
+            ],
+            "text": "EXAMPLE_SVM_ID",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1610,
+              1531,
+              2045,
+              1602
+            ],
+            "text": "EXAMPLE_VOLUME_ID_4",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2080,
+              1531,
+              2450,
+              1602
+            ],
+            "text": "EXAMPLE_SVM_ID",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1610,
+              1695,
+              2045,
+              1766
+            ],
+            "text": "EXAMPLE_VOLUME_ID_5",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              2080,
+              1695,
+              2450,
+              1766
+            ],
+            "text": "EXAMPLE_SVM_ID",
+            "size": 22
+          }
+        ],
+        "output_sha256": "b798f15964b1302ba0dbb2940482f384f6fe1936c3bdeb3ce2fac07ee39a4b01"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/c2c811a6a07ccec5e033567c32a10a884b3d6840.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4d5afff2ca3e173467c2ba28b9cad685880e5e4d401a11d048966b2d7e66687f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5600d7d604515d8cfb2bb8bcc26592145141039c.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "ddca1fd582c3bcb1cca43ae2d50f27ab3ad3d8d0c5a1fcc418fe562fd9db4c21"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/1/d1a9d3855caa725f44253f684935bac3e62e8caf.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7e3e8697df39d7de7d573fd4c268bcbd15c885def64c1691f62cf32443380c84"
+      }
+    }
   }
 }
