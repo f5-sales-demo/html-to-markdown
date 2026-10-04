@@ -28,7 +28,7 @@ class PageIdentity(HTMLParser):
         self.text: list[str] = []
         self.links: list[str | None] = []
 
-    def handle_starttag(self, tag, attrs):
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         if tag == "link" and values.get("rel") == "canonical":
             self.canonical = values.get("href")
@@ -37,11 +37,11 @@ class PageIdentity(HTMLParser):
         if tag == "a" and self.in_main:
             self.links.append(values.get("href"))
 
-    def handle_endtag(self, tag):
+    def handle_endtag(self, tag: str) -> None:
         if tag == "main":
             self.in_main = False
 
-    def handle_data(self, data):
+    def handle_data(self, data: str) -> None:
         if self.in_main and data.strip():
             self.text.append(data.strip())
 
