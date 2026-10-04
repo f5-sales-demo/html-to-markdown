@@ -62608,5 +62608,690 @@
         "output_sha256": "455482a87607f27331eec29ce3cf36ae94d87a6af757b3792b9f97ab5bb49373"
       }
     }
+  },
+  "69308": {
+    "article_hash": "9d18c1bc0f017cbc46c50869f6b42d58ce788228573e60b263f73c6fd363ff1f",
+    "decision": "include",
+    "reason": "Distributed Cloud focused service policy geofencing guidance",
+    "text_replacements": {
+      "nodes": {
+        "ac3310de97179a6613e277408e836fd4485f49fef06f5c5fe9c6b13642e3806d": "{\n  \"metadata\": {\n    \"name\": \"demo-ofac-deny\",\n    \"namespace\": \"demo\",\n    \"labels\": {},\n    \"annotations\": {},\n    \"description\": \"\",\n    \"disable\": false\n  },\n  \"spec\": {\n    \"algo\": \"FIRST_MATCH\",\n    \"any_server\": {},\n    \"rules\": [\n      {\n        \"kind\": \"service_policy_rule\",\n        \"uid\": \"00000000-0000-4000-8000-000000000001\",\n        \"tenant\": \"demo-tenant\",\n        \"namespace\": \"demo\",\n        \"name\": \"ves-io-service-policy-demo-ofac-deny-asn-list\"\n      },\n      {\n        \"kind\": \"service_policy_rule\",\n        \"uid\": \"00000000-0000-4000-8000-000000000002\",\n        \"tenant\": \"demo-tenant\",\n        \"namespace\": \"demo\",\n        \"name\": \"ves-io-service-policy-demo-ofac-deny-country-list\"\n      },\n      {\n        \"kind\": \"service_policy_rule\",\n        \"uid\": \"00000000-0000-4000-8000-000000000003\",\n        \"tenant\": \"demo-tenant\",\n        \"namespace\": \"demo\",\n        \"name\": \"ves-io-service-policy-demo-ofac-deny-default-action\"\n      }\n    ],\n    \"deny_list\": {\n      \"ip_prefix_set\": [],\n      \"asn_list\": {\n        \"as_numbers\": [\n          204791,\n          205515,\n          208090,\n          28761,\n          41269,\n          43222,\n          43564,\n          49617,\n          59744,\n          8654\n        ]\n      },\n      \"asn_set\": [],\n      \"country_list\": [\n        \"COUNTRY_BY\",\n        \"COUNTRY_BA\",\n        \"COUNTRY_BI\",\n        \"COUNTRY_CF\",\n        \"COUNTRY_CU\",\n        \"COUNTRY_IR\",\n        \"COUNTRY_IQ\",\n        \"COUNTRY_KP\",\n        \"COUNTRY_XK\",\n        \"COUNTRY_LY\",\n        \"COUNTRY_MK\",\n        \"COUNTRY_SO\",\n        \"COUNTRY_SD\",\n        \"COUNTRY_SY\",\n        \"COUNTRY_ZW\",\n        \"COUNTRY_CD\",\n        \"COUNTRY_LB\",\n        \"COUNTRY_NI\",\n        \"COUNTRY_RU\",\n        \"COUNTRY_SS\",\n        \"COUNTRY_VE\",\n        \"COUNTRY_YE\"\n      ],\n      \"tls_fingerprint_classes\": [],\n      \"tls_fingerprint_values\": [],\n      \"default_action_allow\": {}\n    },\n    \"simple_rules\": []\n  }\n}\n"
+      },
+      "output_sha256": "3dd65ee74f53332cdd8f2fd508e522699d22da4f85859abf7f03239f5a451139"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose, JSON and all 22 static screenshots; replaced personal namespace, tenant, policy names, UUIDs, browser identity, demonstration authority and VPN client address using hash-bound text and 21 images. Retained public country codes and ASN geofencing examples, Crimea/Moscow selectors, FIRST_MATCH schema, allow default guidance, origin pool/TLS settings, 403 event and source region context. Existing opaque source redactions preserved; remaining UI has no customer or user data; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/363e9a82be83e6e1e2d691282f40350c4aeffc8b.png": "ab7d9bb70e3068e9fa1376eb5aead67df4ff5704fef98f540058b5fd1978499a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/196edde2e9dffc4cb631d5077528575d03466cdb.jpeg": "4dea7bdaa1a34bcd1790a22f22cca7a8fab6d17905f5588205e48e9ee1a2d474",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2628830f21a048f9ec2b91b7a18f3d3c072753c3.jpeg": "10e96edd4626ccf16f8d37327f3dc7b7241973983293551cba34a4e6b9700f45",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4ccf83b18a54d36bf1363fb1c90e42db73f1ed75.jpeg": "0467b9c8619560b6d581ef84e347c3648ffff38d3694110318d1800d522bbcca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/523d4ba8e13cfa302779698e13de0bf77ab7cf95.png": "dcc8d6164310289722f38e7dd3ab75175ed1b3ba0e6d640e119a8c68e3100b6f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5732f2028815a1f1ac4661f6c84a7b5bb592d0a3.jpeg": "7762582061c7d7f23cb1b381d7f4b2278e13b45bb17a9cf4c7d5713decb801cb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6469ba134b5f3204f0302b878cbaa8d1ec54513e.jpeg": "beee85e5491ee9bc1921b6c696b9fa3fcf2101bdae63daab22b462fffbc1ec4c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6fa2a7b6dd14d0ca0f20de8d1baa3b262c4163a3.jpeg": "0c715e9177029c08a385689bf1a28a7437ca42e4b3677f7bd5369cd922fb9836",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/705e9d817a2f177d77e1cf56f017ca02bf3ffd4a.jpeg": "21fa2d2030eea4a8b74f00793212093421436fc6fb04a7d99471399079b3d770",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/871c0a4e1597b1cce7f9df9ac8fe8432137c4c31.jpeg": "6b9970d30a9cc30990def303e0097a71a1fee33ba44865bac8a390d0665de1c9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a09b1f239285f7a9f1a1a2b88149938254629977.png": "9ceb261ef0164924fbd9f7c014e4a4b6dcf212f1dcc378b415ccc8c8113095ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0e609cbb4ae6bc96173899179a835b32633c09c.jpeg": "d1c8462937ca704e05c78ff286e7e9545c49a75cb0eedf01a105b39dba905a80",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a9b09d205dde93ff25cff22238994ae20dcffb8d.jpeg": "13d13415a863fdacbfc0e72e577663aac88d14202e3175b32c45a711e1bb0d44",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cba03ab2fd6aa935fbe9b67121e31a3c029c3069.jpeg": "54084558b500f0d856538198ed547b255ffeab07107e83a48dc6a27e76513878",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3bad1cb70626b5c04273188ade86f24a6c94431.png": "734372c1ac2f62c2bc9f0cce3b7e64fd98c23261eff3f14dd8de69294f2ecba5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f59be13234fdfc71313bb26d77f9cf171627eb88.jpeg": "053bffa8d6ecfbff794895dd41f9c2fd33b1d2d53865f1b8a1f276cf48b50d03",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6fcafd963f1fd936db5336368e8eaaeda0864fd.jpeg": "5f8b7ba3388eadf1628fa566938f8c3e92abc0ab9f1a53edecbd1b94da082d89",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3dcf734f7fed55c5199a5b75adc23e0b67c135d8.jpeg": "6b3073d3693fd9f24f322a19b0b2431720425ac4f10c0da7c0f86054fc89e2c0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b78a4a0e0e5236970de124cc653a5752bdd30ed.jpeg": "57a5561f6b1841676355fc76eb14b384ebb468cf353b95380158b5dedddc6221",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7f92640c96cd771e707aac0f53efaccb31684ae.png": "153553919f909d4e4c41a90765c9a247ad8d69c7c902c369919d750dd5eee7ee",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/3/c38128a4009a23ea5a52751ec369842cac356c9b.jpeg": "30e15baa0f859783a57466d4f06e009386b6acc56537e0b266c9dc370c354070",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cd48f0f52deadf56d8e1165b70ad8f98627e8a70.jpeg": "5a0eaf90f7133a063441f846cfec1f40b7f32cc6372b98911173fd81dfac5949"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/363e9a82be83e6e1e2d691282f40350c4aeffc8b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              723,
+              338,
+              865,
+              368
+            ],
+            "text": "demo-ofac-origin",
+            "size": 10
+          }
+        ],
+        "output_sha256": "74b5973104cc4019831fa2ccd441dbe84a295d7d61ca92333fa924797c4b4fe0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/196edde2e9dffc4cb631d5077528575d03466cdb.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "292f66352337eb2fa3dbadaa25c51756171e02dd335adce671dab95e02550c50"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2628830f21a048f9ec2b91b7a18f3d3c072753c3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "afa5892a7307bf9910a89c4faa7d63aacd5fab33844ccaeb7a9bbe4aa267b78b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4ccf83b18a54d36bf1363fb1c90e42db73f1ed75.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              505,
+              124,
+              597,
+              159
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "469b27bfc776f77d48d4552d4d7ce58eb3dfe1832e014980f524954fbe0218e7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/523d4ba8e13cfa302779698e13de0bf77ab7cf95.png": {
+        "labels": [
+          {
+            "rectangle": [
+              80,
+              271,
+              184,
+              310
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "f7d8105d155d4f173f88ac5d57ca5fbefbeb33a3fd4a1e8dc65a7f2cf3e327c8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6469ba134b5f3204f0302b878cbaa8d1ec54513e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              573,
+              279,
+              718,
+              309
+            ],
+            "text": "demo-ofac-origin",
+            "size": 10
+          }
+        ],
+        "output_sha256": "5325fce0dd9dcee6a8c68c02d5f08450db1f5c1b2e39062e3544c239359f0d11"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6fa2a7b6dd14d0ca0f20de8d1baa3b262c4163a3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              84,
+              1455,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "9d955262d4b778c8e5d59ceeb7f6955366a9b3aa805498b4695707674c33c214"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/871c0a4e1597b1cce7f9df9ac8fe8432137c4c31.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              84,
+              1455,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "f8fec9e3e6d06f3a13219780953c373a520a043b68ac1702d5da63909e0f17d4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a09b1f239285f7a9f1a1a2b88149938254629977.png": {
+        "labels": [
+          {
+            "rectangle": [
+              80,
+              271,
+              184,
+              310
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              190,
+              76,
+              1455,
+              111
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "4389d7e33b65bffba8bf92abf28cd39756787790b33a43473e6235369354e22d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a0e609cbb4ae6bc96173899179a835b32633c09c.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              84,
+              1455,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "cfc01ec7428da97f45a9592d49d15bc5d11a6780eedf53eaa97dec091ddf6e41"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a9b09d205dde93ff25cff22238994ae20dcffb8d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              227,
+              84,
+              1220,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              127,
+              248,
+              306,
+              280
+            ],
+            "text": "demo-ofac-deny",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1350,
+            84,
+            1390,
+            116
+          ]
+        ],
+        "output_sha256": "5cbb7f9d5cc53b3b9590fdc77e8970ec783fde7011f26c487bc5120760182650"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cba03ab2fd6aa935fbe9b67121e31a3c029c3069.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              84,
+              1455,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "e9fb2c322f75e026be0cfd5ee015182bb8e339029e886ca9e55e207ce03c0827"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e3bad1cb70626b5c04273188ade86f24a6c94431.png": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              520,
+              143,
+              722,
+              173
+            ],
+            "text": "demo-ofac-listener",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              304,
+              51,
+              355,
+              77
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              505,
+              127,
+              597,
+              149
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1295,
+              733,
+              1453,
+              797
+            ],
+            "text": "ofac.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1116,
+              937,
+              1320,
+              969
+            ],
+            "text": "ofac.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              700,
+              746,
+              810,
+              787
+            ],
+            "text": "192.0.2.25",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              510,
+              908,
+              614,
+              939
+            ],
+            "text": "192.0.2.25",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1116,
+              906,
+              1406,
+              937
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              511,
+              1018,
+              972,
+              1048
+            ],
+            "text": "Documentation ASN (64496)",
+            "size": 10
+          }
+        ],
+        "output_sha256": "f84f112f040fdd2f112d5710f11e664ebb6bc90cd9ee19d3a3e4e83f8f06c0be"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f59be13234fdfc71313bb26d77f9cf171627eb88.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              666,
+              307,
+              838,
+              337
+            ],
+            "text": "demo/demo-ofac-deny",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6f87103fd87f7a414373cb824436ac6c98874f19b7084b0dd036b84b6c454bc0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/d/3dcf734f7fed55c5199a5b75adc23e0b67c135d8.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              84,
+              1455,
+              114
+            ],
+            "text": "https://demo.console.ves.volterra.io/web/workspaces/load-balancers/namespaces/demo/security/service_policies/service_policies",
+            "size": 10
+          }
+        ],
+        "rectangles": [
+          [
+            1590,
+            84,
+            1636,
+            114
+          ]
+        ],
+        "output_sha256": "531eabd7df90e2be0688098b186183990c6d8f8e6a30692c6de1ce96dd9fcce4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/b/5b78a4a0e0e5236970de124cc653a5752bdd30ed.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              573,
+              279,
+              730,
+              309
+            ],
+            "text": "demo-ofac-listener",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              646,
+              714,
+              851,
+              744
+            ],
+            "text": "ofac.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "b8096272689e824a73a33f876b3c358f26845cf8162ffaa239a88c9ce33e4b77"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/3/c38128a4009a23ea5a52751ec369842cac356c9b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              573,
+              277,
+              716,
+              309
+            ],
+            "text": "demo-ofac-deny",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e7b114a6d01383caf2823a5c1e83943fb095c3e0b69a4a5a6d0a9910a2228531"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cd48f0f52deadf56d8e1165b70ad8f98627e8a70.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              101,
+              284,
+              184,
+              309
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              627,
+              368,
+              847,
+              399
+            ],
+            "text": "demo/demo-ofac-origin",
+            "size": 10
+          }
+        ],
+        "output_sha256": "f6ead3a734a2034d9e74f1aa916e5eb42cefdcc0815a04f6cf91958193850e42"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f6fcafd963f1fd936db5336368e8eaaeda0864fd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              114,
+              357,
+              200,
+              384
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              114,
+              434,
+              200,
+              462
+            ],
+            "text": "demo",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a667007e5c6e127c522f5b1a686887e4ddee9eaa1c4ebb2ee89afcd9a3673e81"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5732f2028815a1f1ac4661f6c84a7b5bb592d0a3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              226,
+              84,
+              439,
+              115
+            ],
+            "text": "ofac.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              115,
+              218,
+              615,
+              269
+            ],
+            "text": "EXAMPLE.COM:",
+            "size": 24
+          }
+        ],
+        "output_sha256": "d80f086304decbbbaa8e05b04ff340428813bd346d9b94bdad71684056a176f8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/705e9d817a2f177d77e1cf56f017ca02bf3ffd4a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              226,
+              84,
+              439,
+              115
+            ],
+            "text": "ofac.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              181,
+              49,
+              355,
+              77
+            ],
+            "text": "https://ofac.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "707a7414474e453059b8d73189bd796f7f65817ebe913ea4a0809bdc7d4f1994"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/7/a7f92640c96cd771e707aac0f53efaccb31684ae.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "7ef692c1946cff2d6dfc572cec8792fe56c018cb05072c0afbafd7b602fce4ad"
+      }
+    }
   }
 }
