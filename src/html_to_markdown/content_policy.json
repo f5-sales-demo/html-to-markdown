@@ -1,0 +1,14 @@
+{
+  "catalog": {
+    "path": "api_destination_catalog.json.gz",
+    "sha256": "c620dccc21247efb9b9ecf3cac2ff2d2be3ba04fa6a449291790d05607296929"
+  },
+  "exclusions": [
+    "https://docs.cloud.f5.com/docs-v2/api",
+    "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref"
+  ],
+  "fallback": "https://f5-sales-demo.github.io/api-specs-enriched/en/api-reference/",
+  "overrides": [],
+  "schema_version": 1,
+  "version": "1.0.0"
+}

@@ -33,7 +33,10 @@ def prepared_snapshot(tmp_path: Path, *, with_asset: bool = True) -> tuple[Path,
         category="guide",
         tags=[],
     )
-    target.write_text(serialize_document(metadata, "# A\n\nUseful body."), encoding="utf-8")
+    body = "# A\n\nUseful body."
+    if with_asset:
+        body += f"\n\n![Fixture](assets/{'a' * 64}.png)"
+    target.write_text(serialize_document(metadata, body), encoding="utf-8")
     if with_asset:
         asset = target.parent / "assets" / f"{'a' * 64}.png"
         asset.parent.mkdir()

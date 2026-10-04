@@ -11,15 +11,21 @@ import typer
 
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
+from .content_policy import load_content_policy, migrate_content
 from .logging import configure_logging
+from .metadata import enrich_snapshot
+from .models import DiscoveredPage, PageStatus
 from .package import (
+    build_manifest,
     sha256_file,
     verify_archive,
     verify_publication_receipt,
     write_publication_receipt,
+    write_release,
 )
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
+from .render import split_document
 from .state import StateStore
 from .validation import validate_snapshot
 
@@ -198,6 +204,88 @@ def verify_publication_command(
         raise ValueError("outer archive checksum mismatch")
     verify_archive(archive)
     typer.echo("valid")
+
+
+@app.command("examine-content")
+def examine_content_command(
+    output: Output = Path("build"),
+    policy: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+) -> None:
+    """Print deterministic mapping and impact evidence without modifying content."""
+    evidence = migrate_content(output, policy=load_content_policy(policy), apply=False)
+    typer.echo(json.dumps(evidence, indent=2, sort_keys=True))
+
+
+@app.command("migrate-content")
+def migrate_content_command(
+    output: Output = Path("build"),
+    policy: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+) -> None:
+    """Apply pinned policy offline, then rebuild metadata, reports and release files."""
+    # Preserve manifest provenance when importing an offline corpus into state.
+    # pylint: disable=too-many-locals
+    active = load_content_policy(policy)
+    store = StateStore(output / "state.sqlite")
+    try:
+        prior_path = output / "manifest.json"
+        prior_manifest = json.loads(prior_path.read_text()) if prior_path.is_file() else {}
+        prior_documents = {item["url"]: item for item in prior_manifest.get("documents", [])}
+        existing = {row["canonical_url"] for row in store.rows()}
+        for path in sorted(output.glob("content/*/**/index.md")):
+            metadata, _ = split_document(path.read_text(encoding="utf-8"))
+            url = str(metadata["url"])
+            if url not in existing:
+                store.discover([DiscoveredPage(source_id=str(metadata["sourceId"]), url=url)])
+                prior_document = prior_documents.get(url, {})
+                provenance = prior_document.get("provenance", {})
+                freshness = provenance.get("freshness", "fresh")
+                status = {
+                    "fresh": PageStatus.SUCCESS,
+                    "carried_forward": PageStatus.CARRIED_FORWARD,
+                    "removal_candidate": PageStatus.REMOVAL_CANDIDATE,
+                }.get(freshness, PageStatus.SUCCESS)
+                failure = provenance.get("current_failure") or {}
+                store.reconcile(
+                    url,
+                    status,
+                    output_path=path.relative_to(output).as_posix(),
+                    digest=None,
+                    freshness=freshness,
+                    failure_classification=failure.get("classification"),
+                    last_success_at=provenance.get("last_success_at"),
+                    consecutive_failures=provenance.get("consecutive_failure_count", 0),
+                    terminal_confirmations=provenance.get("terminal_confirmation_count", 0),
+                )
+                with store.connection:
+                    store.connection.execute(
+                        "UPDATE pages SET error_class=?, error_message=? WHERE canonical_url=?",
+                        (failure.get("error_class"), failure.get("error_message"), url),
+                    )
+                related = metadata.get("related_documents", [])
+                if isinstance(related, list):
+                    store.replace_candidate_links(
+                        url,
+                        [str(item["canonical_url"]) for item in related if isinstance(item, dict)],
+                    )
+        evidence = migrate_content(output, store, policy=active)
+        enrich_snapshot(output, store)
+        write_quality_reports(output)
+        validate_snapshot(output, store)
+        prior = output / "manifest.json"
+        dates = json.loads(prior.read_text()) if prior.is_file() else {}
+        archive = write_release(
+            output,
+            build_manifest(output, store, dates.get("started_at", ""), dates.get("ended_at", "")),
+        )
+        typer.echo(
+            json.dumps(
+                {"archive": str(archive), "migration_counts": evidence["counts"]},
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    finally:
+        store.close()
 
 
 if __name__ == "__main__":

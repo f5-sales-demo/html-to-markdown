@@ -150,8 +150,8 @@ async def test_external_image_is_preserved_without_fetching(tmp_path: Path) -> N
 
 @pytest.mark.asyncio
 async def test_redirect_aliases_do_not_overwrite_canonical_documents(tmp_path: Path) -> None:
-    canonical = "https://docs.cloud.f5.com/docs-v2/api/user"
-    alias = "https://docs.cloud.f5.com/docs-v2/docs/api/user"
+    canonical = "https://docs.cloud.f5.com/docs-v2/how-to/user"
+    alias = "https://docs.cloud.f5.com/docs-v2/docs/how-to/user"
 
     class RedirectFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:

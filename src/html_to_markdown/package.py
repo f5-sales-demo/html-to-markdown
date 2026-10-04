@@ -15,6 +15,7 @@ from sqlite3 import Row
 from typing import Any
 
 from . import __version__
+from .content_policy import migrate_content, validate_content_policy
 from .models import PageMetadata, PageStatus
 from .quality import write_quality_reports
 from .render import content_hash, split_document
@@ -274,6 +275,9 @@ def _asset_entries(output: Path) -> list[dict[str, object]]:
 def build_manifest(
     output: Path, store: StateStore, started_at: str, ended_at: str
 ) -> dict[str, object]:
+    migrate_content(output, store)
+    if not (output / "quality-report.json").is_file():
+        write_quality_reports(output)
     rows = store.rows()
     documents = _document_entries(output, rows)
     asset_entries = _asset_entries(output)
@@ -329,6 +333,7 @@ def build_manifest(
 # Packaging and its final integrity audit intentionally share one transaction.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def write_release(output: Path, manifest: dict[str, object]) -> Path:
+    validate_content_policy(output)
     if (
         not (output / "quality-report.json").is_file()
         or not (output / "quality-report.md").is_file()

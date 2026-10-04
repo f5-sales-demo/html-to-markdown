@@ -8,6 +8,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from .content_policy import load_content_policy
 from .render import split_document
 
 RECOGNIZED_CHROME = (
@@ -46,7 +47,7 @@ def _documents(root: Path) -> dict[str, tuple[dict[str, object], str, Path]]:
     for path in sorted(root.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text(encoding="utf-8"))
         url = metadata.get("url")
-        if isinstance(url, str):
+        if isinstance(url, str) and not load_content_policy().excludes(url):
             documents[url] = (metadata, body, path)
     return documents
 
@@ -107,7 +108,7 @@ def _benchmark_urls(path: Path | None) -> set[str] | None:
     urls = value.get("urls", []) if isinstance(value, dict) else []
     if not isinstance(urls, list) or not all(isinstance(url, str) for url in urls):
         raise ValueError("benchmark urls must be a list of strings")
-    return set(urls)
+    return {url for url in urls if not load_content_policy().excludes(url)}
 
 
 # Keep the per-page measurements together so their counters cannot diverge.
@@ -256,9 +257,19 @@ def write_quality_reports(
     candidate: Path, reference: Path | None = None, benchmark: Path | None = None
 ) -> tuple[Path, Path]:
     report = analyze_quality(candidate, reference, benchmark)
+    existing = candidate / "quality-report.json"
+    if existing.is_file():
+        migration = json.loads(existing.read_text(encoding="utf-8")).get("content_migration")
+        if migration:
+            report["content_migration"] = migration
     json_path = candidate / "quality-report.json"
     markdown_path = candidate / "quality-report.md"
     json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    markdown_path.write_text(_markdown(report), encoding="utf-8")
+    markdown = _markdown(report)
+    migration = report.get("content_migration")
+    if migration:
+        markdown += "\n## Content migration\n\n"
+        markdown += "```json\n" + json.dumps(migration, indent=2, sort_keys=True) + "\n```\n"
+    markdown_path.write_text(markdown, encoding="utf-8")
     return json_path, markdown_path
