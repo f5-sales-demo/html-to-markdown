@@ -68833,5 +68833,463 @@
         "output_sha256": "be2704e780b8fa9ae2640ed9809189dfa9e95241125a5b8600c0a363cae08e80"
       }
     }
+  },
+  "74585": {
+    "article_hash": "d18243b5cbcdf48e1e778d2a5c35260cfea7eec192a305d0f8ef1133e44a764e",
+    "decision": "include",
+    "reason": "Distributed Cloud CE clustering and virtual-site high availability deployment comparison",
+    "text_replacements": {
+      "nodes": {
+        "2ba1d4c259bbdf154f95bdeaffc200d5c9e29e524fa70f11f913402fa3261c8c": "To confirm the Virtual Site configuration is functioning as intended, we joined two CEs (demo-ce-a and demo-ce-b) into the Virtual Site and evaluated the routing and load balancing behavior.",
+        "f1856548bbf05d05537e52f59d8d5a34e2649dba5ccd48819501ef3745827ab4": "We deployed an internal Load Balancer and advertised it on the newly created Virtual Site, utilizing the pool that also references the same Virtual Site (demo-ce-a and demo-ce-b).",
+        "c5a2f23242df2ff86f3ca15fd8814980f7c6d1f16a4ae3deaee2abd451a9e7be": "src_site: Indicates the CE (demo-ce-a) that processed the request.",
+        "f47bd5372640e82a7712a31752317da72e405dd4223ced6d260f937a385de1d5": "dst_site: Indicates the CE (demo-ce-a) from which the pool member is accessed.",
+        "55d45d91485226e5105b59efc641b52e22e65e2331730e279bffffadfdb7e797": "To assess the Virtual Site\u2019s resilience, we intentionally blocked network access from demo-ce-a CE \u00a0to the pool member (192.168.1.6). The CE automatically rerouted traffic to the pool member via the other CE (demo-ce-b) in the Virtual Site."
+      },
+      "output_sha256": "f69862103b06fb330243970dd083b487b14d4c2d0be290743862bb5394ec82c3"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and all 22 static images visually reviewed. Client public IP replaced with RFC 5737 example, TLS fingerprint and hardware serial synthesized, and site identifiers replaced consistently in prose, logs and diagrams. Private lab routing examples retained. Cluster comparison, alert thresholds, labels, VIP constraints, controlled failover and all topology arrows preserved; metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/002ec2ca3e373e3cbde63b69773fe1ad6e025e15.png": "cfd30cbf1271b373801df50bceae7fba037046c9e06fe2d0713d47bd287e045c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/167c81171032b16f45466c4f37db0f49dfc565f3.png": "fbd41f7d6955413d592d646f683b01c9cbaeef2c24359baf884f884dc5068833",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4df1ec3f1d1cfad0cc080dbfbfa65d317f8cb567.png": "81d66b39a88a56983942890273c7427f61ee65d6c3b76a976412c62c0c4f9735",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5873891a648af2e4c978afb33a7b8e2241efeaf4.jpeg": "8899c31a55e3adfcb19ad651a546c13384b9866481ff4e6d6af0ea2bb6335c48",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5ea0f378058afdbe5393a0aed3b65ad49d06f788.jpeg": "a82d72cbd120aded282c0dd9107143353a16802adece1cb3421fe7cda0f2dd18",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/89eba5e477488af9ba17911f638e8edac61a832f.png": "e0d6b0242e590884eb359f50f19243a57a7367da1477c9bbf6a38be884725f94",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8d10fc68d30efb2ddaee7c7426370e3ed9789d6b.png": "d4e5140802485e2c14000991b21b4f7f9de605c62c0d6e648cc0ad404d10fa4c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e10ad18364ecd20792a458d14dddd5f359726c9.jpeg": "97ea910ca1aae1bea4a9620fb1101581acf4f523f3d0554bd445d19233a5257e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a02d571ff6b2ee07bc718deed571022f607094e7.png": "64c10cd43b28500fe64aca2b8032ede5c53308d862cea5cb9b73bee5cc75c9ad",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab03f05163d06678f6f8c1aa909c730f3564e020.png": "e6ec0efc845d5090455a0c98e487a67edb8693793433a9d6a7dc80b9bd5e272b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7126d5e4c7f81fc45fc72b8ea9ea26d15a23608.png": "a8aa350575dbd6adaa56b7b3eec9b8f242c7cd6bae9279ba256d44099d60e29d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cd453983c9cc0f7a05be3fefa4f70b78b9a22dba.png": "278ca2454b1865e3d304fb00e7aa88c41e7b01bbd24959abe4ebef0ca820fefe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/ddf1e035cf19c9d874d0dd55dc770126b13ef8ba.png": "32008ec4b8195e6a23a9c127a14073bfb2b2517c2f98a806f77761de496bc05b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e0e48bcf4f1c0c3e82f38cee3e7de4bc5e351d16.png": "cdfef53591789868448297c138f1f7fa19b2610f92007fd9580acb24921fc902",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f11342a271156dea021a96aba4acc7a3956ad10b.png": "acd1667bd9c74207b0d32149c97ce1d4e56fe6e78c0856e08a7dbfed71899d8d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3aff8987b9685eacfe362224e86e46bff58ad6c6.png": "8f2ca798eefa2e1eb6cd7c87addfe74103f98f10e9ea0d5a3a4bdb4f113aab13",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/8/68c945bfbb2291a7324f305460dcf30c47fc5291.jpeg": "73fdfbca15279289cfe06be0d49d8b69e5ace01cd8746d1d604148dc622d8091",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/d/6d0777d22b0b71276488e9e7b5ec87df0b2f1cf3.png": "a04419f76b9bff97fc74325fac3ad38fc55bd4149268e04570dc4e81d0828243",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/e/6e89913f44d139033d6343cf0237760f6e3364b0.png": "40230f8085652d95431ee82b25e79ab868307cad07d28fb982aa7a1eec803f4e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/9/79258ff20e7ef91ffe403d31b5f525d9d2306f94.png": "1955503399f52cf883b704557e872d6813dc404460c61230c4b7b70cf5f3c440",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b05c4a2186d7588672bd7d14b7d96ce2f724afeb.png": "03234110a222b13626e2009a844ea21d2910f2ccf8b7447e87f1e68038ca90f4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/7/e7b1aac4d1ed992f302cbc90fc4d759c4a870cba.png": "3501cfc0836d2d60d34cb8e59b4e4d4afba8724cb7b8753ac43b29e02d0b71f7"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4df1ec3f1d1cfad0cc080dbfbfa65d317f8cb567.png": {
+        "labels": [
+          {
+            "rectangle": [
+              523,
+              247,
+              680,
+              287
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              523,
+              319,
+              680,
+              359
+            ],
+            "text": "demo-ce-b",
+            "size": 20
+          }
+        ],
+        "output_sha256": "031f6c617308b75b471630f543bfef11a65144b5a3bac843ce53fee73e4c6e1f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5873891a648af2e4c978afb33a7b8e2241efeaf4.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              15,
+              713,
+              219,
+              746
+            ],
+            "text": "demo-ce-b",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              664,
+              713,
+              848,
+              746
+            ],
+            "text": "demo-ce-a",
+            "size": 24
+          }
+        ],
+        "output_sha256": "1f66fbf89bccf95cd629da059192f8bf7880e9ce33b89f577fa2eb15923c64da"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5ea0f378058afdbe5393a0aed3b65ad49d06f788.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              9,
+              464,
+              115,
+              485
+            ],
+            "text": "demo-ce-a",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              367,
+              464,
+              481,
+              485
+            ],
+            "text": "demo-ce-b",
+            "size": 14
+          }
+        ],
+        "output_sha256": "5602dec5a8305d9789c379d8fe01f508b7e9de79ae6730b43d961c90e7c376e6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9e10ad18364ecd20792a458d14dddd5f359726c9.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              14,
+              369,
+              174,
+              398
+            ],
+            "text": "demo-ce-b",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              519,
+              369,
+              663,
+              398
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          }
+        ],
+        "output_sha256": "c845eeebc30726b1383daadcff5e082f26273c56e31bbf7e7232636fe18e7c73"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/ab03f05163d06678f6f8c1aa909c730f3564e020.png": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              59,
+              485,
+              87
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              323,
+              203,
+              485,
+              231
+            ],
+            "text": "192.0.2.10",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              606,
+              31,
+              730,
+              60
+            ],
+            "text": "demo-ce-a",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              606,
+              175,
+              737,
+              205
+            ],
+            "text": "demo-ce-b",
+            "size": 18
+          }
+        ],
+        "output_sha256": "864fad42b34a43d46b8a8b2b47b6434108e9190731ea11a4aca96ef80dcc7563"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c7126d5e4c7f81fc45fc72b8ea9ea26d15a23608.png": {
+        "labels": [
+          {
+            "rectangle": [
+              38,
+              138,
+              170,
+              164
+            ],
+            "text": "demo-ce-a",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              345,
+              171,
+              460,
+              195
+            ],
+            "text": "demo-ce-a",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              984,
+              257,
+              1182,
+              283
+            ],
+            "text": "EXAMPLE_SERIAL",
+            "size": 14
+          }
+        ],
+        "output_sha256": "c814fca3935d6c94965139d492f78e70fcca4412f04c56ed6b99b32dd7624830"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f11342a271156dea021a96aba4acc7a3956ad10b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              762,
+              250,
+              868,
+              272
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              302,
+              868,
+              324
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              355,
+              868,
+              377
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              407,
+              868,
+              429
+            ],
+            "text": "demo-ce-b",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              459,
+              868,
+              481
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              511,
+              868,
+              533
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              564,
+              868,
+              586
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              616,
+              868,
+              638
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              668,
+              868,
+              690
+            ],
+            "text": "demo-ce-a",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              762,
+              720,
+              868,
+              742
+            ],
+            "text": "demo-ce-b",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1020,
+              397,
+              1305,
+              417
+            ],
+            "text": "Customer Edge demo-ce-b node master-2 did",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1020,
+              712,
+              1305,
+              731
+            ],
+            "text": "Customer Edge demo-ce-b node master-0 did",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a50064b57a932f066b909fdc677226058f58a1da7994b11e2b0eb3958b4d4a74"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/8/68c945bfbb2291a7324f305460dcf30c47fc5291.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              13,
+              777,
+              174,
+              804
+            ],
+            "text": "demo-ce-b",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              519,
+              777,
+              666,
+              804
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          }
+        ],
+        "output_sha256": "61d7ab11098613b8b78f053633ff289a8eb0ccf036417f55f2d76c137544e7dc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/d/6d0777d22b0b71276488e9e7b5ec87df0b2f1cf3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              368,
+              451,
+              399
+            ],
+            "text": "system/demo-ce-a",
+            "size": 20
+          }
+        ],
+        "output_sha256": "e950981d5c4cdaaad19aece977abed136c7123112b7f0ad1835e641cddea274f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b05c4a2186d7588672bd7d14b7d96ce2f724afeb.png": {
+        "labels": [
+          {
+            "rectangle": [
+              175,
+              70,
+              313,
+              102
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              175,
+              311,
+              327,
+              343
+            ],
+            "text": "demo-ce-b",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              175,
+              274,
+              582,
+              303
+            ],
+            "text": "00000000000000000000000000000000",
+            "size": 18
+          }
+        ],
+        "output_sha256": "ffe53775fc556299fa1315aa889d39b3c946f786905e6b1631311e3fcbecc919"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/7/e7b1aac4d1ed992f302cbc90fc4d759c4a870cba.png": {
+        "labels": [
+          {
+            "rectangle": [
+              181,
+              67,
+              319,
+              99
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              181,
+              308,
+              323,
+              340
+            ],
+            "text": "demo-ce-a",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              181,
+              272,
+              590,
+              301
+            ],
+            "text": "00000000000000000000000000000000",
+            "size": 18
+          }
+        ],
+        "output_sha256": "25fb5f9603f69335033f38875f438ef5c70b90fbb1d29f3fca3a3516e3d404db"
+      }
+    }
   }
 }
