@@ -157,7 +157,7 @@ class ContentPolicy:
             raise ValueError(f"reference outside excluded families: {url}")
         canonical = _canonical(url)
         parsed = urlsplit(url)
-        fragment = unquote(parsed.fragment)
+        fragment = unquote(parsed.fragment).removeprefix("operation/")
         leaf = unquote(parsed.path).rstrip("/").rsplit("/", 1)[-1]
         candidates: list[dict[str, Any]] = []
         reason = "unmatched"

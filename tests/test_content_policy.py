@@ -59,6 +59,7 @@ def policy() -> ContentPolicy:
 
 def test_exact_operation_resource_fragment_and_fallback(policy: ContentPolicy) -> None:
     assert policy.resolve(LEGACY + "/http-loadbalancer#Create")["destination"] == DEST
+    assert policy.resolve(LEGACY + "/http-loadbalancer#operation/" + OP)["destination"] == DEST
     assert policy.resolve(LEGACY + "/http-loadbalancer#" + OP)["destination"] == DEST
     assert (
         policy.resolve(
