@@ -64665,5 +64665,114 @@
         "output_sha256": "f8a1c48d8f1bb97c7cc5f2a2d5c1854c9a5bbbe3748975de8c8de0825ae41a64"
       }
     }
+  },
+  "71413": {
+    "article_hash": "866a746d0828a1819fd260ad315970921c8b001711e9b7fea1b03821e0475af8",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose, code and all 17 static images; four hash-bound transformations replace demonstration endpoint/object identifiers, GitHub user identifiers and author credit. Other screenshots show sensitive/write-only values and public repository/branch commands. Retain hybrid XC WAAP/NGINX/EKS architecture, Terraform feature flags, variable names, deployment/destroy graph, resource counts and timing; no credential or customer values in prose; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0f07e292f2283fd444e5416dfe38c082fadf844b.png": "9c0836c52c47cbcbc670df578c077b43d763746a833462e0704b048a196eca12",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31cc22c45eec4f6a22c244bcb607338a43152728.png": "dbbc35b38ee6e416cfdb7cf074eb1858a04189097a37f5821ca8e6e7ff65ff00",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/546ae35c62492c1de015ccbe333dd85c429bf13c.png": "fc5e54bfd6595c4be409d4dfbc784a5a8e369121b849aa98088447d1acc10afe",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5909ae313badea8d82f6f601b9347ccc48ac4ab9.png": "93b0fc049002397f2fcc0fb793b30adfec1abcb05a4f69f7ae7cbe28fe825e5d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f9426ddd7ad5e333b902c32e932e0fb6ffdfcd5.png": "17635ec1a9b02157b5d2f99f99910e928841fa02b8ac69e0ef34776e411ade34",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/668a4208156a62fb00b66608ae429ea5212396a4.png": "f630de845cb2d536e6dbe5fc7e7f80403e3ae5de7a18b1687864183494e0ac33",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc1e316b2178a6869ce6f4c090ec228af1a9b88a.png": "e606dd5cbfa3b7b5497a283e257462dd23fc86060baca2fd7ce8a11ddc9aa11a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bd9b9fda90f76a958eb6241d49d9471873435d71.png": "398513212e82306dac22b68df3b50252d2f9d03c4cef586fd0b8b3637eef169a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c0569069032a63e7e50545a71d7fdc69a2d6a9de.png": "f477b4135faa47de5c385e26b82ee9fc85a44ebb1c9bfa4b7bde096006a7d5ef",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c6b7045ddeb7bf2315ae3a7c16bd211918a364a3.png": "1b67c338db76de585949ff6737599555e2459ca805588a0f99c272cec2254304",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f5535b0debe051043a4e1b2d7c804272952f2a57.png": "dac0eb1d05cb39bee000f2578e33bcbf09f038fe827d84798f0e1d9843184d60",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/5/152da329f7c82a1705357d250a89fa0a53db7b4a.png": "2dd536bc58de8fa8778042976f4dc2a4393499521099d348525c792a67289e90",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/8/584a9b7acb5a8c44d894c0e6840575512be7dac1.png": "57416a572e05340d13ef667f3f8a7b66a2a38d5839016b966d81bcaee7b704ba",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/5/b5e9f6d56ad60e2a4e01a2eb492b5828b707777d.png": "ca141a34a3f8706711b705a403376dfc0290106d6200057f088d4908c40ff38f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/4/c43f0f4e4c1e4bc9d36df0c0250b36f7494a3769.jpeg": "16a18eeb1d6bd6751f24f7b3f1b97c6f98927b62c515228aad7ee39d25c34bc7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cdc2ca62b4ff05a9bbc96c1630852f38d40613b7.png": "79f8b62bcaaf67db29922716a5196877445971fd24627e5c84a1f474d47f3365",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/fa1ded6e772f6dfa29e361c280345ded5f34dd0d.jpeg": "63f3d2db473e850bd91f071b1775d4290d240c91813c0d32559efc093b87225c"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc1e316b2178a6869ce6f4c090ec228af1a9b88a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              5,
+              127,
+              635,
+              158
+            ],
+            "text": "endpoing = \"arcadia.example.com\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              5,
+              158,
+              563,
+              189
+            ],
+            "text": "xc_lb_name = \"demo-xclb\"",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              5,
+              189,
+              563,
+              220
+            ],
+            "text": "xc_waf_name = \"demo-xcw\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "ee84ded0dfdba555357dd2ed4a45e492ee4b4911c1e3827f030fe170756c54d8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/546ae35c62492c1de015ccbe333dd85c429bf13c.png": {
+        "labels": [
+          {
+            "rectangle": [
+              79,
+              81,
+              830,
+              119
+            ],
+            "text": "F5XC + NAP Destroy #5: demo commit pushed by demo-user",
+            "size": 20
+          }
+        ],
+        "output_sha256": "4e8c336562ddab5582aa98827f0459b18ea776be1b08b430616229a71983e99c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/d/cdc2ca62b4ff05a9bbc96c1630852f38d40613b7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              79,
+              83,
+              815,
+              121
+            ],
+            "text": "F5XC + NAP Apply #16: demo commit pushed by demo-user",
+            "size": 20
+          }
+        ],
+        "output_sha256": "8eb2d1e0d3c9abb52dbfc29f039c9ea26c1ae6916dc6fd82a8fe3a48cc58a742"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/4/c43f0f4e4c1e4bc9d36df0c0250b36f7494a3769.jpeg": {
+        "rectangles": [
+          [
+            87,
+            560,
+            350,
+            627
+          ]
+        ],
+        "output_sha256": "fd3cc117e5baa6140b7f0f518f392cc06c286ceabdbaa6520b351bca346996ee"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/a/fa1ded6e772f6dfa29e361c280345ded5f34dd0d.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "a1af28ce48cffdf8b4807e123e06bbc2dc894fb7e7ab65e2dbe98b8a86ec55ab"
+      }
+    }
   }
 }
