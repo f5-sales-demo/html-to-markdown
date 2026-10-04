@@ -1102,11 +1102,19 @@
             {
               "location": "# Customer Edge - Secure Mesh Site FAQs@1/## Feature parity gaps@1:section:118",
               "sha256": "14d3595363e0a2c724c2664e518ef49008e0f2b976fa8c7372b91101b49a697e"
+            },
+            {
+              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## General FAQs@1:paragraph:62",
+              "sha256": "a525ee0570c38d4a9d2c4bc5df360b91a5bb90400882ec449d94cbecda38f7f9"
+            },
+            {
+              "location": "# Customer Edge - Secure Mesh Site FAQs@1/## General FAQs@1:paragraph:64",
+              "sha256": "2dae7a573302fa270a2beb43952969ae7f8f7f5e5a5707999493852331ba2349"
             }
           ],
           "disposition": "keep",
           "input_sha256": "a3d95b8ab71abd121b1e0c0cc3556f365bc5e7c55608382f97f0acf1bbb18331",
-          "output_sha256": "ff7a2ab111b2f5ab5f799f0c16555e599ac58f6e30c163d885b35810563c1d7b",
+          "output_sha256": "77e9a54127160be9012b46fd3d62e00a780f9c592f52591ff54c5b9255126451",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 83,
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/faqs/smsv2-faqs"
@@ -1244,10 +1252,6 @@
             {
               "location": "# Monitor Customer Edge Site@1/## Explore a Site@1/### Dashboard@1/#### Connection Throughput Chart@1:paragraph:238",
               "sha256": "b92f817cc32e814d5495e8471c2dbe59ada87f4b36e6f2436d7fa62b7221b92a"
-            },
-            {
-              "location": "# Monitor Customer Edge Site@1/## Explore a Site@1/### Metrics@1:paragraph:283",
-              "sha256": "9d71417f1b38f2f4f90368466369930d4716e1f6025a0ddfc8145940f124deb8"
             },
             {
               "location": "# Monitor Customer Edge Site@1/## Explore a Site@1/### Cloud Connect@1:paragraph:470",
@@ -1416,7 +1420,7 @@
           ],
           "disposition": "keep",
           "input_sha256": "3636c94937cdf378f6703196267f9374dfd948b7caeed015063c358586217cc0",
-          "output_sha256": "ecd795a9dbe767e78feaa307505323ad91467e51bcf723a2b794021400d383fa",
+          "output_sha256": "572867e24217c37568f34c818ec75d7ffd27abd9382c0160a12b5092eaba865f",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 90,
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"
@@ -1485,35 +1489,10 @@
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/create-gcp-site"
         },
         {
-          "block_removals": [
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Before you begin@1:list_item:63",
-              "sha256": "542a358cab320eb2e678b9a39c63ba40e53a84500ed453dbfae74033667a5617"
-            },
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Create a Secure Mesh Site@1:paragraph:141",
-              "sha256": "d29dbb6ba81a0ad2e2d6cffc5f50364569ab87a134093ee678d2cb3b3bf1b173"
-            },
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Create a Secure Mesh Site@1:paragraph:145",
-              "sha256": "945142702899cb1593ff980dd605d2f5a647e163a5b43fa542a31ff6cceba2c1"
-            },
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Create a Secure Mesh Site@1:list_item:149",
-              "sha256": "16209011959522f26db45d8e7f960eaef44059488c8461f92ec1722405162f38"
-            },
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Create a Secure Mesh Site@1:paragraph:180",
-              "sha256": "61db0a331e344c7fcf11b8544742077dff794551aa0cd99361983879efff5b90"
-            },
-            {
-              "location": "# Create Secure Mesh Site v2@1/## Create a Secure Mesh Site@1:paragraph:201",
-              "sha256": "fac39412e8b62d68d2e0072bc79cdbb78b65dd26b0afd488bdb410bbc25b502e"
-            }
-          ],
+          "block_removals": [],
           "disposition": "keep",
           "input_sha256": "857ee60f0f75dd02fe22f19f8489bb1b788d7c7a725bd21f9e43c7c3c144e31d",
-          "output_sha256": "58828f0df7acb13796318861ae876c9684aaf11b803f824fefc6d045e465d8c9",
+          "output_sha256": "857ee60f0f75dd02fe22f19f8489bb1b788d7c7a725bd21f9e43c7c3c144e31d",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 96,
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/create-secure-mesh-site-v2"
@@ -1621,22 +1600,6 @@
               "sha256": "d165c05eb455152916469e80587f8523ae1d2a5a70be3c7e24f782e65d99a046"
             },
             {
-              "location": "# Configure Site Mesh Group@1/## Prerequisites@1:list_item:25",
-              "sha256": "3a997317932daa8745bd190aebbb78fba3756d3dd7b327f417269788086efd3e"
-            },
-            {
-              "location": "# Configure Site Mesh Group@1/## Configure Hub-Spoke Site Mesh Group@1:paragraph:67",
-              "sha256": "3f534e5e6787e49ed89ddb277ecd58ba4e2352d390ec5d09c3365a9a39bcea25"
-            },
-            {
-              "location": "# Configure Site Mesh Group@1/## Configure Hub-Spoke Site Mesh Group@1:paragraph:97",
-              "sha256": "3f534e5e6787e49ed89ddb277ecd58ba4e2352d390ec5d09c3365a9a39bcea25"
-            },
-            {
-              "location": "# Configure Site Mesh Group@1/## Configure Full Site Mesh Group@1:paragraph:133",
-              "sha256": "3f534e5e6787e49ed89ddb277ecd58ba4e2352d390ec5d09c3365a9a39bcea25"
-            },
-            {
               "location": "# Configure Site Mesh Group@1/## API References@1:list_item:170",
               "sha256": "7c12e2ecbdf23c6e49c0b57e005f998cc59559991d27b5604d6dda4118b5f478"
             },
@@ -1647,7 +1610,7 @@
           ],
           "disposition": "keep",
           "input_sha256": "643849a8dc4713d55657bc786622e995027cec8007bf10ffb5971005b6594e50",
-          "output_sha256": "3604b52bb393e5b5c5ee875012b7848e93be187d70c02140459d20cfba526d49",
+          "output_sha256": "903e0b6dcc0b8c0e56119ba4014606fed54b271f0b8f666eb135b13f4c1887c8",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 106,
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/advanced-networking/site-mesh-group"
@@ -1840,15 +1803,11 @@
             {
               "location": "# F5 Customer Edge Controlled Access Guidance@1/## Overview@1/### Disable local node services@1:list_item:23",
               "sha256": "600f8bd7d7bb435c9a5e09e8b716ac3779fae386caaf6cfd6a3f921cfc442ac3"
-            },
-            {
-              "location": "# F5 Customer Edge Controlled Access Guidance@1/## Overview@1/### Maintain current CE software@1:paragraph:45",
-              "sha256": "d84fd2455fabee78db8eb346149e9e4ebd1addf264af987ff9dd8ddcaf8f0ecc"
             }
           ],
           "disposition": "keep",
           "input_sha256": "1f25d40e63c429d30b1fd217bdfccd973fd3edbf3e80218e4f817ea8f48455aa",
-          "output_sha256": "6c2a4773ce0235dee3f8fbe9ac110b2227c201d04b87a9e147b3bf4bdc3b90df",
+          "output_sha256": "b8c9d2d6e1e3e25678a36e931e1a212d2c041f3d50de64f71c9152ef0550657c",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": 117,
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-contr-access"
@@ -1984,11 +1943,108 @@
           "url": "https://docs.cloud.f5.com/docs-v2/nginx-one/quickstarts/nginx-one"
         },
         {
-          "block_removals": [],
-          "disposition": "remove",
+          "block_removals": [
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:73",
+              "sha256": "53bc39e8884c719a0e256b0d9b0d66da8e83ccf1f4e51ba34ea48778980caae2"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:75",
+              "sha256": "26f5846f3145e5d99adbf299bd138dbacd5704ce2028c7b026dbde83ff079139"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:341",
+              "sha256": "ca455408126225300cd618d69ca4a3736dd7e913f1baa45c23232de6fb864db7"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:343",
+              "sha256": "40edfb860f47992e99453d3cd59785a9fc125c8aa05a496737fa0b4036ee14b7"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:345",
+              "sha256": "685d19c9ff113092d29fc643bad42b0f6e4bb4c63d31ba3401f95ac057b5511d"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:347",
+              "sha256": "ac2d02cd177e839f3347fa70985d738473e22d04a7247423efe650f5d1d0f146"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:349",
+              "sha256": "cf62f8bee26d9061fb00ffd59793b0a76c775ae358862733d17ce29705b7460c"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:351",
+              "sha256": "1307abadd9990babdda7e1116cb2ec200711d938d3267a7ee29b6641db8e843f"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:449",
+              "sha256": "0adf34e0c5287eb373647ac16223177f3b6b3fd79ffb229085879d3588642950"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:451",
+              "sha256": "db9dc04b6f8249b8e3871340f034bef4f4fce5d29c3c229507fa6355ecfcd25e"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:453",
+              "sha256": "86e1067767d2ccd4601ffba973d2d7f6f3b12ff18467aca54244a00e0573ac6c"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:455",
+              "sha256": "a4812e5714731757d63e70df7d07e02619b436334bd917cce39ef8cb64131981"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:457",
+              "sha256": "f498b016c28f7dd4b7e15567ea16e7e084ec5ccd09fba2ea3e81b591dcf4b7da"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:459",
+              "sha256": "5a72473ab084301ad2b740bed47d68693bf4d6d0a77a393a0dc1ba31872863be"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:461",
+              "sha256": "813edc8f51e5604d8123b7e64869e9929e2a5ec43e61bc341262160b04cfa17b"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:796",
+              "sha256": "d6a9755e4a29de0460b2b9b6ce0ad18e1fcbf556d8f3397de58a178ecde883ee"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:798",
+              "sha256": "f142ab828d3fc0f44bb5557e98cf7e17b82ae133340d6b8797bb5a546bb79c72"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:list_item:800",
+              "sha256": "17d9b0d032bb519ace80ac759fb236351ac5039b3630d0510bf3666458c2cd1e"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:list_item:801",
+              "sha256": "d6744b05a8475aca7249a9275897d2d8dccff3e5acb927a56c7f180746071f2c"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:list_item:895",
+              "sha256": "0eeca5bd54e0a6cc7ad7afcb473358367c8534fc698f3d2578f20fa1bd330c81"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:907",
+              "sha256": "5233c0d310b05e0601598391ededa7697f22cff35ea827242b3d40ef799311b3"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1183",
+              "sha256": "f714831309b3fe956199473670bac923fa3c30124a4f104e912200ed1ca9ebbc"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1185",
+              "sha256": "d39b3a3528a933bdefac6104ac1848894fcd0d1b4b442620998dbd70f27fbd62"
+            },
+            {
+              "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:paragraph:1187",
+              "sha256": "f2c3f7bf2bbf1f6e109e368639dc022721a1ae3887fd25e8b0dfc135afe0efcf"
+            }
+          ],
+          "disposition": "keep",
           "input_sha256": "43ec34d4700c60760c8564fb00819e1eebda7e004c114763cc09394862c81fe3",
-          "output_sha256": "43ec34d4700c60760c8564fb00819e1eebda7e004c114763cc09394862c81fe3",
-          "reason": "procedure depends on retired deployment/configuration",
+          "output_sha256": "0ffb485d29b0addb609fd6d5f739e330dab56b8302e8770c4d760dd54f2ce14e",
+          "reason": "retained node release support and current SMSv2 facts; complete obsolete release entries removed",
           "review_index": 129,
           "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/node-sw-release-notes"
         },
@@ -3524,15 +3580,10 @@
           "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/cloud-cred-ref"
         },
         {
-          "block_removals": [
-            {
-              "location": "# Changelogs@1:paragraph:4",
-              "sha256": "fc79565a21669fcfcc34aec3b799b99168c8de1df49719a69a2cbf060b486405"
-            }
-          ],
+          "block_removals": [],
           "disposition": "keep",
           "input_sha256": "67fa34bfa24c9d8e3033b9d15307a6f10edade494a7f8b3332144b0125d25898",
-          "output_sha256": "54bc5ca9591e4febfe76c4463bd581e29ae952961ce82a562170c933c56c73ec",
+          "output_sha256": "67fa34bfa24c9d8e3033b9d15307a6f10edade494a7f8b3332144b0125d25898",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/all-changelogs"
@@ -3952,17 +4003,13 @@
         {
           "block_removals": [
             {
-              "location": "## Related Content@1:list_item:39",
-              "sha256": "43511dcf330cdfcfb8f53f8fdba40134270d3b72bd5de032ab557cd9d0744a3e"
-            },
-            {
               "location": "## Related Content@1:list_item:40",
               "sha256": "f5f330d1e865a786ede0676d4f25e441de3d77e71608bdefc08ec2923ce5e693"
             }
           ],
           "disposition": "keep",
           "input_sha256": "7f1b0482a77280258e91fc3721e30adca86e57eebabc4b1c532fac28d656f3e9",
-          "output_sha256": "ae9b6c05a731577f0bdeaf67f8ff41496da024eb7946f408e2cbc630753f77e3",
+          "output_sha256": "3fae2225fe0e5aedb64faf6b6fe3ba8a6c04f528821c55c7df23a66a8dac09ae",
           "reason": "reviewed complete obsolete references, optional notes or enclosing configuration sections; retained procedure is independent",
           "review_index": null,
           "url": "https://my.f5.com/manage/s/article/K000163268"
