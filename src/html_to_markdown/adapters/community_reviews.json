@@ -52729,5 +52729,623 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "76152": {
+    "article_hash": "c9d7c30b0d025f3a0ee785ef201c621cb0fcc30ba12fde63a6922c55b77f325f",
+    "decision": "include",
+    "reason": "Distributed Cloud AppConnect securely exposes a remote database MCP server",
+    "text_replacements": {
+      "nodes": {
+        "654106bba8e11893f4e8103c6f8850b09cd319fe2400415f0a533f9ef61953d8": "The HTTP distributed load balancer that will publish the service availability out of the inside interface of the San Jose site (CE node) is shown below. \u00a0 Many domain names can be associated with the service; in this case, Claude Desktop\u2019s MCP client will reach out to \u201cmcp.example.com\u201d on TCP port 8080."
+      },
+      "output_sha256": "95df0777e6e76e67cb550bcdc0b7657fd7186004d4fc6f72d82c76498e76f586"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 16 static images. Fictional apparel product and supplier database and AI query results retained. Replaced personal deployment/site identifiers, hostnames, IP/MAC addresses, request and MCP session identifiers with consistent synthetic values; replaced raw encoded capture bytes with an explicit placeholder. Retained six-tool JSON schema, SSE GET/POST endpoints, SQL results, request/response codes, topology, packet relationships, port 8080, 90-second timeout, 20-packet/120-second capture settings and latency evidence. Eleven images use hash-bound synthetic replacements; image metadata removed without altering remaining pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a353d2e4adc30a0d45630ccaf0251ba1fc440f8.png": "b89f910bbf48b25fb6278fd313e38175d4e84d6fa6207c949a89496043d06af2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0d019f30aaa6097efba0afc699c9b4f41a9b1272.png": "44bfefa88d5f120fb10f3f353ff6e5eb529777a79361d307558d01c2407c68a9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/14796dc8b520c4d96c6354d455c77c760e268042.png": "ea0c99731a1f144bb4a407a213d060af83eb6b9d5e27fd02da1adca26a739209",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1bc2af34763ee506b6f428ebb77993b9804f03db.png": "6c7473440e3af70ecf6dd4f7f794d3cdc05bc4a2465fb5e382389fa7773adf6f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49815f2839ce0a101501eb622a287364254c8b2e.png": "56a9d685d918a1192f8f6eaa278708d7c4c0112d9c0f44d56c7259e637f6fc71",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8abf2a42ec48ce985668f235c85f2545d92c930b.png": "ee836e2ffbc35456834901a3380180660cb8f7bad8aff0e0913acd3949dd6abb",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e9b876abfab434188485f2f48f4bf1745054a961.png": "a9557a750207ce72f84098cec0aa67fb9b40137eef99b838731781228c1e5ff0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f0f43fcd39a6f702afce389e7990515bddc343fc.png": "c1276ef48f385848ec90bf0a9db00b30dc9d2309eb18c6a470fd6e627f9dae47",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/2/02f97781bf60ed412b8934c5409e2db273664678.png": "8368fd9bce48a3e875c71790ecc291b37c9ff28d20d09994e60ad2864c8da7bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/5/25e7dfd3e110b8dc75029ba778b004ec163d1f12.png": "fae9bb25433762f13a715d6faf927fe16c3ff836ffed84ac95f62288096a15d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/4/54e6d83a457731d3e7935b4dfb3979fe491ed7b0.png": "546ea887be31f2a0a5770fcdb8d8a781db8cc64eded5c1b32874dc1cd6fe9314",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b54d1586ada5a41f18c44c395d2d0acd998e27a.png": "2d9d93239dde9730481fcfde95a18f5818e7acf13dea5e97d96638dfc2bdda45",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9bd6db34e97041ec96ea6bdb252c78c03992e73a.png": "70903703837ae0b3163b1297a71d1b6917e84eda0651b674521cfc8c3bc84dc8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/f/bf7e8aaa408bb77fda2e95744995248a984e1ccd.png": "36a8b5024c172da7584ce28a769aa08713f030404ba97f6d779ac380bc95fce0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/0/f054fcd65fbdd0363766bb7fe21d126ba325e03b.png": "a29d94fcddadfd54b7532540cc344fc981b3d3a5eb370f9f657a56179bc40a0e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7a1de101472df472240682a6ec176079ccca9f9.png": "6e61da4911f651fc2e21351bf52557eb606875de71eddb6098ea614dc5555168"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0a353d2e4adc30a0d45630ccaf0251ba1fc440f8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              378,
+              345,
+              828,
+              389
+            ],
+            "text": "mcp.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              378,
+              445,
+              828,
+              490
+            ],
+            "text": "mcp.example.com",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              520,
+              1725,
+              790,
+              1774
+            ],
+            "text": "mcp-origin-seattle",
+            "size": 20
+          }
+        ],
+        "output_sha256": "f0377a4577abec8e158e24275f8b0f79206bb2e546a6978ed23a5939b7332351"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0d019f30aaa6097efba0afc699c9b4f41a9b1272.png": {
+        "labels": [
+          {
+            "rectangle": [
+              60,
+              155,
+              490,
+              205
+            ],
+            "text": "demo-mcp-lb",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              60,
+              408,
+              550,
+              458
+            ],
+            "text": "mcp-origin-seattle",
+            "size": 26
+          },
+          {
+            "rectangle": [
+              945,
+              215,
+              1350,
+              270
+            ],
+            "text": "mcp-origin-seattle",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              1300,
+              1230,
+              1560,
+              1285
+            ],
+            "text": "192.0.2.49",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              1650,
+              1230,
+              2180,
+              1285
+            ],
+            "text": "demo-seattle-ce",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              2270,
+              1230,
+              2630,
+              1285
+            ],
+            "text": "demo-segment",
+            "size": 20
+          }
+        ],
+        "output_sha256": "3fe581ac47d941537435ee0ab1c55361f3e6bcd11fb5a91d6484d54a53d17356"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1bc2af34763ee506b6f428ebb77993b9804f03db.png": {
+        "labels": [
+          {
+            "rectangle": [
+              30,
+              122,
+              480,
+              173
+            ],
+            "text": "demo-mcp-lb",
+            "size": 26
+          }
+        ],
+        "output_sha256": "3021c871f71dcda1b882c50e74394bab52ca3cd38a873ac34df52095b1c1062a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/49815f2839ce0a101501eb622a287364254c8b2e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              160,
+              2,
+              283,
+              27
+            ],
+            "text": "demo-mcp-lb",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              205,
+              527,
+              285,
+              548
+            ],
+            "text": "192.0.2.241",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              205,
+              605,
+              285,
+              627
+            ],
+            "text": "192.0.2.241",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              354,
+              515,
+              479,
+              535
+            ],
+            "text": "demo-seattle-ce",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              354,
+              590,
+              479,
+              613
+            ],
+            "text": "demo-seattle-ce",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              139,
+              757,
+              335,
+              776
+            ],
+            "text": "ves-io-demo-mcp-lb",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              139,
+              800,
+              375,
+              820
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d1b90cf47ca033c087c52c4a5ff063c081b0953f4328179efe5231a8f172f4ad"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e9b876abfab434188485f2f48f4bf1745054a961.png": {
+        "labels": [
+          {
+            "rectangle": [
+              382,
+              255,
+              646,
+              277
+            ],
+            "text": "http://mcp.example.com:8080/sse",
+            "size": 12
+          }
+        ],
+        "output_sha256": "4e426622ce0f7f43051e362c4ea97f4395acc61b4741ca19dda47c6d4dd96995"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/5/25e7dfd3e110b8dc75029ba778b004ec163d1f12.png": {
+        "labels": [
+          {
+            "rectangle": [
+              590,
+              425,
+              1005,
+              469
+            ],
+            "text": "demo-sanjose-ce",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1150,
+              425,
+              1610,
+              469
+            ],
+            "text": "demo-segment",
+            "size": 22
+          }
+        ],
+        "output_sha256": "08b3d8cfd37e44258065b4c42602b854b7d127a7c1696cd0b02b131a3cfdefdd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/4/54e6d83a457731d3e7935b4dfb3979fe491ed7b0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              23,
+              55,
+              580,
+              98
+            ],
+            "text": "host: mcp.example.com:8080",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              23,
+              258,
+              630,
+              294
+            ],
+            "text": "x-forwarded-for: 192.0.2.241",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              23,
+              378,
+              1100,
+              420
+            ],
+            "text": "x-request-id: 00000000-0000-4000-8000-000000000001",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              23,
+              898,
+              1830,
+              944
+            ],
+            "text": "data: http://mcp.example.com:8080/message?sessionId=00000000-0000-4000-8000-000000000002",
+            "size": 24
+          }
+        ],
+        "output_sha256": "48893f822c8bc69e1df590dfb0c13d72a13233f109d216cdda3cc6384f107ab8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9b54d1586ada5a41f18c44c395d2d0acd998e27a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              900,
+              131,
+              1115,
+              161
+            ],
+            "text": "postgres@localhost-demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              81,
+              151,
+              190,
+              174
+            ],
+            "text": "localhost-demo",
+            "size": 12
+          }
+        ],
+        "output_sha256": "8f30c4764ac6efba84329cdfb99513ad165f7a8b3a26485630bec0c73cc9574f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9bd6db34e97041ec96ea6bdb252c78c03992e73a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              61,
+              28,
+              279,
+              52
+            ],
+            "text": "demo-seattle-ce",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1232,
+              16,
+              1660,
+              45
+            ],
+            "text": "Site demo-seattle-ce: Tcpdump",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              236,
+              506,
+              1100,
+              525
+            ],
+            "text": "Ethernet II, Src: 02:00:00:00:00:01, Dst: 02:00:00:00:00:02",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              236,
+              526,
+              1100,
+              544
+            ],
+            "text": "Internet Protocol Version 4, Src: 192.0.2.49, Dst: 192.0.2.1",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              218,
+              615,
+              730,
+              859
+            ],
+            "text": "Capture bytes replaced with synthetic packet identifiers",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              372,
+              347,
+              513,
+              364
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              347,
+              653,
+              364
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              364,
+              513,
+              381
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              364,
+              653,
+              381
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              381,
+              513,
+              398
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              381,
+              653,
+              398
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              398,
+              513,
+              415
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              398,
+              653,
+              415
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              415,
+              513,
+              432
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              415,
+              653,
+              432
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              432,
+              513,
+              449
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              432,
+              653,
+              449
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              372,
+              449,
+              513,
+              466
+            ],
+            "text": "192.0.2.49",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              516,
+              449,
+              653,
+              466
+            ],
+            "text": "192.0.2.1",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6e187733b6d06819a3168d2b60f6a5ca7d003258d8f99f1097506d1e6657361e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/0/f054fcd65fbdd0363766bb7fe21d126ba325e03b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              20,
+              16,
+              1300,
+              57
+            ],
+            "text": "POST /message?sessionId=00000000-0000-4000-8000-000000000002 HTTP/1.1",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              20,
+              57,
+              590,
+              98
+            ],
+            "text": "host: mcp.example.com:8080",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              20,
+              295,
+              630,
+              331
+            ],
+            "text": "x-forwarded-for: 192.0.2.241",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              20,
+              415,
+              1100,
+              456
+            ],
+            "text": "x-request-id: 00000000-0000-4000-8000-000000000003",
+            "size": 24
+          }
+        ],
+        "output_sha256": "94ea1972ac015f7699ff3bbf89e527a7839925bbcafb16163c78eeae833fa4d8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/7/f7a1de101472df472240682a6ec176079ccca9f9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              27,
+              196,
+              640,
+              241
+            ],
+            "text": "host: mcp.example.com:8080",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              27,
+              400,
+              640,
+              435
+            ],
+            "text": "x-forwarded-for: 192.0.2.241",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              27,
+              520,
+              1110,
+              560
+            ],
+            "text": "x-request-id: 00000000-0000-4000-8000-000000000001",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              27,
+              1040,
+              1830,
+              1083
+            ],
+            "text": "data: http://mcp.example.com:8080/message?sessionId=00000000-0000-4000-8000-000000000002",
+            "size": 24
+          }
+        ],
+        "output_sha256": "f7052eb7d48de73feaa364c2b8999bbf759e948510921974dd777bf823d69c82"
+      }
+    }
   }
 }
