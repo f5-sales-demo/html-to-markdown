@@ -11005,7 +11005,228 @@
   "74701": {
     "article_hash": "ac62da39a9b06b0ff3024020110cda8debb25a105f1cdac1cb3e647d23105ec0",
     "decision": "include",
-    "reason": "Distributed Cloud Cloud Connect segmentation and cross-cloud network isolation"
+    "reason": "Distributed Cloud Cloud Connect segmentation and cross-cloud network isolation",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/17d4943dd76d33c47aa203a163b263660090627f.jpeg": "1199dbc3f47506b44a7519a2d126b6922f2ae26f37b791b5543c5608cea3a9fc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b18000c8baf68fa69093590f8cdd3b8fe761593.png": "b9ed5332ca6be6ed1cd0f566409e57d8240db20779d3f7fa858c03fb7f4230f1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43baa97bb67b6728b40d2d89ee75cd590464fe9d.jpeg": "244b689bf27682337ff2294be47ea5cc5f95e0ce7ca6af803bbe303d2716c1ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": "f3596262a1c78c7cd10fe702a3ecd44f549c451e48136bc5dd1a6599fd2f68bd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7891488da75de802ba522f11fa9a95fa20ceede2.jpeg": "f0e123755f7e6317d8ea3082d81787821ef0e730e9af6a55a13d19cfe1d509b3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aadd8323fe5d761b1113adb7d092c6bb0380e99c.png": "891ea185d3b464d6c8d2fe391e3ed80b205280a9f1eaed7afaf8ed1245f055ec",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b2c998a44d87fa60df885b375e0ca82ede885678.jpeg": "ee8b68355a10e39ead8c370fcdb4a23b39bf9d8b09e66f5101fab9d11848c4d0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/ddaf3d37b5ad0c801234c3794bb7dc147c5640d9.jpeg": "0cae7c8806b65cd4a8d6201eb544f923c1d165f495714350c4eaa6134f557e04",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/df34ca6cb52af11e076d16255567d6a2e6b265a1.png": "26463fda10b480b1a7fe3d3b39db0235e3f99e78f98c75ac15d0e588c52b4642",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f77e36b40ebd960fcf5f7b8e273c5daaa418af2.jpeg": "f79cc2c86e1f865315f856895277b4a33d531f51d1fb8e185b9c70f83d47fa3b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/601d307a27178078694bf9316e7d9666e25e1922.jpeg": "1409d79fc3cdbcc3d80ddbcc33cac9c654098bdb2bf6ecd76c515fadd4978f3f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a8b95a392bfc3035142e3f6a8a900202892801df.gif": "c69605779b3c12bbbf1a0f45946b475ffb5df150d8f1595578dc6dd48d9e1fd3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c956fda21774ce6cf6fc1120084b25fde41735a4.gif": "67693f9c9ea5158ddd4843ca9982804060cc1f76a40eee77b90b90487fb92177"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a8b95a392bfc3035142e3f6a8a900202892801df.gif": {
+        "strip_gif_metadata": true,
+        "output_sha256": "c69605779b3c12bbbf1a0f45946b475ffb5df150d8f1595578dc6dd48d9e1fd3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/9/c956fda21774ce6cf6fc1120084b25fde41735a4.gif": {
+        "animation": true,
+        "animation_format": "gif",
+        "strip_metadata": true,
+        "labels": [
+          {
+            "rectangle": [
+              452,
+              913,
+              715,
+              945
+            ],
+            "text": "http://prod-app.example.com",
+            "size": 16
+          }
+        ],
+        "output_sha256": "af68ba3b6ead25cbdad4539196915af5de9170c59eb8b85d0201fce29d60e154"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1b18000c8baf68fa69093590f8cdd3b8fe761593.png": {
+        "labels": [
+          {
+            "rectangle": [
+              322,
+              25,
+              383,
+              46
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              370,
+              265,
+              454,
+              294
+            ],
+            "text": "demo",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              968,
+              266,
+              1100,
+              310
+            ],
+            "text": "prod-app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              540,
+              515,
+              720,
+              554
+            ],
+            "text": "demo-aws-tgw-site",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              510,
+              775,
+              748,
+              811
+            ],
+            "text": "system/demo-aws-tgw-site",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3bf2ba75f2a1d8f7aa3b0846f0f4b7a200354f927ba4d7140e4dc39997d84a83"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/43baa97bb67b6728b40d2d89ee75cd590464fe9d.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              29,
+              78,
+              190,
+              109
+            ],
+            "text": "demo-policy",
+            "size": 13
+          }
+        ],
+        "output_sha256": "424cec367c4e57d84f31e3ff8db168f21b54f30951094b226dcae11204b2ab53"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b2c998a44d87fa60df885b375e0ca82ede885678.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              26,
+              63,
+              180,
+              87
+            ],
+            "text": "demo-policy",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              391,
+              60,
+              520,
+              86
+            ],
+            "text": "demo-policy",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              995,
+              580,
+              1182,
+              610
+            ],
+            "text": "demo-tenant",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              995,
+              798,
+              1182,
+              828
+            ],
+            "text": "demo-tenant",
+            "size": 13
+          }
+        ],
+        "output_sha256": "548cf80bb2d0d2c3765c3d5a17baadc622f0d60dbc2ec8b268e356b6746a19ed"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/601d307a27178078694bf9316e7d9666e25e1922.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              146,
+              0,
+              194,
+              12
+            ],
+            "text": "demo",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              245,
+              427,
+              327,
+              445
+            ],
+            "text": "demo-aws-tgw",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              245,
+              490,
+              327,
+              508
+            ],
+            "text": "demo-aws-tgw",
+            "size": 9
+          }
+        ],
+        "output_sha256": "e700b781135babf79f61b200c08b4a6c6044e86cc220fd11382c340ea363cde6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/17d4943dd76d33c47aa203a163b263660090627f.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "5e57b61c40ccf551035822cb115356005b346e562ab98b8de8fbec51ff48cb14"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/60d753209963ceabd2fb5889f317dc960e769942.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7891488da75de802ba522f11fa9a95fa20ceede2.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "f32114e89aee5a9e609e0a654960b3e1fe76d470a8e26dea44287603bb39b61a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/ddaf3d37b5ad0c801234c3794bb7dc147c5640d9.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "9cd35dad4d290e1e547c8db75519cd18420353971cfc94d38c8e8f418303d72f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/df34ca6cb52af11e076d16255567d6a2e6b265a1.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "dc3c28abe51ed33c8bb3aac3a59c3b4033b7fad605527c4dad3c55d6a8c1a2cc"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/f/4f77e36b40ebd960fcf5f7b8e273c5daaa418af2.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3b048a7b37fc059f4c27c3f6fc3a26e12ab1681a1bbc3f2f39c8fb3af54ac8d1"
+      }
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full prose, eleven static images, and all 863 animation frames reviewed. Synthetic tenant, site, policy and application labels replace operational examples; private lab topology, firewall rules, HTTP success and ICMP loss, segmentation diagrams and complete playback are preserved. Metadata removed without changing approved pixels or timing."
   },
   "74717": {
     "article_hash": "22245a3ffe90c686d0ead58dfb349ecce9f22b7d5b32563dd92181c9e12b0df6",
@@ -101750,6 +101971,2030 @@
           }
         ],
         "output_sha256": "77ffdeae004f0a20e91a0a7cf09ce96523f9a8ba68d93c7207fd5ea30c65e0b1"
+      }
+    }
+  },
+  "74743": {
+    "article_hash": "fa4980970f9c0ef769af611b093bdf08185862a548a62e39a8fa45cb1b7440d9",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Full prose and all 38 static images visually reviewed. Synthetic example domains, site names, routing instance and label keys, public VIP and client addresses, request identifiers and browser fingerprint values replace operational identity. Private routing topology, BGP ECMP, DNS country scores and failover, origin subset selectors, health status, TLS settings, request outcomes and latency evidence preserved; image metadata removed.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7241770c0244e5ed2c05ed0609c73f07b59ccf3b.png": "fe07056c80797367cb6fc082cf4ed02cf1a7818b532f466f556692bee3be059e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/187b508e08280b6bb4cbbbe58733142d37b6bfff.png": "eb0ed1799ce5f670210b7cf4976c2fb1ffa91ec2872c35001e2305ed5e8503e8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a2d434a217f80a645f75047e6408d6943790d5f.png": "c9c22f7d5def91023704f7945a23343ee850888f7cd56452e8f17caba87fc66c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/217ea83042113f9ee8669f963390cdb77ca7e1a4.png": "32e5bca4e9dcfce92e44cf594b84b903d947fb7bcfb02a78c2669600a4806e1a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/477936960ec11e06b92ffc7659376016414d9402.png": "4eb36f6a71020bdbf088cb66edd09288842cf08fa0d75028c4b26808d3bf7749",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b8049bdfeeef86d6451e8fbf5f342a15b54d451.jpeg": "93530ac82415b0bd0d289d8f49037133d7c05b06c67beaa2f6681d9d16d5bb53",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6337408adf8320bedb53e66cc45f223c342bfef6.png": "9ac864511146d1251f9852d559cf15404ce534c5d1b944a8d15853fd4d27dba9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/658aeaae350a1b3f012cd2ed7b5ad5566c290d7f.png": "dcc3fd91dacfdc1d0f73eed721b16b3010d53d0dd7ded8bb195e1c57ac013bb2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/689181721bbfca390c60d927a2709c715e3275a6.png": "df093ed671ac5be652ccdfef76a5ef84e6bca77e157d456fbf7da87e11096486",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f14cdbd04ec605cdb4dc2298fd1f3e32b2a7a3d.png": "6c63853073ff183aff547761f9e71265127bfdf158dd2aa7bd0ee996f72424d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8e3f29ab0aaae2969b5038667e1f343f09a24237.png": "264b499f2083a199ce8bce95af5ead73db0a2cd23325eee59fcbfa8b17152fbf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/941a6e9b5aae1a5d98c5aabfd6f951f036a4a3ea.jpeg": "7fcb0caf2dfaa913f26f52fc87e560f3d96e41f4d2ff086b5e62f5bd5889b6a6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a77456cebd4c640f27b8949dcdf23b68c92b7e33.png": "3ff94db16433b217717410eb882940da15cdf00a222d0902140ab3672fa32569",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aed2fed69402ae9e8bf471a4f2f9b16da69560a5.png": "6ef24b9b125c343dbca218996d3bc28c3a620f760475f5de2cabb91826546d2c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc6b77072159ee517775757723924ab55e88d178.png": "8623ed2f841df17df32addeff91d97839ccb448e46bc91f1df8b92eedd3cae4d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cab1f7901e4cdfb9dfaf89d98ce18f7b4ec7681f.png": "278c8a5744fc72b412cb284c5b6e7c7fa1b903be3cbc006f219a45ac8ceee0b1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cad36cac13c9f4ce8ca4789d7c11bb0b2c9bff8e.png": "17482e42bb1cc47c0537339ca9b21cb4855213aed1958ef0a35247c03ccd4c10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d4e3e75b007f9c57e807b978f80d2de02fb610f7.png": "ce51bdff79e5db8fc8e1f71891c9afeaf8e51cd99ce1efe868326a2f218ca0a0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbf9097d2715fe66ab9daba2579cdb4b1e8eb942.png": "962dd4f7485c01cce3a0c22df101af36a4ca942190d7e53fe0cc2d9144bd837d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e1aed13f1eeb18c324777039c61e6a357c0bfb1e.png": "8ff305e811d873d98bcc0ebb33e25199c1d9de7ac6a56d4245000d96b41a4657",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f00b5cce0e6b6e327acffae495ff507ae207178a.png": "fb11fceddf2ae696a669d6b58f17cb7edd1ab0cfd5013da545a12e5bb8230785",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff45e4bddc20c87df3c72958e4e7c136f8505e1f.jpeg": "1c2e694614ca797aa066984c107f10590419d2ffc9b9336374092d7d999cf520",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/b/0b436eb3e69e33ac7996ba92908a3146f5d5544c.png": "243b0b98cd07233074c19de57b8de13671a02ced07309cd93a19419ab79c90d8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/203a345ad87426fb130a4653bcad623bd128fb6a.png": "ffd192cc19f25fcda66b040b45314a77da40f50dbc0a5bce17465deedb780033",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ce26d2262fe9b124a60ff21d8be8083b225f61b.png": "ea9f92a9d4d0f81701d9651c0d807be8e5456bc0678e63fc9ded6fcfbd7711ac",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/2/32a0c915da2498b77c318ad67bd1d733c79c3505.png": "bd69bb56ecc3f2effeb0452f86e89e7b7dca6b3a4a0aa24afdb75920dea9bb4e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3aa6492c56aa1fdc0656958bdc64f099f49b9512.jpeg": "b1fa150f8d3132c4657be4e9e09b7f134c6d46e652953e30e5cff8f72595a481",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/6/46de4fc1eea1d1d51e704a0b7672af4995d1baa4.png": "b925a006fb9ecb49cd9cd1d18cf2118eb17597e1e8af1401f8536937051918b2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/501639a068971cb4b2fb6b4e8249e951dba88f2a.png": "66725317cac39363bd62aa88e35357c15a1011f7062d2187ddc86d3f2b8942d6",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/601012e4de532572d531c4fea4aaf98b70db20c1.png": "791df9400c3f7c222b752c326660db957fd87dc68c1957a68e44bb6402a6f463",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/3/63a3a197837c7e7439651a5d5d07768fab3b0108.png": "6efaf031500580a66cf4efb5292d174d7ce59bd826378c871cbe1e629ce6269c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64d62852f82938d240e2e9b75664b4cd70d2c2d8.png": "9e12e6849e5800c51e250668e46b512124dc67c350fbfdda74f6df21bbe33be5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/9/89846d2a9e3ea2634015723163c01c427b28f74e.jpeg": "7a6a5cfe0a82b6f2c5d203b2d5b712e91a16096ba58ad582d5d39aaf8e6b45b5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a88726e9a2b9030a08188238e34929b2574e79b3.png": "b73eec2b618e5fc97460b50c43de617ca0c2baf795f2a32c431049603cd1bbb7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/da86c2541e08b521729e157431298c9a23c1463b.jpeg": "c27a022805e2b8dd9ae1007d039fb20b34e512d21de9ee0f9a8d189aaf5fcb03",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/a/ea25d166d1287e197fb19b9c4b9f9f3aa5378ba7.png": "4ffae698eb95459ac591e486969e657136aca97d019a7537e0ea03d5875e7fe2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/3/f3c97f717b07e95995f6c5193502938aa781b171.jpeg": "e4876fd7ca11dc0f917d54da336afa014c149b5fb0e3e3e03e05be4a0ff35cea",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f975102446d9d90a545a79e009f6212f3cd9d120.png": "1aeddbc1720279b4510555457256dd98739012da73a6e24d5e5707bd61727f1d"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/7241770c0244e5ed2c05ed0609c73f07b59ccf3b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              392,
+              457,
+              574,
+              485
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              416,
+              696,
+              589,
+              725
+            ],
+            "text": "sj.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              807,
+              83,
+              959,
+              108
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              107,
+              600,
+              312,
+              632
+            ],
+            "text": "VIP: 192.0.2.147",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              730,
+              343,
+              1099,
+              377
+            ],
+            "text": "\"routing_instance\": \"demo-vrf\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1140,
+              343,
+              1529,
+              377
+            ],
+            "text": "\"routing_instance\": \"demo-vrf\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1550,
+              343,
+              1977,
+              377
+            ],
+            "text": "\"routing_instance\": \"demo-vrf\",",
+            "size": 12
+          }
+        ],
+        "output_sha256": "e6f5314f7db9034f6c44349cce0bab8b0708e1782a79cb68184715618fbd6bd0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/187b508e08280b6bb4cbbbe58733142d37b6bfff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              973,
+              301,
+              1122,
+              323
+            ],
+            "text": "(192.0.2.1)",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              696,
+              578,
+              833,
+              602
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              342,
+              611,
+              524,
+              639
+            ],
+            "text": "demo-sj",
+            "size": 11
+          }
+        ],
+        "output_sha256": "4bb70a76e1c9878cf6b40ecfeebb951cbe39f8ffd0025b32596e317fc946f50c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1a2d434a217f80a645f75047e6408d6943790d5f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              811,
+              627,
+              916,
+              665
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1545,
+              628,
+              1641,
+              666
+            ],
+            "text": "192.0.2.41",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              811,
+              675,
+              916,
+              713
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1545,
+              675,
+              1641,
+              713
+            ],
+            "text": "192.0.2.41",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              811,
+              723,
+              916,
+              761
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1545,
+              731,
+              1646,
+              752
+            ],
+            "text": "198.51.100.78",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              811,
+              771,
+              916,
+              809
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              1545,
+              779,
+              1646,
+              800
+            ],
+            "text": "198.51.100.78",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              12,
+              0,
+              140,
+              26
+            ],
+            "text": "example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3197d3fb927c67a37a7ec54800f317e9a4189ef4df3f3cc8d94360abc67868e4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/217ea83042113f9ee8669f963390cdb77ca7e1a4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              244,
+              7,
+              290,
+              25
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              479,
+              303,
+              615,
+              326
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              813,
+              326,
+              950,
+              350
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              479,
+              363,
+              555,
+              386
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              479,
+              423,
+              567,
+              446
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              479,
+              483,
+              576,
+              506
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              762,
+              270,
+              948,
+              307
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              866,
+              228,
+              1028,
+              263
+            ],
+            "text": "https://london.example.com/",
+            "size": 9
+          }
+        ],
+        "output_sha256": "576d0ae00c135a21144329a5080896be42c7640f068754df1516e6c2948a78c1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/477936960ec11e06b92ffc7659376016414d9402.png": {
+        "labels": [
+          {
+            "rectangle": [
+              243,
+              11,
+              289,
+              30
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              876,
+              232,
+              1022,
+              273
+            ],
+            "text": "https://london.example.com/",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              778,
+              289,
+              897,
+              310
+            ],
+            "text": "global.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              478,
+              307,
+              614,
+              331
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              812,
+              331,
+              949,
+              355
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              478,
+              367,
+              554,
+              391
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              478,
+              427,
+              566,
+              451
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              478,
+              487,
+              575,
+              511
+            ],
+            "text": "demo-azure",
+            "size": 11
+          }
+        ],
+        "output_sha256": "403986a1d5a1a12de11b1ff8e45a1fdd5462f94c63c09d572b039c279086bca7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b8049bdfeeef86d6451e8fbf5f342a15b54d451.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              921,
+              355,
+              1059,
+              376
+            ],
+            "text": "https://sydney.example.com/",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              820,
+              387,
+              909,
+              407
+            ],
+            "text": "hello.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              852,
+              428,
+              954,
+              449
+            ],
+            "text": "hello.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "495ef8eec1a02553c64bec59f5941beb7f8f4181f7f6a77a374bfa35aec54312"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6337408adf8320bedb53e66cc45f223c342bfef6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              397,
+              306,
+              525,
+              329
+            ],
+            "text": "(192.0.2.1)",
+            "size": 13
+          },
+          {
+            "rectangle": [
+              1457,
+              662,
+              1554,
+              690
+            ],
+            "text": "demo-ny",
+            "size": 11
+          }
+        ],
+        "output_sha256": "4b3a8a7e23fdaba79130d31746d2a76993269235c3d20946fd07b1c4454f0363"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/658aeaae350a1b3f012cd2ed7b5ad5566c290d7f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              235,
+              6,
+              281,
+              24
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              331,
+              246,
+              385,
+              267
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1112,
+              243,
+              1249,
+              267
+            ],
+            "text": "global.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "e098ffbf9ab7f0d4f0ada2c2c7795c81d2329637365db638fc563ab7cbc75d6d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/689181721bbfca390c60d927a2709c715e3275a6.png": {
+        "labels": [
+          {
+            "rectangle": [
+              714,
+              612,
+              811,
+              633
+            ],
+            "text": "192.0.2.147",
+            "size": 11
+          }
+        ],
+        "output_sha256": "e6dc2c8909570c3a9154274066d1545cda8d1087a24814bd51d80200d6ada42b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7f14cdbd04ec605cdb4dc2298fd1f3e32b2a7a3d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              731,
+              588,
+              834,
+              610
+            ],
+            "text": "192.0.2.149",
+            "size": 12
+          }
+        ],
+        "output_sha256": "ca5b8ab823c29000b43d7708647a3588b1bbfd1abd24aee561a98cd6e3c7fb35"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8e3f29ab0aaae2969b5038667e1f343f09a24237.png": {
+        "labels": [
+          {
+            "rectangle": [
+              396,
+              531,
+              580,
+              559
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              421,
+              713,
+              595,
+              743
+            ],
+            "text": "sj.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              782,
+              76,
+              910,
+              104
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1135,
+              354,
+              1270,
+              379
+            ],
+            "text": "192.0.2.147",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1137,
+              387,
+              1272,
+              412
+            ],
+            "text": "192.0.2.149",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1401,
+              531,
+              1499,
+              559
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              782,
+              846,
+              896,
+              874
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1697,
+              695,
+              1832,
+              721
+            ],
+            "text": "192.0.2.149",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1105,
+              295,
+              1280,
+              332
+            ],
+            "text": "hello.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1422,
+              710,
+              1600,
+              738
+            ],
+            "text": "ny.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              160,
+              690,
+              345,
+              721
+            ],
+            "text": "VIP: 192.0.2.147",
+            "size": 12
+          }
+        ],
+        "output_sha256": "972bbec82c5e872bf3b05e7c29bcff730f719b18ffeaf4a7dfac8b4d1eccbca1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a77456cebd4c640f27b8949dcdf23b68c92b7e33.png": {
+        "labels": [
+          {
+            "rectangle": [
+              385,
+              501,
+              558,
+              537
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              423,
+              732,
+              588,
+              761
+            ],
+            "text": "sj.example.com",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              740,
+              78,
+              860,
+              106
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1071,
+              370,
+              1198,
+              395
+            ],
+            "text": "192.0.2.149",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1072,
+              338,
+              1199,
+              363
+            ],
+            "text": "192.0.2.147",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              740,
+              801,
+              847,
+              829
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1317,
+              505,
+              1409,
+              533
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1040,
+              293,
+              1210,
+              326
+            ],
+            "text": "hello.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1306,
+              703,
+              1490,
+              735
+            ],
+            "text": "ny.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              155,
+              650,
+              360,
+              685
+            ],
+            "text": "VIP: 192.0.2.147",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1567,
+              650,
+              1780,
+              682
+            ],
+            "text": "VIP: 192.0.2.149",
+            "size": 12
+          }
+        ],
+        "output_sha256": "345fdc8b6a05688ead67e3594fd4734cc154b75fa3bf5a3aa96bb33c3f006e2f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/aed2fed69402ae9e8bf471a4f2f9b16da69560a5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              237,
+              8,
+              284,
+              28
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              167,
+              356,
+              221,
+              377
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              187,
+              561,
+              282,
+              581
+            ],
+            "text": "192.0.2.41",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              186,
+              695,
+              322,
+              719
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              206,
+              929,
+              343,
+              953
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              968,
+              817,
+              1060,
+              846
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              166,
+              402,
+              490,
+              430
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              185,
+              874,
+              515,
+              903
+            ],
+            "text": "00000000-0000-4000-8000-000000000002",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              188,
+              665,
+              460,
+              690
+            ],
+            "text": "demo-tls-fingerprint",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              188,
+              641,
+              390,
+              660
+            ],
+            "text": "AS64512",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              925,
+              558,
+              1560,
+              592
+            ],
+            "text": "Demo browser",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              944,
+              718,
+              1130,
+              744
+            ],
+            "text": "192.0.2.41",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              185,
+              585,
+              330,
+              614
+            ],
+            "text": "Demo city",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              968,
+              817,
+              1060,
+              846
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              381,
+              145,
+              485,
+              169
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              220,
+              161,
+              333,
+              185
+            ],
+            "text": "192.0.2.41",
+            "size": 11
+          }
+        ],
+        "output_sha256": "e81fb7dd03fb0e061e4c8cd69025458af93de28a8f3090397dbf6440e4f5c816"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc6b77072159ee517775757723924ab55e88d178.png": {
+        "labels": [
+          {
+            "rectangle": [
+              362,
+              548,
+              536,
+              576
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              740,
+              77,
+              861,
+              105
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              737,
+              844,
+              845,
+              872
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1008,
+              292,
+              1230,
+              332
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1405,
+              547,
+              1528,
+              578
+            ],
+            "text": "demo-ny",
+            "size": 12
+          }
+        ],
+        "output_sha256": "a3ff9db03f0db3a8744b52ad69c6f7724c7df631348d6bbf56345b8708478d22"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cab1f7901e4cdfb9dfaf89d98ce18f7b4ec7681f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1310,
+              691,
+              1491,
+              727
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1310,
+              759,
+              1439,
+              787
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1310,
+              823,
+              1411,
+              852
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1310,
+              888,
+              1426,
+              916
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              330,
+              447,
+              523,
+              478
+            ],
+            "text": "demo/global-pool",
+            "size": 11
+          }
+        ],
+        "output_sha256": "9debb5a4c1e2bb6f83a049129120fb23508b751960a2e4af12b6fc77e24559ab"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cad36cac13c9f4ce8ca4789d7c11bb0b2c9bff8e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              236,
+              7,
+              283,
+              27
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              166,
+              397,
+              220,
+              418
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              186,
+              602,
+              276,
+              622
+            ],
+            "text": "198.51.100.85",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              185,
+              736,
+              273,
+              760
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              205,
+              970,
+              342,
+              994
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              166,
+              443,
+              490,
+              471
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              185,
+              915,
+              515,
+              944
+            ],
+            "text": "00000000-0000-4000-8000-000000000002",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              188,
+              682,
+              390,
+              701
+            ],
+            "text": "AS64512",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              925,
+              599,
+              1560,
+              633
+            ],
+            "text": "Demo browser",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              944,
+              759,
+              1130,
+              785
+            ],
+            "text": "198.51.100.85",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              185,
+              626,
+              330,
+              655
+            ],
+            "text": "Demo city",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              968,
+              858,
+              1060,
+              887
+            ],
+            "text": "demo",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              380,
+              186,
+              461,
+              213
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              185,
+              706,
+              490,
+              731
+            ],
+            "text": "demo-tls-fingerprint",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              220,
+              202,
+              333,
+              226
+            ],
+            "text": "198.51.100.85",
+            "size": 11
+          }
+        ],
+        "output_sha256": "9f56369d90d5b9195a75254af356c1a22050dc3483b8f9b12ceff65f4a422e47"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbf9097d2715fe66ab9daba2579cdb4b1e8eb942.png": {
+        "labels": [
+          {
+            "rectangle": [
+              241,
+              6,
+              287,
+              25
+            ],
+            "text": "demo",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              476,
+              302,
+              612,
+              326
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              476,
+              362,
+              552,
+              386
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              476,
+              422,
+              564,
+              446
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              476,
+              482,
+              573,
+              506
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              810,
+              326,
+              947,
+              350
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              771,
+              271,
+              959,
+              308
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              868,
+              226,
+              1043,
+              268
+            ],
+            "text": "https://london.example.com/",
+            "size": 9
+          }
+        ],
+        "output_sha256": "8dbaf8de9936f74a0bc708a40cb66eb8e44129db288c3557ebd81b3d02990197"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/f00b5cce0e6b6e327acffae495ff507ae207178a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              247,
+              11,
+              293,
+              29
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              482,
+              307,
+              618,
+              330
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              816,
+              322,
+              953,
+              359
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              367,
+              558,
+              390
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              427,
+              570,
+              450
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              487,
+              579,
+              510
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              766,
+              276,
+              957,
+              310
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              868,
+              226,
+              1043,
+              268
+            ],
+            "text": "https://tokyo.example.com/",
+            "size": 9
+          }
+        ],
+        "output_sha256": "76e27cef6149a6fe0e23452b6585aa157b3b3c7479b58b825603134abca6063c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/ff45e4bddc20c87df3c72958e4e7c136f8505e1f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              848,
+              415,
+              951,
+              454
+            ],
+            "text": "hello.example.com",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              917,
+              343,
+              1095,
+              379
+            ],
+            "text": "https://sydney.example.com/",
+            "size": 10
+          }
+        ],
+        "output_sha256": "4d87f4475eedf245d0d9383e56c72667455aaa0eb4580d40d9e6bb225a9777b6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/0/203a345ad87426fb130a4653bcad623bd128fb6a.png": {
+        "labels": [
+          {
+            "rectangle": [
+              240,
+              7,
+              286,
+              25
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              475,
+              303,
+              611,
+              326
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              809,
+              318,
+              946,
+              355
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              475,
+              363,
+              551,
+              386
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              475,
+              423,
+              563,
+              446
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              475,
+              483,
+              572,
+              506
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              766,
+              268,
+              955,
+              304
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              868,
+              226,
+              1043,
+              268
+            ],
+            "text": "https://london.example.com/",
+            "size": 9
+          }
+        ],
+        "output_sha256": "48c6378167f1ae1d0c13e75a182b27c16a98dce69241680afd0084d69e2652a4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/c/2ce26d2262fe9b124a60ff21d8be8083b225f61b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              247,
+              4,
+              293,
+              22
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              482,
+              300,
+              618,
+              323
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              816,
+              315,
+              953,
+              352
+            ],
+            "text": "global.example.com",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              360,
+              558,
+              383
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              420,
+              570,
+              443
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              482,
+              480,
+              579,
+              503
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              766,
+              262,
+              955,
+              298
+            ],
+            "text": "global.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              868,
+              226,
+              1043,
+              268
+            ],
+            "text": "https://tokyo.example.com/",
+            "size": 9
+          }
+        ],
+        "output_sha256": "b93df144df6c6d5999b1acfe7c414089118ac00ab81cbe4e63886a6a943227f5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/2/32a0c915da2498b77c318ad67bd1d733c79c3505.png": {
+        "labels": [
+          {
+            "rectangle": [
+              400,
+              292,
+              542,
+              328
+            ],
+            "text": "demo-key",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1090,
+              373,
+              1275,
+              412
+            ],
+            "text": "Edit demo-key",
+            "size": 17
+          },
+          {
+            "rectangle": [
+              537,
+              429,
+              637,
+              458
+            ],
+            "text": "\"demo-key\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1107,
+              595,
+              1200,
+              629
+            ],
+            "text": "demo-key",
+            "size": 12
+          }
+        ],
+        "output_sha256": "bd45cd6f86b84e467d67a5e72bb03353f95a003806fc1425d7128b0ed701a850"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/a/3aa6492c56aa1fdc0656958bdc64f099f49b9512.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              934,
+              355,
+              1083,
+              388
+            ],
+            "text": "https://sydney.example.com/",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              834,
+              392,
+              925,
+              412
+            ],
+            "text": "hello.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              867,
+              434,
+              972,
+              455
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          }
+        ],
+        "output_sha256": "447445167674a0d620fb7389708290ce73030e9bd741f673dee53ca95a286776"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/0/601012e4de532572d531c4fea4aaf98b70db20c1.png": {
+        "labels": [
+          {
+            "rectangle": [
+              128,
+              124,
+              214,
+              148
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1391,
+              602,
+              1487,
+              630
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1393,
+              818,
+              1572,
+              843
+            ],
+            "text": "ny.example.com",
+            "size": 15
+          },
+          {
+            "rectangle": [
+              1670,
+              758,
+              1930,
+              808
+            ],
+            "text": "VIP: 192.0.2.149",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              650,
+              338,
+              1070,
+              369
+            ],
+            "text": "\"routing_instance\": \"demo-vrf\",",
+            "size": 13
+          }
+        ],
+        "output_sha256": "4b80e180a07c4d9212ca27e43e4a7e043f892117b41c534dbe8d791202b66a98"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/3/63a3a197837c7e7439651a5d5d07768fab3b0108.png": {
+        "labels": [
+          {
+            "rectangle": [
+              755,
+              173,
+              891,
+              196
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              755,
+              221,
+              852,
+              244
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              755,
+              269,
+              831,
+              292
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              755,
+              317,
+              843,
+              340
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1107,
+              173,
+              1151,
+              196
+            ],
+            "text": "demo-key",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              1107,
+              221,
+              1151,
+              244
+            ],
+            "text": "demo-key",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              1107,
+              269,
+              1151,
+              292
+            ],
+            "text": "demo-key",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              1107,
+              317,
+              1151,
+              340
+            ],
+            "text": "demo-key",
+            "size": 7
+          }
+        ],
+        "output_sha256": "7c75f85d072424f2715c72e07e52ccc6cc0f6c79837fbe997909df5f2ce987cf"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64d62852f82938d240e2e9b75664b4cd70d2c2d8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              366,
+              534,
+              539,
+              562
+            ],
+            "text": "demo-sj",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              742,
+              74,
+              862,
+              102
+            ],
+            "text": "demo-azure",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              741,
+              829,
+              848,
+              857
+            ],
+            "text": "demo-aws",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              1404,
+              552,
+              1496,
+              580
+            ],
+            "text": "demo-ny",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              999,
+              286,
+              1240,
+              328
+            ],
+            "text": "global.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "bc6260dc555a5f7e4b5c52c8a8aad035ee18292c1166014ba5f19e4211415f46"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/9/89846d2a9e3ea2634015723163c01c427b28f74e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              925,
+              352,
+              1062,
+              373
+            ],
+            "text": "https://sydney.example.com/",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              823,
+              384,
+              912,
+              404
+            ],
+            "text": "hello.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              855,
+              425,
+              958,
+              446
+            ],
+            "text": "hello.example.com",
+            "size": 8
+          }
+        ],
+        "output_sha256": "a3070dcf531b5aedba960dc0b660b4ddd70e27483ec3979fbcccd38c4f82f58c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a88726e9a2b9030a08188238e34929b2574e79b3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              705,
+              616,
+              805,
+              640
+            ],
+            "text": "192.0.2.147",
+            "size": 13
+          }
+        ],
+        "output_sha256": "5632eb6ecd605dc246cba35aac0cd387280c88ca904cb148704f1f0c121dc103"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/a/da86c2541e08b521729e157431298c9a23c1463b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              145,
+              13,
+              277,
+              36
+            ],
+            "text": "global.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "30ddd77d1af03febce159a68a95378819fbf387097c7b438166d3ac4facfb6b1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/a/ea25d166d1287e197fb19b9c4b9f9f3aa5378ba7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              408,
+              559,
+              447,
+              580
+            ],
+            "text": "demo-key",
+            "size": 6
+          },
+          {
+            "rectangle": [
+              481,
+              392,
+              712,
+              428
+            ],
+            "text": "system/demo-aws",
+            "size": 12
+          }
+        ],
+        "output_sha256": "f8179a414efa2b25c0f0c1715ddfc3bf2b8dd5657edbdc954f2798d3a1e79933"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/3/f3c97f717b07e95995f6c5193502938aa781b171.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              845,
+              393,
+              937,
+              413
+            ],
+            "text": "hello.example.com",
+            "size": 7
+          },
+          {
+            "rectangle": [
+              878,
+              424,
+              984,
+              461
+            ],
+            "text": "hello.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              920,
+              337,
+              1100,
+              371
+            ],
+            "text": "https://sydney.example.com/",
+            "size": 10
+          }
+        ],
+        "output_sha256": "00042f3346b8ac7cc8f07030e7d888b9b91a455224b3b88e58d001f3eff61dd3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f975102446d9d90a545a79e009f6212f3cd9d120.png": {
+        "labels": [
+          {
+            "rectangle": [
+              579,
+              100,
+              716,
+              124
+            ],
+            "text": "global.example.com",
+            "size": 11
+          }
+        ],
+        "output_sha256": "6eb5b3fe10759064022a6fca993583053c700e4f1d00caca6aa6d76d67ff236f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e1aed13f1eeb18c324777039c61e6a357c0bfb1e.png": {
+        "labels": [
+          {
+            "rectangle": [
+              1120,
+              624,
+              1210,
+              652
+            ],
+            "text": "demo-key",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1150,
+              965,
+              1213,
+              998
+            ],
+            "text": "demo-key",
+            "size": 12
+          }
+        ],
+        "output_sha256": "23bee6a520d41bdd98fde168a0364cd4e0588dcde8adf3b9aea743d8aa73c4c5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/941a6e9b5aae1a5d98c5aabfd6f951f036a4a3ea.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "6d2d56401aa8a3eb9652a28fd4eb146e3a5d776ebcb46d116ad08aee09ec1159"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/5/0/501639a068971cb4b2fb6b4e8249e951dba88f2a.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "99cdee3913969c9bdd79fb7b636ba6955931f085c7bd56482961836085178caf"
       }
     }
   }
