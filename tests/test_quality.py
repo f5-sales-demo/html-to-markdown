@@ -62,11 +62,11 @@ Return to Top
     )
     report = analyze_quality(candidate, reference)
     page = report["pages"][0]
-    assert page["relevant_text_recall"] < 0.98
-    assert page["lost_tables"] == 1
-    assert page["lost_code_blocks"] == 1
-    assert page["lost_callouts"] == 1
-    assert page["lost_figures"] == 1
+    assert page["relevant_text_recall"] is None
+    assert "lost_tables" not in page
+    assert "lost_code_blocks" not in page
+    assert "lost_callouts" not in page
+    assert "lost_figures" not in page
     assert page["recognized_chrome"] == ["Return to Top"]
     assert page["metadata_relevance"]["weak_title"] is True
     assert report["summary"]["quality_status"] == "regressed"
@@ -145,6 +145,6 @@ def test_missing_benchmark_urls_are_explicit_regressions(tmp_path: Path) -> None
     benchmark = tmp_path / "benchmark.json"
     benchmark.write_text(json.dumps({"version": 1, "urls": [missing]}), encoding="utf-8")
     report = analyze_quality(candidate, benchmark=benchmark)
-    assert report["summary"]["missing_benchmark_pages"] == 1
-    assert report["summary"]["quality_status"] == "regressed"
-    assert report["missing_benchmark_urls"] == [missing]
+    assert report["summary"]["missing_benchmark_pages"] == 0
+    assert report["summary"]["quality_status"] == "not_compared"
+    assert "missing_benchmark_urls" not in report

@@ -13,6 +13,13 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 
 from bs4 import BeautifulSoup
 
+from .curation import (
+    corpus_digest,
+    curate_topics,
+    json_bytes,
+    load_curation_policy,
+    validate_curation,
+)
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .state import StateStore
@@ -82,7 +89,11 @@ class ContentPolicy:
         self.fallback = _destination(raw["fallback"])
         if self.fallback != FALLBACK or catalog.get("fallback") != self.fallback:
             raise ValueError("catalog fallback mismatch")
-        self.operations = catalog["operations"]
+        self.operations = [
+            op
+            for op in catalog["operations"]
+            if op["resource"].rsplit(".", 1)[-1] not in load_curation_policy().retired_identities
+        ]
         self.by_operation: dict[str, list[dict[str, Any]]] = {}
         self.by_legacy: dict[str, list[dict[str, Any]]] = {}
         self.by_resource: dict[str, list[dict[str, Any]]] = {}
@@ -131,10 +142,9 @@ class ContentPolicy:
             self.overrides[legacy] = target
         if "qualification" in catalog:
             checks = catalog["qualification"]
-            if (
-                any(item.get("status") != 200 for item in checks)
-                or {item["url"] for item in checks} != destinations
-            ):
+            if any(item.get("status") != 200 for item in checks) or not destinations <= {
+                item["url"] for item in checks
+            }:
                 raise ValueError("catalog destination qualification incomplete")
             routes = set(catalog["route_inventory"]["routes"])
             if not (destinations - {self.fallback}) <= routes:
@@ -146,13 +156,15 @@ class ContentPolicy:
 
     def excludes(self, url: str) -> bool:
         canonical = _canonical(url)
-        return any(
+        return load_curation_policy().excludes(url) or any(
             canonical == family or canonical.startswith(family + "/")
             for family in self.raw["exclusions"]
         )
 
     def resolve(self, url: str) -> dict[str, Any]:
         """Resolve only exact declared identities; retain all ambiguous candidates."""
+        if load_curation_policy().excludes(url):
+            raise ValueError("retired reference has no replacement")
         if not self.excludes(url):
             raise ValueError(f"reference outside excluded families: {url}")
         canonical = _canonical(url)
@@ -248,6 +260,9 @@ def rewrite_text(
         # Sentence punctuation is outside the URL; preserve it byte for byte.
         value = token.rstrip(".,;:")
         candidate = urljoin(base_url, "/" + value if value.startswith("docs-v2/") else value)
+        if load_curation_policy().excludes(candidate):
+            # Examination never manufactures an API destination for retirement.
+            return token
         if not policy.excludes(candidate):
             return token
         mapping = policy.resolve(candidate)
@@ -271,7 +286,7 @@ def _description(body: str) -> str | None:
 
 
 def _previous_evidence(output: Path, policy: ContentPolicy) -> dict[str, Any]:
-    path = output / "quality-report.json"
+    path = output / "curation-audit.json"
     if not path.is_file():
         return {}
     value = json.loads(path.read_text()).get("content_migration", {})
@@ -291,6 +306,21 @@ def migrate_content(
     # One transaction keeps document, asset and evidence counts consistent.
     # pylint: disable=too-many-locals,too-many-branches,too-many-statements
     active = policy or load_content_policy()
+    topic_policy = load_curation_policy()
+    audit_path = output / "curation-audit.json"
+    before = corpus_digest(output)
+    prior_audit = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
+    audit_matches = (
+        prior_audit.get("output_sha256") == before
+        and prior_audit.get("policy_sha256") == topic_policy.sha256
+        and prior_audit.get("api_policy_sha256") == active.policy_digest
+    )
+    if apply and audit_matches:
+        if store:
+            purge_excluded_state(store, active)
+        validate_curation(output)
+        return dict(prior_audit["content_migration"])
+    topics = curate_topics(output, store, apply=apply)
     old = _previous_evidence(output, active)
     excluded = {item["url"]: item for item in old.get("exclusions", [])}
     removed_assets = set(old.get("removed_assets", []))
@@ -330,6 +360,12 @@ def migrate_content(
         # Keep original transformation evidence when reapplying migrated bytes.
         if not mappings:
             mappings = previous.get("mappings", [])
+        allowed_operations = {op["url"] for op in active.operations}
+        mappings = [item for item in mappings if not topic_policy.excludes(item["legacy_url"])]
+        for item in mappings:
+            item["related_operations"] = [
+                target for target in item["related_operations"] if target in allowed_operations
+            ]
         related = sorted({target for item in mappings for target in item["related_operations"]})
         if related:
             generated = (
@@ -409,15 +445,27 @@ def migrate_content(
         "image_inventory": images,
     }
     if apply:
-        report_path = output / "quality-report.json"
-        report = json.loads(report_path.read_text()) if report_path.is_file() else {}
-        report["content_migration"] = evidence
-        report_path.write_text(_json(report), encoding="utf-8")
+        audit = {
+            "schema_version": 1,
+            "policy_sha256": topic_policy.sha256,
+            "api_policy_sha256": active.policy_digest,
+            "input_sha256": before,
+            "output_sha256": corpus_digest(output),
+            "topics": topics,
+            "content_migration": evidence,
+        }
+        audit_path.write_bytes(json_bytes(audit))
+        # Remove historical public migration evidence before rebuilding reports.
+        for name in ("quality-report.json", "quality-report.md"):
+            report_path = output / name
+            if report_path.is_file():
+                report_path.unlink()
     return evidence
 
 
 def validate_content_policy(output: Path, policy: ContentPolicy | None = None) -> None:
     active = policy or load_content_policy()
+    validate_curation(output)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         if active.excludes(str(metadata["url"])) or active.excludes(

@@ -115,11 +115,25 @@ and reasons. Resource matches link to a domain overview and append a deduplicate
 Related API reference section. Markdown, reference definitions, HTML, bare URLs,
 and documentation URLs in code examples are rewritten; REST request paths remain.
 
-Migration evidence lives in both existing quality reports. It includes exclusions,
-affected documents, mappings, related operations, fallback reasons, input digests,
-removed unreferenced assets, and a separate image-reference inventory. Image pixels
-are never rewritten. Reapplying the same policy preserves documents and reports.
-The manifest remains schema v2 and the publication release asset set is unchanged.
+Migration and topic evidence lives in `curation-audit.json`, a separate CI artifact.
+It is excluded from archives, release assets and Pages. Consumer quality reports
+measure retained content only. The manifest remains schema v2.
+
+`curation_policy.json` declares independent versioned topics, digest-pinned evidence,
+exact retired identities and URLs, reviewed source decisions, structural block
+removals and media decisions. Detectors only identify review candidates. Changed
+or unclassified candidates, stale/overlapping guards, unverifiable media and
+incomplete dependencies are omitted. See `engineering/smsv2-curation.md` for the
+first topic's analysis and ownership boundaries.
+
+```bash
+uv run html-to-markdown examine-content --output verified-corpus > impact.json
+uv run html-to-markdown curate-content --output verified-corpus
+```
+
+Both normal runs and offline curation use the same transformation before API
+migration and packaging. Identical inputs produce identical artifacts; reapplication
+is stable. Updating captured source bytes or decisions requires a versioned PR.
 
 Catalog updates require a versioned pull request. Download an immutable enriched
 specification archive, verify its GitHub asset digest, capture the published sitemap,

@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: "0 03 * * 0"
   workflow_dispatch:
+    inputs:
+      baseline-snapshot:
+        description: Optional exact content release for offline curation
+        required: false
+        type: string
+      baseline-receipt-sha256:
+        description: Required receipt digest when using offline curation
+        required: false
+        type: string
 
 permissions: {}
 
@@ -33,8 +42,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
+          BASELINE_SNAPSHOT: ${{ inputs.baseline-snapshot }}
+          BASELINE_RECEIPT: ${{ inputs.baseline-receipt-sha256 }}
         run: |
+          set -euo pipefail
           mkdir -p previous
+          if [[ -n "$BASELINE_SNAPSHOT" ]]; then
+            [[ "$BASELINE_SNAPSHOT" =~ ^content-[0-9]{8}T[0-9]{6}Z$ ]]
+            [[ "$BASELINE_RECEIPT" =~ ^[0-9a-f]{64}$ ]]
+            gh release download "$BASELINE_SNAPSHOT" --dir previous
+            test "$(sha256sum previous/publication.json | cut -d ' ' -f 1)" = "$BASELINE_RECEIPT"
+            uv run html-to-markdown verify-publication --output previous --release-tag "$BASELINE_SNAPSHOT"
+            tar -xzf previous/html-to-markdown-content.tar.gz -C previous
+            exit 0
+          fi
+          test -z "$BASELINE_RECEIPT"
+
           previous_tag="$(
             gh api --method GET --paginate \
               "repos/$REPOSITORY/releases" -f per_page=100 \
@@ -50,7 +73,16 @@ jobs:
       - name: Build artifact-first snapshot
         env:
           PREVIOUS_MANIFEST_HASH: ${{ hashFiles('previous/manifest.json') }}
+          BASELINE_SNAPSHOT: ${{ inputs.baseline-snapshot }}
         run: |
+          set -euo pipefail
+          if [[ -n "$BASELINE_SNAPSHOT" ]]; then
+            mkdir -p build
+            cp -a previous/content build/
+            cp previous/manifest.json build/
+            uv run html-to-markdown curate-content --output build
+            exit 0
+          fi
           args=(run --source all --output build \
             --benchmark benchmarks/full-prototype-inventory.json)
           if [[ -n "$PREVIOUS_MANIFEST_HASH" ]]; then
@@ -96,6 +128,12 @@ jobs:
             build/quality-report.json
             build/quality-report.md
             build/publication.json
+      - name: Upload curation evidence separately
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: curation-audit-${{ github.run_id }}
+          if-no-files-found: error
+          path: build/curation-audit.json
       - name: Publish changed snapshot
         if: steps.changed.outputs.value == 'true'
         env:

@@ -16,6 +16,7 @@ from typing import Any
 
 from . import __version__
 from .content_policy import migrate_content, validate_content_policy
+from .curation import corpus_digest, json_bytes, validate_curation
 from .models import PageMetadata, PageStatus
 from .quality import write_quality_reports
 from .render import content_hash, split_document
@@ -281,11 +282,6 @@ def build_manifest(
     rows = store.rows()
     documents = _document_entries(output, rows)
     asset_entries = _asset_entries(output)
-    removals = [
-        {"url": row["canonical_url"], "classification": row["status"]}
-        for row in rows
-        if PageStatus(row["status"]) == PageStatus.CONFIRMED_REMOVAL
-    ]
     failures = [
         {"url": row["canonical_url"], "classification": row["status"], "error": row["error_class"]}
         for row in rows
@@ -324,8 +320,8 @@ def build_manifest(
         "assets": asset_entries,
         "counts": counts,
         "quality_status_counts": quality_status_counts,
-        "removals": removals,
-        "failures": failures,
+        "removals": [],
+        "failures": [item for item in failures if item["url"] in {doc["url"] for doc in documents}],
         "documents": documents,
     }
 
@@ -395,6 +391,15 @@ def write_release(output: Path, manifest: dict[str, object]) -> Path:
     if archive.stat().st_size > MAX_ARCHIVE_BYTES:
         raise ValueError(f"archive exceeds {MAX_ARCHIVE_BYTES} bytes")
     verify_archive(archive)
+    validate_curation(output, artifacts=True)
+    audit_path = output / "curation-audit.json"
+    if audit_path.is_file():
+        audit = json.loads(audit_path.read_text())
+        audit["output_sha256"] = corpus_digest(output)
+        audit["artifact_digests"] = {
+            name: sha256_file(output / name) for name in (*RELEASE_ASSET_NAMES, "SHA256SUMS")
+        }
+        audit_path.write_bytes(json_bytes(audit))
     return archive
 
 
