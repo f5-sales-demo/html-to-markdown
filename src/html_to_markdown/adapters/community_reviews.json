@@ -12852,7 +12852,675 @@
   "75486": {
     "article_hash": "cfb0258d20e2c3173b6c7d8ba6480177ddb82d69419a6e822a0d78d9c23d941f",
     "decision": "include",
-    "reason": "Includes substantive Distributed Cloud AppStack Kasm deployment and WAAP exposure"
+    "reason": "Includes substantive Distributed Cloud AppStack Kasm deployment and WAAP exposure",
+    "text_replacements": {
+      "nodes": {
+        "e955ea81c2e55d0c15d892e700c0dc49a37559696c9724e4dcf99a509d99af2e": "kasmn.example.com",
+        "de7e0552c54ad04c87adf530a24c61f27b5aee27778cf4c0fbf4672b12823971": "kubectl create secret tls tls-secret --cert=/home/demo/certificates/combined-cert.pem --key=/home/demo/certificates/combined-key.pem\n",
+        "7ff0c152e81d7d67ecee75756719feb872eae5cb6720ea103bbd70465df560bc": "example.com",
+        "97cb7f662d6fe218e8821680c77745c0ca037d446a1185aabd1e6e208ce032d4": "http://kasmn.example.com",
+        "3c9be0f980cc71b76ba7872a6abd604bf1e7f47a24f471201437a5b15aef7153": "http://example.com"
+      },
+      "output_sha256": "705ceb1b9d89028d5a294138de6793895c02f9a91c9f2518f938c6e2f9d92e96"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Full first-post prose and all 31 static images reviewed. Personal paths, shell identity, namespace, tenant, object labels, domains and profile portrait replaced or removed; public service IP uses RFC 5737. Lab private topology retained. All three deployment methods, Helm commands and output, VirtualServer template, TLS, health-check API, CE origin discovery, dual origin pools, WAF, WebSocket upgrade and application dashboards preserved. No credential bytes published; image metadata stripped.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/68c49476a913adc57a92dd8982d17b5aae6b9956.png": "1e30ced066f1515c13a3551c622aac5656b2f0b7db970c3910627275185eeaa7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/76d35b257894180b8f057433ccde31d4a749897e.png": "c0d935d2bcfd928b38212b88ba8b7caf8aeaaa14a6fa9e1affa7e30f148371e4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0785a62db6cd3a03dc9459df803c41b9aac69301.png": "e54e09411b055ef3bf21cb29a2c8e95099aa00eb593838185580a2b94922e136",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1380d7d79b117ff81a6955bbe006d8b2a82fd69d.png": "e9b0d4a30cc91e3fb2939a03c46fa128a3ab28e4f9beb74124d12db51ed88b58",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/239dbad32f816dcf1f76ba43db4579a791549522.png": "1dd8a60d2b5b6d4d298d59902b27ab7463831c9cd1f258da265c61f4d36ba2f4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/293e598f8e1dade1c3424db10f08ec9b6acb30c6.jpeg": "a6b290c05256fd3dd20133b842c19b6e181a6503fa57e2cec91c66e07c1c2624",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d6b223c69e853ef51b7ad00c1f41dce2d196efc.png": "5dbe306a8302cf0b710b46576cc8ed223de88b07eae9781e90ed7f1d5632fea5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d8baa85cdb4372e1718b57a623805f68fd352f5.png": "ee7a63cb7787c9641607ca000e3f077a81c4cef1feaf9ddd0b7927c0b633aab5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31d193604a4f5f025f5b71b41a510757451888aa.png": "15d7898ada7872afdf1491061417e2a152c7fa747dd4ad1856004941b93c50c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/420a13597ebcc07c73252be1e7df65ee6cdcfb6b.png": "47aec8490aecd1644babfe4953b1dde5dbd0f86ff1bcc3ba71d9bf2b4e6fc020",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b56c074b36e852971f51e5c095569b56cb662c2.jpeg": "adf8d734f85f29dee5f787afd5b3428f160ddf3659a0ebd00f6a5cc853c1425c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54cce7cf88fd8ce83395306f9699b8d2a34580a8.png": "c860430086497ec389a02c55f9fc7cd522658a5bdffb606fb534a16180b6012e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7753bf7338ed6faf9bf4b157f9ffcf9f4d96508f.png": "3b1a7618810731824c4cd6212f50979ec6edc7676284bc06f758c1ea19b693a8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a1d3370ad67c5238468c35201041a9bda8566a64.png": "81d4c4b4c8bfbdc01ab4df73106e8f03a71a6bf8e73a49156474a1a6f184f8bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a367859d8bb21240bbf0c851924620d44a317ee9.png": "be0f2e7fd3520ca3b3d70b4a956b6605056a6b53f80170d234f80197872f7a40",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b12f0b54cf6522f608641142021575c3410ec823.jpeg": "f4622810b8215fb70ae20c31a80d8ba43cc08c74ccd6bde4836e7da1927b8038",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdae18fae86cdf0608f97d30a65d6fef104c01ff.png": "a3bf03deb6ca44efbd39290a31d3b52e2acb15108141bc7c95bd47eb20e16e44",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbd8802b16cac38aa014e019b2cb63fc7b0104ae.png": "694e4ca861fbe31bb276aa4dfb20b0b27fc901e0026ac7458cbbe00adc2506a3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0cc605c0be5ab5b293bc51d1f3a4ea9971aad40f.png": "d7d65e8dfceb03bdba6e0e2e500f17838781d127b23aab4aff4a966f1c3c68a1",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64607f4caf420867990133097b8eae73cefaae83.jpeg": "f9e1aaee4088356a4a27eed5ea18a8af8283add0eb317c97a8ab1d6a2698d4c5",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c8e2bb7e5ed31d1543483203e8b58b37065410f.png": "5f5ba09ab389472dd05da433bf592d62eed35ad5c1d08aeb4fe2ba2d7272465a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/0/808127868989a7749c1c2f6dcc1c8adb020dc6fb.png": "ec48d23718e8d48ddcf3a5b80428b0f96946558f4a9133ac0830cd0a5bb413e7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8eb4ea737b4ea2b514f9595e949c9fe2baba788d.png": "d9961156ae5cbeb4c8c01ca1e4feca88dbd1d8a1c4c35028adb3be69bbb71860",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/8/9871c520dd4cf16eecbeb9da24821efbeca47585.png": "51787e0050b28d4317c9e58467dd0008af8b32a512992a6117cab5f8e1f6795c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/b/9be2ba1c181e47fa97b5268322198dcdfa1d3bc5.png": "9196f9c42c27ad36cc9dd81e01446e34dc129dc9ccb15dccfd3be0d94b2c3443",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/3/a3512dcdb1526a1e0f1ff2fc41b645314d740947.png": "84934abdb38057f3a120f33973cfad6a191e29e05a0ebe39db58a3181433ee11",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/f/bfdca5719f30249173b30c613ed49f03f2fd3860.png": "2f655967984ffe4aa75360cf849d7c0257ed4a4563f232334891274a04f40f47",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/eef881571e994c44ae9b07f141198a7ba44c1d87.jpeg": "112d95383ed11ff18ce0d1302b7f27234100af4ae6be9a0102690ad6157a687f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/1/f1c29975afcb10e556540f130c3f26ab1334a995.png": "e58aaa1b15cea8123d55e0ca14a27f9408671941fc08369034d15e311fe89d43",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/6/f6fcea6500e59302e8324166d941a30dcb473e88.png": "18ce652ce247cabfbb60eec3a8e69044cf0360c4e035b9b23b3d7368298e93da",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/9/f913b5f6c55cec4f58724d027329320530f7949d.png": "e38b3258ac3b108ec0d878207dddb6e9e1909f7f371c7b1b11c1add1671c44f2"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/68c49476a913adc57a92dd8982d17b5aae6b9956.png": {
+        "labels": [
+          {
+            "rectangle": [
+              28,
+              70,
+              263,
+              96
+            ],
+            "text": "demo-kasm-healthcheck",
+            "size": 14
+          }
+        ],
+        "output_sha256": "26cff3ac3eba37f33826b5f51dec96afbe8d3670a6f69c269672f695f3977791"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1380d7d79b117ff81a6955bbe006d8b2a82fd69d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              219,
+              776,
+              482,
+              799
+            ],
+            "text": "demo@workstation Repos %",
+            "size": 12
+          }
+        ],
+        "output_sha256": "6d16512dc621aa0b21ca24da300a76b2ac16845ec4b284d9455c7ff142fa5711"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/239dbad32f816dcf1f76ba43db4579a791549522.png": {
+        "labels": [
+          {
+            "rectangle": [
+              25,
+              30,
+              133,
+              51
+            ],
+            "text": "demo-kasm-lb",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              114,
+              95,
+              250,
+              119
+            ],
+            "text": "ves-io-demo-kasm",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              130,
+              348,
+              304,
+              370
+            ],
+            "text": "kasm.xc.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "dd795ac8d85e90264cc425b0004234be8c4d9d3e142f902dbf39fc2d17a3067e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/293e598f8e1dade1c3424db10f08ec9b6acb30c6.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              152,
+              10,
+              420,
+              39
+            ],
+            "text": "kasm.xc.example.com/#/login",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              155,
+              369,
+              355,
+              396
+            ],
+            "text": "admin@example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "81f7a99094da27ea021ecfd7fe8a7ddff9b43269ef7712581d5d09bd443264f7"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2d8baa85cdb4372e1718b57a623805f68fd352f5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              473,
+              237,
+              653,
+              260
+            ],
+            "text": "demo-nutanix-onprem",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              53,
+              765,
+              247,
+              794
+            ],
+            "text": "demo-kasm-healthcheck",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              433,
+              765,
+              598,
+              794
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              836,
+              765,
+              999,
+              794
+            ],
+            "text": "demo-tenant",
+            "size": 14
+          }
+        ],
+        "output_sha256": "1e428d7fb23edcc05ddf1982f7126da5f134e22dd689eb0845f60f31ec1c328f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31d193604a4f5f025f5b71b41a510757451888aa.png": {
+        "labels": [
+          {
+            "rectangle": [
+              467,
+              172,
+              625,
+              199
+            ],
+            "text": "demo-aks-cluster",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              50,
+              701,
+              242,
+              731
+            ],
+            "text": "demo-kasm-healthcheck",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              431,
+              701,
+              589,
+              731
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              831,
+              701,
+              995,
+              731
+            ],
+            "text": "demo-tenant",
+            "size": 14
+          }
+        ],
+        "output_sha256": "688e3c10cbaea154ad60b0563df49cf2752361d44d20d6ba5f0ee573f826306d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/420a13597ebcc07c73252be1e7df65ee6cdcfb6b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              43,
+              3,
+              834,
+              33
+            ],
+            "text": "demo@workstation Repos % cd nginx-ingress",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              43,
+              31,
+              834,
+              61
+            ],
+            "text": "demo@workstation nginx-ingress % kubectl get pod",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              43,
+              87,
+              834,
+              117
+            ],
+            "text": "demo@workstation nginx-ingress % kubectl get secret",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              43,
+              199,
+              834,
+              229
+            ],
+            "text": "demo@workstation nginx-ingress %",
+            "size": 20
+          }
+        ],
+        "output_sha256": "6f5b828361c493c7b21a523fba378e51663ba158db119aad0f57e92134d52523"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b56c074b36e852971f51e5c095569b56cb662c2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              205,
+              9,
+              562,
+              40
+            ],
+            "text": "https://kasm.example.com/#/userdashboard",
+            "size": 12
+          }
+        ],
+        "output_sha256": "1b9cac06ec2148e249475d777bbf13e54a6c699fb2535e417eb589aa3a2039af"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/54cce7cf88fd8ce83395306f9699b8d2a34580a8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              133,
+              120,
+              283,
+              152
+            ],
+            "text": "demo-kasm-lb",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              364,
+              120,
+              483,
+              152
+            ],
+            "text": "demo",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              1282,
+              120,
+              1467,
+              152
+            ],
+            "text": "kasm.xc.example.com",
+            "size": 14
+          }
+        ],
+        "output_sha256": "8d10ed9f83dca4f6e4cba7bdb2d79efe24caed6232d71653a56f703f058f7aec"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7753bf7338ed6faf9bf4b157f9ffcf9f4d96508f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              223,
+              188,
+              354,
+              210
+            ],
+            "text": "demo-kasm-onprem",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              223,
+              227,
+              352,
+              249
+            ],
+            "text": "demo-kasm-aks",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              75,
+              560,
+              269,
+              583
+            ],
+            "text": "demo/demo-waaf",
+            "size": 12
+          }
+        ],
+        "output_sha256": "873422e9a89960a9feae9b71057b739819c129d9af67e101874e3427063ef757"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a367859d8bb21240bbf0c851924620d44a317ee9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              277,
+              609,
+              442,
+              638
+            ],
+            "text": "demo-aks-cluster",
+            "size": 14
+          },
+          {
+            "rectangle": [
+              277,
+              671,
+              465,
+              698
+            ],
+            "text": "demo-nutanix-onprem",
+            "size": 14
+          }
+        ],
+        "rectangles": [
+          [
+            1847,
+            7,
+            1904,
+            50
+          ]
+        ],
+        "output_sha256": "7a68c953c26b888c5d4fe2653a815a051a4eacc4f815de3eb09d2617fc0c9bcb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/b12f0b54cf6522f608641142021575c3410ec823.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              222,
+              10,
+              556,
+              40
+            ],
+            "text": "https://kasm.example.com/#/login",
+            "size": 12
+          }
+        ],
+        "output_sha256": "3c677af15c7791036de667bcc2919531234a481191d94e1da9af46a8249d8f34"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/cdae18fae86cdf0608f97d30a65d6fef104c01ff.png": {
+        "labels": [
+          {
+            "rectangle": [
+              29,
+              0,
+              496,
+              29
+            ],
+            "text": "demo@workstation nginx-ingress %",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              28,
+              31,
+              1950,
+              62
+            ],
+            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/demo/.kube/config",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              28,
+              59,
+              1950,
+              90
+            ],
+            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/demo/.kube/config",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              29,
+              423,
+              547,
+              454
+            ],
+            "text": "demo@workstation nginx-ingress %",
+            "size": 20
+          }
+        ],
+        "output_sha256": "0ee9aac4587fd97210cce3498758d1401015a8bdac36836e6af2008ac134ce78"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/c/0cc605c0be5ab5b293bc51d1f3a4ea9971aad40f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              217,
+              15
+            ],
+            "text": "demo@workstation kasm-helm %",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              14,
+              804,
+              29
+            ],
+            "text": "WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/demo/.kube/config",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              0,
+              28,
+              804,
+              43
+            ],
+            "text": "WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/demo/.kube/config",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              206,
+              253,
+              374,
+              267
+            ],
+            "text": "https://kasmn.example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              206,
+              282,
+              367,
+              296
+            ],
+            "text": "admin@example.com",
+            "size": 9
+          },
+          {
+            "rectangle": [
+              206,
+              296,
+              367,
+              310
+            ],
+            "text": "user@example.com",
+            "size": 9
+          }
+        ],
+        "rectangles": [
+          [
+            0,
+            310,
+            804,
+            313
+          ]
+        ],
+        "output_sha256": "1713beac1c69a78e68793f8a9a2d023fb13282285f3ea413fa9de777277fa3e9"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/6/4/64607f4caf420867990133097b8eae73cefaae83.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              433,
+              1198,
+              1184,
+              1235
+            ],
+            "text": "demo@workstation Repos % cd kasm-helm",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              433,
+              1225,
+              1184,
+              1262
+            ],
+            "text": "demo@workstation kasm-helm % cd kasm-single-zone",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              433,
+              1254,
+              1184,
+              1291
+            ],
+            "text": "demo@workstation kasm-single-zone %",
+            "size": 24
+          }
+        ],
+        "output_sha256": "63015a5346c457ee52d4b4f4c384d99276bc3a965f2ee30fe13e0ee8c3c4342e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/c/7c8e2bb7e5ed31d1543483203e8b58b37065410f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              73,
+              428,
+              105
+            ],
+            "text": "demo@workstation Repos %",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              47,
+              188,
+              428,
+              218
+            ],
+            "text": "demo@workstation Repos %",
+            "size": 20
+          },
+          {
+            "rectangle": [
+              924,
+              156,
+              1136,
+              188
+            ],
+            "text": "192.0.2.19",
+            "size": 20
+          }
+        ],
+        "output_sha256": "9999b96fa978fe7010e66dbdebc09d68f7585858d361dd67b97dbcb0f1dee0dd"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/e/8eb4ea737b4ea2b514f9595e949c9fe2baba788d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              249,
+              717,
+              444,
+              742
+            ],
+            "text": "demo-kasm-onprem-pool",
+            "size": 12
+          }
+        ],
+        "output_sha256": "9e2cc6577cb5f3752771c67a4b3c175269057d3cd599dc094098218cc23cc947"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/f/bfdca5719f30249173b30c613ed49f03f2fd3860.png": {
+        "labels": [
+          {
+            "rectangle": [
+              659,
+              206,
+              782,
+              227
+            ],
+            "text": "demo-kasm-onprem",
+            "size": 10
+          }
+        ],
+        "output_sha256": "b54497e4b9fd925d0bf41aee986d2d233e918941c3a0a2389245e7265239f95c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/e/eef881571e994c44ae9b07f141198a7ba44c1d87.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              227,
+              8,
+              467,
+              36
+            ],
+            "text": "kasmn.example.com/#/dashboard",
+            "size": 12
+          }
+        ],
+        "output_sha256": "08461740d031a74a2ac7b895e2da6d04b910765b3af08751c24be6e97ce41615"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/f/6/f6fcea6500e59302e8324166d941a30dcb473e88.png": {
+        "labels": [
+          {
+            "rectangle": [
+              30,
+              220,
+              222,
+              243
+            ],
+            "text": "/Common/kasm.example.com",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              30,
+              310,
+              222,
+              333
+            ],
+            "text": "/Common/kasm.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "0d9ce60281d2e1285ce29399a5b8b4967c80412efffbf3e6010abf3fb52480c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/dbd8802b16cac38aa014e019b2cb63fc7b0104ae.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "4e23fa8454adbaddd0f7b4da5609c189070d9b0829510d9ac79b30844999850a"
+      }
+    }
   },
   "75550": {
     "article_hash": "4960727afcfbdc2bf40ae2ee24af60263566a5656bed297be030a95f8002fc34",
