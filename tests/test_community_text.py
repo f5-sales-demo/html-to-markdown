@@ -3,6 +3,7 @@
 import hashlib
 
 import pytest
+from bs4 import BeautifulSoup
 
 from html_to_markdown.community_text import reviewed_text
 from html_to_markdown.errors import PublicationBlockedError
@@ -39,7 +40,6 @@ def test_invalid_replacements(policy):
 
 
 def test_reviewed_placeholder_repair_survives_fenced_markdown():
-    from bs4 import BeautifulSoup
 
     broken = 'certificate_url = "string:///<base64 encoding="" of="" public="" key="">"\n}</base64>'
     fixed = 'certificate_url = "string:///<base64-encoded-public-key>"\n}'

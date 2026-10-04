@@ -4,9 +4,15 @@ import hashlib
 import io
 
 import pytest
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
+from PIL.PngImagePlugin import PngInfo
 
-from html_to_markdown.community_media import reviewed_media
+from html_to_markdown.community_media import (
+    encode_exact_gif,
+    reviewed_media,
+    strip_gif_metadata,
+    transform_animation,
+)
 from html_to_markdown.errors import PublicationBlockedError
 
 URL = "https://community.f5.com/diagram.png"
@@ -30,7 +36,6 @@ def test_unchanged_approved_media():
 def test_redaction_replaces_pixels_and_strips_metadata():
     content = image_bytes()
     expected = Image.new("RGB", (10, 10), "red")
-    from PIL import ImageDraw
 
     ImageDraw.Draw(expected).rectangle((0, 0, 4, 4), fill="white")
     output = io.BytesIO()
@@ -70,7 +75,6 @@ def test_bad_redactions_fail_closed(rectangles):
 
 
 def test_metadata_only_policy_preserves_pixels_and_binds_output():
-    from PIL.PngImagePlugin import PngInfo
 
     image = Image.new("RGB", (10, 10), "blue")
     metadata = PngInfo()
@@ -147,7 +151,6 @@ def test_animated_media_transform_cannot_discard_later_frames():
 
 
 def test_reviewed_label_preserves_diagram_relationships():
-    from PIL import ImageDraw, ImageFont
 
     image = Image.new("RGB", (160, 40), "blue")
     source = io.BytesIO()
@@ -202,7 +205,6 @@ def test_malformed_labels_fail_closed(labels):
 
 
 def test_gif_metadata_removal_preserves_all_frames_and_timing():
-    from html_to_markdown.community_media import strip_gif_metadata
 
     source = io.BytesIO()
     Image.new("RGB", (10, 10), "blue").save(
@@ -249,14 +251,12 @@ def test_gif_metadata_removal_preserves_all_frames_and_timing():
 
 @pytest.mark.parametrize("content", [b"", b"GIF89a", b"GIF89a" + bytes(20)])
 def test_invalid_gif_metadata_transform_fails_closed(content):
-    from html_to_markdown.community_media import strip_gif_metadata
 
     with pytest.raises(ValueError):
         strip_gif_metadata(content)
 
 
 def test_gif_unknown_application_metadata_is_removed():
-    from html_to_markdown.community_media import strip_gif_metadata
 
     source = io.BytesIO()
     Image.new("RGB", (10, 10), "blue").save(source, format="GIF")
@@ -269,7 +269,6 @@ def test_gif_unknown_application_metadata_is_removed():
 
 
 def test_frame_preserving_transform_keeps_pixels_timing_and_loop():
-    from html_to_markdown.community_media import transform_animation
 
     frames = [Image.new("RGB", (20, 20), color) for color in ("blue", "red", "green")]
     stream = io.BytesIO()
@@ -312,7 +311,6 @@ def test_frame_preserving_transform_keeps_pixels_timing_and_loop():
 
 
 def test_animation_transform_rejects_invalid_input_and_unsafe_policy():
-    from html_to_markdown.community_media import transform_animation
 
     with pytest.raises(ValueError, match="animated GIF"):
         transform_animation(image_bytes(), {"rectangles": [[0, 0, 1, 1]]})
@@ -321,7 +319,6 @@ def test_animation_transform_rejects_invalid_input_and_unsafe_policy():
 
 
 def test_animation_transform_rejects_collapsed_frames():
-    from html_to_markdown.community_media import transform_animation
 
     stream = io.BytesIO()
     Image.new("RGB", (20, 20), "blue").save(
@@ -360,7 +357,6 @@ def test_animation_policy_rejects_conflicting_format_and_bad_coordinates():
 
 
 def test_animation_without_loop_plays_once():
-    from html_to_markdown.community_media import transform_animation
 
     stream = io.BytesIO()
     Image.new("RGB", (20, 20), "blue").save(
@@ -375,7 +371,6 @@ def test_animation_without_loop_plays_once():
 
 
 def test_exact_palette_animation_preserves_pixels_and_gif_loop():
-    from html_to_markdown.community_media import transform_animation
 
     stream = io.BytesIO()
     Image.new("RGB", (40, 40), "blue").save(
@@ -406,7 +401,6 @@ def test_exact_palette_animation_preserves_pixels_and_gif_loop():
 
 
 def test_exact_gif_rejects_transparency_and_excess_colors():
-    from html_to_markdown.community_media import encode_exact_gif
 
     with pytest.raises(ValueError, match="opaque"):
         encode_exact_gif([Image.new("RGBA", (2, 2), (1, 2, 3, 0))], [100], 0)
@@ -423,7 +417,6 @@ def test_exact_gif_rejects_transparency_and_excess_colors():
 
 
 def test_animation_frame_specific_labels_preserve_other_frames():
-    from html_to_markdown.community_media import transform_animation
 
     source = io.BytesIO()
     Image.new("RGB", (160, 40), "blue").save(
@@ -472,7 +465,6 @@ def test_animation_frame_specific_labels_preserve_other_frames():
 
 @pytest.mark.parametrize("frames", [[], {"2": {}}, {"-1": {}}, {"01": {}}, {"0": None}])
 def test_animation_frame_policies_reject_unapplied_targets(frames):
-    from html_to_markdown.community_media import transform_animation
 
     source = io.BytesIO()
     Image.new("RGB", (10, 10), "blue").save(

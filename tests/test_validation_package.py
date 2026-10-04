@@ -157,4 +157,4 @@ def test_local_image_title_does_not_become_part_of_asset_path(tmp_path: Path, ti
     )
     document = tmp_path / "index.md"
     document.write_text(serialize_document(metadata, f'![Diagram](diagram.png "{title}")\n'))
-    assert validate_document(document) == []
+    assert not validate_document(document)

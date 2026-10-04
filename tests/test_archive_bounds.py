@@ -23,13 +23,13 @@ def test_read_archive_boundary(tmp_path, monkeypatch, field, bound):
             info.size = len(data)
             archive.addfile(info, io.BytesIO(data))
     monkeypatch.setattr(package, field, bound)
-    assert package._read_archive_files(path) == {
+    assert vars(package)["_read_archive_files"](path) == {
         "manifest.json": b"abc",
         "quality-report.json": b"defg",
     }
     monkeypatch.setattr(package, field, bound - 1)
     with pytest.raises(ValueError):
-        package._read_archive_files(path)
+        vars(package)["_read_archive_files"](path)
 
 
 def test_compressed_boundary_accepts_then_one_over_rejects(tmp_path, monkeypatch):

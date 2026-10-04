@@ -145,6 +145,38 @@ def encode_exact_gif(frames: list[Any], durations: list[int], repeats: int | Non
     return output.getvalue()
 
 
+def validate_animation_playback(
+    result: bytes, frames: list[Any], durations: list[int], expected_loop: int | None
+) -> None:
+    """Verify lossless pixels and equivalent playback after encoding."""
+    with Image.open(io.BytesIO(result)) as published:
+        if (
+            getattr(published, "n_frames", 1) != len(frames)
+            or published.info.get("loop") != expected_loop
+        ):
+            raise ValueError("animated output changed frame count or loop")
+        for index, frame in enumerate(frames):
+            published.seek(index)
+            if published.info.get("duration", 0) != durations[index]:
+                raise ValueError("animated output changed frame timing")
+            if published.convert("RGBA").tobytes() != frame.tobytes():
+                raise ValueError("animated output changed reviewed pixels")
+
+
+def apply_animation_frame(image: Any, frame_transform: dict[str, Any], exact_gif: bool) -> None:
+    """Apply frame edits with solid glyphs for an exact GIF palette."""
+    apply_labels_and_rectangles(image, frame_transform)
+    if not exact_gif:
+        return
+    draw = ImageDraw.Draw(image)
+    for label in frame_transform["labels"]:
+        left, top, right, bottom = label["rectangle"]
+        draw.rectangle((left, top, right - 1, bottom - 1), fill="white")
+    draw.fontmode = "1"
+    for label in frame_transform["labels"]:
+        draw_label(draw, label)
+
+
 def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
     """Encode every reviewed frame losslessly and verify equivalent playback."""
     with Image.open(io.BytesIO(content)) as source:
@@ -177,19 +209,9 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
                 "rectangles": transform.get("rectangles", []) + specific.get("rectangles", []),
                 "labels": transform.get("labels", []) + specific.get("labels", []),
             }
-            if transform.get("animation_format") == "gif":
-                # Solid glyph pixels keep the source palette exactly representable.
-                labels = frame_transform["labels"]
-                apply_labels_and_rectangles(clean, frame_transform)
-                draw = ImageDraw.Draw(clean)
-                for label in labels:
-                    left, top, right, bottom = label["rectangle"]
-                    draw.rectangle((left, top, right - 1, bottom - 1), fill="white")
-                draw.fontmode = "1"
-                for label in labels:
-                    draw_label(draw, label)
-            else:
-                apply_labels_and_rectangles(clean, frame_transform)
+            apply_animation_frame(
+                clean, frame_transform, transform.get("animation_format") == "gif"
+            )
             frames.append(clean)
             durations.append(source.info.get("duration", 0))
     expected_loop = plays
@@ -210,18 +232,7 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
             optimize=False,
         )
         result = output.getvalue()
-    with Image.open(io.BytesIO(result)) as published:
-        if (
-            getattr(published, "n_frames", 1) != len(frames)
-            or published.info.get("loop") != expected_loop
-        ):
-            raise ValueError("animated output changed frame count or loop")
-        for index, frame in enumerate(frames):
-            published.seek(index)
-            if published.info.get("duration", 0) != durations[index]:
-                raise ValueError("animated output changed frame timing")
-            if published.convert("RGBA").tobytes() != frame.tobytes():
-                raise ValueError("animated output changed reviewed pixels")
+    validate_animation_playback(result, frames, durations, expected_loop)
     return result
 
 
@@ -233,13 +244,14 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
     transform = review.get("asset_redactions", {}).get(url)
     if transform is None:
         return content, None
-    if not isinstance(transform, dict) or (
-        not transform.get("rectangles")
-        and not transform.get("labels")
-        and not (transform.get("animation") is True and transform.get("frame_transforms"))
-        and transform.get("strip_metadata") is not True
-        and transform.get("strip_gif_metadata") is not True
-    ):
+    if not isinstance(transform, dict):
+        raise PublicationBlockedError("community image redaction is not a policy")
+    pixel_edits = bool(transform.get("rectangles") or transform.get("labels"))
+    frame_edits = transform.get("animation") is True and transform.get("frame_transforms")
+    metadata_edits = (
+        transform.get("strip_metadata") is True or transform.get("strip_gif_metadata") is True
+    )
+    if not (pixel_edits or frame_edits or metadata_edits):
         raise PublicationBlockedError("community image redaction has no reviewed rectangles")
     if transform.get("animation") is True:
         if transform.get("strip_gif_metadata"):

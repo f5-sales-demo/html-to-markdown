@@ -1,10 +1,14 @@
 """Community discovery and first-post publication contracts."""
 
+import hashlib
 import json
+from pathlib import Path
+from types import SimpleNamespace
 
 import httpx
 import pytest
 
+import html_to_markdown.adapters.community as module
 from html_to_markdown.adapters.community import (
     BASE,
     CommunityAdapter,
@@ -15,11 +19,15 @@ from html_to_markdown.adapters.community import (
     inventory_pass,
     privacy_findings,
     relevance,
+    validate_community_publication,
     validate_topic,
 )
 from html_to_markdown.errors import AllowlistError, PublicationBlockedError, ScrapeError
-from html_to_markdown.models import FetchResult
+from html_to_markdown.fetcher import Fetcher
+from html_to_markdown.models import DiscoveredPage, FetchResult, PageStatus
+from html_to_markdown.pipeline import Pipeline
 from html_to_markdown.render import render_html
+from html_to_markdown.state import StateStore
 from html_to_markdown.urls import stable_path, validate_source_url
 
 
@@ -449,9 +457,6 @@ def test_invalid_date_and_object_tag():
 
 @pytest.mark.asyncio
 async def test_adapter_discovery_and_http_only(tmp_path, monkeypatch):
-    from types import SimpleNamespace
-
-    import html_to_markdown.adapters.community as module
 
     async def inventory(client, output):
         return {
@@ -519,9 +524,6 @@ async def test_inventory_unknown_media_and_required_examples(tmp_path):
 
 @pytest.mark.asyncio
 async def test_publication_cannot_drop_or_carry_forward_accepted_articles(tmp_path):
-    from html_to_markdown.adapters.community import validate_community_publication
-    from html_to_markdown.models import DiscoveredPage, PageStatus
-    from html_to_markdown.state import StateStore
 
     store = StateStore(tmp_path / "state.sqlite")
     validate_community_publication(tmp_path, store)
@@ -559,7 +561,6 @@ async def test_publication_cannot_drop_or_carry_forward_accepted_articles(tmp_pa
 
 @pytest.mark.asyncio
 async def test_fetcher_reads_only_topic_json_and_asset_redirect_policy(tmp_path, no_wait):
-    from html_to_markdown.fetcher import Fetcher
 
     calls = []
 
@@ -570,9 +571,9 @@ async def test_fetcher_reads_only_topic_json_and_asset_redirect_policy(tmp_path,
         return httpx.Response(302, headers={"Location": "https://example.com/private-image.png"})
 
     async with Fetcher() as fetcher:
-        await fetcher._http.aclose()
-        fetcher._http = httpx.AsyncClient(transport=httpx.MockTransport(handler))
-        fetcher.community_client = CommunityClient(fetcher._http)
+        await vars(fetcher)["_http"].aclose()
+        vars(fetcher)["_http"] = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+        fetcher.community_client = CommunityClient(vars(fetcher)["_http"])
         fetcher.community_inventory_dir = tmp_path
         result = await fetcher.fetch(CommunityAdapter(), BASE + "/t/old/70152")
         assert result.final_url == BASE + "/t/70152"
@@ -588,7 +589,6 @@ async def test_fetcher_reads_only_topic_json_and_asset_redirect_policy(tmp_path,
 
 
 def test_community_golden_markdown():
-    from pathlib import Path
 
     root = Path(__file__).parent
     value = json.loads((root / "fixtures/community_article.json").read_text())
@@ -619,10 +619,6 @@ def test_community_golden_markdown():
 @pytest.mark.asyncio
 @pytest.mark.parametrize("approved,expected", [(True, 1), (False, 0)])
 async def test_media_review_binds_exact_image_bytes(tmp_path, approved, expected):
-    import hashlib
-
-    from html_to_markdown.models import DiscoveredPage
-    from html_to_markdown.pipeline import Pipeline
 
     value = validate_topic(
         json.loads(
@@ -671,7 +667,6 @@ async def test_media_review_binds_exact_image_bytes(tmp_path, approved, expected
 
 
 def test_privacy_scans_code_link_targets_and_image_labels():
-    from html_to_markdown.adapters.community import privacy_findings
 
     html = '<a href="https://user@example.com/path">Link</a><img src="https://community.f5.com/image.png" alt="user@example.com"><pre>token=aaaaaaaaaaaaaaaaaaaaaaaa</pre>'
     assert privacy_findings(html) == ["credential", "email"]
