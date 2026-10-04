@@ -61945,5 +61945,668 @@
         "output_sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
       }
     }
+  },
+  "69272": {
+    "article_hash": "af89d6901443604a24743fc44540daabd56c67f82721b5f9f16c2f8d865891ad",
+    "decision": "include",
+    "reason": "Distributed Cloud focused CE vk8s deployment guidance",
+    "text_replacements": {
+      "nodes": {
+        "c73c7bee0ce4120181748aa6f536e87a117f1679d89bad19a7d66c5b104c8533": "demo-site",
+        "b5c5c316fc6f2caf8ac72e397ce993c52b22ac4895ef466e7594023853cbd18b": "Service Name: demo-vk8s-nginx.demo",
+        "b7edb4fcdd233650c73349e899364a7b3db77ecd2d0b0838142738572b2cd3b8": "demo"
+      },
+      "output_sha256": "713aff67dbac5b7a87541c7afbbe73322344dce408afea72bec000adfc06b57d"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all 24 static images; replaced personal namespace, object names, domains, hardware serial and label keys consistently in hash-bound text and 20 images. Removed presenter identity pixels while retaining the article illustration title. Preserved site token instructions without token bytes, vk8s deployment, private Docker registry, port 80/TCP, service.namespace syntax, TLS automation, health check and DNS flow. Other UI contains no customer or user data; strip metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/72ec8904a230d9ec3462c6a5fa281d5b4880b02f.png": "5eb84c160ef16f706d5fb8a4d6ec36f8e39bef6e8b6e5d37b0e77834c7292a19",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0427ace2c5ce46fd77d09db1ecfeb0736ed49577.png": "4057d1511ff22b3b516a42ddcc529f960a365be38ae01fdd1a58c5a5d4bd2510",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1e60a6191cadb89d2f97edd837b84daf57ddfc77.png": "cae856c890b5ae787ac43ca7e4b6041da571ca58a8a1d265e13bee752edafc40",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/202d3369bb989a5e54a5f0063f20637f28910f37.png": "78bbc9541b1a610adce4a72f102e8d5f928240e5cd02deff40b0dd8a8d4531bf",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4b81a08ee498595ee1e00c937273357ff26c0fbc.png": "e6992a0e457f0d59565b43431421c6871245c2c2de1678789038d218a582696f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5101522bf21daa9e62fe0d70a604f08c90ed89f8.png": "9cebe5bb9a214cd66284d772ca1f0b445ccec8dda1822d3f90488bb97591002b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6dc9c5552ae3c27774656ca68593e5a66c6b8ed9.png": "31e7fe3c648faf084490009380eb655d48fed3abe9437637c451c5f75c31181c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/839f0452cc4301b1f29f5e124dea8296cefe7758.png": "735a834093b6f2369183f797af1d791b44a72428186096a848bf40fd9a4f41d0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/84f5665e7c03143c65125f017a2f8ba11e1014f0.png": "d1e49b1bd9c0027176480296bbd368dde1201a61240ebe7b4562619ac7d65c82",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9ca66f200fcc8b5fceb078762f8bc25923f45b4d.png": "f2b08b5f967afe972d7da5b726e446c537aab2e194a310df5e4d055aeccac526",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9d866de35355992a3874cff62389ccbcf9e21059.png": "8516fa7b8bf0a6df9c980ed7f6d070e1b04c41557318f9c2f00959bbe937522d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a1665f2c6f723cdd36a5e8b06e3547bac9b641b7.png": "f0aace471807bc87392e7b0bc73b803d6a47430145cabb52b5f18ad645eca088",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be1bb8f041fc6dc1ef31c44d1b4a982d49199ae5.png": "4c61b3fca8e01cd5b3273d9b22aa8ac78079879264258f796713a5e3d3a09b2f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d09a0c7be08c1fb64df262f1c5c3ddf5f511e36f.png": "8ea15c296f36b1330f34574bd48a0c0cc4d9d54c6ff548f877f2fcedb9b56fdc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5ee942f2db030d202e7310b5db3f13344bf022b.png": "4f74cde354f45df6470288d6124d57192182092471a97e1db1c202ec4cc87972",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fce042872bcf4e4e17e99fa483c6f3cf116f2205.png": "dd205a11632b5219917a0bbfcaab0ad7fbb9caf5706bd0e450b05f93af5aa095",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/3/1330149ef74d37818d0b419f857bc3451b641201.png": "5afed9614c0a55b134e6dbcc4e9d7d1d4962e42536b8b1d20c576f9c5d09b064",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/27147ad8a7f5e3d921b7aec695508dc00f1406ad.png": "843782fe440325f7c2c744fd2b2ae40cdf8f4c8301d7547f4933929b79167b31",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/2809bf698a847ac8d9bd23b05d8ffa8420b5fbbf.png": "03333e7c03147bfb93c15546c32cc1fb94e07f526473ebd0f415e4130aee8dcd",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/e/2e8e4d16349f3532e067d1eaeea8ed64e4617074.png": "28f3eb536fc52bc818f324a2ee2f8e0fc8931edf3423ef95bbbb35c413fcf847",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/8/48ee166459553c26847ad385f161b9192f714057.png": "2327d96146be70b9a160fd0ee6ba73f9cc9cb319928b1e705c33d08dfb0edc86",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a855e6a2da2dc7340699c048963b65c2bf0e9ce4.png": "353951a530dd8bf3216ae994e722b0042cfd293d9cf7303cf96902ac96794e32",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d692b5f024bbcb1413cee82cc5e37a2416d45c1f.png": "0355c065b446de9ed3912070e5097b54e178d00645c2e4eaff397d7061b46cb2",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/edc194e7de4697181aacaff8a27cd81061327b57.jpeg": "a470ba619a2fd407bb5486147f58f074dd23e4a5b40ed42da1cdf019248df32a"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/72ec8904a230d9ec3462c6a5fa281d5b4880b02f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              168,
+              164,
+              188
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              459,
+              9,
+              560,
+              28
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              429,
+              199,
+              524,
+              219
+            ],
+            "text": "demo-vk8s",
+            "size": 8
+          }
+        ],
+        "output_sha256": "3eb1f45e7d73458a9249ef34965bfeca4fb0624b9f7afe96676a3cf09b5d56d4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1e60a6191cadb89d2f97edd837b84daf57ddfc77.png": {
+        "labels": [
+          {
+            "rectangle": [
+              382,
+              441,
+              551,
+              464
+            ],
+            "text": "demo/docker",
+            "size": 10
+          }
+        ],
+        "output_sha256": "d2cca3d1e4ddac481b3e6a6b33929aace46bb1138f289f1d3999edebc7411cc3"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/202d3369bb989a5e54a5f0063f20637f28910f37.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              168,
+              164,
+              188
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              459,
+              9,
+              560,
+              28
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              353,
+              31,
+              475,
+              54
+            ],
+            "text": "demo-vk8s",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              408,
+              247,
+              510,
+              267
+            ],
+            "text": "demo-vk8s-",
+            "size": 8
+          }
+        ],
+        "output_sha256": "d1b7e1fed5071978a9d1c87005e39a601d53ed4c3a2bc48f4e257cde5a00747b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/6/6dc9c5552ae3c27774656ca68593e5a66c6b8ed9.png": {
+        "labels": [
+          {
+            "rectangle": [
+              46,
+              169,
+              164,
+              189
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              459,
+              10,
+              560,
+              29
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              353,
+              32,
+              475,
+              55
+            ],
+            "text": "demo-vk8s",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              408,
+              248,
+              510,
+              268
+            ],
+            "text": "demo-vk8s-",
+            "size": 8
+          }
+        ],
+        "output_sha256": "ebac1ddde154465864c243add93e1bd12efbc118a85a31b76e003244be0ab09b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/839f0452cc4301b1f29f5e124dea8296cefe7758.png": {
+        "labels": [
+          {
+            "rectangle": [
+              460,
+              9,
+              561,
+              28
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              304,
+              151,
+              626,
+              178
+            ],
+            "text": "demo-lb-vk8s-nginx",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              47,
+              168,
+              165,
+              188
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              304,
+              428,
+              699,
+              456
+            ],
+            "text": "redirect-demo-lb-vk8s-nginx",
+            "size": 10
+          }
+        ],
+        "output_sha256": "aedf177c131eae3099657fd81a9df017ddb5612d98e5c3434c80f798a174c670"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/84f5665e7c03143c65125f017a2f8ba11e1014f0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              356,
+              194,
+              413,
+              213
+            ],
+            "text": "demo-site",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              137,
+              111,
+              410,
+              141
+            ],
+            "text": "vmware-demo-0001",
+            "size": 10
+          }
+        ],
+        "output_sha256": "90d2473737335114ab491a41aae590d3758b2e056c60165026d440104096247b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/9/9d866de35355992a3874cff62389ccbcf9e21059.png": {
+        "labels": [
+          {
+            "rectangle": [
+              47,
+              169,
+              165,
+              189
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              460,
+              10,
+              561,
+              29
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              409,
+              206,
+              505,
+              226
+            ],
+            "text": "demo-vk8s",
+            "size": 8
+          }
+        ],
+        "output_sha256": "484fb9b25cf54aef7d75fe23cbba33237c44bc8e6c6019e79f3281b1a134bc29"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/a/a1665f2c6f723cdd36a5e8b06e3547bac9b641b7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              458,
+              224,
+              584,
+              247
+            ],
+            "text": "demo-pool-vk8s",
+            "size": 10
+          }
+        ],
+        "output_sha256": "51216202448b11885b680df40178e4bf56c445e3e6009df0e530a31350d62c5e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be1bb8f041fc6dc1ef31c44d1b4a982d49199ae5.png": {
+        "labels": [
+          {
+            "rectangle": [
+              423,
+              234,
+              590,
+              256
+            ],
+            "text": "demo/demo-vsite",
+            "size": 10
+          }
+        ],
+        "output_sha256": "6617e14f2621cee1338f8376a792fa01b386db75e95c5e1d7a2c9157f66abb8c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d09a0c7be08c1fb64df262f1c5c3ddf5f511e36f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              199,
+              183,
+              329,
+              206
+            ],
+            "text": "demo-vk8s-nginx",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              348,
+              183,
+              445,
+              203
+            ],
+            "text": "demo-vsite",
+            "size": 8
+          }
+        ],
+        "output_sha256": "ff7342e3901ccf6e38ef626f69402cd22090477c05b3683f1a6e6402b209f79f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d5ee942f2db030d202e7310b5db3f13344bf022b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              326,
+              164,
+              577,
+              187
+            ],
+            "text": "demo-lb-vk8s-nginx",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              397,
+              595,
+              595,
+              624
+            ],
+            "text": "vk8s-nginx.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "64ea1e67a9863fdae60a22c2e60355b988b7708cb07cd81c77e4fb88a1bb2b99"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fce042872bcf4e4e17e99fa483c6f3cf116f2205.png": {
+        "labels": [
+          {
+            "rectangle": [
+              328,
+              163,
+              466,
+              187
+            ],
+            "text": "demo-vk8s-nginx",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e890f8db732adf4e1b71dbb76a4210141635e047410f7e519236b914a713b6ad"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/1/3/1330149ef74d37818d0b419f857bc3451b641201.png": {
+        "labels": [
+          {
+            "rectangle": [
+              459,
+              8,
+              560,
+              27
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              46,
+              157,
+              164,
+              197
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              404,
+              242,
+              573,
+              293
+            ],
+            "text": "demo-lb-vk8s-nginx",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              584,
+              248,
+              710,
+              283
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1315,
+              242,
+              1475,
+              293
+            ],
+            "text": "vk8s-nginx.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "8ee30d4602d4f544b037f7b629dea411e4ee0341490c4fd2623a92a9df029694"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/7/27147ad8a7f5e3d921b7aec695508dc00f1406ad.png": {
+        "labels": [
+          {
+            "rectangle": [
+              45,
+              166,
+              163,
+              186
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              458,
+              7,
+              559,
+              26
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              589,
+              258,
+              707,
+              278
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              404,
+              242,
+              573,
+              293
+            ],
+            "text": "demo-lb-vk8s-nginx",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              584,
+              248,
+              710,
+              283
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1315,
+              242,
+              1475,
+              293
+            ],
+            "text": "vk8s-nginx.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "b92e4ba2705826a2d12307228aec5c6310845e141dc9c904b3c5511667a44cf4"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/2/8/2809bf698a847ac8d9bd23b05d8ffa8420b5fbbf.png": {
+        "labels": [
+          {
+            "rectangle": [
+              364,
+              251,
+              621,
+              275
+            ],
+            "text": "demo-vk8s-nginx.demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              410,
+              419,
+              626,
+              442
+            ],
+            "text": "demo/demo-vsite",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e1cbb93cafd9de33cf050621cc0e387841d0c4ffce80b222719505f499e3149a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/8/48ee166459553c26847ad385f161b9192f714057.png": {
+        "labels": [
+          {
+            "rectangle": [
+              359,
+              194,
+              416,
+              213
+            ],
+            "text": "demo-site",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              138,
+              111,
+              410,
+              141
+            ],
+            "text": "vmware-demo-0001",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              19,
+              344,
+              130,
+              369
+            ],
+            "text": "demo-fallback",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              19,
+              374,
+              130,
+              399
+            ],
+            "text": "demo-custom-key",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              19,
+              403,
+              100,
+              432
+            ],
+            "text": "demo-label",
+            "size": 10
+          }
+        ],
+        "output_sha256": "afd7b54d3bde302353b8b6341db966bc1dda47ff6d34a61aa0388067dd92f74e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/8/a855e6a2da2dc7340699c048963b65c2bf0e9ce4.png": {
+        "labels": [
+          {
+            "rectangle": [
+              331,
+              166,
+              428,
+              186
+            ],
+            "text": "demo-vsite",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              478,
+              721,
+              535,
+              740
+            ],
+            "text": "demo-site",
+            "size": 8
+          }
+        ],
+        "output_sha256": "fc43d0b27634cf13df3c03504ca1169930ef632f2e039032d96088da6c3cdd3e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/6/d692b5f024bbcb1413cee82cc5e37a2416d45c1f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              332,
+              164,
+              452,
+              187
+            ],
+            "text": "demo-http-get",
+            "size": 10
+          }
+        ],
+        "output_sha256": "102462c8563b563707e2c131f850b873fbad0379fce55f1bcc80c4baddc638c2"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0427ace2c5ce46fd77d09db1ecfeb0736ed49577.png": {
+        "labels": [
+          {
+            "rectangle": [
+              139,
+              49,
+              337,
+              74
+            ],
+            "text": "vk8s-nginx.example.com",
+            "size": 12
+          }
+        ],
+        "output_sha256": "90ab0b16d1c790c338b74b753fe64d772636ad08338404552a14a1a66a917751"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/d/edc194e7de4697181aacaff8a27cd81061327b57.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              0,
+              0,
+              640,
+              720
+            ],
+            "text": "Presenter image omitted",
+            "size": 24
+          },
+          {
+            "rectangle": [
+              650,
+              538,
+              1152,
+              599
+            ],
+            "text": "At The Edge, with demo presenter",
+            "size": 20
+          }
+        ],
+        "output_sha256": "455482a87607f27331eec29ce3cf36ae94d87a6af757b3792b9f97ab5bb49373"
+      }
+    }
   }
 }
