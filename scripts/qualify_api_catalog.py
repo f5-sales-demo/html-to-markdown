@@ -23,10 +23,10 @@ METHODS = {"get", "post", "put", "patch", "delete", "head", "options"}
 class PageIdentity(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
-        self.canonical = None
+        self.canonical: str | None = None
         self.in_main = False
-        self.text = []
-        self.links = []
+        self.text: list[str] = []
+        self.links: list[str | None] = []
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -120,7 +120,7 @@ async def qualify(records: list[dict[str, Any]], fallback: str) -> list[dict[str
                     "html_sha256": hashlib.sha256(response.content).hexdigest(),
                 }
 
-        targets = {record["url"]: record for record in records}
+        targets: dict[str, dict[str, Any] | None] = {record["url"]: record for record in records}
         for record in records:
             targets.setdefault(record["overview_url"], None)
         targets[fallback] = None
