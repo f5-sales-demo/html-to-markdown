@@ -9,7 +9,7 @@ from html_to_markdown import package
 
 
 def test_paired_limits():
-    assert package.MAX_ARCHIVE_BYTES == 512 * 1024 * 1024
+    assert package.MAX_ARCHIVE_BYTES == 1024 * 1024 * 1024
     assert package.MAX_EXPANDED_BYTES == 1024 * 1024 * 1024
     assert package.MAX_MEMBERS == 20_000
 
