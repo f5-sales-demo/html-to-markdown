@@ -58053,5 +58053,842 @@
         "output_sha256": "f906e1b149545031a1b3fe8bed0c64243bcdf7e7e4859bbbf2fd5e9b772313fd"
       }
     }
+  },
+  "76264": {
+    "article_hash": "0bbe541cf9a361af63d34c8e2432f56f88270d4a85578aa63870fa3cb0cce1db",
+    "decision": "include",
+    "reason": "Distributed Cloud focused deployment or security guidance",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 21 static images. Replaced personal local paths, lab application/tenant/site/policy identifiers, domains, captured client addresses and request/support IDs with synthetic values. Preserved five mitigation methods, Scrapy/Protego code and user-agent directives, robots direct responses, robots compliance refusal, HTTP 200/403 results, suspicious bot classification, public JA4 protocol fingerprint and combined TLS/user-agent service policy. Twenty images use hash-bound replacements; upstream source screenshot contains no user data; metadata removed without changing substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a6f09525f347aa8311abaffe2c1511f90b63e730.jpeg": "f29dc2bc3e3102fa6a3febc3f4b16fcaebe3d5ecb2e4be33ec7fc4de78d94e5f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0bb54feff785e226ef3e2c69a5c47f50248cc09a.jpeg": "8f84eb1c9769cb7fe868d316677b8ef7d3c2b7c2f4823751a9afdeb70aeb1736",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1adba169d81b858e4c7996f91001a20a40b2dd1e.jpeg": "e6e0839fcee95a08b519ecb9b6219860963f88a3fee0cf4d1e80e1ea0bc1125d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31131e1f70b9c96b67a84c53a460fabe079ffb92.jpeg": "6ae878f91c00b6198581ecc357a135dc85b113b40fc87af4c185ed91e427b662",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/44c1d128578baa2d10c8aa55b568d29bf92ad2d0.png": "146b7e38e5c51c6ed559548678c3aff0cd88e58efda7f5acc65e53d0b3499c5a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f6fffdfd5503f6c9acb328bafdd25a977eb1326.png": "5573a6fc1f77b113eff9eeba796a5e5be773f3ed7d228f856632df26e312a027",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/711c674aaa92bcacfe81ec80a8ab8abf435f5dbd.jpeg": "32c6f123c098289d5c65ac7a37b2f10ee68d0a7467b549036bc085fefd5e480a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8106e16393799587ce51717ed0337de786c13638.jpeg": "682f15d6db62d2d081fa6fac50dc2ce26fee8e06b68bc4d3519c4d2c22130cab",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bb4949fefcc4689ae62977956671e7051e3bd8cb.jpeg": "94bea469dedd18b7869f17e16d697dd85c74c3bd2c673fb8b8ab7a3d6379e61a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be0b899923d6d9398861ef032f91f3f470fad08f.png": "c278dd36c5b4b461197dc54c154a8060163721288be2dcaf524529c543e273e0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be10ce494d04ea3fa34175ecbc42ddb78181bf2d.png": "135bf2a1e34fd5ca15da6d4852cec7bd78722524eb43d509f8b476cfec47ec66",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/daf8031387cf8415ea24129870e914276a03c75b.png": "df23d38b02d696336ca488f82d57c129951ac3fd32273c0acfa46364cee72088",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e02f4615b09dc9385bfa0065587047f5fc9c3458.jpeg": "5331f5fa678d8a5beca50ce9524bbe5e4bc72031bc94e3f559642380c758b558",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fe6125350c915e2898c79c288496a8e0e0a0b601.png": "2a79d61763830518f2d6c3c9f9bcccd0ca10a7eaa49571d511449a21aa82a306",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/832512e0133c739fa1ae628c21b7ec3b4eeb364b.png": "bf91d04a0dcf0995f98201009cacdaba0cf8bed6f4a9d9128e548acfcd13fef9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8c10fc7435e393e300de1f69b6cd354bc58baac5.jpeg": "627fe615aea5d2d8146ed06a36db84899259fea2057357fe7bf64f1c5093691e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/4/a4ca8b7e8f753076d037c54c3df40e59a5e27a44.png": "9f37e48e7e7fe426173338f79c177824eea3c4cd8980d76e87128c9d3a5e073a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/a/ba9d4d7617003cdc2ffb585d5ce51f8c04fcb76b.jpeg": "23462f9734a592708d671e1c72b52c93b82a88b4f8c362bd2af2697729b3fc49",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/d/bd9f24c38f340d2ea10670b2a3702482e59877c3.jpeg": "64ae4aa93469e4acdde86ab07a2c2b67256dd132911c8a557b25abd19db02441",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/a/ca88223bf1e34269f80c12c5b7e10474545f9a1e.jpeg": "3e06c4ddb47ec77304314d9b0b8aee45dce99405205a2ccb1954bf688024068f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d2fd9970837051871086565ebebc186c9b74e6ea.jpeg": "26b8141cc297017684aea7abbace8c2cc964876adb8a18cc66b2cc2f4aa684fc"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/1X/a6f09525f347aa8311abaffe2c1511f90b63e730.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              579,
+              47,
+              758,
+              81
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              708,
+              851,
+              1237,
+              885
+            ],
+            "text": "yes-lo-hitp-loadbalancer-biocked-clients-demo-ai-scraping",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              708,
+              875,
+              1219,
+              909
+            ],
+            "text": "ves-lo-http-loadbalancer-rate-limiting-demo-ai-scraping",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2202,
+              1109,
+              2378,
+              1143
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              930,
+              233,
+              1055,
+              264
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              930,
+              1114,
+              1055,
+              1148
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              562,
+              371,
+              721,
+              404
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1745,
+              373,
+              2140,
+              406
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 16
+          },
+          {
+            "rectangle": [
+              1745,
+              406,
+              2160,
+              433
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2195,
+              224,
+              2410,
+              265
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2195,
+              1108,
+              2430,
+              1158
+            ],
+            "text": "app.example.com",
+            "size": 18
+          }
+        ],
+        "output_sha256": "8a0475212c554f0329c9b6ca84c83d6f61b400e45d570fc0702f58c82c27aa84"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/0/0bb54feff785e226ef3e2c69a5c47f50248cc09a.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              49,
+              318,
+              1450,
+              361
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (200) <GET https://app.example.com/robots.txt> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              49,
+              359,
+              1450,
+              385
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (200) <GET https://app.example.com/> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1011,
+              421,
+              1530,
+              465
+            ],
+            "text": "Your support ID is EXAMPLE_REQUEST_ID",
+            "size": 10
+          }
+        ],
+        "output_sha256": "8a0a647aad1fcee3ccb7e0ab971b3e96564f4017a387ecfb19479e6874fe5418"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/1/1adba169d81b858e4c7996f91001a20a40b2dd1e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              763,
+              50,
+              998,
+              88
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2933,
+              686,
+              3162,
+              723
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1238,
+              704,
+              1381,
+              738
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              782,
+              1254,
+              1290,
+              1288
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              936,
+              1374,
+              1354,
+              1409
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              782,
+              1614,
+              1020,
+              1649
+            ],
+            "text": "example-corp",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              744,
+              1694,
+              866,
+              1728
+            ],
+            "text": "demo-app",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              1233,
+              697,
+              1400,
+              746
+            ],
+            "text": "192.0.2.5",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2930,
+              682,
+              3200,
+              760
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              799,
+              1490,
+              960,
+              1527
+            ],
+            "text": "\"192.0.2.16\",",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              842,
+              1651,
+              1010,
+              1690
+            ],
+            "text": "\"0.000000\",",
+            "size": 18
+          }
+        ],
+        "output_sha256": "ad3b980557060d5ced59931715302990daa48eca09b392e53af1ce1792fe09fe"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5f6fffdfd5503f6c9acb328bafdd25a977eb1326.png": {
+        "labels": [
+          {
+            "rectangle": [
+              319,
+              269,
+              598,
+              311
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          }
+        ],
+        "output_sha256": "91142ac3da3a0dabdfaea60c1e4434c04fb67113c106a6c6d2f6cadf51ad5b43"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/711c674aaa92bcacfe81ec80a8ab8abf435f5dbd.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              303,
+              35,
+              412,
+              61
+            ],
+            "text": "demo-ai-scraping",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              200,
+              558,
+              231
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              727,
+              558,
+              756
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              770,
+              558,
+              800
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              296,
+              303,
+              411,
+              324
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              942,
+              302,
+              1230,
+              324
+            ],
+            "text": "00000000-0000-4000-8000-000000000001",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              941,
+              322,
+              1240,
+              344
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1140,
+              200,
+              1265,
+              233
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1140,
+              721,
+              1270,
+              753
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1140,
+              764,
+              1270,
+              799
+            ],
+            "text": "app.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "16fc221251fd796502b9476f9499b05f6dd73ca8e4fa61f087c0a651243d67f0"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/8106e16393799587ce51717ed0337de786c13638.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              1758,
+              431,
+              2598,
+              480
+            ],
+            "text": "app.example.com",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              350,
+              114,
+              1250,
+              162
+            ],
+            "text": "C:\\Users\\example\\Downloads\\tutorial",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1760,
+              430,
+              2620,
+              480
+            ],
+            "text": "['https://app.example.com/']",
+            "size": 22
+          }
+        ],
+        "output_sha256": "edf709577e13939337e068516bea512ae01f2fe6047b44389bbf88c6a33286a1"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bb4949fefcc4689ae62977956671e7051e3bd8cb.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              193,
+              378,
+              1450,
+              404
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (403) <GET https://app.example.com/robots.txt> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              193,
+              409,
+              1450,
+              435
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (403) <GET https://app.example.com/> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              40,
+              872,
+              1460,
+              889
+            ],
+            "text": "C:\\Users\\example\\Downloads\\tutorial",
+            "size": 8
+          }
+        ],
+        "output_sha256": "fec1c17c6e47e7300ee4c36b33ff9d2e09577509a57fcc4e5cdb9ee1b3dd9ca6"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be0b899923d6d9398861ef032f91f3f470fad08f.png": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              261,
+              602,
+              310
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          }
+        ],
+        "output_sha256": "dc6a75be85f0b6d9281a411491ce24aabce157f8c87274b82a4baead210e1209"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/be10ce494d04ea3fa34175ecbc42ddb78181bf2d.png": {
+        "labels": [
+          {
+            "rectangle": [
+              320,
+              264,
+              449,
+              313
+            ],
+            "text": "demo-sp",
+            "size": 18
+          }
+        ],
+        "output_sha256": "16568acba726b82b558d421b724f152c0ca1776ed52c5e38c99e50826917f93f"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/daf8031387cf8415ea24129870e914276a03c75b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              317,
+              270,
+              596,
+              319
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          }
+        ],
+        "output_sha256": "35770c86b60ba54c3dbf435a81b4d22d449f256fcbfa47dce3ad4ace47152675"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/f/fe6125350c915e2898c79c288496a8e0e0a0b601.png": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              265,
+              602,
+              314
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          }
+        ],
+        "output_sha256": "e375d40615561e7262655c07647881b83c04e4499350a3457928ead2282fc89d"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/3/832512e0133c739fa1ae628c21b7ec3b4eeb364b.png": {
+        "labels": [
+          {
+            "rectangle": [
+              321,
+              271,
+              600,
+              320
+            ],
+            "text": "demo-ai-scraping",
+            "size": 18
+          },
+          {
+            "rectangle": [
+              2475,
+              738,
+              2682,
+              779
+            ],
+            "text": "demo-juiceshop",
+            "size": 18
+          }
+        ],
+        "output_sha256": "02f4ebf2ae9981515200628bb8d92768833385643cf23b4f1dd1932612bf3ace"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/a/4/a4ca8b7e8f753076d037c54c3df40e59a5e27a44.png": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              268,
+              452,
+              310
+            ],
+            "text": "demo-sp",
+            "size": 18
+          }
+        ],
+        "output_sha256": "5e0ab51c80a117abd7e7b270bee6ce6c1dc522f7e54c84e3b7a45ad33d4d1a6e"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/a/ba9d4d7617003cdc2ffb585d5ce51f8c04fcb76b.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              414,
+              225,
+              524,
+              268
+            ],
+            "text": "demo-sp",
+            "size": 18
+          }
+        ],
+        "output_sha256": "d813a84553c54fb56f773657049d18e69333c68fe8189fbab7a323ad940a6b02"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/d/bd9f24c38f340d2ea10670b2a3702482e59877c3.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              302,
+              40,
+              402,
+              66
+            ],
+            "text": "demo-ai-scraping",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              449,
+              558,
+              473
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              493,
+              558,
+              517
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              537,
+              558,
+              561
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              488,
+              581,
+              558,
+              605
+            ],
+            "text": "192.0.2.5",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1150,
+              444,
+              1267,
+              477
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1150,
+              488,
+              1267,
+              521
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1150,
+              532,
+              1267,
+              565
+            ],
+            "text": "app.example.com",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              1150,
+              576,
+              1267,
+              609
+            ],
+            "text": "app.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "5cb7ee2f231c847ed63ecf19454c870dc328f9f0ff60a03586581d654ec463d5"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/a/ca88223bf1e34269f80c12c5b7e10474545f9a1e.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              323,
+              256,
+              475,
+              306
+            ],
+            "text": "demo-waf",
+            "size": 18
+          }
+        ],
+        "output_sha256": "376f6c55872b908c4ef73cc85cd7b786c39d4b31e0739df1632b54f1a6a1f4ff"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/31131e1f70b9c96b67a84c53a460fabe079ffb92.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              44,
+              367,
+              1450,
+              410
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (403) <GET https://app.example.com/robots.txt> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              43,
+              409,
+              1450,
+              443
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (403) <GET https://app.example.com/> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              43,
+              425,
+              1450,
+              445
+            ],
+            "text": "[scrapy.spidermiddlewares.httperror] INFO: Ignoring response <403 https://app.example.com/>: HTTP status code is not handled or not allowed",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              40,
+              870,
+              1460,
+              883
+            ],
+            "text": "C:\\Users\\example\\Downloads\\tutorial",
+            "size": 8
+          }
+        ],
+        "output_sha256": "433f7d2d8d6f38650827c73dce075e9b51a394cdef66f2bddc54484b90e8a841"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/e/e02f4615b09dc9385bfa0065587047f5fc9c3458.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              12,
+              400,
+              1490,
+              428
+            ],
+            "text": "[scrapy.core.engine] DEBUG: Crawled (200) <GET https://app.example.com/robots.txt> (referer: None)",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              12,
+              427,
+              1490,
+              452
+            ],
+            "text": "[scrapy.downloadermiddlewares.robotstxt] DEBUG: Forbidden by robots.txt: <GET https://app.example.com/>",
+            "size": 10
+          }
+        ],
+        "output_sha256": "c53b81c9f0b7fc855cd6971095854981a234162579a42c38a2bb8dbef404182a"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/44c1d128578baa2d10c8aa55b568d29bf92ad2d0.png": {
+        "labels": [
+          {
+            "rectangle": [
+              350,
+              20,
+              1250,
+              65
+            ],
+            "text": "C:\\Users\\example\\Downloads\\tutorial",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1410,
+              888,
+              2570,
+              931
+            ],
+            "text": "#USER_AGENT = \"tutorial (+https://www.example.com)\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "93473716bfcc5a2414a949bfd8462353acd0f4d545f619ff42359316e8553e27"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/2/d2fd9970837051871086565ebebc186c9b74e6ea.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              350,
+              138,
+              1250,
+              188
+            ],
+            "text": "C:\\Users\\example\\Downloads\\tutorial",
+            "size": 22
+          },
+          {
+            "rectangle": [
+              1410,
+              1003,
+              2570,
+              1053
+            ],
+            "text": "#USER_AGENT = \"tutorial (+https://www.example.com)\"",
+            "size": 22
+          }
+        ],
+        "output_sha256": "ca7392bb0a1cb3eeb70d8b3d58a4cef88ae80016278ad8b2610017d69cf1e727"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8c10fc7435e393e300de1f69b6cd354bc58baac5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "8b1366806e0013ccc0bfb0df8bd0c915808f73af373f319029cd7c345f6e20f4"
+      }
+    }
   }
 }
