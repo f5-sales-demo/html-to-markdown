@@ -56157,5 +56157,244 @@
         "output_sha256": "8dd11ddcc71c04fc1a51fd959ff3d972ba53dee8f7b7c35b1827fd35c19e4542"
       }
     }
+  },
+  "71414": {
+    "article_hash": "65dfdcdb1117d167bbee3607a65f48c19ad235714d6dc1a414766c2f6a32fcd8",
+    "decision": "include",
+    "reason": "Distributed Cloud AppStack and CE offline survivability setup and validation",
+    "text_replacements": {
+      "nodes": {
+        "faa2550c813d61d39a258d1707c86e7d686141aeac258bc9fc9caef77c0ba926": "metadata:\n  name: booking-ratings-multisite\n  namespace: default\n  labels:\n    ves.io/app_type: bookinfo\n  annotations: {}\n  disable: false\nspec:\n  domains:\n    - ratings.cluster.local\n    - ratings\n  http:\n    dns_volterra_managed: false\n    port: 9080\n  advertise_custom:\n    advertise_where:\n      - site:\n          network: SITE_NETWORK_INSIDE_AND_OUTSIDE\n          site:\n            tenant: default\n            namespace: system\n            name: demo-azure-site\n            kind: site\n        use_default_port: {}\n  default_route_pools:\n    - pool:\n        tenant: default\n        namespace: default\n        name: bookinfo-ratings-aws\n        kind: origin_pool\n      weight: 1\n      priority: 1\n      endpoint_subsets: {}\n    - pool:\n        tenant: default\n        namespace: default\n        name: bookinfo-ratings-local\n        kind: origin_pool\n      weight: 1\n      priority: 0\n      endpoint_subsets: {}\n  routes: []\n",
+        "d3b0e005042a60701a83c4967b1f2a3c4b52de668a4aba319893d0542c748412": "country: PRIVATE\nkubernetes: {}\napp_type: bookinfo\ntimeseries_enabled: false\nbrowser_type: Firefox\ndevice_type: Mac\nreq_id: 00000000-0000-4000-8000-000000000001\npath: /\nhostname: master-0\noriginal_authority: ratings:9080\nrtt_upstream_seconds: \"0.015000\"\nsrc_instance: UNKNOWN\nreq_headers: \"null\"\ntenant: example-corp\nlongitude: PRIVATE\napp: demo-app\nrtt_downstream_seconds: \"0.000000\"\npolicy_hits:\n  policy_hits:\n    - result: allow\n      policy_set: ves-io-active-service-policies-network-security-demo\n      malicious_user_mitigate_action: MUM_NONE\n      policy_namespace: shared\n      policy_rule: allow\n      policy: ves-io-allow-all\n      rate_limiter_action: none\nmethod: GET\nas_number: \"0\"\nrsp_body: UNKNOWN\ntime_to_last_downstream_tx_byte: 0.019969293\ndst_instance: STATIC\nvh_type: HTTP-LOAD-BALANCER\nx_forwarded_for: 192.0.2.5\nduration_with_no_data_tx_delay: \"0.015985\"\nrsp_size: \"164\"\napi_endpoint: UNKNOWN\nauthority: ratings:9080\ndomain: ratings\nregion: PRIVATE\ntime_to_first_downstream_tx_byte: 0.019928893\nhas_sec_event: true\nrsp_code_class: 2xx\nrsp_code_details: via_upstream\ntime_to_last_upstream_rx_byte: 0.019945393\ndst: S:203.0.113.106\nscheme: http\ncity: PRIVATE\ndst_site: demo-aws-site\nlatitude: PRIVATE\nmessageid: 00000000-0000-4000-8000-000000000002\ntls_version: VERSION_UNSPECIFIED\nconnection_state: CLOSED\ndst_ip: NOT-APPLICABLE\nnetwork: PRIVATE\nsrc_site: demo-azure-site\nterminated_time: 2023-01-25T06:45:04.842657797Z\nas_org: PRIVATE\nduration_with_data_tx_delay: \"0.016025\"\nsrc_ip: 192.0.2.5\nconnected_time: 2023-01-25T06:45:04.822615905Z\nstream: svcfw\ntls_cipher_suite: VERSION_UNSPECIFIED/TLS_NULL_WITH_NULL_NULL\noriginal_path: /ratings/0\nreq_size: \"391\"\nuser_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0)\n  Gecko/20100101 Firefox/109.0\nseverity: info\ncluster_name: demo-azure-site-default\ntls_fingerprint: UNKNOWN\nsrc: N:site-local-inside\ntime_to_first_upstream_rx_byte: 0.019900193\nrsp_code: \"200\"\ntime_to_first_upstream_tx_byte: 0.003944379\nsrc_port: \"42106\"\nsite: demo-azure-site\n\"@timestamp\": 2023-01-25T06:45:05.134969Z\nreq_body: UNKNOWN\nsample_rate: 0\ntime_to_last_upstream_tx_byte: 0.003949779\ndst_port: \"80\"\nnamespace: default\nreq_path: /ratings/0\ntime: 2023-01-25T06:45:05.134Z\nasn: PRIVATE\nuser: IP-192.0.2.5\nvh_name: ves-io-http-loadbalancer-booking-ratings-multisite\nnode_id: envoy_0\nproxy_type: http\ntotal_duration_seconds: 0.02\n",
+        "3a29f943be36e1af1226471e28e6863916014d8a0701aa547d7556950168eaa7": "% k exec -it jump -- /bin/sh\n/ # curl -v ratings:9080/health\n*   Trying 192.0.2.15:9080...\n* Connected to ratings (192.0.2.15) port 9080 (#0)\n> GET /health HTTP/1.1\n> Host: ratings:9080\n> User-Agent: curl/7.79.1\n> Accept: */*\n>\n* Mark bundle as not supporting multiuse\n< HTTP/1.1 200 OK\n< content-type: application/json\n< date: Wed, 25 Jan 2023 07:11:36 GMT\n< x-envoy-upstream-service-time: 7\n< server: volt-adc\n< transfer-encoding: chunked\n<\n* Connection #0 to host ratings left intact\n{\"status\":\"Ratings is healthy\"}/ #\n"
+      },
+      "output_sha256": "a1fd8a7e4d728f009755e8ee191a0532e95bb58083cb23c5bbf123a7af1d3166"
+    },
+    "privacy": "approved",
+    "privacy_reason": "Reviewed complete first-post prose and all 15 media, including rendered SVG and its XML structure. Replaced personal tenant/policy/application identifiers, hardware serial, node/request IDs, lab IPs, site names and console link with synthetic values. Preserved Bookinfo services and public Shakespeare synopsis, full-mesh control/data plane configuration, seven-day limit, priority 1/0 fallback, local CA explanation, complete YAML/log/curl schema, HTTP 200 health response and local control-plane enabled states. Seven static images use hash-bound labels; remaining media contains no user data; image metadata removed without altering substantive pixels.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/1X/8be6168c89377325197fb49de6605a8506a8600d_2_690x41.jpeg": "1eb7506aa34be1c983644321bd2dfbec58238ffe5939cb6046b485b16321e1d7",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/42f8c01a34ee9a0849cfa7d21ea51216fa3396a5.jpeg": "36ab988e24dec744e59eb85b5dac2e3b2b50c553ef8d54b242099f9044bf81f0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4615a0e220e174faf3b5921b7d0cc5dab989af90.jpeg": "e74dac4ad6746349da554455e96622e2a05f27f6d34724f25b62e5bf5fcba5dc",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c2205a44801776b371229b12a16f44a04f539fe.jpeg": "d1e6f158bdf4279d68db270a20e9b85907407fa1a05f2c80842454a6dee73cb8",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bab29b9927556c881c3f8d42ab73279eba5f88b4.jpeg": "93378599885409524f5aa7383d70ed0e512e0c0d3beb3f272fdd3b993249b3db",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/8/08d25106b416bf59d52fe2065e140ff87b407e82.jpeg": "9404eb7fc0f726ac77bde3b273962ae71d23b21adc7faab866121fafae2bf7b0",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/34d026662466248000b33992cae806f7cc1a05dd.jpeg": "4987f15daeb8de4937800a2c4fa55a3215c0407a5c3d9925312f37fd254c6c0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/2/42d4d5b14426a7d373ce2d3f504a00f89ae70aad.jpeg": "3d0e5267f4fd8624a5c03f24d8764949224e4e34d44d984e743b5a132d4689ca",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/71167e2132c47d23ba8e521bec835020f3d78eb2.jpeg": "67e48436a6aaa250b01f1c77e55b3c9477f785f2e18d9957b1e5403cb62f8742",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/6/8690146f94f390bc5b62d8b4b2dac58aabd98506.png": "c0631f03ae5a1aaaa01706c874653305161b75b48361d127ca713b86947858ed",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/d/9d8f614d16b3541fae48c015cc2971dd68813021.svg": "67e420b30f5a8ab91d3920d148756dedb6f57c1807267d7036c33df150fa9e10",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b0bff3bcf898f464ef5f066c14d57d8a012e933b.jpeg": "ec5ccf9f890b27e8b90ffe43cd800d36ac6bc9de5e40a475d31a3f9d0951632e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b3fc691725a7f7257b34bab10662ec29bda0494a.jpeg": "4b2a6aed9bb294fbb9609983772c5335f57a33b9e512f1b24827ba8630b6ddb3",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/cedcbdb28fc7d3f192585ab3bece5e07e7f38ef9.png": "5a6d508284dbb2bd710e1e577f349c2fa8aa22b48a7e14b98ca7ebee75aad98d",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef902d604cc20fe6979e23e74240d54d4805003f.jpeg": "712c3338e1161969e5bd6be7522851e989aaf511d22a3fb76d673223519b9613"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/optimized/1X/8be6168c89377325197fb49de6605a8506a8600d_2_690x41.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              79,
+              10,
+              138,
+              29
+            ],
+            "text": "192.0.2.5",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              154,
+              3,
+              228,
+              19
+            ],
+            "text": "demo-aws-site",
+            "size": 8
+          }
+        ],
+        "output_sha256": "de0a45f219d53b800a621854b0bdeb39bcc2aecdeccbaef43584116ab80a9d06"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/5/5c2205a44801776b371229b12a16f44a04f539fe.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              51,
+              29,
+              210,
+              52
+            ],
+            "text": "demo-azure-site",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              250,
+              774,
+              403,
+              800
+            ],
+            "text": "\"192.0.2.0/24\",",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              165,
+              868,
+              771,
+              897
+            ],
+            "text": "\"nh_info\": \"Mpls Tunnel to 203.0.113.129, encapsulation type MPLSoUDP\"",
+            "size": 11
+          }
+        ],
+        "output_sha256": "10d498c371860190f8070a3988618ba2106bd81896965b2b4824a6dc983ec89b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bab29b9927556c881c3f8d42ab73279eba5f88b4.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              188,
+              438,
+              399,
+              464
+            ],
+            "text": "node with ID EXAMPLE_NODE finished",
+            "size": 10
+          }
+        ],
+        "output_sha256": "426c40fd3f539607f87ebc1f9dfd3a6268f265fcd4a6f92b2f3401b1a865aa73"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/0/8/08d25106b416bf59d52fe2065e140ff87b407e82.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              2,
+              1,
+              155,
+              27
+            ],
+            "text": "demo-azure-site",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              137,
+              178,
+              407,
+              204
+            ],
+            "text": "EXAMPLE_HARDWARE_SERIAL",
+            "size": 11
+          },
+          {
+            "rectangle": [
+              138,
+              824,
+              541,
+              848
+            ],
+            "text": "node with ID EXAMPLE_NODE finished",
+            "size": 10
+          }
+        ],
+        "output_sha256": "c84a86ac5dd651e1f52985b5a6ba4c5c07be2cacadc0c12c0cdedbacc089413b"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/2/42d4d5b14426a7d373ce2d3f504a00f89ae70aad.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              4,
+              3,
+              165,
+              29
+            ],
+            "text": "demo-azure-site",
+            "size": 12
+          }
+        ],
+        "output_sha256": "4f1546faa7a18c8e660103e170ca42ce218e7da762b90ce62fd149c24324abb8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/7/1/71167e2132c47d23ba8e521bec835020f3d78eb2.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              3,
+              3,
+              164,
+              29
+            ],
+            "text": "demo-azure-site",
+            "size": 12
+          }
+        ],
+        "output_sha256": "2916c178154a3dacf8f9d75e228942cd585be68f4d322a4330b0e77558da02fb"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/f/ef902d604cc20fe6979e23e74240d54d4805003f.jpeg": {
+        "labels": [
+          {
+            "rectangle": [
+              28,
+              129,
+              97,
+              148
+            ],
+            "text": "demo",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              291,
+              23,
+              330,
+              37
+            ],
+            "text": "demo",
+            "size": 8
+          },
+          {
+            "rectangle": [
+              0,
+              688,
+              705,
+              705
+            ],
+            "text": "https://example-corp.console.ves.io",
+            "size": 8
+          }
+        ],
+        "output_sha256": "df96391716428bc4e2ecb2fb6edd32de0d8f2b3a2ed1a23c43de07a6919c4ad8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/42f8c01a34ee9a0849cfa7d21ea51216fa3396a5.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "355013a0080e5e9032a8584523f3cef697dd227e3eede7134069a5ef85d69c66"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/4/4615a0e220e174faf3b5921b7d0cc5dab989af90.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "aabcf45dacaf7d417110502126c8f90eae58aef2e74f74e116dbc6a9daa83e31"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/3/4/34d026662466248000b33992cae806f7cc1a05dd.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "63292bb5dd494d06c1e65a07dfd11fa952eb83ce7bc9059d9844681c488baa60"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/0/b0bff3bcf898f464ef5f066c14d57d8a012e933b.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "91504d027539274c71dc9a121cdff12150a375d88d6f73983aad708713603bc8"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/b/3/b3fc691725a7f7257b34bab10662ec29bda0494a.jpeg": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "35878f7fde5f2eaf6b4e4f782bd140bf8231c4a2a7f07483e39fa557d29e2327"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/e/cedcbdb28fc7d3f192585ab3bece5e07e7f38ef9.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "3eff9e82694e9cddd55a6af416ade72f590b4dba0e79c856a27b9c3b76b5d640"
+      }
+    }
   }
 }
