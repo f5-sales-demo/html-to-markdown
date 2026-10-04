@@ -791,7 +791,171 @@
   "69462": {
     "article_hash": "eef4e5e42b89867fc2d7647c2d16c34f0dd48989ea4b701844880b6c1237fc26",
     "decision": "include",
-    "reason": "Distributed Cloud Security Service Insertion orchestrates external BIG-IP WAF service deployment"
+    "reason": "Distributed Cloud Security Service Insertion orchestrates external BIG-IP WAF service deployment",
+    "privacy": "approved",
+    "privacy_reason": "Reviewed full first-post prose and all 18 static diagrams/screenshots. XC service insertion is primary; retained BIG-IP as the external PAYG security service plus AWS/Azure architecture, TGW deployment, steering and monitoring. Replaced public SSH key bytes, VPC identifier, personal credential/site/service names and management URL in five hash-bound images; preserved diagram topology, UI selections and metrics. Prose contains no real customer identifiers or credential values; strip raster metadata.",
+    "assets": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/216bea75fc4f3f2ead175a6b328afbde520ac2cf.png": "8198efdb79ca33481b430f57e96be6fa9e3fd9012c77c90cce96068708fe1195",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2ba1f83021217bf9491d1c033e828552c15606c3.png": "d6a576769e17e94aa6f402fa9ea452466f2ec82c44f17d85aee48e0a0aa5a3d9",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/32ca9d6598de13f77ec7715152737ffafdc8acc8.png": "2f17b28bf2871535c5d15803ce18b6c9c60fd9007b93e266ca3c6bdb2a9ca28e",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/7214515ba422f0dd8ce60e5b21cd1215a80a671b.png": "a4c38db775b68d223efb6234639c5a9ea40b71a343c9f3bc2e292b5b3760c901",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/775cc2b9b15e247bbe85526f4ca7d14fbb4c190a.png": "5608c5d09bb70b3cd7b0d9b36b63ce8fad40e78d12c1302a350fb01f80a9f0af",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/7/775df4509a27e931f02c35f65f70856536dc17e2.png": "bfee790523b9a428cfc80f43fa3b6b51002a42da1e250a1194d6a72ad621244a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/8/865dfdf6abb4174c8543ddacfac34c83bbda72eb.png": "9824febddded53e7d28737709ef2597741834bea21afc57025f0d9887cc0a595",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/b/bc742ceeea8722f5ee8dd2b937d88fcba18c6527.png": "66c9b3af072506f0a53b3e2d0906f6ed3c40d47df5e3dba08a31498f5f4e348b",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/c891efb2d89509880caa1ea4f5e9cbab26c38011.png": "fd8d078aef2726b1fd75d653e7e66ca0430313bf588a8ef5070252334f6e5126",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/c/ca7aef25a8ff13fe1b5e706f9f7749eec3db474e.png": "27a39a160bbb7c185fd5a6a7ad871d0e9827fdbe25a6ea2ca2b33870363ebd8a",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d50dbe421f2344063afdc4048e7d35817eb33554.png": "68b050e632d35e57795db95412c7615b16531cd96daa8d958ac30438d4a77b60",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/d/d8bf89ac1e628e8e505eaebf6ef772d1cafed961.png": "18eec289983f6ef4bb1a30e4754a8d03597ba565b2c13357ea8a8ed338a3f808",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/4/4/44f00c2455ef7aeccedb3b65a879eb01214b5559.png": "1c64d0300f3aefad2c8cb93e78611ad67a8839de4b0c1ff607f2a9f6f978f62f",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8cb4efca0334b1584123fab7af215e2dd374a2a7.png": "568abbdbedb809905a2ed6f4ba131e9c74bfe7637fcd1cadf105c68bce42f9c4",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/9/1/916d2a8b2d6a626b4ebf7c4d083f17024a5ae48b.png": "24234040041a73db8bacaf34f14be70434be6d49cebada781256a3ec2bd7af58",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/c/1/c1c9dc39948e374cfca28d6af49e87c28f74c357.png": "13461dca567263021576815b242be465abc0b8237f937936e3e1fceeed10964c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc9ad5a7f330a6aca6acfa3ec6236f213fd97377.png": "6077e334e5f3951f66aef11e11b29e676498b8d79f52c4e3de2b30c1e6b9fa0c",
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6d76f08a15b0778a777aae3740a674c40f84dbe.png": "9f19df78ced86d86f786373fe55d694ed699e81103b8468923275ff374452ba4"
+    },
+    "asset_redactions": {
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/2ba1f83021217bf9491d1c033e828552c15606c3.png": {
+        "labels": [
+          {
+            "rectangle": [
+              216,
+              568,
+              888,
+              643
+            ],
+            "text": "ssh-rsa EXAMPLE_PUBLIC_KEY",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              258,
+              798,
+              465,
+              831
+            ],
+            "text": "system/demo-aws-tgw-site-1",
+            "size": 10
+          }
+        ],
+        "output_sha256": "a5421f55976ceda7bef12bdba3bffcb6734199312b36d7e29c8f740b43425c10"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/3/32ca9d6598de13f77ec7715152737ffafdc8acc8.png": {
+        "labels": [
+          {
+            "rectangle": [
+              262,
+              178,
+              403,
+              207
+            ],
+            "text": "vpc-00000000000000001",
+            "size": 9
+          }
+        ],
+        "output_sha256": "a31750e2f0c37aa60927a5103f45edcc8c5ea653f490652593e1c551efb82e49"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/8/c/8cb4efca0334b1584123fab7af215e2dd374a2a7.png": {
+        "labels": [
+          {
+            "rectangle": [
+              106,
+              154,
+              247,
+              187
+            ],
+            "text": "system/demo-aws-play",
+            "size": 10
+          }
+        ],
+        "output_sha256": "1727ddcb71065424e8e9f3b4bd90c2c859355e8090ec132527926561ba501308"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/d/c/dc9ad5a7f330a6aca6acfa3ec6236f213fd97377.png": {
+        "labels": [
+          {
+            "rectangle": [
+              77,
+              20,
+              194,
+              48
+            ],
+            "text": "demo-ext-svc",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              146,
+              287,
+              217,
+              317
+            ],
+            "text": "demo-tgw2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              59,
+              567,
+              146,
+              594
+            ],
+            "text": "demo-svc-2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              244,
+              563,
+              333,
+              593
+            ],
+            "text": "demo-tgw2",
+            "size": 10
+          },
+          {
+            "rectangle": [
+              471,
+              557,
+              636,
+              606
+            ],
+            "text": "https://demo-svc.example.com",
+            "size": 10
+          }
+        ],
+        "output_sha256": "c353ae2c4b6e46e0fd75e760b210265ba79131ef3c68512e95db10b026418b15"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/3X/e/6/e6d76f08a15b0778a777aae3740a674c40f84dbe.png": {
+        "labels": [
+          {
+            "rectangle": [
+              52,
+              22,
+              153,
+              53
+            ],
+            "text": "demo-tgw2",
+            "size": 12
+          },
+          {
+            "rectangle": [
+              1115,
+              475,
+              1290,
+              502
+            ],
+            "text": "node with ID demo-node-1",
+            "size": 10
+          }
+        ],
+        "output_sha256": "e6078e0491d63e5db1299fd9d2822d71a0189d266a17c596346ff2043f0f889c"
+      },
+      "https://d20hrnpixdzcsd.cloudfront.net/original/2X/2/216bea75fc4f3f2ead175a6b328afbde520ac2cf.png": {
+        "strip_metadata": true,
+        "rectangles": [],
+        "output_sha256": "454df2a8edcf23534a3aa324bf1d83261d7fdc03804bed205f4e4f6613bf3eee"
+      }
+    }
   },
   "69568": {
     "article_hash": "e9c76beeb90ad0f42828e7036343204ad5fdc3ef3d34a4bc00ab631160b9e4e9",
