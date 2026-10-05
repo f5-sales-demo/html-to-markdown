@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from html_to_markdown import pipeline as module
+from html_to_markdown import state as state_module
 from html_to_markdown.adapters.base import SourceAdapter
 from html_to_markdown.errors import (
     AllowlistError,
@@ -18,6 +19,7 @@ from html_to_markdown.models import (
     PageStatus,
 )
 from html_to_markdown.pipeline import Pipeline, re_safe_suffix, run_pipeline
+from html_to_markdown.render import split_document
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -345,9 +347,6 @@ async def test_inventory_only_requires_benchmark_and_skips_discovery(
 async def test_fresh_extraction_curates_appstack_and_builds_identically(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from html_to_markdown import state as state_module
-    from html_to_markdown.render import split_document
-
     monkeypatch.setattr(state_module, "utc_now", lambda: "2026-10-05T00:00:00Z")
 
     class MixedFetcher(FakeFetcher):

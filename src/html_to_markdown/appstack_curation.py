@@ -138,20 +138,7 @@ class AppStackFilter:
             [{"reason": "reviewed_appstack_content", "review_index": decision["review_index"]}],
         )
 
-    def transform(self, body: str, url: str) -> AppStackResult:
-        if self.excludes(url):
-            return AppStackResult(body, [{"reason": "retired_appstack_url"}], omit=True)
-        decision = self.decisions.get(self.canonical(url))
-        current = self._digest(body.encode())
-        if decision and current == decision["input_sha256"]:
-            try:
-                return self._reviewed(body, decision)
-            except ValueError:
-                return AppStackResult(body, [{"reason": "stale_appstack_review"}], omit=True)
-        if decision and decision["disposition"] == "keep" and current == decision["output_sha256"]:
-            return AppStackResult(body, [])
-        if not self.obsolete(body, url):
-            return AppStackResult(body, [])
+    def _automatic(self, body: str, url: str) -> AppStackResult:
         try:
             rules = self.rules_for(body, url)
             retained = self._remove_blocks(body, rules)
@@ -169,3 +156,21 @@ class AppStackFilter:
             retained,
             [{"reason": "automatic_appstack_block_removal", "blocks": len(rules)}],
         )
+
+    def transform(self, body: str, url: str) -> AppStackResult:
+        if self.excludes(url):
+            return AppStackResult(body, [{"reason": "retired_appstack_url"}], omit=True)
+        decision = self.decisions.get(self.canonical(url))
+        current = self._digest(body.encode())
+        if decision and current == decision["input_sha256"]:
+            try:
+                result = self._reviewed(body, decision)
+            except ValueError:
+                result = AppStackResult(body, [{"reason": "stale_appstack_review"}], omit=True)
+        elif (
+            decision and decision["disposition"] == "keep" and current == decision["output_sha256"]
+        ) or not self.obsolete(body, url):
+            result = AppStackResult(body, [])
+        else:
+            result = self._automatic(body, url)
+        return result

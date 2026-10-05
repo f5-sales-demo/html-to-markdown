@@ -181,6 +181,25 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     return normalize_body(body)
 
 
+@dataclass(frozen=True)
+class SMSPolicy:
+    detectors: tuple[re.Pattern[str], ...]
+    patterns: tuple[re.Pattern[str], ...]
+    decisions: dict[str, dict[str, Any]]
+    media: dict[str, dict[str, Any]]
+
+    @classmethod
+    def from_topic(cls, topic: dict[str, Any] | None) -> SMSPolicy:
+        if topic is None:
+            return cls((), (), {}, {})
+        return cls(
+            tuple(re.compile(value, re.I) for value in topic["candidate_detectors"]),
+            tuple(re.compile(value, re.I) for value in topic["retired_patterns"]),
+            {canonical(item["url"]): item for item in topic["documents"]},
+            {item["sha256"]: item for item in topic["media"]},
+        )
+
+
 class CurationPolicy:
     def __init__(self, raw: dict[str, Any], sha256: str) -> None:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
@@ -193,33 +212,14 @@ class CurationPolicy:
         self.excluded: set[str] = set()
         self.retired_identities: set[str] = set()
         self.retired_patterns: list[re.Pattern[str]] = []
-        self.detectors: list[re.Pattern[str]] = []
-        self.decisions: dict[str, list[dict[str, Any]]] = {}
         self.media: dict[str, dict[str, Any]] = {}
         self.terraform: TerraformFilter | None = None
         self.appstack: AppStackFilter | None = None
-        self.sms_topic = next(
+        sms_topic = next(
             (topic for topic in self.topics if topic["id"] == "smsv2-current"),
             next((topic for topic in self.topics if topic.get("mode") != "automatic"), None),
         )
-        self.sms_detectors = (
-            [re.compile(value, re.I) for value in self.sms_topic["candidate_detectors"]]
-            if self.sms_topic
-            else []
-        )
-        self.sms_patterns = (
-            [re.compile(value, re.I) for value in self.sms_topic["retired_patterns"]]
-            if self.sms_topic
-            else []
-        )
-        self.sms_decisions = (
-            {canonical(item["url"]): item for item in self.sms_topic["documents"]}
-            if self.sms_topic
-            else {}
-        )
-        self.sms_media = (
-            {item["sha256"]: item for item in self.sms_topic["media"]} if self.sms_topic else {}
-        )
+        self.sms = SMSPolicy.from_topic(sms_topic)
         for topic in self.topics:
             if topic.get("mode") == "automatic":
                 if topic["id"] == "terraform-provider-current" and self.terraform is None:
@@ -241,7 +241,6 @@ class CurationPolicy:
             self.retired_patterns.extend(
                 re.compile(value, re.I) for value in topic["retired_patterns"]
             )
-            self.detectors.extend(re.compile(value, re.I) for value in topic["candidate_detectors"])
             topic_decisions: dict[str, dict[str, Any]] = {}
             for decision in topic["documents"]:
                 url = canonical(decision["url"])
@@ -250,7 +249,6 @@ class CurationPolicy:
                 topic_decisions[url] = decision
                 if decision["disposition"] not in {"keep", "remove", "omit"}:
                     raise ValueError("invalid reviewed disposition")
-                self.decisions.setdefault(url, []).append(decision)
                 if decision["disposition"] in {"remove", "omit"}:
                     self.excluded.add(url)
             for media in topic["media"]:
@@ -281,16 +279,20 @@ class CurationPolicy:
 
     def candidate(self, text: str) -> bool:
         decoded = normalized(text)
-        return self.retired(text) or any(pattern.search(decoded) for pattern in self.detectors)
+        return self.retired(text) or any(
+            re.search(value, decoded, re.I)
+            for topic in self.topics
+            for value in topic["candidate_detectors"]
+        )
 
     def sms_retired(self, text: str) -> bool:
         decoded = normalized(text)
-        return any(pattern.search(decoded) for pattern in self.sms_patterns)
+        return any(pattern.search(decoded) for pattern in self.sms.patterns)
 
     def sms_candidate(self, text: str) -> bool:
         decoded = normalized(text)
         return self.sms_retired(text) or any(
-            pattern.search(decoded) for pattern in self.sms_detectors
+            pattern.search(decoded) for pattern in self.sms.detectors
         )
 
     def references(
@@ -465,7 +467,7 @@ def curate_topics(
                 {k: v for k, v in metadata.items() if k not in {"related_documents", "description"}}
             )
         )
-        decision = active.sms_decisions.get(url)
+        decision = active.sms.decisions.get(url)
         finding: dict[str, Any] = {
             "document": path.relative_to(output).as_posix(),
             "url": url,
@@ -511,7 +513,7 @@ def curate_topics(
                 if not decision or decision.get("media_review_required", True)
                 else []
             ):
-                review = active.sms_media.get(media["sha256"] or "")
+                review = active.sms.media.get(media["sha256"] or "")
                 if review is None or review["disposition"] != "keep":
                     finding["disposition"] = "omit"
                     finding["findings"].append("unreviewed_changed_or_removed_media")
@@ -812,9 +814,9 @@ def validate_curation(
             )
         ):
             raise ValueError(f"unreviewed AppStack media remains: {path}")
-        required = policy.sms_decisions.get(url, {}).get("media_review_required", False)
+        required = policy.sms.decisions.get(url, {}).get("media_review_required", False)
         if (required or policy.sms_candidate(body)) and any(
-            policy.sms_media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+            policy.sms.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
             for item in media
         ):
             raise ValueError(f"unreviewed media remains: {path}")
