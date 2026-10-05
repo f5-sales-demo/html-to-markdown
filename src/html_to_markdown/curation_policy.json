@@ -14381,12 +14381,7 @@
           "sha256": "d4c049f1d360ece6aee5c61114c921c9221aa3404a22db279449004194947b6e"
         }
       ],
-      "excluded_resource_slugs": [
-        "aws_vpc_site",
-        "azure_vnet_site",
-        "gcp_vpc_site",
-        "securemesh_site"
-      ],
+      "excluded_resource_slugs": ["aws_vpc_site", "azure_vnet_site", "gcp_vpc_site", "securemesh_site"],
       "id": "terraform-provider-current",
       "linked_examples_catalog": {
         "path": "terraform_linked_examples.json",
@@ -14397,137 +14392,103 @@
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "026852b811f9986956d698c3555f3d221286356684db6c96988ee98208acfd73",
-          "source_documents": [
-            "community-f5-com/t/77115/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77115/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "0388aac36cc81d0f29e3212f4fde7bf3e7ae2b1bc659813d1f6cc64579203356",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "03b8cde7b7eba40d1e944437dd1138f7940bb28fa38cb2166b31427998054118",
-          "source_documents": [
-            "community-f5-com/t/73351/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73351/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "044d087f8dff1b52408ef297217badc7593800660e7519e9e389954bf90502cb",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "04a43cba5d4d3c6f109ee7f9df3aa7b0ce87716d7a5e0a79e5b64139e6f39bb5",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "051703a3f6f73d8bcd03f1af078994e3dc104254adc956e3ad3de1feb6c07291",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "0a70a7b4786d513047367c8187347bd5a8f56d2208048039ffd8d1c7751ec4e7",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "0def20c63fe52b5f4119255e6cfdd28486faeca542cb48dc5ee2eb8333e3783b",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "10666fe29578e14d5f850a5a79fa23138be3f94eb3675dfeb34f14ffe8f940ed",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "12547509e39855c58ca8fb9977f0a4016ad3fccd4ea5909218f22aaa882ac09b",
-          "source_documents": [
-            "community-f5-com/t/76448/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76448/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "1335e13095510eee4cc29da9adefdf309a70409ebc6fac84b5ebcdcec08b28e4",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "1461c57cea5bf6415c774fc489d9092569142a43e67cda8cf523d3ef0cc2321d",
-          "source_documents": [
-            "community-f5-com/t/72388/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72388/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "17635ec1a9b02157b5d2f99f99910e928841fa02b8ac69e0ef34776e411ade34",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "1929a667c68a88444dabbf8e2d33b5a274917db681f88540997a3b5d52225a2a",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "1aa59a8b18d6dd57ab4f8c1497fbfa13f683772d485cb72b6e87b3f58d3254b8",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "1b20e69206ad9269dfa7519adc29047c440ce947f417e2ed50150a79178957f8",
-          "source_documents": [
-            "community-f5-com/t/72566/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72566/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "1b3943f6425d867867fcdc07749459124b5aa42e62257d516fd196680feee3bd",
-          "source_documents": [
-            "community-f5-com/t/76458/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76458/index.md"]
         },
         {
           "disposition": "remove",
@@ -14543,1136 +14504,847 @@
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "1d18f0e38579484626069be8439506ddfeba63e39849cb93f718f8816208b477",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "1f96c12f6c01d402d2d583ce7d5259555b9367a64b80e03238f2707bb619b67b",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "220eca8fd4f919b78da63f9a2f40617cd61dd1a73a03cefad35d48ddbf846c1f",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "26a98c3e2446345d99347602d56dff39c6006a1d45c6abf61e97ea7b794294c0",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "26db7159bee2cf1cbefa8a9e7c3431a384da7df3e276f77c434e00b5a658d288",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "27f2e211672ff713ccdc31461129dd868174fb3585c3e5dea3a0aa6550f5527a",
-          "source_documents": [
-            "community-f5-com/t/76448/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76448/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "282bd1062b383fa3b6489bc58dc25124599e58d0d3cba1bbaa7eb48ac18a6349",
-          "source_documents": [
-            "community-f5-com/t/69843/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/69843/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "28df4dfd171187b8510782d806cb32b91cabc15a61dd293b3f674465b7c1a856",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "2c55db05608ee7ee20031b4c9227c4252f9edfce00c1bc2dd0a6530da74afa31",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "2c8225b46094621f60bea57cb2fe024d99327d0d8dd438716ec97858a73a7bff",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "2dd536bc58de8fa8778042976f4dc2a4393499521099d348525c792a67289e90",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "2f413afda08c94d9f3bdb12356f6281c4b72a25ef65b3eafae6373bb1e9baadc",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "32d8e3ae85d4fb6b2a6806a79557cfd9f9519ce8d79b5b45ca6fbbab79d677e9",
-          "source_documents": [
-            "community-f5-com/t/73351/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73351/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "379f0c88b016d0862d989345bb0d30c84d5221bb2ae9dbfc6c96334150963d15",
-          "source_documents": [
-            "community-f5-com/t/72851/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72851/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "385f3a9523b6a9284c9b95b151e31d7d8d36f7c7874e8ca0fea70a9c77608a12",
-          "source_documents": [
-            "community-f5-com/t/72590/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72590/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "3882637ffdd52d770275687700f972aa727f02e963700d0cb81021d088f21c19",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "38b33f1ea0f6c748f19e84c1a8b0d7fbcb94b35d48294f9e563730ec2eb85455",
-          "source_documents": [
-            "community-f5-com/t/72851/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72851/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "398513212e82306dac22b68df3b50252d2f9d03c4cef586fd0b8b3637eef169a",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "3acc9c5743ebb08ba8596a7640eabb0541ae2f65943036e8543e719dbba89791",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "3af06fedbe97b7cd6a52db8645c66212991322d5ef9c525c3f1fea3e295cbff1",
-          "source_documents": [
-            "community-f5-com/t/70890/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/70890/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "3d6f02b18da542f5f1393a5fe2a8b5e21ab3c14c69038c54691abfe604cd5a0c",
-          "source_documents": [
-            "community-f5-com/t/72566/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72566/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "3e7864d29d442b561a331a1357f5e526f4f9a8642be7132d513c938bd56ed54a",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "43737ddd41e2bff10cbadc283791048ed247a18011323589fa1f20f7607dcfc5",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "462fc01f1d8344a5d3b1953d1402a0c26cbaefc1099dcb47e4e81c64ceab8b5b",
-          "source_documents": [
-            "community-f5-com/t/71304/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71304/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4700e3fddbdefa1690b14bbf24dfdb954b787c1ac517d63ffc8b79e23e7976e6",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "47ed0e302fff910a0d137f0ab9ddf107d80dc76d8930259edb208baf6c2d2755",
-          "source_documents": [
-            "community-f5-com/t/72064/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72064/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "496d1212d5e8127ce0fdcbeb4a496b824b747a48c354692d301f8f0f2169afdc",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "499c4ab53babe86a60843ac51887cf1a21005a264d39c90fcd4e4d3187b7be87",
-          "source_documents": [
-            "community-f5-com/t/72388/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72388/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4a5366e9d359b45f9e1a94fbf0744a18d93760c7ebc9940ecb4ad2e3d7160c8e",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4be937e89bec14eb74ba0781e4692ebd57d15eb5760310aca0243bb4464a57bb",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4c4d2de039651472881095a5fdb9e177231fbb0d47219400d10bc7e9f71bad80",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4e8c336562ddab5582aa98827f0459b18ea776be1b08b430616229a71983e99c",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "4f9b91aea805483948bb59086c6bf380ea5a566eb11e8daa9c0d07ebcdc64ab7",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "54ef64cb42b538e392a8a068d2fe530041018bf5c222f914c2973ead20725c0c",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "56048042d10c53be33a65d3f117d7b809f893b47ad8b81d4e027322828a245f7",
-          "source_documents": [
-            "community-f5-com/t/73450/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73450/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "572a6ec123660dd614ff7598cbadda2be6c982b348dfdfc6b77ba79744bc2b0d",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "57416a572e05340d13ef667f3f8a7b66a2a38d5839016b966d81bcaee7b704ba",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "599e2aa9400231a07bb00f48f877a33278433435ee58405f1aedfa33bda78654",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "5a286579391c2e7cfa95b482f3f3f51a904747345f9a79bbe608a17fcce42249",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "5a568232aa86f6815bc256d88ce4d34a4ad81e3b6ad1e67643acbac4a72ec56f",
-          "source_documents": [
-            "community-f5-com/t/71604/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71604/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "5d8825479f5e176f42b9c6f33a364841b39674bb450db00a6f28f21099a98a97",
-          "source_documents": [
-            "community-f5-com/t/76784/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76784/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "5e16a5caecbd17d7e05a6d0d6cc46af504844dc50125aec597c95316fc39cd09",
-          "source_documents": [
-            "community-f5-com/t/72064/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72064/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "6062cd8af9fef5a31a74af66dfc4c46ebecc5703ddf928995f75373a95816fb3",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "614c9b18f8780ba5ee18500159b7a3648db97b6d65d0cdeb25da05ca4b477084",
-          "source_documents": [
-            "community-f5-com/t/76448/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76448/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "6592eebe9b33be186295391b05cff635f298c6b0ea03bd14f0b129d16ca44948",
-          "source_documents": [
-            "community-f5-com/t/76448/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76448/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "6a597331ea12cf865f3375239ce1da7dc2d3dd690d9cfa9b214a89e391817d28",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "703f2ca0742162db2e177227433290d1fbe4874a8a2be041ada3a5e988671a9d",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "70bea116aed7f348d663f8f88c0948b0e508a84690b0aacd953b4110ac799d21",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "71896a65e941e0010cb48d5309384f33591ca4a4f87ec7cc656e7cf46dc588dd",
-          "source_documents": [
-            "community-f5-com/t/71304/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71304/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "7b20ad4de6219279fe2466036ca4638d3c94262193f51f5df8c199a5e8b790ab",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "7b2a80777107818b721c580306cb536ca9bdaf418843b1b96c2b43bd222c35ab",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "7e57ae1052155c36c26ae4430fefcdde6413a2a0cb9ff600c206d04ef219ca71",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "8049366f587a28c260a64544eaac7fb98c5fba4178151710362eed53932d9e45",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "80ffa6cecc2dc8c3210d109a19ed051f820748d38c7c9e2e2ea4460d35f8f3ea",
-          "source_documents": [
-            "community-f5-com/t/73450/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73450/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "825d8eb5ec91e6fdc93522bd8e4bdd9f010cef200f23c74c73e59ee0fafae08f",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "827523cb1fecb9c59c21ac7546460dfe7e6c351ccbe87b9c6a6b6d3c2414f60f",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "82dbceebb6f66e15bff1be56e0186fda02ec451d84e987f24ca597481851ed94",
-          "source_documents": [
-            "community-f5-com/t/72566/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72566/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "852631278d4e835145330f141f22e908c1d52f39c3bd62b89e7f27ae101d2350",
-          "source_documents": [
-            "community-f5-com/t/72388/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72388/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "874037615abd358513e2dcdd8abbdd1024d9c255688efba93c47d92c552d8b48",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "8843aa186a1139391e758a979b4368778dbb266ae968cd51db8dd930b9da8a83",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "8866c7afe0edda46d9fa79c413c02760bd044b809c045fe0aac2ff03bfa522a1",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "8a40b99b5d42c593f8ee2290a1258f47b1af38b87856605b0c2469d5202d4f19",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "8b7344c0ce75534161ef8acb49d1ceb9055dc885e5fce2a01488cb2eb97c1068",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "8eb2d1e0d3c9abb52dbfc29f039c9ea26c1ae6916dc6fd82a8fe3a48cc58a742",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "8eb63b1fc5ec0c36b09d416b0e273cf2fc7ffda037bd7645977eb90bde7c442d",
-          "source_documents": [
-            "community-f5-com/t/69843/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/69843/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "925b8432416a8ed6b5c801e0ca29c08084040a3a0f986c38d1ba26701b7794b4",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "93b0fc049002397f2fcc0fb793b30adfec1abcb05a4f69f7ae7cbe28fe825e5d",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "93d5f74a2903b3197f2855ec7e08e85a7a6bbfd71eaecedcec70f85e0ab42b4d",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "94898d614af0f082ed50cf802b21a499bde0597e53fc89420e57fbabfd12d478",
-          "source_documents": [
-            "community-f5-com/t/72566/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72566/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "95806ac2111c9c5e08888349a4a63e3e06dc01bde021c5eb7cf8924c7ffb851b",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "96dcd30bfceaf70c199031810bc67038156526ccf9d21dd1fcb71e3b61e56b52",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "986351cbcd1865df8575e03cc46ce7cfb5ee878bf6336a5e5145dbb26fe32710",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "9aa9e8deee811d1b26b8a6a60d8928377b93316ac27eb311b8717856040dfc43",
-          "source_documents": [
-            "community-f5-com/t/73351/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73351/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "9c0836c52c47cbcbc670df578c077b43d763746a833462e0704b048a196eca12",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "9e4b6aafb47ec923d1fe31394ce4c09cecad896852370ea297e6f8b97ec3ef7d",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "9eb838ac6d9ba7bdbeef1981c354046d2bfbb4a9743b59de361f8bf2d07d6020",
-          "source_documents": [
-            "community-f5-com/t/72590/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72590/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a1810acd0dd3b146f1b35b6f14b77ae331f9f7eb27669c447d9e45bada1565ab",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "a1af28ce48cffdf8b4807e123e06bbc2dc894fb7e7ab65e2dbe98b8a86ec55ab",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "a231ae47cc0810ff9ee5ec46f0d09f3c792c551d6a9bdbdcd3af5ea9f8f1f215",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a40646b34e6f1f97f2d5034be935f9f92fbec414fef1c3277ad34c11b5d6313e",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a4160002ddcd9895366fbfeff81c93538d888470a3a776f7776cdf552c201bf4",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a5924a905abc5d575ad947bfbec5654cb32db671f337a12a6ab094388068a012",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a6bac2bddab000d11ef39bf5f95dfe5535920d725efa4162cec3b1dca051163d",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a6dff2d67be46a241d97d6f5cf45b8fe2d4562a46c9222f6079518252d6d4e23",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a7120a481fbab04c2014a4c6a1ab8106e15de3ccb60ac7b5371578f2b09b7c53",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "a7416b749b95fd8986e8c869451174c07aca20a49e92346bdc448ebdb6e3e18e",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "a8c89495386b8852ae7f74ca81e0fea6b60a907b3dad5c49841208a9634e4311",
-          "source_documents": [
-            "community-f5-com/t/76784/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76784/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "a9fbb121c838efc0bb8bdb8858da42acd62862305884f9259e5797e6251d9224",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "aa469f89074586a6120c5868c265bc5ceacf3c5a38ebb31ceec1e44fb5694c9b",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "aa6691d079efaeb332ba37bd424e8584d082700842be49a1445b068069cf7241",
-          "source_documents": [
-            "community-f5-com/t/73351/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73351/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "af8813febd61ae5bab6c4ca9e1defdd4176ccadabaa4371b9893c9eb5ddb9431",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "afe7ad4d16e2ca09957226f2b10143b608c377192e68e9326d9bdd5158042b9b",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "b473e81c40b6f7510e2403856335d6275bfc85e264aabd9c736c6705c3ffe716",
-          "source_documents": [
-            "community-f5-com/t/73450/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73450/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "b4b3d51bfffc9083349ad173306e52c08a66221918444b31ea32346f6c339bbe",
-          "source_documents": [
-            "community-f5-com/t/72363/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72363/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "b857f0386bfe3a787fbc0a2c3b118e40f36746e7577baeac7ba197e582ce0369",
-          "source_documents": [
-            "community-f5-com/t/74264/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/74264/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "b8d83db472fe7d58b698f4531b447be86bb9cf11aa07803b0daca696b3a047c2",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "b9b2ecde37b9c921aca3e27dc4b221efa5155c50e187575f40af8f5a441af05d",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "bc3060e3b76f80fce6cfa917d1d63431729151cf95767c493d0ddf0ffbab7510",
-          "source_documents": [
-            "community-f5-com/t/73450/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73450/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "c15c8dd7337b4a21c25f08afec4639e24a340d7bc3eb6f7859adbbcf4e2df438",
-          "source_documents": [
-            "community-f5-com/t/75882/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/75882/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "c1a3a32530c85e4bb20463b3afb75bcc6f23c796278a4d3cb51a5b6faa20bf8d",
-          "source_documents": [
-            "community-f5-com/t/76472/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76472/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "c412b5a52777179c5968b494d98812a6d1c7753228d2d0187012313ee8fe210f",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "c59dd6c53b320abe9b028d9177a97b1bd2a88c85637adcbd6f9a6219ec1d08b4",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "c69302b3b911b8b24c2dea3d918b208e8c2f6bbf5dfaeebd11d28c6a586d9e6a",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "c7a3228ca38b53b6d0a6ceb5dacae42b0c474604f2bb2bcef3b7d8919e7d6387",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "c8a87640f0856c4bcc9a3c2ac5fb013e691e8de2449b91e220778d213d12439d",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "ca141a34a3f8706711b705a403376dfc0290106d6200057f088d4908c40ff38f",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "cb2a2abcab1235e6e448875a2356a954456da8d4c026fc40cf4e59e5ddb765a2",
-          "source_documents": [
-            "community-f5-com/t/73038/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73038/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "cb6e8c8b9cc79adea608c04b8736a2d4d78a87aa80fcbe8cde18d7c6098e44b7",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "d2ab31bc32000b6e8b94157dd614e3d324e95fd381d54184b015d6e509b2e679",
-          "source_documents": [
-            "community-f5-com/t/72388/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72388/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "d2e7624b64eadc03bb39ed923b430966c5138c14435f3e0a8db49fb4f859ca20",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "d6b923f8fb48379552f17378ae6f9ebd3c572b82e041d111e0d988c13bfcaaf2",
-          "source_documents": [
-            "community-f5-com/t/73450/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73450/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "d721691f05c968f424322669f613a2076f095a74b88d42808ebb77e4abb47a41",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "d7ed3ff0d9a579424592945b016ffbf7ee0514104c65a6a9bb0d4385c85e3208",
-          "source_documents": [
-            "community-f5-com/t/72064/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72064/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "d9b6e91cc9e4eb4bfcd866bff08eb55b6eddba191e2fd7902a8eda8ae2b3e942",
-          "source_documents": [
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "dac0eb1d05cb39bee000f2578e33bcbf09f038fe827d84798f0e1d9843184d60",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "dbbc35b38ee6e416cfdb7cf074eb1858a04189097a37f5821ca8e6e7ff65ff00",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md",
-            "community-f5-com/t/72948/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md", "community-f5-com/t/72948/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "deec6f75501317ad579cf87da3304c6c8638540ae13613dd3d6e33f1c91eb4ea",
-          "source_documents": [
-            "community-f5-com/t/76326/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/76326/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "dfecb4a23e8540729bf212b9d30443305d1353c64f43349da660d411909b05d1",
-          "source_documents": [
-            "community-f5-com/t/77208/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77208/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "e2dd9fe3e01b627c1883db981dea731cc0b06fca1c5a0280861dab8888cc2e6e",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md",
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md", "community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "e3840c80706d7281ab9b14afe637d9babf4b07976b378e1833b11f5adaf0f1c2",
-          "source_documents": [
-            "community-f5-com/t/70890/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/70890/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "e49a4fff449c4b4b0fd3f0cc60e287a93ab114353220c66f46332cf8a103f998",
-          "source_documents": [
-            "community-f5-com/t/77211/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77211/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "e6761ff1d5a19d0b0f165da7a232df908b0571b9f895e6f552ce037dd5fadefd",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "e86b4fd6dedb887e329b7c028136a0a1d39b8e502be6cb6eb1204a0fb0749691",
-          "source_documents": [
-            "community-f5-com/t/69843/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/69843/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "e8ab51396c4508e912ac10e14e9e9097f5d1bd5369da153d0017b788b48ab5de",
-          "source_documents": [
-            "community-f5-com/t/71319/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71319/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "eaf9636ebbea579feabd11aee92b6c18f5e5bb57d5cc39471384692f65f09cca",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "eb87b18223723c90d22d4c40e89b038fecb9873007b9c6a7594c6c14b6319696",
-          "source_documents": [
-            "community-f5-com/t/72064/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72064/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "ed8d7f4cc1c31b212ea75ba8ee3b1f43186d435f0b1915ede5f6b5203e927b81",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "ed9ad1f5c44e0ee08e00dc6c30556936e7c5125457c422b0b786324d0dc1afaf",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "ee565eac159edd9f4f2f0a7aa9b989e4102df74dcbe2d424bb47512d7936b45b",
-          "source_documents": [
-            "community-f5-com/t/73351/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/73351/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "ee84ded0dfdba555357dd2ed4a45e492ee4b4911c1e3827f030fe170756c54d8",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "f01433b563c18487679e9060a7212865b05d93c2774898a7e2d2e732d9a38d56",
-          "source_documents": [
-            "community-f5-com/t/72499/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72499/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f2db097214c19d8a7bc3dbc0fd1fb3c691fe4e97d94b59db522c7843ab2b59e4",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "f462c0655fc7ea8140b5532ce2eff635eaff794a215f48853665687eb4e5120b",
-          "source_documents": [
-            "community-f5-com/t/72363/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/72363/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f477b4135faa47de5c385e26b82ee9fc85a44ebb1c9bfa4b7bde096006a7d5ef",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f630de845cb2d536e6dbe5fc7e7f80403e3ae5de7a18b1687864183494e0ac33",
-          "source_documents": [
-            "community-f5-com/t/71413/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71413/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f710960dad0c06840319d2191023c1801586a6b09ac033ece113d5bf2e9b9f64",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f7b88040e0c12b10fcff3b484b6530b8322fac48fccdd40ffaf1eb122986098e",
-          "source_documents": [
-            "community-f5-com/t/71704/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71704/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "f8e550f6bc2ecf330414a54f15447cd1131c79e8666b4f9fa3b1a91502150409",
-          "source_documents": [
-            "community-f5-com/t/71973/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/71973/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "fd9459ff73ffdec352aad415ccb05f1d3919de76b68a79885540e03e77932ae3",
-          "source_documents": [
-            "community-f5-com/t/77263/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/77263/index.md"]
         },
         {
           "disposition": "remove",
           "reason": "retired provider tutorial or dependent procedural media",
           "sha256": "fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733",
-          "source_documents": [
-            "community-f5-com/t/74264/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/74264/index.md"]
         },
         {
           "disposition": "keep",
           "reason": "visually reviewed independent architecture, console, or telemetry media",
           "sha256": "ffd365a1262092773b1eeda34ffb5e0cd4dd09854b2af254be4d7ad64af719db",
-          "source_documents": [
-            "community-f5-com/t/70890/index.md"
-          ]
+          "source_documents": ["community-f5-com/t/70890/index.md"]
         }
       ],
       "minimum_independent_words": 25,
@@ -15691,9 +15363,7 @@
       "profiles": {
         "https://community.f5.com/t/69843": {
           "input_sha256": "56a043f4397c0ae06cd66dd3595ed6d88f716ac7a19c25d84e30d6e09bd8afee",
-          "remove_sections": [
-            "## Terraform"
-          ],
+          "remove_sections": ["## Terraform"],
           "remove_text_patterns": [
             "(?m)^- The WAAP site is provisioned using its own module.*\\n",
             "(?m)^- For VM initiated Internet bound traffic.*\\n"
@@ -15704,48 +15374,33 @@
         },
         "https://community.f5.com/t/70890": {
           "input_sha256": "6010ad0f8518fa0ff92c2048f668448b3dbe4c5e136e2a1daa2e5c403bf4054c",
-          "remove_text_patterns": [
-            "(?m)^\\*\\*Discovery in Action\\*\\*\\n\\n",
-            "(?m)^##\\n\\n"
-          ],
+          "remove_text_patterns": ["(?m)^\\*\\*Discovery in Action\\*\\*\\n\\n", "(?m)^##\\n\\n"],
           "replace_text": {
             "covering both console and automation workflows": "covering console workflows"
           }
         },
         "https://community.f5.com/t/71319": {
           "input_sha256": "bc00b2a709687f497ce66099550caf5bed8c3544327d95a2ffaeca39e0317235",
-          "remove_sections": [
-            "## XC WAF + BIG-IP Advanced WAF Workflow",
-            "## Conclusion"
-          ],
+          "remove_sections": ["## XC WAF + BIG-IP Advanced WAF Workflow", "## Conclusion"],
           "remove_text_patterns": [
             "(?m)^Here\\ in\\ our\\ first\\ example\\ solution,\\ we\\ will\\ be\\ using\\ Terraform\\ to\\ deploy\\ an\\ application\\ server\\ running\\ the\\ OWASP\\ Juice\\ Shop\\ application\\ serviced\\ by\\ a\\ F5\\ BIG\\-IP\\ Advanced\\ WAF\\ Virtual\\ Edition\\.\u00a0\\ We\\ will\\ supplement\\ this\\ with\\ F5\\ Distributed\\ Cloud\\ Web\\ App\\ and\\ API\\ Protection\\ to\\ provide\\ complimentary\\ security\\ at\\ the\\ edge\\.\u00a0\\ Everything\\ will\\ be\\ tied\\ together\\ using\\ GitHub\\ Actions\\ for\\ CI/CD\\ and\\ Terraform\\ Cloud\\ to\\ maintain\\ state\\.\\n\\n"
           ]
         },
         "https://community.f5.com/t/71413": {
           "input_sha256": "9cb3ce963efcce42452adac2d6aeca4872fd4fd3d7f34539ca92826d62e46917",
-          "remove_sections": [
-            "## XC WAF + NGINX App Protect WAF Workflow",
-            "## Conclusion:"
-          ],
+          "remove_sections": ["## XC WAF + NGINX App Protect WAF Workflow", "## Conclusion:"],
           "remove_text_patterns": [
             "(?m)^Here\\ in\\ this\\ example\\ solution,\\ we\\ will\\ be\\ using\\ Terraform\\ to\\ deploy\\ an\\ AWS\\ Elastic\\ Kubernetes\\ Service\\ \\(EKS\\)\\ cluster\\ running\\ the\\ Arcadia\\ Finance\\ test\\ web\\ application\\ serviced\\ by\\ F5\\ NGINX\\ Ingress\\ Controller\\ for\\ Kubernetes\u00a0and\\ protected\\ by\\ F5\\ NGINX\\ App\\ Protect\\ WAF\\ and\\ API\\ Protection\\.\u00a0\\ We\\ will\\ supplement\\ this\\ with\\ F5\\ Distributed\\ Cloud\\ Web\\ App\\ and\\ API\\ Protection\\ to\\ provide\\ complimentary\\ security\\ at\\ the\\ edge\\.\u00a0\\ Everything\\ will\\ be\\ tied\\ together\\ using\\ GitHub\\ Actions\\ for\\ CI/CD\\ and\\ Terraform\\ Cloud\\ to\\ maintain\\ state\\.\\n\\n"
           ]
         },
         "https://community.f5.com/t/71704": {
           "input_sha256": "17713f3232d3dc8ec9dd46139b7c3021816feee10dc00aa667bf9cac4bf22d74",
-          "remove_sections": [
-            "## XC WAAP + NGINX Ingress Controller Workflow",
-            "## Conclusion:"
-          ],
+          "remove_sections": ["## XC WAAP + NGINX Ingress Controller Workflow", "## Conclusion:"],
           "remove_text_patterns": []
         },
         "https://community.f5.com/t/71973": {
           "input_sha256": "215cd8e4495bc00cffe38eb90c87742a713e32f98e2294e9832b6a40c93e2490",
-          "remove_sections": [
-            "## XC WAF + BIG-IP Advanced WAF Workflow",
-            "## **Conclusion**"
-          ],
+          "remove_sections": ["## XC WAF + BIG-IP Advanced WAF Workflow", "## **Conclusion**"],
           "remove_text_patterns": [
             "(?m)^Here\\ in\\ our\\ fourth\\ example\\ solution,\\ we\\ will\\ be\\ using\\ Terraform\\ to\\ deploy\\ an\\ application\\ server\\ running\\ the\\ OWASP\\ Juice\\ Shop\\ application\\ serviced\\ by\\ a\\ F5\\ BIG\\-IP\\ Advanced\\ WAF\\ Virtual\\ Edition\\.\u00a0\\ We\\ will\\ supplement\\ this\\ with\\ F5\\ Distributed\\ Cloud\\ Web\\ App\\ and\\ API\\ Protection\\ to\\ provide\\ BOT\\ and\\ DDoS\\ Defense\\ at\\ the\\ Edge\\.\u00a0\\ Everything\\ will\\ be\\ tied\\ together\\ using\\ GitHub\\ Actions\\ for\\ CI/CD\\ and\\ Terraform\\ Cloud\\ to\\ maintain\\ state\\.\\n\\n"
           ]
@@ -15799,10 +15454,7 @@
         },
         "https://community.f5.com/t/73038": {
           "input_sha256": "6eb1ea425fb9404ab36b4d8e98d2b03d4ba42e2b7523faea3081cf940477a9b0",
-          "remove_sections": [
-            "### Deployment Steps",
-            "### Acknowledgments"
-          ],
+          "remove_sections": ["### Deployment Steps", "### Acknowledgments"],
           "remove_text_patterns": [
             "(?m)^You\\ did\\ it!\\ With\\ the\\ power\\ and\\ reach\\ of\\ Distributed\\ Cloud\\ combined\\ with\\ the\\ security\\ that\\ NGINX\\ Plus\\ provides,\\ we\\ have\\ been\\ able\\ to\\ easily\\ provide\\ authorization\\ for\\ our\\ example\\ API\\-based\\ application\\.\\n\\n",
             "(?m)^Thanks\\ for\\ taking\\ this\\ journey\\ with\\ me,\\ and\\ I\\ welcome\\ your\\ comments\\ below\\.\\n\\n"
@@ -15853,9 +15505,7 @@
         "https://community.f5.com/t/76323": {
           "input_sha256": "42a6534fadc2eadb3b64f771c758f75ca2ca77a5501f164270da05e82e51010c",
           "remove_from_heading": "## Terraform",
-          "remove_text_patterns": [
-            "(?m)^We will use both components in the Terraform automation\\.\\n\\n"
-          ]
+          "remove_text_patterns": ["(?m)^We will use both components in the Terraform automation\\.\\n\\n"]
         },
         "https://community.f5.com/t/76458": {
           "input_sha256": "d350389ef3d44e429e718bac5fce3580dc31c7f7e7d8e53b3c763114f5572e07",
@@ -15868,9 +15518,7 @@
         },
         "https://community.f5.com/t/76472": {
           "input_sha256": "e43e5e472b228efc61355a686b044b16ffe26aa3f268dbf1feca4ee2bcbab6a4",
-          "remove_sections": [
-            "### Deployment Process"
-          ],
+          "remove_sections": ["### Deployment Process"],
           "remove_text_patterns": [
             "(?m)^Scaling\\ infrastructure\\ efficiently\\ while\\ maintaining\\ operational\\ simplicity\\ is\\ a\\ critical\\ challenge\\ for\\ modern\\ enterprises\\.\\ This\\ comprehensive\\ guide\\ presents\\ the\\ foundation\\ for\\ a\\ fully\\ automated\\ Terraform\\ solution\\ for\\ deploying\\ F5\\ Distributed\\ Cloud\\ \\(F5XC\\)\\ Customer\\ Edge\\ \\(CE\\)\\ nodes\\ on\\ AWS\\.\\ It\\ scales\\ seamlessly\\ from\\ single\\-node\\ proof\\-of\\-concepts\\ to\\ multi\\-node\\ production\\ deployments\\.\\n\\n",
             "(?m)^Through\\ Infrastructure\\ as\\ Code\\ automation,\\ this\\ project\\ eliminates\\ manual\\ configuration\\ overhead,\\ ensures\\ consistent\\ deployments,\\ and\\ enables\\ teams\\ to\\ scale\\ their\\ application\\ delivery\\ infrastructure\\ on\\-demand\\ with\\ simple\\ variable\\ changes\\.\\n\\n",
@@ -15929,15 +15577,11 @@
         },
         "https://community.f5.com/t/77263": {
           "input_sha256": "76ce9aa396262d6f200c12650adec6b3ab65c15f06a9dca6bb8ff152afb43f2f",
-          "remove_sections": [
-            "## **Configuration**"
-          ]
+          "remove_sections": ["## **Configuration**"]
         },
         "https://my.f5.com/manage/s/article/K000162240": {
           "input_sha256": "94c06adb86fab551ccb2cb5c8a5fb03042e373fb391fb7e7376f6bd4d51de4a5",
-          "remove_sections": [
-            "## Cause"
-          ],
+          "remove_sections": ["## Cause"],
           "remove_text_patterns": [
             "(?m)^- The configuration is compatible with both Terraform and console-based management when the correct structure is used\\.\\n",
             "(?m)^- \\[K000160940:.*\\n",
@@ -15949,15 +15593,8 @@
           }
         }
       },
-      "provider_aliases": [
-        "volterra",
-        "volterra_*"
-      ],
-      "provider_identities": [
-        "volterraedge/volterra",
-        "terraform-provider-volterra",
-        "provider \"volterra\""
-      ],
+      "provider_aliases": ["volterra", "volterra_*"],
+      "provider_identities": ["volterraedge/volterra", "terraform-provider-volterra", "provider \"volterra\""],
       "registry_evidence": {
         "path": "terraform_registry_13_1_1.json.gz",
         "sha256": "e581578d7d6104860ccc9631f04acdc3ab07e30881be622667b15da3e3aebe3a"
