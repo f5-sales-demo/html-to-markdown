@@ -1,0 +1,3713 @@
+{
+  "baseline_receipt_sha256": "7cc12578f4d9a98ea8d686d29a78c64080fbf0ea0fabfd94abadb415926fcce7",
+  "baseline_tag": "content-20261005T035630Z",
+  "documents": [
+    {
+      "block_removals": [
+        {
+          "location": "## Product Name Changes@1:table:19:row:23",
+          "sha256": "bf60005ab4cadc9ad172471c5c4013ef4032a12887f1d789d3d15d6c65f45b05"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "53ebfb7703bac935ac0c723c19d44aed449b8ad8c84b32293318bab1710b7197",
+      "output_sha256": "2bc70d437bf5ae11e1aec69eb4bcb9d1d82e2b3264b41d805f22d76e3a4fc443",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 0,
+      "url": "https://community.f5.com/t/69226"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "8fd6c69a177cfce19241ca03656d36a3058309479c93644bef3eeb2a4172ec2e",
+      "output_sha256": "424899dbde2085aaf52a906306b1b5c8ce2bbcfa75e93366bbfae79a8a1f8f38",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "F5 Distributed Cloud Mesh",
+          "source": "F5 Distributed Cloud Mesh and F5 Distributed Cloud App Stack"
+        }
+      ],
+      "review_index": 1,
+      "url": "https://community.f5.com/t/70580"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Kubernetes Architecture Options@1/### Architecture 3: vK8s (Namespace-as-a-Service)@1:section:43",
+          "sha256": "58bb7f37fe0156a37b1590845639b794a5d3b8d8966afa30e10a0898de3b7940"
+        },
+        {
+          "location": "## Kubernetes Architecture Options@1/### Architecture 4: mK8s (Managed K8s)@1:section:59",
+          "sha256": "f0e423b5f4e07d06458d425016879946fb04df2d8c03f623ae9bb9c81d6fa27d"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "de4e011841ee19ee99e796d18fa382f6f0fb3a134c61443f0419af31e0f6450f",
+      "output_sha256": "2cef51edcf3d8ef324fede2d1d8302468ef870d057891817760bba23915a0b77",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "F5 Distributed Cloud Services (F5 XC) can integrate with existing Kubernetes (K8s) clusters. This article explores two ways to expose those clusters through F5 XC.\n",
+          "source": "F5 Distributed Cloud Services (F5 XC) can both integrate with your existing Kubernetes (K8s) clusters *and/or* host a K8s workload itself. Within these distinctions, we have multiple architecture options. This article explores four major architectures in ascending order of sophistication and advantages.\n"
+        },
+        {
+          "destination": "",
+          "source": "- [Architecture #3: Managed Namespace (vK8s)](https://community.f5.com/t/71209)\n"
+        },
+        {
+          "destination": "",
+          "source": "- [Architecture #4: Managed K8s (mK8s)](https://community.f5.com/t/71209)\n"
+        },
+        {
+          "destination": "As K8s continues to grow, there are several ways to integrate existing clusters with F5 XC.\n",
+          "source": "As K8s continues to grow, options for how we run K8s and integrate with existing K8s platforms continue to grow. F5 XC can both integrate with your existing K8s clusters *and/or* run a managed K8s platform itself. Multiple architectures exist within these offerings too, so I was thoroughly confused when I first heard about these possibilities.\n"
+        },
+        {
+          "destination": "",
+          "source": "A colleague recently laid it out for me in a conversation:\n\n> *“Consider this: XC can either **integrate** with your K8s platform, **run inside** your K8s platform, **host virtual K8s** (Namespace-aaS), or run a **K8s platform** in your environment.”*\n> I replied, \"*That’s great. Now I have a mental model for differentiating between architecture options.\"*\n\nThis article will overview these architectures and provide 101-level context: when, how, and why would you implement these options?\n\n![k8s-arch-options.png](assets/608bb43e3a609ed32d07daf774a234ebcec77f3b6f5419856668600f485fca06.png)\n\n"
+        },
+        {
+          "destination": "XC Nodes",
+          "source": "[XC Nodes](https://docs.cloud.f5.com/docs/about-f5-distributed-cloud/app-stack#f5-distributed-cloud-node)"
+        },
+        {
+          "destination": "XC Mesh functionality provides connectivity between sites, security services, and observability. The architectures below use Mesh services.\n",
+          "source": "XC [Mesh](https://docs.cloud.f5.com/docs/about-f5-distributed-cloud/mesh) functionality provides connectivity between sites, security services, and observability. Optionally, in addition, XC [App Stack](https://docs.cloud.f5.com/docs/about-f5-distributed-cloud/app-stack) functionality *allows a large and arbitrary number of managed clusters to be logically grouped into a virtual site with a single K8s mgmt interface*. So where Mesh services provide the networking, App Stack services provide the Kubernetes compute mgmt. Our first 2 architectures require Mesh services only, and our last two require App Stack.\n"
+        },
+        {
+          "destination": "A site deployed into a K8s cluster supports Mesh functionality. In this architecture, XC acts as a K8s ingress controller with built-in application security. It also enables Mesh features, such as publishing services between sites.\n",
+          "source": "A site deployed into a K8s cluster will only support Mesh functionality and does not support AppStack functionality (i.e., you cannot run a cluster within your cluster). In this architecture, XC acts as a K8s ingress controller with built-in application security. It also enables Mesh features, such as publishing of other sites’ services on this site, and publishing of this site’s discovered services on other sites.\n"
+        },
+        {
+          "destination": "This applies to both architectures below.",
+          "source": "And this can be true in any of the architectures below, although more granular controls are possible with the more sophisticated architectures."
+        },
+        {
+          "destination": "F5 XC can help secure services in existing Kubernetes clusters through an external load balancer or a site running inside the cluster.\n",
+          "source": "As K8s continues to expand, management solutions of your clusters make it possible to secure your K8s services, whether they are managed by XC or exist in disparate clusters. With F5 XC as a global platform consumed as a service—not a discreet installation managed by you—the available architectures here are unique and therefore can accommodate the diverse (and changing!) ways we see K8s run today.\n"
+        }
+      ],
+      "review_index": 2,
+      "url": "https://community.f5.com/t/71209"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "47f4c893e75ef01e2277564128179657880674406fccc3233e0140be139ac343",
+      "output_sha256": "302505e82a4347dcbbac953b2db4a1820df838875c028832c4c88b52ff1244e0",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": "F5 Distributed Cloud (F5 XC) AppStack, "
+        }
+      ],
+      "review_index": 3,
+      "url": "https://community.f5.com/t/71293"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Additional Links to Distributed Cloud Content:@1:paragraph:75",
+          "sha256": "ba95a2cf5575afcffd37182d8d6a31d1173f48d3be6d7091007b61fe8228c59b"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "4bb9dc0410905bd469906232fcdef52a39714f613a58524c0ac7b7a6fce6dfd2",
+      "output_sha256": "85c25307bbe6ce4ef7174d89d5c0a1ddbebdf86a7420028e3e5ab4fafe7fe2d9",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 4,
+      "url": "https://community.f5.com/t/71311"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "3868ea8925518b7b1eb402b0c1f2ab76f1dac66ffd9c313d5cd04488fee6c7c8",
+      "output_sha256": "3868ea8925518b7b1eb402b0c1f2ab76f1dac66ffd9c313d5cd04488fee6c7c8",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 5,
+      "url": "https://community.f5.com/t/71329"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "cb9c97a9144af6f088e2148019c60ed2e8a26abd9771ba3453bf436cf55c4faa",
+      "output_sha256": "4c4c3cdac97fd81601847d326eba132ce1a54ad505bd7ab3045d53dac0613bee",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "nodes",
+          "source": "[nodes](https://docs.cloud.f5.com/docs/about-f5-distributed-cloud/app-stack#f5-distributed-cloud-node)"
+        },
+        {
+          "destination": "",
+          "source": "![site.png](assets/ad60d9804acfae6784477ddaccfb8ff9b96ffb15bce82cf77d28e4100cbec131.png)\n\n"
+        }
+      ],
+      "review_index": 6,
+      "url": "https://community.f5.com/t/71780"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "1fe69fcaeac48c9e63e12f890892b02c72d78ee2974f23334d495ab73dbd76d5",
+      "output_sha256": "1fe69fcaeac48c9e63e12f890892b02c72d78ee2974f23334d495ab73dbd76d5",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 7,
+      "url": "https://community.f5.com/t/72098"
+    },
+    {
+      "block_removals": [
+        {
+          "location": ":list_item:4",
+          "sha256": "712048aa0ac1b687fc3d5de41e61c38ad80ba4b555ce3502fed6542308cb3b44"
+        },
+        {
+          "location": ":paragraph:10",
+          "sha256": "f98d557dbba7a30ebc3e4969f5ef471dbb508522137a0ea9f81439df4752c272"
+        },
+        {
+          "location": "#### MODULE 1: Distributed Cloud **App Stack**@1:section:16",
+          "sha256": "21922a762d4c94acc7a1e4cef77bb738902690029c77a1a80fbc154448b93965"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "6062e8c71bb0b1f78bb4fc8825e2020463ea54dd8088f96175c7445fd18cb0bb",
+      "output_sha256": "a8826b5d0b1c3eca08ebc0cdebd97c07a0533f5fe16dfd05921d48671f8c2be8",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "This overview describes Multi-Cloud Networking and Regional Edge use cases across a sample commerce application.\n",
+          "source": "This overview describes F5 Distributed Cloud AppStack, Multi-Cloud Networking, and Edge Compute use cases across a sample commerce application.\n"
+        },
+        {
+          "destination": "",
+          "source": "![overview_0 (1).png](assets/f01433b563c18487679e9060a7212865b05d93c2774898a7e2d2e732d9a38d56.png)\n\n"
+        },
+        {
+          "destination": "The remaining modules use a sample WooCommerce commerce application to explain cloud networking and Regional Edge delivery.\n",
+          "source": "Once deployed, the guide goes through the key use cases for this distributed app architecture via several modules, all based on the fictitious scenario of a traditional 3-tier app: BuyTime Commerce built on WooCommerce (powered by WordPress + MySQL) and used in both a branch environment and an online eCommerce deployment. For simplicity, this scenario re-uses the standard WooCommerce datasets for a clothes shop.\n"
+        },
+        {
+          "destination": "The Customer Edge (CE) deployment provides eCommerce capabilities and online promotions with a focus on response time and security.\n",
+          "source": "The CE deployment of the online .com site provides typical eCommerce capabilities and is augmented with modern online promotion features. The key requirements for a quick response time for time- and latency-sensitive online promotions, similar to Amazon’s Lighting Deals, as well as high security for both in-branch and online eCommerce operations.\n"
+        },
+        {
+          "destination": "The modules below describe the CE and Regional Edge parts of this architecture.\n",
+          "source": "The modules below lay out a framework for connecting and managing distributed app services for this scenario, with a focus on the three core use cases.\n"
+        },
+        {
+          "destination": "A WooCommerce application deployed on a CE can serve online shoppers and use High Availability with multiple Availability Zones or virtual sites across cloud providers.\n",
+          "source": "Using F5 Distributed Cloud Multi-Cloud Networking (MCN) and TCP Load Balancer to securely connect and synchronize branch databases with the central inventory and order databases deployed in the public cloud on the Customer Edge (CE). By using the TCP Load Balancer, the retail branch inventory and order data is always synchronized and up-to-date.  Furthermore, a slightly modified version of the WooCommerce app deployed in a CE can serve as the main eCommerce application for online shoppers and could be further enhanced by using High Availability configuration with multiple Availability Zones and/or virtual sites across multiple cloud providers.\n"
+        },
+        {
+          "destination": "The modules describe multi-cloud networking, an eCommerce site, and low-latency promotional services.\n",
+          "source": "In summary, this demo guide explores the use cases of the F5 Distributed Cloud platform (xC) through modules that cover a multi-cloud architecture using Microsoft Azure and Amazon AWS. The modules describe an in-store kiosk, multi-cloud networking to a central database, an e-commerce site, and low-latency promotional services.\n"
+        },
+        {
+          "destination": "#### Customer Edge (CE) Deployment",
+          "source": "#### MODULE 2: Customer Edge (CE) Deployment"
+        },
+        {
+          "destination": "#### Regional Edge (RE) Deployment",
+          "source": "#### MODULE 3: Regional Edge (RE) Deployment"
+        }
+      ],
+      "review_index": 8,
+      "url": "https://community.f5.com/t/72499"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "3c5afbf5f3fad9d20f35012299013157d9824090c810c1b2883d5514173481f8",
+      "output_sha256": "0ce38668d5015b2d5384d60bc7e0583434e6914f6ea2d59307e217ce04870877",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "This article focuses on the first three Customer Edge deployment options; Kubernetes attachment has different steps.\n",
+          "source": "In this article, we will focus on the first 3 options, and leave the Kubernetes attachment for another day, as it is a little different from the other 3.  If you’re familiar with F5 Distributed Cloud, you may also know that the CEs have two personas, one if which is Mesh for the use cases I mentioned above, and the other is AppStack, which is turning the CE into its own k8s cluster that you can bring workloads to.  We will not be focusing on AppStack in this article.\n"
+        }
+      ],
+      "review_index": 9,
+      "url": "https://community.f5.com/t/72834"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "### Overview@1:list_item:11",
+          "sha256": "5654070d43b764afc15dcc62ad91d4d8dd08ba800e96162e5e44cd3de8c1f1d7"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "ec62f6bb3638f8500708b397f8b1deae0473dfb1777ec4abd59cf55e32842b01",
+      "output_sha256": "8b677de673147be3a0343a9daefb04008edfcdab38902bd722eb27e16a14fbb7",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "infrastructure layers",
+          "source": "app stack layers"
+        }
+      ],
+      "review_index": 10,
+      "url": "https://community.f5.com/t/72851"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Tell me how!@1/### Out of Band API Analysis@1:section:25",
+          "sha256": "04fbb42438a3a3d054a117ebd662821381f7f77d0081b4168f7027983d4bb39e"
+        },
+        {
+          "location": "## Replaying the Traffic@1:section:31",
+          "sha256": "c3e0f1739c5a79e830180d5114d94e0d5d47a4a992f7118407673aff036fc4a8"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "90a9a20d88bad943cd81f2b8c2b292efbe6ac1b6f314c445bf3e29d98074f939",
+      "output_sha256": "e1874951e4142e15447ba1aa0b67746a78b68fcb1d104191d65a9b3f4ba41a7f",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 11,
+      "url": "https://community.f5.com/t/73012"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "04f414c7e3aee700ab12c9a5f09334118c02e026f256abd0ec14797ae224cf29",
+      "output_sha256": "04f414c7e3aee700ab12c9a5f09334118c02e026f256abd0ec14797ae224cf29",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 12,
+      "url": "https://community.f5.com/t/73038"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "e32f843ad2a223f58413b754957d6006ce3dbe07835b2afd41ed25089d4d8900",
+      "output_sha256": "e32f843ad2a223f58413b754957d6006ce3dbe07835b2afd41ed25089d4d8900",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 13,
+      "url": "https://community.f5.com/t/74162"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "a8fe1b7ed18f1f6f2d302376c1d89d79ad0d0c9e14869ea34fb651bed0b142fb",
+      "output_sha256": "a8fe1b7ed18f1f6f2d302376c1d89d79ad0d0c9e14869ea34fb651bed0b142fb",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 14,
+      "url": "https://community.f5.com/t/74396"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Related Content@1:list_item:96",
+          "sha256": "283b15f7e94dce2aea11d15d1831e5c17db180ff1d4a93a2d6191502b8a577d1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "d3886d8fc8d5b265adeacbe462fd42d4ae4c85d4b2c4fa0504625a38c9a3f080",
+      "output_sha256": "3ec7d6957652010d018c53d9c46be3744b9f83a8b0bbd0be5e4fcf601992525d",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 15,
+      "url": "https://community.f5.com/t/75574"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "ae087901776a7ff7435c9344ef914b027502a3cff5c3c893b82b5ce29de87bab",
+      "output_sha256": "ae087901776a7ff7435c9344ef914b027502a3cff5c3c893b82b5ce29de87bab",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 16,
+      "url": "https://community.f5.com/t/75882"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "cf983ad6221572c2667936ca817ebbbbb34d13a338532d1e8f9bc301f1285ad2",
+      "output_sha256": "cf983ad6221572c2667936ca817ebbbbb34d13a338532d1e8f9bc301f1285ad2",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 17,
+      "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/create-deploy-managed-k8s"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "7d0d3ce636320301e5312fbb185887533e28a42d30e8e41d33183a96c991dc0e",
+      "output_sha256": "7d0d3ce636320301e5312fbb185887533e28a42d30e8e41d33183a96c991dc0e",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 18,
+      "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-token-for-managed-k8s"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "fe21627971a638f6699ccfe384dafb9d75d66434e3b11b9e77fd8b74e27f8d4c",
+      "output_sha256": "fe21627971a638f6699ccfe384dafb9d75d66434e3b11b9e77fd8b74e27f8d4c",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 19,
+      "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/vk8s-resources"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "4b1647f069a0a0854ed47bdf8b367aa8de97db3fa9a3538f30990510ebf20b13",
+      "output_sha256": "4b1647f069a0a0854ed47bdf8b367aa8de97db3fa9a3538f30990510ebf20b13",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 20,
+      "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/observe/monitor-your-managed-k8s"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "84ce4e835b8661ff0b4d26abb1cedc31ae7d39fc993e4593a8ba165139181fcc",
+      "output_sha256": "84ce4e835b8661ff0b4d26abb1cedc31ae7d39fc993e4593a8ba165139181fcc",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 21,
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/how-to/site-management/create-voltstack-site"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Virtual Kubernetes API Compatibility@1/## Resource Management for Distributed Cloud Services vK8s@1:paragraph:414",
+          "sha256": "088abc690f302e0773df66fbe846279faae64d4550c1cbe004d407f4b5c406a9"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "90e2bc2081f874839aa69ba6118ee77f4b859d03eeb044a2abe15ad808f1fba3",
+      "output_sha256": "cd7f73000ecbe5c0effd81a1c2646ef908e8f5a500545c51ce5585989352b02f",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 22,
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/reference/vks-api-comp"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "cf036ebcdc45543c2031fe3e0f2f793bab6c5f552fc82865dfc6aac16dc0455b",
+      "output_sha256": "626e4a131da2480ffa38b057968b10679d7040a7ccdacd94dd377c6614ff3b33",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "[Mesh Services](https://docs.cloud.f5.com/docs-v2/services/mesh) · [Observability](https://docs.cloud.f5.com/docs-v2/observability/services/observability) · [NGINX](https://docs.cloud.f5.com/docs-v2/services/nginx) · [BIG-IP Utilities](https://docs.cloud.f5.com/docs-v2/bigip-utilities/services)\n",
+          "source": "[Mesh Services](https://docs.cloud.f5.com/docs-v2/services/mesh)[App Stack Services](https://docs.cloud.f5.com/docs-v2/platform/services/app-stack)[Observability](https://docs.cloud.f5.com/docs-v2/observability/services/observability)[NGINX](https://docs.cloud.f5.com/docs-v2/services/nginx)[BIG-IP Utilities](https://docs.cloud.f5.com/docs-v2/bigip-utilities/services)\n"
+        }
+      ],
+      "review_index": 23,
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/services"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "da9c207989d9fca307f5cd829bb92cdd5a257c6c15bb17c3d3e99685c743d088",
+      "output_sha256": "a22f34024f55dfd3f6cb5d41b2f72d45c66f09c75d3b27f6996062e34b249166",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": " There is no need to create a Service Discovery object if the service is deployed using F5® Distributed Cloud App Stack Site (vK8s)."
+        }
+      ],
+      "review_index": 24,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "25963a1c630a9ecb0c68b3579c204aed1b17d9637bb1d0d8879fcff283f88646",
+      "output_sha256": "25963a1c630a9ecb0c68b3579c204aed1b17d9637bb1d0d8879fcff283f88646",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 25,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/app-mgnt/create-workloads-with-multi-interfaces"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "572867e24217c37568f34c818ec75d7ffd27abd9382c0160a12b5092eaba865f",
+      "output_sha256": "cb75d4e66d5755455b70dcadfe112f737be567098a907824d76c9eaea52c8020",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": "**GPU (App Stack CE Site only)**\n\nThe **GPU** metrics present an overall view for each node of your App Stack CE Site so that you examine trends focused on GPU usage patterns. The metrics are displayed in graphs representing the trends over a period of time. You can select each metric heading for an in-depth look at that specific metric (with alerts and events).\n\nUse the node selector menu to select multiple nodes to view and compare metrics simultaneously for the following:\n\n- **GPU Usage**: This metric provides the percentage of GPU used on each node.\n- **GPU Temperature**: This metric provides the GPU temperature on each node.\n- **GPU TX Throughput**: This metric provides the GPU transmit throughput on each node.\n- **GPU RX Throughput**: This metric provides the GPU receive throughput on each node.\n\n![Figure: App Stack CE Node GPU Metrics](assets/a1894898f87a29fc800788bc5ff725a5e2e59a4d31b7ade3590702243f2c5b3a.png)\n\nFigure: App Stack CE Node GPU Metrics\n\n![Figure: App Stack CE Node GPU Metric Specific](assets/ddcf33c0badaa77d828b2fafa7106841e458ebeb377f314cf36d40ca81541f80.png)\n\nFigure: App Stack CE Node GPU Metric Specific\n\n**Customer Pods (App Stack CE Site only)**\n> **Note:** Pods reference customer applications and are only available for App Stack CE sites.\n\nThe **Customer Pods** metrics present an overall view for each pod of your App Stack CE Site so that you examine trends focused on hardware resource usage patterns. The metrics are displayed in graphs representing the trends over a period of time. You can select each metric heading for an in-depth look at that specific metric (with alerts and events).\n\nUse the pod selector menu to select multiple pods to view and compare metrics simultaneously for the following:\n\n- **CPU Usage**: Provides the CPU usage of each pod. Measured in millicores (m).\n- **Memory Usage**: Provides the memory usage of each pod. Measured in bytes.\n- **Disk Usage**: Provides the disk usage of each pod. Measured in bytes.\n\n![Figure: App Stack CE Pod GPU Metrics](assets/2e37c115925299f81b01e8d75ca85326ad27f73c21594b4f7342b2d82d646723.png)\n\nFigure: App Stack CE Pod GPU Metrics\n\n![Figure: App Stack CE Pod GPU Metric Specific](assets/df5a2347842b7e9a7cfd0a3620d5d669a55c548d741b8b5f02124095df3aa3ab.png)\n\nFigure: App Stack CE Pod GPU Metric Specific\n\n"
+        }
+      ],
+      "review_index": 26,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "84ce4e835b8661ff0b4d26abb1cedc31ae7d39fc993e4593a8ba165139181fcc",
+      "output_sha256": "84ce4e835b8661ff0b4d26abb1cedc31ae7d39fc993e4593a8ba165139181fcc",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 27,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/create-app-stack-site"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 in AWS (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "3ff5ebfb1542ca363bcf4b367946aca36a452e507d325a3aa02d89caba932386",
+      "output_sha256": "cec4767c6f75ae50264321b7ccb1f36afe1533ad2eabb5b6da9351e2e0e63888",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 28,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 in Azure (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "226487706c938ed4df7bec3ed7ebaa259631cedc43907df578d90346034dae87",
+      "output_sha256": "bfe900c478ca3f72ffd8ef354c1db2190fd09aac2898a35e9a6fe3c60bac0569",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 29,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 in GCP (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "e572386d91d564fee01c01344a738eb5a938fa0a9c8f8d2d4655e032f9d5b32e",
+      "output_sha256": "504f86ab06276d36bbe472c31d95ff6267dfce4d9cf00864b99c6bd3e5812bc3",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 30,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 in Nutanix (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "386826d0ab5746c4e873a8c71cdd7d9509608036798e7670b03e42f5b3b61758",
+      "output_sha256": "85c065b8ae8f7e83b78b526173fdc2adbccce0ab56c32987f5b069a16739c441",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 31,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 with OpenShift Virtualization (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "be41ad7cb084353c73b5a8045ce580f32930ff46aa4467021b4420ca00ecdd7d",
+      "output_sha256": "fdda2f768b82cd8af3108c910e973eec60076e5e6be618352bc1e4657ffadb0f",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 32,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-openshift"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Deploy Secure Mesh Site v2 on VMware (ClickOps)@1/## Objective@1:paragraph:10",
+          "sha256": "2ad12ff5513da4f8f7f689f30f2e7444870e89d57171fce0a868913d71a549c1"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "18a20c17aff0f5f52098c2d70d5f37277b269885d8b75878c0ddfe5781cb52a8",
+      "output_sha256": "5b24fed5a4a94e3a1a4f44890a8530901c55d021fc63d317d5e7dc5e1ec5146a",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 33,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Integrating Distributed Cloud Mesh with Red Hat OCP@1/## Deployment Methods@1:paragraph:28",
+          "sha256": "8fac21060240be64e9ba3f0006e59250fd503dfd4448b4094b54c78e86363823"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "b35a95d43698779c52a179822cb61b50fb2580736b90604ed3305d9b4efdeaf6",
+      "output_sha256": "1c336cf87002913a0265db2f372cee1b9864421a6ca62ace3c93743ec938f1c0",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 34,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "ef7325edfbfa712f6fbdcbc15d2fde7f27e8a777c2ebc9c0da7b03b22ee83a08",
+      "output_sha256": "1e6ea81a6fabe8f5dd08b2a3f7ddb20488bfb09cbf5eba74050b54b39733dffc",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "> **Notice:** Effective July 1, 2025, F5 announced the End-of-Sale (EoS) of small Customer Edge (CE) nodes (with up to 4 vCPUs and 16 GB memory) for Mesh deployments on F5 Distributed Cloud Services.\n",
+          "source": "> **Notice:** Effective July 1, 2025, F5 announced the End-of-Sale (EoS) of small Customer Edge (CE) nodes (with up to 4 vCPUs and 16 GB memory) for both Mesh and App Stack deployments on F5 Distributed Cloud Services.\n"
+        },
+        {
+          "destination": "A CE Site is deployed as a cluster with three control nodes and optional worker nodes. The minimum resource requirements for each Mesh node are 8 vCPUs, 32 GB RAM, and 80 GB disk storage.\n",
+          "source": "A CE Site is deployed as a cluster with three control nodes and optional worker nodes. The minimum resource requirements for each node are 8 vCPUs, 32 GB RAM, and 80 GB disk storage for Mesh nodes or 100 GB disk storage for App Stack nodes.\n"
+        }
+      ],
+      "review_index": 35,
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Node Operating System and Software Changelogs@1/## Node Software Changelogs@1:list_item:849",
+          "sha256": "6e0d43828ec8c3e96fe68bca55d3029c990a20963282a531c1c24bbb624aed77"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "a08b2c39415805c498a5f8522bac580346d6cae5594e3f56ff0ed340d6cd3db7",
+      "output_sha256": "ec0ce8907f25f035e9b58d7040d08948ef4eee67eba181d2b758da4d9350893e",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 36,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/node-sw-release-notes"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Distributed Application Management@1/## Namespaces@1/### Managing Compute Resources for Containers@1:paragraph:157",
+          "sha256": "9218d1ac1599f06552ddbd62529e2890027266705536c375e76db30c0b22e892"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "d44aa764d04c92efda6de0e819b89d6c4bbaa6bf4b9a03f9409d07da42ff27e3",
+      "output_sha256": "2ca402b78ab709f73011a8d827800040d2c74c9daed1a57e8fd7bdeb837def14",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": "There are multiple considerations for software development and application lifecycle - develop, build, package, deploy, secure, and operate. While developers love their development and build tools, they prefer that deployment, security, and operations be handled by someone else. This is abundantly clear with rapid adoption of cloud providers and Kubernetes.\n\nOur goal with F5® Distributed Cloud App Stack (App Stack) has been to make it extremely easy for developers and devops teams to deploy, secure, and operate their applications using a consistent and cloud native solution across multiple sites - private data-centers, multiple cloud providers, and/or edge locations. This becomes critical when the number of sites are large or there are different underlying platforms and services. App Stack provides the following capabilities across distributed locations:\n\n1. **Deploy** - Since Kubernetes is becoming the de-facto industry standard for orchestrating applications, F5® Distributed Cloud has chosen to implement its control plane with a Kubernetes compatible API for orchestration while delivering additional capabilities of managing and securing multiple clusters across distributed locations. This makes it seamless to integrate with third party tools like Spinnaker for CI/CD, etc. For packaging of microservices, we prefer Docker images, which have become another de-facto approach.\n3. **Operate** - As a fully managed cluster in every site with support for fleet management across sites, the SRE (site reliability engineering) is responsible for the lifecycle management of the clusters and the sites. There is a comprehensive system to collect logs, metrics, traces, and alerts from every customer site as well as our global infrastructure to present a unified view. The details of this is covered in the [Monitoring section](https://docs.cloud.f5.com/docs-v2/platform/concepts/monitoring).\n\nThere are two scenarios where App Stack and its multi-cluster application lifecycle management will be valuable for the customer:\n\n- **Multi-Cloud** - Teams are developing in multiple cloud providers and multiple regions. The reasons for this could be features provided by a particular cloud provider, cost, administrative domains, team preference, or legacy.\n- **Edge** - When applications are deployed in multiple edge sites to solve latency, bandwidth or scale issues. For example, in retail locations, cell towers, factories, etc.\n\nWhen dealing with multiple clusters, an operator can take different paths - it can address each cluster individually and build automation tooling for deployment, identity, metrics, logs, etc. Another approach is to deploy and manage Kubernetes Cluster Federation (kube-fed) control plane and it can make multiple physical clusters look like one cluster. Neither of these solutions provide an out-of-the-box and complete application platform for managing multiple clusters as a fleet while removing the need for doing custom tooling, operating control planes, and integrating with other products to solve problems of identity, connectivity, security, etc.\n\nF5 Distributed Cloud Services provide a tenant with a representative application cluster where customer deploys their applications and based on configuration our distributed control plane will replicate and manage them across multiple sites. In addition to containerized applications, the platform also provides the ability to manage virtual machines.\n\n---\n\n"
+        }
+      ],
+      "review_index": 37,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Monitoring@1/## Logs@1/### Application Logs@1:section:130",
+          "sha256": "af334aaea3f1f08813618179b1ef5e092fc47ef1f2170604a410bcd7fa559e88"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "3c2cf51f75557e5cbbca8f065704ed22a6c364c4ecf4de4ab54a9beec9af7d9e",
+      "output_sha256": "739be2a4628043b8769998c522fc175e3b978b643dff0361c489e9495427352e",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 38,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/concepts/monitoring"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "172524b519b0300420011b7b104eb3907e8fe32348926f20fbc87c8172dd3e79",
+      "output_sha256": "c682ba9cd02f2caec7cbfe1d85f262765618a6f59c19409a2bf748824026cbde",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": " services",
+          "source": " or F5 Distributed Cloud App Stack services"
+        },
+        {
+          "destination": "",
+          "source": " In addition, customer workloads also run in this K8s cluster if App Stack services are enabled on these nodes. This managed K8s on node is referred to as “physical K8s” from now on."
+        },
+        {
+          "destination": "### Site Networking\n\n",
+          "source": "### Logical View of a Site\n\nA node consists of many software components that provide computing, storage, network, and security services. A cluster comprised of multiple nodes, with its own physical K8s, acts as a super-converged infrastructure in use cases to run applications without the need for additional external components/software typically required by other systems.\n\n![Figure: Logical View of Site](assets/3c7dff6586815f32eeb224c1502403a1c2fc3a7c0445ceb6841a341810940888.png)\n\nFigure: Logical View of Site\n\nAs each node comes up, it calls home to the F5 Distributed Cloud's centralized control and management plane. Once authenticated and approved by the user, it brings up Infrastructure Control Plane and forms a cluster of nodes (this includes the physical K8s). Once the control plane service is up and the cluster is formed, it starts deploying F5 Distributed Cloud microservices.\n\nThe infrastructure control plane, primarily composed of F5 Distributed Cloud's managed physical K8s, within the Site is responsible for the functioning and health of the nodes, F5 Distributed Cloud microservices, and your workloads running within the cluster. Once the registration is complete and the cluster is admitted into the F5 Distributed Cloud Service, the distributed control plane running in the Regional Edge Sites become responsible for launching and managing the workloads in the Site. This distributed control plane is also responsible for aggregating status, logs, metrics from individual Site and propagate it to the F5 Distributed Cloud Console (Console).\n\n"
+        },
+        {
+          "destination": "",
+          "source": "- Isolated Networks for physical K8s namespace\n"
+        }
+      ],
+      "review_index": 39,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/concepts/site"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "a4df000c3cda44ce8ba0e8e5d305b643f5551a0488b10a8b3d00dccc1c6f5124",
+      "output_sha256": "5a569ebbaea30eb75eb8d55cc6042e4c9073bf5959a5af0a8193db4be901cfa7",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": "![Figure: Components of F5 Distributed Cloud Services](assets/d15b0effabbcfd7d1d253d16b7fee87e3431d1c952bfb922904a30038c3c0276.png)\n\nFigure: Components of F5 Distributed Cloud Services\n\n"
+        },
+        {
+          "destination": "F5 Distributed Cloud Mesh",
+          "source": "F5® Distributed Cloud Mesh or F5® Distributed Cloud App Stack"
+        },
+        {
+          "destination": "F5 Distributed Cloud node",
+          "source": "[F5 Distributed Cloud node](https://docs.cloud.f5.com/docs-v2/platform/overview/app-stack)"
+        },
+        {
+          "destination": "Mesh",
+          "source": "Mesh or App Stack"
+        }
+      ],
+      "review_index": 40,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/concepts/system-overview"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# F5 Distributed Cloud Services FAQs@1/## Why F5 Distributed Cloud Services?@1:paragraph:14",
+          "sha256": "2c4609cf17957dc9466db240b40d91b3518e6059b703dcecfed180d10845f529"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "9a6eec11bee832f928c6c2a65313ff6cfce744e09f02dbabd02ea54aa95f7867",
+      "output_sha256": "f1cc6da53171444df7f67309d83e5adcbdca4d7227eba4b41669a5bd35dea2fb",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "F5 Distributed Cloud Mesh connects and secures applications across edge, cloud, and the global network. The SaaS platform provides centrally managed networking and security services.\n",
+          "source": "F5 Distributed Cloud provides services - F5® Distributed Cloud Mesh (Mesh) to connect & secure and F5® Distributed Cloud App Stack (App Stack) to deploy & operate your apps across the edge, multi-cloud, and our global application delivery network. Using this SaaS platform, we remove the need for you to deploy and integrate many disparate networking and app services -- dramatically reducing cost and simplifying operations for NetOps and DevOps.\n"
+        }
+      ],
+      "review_index": 41,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/faqs/generic-faq"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "d4cbbcdfd71c03750e8ffaf8e437d379a56120d6881f115817182999a2767897",
+      "output_sha256": "d4cbbcdfd71c03750e8ffaf8e437d379a56120d6881f115817182999a2767897",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 42,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/overview/app-stack"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Distributed Cloud Services Overview@1/## What is F5 Distributed Cloud Services?@1:list_item:15",
+          "sha256": "d89b9a01eed74396fefff0e1a0fdcc7c87167c34f4b0e8325576cb50c4281fec"
+        },
+        {
+          "location": "# Distributed Cloud Services Overview@1/## What is F5 Distributed Cloud Services?@1:paragraph:25",
+          "sha256": "2374e3a241360e6f4c96674f195ad11b3246ff7115d83732532f1ca62cd009a9"
+        },
+        {
+          "location": "# Distributed Cloud Services Overview@1/## What is F5 Distributed Cloud Services?@1:paragraph:27",
+          "sha256": "4b10e86d8d73e7d0c22b5960a3333efdb8f3e70bcb1f6311f5f3e94930be232c"
+        },
+        {
+          "location": "# Distributed Cloud Services Overview@1/## What is F5 Distributed Cloud Services?@1:paragraph:29",
+          "sha256": "4440791139f155203dbb888fc7fb00d7324c76a1558abba1352fc3d6afa94a25"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "30d90efcc5b7cc4e25d43f97aa6d67171ee305fd5e20c317a749e0ab741f4186",
+      "output_sha256": "c39d4e84691be4fc1a8f0f4bc4f18ee0091e6e8f103564afef847e92b63f5929",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "",
+          "source": "![Figure: F5 Distributed Cloud Offerings](assets/3d8ec30ee5d104f501813cc848cfe33e0a1c296ace7cad7178aceb563c256063.png)\n\nFigure: F5 Distributed Cloud Offerings\n\n"
+        },
+        {
+          "destination": "Mesh services can be consumed in public or private clouds and at edge locations by deploying nodes, or from the F5 Distributed Cloud global infrastructure. Its points of presence are interconnected by a private backbone and provide:\n",
+          "source": "[App Stack](https://docs.cloud.f5.com/docs-v2/platform/overview/app-stack) and [Mesh](https://docs.cloud.f5.com/docs-v2/platform/overview/mesh) services may be consumed in public/private clouds, edge locations by deploying Nodes. In addition to consuming these services in your sites, it is also possible to consume these services entirely from F5 Distributed Cloud global infrastructure without the need to deploy any Node. The global points of presence (PoPs) are interconnected using a dedicated and redundant private backbone, multiple transit and peering connections for direct connectivity across multiple cloud providers, enterprise cloud and edge locations, and telecom operators. These PoPs serve three purposes:\n"
+        },
+        {
+          "destination": "2. [F5® Distributed Cloud Mesh]",
+          "source": "3. [F5® Distributed Cloud Mesh]"
+        },
+        {
+          "destination": "3. F5® Distributed Cloud Console",
+          "source": "4. F5® Distributed Cloud Console"
+        }
+      ],
+      "review_index": 43,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/overview"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "87111088c54670ac8be29e09bff933ee4da146f3edea6aa6bbd0a3575d3810ac",
+      "output_sha256": "456729f9dea82403e7987125e53b07b8661e33d0dba266fdd2cbcb6ac53e5c06",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "count": 3,
+          "destination": "F5 Distributed Cloud Nodes",
+          "source": "[F5 Distributed Cloud Nodes](https://docs.cloud.f5.com/docs-v2/platform/overview/app-stack)"
+        },
+        {
+          "destination": "",
+          "source": "![Figure: Mesh Services](assets/31350b2a3e91eaf508f9bdd060a99265def263d9a2776579800fc684b082bbb9.png)\n\nFigure: Mesh Services\n\n"
+        }
+      ],
+      "review_index": 44,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/overview/mesh"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# VoltShare@1/## What is VoltShare?@1:paragraph:21",
+          "sha256": "66c8b42612cecb4c514c9e2a3568990dcdab8a6fabee0dbb66415797f45f9fbd"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "26785d46d400d06564662230a737fc3ebbd0f3982bca9e87ce51d4878028e71b",
+      "output_sha256": "d8f14f30511e78bded63c52f5cbb72ba43d3ae5abc44614da48f1e02bf5e7f13",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 45,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/overview/volt-share"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Node Serviceability Commands Reference@1/## Access Command@1/### Debugging Commands@1:list_item:43",
+          "sha256": "ef787411c7b5cda403998f1c668822d6eb95122b194862da57c35affd0d94f75"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "a37044feb45fe935f7043b9d22bbe7f6dd60454337527b4700d0dbc2dfc50e6c",
+      "output_sha256": "fe1b8d6f7e40040595903403ed5df7c3ef34cb4d6e057abc8f47d45f8d98898b",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 46,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/node-service-reference"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Virtual Kubernetes API Compatibility@1/## Resource Management for Distributed Cloud Services vK8s@1:paragraph:414",
+          "sha256": "088abc690f302e0773df66fbe846279faae64d4550c1cbe004d407f4b5c406a9"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "90e2bc2081f874839aa69ba6118ee77f4b859d03eeb044a2abe15ad808f1fba3",
+      "output_sha256": "cd7f73000ecbe5c0effd81a1c2646ef908e8f5a500545c51ce5585989352b02f",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 47,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/vk8s-api-compatibility"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "c33a760853cb90fbea4cd26a0078d63fb3f4eef432879876f17c2bf4b9aceae6",
+      "output_sha256": "c33a760853cb90fbea4cd26a0078d63fb3f4eef432879876f17c2bf4b9aceae6",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 48,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/application-identity"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "f0b6f5db466d9ba5daedcfedea778d6be47e2fade928689a7ebc8688a241a65f",
+      "output_sha256": "f0b6f5db466d9ba5daedcfedea778d6be47e2fade928689a7ebc8688a241a65f",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 49,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/clustering"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "d1001edccec284125f0303ae3a1195c29a6b8cf5351700c6b3ffa8670634f5f4",
+      "output_sha256": "d1001edccec284125f0303ae3a1195c29a6b8cf5351700c6b3ffa8670634f5f4",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 50,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/cv-and-verif"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "975b637e9ea6fb34db922dfe68ebe0ebe90fa2aafe69e5a8e9b744f3b0f3b8af",
+      "output_sha256": "975b637e9ea6fb34db922dfe68ebe0ebe90fa2aafe69e5a8e9b744f3b0f3b8af",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 51,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/distributed-application-management"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "fc84724383a42680f1c97581c2a534e72331464544761fd181b9ece2e9ffa1cd",
+      "output_sha256": "fc84724383a42680f1c97581c2a534e72331464544761fd181b9ece2e9ffa1cd",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 52,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/managed-kubernetes"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "095e26b3e6622685024dd95c8db02350fbd5d064da2e216328d7f06a6cc660a9",
+      "output_sha256": "095e26b3e6622685024dd95c8db02350fbd5d064da2e216328d7f06a6cc660a9",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 53,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/optimized-operating-system"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "93b4b2eef0839e81995741c024099844158890eb571bd31180fe3630d7b1d505",
+      "output_sha256": "93b4b2eef0839e81995741c024099844158890eb571bd31180fe3630d7b1d505",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 54,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/secrets-management"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "19a3f3f4676acf3609d25476d5ddde32a66b6f70546d52f27cebe0b8a4906ab8",
+      "output_sha256": "2b5ea73d6d7519d3993adcb8d8683cc6bb7a84a0fb2d02d086570f1de195f60c",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "F5 Distributed Cloud Mesh services",
+          "source": "additional F5 Distributed Cloud Mesh and F5® Distributed Cloud App Stack services"
+        }
+      ],
+      "review_index": 55,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/mesh/application-security"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "80b10268a31c7aced117c123548c075f2a0522d4e3d88f44f28b856e90198894",
+      "output_sha256": "2a0c9ec0baf3548bbfd1a5deed6d2829b7e5304bb9d3b0667b001ae47e36c5ed",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "Mesh services",
+          "source": "Mesh and F5® Distributed Cloud App Stack services"
+        }
+      ],
+      "review_index": 56,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/mesh/load-balancing"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "6809231a0c22d5c0052ae35f6de7726a3deb89348443708ce65f6b531571f4c3",
+      "output_sha256": "688fbf26fcafaad223516a65279a80f2678e2759a08fc9489278e92e2e6b6ca3",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "Mesh observability",
+          "source": "Mesh & App Stack observability"
+        },
+        {
+          "destination": "Mesh services",
+          "source": "Mesh or App Stack services"
+        },
+        {
+          "destination": "Mesh services",
+          "source": "other Mesh and App Stack services"
+        },
+        {
+          "destination": "",
+          "source": "For more details, you can refer to [Distributed Infrastructure Management](https://docs.cloud.f5.com/docs-v2/platform/services/app-stack/clustering)."
+        }
+      ],
+      "review_index": 57,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/mesh/secure-networking"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "72147e2f6e1cdb7d8dc64b2f1a6db62636d7082d4d54d6c0a5dfd378df01182a",
+      "output_sha256": "2c0a42dae1e25238e6a93a1a48f1f6fce8ed58254c5831b8cb822d375f802967",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "Distributed Cloud Mesh services",
+          "source": "additional Distributed Cloud Mesh and Distributed Cloud App Stack services"
+        }
+      ],
+      "review_index": 58,
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/services/mesh/service-mesh"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Billing FAQs@1/## Understanding F5 SaaS Metering@1:paragraph:167",
+          "sha256": "5cd04c8e1dc47627bc99a9cb03db45de93de002a58f732ed73fa366ee457166d"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding F5 SaaS Metering@1:paragraph:169",
+          "sha256": "26695c63e303af161bf7eb0bd21e515114b9da1659d715b28fe03808e2fcda41"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:419",
+          "sha256": "08a4eab1e1d3d121c17023b4046605704e46f07c16ef88293829fd90fc672f33"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:420",
+          "sha256": "211a6941e2b9229aad47057508511d7d47c740df2b7be0dc24f924c961be4e77"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:421",
+          "sha256": "81949f9c91b15d2e912d25828a2f32c169f9f3f2785ba453e8fe0a930d720b96"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:422",
+          "sha256": "4789fa9fe8e9d07aba55066897108f983fe6404781b87d26df8586fc1481deb9"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:423",
+          "sha256": "7971caa5ef5cd2cb6b8ebb4d7793f10c47e8a9391f517f0d0605ac1c9777bea3"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:424",
+          "sha256": "273a461f9ceeca127d77d5ac80e694ef53c8f63c0ee66b638352baa9e7ab4b61"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:425",
+          "sha256": "0b2e7eb34a6d97cff82f34e7efa5a6e9e7df3ff9bd41ef6ce0c44249c8fda1d1"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:414:row:426",
+          "sha256": "9b0432e9aa604c6198248d845c9903c23c23665460bd95ee1e5b06e4cf6ddbb1"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:439",
+          "sha256": "dfc377520b8e83a31e51ff818f90f9da9e1cba3e16a7d1c11daa799a96b3bbfd"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:440",
+          "sha256": "20542ce7a5dbc7d0f8bf8dbc604e83873fdf344ce5f9ec24c91f35bcc8bad803"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:441",
+          "sha256": "8b86ae4841b8247adfcdfc8941079df6aae3b123acb100c405d623941df5b1ec"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:442",
+          "sha256": "37661d76e9b1f6cbf1ebc563feac924558a90174a772ea6f04223ec74e24a52c"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:443",
+          "sha256": "497b78d6fcf7823510febbacb6cedb61b99b447b173e0a9ca3396b1e2e249cb5"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:444",
+          "sha256": "3707eb55fed5a7b9a30e0cbdb414e23ba6d6e3e2315fd283c377b8b55126d0d4"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:445",
+          "sha256": "15d34a98259bb25716ce03c900fec73f45aedee96165b05a9a34622a140f2022"
+        },
+        {
+          "location": "# Billing FAQs@1/## Understanding Additional Application Delivery Services@1:table:434:row:446",
+          "sha256": "70586cace8f1cb1eacd3be7b8f71b8f6e70c8ff44b0b312e21890d411d56e5fe"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "2887d377a840ec1ab99180e9869a51fbc99a236b7a783bf863cf9b5d8b91ee8e",
+      "output_sha256": "53230f318bc9d687c669b4de2f3c5dabe454a21e6696f0b33f7696e14548023a",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 59,
+      "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/billing-faqs"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "# Billing Usage Types@1/## Objective@1/### Service Name: App Stack@1:section:12",
+          "sha256": "822e3124db8bd611a232ccbc03d846c669e31becfa94b25492ddce2950bf56e9"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "e471a7281a6d81c159c24b036e370582cfc09d887982b31803580f7b19f90a5e",
+      "output_sha256": "247f14a92da67545b9a97d4c937622db1dcea421aef3664cedb193c10774cfbe",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 60,
+      "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/billing-usage"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Related Content@1:list_item:26",
+          "sha256": "ad40700754017d19547c8b6bfea3969af1bdc6970474d58e70cc70f28370af20"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "9369873358e528987596a360f8835a7a8c9129335e57887ff4bae9d34ec60cad",
+      "output_sha256": "b32ff495d6489e20e467c5a190b2cb0885a0dde1bbd9f231ad80b5196f4ad0e0",
+      "reason": "Reviewed independent content",
+      "replacements": [],
+      "review_index": 61,
+      "url": "https://my.f5.com/manage/s/article/K000146800"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "5c62169b63167cb634008c14937fd622baf63bd1019a2cc6415573789b11704f",
+      "output_sha256": "70734dfc7e155144b7b8beef7430ef9513e70a27b697511047ef5a50ff89c195",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "count": 3,
+          "destination": "",
+          "source": " / App stack(Customer Edge)"
+        }
+      ],
+      "review_index": 62,
+      "url": "https://my.f5.com/manage/s/article/K000147226"
+    },
+    {
+      "block_removals": [],
+      "disposition": "keep",
+      "input_sha256": "c2aa4aff23b9cc309351aa10b46999cc289d54fc9fb29e7e064fb604e732d875",
+      "output_sha256": "6d0c4079810cebb39d4a3c5e6d7a893ceffc26ec86d0b13528f0c3fd8e195743",
+      "reason": "Reviewed independent content",
+      "replacements": [
+        {
+          "destination": "Site type (ingress-egress/ingress only)",
+          "source": "Site type (ingress-egress/ingress only/appstack)"
+        }
+      ],
+      "review_index": 63,
+      "url": "https://my.f5.com/manage/s/article/K000147489"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "ac58423baff21639cc34363c1c7eae939f36d439504453fbdc1f84f8399874c2",
+      "output_sha256": "ac58423baff21639cc34363c1c7eae939f36d439504453fbdc1f84f8399874c2",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 64,
+      "url": "https://my.f5.com/manage/s/article/K000147916"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "9a0264e5e2517b028991fd463cd48492e98b1c63792bddc3063a0f55d5e975de",
+      "output_sha256": "9a0264e5e2517b028991fd463cd48492e98b1c63792bddc3063a0f55d5e975de",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 65,
+      "url": "https://my.f5.com/manage/s/article/K000148213"
+    },
+    {
+      "block_removals": [],
+      "disposition": "remove",
+      "input_sha256": "2c4b66c8a42af3ab3ad10dba5f338fce84e78e31c76f677f9ab20b5744fb436b",
+      "output_sha256": "2c4b66c8a42af3ab3ad10dba5f338fce84e78e31c76f677f9ab20b5744fb436b",
+      "reason": "AppStack-specific source",
+      "replacements": [],
+      "review_index": 66,
+      "url": "https://my.f5.com/manage/s/article/K000150311"
+    }
+  ],
+  "media": [
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/0354beef6b8483791a8e2be028c9789c5f742350e5fe70fd2864730a29a0bc16.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0354beef6b8483791a8e2be028c9789c5f742350e5fe70fd2864730a29a0bc16"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/037f888583082ae276bbf674c9c83925720a47e28b151915e64a81133a76eba6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "037f888583082ae276bbf674c9c83925720a47e28b151915e64a81133a76eba6"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/03cd1099b0059d420f6405d68268c64a3f82f9447c3f8a380dc0278f738cad41.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "03cd1099b0059d420f6405d68268c64a3f82f9447c3f8a380dc0278f738cad41"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/04ca6fbf3cca4910bb90950bf96b444ed0a81a3298e56fc112b5087c1316e13a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "04ca6fbf3cca4910bb90950bf96b444ed0a81a3298e56fc112b5087c1316e13a"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://my.f5.com/manage/s/article/K000147226"],
+      "references": [
+        "my-f5-com/K000147226/assets/051beba774564e950db51b7f23332e5a027ee4da22749a6f59cec5c7ef610920.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "051beba774564e950db51b7f23332e5a027ee4da22749a6f59cec5c7ef610920"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/0568fde42e7ffd2a09c8562382579c8c4760113f6f1bdac0c9f5a9de229f4900.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0568fde42e7ffd2a09c8562382579c8c4760113f6f1bdac0c9f5a9de229f4900"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/0681d31ed9c55ff0e1832f8e3ab0afeab6f14b09cba79464a163bf0bc42ee2ef.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0681d31ed9c55ff0e1832f8e3ab0afeab6f14b09cba79464a163bf0bc42ee2ef"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/0683a180f0c1ee6d59494bd7c070bc1d04bd9693cd90b3727e137848de6014ef.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0683a180f0c1ee6d59494bd7c070bc1d04bd9693cd90b3727e137848de6014ef"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/08ce201a5897e9b4b8043e465cb6ed5754b821dc43f9ff2275075cb6ffdbc61c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "08ce201a5897e9b4b8043e465cb6ed5754b821dc43f9ff2275075cb6ffdbc61c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/73012"],
+      "references": [
+        "community-f5-com/t/73012/assets/09906e8f5498b6ad855e9fd1c3b3306cd41625ade7bfc7c9fdb5d8e4f4774a92.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "09906e8f5498b6ad855e9fd1c3b3306cd41625ade7bfc7c9fdb5d8e4f4774a92"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/0bd651d03ea7de1ddd7484221a0e288ed816a167d8a1ce437b4a4a710c2e39ff.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0bd651d03ea7de1ddd7484221a0e288ed816a167d8a1ce437b4a4a710c2e39ff"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/0c2feda8755f5c458c9437a54be8b9cbe2993bd48a32eaecde6b6034d3ee5eb9.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0c2feda8755f5c458c9437a54be8b9cbe2993bd48a32eaecde6b6034d3ee5eb9"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/0c807ec87c6fe475b04c587a25d5443be516d98d41a8af6f4f58a73b37735d71.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0c807ec87c6fe475b04c587a25d5443be516d98d41a8af6f4f58a73b37735d71"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/0d7aa5030f12aa8f525eb9b3c7fbb90ee9528b176e3ea736273fdfc8e455c6b0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0d7aa5030f12aa8f525eb9b3c7fbb90ee9528b176e3ea736273fdfc8e455c6b0"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/0d84ccf3982403b6e42ffa7b886c49c2ffc563705d45f835207833b339bdf61c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0d84ccf3982403b6e42ffa7b886c49c2ffc563705d45f835207833b339bdf61c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/0da0f9e9bdf7c7ea8d41e277f6a25afb3be5dc1b7f8214abb9365b9eed961626.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "0da0f9e9bdf7c7ea8d41e277f6a25afb3be5dc1b7f8214abb9365b9eed961626"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/10c8fdb6c41ab30b2dc545ef4e4313eacc8ccc2360eceb6eb8d71cf343cd94a2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "10c8fdb6c41ab30b2dc545ef4e4313eacc8ccc2360eceb6eb8d71cf343cd94a2"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/112c26d4c009e81618ef7ffc19382fb1ed7f04f0175295f922215ebed99e8f7a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "112c26d4c009e81618ef7ffc19382fb1ed7f04f0175295f922215ebed99e8f7a"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/11c0427b5e93e8492058cdee26e91686d60775da009f958803ac68df068ce732.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "11c0427b5e93e8492058cdee26e91686d60775da009f958803ac68df068ce732"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/128663b7d1991bb7b33f50407d110ab2db36241ad0a9f59f6e1fda314b247a98.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "128663b7d1991bb7b33f50407d110ab2db36241ad0a9f59f6e1fda314b247a98"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/13573f41f55efd9c21d47efd7736112dbced59661e920ffe969f9f0486a6473f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "13573f41f55efd9c21d47efd7736112dbced59661e920ffe969f9f0486a6473f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/13aab488974d51fe2d4b2fa737c644367fa4b548529eb6731766e51ca72224d4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "13aab488974d51fe2d4b2fa737c644367fa4b548529eb6731766e51ca72224d4"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/1501cd45c92c4d46e396a3a6705fc6642b0c56d9af682d4104394752d6a077ac.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1501cd45c92c4d46e396a3a6705fc6642b0c56d9af682d4104394752d6a077ac"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/16dbeaa98cb7fade988a81a822fae2804256a3b69bbb0483c62ce40b67915e0c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "16dbeaa98cb7fade988a81a822fae2804256a3b69bbb0483c62ce40b67915e0c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71780"],
+      "references": [
+        "community-f5-com/t/71780/assets/172724c73ae9c3767790724a2c2ff178abc44ff5b49cff2e2d50080f8a0cba59.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "172724c73ae9c3767790724a2c2ff178abc44ff5b49cff2e2d50080f8a0cba59"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/174b7aa0d60e50c78d1a1c224326f33683411284f910ea0d8fa02aaad5a5a407.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "174b7aa0d60e50c78d1a1c224326f33683411284f910ea0d8fa02aaad5a5a407"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/1764832eeb9d5e737ed0166cc1d3dda219921addb01661132d8b58223cd84576.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1764832eeb9d5e737ed0166cc1d3dda219921addb01661132d8b58223cd84576"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/1828a25826e591c2dd33d6fe9311ed86a628b3f312dad777bbe59e137e6a1bf9.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1828a25826e591c2dd33d6fe9311ed86a628b3f312dad777bbe59e137e6a1bf9"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/182ddabf0bdbc1203b4bda494fc5cf83aa9b7fb848d8219f58d4a3339cd04802.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "182ddabf0bdbc1203b4bda494fc5cf83aa9b7fb848d8219f58d4a3339cd04802"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/1878060bfb19550e7651c60f71421f96b952bfd4131254502f1ffd44369745e8.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1878060bfb19550e7651c60f71421f96b952bfd4131254502f1ffd44369745e8"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/19a502e4d40e3b3313f52c80c2b42569997bd4ea0c076a92ff50d77bd615c3fe.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "19a502e4d40e3b3313f52c80c2b42569997bd4ea0c076a92ff50d77bd615c3fe"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/19deb04264b9d52d81b87d334aa5e4b64490ec49cabdd559081bf118d0289820.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "19deb04264b9d52d81b87d334aa5e4b64490ec49cabdd559081bf118d0289820"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/1a784ecb183a9db7541b23cce3774f6bd4878e9894e01d1e46bbc567d6676db0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1a784ecb183a9db7541b23cce3774f6bd4878e9894e01d1e46bbc567d6676db0"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/1b28a754dfe149ed58d4c79fa8cc6711d664e500977a889c78253f4e649efe7e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1b28a754dfe149ed58d4c79fa8cc6711d664e500977a889c78253f4e649efe7e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/1c62a245e6fa42f3cd1ec71f1f2b125a5f600876014b6742e19529ce57b63287.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1c62a245e6fa42f3cd1ec71f1f2b125a5f600876014b6742e19529ce57b63287"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/1d829625290bc5b6ce6fbfc7962fb50f4f078bd59b4b515723245b2e5ebca56f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1d829625290bc5b6ce6fbfc7962fb50f4f078bd59b4b515723245b2e5ebca56f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/1e76dc2f6aab6a2155a9f5fe87a65d3d9777fbece7b3bc260a8da7376d780877.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1e76dc2f6aab6a2155a9f5fe87a65d3d9777fbece7b3bc260a8da7376d780877"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71780"],
+      "references": [
+        "community-f5-com/t/71780/assets/1e8e2e135debbf7a183b817da4560c3e1a80514135b88480c187411a9d4808a7.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1e8e2e135debbf7a183b817da4560c3e1a80514135b88480c187411a9d4808a7"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/1eb0d487042279594df480f173eeb88b1e8486e784164f0d6664f87f7871e2ff.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1eb0d487042279594df480f173eeb88b1e8486e784164f0d6664f87f7871e2ff"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/1ebc08bef4763797d659adf45238aebf09ca246958ec9f77f2f9bc9ab75aeb6f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1ebc08bef4763797d659adf45238aebf09ca246958ec9f77f2f9bc9ab75aeb6f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/1fd04eff1686d369a23285ef5ee6cb3f74567843afa97f30c34804da1b766289.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "1fd04eff1686d369a23285ef5ee6cb3f74567843afa97f30c34804da1b766289"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/21a99e10f7cb5c1d7a92cb67aa3e13efb76e43ccae02dce24d56cbd419c666a2.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "21a99e10f7cb5c1d7a92cb67aa3e13efb76e43ccae02dce24d56cbd419c666a2"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/2334a3bcb99ef065486e8d40d99f6eb05c3c0e0e7a3ce802499d273960dba8d4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "2334a3bcb99ef065486e8d40d99f6eb05c3c0e0e7a3ce802499d273960dba8d4"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/239e37cbf8b3c4848b249d1196c12c8cd108a4c8c90e415b44799d1ff49e3f40.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "239e37cbf8b3c4848b249d1196c12c8cd108a4c8c90e415b44799d1ff49e3f40"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71780"],
+      "references": [
+        "community-f5-com/t/71780/assets/246d02437e797d66296fe88b8bb6116a4681fdbce0d4cdd99d126817cbe83de0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "246d02437e797d66296fe88b8bb6116a4681fdbce0d4cdd99d126817cbe83de0"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/24cba3b25268e40540a4d8cff7784f3a1d30960550bf6f333835e64ee0b91c70.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "24cba3b25268e40540a4d8cff7784f3a1d30960550bf6f333835e64ee0b91c70"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/25c7780b0ccefe5528e6f713068ed1d0193ca885ebb7eccfb0568fd4f94423fc.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "25c7780b0ccefe5528e6f713068ed1d0193ca885ebb7eccfb0568fd4f94423fc"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/263b397bd78f22ded1c9ae7ffd98f81e4788c1ca56ee50c7e38cf3ed9daddd89.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "263b397bd78f22ded1c9ae7ffd98f81e4788c1ca56ee50c7e38cf3ed9daddd89"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/27d6d08cde9e0138f446293a97d0a529226381f2b57558b247384b15ef3ef54f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "27d6d08cde9e0138f446293a97d0a529226381f2b57558b247384b15ef3ef54f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/290f2c7a9cdb979f9f32445db65d18a7829a97335431798bab005bc4b7d985ca.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "290f2c7a9cdb979f9f32445db65d18a7829a97335431798bab005bc4b7d985ca"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/29de7ecf8e36f8df31fcbd964dfeb55e37b0f3c5f43bbf36aec3f020a803287f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "29de7ecf8e36f8df31fcbd964dfeb55e37b0f3c5f43bbf36aec3f020a803287f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/2caad0e0afe465ee9d8c471b5af473c7d7f73ac9585408092798faaf31db2a55.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "2caad0e0afe465ee9d8c471b5af473c7d7f73ac9585408092798faaf31db2a55"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/site"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/site/assets/2e929a0887189fbf8a35a431d9d711e46f98929f9675ab4c037ce812057b8cae.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "2e929a0887189fbf8a35a431d9d711e46f98929f9675ab4c037ce812057b8cae"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/2f587f6776662f82536f0eee424339a981110ca8a116ba72a15ec93a3c649093.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "2f587f6776662f82536f0eee424339a981110ca8a116ba72a15ec93a3c649093"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/32296e09d1b92a358cf2b05d4e569354387f8057524ddaadb57fffff127609cc.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "32296e09d1b92a358cf2b05d4e569354387f8057524ddaadb57fffff127609cc"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/347ecb3ade06970f9007e86b4b0874350174afd674a85045056eae0f71ad9c47.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "347ecb3ade06970f9007e86b4b0874350174afd674a85045056eae0f71ad9c47"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/35605624888da317f951f97809cfe88d4758f1e38bff775188151bde653c886c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "35605624888da317f951f97809cfe88d4758f1e38bff775188151bde653c886c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/35798ab443bf532c4eea3226727579de6e2d9d68f3e775d36608142f49d6dfd3.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "35798ab443bf532c4eea3226727579de6e2d9d68f3e775d36608142f49d6dfd3"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/38d011e381e544cb87a1c60f6b43153ae86879767a9f1c187cf78d3bf9ceaf22.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "38d011e381e544cb87a1c60f6b43153ae86879767a9f1c187cf78d3bf9ceaf22"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/3929b54e3cc5932bed7aad1bda6b648e97d8d1a7499bf02c3bf13223bcce1fb7.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3929b54e3cc5932bed7aad1bda6b648e97d8d1a7499bf02c3bf13223bcce1fb7"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/3960d8f6e5a382e154340972ae42665476853867770831fc8862899bac9c0898.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3960d8f6e5a382e154340972ae42665476853867770831fc8862899bac9c0898"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/39894d25fe8c88c9688118f2a20b9db1a30941c09b414764d9e4b3f5c8d02554.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "39894d25fe8c88c9688118f2a20b9db1a30941c09b414764d9e4b3f5c8d02554"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/services/mesh/service-mesh"],
+      "references": [
+        "docs-cloud-f5-com/platform/services/mesh/service-mesh/assets/3a3f65780604558a81ebcd43f0a7592833b5d8f1b3f0eb587b79bcc220fa3d38.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3a3f65780604558a81ebcd43f0a7592833b5d8f1b3f0eb587b79bcc220fa3d38"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/3ae992c239bd02a0f2705678b1f4e08cc4ff4dcbac519550eb129a7976e235c3.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3ae992c239bd02a0f2705678b1f4e08cc4ff4dcbac519550eb129a7976e235c3"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/3bdc999cbbbc63669bb0087970369f184a9810974bd5cdb702e6ef7aa81d05cf.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3bdc999cbbbc63669bb0087970369f184a9810974bd5cdb702e6ef7aa81d05cf"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/3d3bd7bd914d58423c1a300a206ce23403b47ed8cbd072cabb4ba3ddeb9545b6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3d3bd7bd914d58423c1a300a206ce23403b47ed8cbd072cabb4ba3ddeb9545b6"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/3def4dd585991aaeb3950b394c5f80c5c2cb45867124dd3a1eb3bb4d0e817720.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3def4dd585991aaeb3950b394c5f80c5c2cb45867124dd3a1eb3bb4d0e817720"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/3e6d517b79efb62c2a314e7abe9ae2f8b3716b8cf9454ee57a73bd48a294ec4e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3e6d517b79efb62c2a314e7abe9ae2f8b3716b8cf9454ee57a73bd48a294ec4e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/3f48e4a2867de506149ab4d3735e7b9a08367d71acdf7043e13074f87a843263.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "3f48e4a2867de506149ab4d3735e7b9a08367d71acdf7043e13074f87a843263"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/distributed-apps-management/assets/425a0ce936be223360cd715084c9f4fdedd51906f71fd7c42d9fc3449544253f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "425a0ce936be223360cd715084c9f4fdedd51906f71fd7c42d9fc3449544253f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/425f7ad9c34a08b1bf8490c9f58b525d70ea0001f25f24be55b346eb574ffae1.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "425f7ad9c34a08b1bf8490c9f58b525d70ea0001f25f24be55b346eb574ffae1"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/43f0effe0d4cc1da811f241d5db6e4d98bd10a2bda9b4d1d452f07ad1b7d4b8a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "43f0effe0d4cc1da811f241d5db6e4d98bd10a2bda9b4d1d452f07ad1b7d4b8a"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/overview/mesh"],
+      "references": [
+        "docs-cloud-f5-com/platform/overview/mesh/assets/4547db55542e5ff6efade6ab893aadbb01cbf242ae287366f019e82117e25656.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4547db55542e5ff6efade6ab893aadbb01cbf242ae287366f019e82117e25656"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/459d685ad0ac7037033fef9927d39e1813cae1330f4c94b1897eb97582e4027b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "459d685ad0ac7037033fef9927d39e1813cae1330f4c94b1897eb97582e4027b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/459e9e56666aa2ba8073b7ed2c3d7d921bab620d4966008cf1125eafbfa15ff3.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "459e9e56666aa2ba8073b7ed2c3d7d921bab620d4966008cf1125eafbfa15ff3"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/46f41594cd0b486ec23f54b678e489bdeeec8f076d6244cb204a24befd9b02b5.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "46f41594cd0b486ec23f54b678e489bdeeec8f076d6244cb204a24befd9b02b5"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/4836f46334bfbd860e54777df11d64f9f7eae9b03518c3b40052e80e1da6af9f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4836f46334bfbd860e54777df11d64f9f7eae9b03518c3b40052e80e1da6af9f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/48eda5b4631e6d2e5b473883411bfd33242b0d42610eb0234df36dce86e2993f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "48eda5b4631e6d2e5b473883411bfd33242b0d42610eb0234df36dce86e2993f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/4b2065a8eb67d514c252673cadd32785ce1bbf9e83068e73f6df154f5657c06c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4b2065a8eb67d514c252673cadd32785ce1bbf9e83068e73f6df154f5657c06c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/4bc4dc1dcf689c97c00a31d9aad028b522240c15f9c495097533f64c57cc4413.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4bc4dc1dcf689c97c00a31d9aad028b522240c15f9c495097533f64c57cc4413"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/4c5ed5e4d1af91842d4ac549ab0e716f9913f37e64b7be125aa378640143e10b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4c5ed5e4d1af91842d4ac549ab0e716f9913f37e64b7be125aa378640143e10b"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/distributed-apps-management/assets/4c9110640d88d478eb10da5b2a0d0416b956bc5da1a5a0c5c7dcbb41fe557eee.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4c9110640d88d478eb10da5b2a0d0416b956bc5da1a5a0c5c7dcbb41fe557eee"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/4d60725413d9a9a94801d1e8a4cef8e60190fb1721d49a4f790b6e980b909359.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4d60725413d9a9a94801d1e8a4cef8e60190fb1721d49a4f790b6e980b909359"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/site"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/site/assets/4f3857491fd18619886415174d6762154ae0228b29818204919702e0e978a732.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "4f3857491fd18619886415174d6762154ae0228b29818204919702e0e978a732"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/50f91cb4d675b9d0449aaa894c4870736d090f7be563a44906b5d1f1a98b12ef.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "50f91cb4d675b9d0449aaa894c4870736d090f7be563a44906b5d1f1a98b12ef"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/5178365595f68c16b224726a6c945cc7f74c24b9582f30f2897bd07f7351767a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "5178365595f68c16b224726a6c945cc7f74c24b9582f30f2897bd07f7351767a"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/52be26a4b10d5b086b39bf3f613978e51e4773758d11efab43c8f364cb99cc6f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "52be26a4b10d5b086b39bf3f613978e51e4773758d11efab43c8f364cb99cc6f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/5585dedb798f5d7ac549c3583d85596f234ec08a800c8b2024cff51beea502e0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "5585dedb798f5d7ac549c3583d85596f234ec08a800c8b2024cff51beea502e0"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/598a8e07e69a69476556d77d42d31b55ebd6d194e51d62483930627a6a1d7569.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "598a8e07e69a69476556d77d42d31b55ebd6d194e51d62483930627a6a1d7569"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/5d6d437fd8e8c8d4df52a4ec3eed9d81dba779737ef3975be5bfc7a3b01655cd.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "5d6d437fd8e8c8d4df52a4ec3eed9d81dba779737ef3975be5bfc7a3b01655cd"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/601da48013865360ab833139ca74bbbcea49af6c7798354b25606bd45e80d72e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "601da48013865360ab833139ca74bbbcea49af6c7798354b25606bd45e80d72e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/6416973b3b24e6cf9f979ed75ff43f88cf04a9b94786b4f3f4e854c370c9beaf.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6416973b3b24e6cf9f979ed75ff43f88cf04a9b94786b4f3f4e854c370c9beaf"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/64cd975265d5ccd49c666f13e290a1549a2426d7bb172ecade33587cb36d2cb2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "64cd975265d5ccd49c666f13e290a1549a2426d7bb172ecade33587cb36d2cb2"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/site"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/site/assets/655da6777efda7ded0003a384be72ff0d6b3472e710f848bd5cdc514b026c0bc.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "655da6777efda7ded0003a384be72ff0d6b3472e710f848bd5cdc514b026c0bc"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/66454cfacefbdc02127f9a9651f8cd39c0cc966b60330c7f7d0c8d8ab8b527d9.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "66454cfacefbdc02127f9a9651f8cd39c0cc966b60330c7f7d0c8d8ab8b527d9"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/services/mesh/application-security"],
+      "references": [
+        "docs-cloud-f5-com/platform/services/mesh/application-security/assets/6674c4171ad629235053d0ba7b53870e3e5f9989e120675ed82a1fb4026b359d.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6674c4171ad629235053d0ba7b53870e3e5f9989e120675ed82a1fb4026b359d"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/670487789d502555c332e2ba7f1e07a9491c611c89b5255b9050da68f1657e1c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "670487789d502555c332e2ba7f1e07a9491c611c89b5255b9050da68f1657e1c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/67cb7f3a48b5799ff28f54861a63bacccd9b94e054e5586e08dfc5c652c45b7c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "67cb7f3a48b5799ff28f54861a63bacccd9b94e054e5586e08dfc5c652c45b7c"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/68198cbabd9a1b4a3aaaa8f456803aef7a25479ed8a83ac92bf9a60e4163241c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "68198cbabd9a1b4a3aaaa8f456803aef7a25479ed8a83ac92bf9a60e4163241c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/services/mesh/secure-networking"],
+      "references": [
+        "docs-cloud-f5-com/platform/services/mesh/secure-networking/assets/683f4c0616b6c4967fd5d571d3fcba98a1b8a6d1f5f5985184b6c7a76a3701d0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "683f4c0616b6c4967fd5d571d3fcba98a1b8a6d1f5f5985184b6c7a76a3701d0"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/692ebcefaae6e0c87bf01ae3857fd94e0ec1a5f88b36070ff1ff460143ed4ff8.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "692ebcefaae6e0c87bf01ae3857fd94e0ec1a5f88b36070ff1ff460143ed4ff8"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/694bee1e7527d23e3f5f4eedf743c526c77f3aafe43336e65a810fc192d29f7d.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "694bee1e7527d23e3f5f4eedf743c526c77f3aafe43336e65a810fc192d29f7d"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/69e9113755bfb7a5afdf9bef6f38686bc89f94253d7a63c440159de9bd59967a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "69e9113755bfb7a5afdf9bef6f38686bc89f94253d7a63c440159de9bd59967a"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/6a4541033ee2ee401e2cb648d903fad9d0be0e335c417ab0d6fe1f8bc94798d6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6a4541033ee2ee401e2cb648d903fad9d0be0e335c417ab0d6fe1f8bc94798d6"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/6bd5d97d6e7494bf7fef5103a8f4b4caf6d5facd2d45b68966e42e3f2286aa53.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6bd5d97d6e7494bf7fef5103a8f4b4caf6d5facd2d45b68966e42e3f2286aa53"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/6c0b47162b07c1ff97f14d5c218a57ba535790371858f35bbb82f1014a5ddaf4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6c0b47162b07c1ff97f14d5c218a57ba535790371858f35bbb82f1014a5ddaf4"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/6c9ab05015632106b01a93b53107fbbc422197a41fc1486ad435e315fa2d8bcd.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6c9ab05015632106b01a93b53107fbbc422197a41fc1486ad435e315fa2d8bcd"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/6e7fef7dd5c25865fde299158d60f7041dba8aa37aaa3873c206202f7a52cbd3.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6e7fef7dd5c25865fde299158d60f7041dba8aa37aaa3873c206202f7a52cbd3"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/6ed41da077fc3d150525fc730a6219cdd8bdb301e018c0ed5b0307463e57d345.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "6ed41da077fc3d150525fc730a6219cdd8bdb301e018c0ed5b0307463e57d345"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/70d474cea96a184d41cafa086ba01a4356d59d208c5325cca9bec427efc4a78b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "70d474cea96a184d41cafa086ba01a4356d59d208c5325cca9bec427efc4a78b"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/712efa51e66a963cdb64a4a3de4926272bc5e2e9ed12c6ff4aac64df5f966c8c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "712efa51e66a963cdb64a4a3de4926272bc5e2e9ed12c6ff4aac64df5f966c8c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/site"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/site/assets/719b830f5a436e8b2f9f4106451ebe9a515f47c689c72eac46ea5ba37e233419.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "719b830f5a436e8b2f9f4106451ebe9a515f47c689c72eac46ea5ba37e233419"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/71bfdcdb524eff8b4cbc80f4324d155816c108966305e1b0b7b36ef6db008d19.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "71bfdcdb524eff8b4cbc80f4324d155816c108966305e1b0b7b36ef6db008d19"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/732ee442c3a40b849e1244dc2fe2a9cc321189e711739663fe8941838a9208ee.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "732ee442c3a40b849e1244dc2fe2a9cc321189e711739663fe8941838a9208ee"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/7384bded9d29f87580aa99b8579b7e9c8cefe7b5388544671ab02f680be11fcf.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "7384bded9d29f87580aa99b8579b7e9c8cefe7b5388544671ab02f680be11fcf"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/74c939ca6a254fc6d929e38054a198a4f0ad9a2f986d1a3dc4ab7d33cb02f7a7.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "74c939ca6a254fc6d929e38054a198a4f0ad9a2f986d1a3dc4ab7d33cb02f7a7"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/77005049513c88313a3ddebcb72e945704e2ef2b00ad71dfc0eb9c6201769fef.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "77005049513c88313a3ddebcb72e945704e2ef2b00ad71dfc0eb9c6201769fef"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71209"],
+      "references": [
+        "community-f5-com/t/71209/assets/7b7cfa84e4e121eb661e9246bedd55a108fb256821e4bfdf1b484b0fa51d5117.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "7b7cfa84e4e121eb661e9246bedd55a108fb256821e4bfdf1b484b0fa51d5117"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/7c10b7d4640fc591506d029c184ada21cf02a1d10fc84742a6c2f7d0a4802df6.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "7c10b7d4640fc591506d029c184ada21cf02a1d10fc84742a6c2f7d0a4802df6"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/7cc5edd1ed4c8fed29a3ceb29419757f1137f5dc329547cf73ba86d1551e9330.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "7cc5edd1ed4c8fed29a3ceb29419757f1137f5dc329547cf73ba86d1551e9330"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/7fa5466acf475a73f21e2c21646f7788a19d3a9e3915994b58c53e2c569641f5.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "7fa5466acf475a73f21e2c21646f7788a19d3a9e3915994b58c53e2c569641f5"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/80500e64745ed07fe57447ea8345c6dbf17f42e77c3030ba6427bf462d7d32e1.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "80500e64745ed07fe57447ea8345c6dbf17f42e77c3030ba6427bf462d7d32e1"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/817d823f3849bbfa97c691e4afd67f918dda9ae39459cbe3b2ce94f0c37d8979.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "817d823f3849bbfa97c691e4afd67f918dda9ae39459cbe3b2ce94f0c37d8979"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/8330cc16193e451613c9f6858f397e3ba26c311135ab5cbd45be2a8781111b31.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8330cc16193e451613c9f6858f397e3ba26c311135ab5cbd45be2a8781111b31"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/8449222de15786025da07d2801143a6a8b5562355141d1e5108b9d994f5bbbb6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8449222de15786025da07d2801143a6a8b5562355141d1e5108b9d994f5bbbb6"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/site"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/site/assets/844aa0a7cb383fd80bd3564e974b02fa236d46fed5c6bb02319ae615a6e0d9c2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "844aa0a7cb383fd80bd3564e974b02fa236d46fed5c6bb02319ae615a6e0d9c2"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/distributed-apps-management/assets/848d5d63423dcdeb7dd272757584255664dbce1444a359fe7b45397d20d7a971.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "848d5d63423dcdeb7dd272757584255664dbce1444a359fe7b45397d20d7a971"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/857bec063a556d60f1c5cdaf4e6e92ad32d2514855945d0fb2f0961e2fe3409f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "857bec063a556d60f1c5cdaf4e6e92ad32d2514855945d0fb2f0961e2fe3409f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/859283a15c0ddf9af8c33fbb08671eb9301fc037ab88f993d27996004dbb3a1d.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "859283a15c0ddf9af8c33fbb08671eb9301fc037ab88f993d27996004dbb3a1d"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/85c1b171bf0717922caf00a8680073978e4a3e2b8ffff61368ff318813798a20.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "85c1b171bf0717922caf00a8680073978e4a3e2b8ffff61368ff318813798a20"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/87d63e8a4e4d58772c4d658be4b5ae16ce4eb20c3ed28ce4e1757476285ecca5.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "87d63e8a4e4d58772c4d658be4b5ae16ce4eb20c3ed28ce4e1757476285ecca5"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/883bbb00c0dc730d2c008df7352c1c066f59e41fb502468c37c0c20d576e8145.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "883bbb00c0dc730d2c008df7352c1c066f59e41fb502468c37c0c20d576e8145"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/889d7b010c15951c6e92a43be41cafeb9909676ae2e03d9acab34eacdde73c12.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "889d7b010c15951c6e92a43be41cafeb9909676ae2e03d9acab34eacdde73c12"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/8a7615accfe24371bcfb965a7f108c80956c996f894f73d5895d8cf8a62a540b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8a7615accfe24371bcfb965a7f108c80956c996f894f73d5895d8cf8a62a540b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/8b30cb80a5230ab1baca00be8cd76497d7c84a929c7070fcee537e76cbede33c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8b30cb80a5230ab1baca00be8cd76497d7c84a929c7070fcee537e76cbede33c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/8bd659ad7028a62d5932d3315485df3e8418fb29b329a6d30d63d97f5ac0a95b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8bd659ad7028a62d5932d3315485df3e8418fb29b329a6d30d63d97f5ac0a95b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/8c761c59e8d47c7d1967a9f495cca7816a0b0fc38f851f6d3dfb9cf873429b14.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8c761c59e8d47c7d1967a9f495cca7816a0b0fc38f851f6d3dfb9cf873429b14"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/8cd8308a7f1e1f85fc851b6db2a0fd87d35201aaf0fef664074e971e0a9a2072.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8cd8308a7f1e1f85fc851b6db2a0fd87d35201aaf0fef664074e971e0a9a2072"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/8d2cc5ac273821f4ba75ec38da81ad36b824d976647cc152b7e2922f35cbb0fc.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8d2cc5ac273821f4ba75ec38da81ad36b824d976647cc152b7e2922f35cbb0fc"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/8db1069beaf3f6339ee01c9de9e8ac344d0582736a0791b1796fe08623117855.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8db1069beaf3f6339ee01c9de9e8ac344d0582736a0791b1796fe08623117855"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/8db1eea0cfdc6116ddad136234bb3b6d6442215380bc4e1da2782ee1b05c7de9.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8db1eea0cfdc6116ddad136234bb3b6d6442215380bc4e1da2782ee1b05c7de9"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/8de49cea0a6ec1395228f49559625934f15cefa08ba849942dfb7193a20c5b10.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8de49cea0a6ec1395228f49559625934f15cefa08ba849942dfb7193a20c5b10"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/8e4cd889b98147fd54de9f98c510a4460d3fc09cfdb05c9805c7d6a7417b1ca4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8e4cd889b98147fd54de9f98c510a4460d3fc09cfdb05c9805c7d6a7417b1ca4"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/monitoring"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/monitoring/assets/8e66e41188420ea4d8c8c783779ec7dff03f3d940717eeb6f33a536f7cdb6177.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "8e66e41188420ea4d8c8c783779ec7dff03f3d940717eeb6f33a536f7cdb6177"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/904745487679285bc01e471c86d21990107e366adabe887c4f204847e5f025e2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "904745487679285bc01e471c86d21990107e366adabe887c4f204847e5f025e2"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/90a181b7a9857f3743ee24c5ddd21414a9e5bf2efc216e833e31852127e1473b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "90a181b7a9857f3743ee24c5ddd21414a9e5bf2efc216e833e31852127e1473b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/91b8ea1ea816686d052c4af82b04e187d0b549fcc8bc4088ce8ac40d75f9e5ec.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "91b8ea1ea816686d052c4af82b04e187d0b549fcc8bc4088ce8ac40d75f9e5ec"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/925d1c1e40a84d94a735c1b6078c38a97e292740f0fc070e7cf7ee57b3902d97.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "925d1c1e40a84d94a735c1b6078c38a97e292740f0fc070e7cf7ee57b3902d97"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/92c1efe8410622cbe952d4ba1d3404b91f7d4e1cc190dbbb397b2bb7ef051c29.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "92c1efe8410622cbe952d4ba1d3404b91f7d4e1cc190dbbb397b2bb7ef051c29"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/distributed-apps-management/assets/95d08e5cac154dbafa4f52c368e70f1e87f7bdbf98764d85a7fca8567af95911.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "95d08e5cac154dbafa4f52c368e70f1e87f7bdbf98764d85a7fca8567af95911"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/96165f8672644a9fe280df354f812c1e8fa58fc3b5bff669f38f1b02a6703fc9.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "96165f8672644a9fe280df354f812c1e8fa58fc3b5bff669f38f1b02a6703fc9"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/9769e24284c95392eb17852b2865fb6831870995e7e3dd748078445c723fe334.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9769e24284c95392eb17852b2865fb6831870995e7e3dd748078445c723fe334"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/73012"],
+      "references": [
+        "community-f5-com/t/73012/assets/97dd97f9e08b431b11d6bd81f18d3516ade2669e0cf9b28dc9dee06a73618847.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "97dd97f9e08b431b11d6bd81f18d3516ade2669e0cf9b28dc9dee06a73618847"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/991fbfba37501885a4016f89e7c20dc77aa6165c07261677dc8b46c1112352f4.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "991fbfba37501885a4016f89e7c20dc77aa6165c07261677dc8b46c1112352f4"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/9948a5797e2595494ed637122547020b5632b555683ac4f330e2c412b5d4d723.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9948a5797e2595494ed637122547020b5632b555683ac4f330e2c412b5d4d723"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/99a06cf37a333c40ecc01857bcc9ed9bf9f24d18ab5081836f7410349dd9e3a1.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "99a06cf37a333c40ecc01857bcc9ed9bf9f24d18ab5081836f7410349dd9e3a1"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/9a2e83d24497913cf494e9c7602a673342d081ed9ab66575de1512b2e2d67b1e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9a2e83d24497913cf494e9c7602a673342d081ed9ab66575de1512b2e2d67b1e"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/monitoring"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/monitoring/assets/9a76980c3d6e73d14e848c1a77abb1b0bcff40d14c6f3a63ebc5bf8e7dfb9767.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9a76980c3d6e73d14e848c1a77abb1b0bcff40d14c6f3a63ebc5bf8e7dfb9767"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/9a84ac6a2d7bd2ff8d7bab72cacfc24957cb5518bc87d092f7ea8659733d0672.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9a84ac6a2d7bd2ff8d7bab72cacfc24957cb5518bc87d092f7ea8659733d0672"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/9abdc96cd8a9a814b39aa7dc673f485abe8d6d47d3e054a00864adc6c52602bd.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9abdc96cd8a9a814b39aa7dc673f485abe8d6d47d3e054a00864adc6c52602bd"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/9b437f5ad9bf8cf11d56d984531e7f96771f9ec5fa2f265b4d7068a291b10be1.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9b437f5ad9bf8cf11d56d984531e7f96771f9ec5fa2f265b4d7068a291b10be1"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/9e7a8234e68df230215af7a4d65f127c048054a7d0145fba0268f98dc6dc6e4d.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "9e7a8234e68df230215af7a4d65f127c048054a7d0145fba0268f98dc6dc6e4d"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/a00dfc8c00092d1030c4a038f3edfa073b1f4dc1cd113ba915c61a4f2d277a48.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a00dfc8c00092d1030c4a038f3edfa073b1f4dc1cd113ba915c61a4f2d277a48"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/a0ca29188ce3fa643be244cf873abbb6ed7098c8492255487af9879cf54cea12.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a0ca29188ce3fa643be244cf873abbb6ed7098c8492255487af9879cf54cea12"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/a33f402fbbf503f973bfbd2ac7e6765e782dae7d46399694e627eea91f5f14f7.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a33f402fbbf503f973bfbd2ac7e6765e782dae7d46399694e627eea91f5f14f7"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/a37d83df823d96b83c24a741901875665b2d41033433c3cb7f784ff9b5bb5949.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a37d83df823d96b83c24a741901875665b2d41033433c3cb7f784ff9b5bb5949"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/a4d25bc999c78c4d463942855d0258caf1c79df3a4f6ca9521a9c74b026e59d2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a4d25bc999c78c4d463942855d0258caf1c79df3a4f6ca9521a9c74b026e59d2"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/a5db8d7c16af589a3729e087b8108903ec7634e64b0b3c227826bc55d64e3662.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a5db8d7c16af589a3729e087b8108903ec7634e64b0b3c227826bc55d64e3662"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/a61a9397ff125805734a9929fc0c4de1a29d14b3d075d18fb5e7ce240d7f89b8.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a61a9397ff125805734a9929fc0c4de1a29d14b3d075d18fb5e7ce240d7f89b8"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71293"],
+      "references": [
+        "community-f5-com/t/71293/assets/a78b35fbdcc20578614673edf27b76774f91334740cd1ea10de6b3b55d60414c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a78b35fbdcc20578614673edf27b76774f91334740cd1ea10de6b3b55d60414c"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/concepts/distributed-apps-management"],
+      "references": [
+        "docs-cloud-f5-com/platform/concepts/distributed-apps-management/assets/a7c417f3102c50ffd2a9dcb175b8776f305b4c0a868e5889c9e13b7181d97297.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a7c417f3102c50ffd2a9dcb175b8776f305b4c0a868e5889c9e13b7181d97297"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/a824dd8024c2dc9681c5346564a0b3fc7fa2587332a91f529cb7b05dc25769bf.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a824dd8024c2dc9681c5346564a0b3fc7fa2587332a91f529cb7b05dc25769bf"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/a841b77189f35ac07ea4db4322b62d7a18cd7dfa9e9aff8d1e174ce02519307a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "a841b77189f35ac07ea4db4322b62d7a18cd7dfa9e9aff8d1e174ce02519307a"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/ab9816d381a7479ed2c769d8b0fc5d9f5c6a08e645035ac2214fa590be54edaa.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ab9816d381a7479ed2c769d8b0fc5d9f5c6a08e645035ac2214fa590be54edaa"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/abd2a2dbcea0023fc229fe398d442a00446a0f75c81c3d81a4607e2331ec522b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "abd2a2dbcea0023fc229fe398d442a00446a0f75c81c3d81a4607e2331ec522b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/abf1e31148bddba645968b4a981bb8d10492323aa63639d5e77d5cefb9df06be.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "abf1e31148bddba645968b4a981bb8d10492323aa63639d5e77d5cefb9df06be"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/ac03c7f502836137a93d77b6575f0be7f41f4c1f4978df6409ea2bc8a1713c0e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ac03c7f502836137a93d77b6575f0be7f41f4c1f4978df6409ea2bc8a1713c0e"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/overview/volt-share"],
+      "references": [
+        "docs-cloud-f5-com/platform/overview/volt-share/assets/ac4b1aa44daf3eae797e372122ef37cf2c437046fbda614fe08609b80f693b13.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ac4b1aa44daf3eae797e372122ef37cf2c437046fbda614fe08609b80f693b13"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/ac52c51c32dd419c827dd9b2d06bbe2bf9745095f593eb2040e001bf943f4ba0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ac52c51c32dd419c827dd9b2d06bbe2bf9745095f593eb2040e001bf943f4ba0"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://my.f5.com/manage/s/article/K000147226"],
+      "references": [
+        "my-f5-com/K000147226/assets/ac53a7a9697c278f05ed92c021069a0298fb4258b5691fc94393ba362b8dcd00.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ac53a7a9697c278f05ed92c021069a0298fb4258b5691fc94393ba362b8dcd00"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/ad4a40dbfde8d968287356381f2f91805f0345daddb775a1a8ae43db067ed594.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ad4a40dbfde8d968287356381f2f91805f0345daddb775a1a8ae43db067ed594"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/ad97325c637a7630697dc8b27243e0cead01c38b3f211cc129ecfd522a4b799f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ad97325c637a7630697dc8b27243e0cead01c38b3f211cc129ecfd522a4b799f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/add4e46681d17f74f25a2c96f1143ef04350c5a10396338c00113e50da77422b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "add4e46681d17f74f25a2c96f1143ef04350c5a10396338c00113e50da77422b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/ae64d8d7af03dbf6d766e32ea63e9e09fb3d1aaa74fb88b82f792725373a9211.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ae64d8d7af03dbf6d766e32ea63e9e09fb3d1aaa74fb88b82f792725373a9211"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/af1e6886b423598594ae1d5747e13a389337e305f63e2ec31ac7ded426840b6c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "af1e6886b423598594ae1d5747e13a389337e305f63e2ec31ac7ded426840b6c"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/b2f52361ac8fd7c583222139490d8737c653c216c9651052c11acc2470713d95.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b2f52361ac8fd7c583222139490d8737c653c216c9651052c11acc2470713d95"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/72834"],
+      "references": [
+        "community-f5-com/t/72834/assets/b31b9b7307d63469486bbc83f9b6d9ac6dbc0029de014a69aca9dfd311b7f9d5.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b31b9b7307d63469486bbc83f9b6d9ac6dbc0029de014a69aca9dfd311b7f9d5"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/b3c572a0d7892ee192afb8a45270be1d7c0b6623144dc806ae8cda26b2121354.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b3c572a0d7892ee192afb8a45270be1d7c0b6623144dc806ae8cda26b2121354"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/b441555cd8ab88486e98abf37954f83081e13cf57e2d7b2d060420b3c4945ca1.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b441555cd8ab88486e98abf37954f83081e13cf57e2d7b2d060420b3c4945ca1"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/b4c965ed5826ad4ed4084a3a980cfba794eb88c9f2f44bcf33e12991382fe4c2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b4c965ed5826ad4ed4084a3a980cfba794eb88c9f2f44bcf33e12991382fe4c2"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/b5d2bab80fd108a1aa374676323626b4ed28eac43d284800c55bba9d4d864cd5.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b5d2bab80fd108a1aa374676323626b4ed28eac43d284800c55bba9d4d864cd5"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/b5ee6db5f54261bb39b7ef66f39e6eb24ea80edfd9f30431b638f08717711ba3.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b5ee6db5f54261bb39b7ef66f39e6eb24ea80edfd9f30431b638f08717711ba3"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/b5f430f980a550c476870c58e7e8910a2ad5910f475faa0d9964e5d716628936.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b5f430f980a550c476870c58e7e8910a2ad5910f475faa0d9964e5d716628936"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/b7574aab35d42f53104c46b7abc0bad2e8005b333a7cd0a1e40aadd4caa5f6a6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b7574aab35d42f53104c46b7abc0bad2e8005b333a7cd0a1e40aadd4caa5f6a6"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/b83b010ac9a228f25febe0b7e3bc5838e144056db11ba87be120cddf8c677a37.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "b83b010ac9a228f25febe0b7e3bc5838e144056db11ba87be120cddf8c677a37"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/ba7ae83f3efb9535923e52782a8806eaa0a343180576a6296c74cb2c8530f621.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ba7ae83f3efb9535923e52782a8806eaa0a343180576a6296c74cb2c8530f621"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/bade119eb78a77e828b425ffe5c48635f06cd5e0a95a4cd975c02fd83ce63186.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "bade119eb78a77e828b425ffe5c48635f06cd5e0a95a4cd975c02fd83ce63186"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/bc3393f0d6c66e4860efa514b9237a90569b67da3fbc5b6dca3a665122045b7d.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "bc3393f0d6c66e4860efa514b9237a90569b67da3fbc5b6dca3a665122045b7d"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/bc9be5560ac66ff1037b93f2216207eb446a55eb9d3c3dea88bb0a5aeb14ab28.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "bc9be5560ac66ff1037b93f2216207eb446a55eb9d3c3dea88bb0a5aeb14ab28"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/bdfc7451ec4b7d0db3c912022f51d0742fa4b496ee9ebc18af3d74e4aa86cfef.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "bdfc7451ec4b7d0db3c912022f51d0742fa4b496ee9ebc18af3d74e4aa86cfef"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71209"],
+      "references": [
+        "community-f5-com/t/71209/assets/be694bcd27544da8f5735cde036651c6bdeac12aa2e918742cec8744c2a27544.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "be694bcd27544da8f5735cde036651c6bdeac12aa2e918742cec8744c2a27544"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "be6a1476bf273a82487f546069f21aac673d5db12669d3774a0a5b662986d540"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/c311e58da379d694ea56e3c71044029ccff872f3307d6e9acb882d186a7f4fea.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c311e58da379d694ea56e3c71044029ccff872f3307d6e9acb882d186a7f4fea"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/c3464939f92594d4a1cd727fa10fbee2e1a1cc76e914a1d1c825a4880f7b5b98.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c3464939f92594d4a1cd727fa10fbee2e1a1cc76e914a1d1c825a4880f7b5b98"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/c3c27745eff1abcac77293b6f809731acd17e1957b9571584081008620f38e97.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c3c27745eff1abcac77293b6f809731acd17e1957b9571584081008620f38e97"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/73012"],
+      "references": [
+        "community-f5-com/t/73012/assets/c6aac56b8b0178fe6526a427a35dcc96dccb9dce7ecd16ef8eee1623753d61b6.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c6aac56b8b0178fe6526a427a35dcc96dccb9dce7ecd16ef8eee1623753d61b6"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/c7cb87f34a3a946549a610fa891afcbbd67957527e1ad028923c7fe5c5461218.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c7cb87f34a3a946549a610fa891afcbbd67957527e1ad028923c7fe5c5461218"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/c7f6c537b59d91016b003fb563413d6bec428cf58f8a31b510a96cac35bbf369.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c7f6c537b59d91016b003fb563413d6bec428cf58f8a31b510a96cac35bbf369"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/c83a46ceb051bfde725efdd13bc36e7a0604b30e14ae1ae9d749e4369fd5d3cd.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c83a46ceb051bfde725efdd13bc36e7a0604b30e14ae1ae9d749e4369fd5d3cd"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/services/mesh/load-balancing"],
+      "references": [
+        "docs-cloud-f5-com/platform/services/mesh/load-balancing/assets/c86163c7f00b0919c6cc222408fa4eb5a7fb82444772e5986d20edce90fd115a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c86163c7f00b0919c6cc222408fa4eb5a7fb82444772e5986d20edce90fd115a"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/c87425f0c0ae8e2052946bcaf1b20d60a3dc888cdfa40cd92e7d92d269dd4344.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c87425f0c0ae8e2052946bcaf1b20d60a3dc888cdfa40cd92e7d92d269dd4344"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/c92eb082a74ade8afea67010c1ea7690da5634838350ee3665564463b371ee4f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c92eb082a74ade8afea67010c1ea7690da5634838350ee3665564463b371ee4f"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/c9dd05b15c046512532f601b79382eadf2632acab7ea6ce3a9638dc1644a2a93.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "c9dd05b15c046512532f601b79382eadf2632acab7ea6ce3a9638dc1644a2a93"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/cb97fa71ead228b6fd6cc97fd77b391b66c729e767e856a65b0c581c7cbff487.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "cb97fa71ead228b6fd6cc97fd77b391b66c729e767e856a65b0c581c7cbff487"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/cbad0c5196a956124aacf12237f8b614faa463fbdbd053866f004b1a6296f219.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "cbad0c5196a956124aacf12237f8b614faa463fbdbd053866f004b1a6296f219"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/cc7d8afa027d866c768c3ef3dee290334b9053d4c6adbe683ea2656aa2305ae7.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "cc7d8afa027d866c768c3ef3dee290334b9053d4c6adbe683ea2656aa2305ae7"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/d159558c51df191bc13f7f7ae44857afddeaaa6b4cac0b6c5c2ad040dcfa1aba.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d159558c51df191bc13f7f7ae44857afddeaaa6b4cac0b6c5c2ad040dcfa1aba"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/d37153f1d82693a34928d79a238d974bdee92c44d43bd7998ebb8bc0dd33bbb0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d37153f1d82693a34928d79a238d974bdee92c44d43bd7998ebb8bc0dd33bbb0"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/d3bf2a699dd359d5c37cdca46fac3f248af071a2cf020beee131b9c92dbe00a4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d3bf2a699dd359d5c37cdca46fac3f248af071a2cf020beee131b9c92dbe00a4"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/d4d1fb86a10c8aa83c1cfe7242c633cada95cf1b0de79632e8a6943d82169e75.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d4d1fb86a10c8aa83c1cfe7242c633cada95cf1b0de79632e8a6943d82169e75"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/d64c3dae0b4b41b6f73c96e16589125acc269c13f6fb64db23d6f50319491c21.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d64c3dae0b4b41b6f73c96e16589125acc269c13f6fb64db23d6f50319491c21"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/d6d1c59dbc1775f7edc43e4fa704fde1911ee552af7189da1803bc0b4afdb994.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d6d1c59dbc1775f7edc43e4fa704fde1911ee552af7189da1803bc0b4afdb994"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/d72c0f182a8210209832e66ca1181764cad6b9913f2999c3e412752ce32af599.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d72c0f182a8210209832e66ca1181764cad6b9913f2999c3e412752ce32af599"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/d7ddb4c96544ea573e22114f008cde04d816f8270b23d9b266dc944ff2afd2c2.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d7ddb4c96544ea573e22114f008cde04d816f8270b23d9b266dc944ff2afd2c2"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/d89261fc879cb9f2518463cae26f1a346f7972da5062e4317db2ba649fd77274.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d89261fc879cb9f2518463cae26f1a346f7972da5062e4317db2ba649fd77274"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/d8951d5179403f847982c7d37923e060f6c00eb8de824b44c90a7f3519e2b1cf.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d8951d5179403f847982c7d37923e060f6c00eb8de824b44c90a7f3519e2b1cf"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/d9201171415f1abf402da24b3d89f798d6af6d684e4ab11bde6dea4e5521924b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "d9201171415f1abf402da24b3d89f798d6af6d684e4ab11bde6dea4e5521924b"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/ddb9da746b1bba4e4aac0a3e9c70e1cbd89965f7341f05581f193d762a5dd005.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ddb9da746b1bba4e4aac0a3e9c70e1cbd89965f7341f05581f193d762a5dd005"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/deda48e3ff9d87a5ce2c9c5abbc07150cc16c5f678fad004062938d02ac8f23e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "deda48e3ff9d87a5ce2c9c5abbc07150cc16c5f678fad004062938d02ac8f23e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/dfea2bedd6083a5d38e2d4891975c9a786de97ddaf224eab263c29a63945809f.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "dfea2bedd6083a5d38e2d4891975c9a786de97ddaf224eab263c29a63945809f"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/overview/volt-share"],
+      "references": [
+        "docs-cloud-f5-com/platform/overview/volt-share/assets/e0c964ac74ac116e048888cee9eb722d1b2f1b61cd859a60fa6e124be3db8908.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "e0c964ac74ac116e048888cee9eb722d1b2f1b61cd859a60fa6e124be3db8908"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/e5bf810a7ad0bd978b6b356e52a01d7d7e4022bff5db34b8a4bd9e65a09bc631.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "e5bf810a7ad0bd978b6b356e52a01d7d7e4022bff5db34b8a4bd9e65a09bc631"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/e6214500e4be1add1cb5cca8ec10e109b0231528b43daad27542781294ef6aeb.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "e6214500e4be1add1cb5cca8ec10e109b0231528b43daad27542781294ef6aeb"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/integrations/integrating-cloud-mesh-with-ocp/assets/e6d014285a857b9a7ab443499162a0dda854f12e3395c81dc8b9d88e0090afa9.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "e6d014285a857b9a7ab443499162a0dda854f12e3395c81dc8b9d88e0090afa9"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/observe/monitor-your-site"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/observe/monitor-your-site/assets/e812048d8d5547b235a7cb7b90037f32e910f1d4dedccaeb823ceb0b89273257.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "e812048d8d5547b235a7cb7b90037f32e910f1d4dedccaeb823ceb0b89273257"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/ebac3c1949ba70e520b9394e5ef13162260b8c2795007a92c67e62b9ecb9b47c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ebac3c1949ba70e520b9394e5ef13162260b8c2795007a92c67e62b9ecb9b47c"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/ecad216776f35177c0f5e2e825b6bd85b675e690b050b1cde178245f398166ac.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ecad216776f35177c0f5e2e825b6bd85b675e690b050b1cde178245f398166ac"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/ecbe8c8baf349b02a4f890ef7f1c1a79c4d980410d5edd4a217f8a798dddbe7e.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ecbe8c8baf349b02a4f890ef7f1c1a79c4d980410d5edd4a217f8a798dddbe7e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/edf588a837ba21af74f23c32e6ed84d471ae772e99c6bff4c216725783f2a43e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "edf588a837ba21af74f23c32e6ed84d471ae772e99c6bff4c216725783f2a43e"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/ee935c83fb1bd98daacb1c8acb8fd9f50b297a39947b63ee03e16cdf67e37b9a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "ee935c83fb1bd98daacb1c8acb8fd9f50b297a39947b63ee03e16cdf67e37b9a"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/eeb916b7556e4010e4765475a3d4d5dba3046ef505a6bdc05a2a943407e73dc1.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "eeb916b7556e4010e4765475a3d4d5dba3046ef505a6bdc05a2a943407e73dc1"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/71311"],
+      "references": [
+        "community-f5-com/t/71311/assets/f064d9796fc17eda161e4cf5bfa1dd9676f43a62d0937c8d1bf0356a3c6c0863.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f064d9796fc17eda161e4cf5bfa1dd9676f43a62d0937c8d1bf0356a3c6c0863"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/f07b5a77d4fbc97b9f78e637983e62bb5596f0a5c1523a91234a323359e5e144.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f07b5a77d4fbc97b9f78e637983e62bb5596f0a5c1523a91234a323359e5e144"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/f49da48a473cad83fb97b8d16a02d9aaa6e1e930c6fa721da57e2660eb206f5a.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f49da48a473cad83fb97b8d16a02d9aaa6e1e930c6fa721da57e2660eb206f5a"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/73012"],
+      "references": [
+        "community-f5-com/t/73012/assets/f4b15514b9de5baff95aebdd1443451ffb8533f545d8cf39a8738456aa89e099.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f4b15514b9de5baff95aebdd1443451ffb8533f545d8cf39a8738456aa89e099"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/f4fc5336381ae8ebb7aa2ff566785b1346bbe29ec51e05baa82c5221d14a0f27.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f4fc5336381ae8ebb7aa2ff566785b1346bbe29ec51e05baa82c5221d14a0f27"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/assets/f64286b2115074ba553a16d5114f07bbe92179aab6f76d9f060337741094c660.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f64286b2115074ba553a16d5114f07bbe92179aab6f76d9f060337741094c660"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix/assets/f78098c5931a75fe3312cab14ae2e0e42d67971edb7c046e57e856e6f22fbfba.jpg"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f78098c5931a75fe3312cab14ae2e0e42d67971edb7c046e57e856e6f22fbfba"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/f9deb8a280e9bf82125aaed73d01f7cda859b241ee48494e2aa5ec960cbcf8b4.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f9deb8a280e9bf82125aaed73d01f7cda859b241ee48494e2aa5ec960cbcf8b4"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops/assets/f9f356869825ce2eb55ff12ddddec2beb023230003ea2988b356423612ca453b.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "f9f356869825ce2eb55ff12ddddec2beb023230003ea2988b356423612ca453b"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://docs.cloud.f5.com/docs-v2/platform/faqs/generic-faq"],
+      "references": [
+        "docs-cloud-f5-com/platform/faqs/generic-faq/assets/fa1e80523f8f1fb4a78bd312e33f438303613cc2c617db8ce551aee9f89c52e8.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fa1e80523f8f1fb4a78bd312e33f438303613cc2c617db8ce551aee9f89c52e8"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops/assets/faa003670303fabc98b73945ef2f7302e1b8b5dca50dc48feaa9e2619881f41c.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "faa003670303fabc98b73945ef2f7302e1b8b5dca50dc48feaa9e2619881f41c"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops/assets/fafa6f254c9ffa3e0e1b3de2ed35e76601c701e988d5f89d5d599c146649450e.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fafa6f254c9ffa3e0e1b3de2ed35e76601c701e988d5f89d5d599c146649450e"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/70580"],
+      "references": [
+        "community-f5-com/t/70580/assets/fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fdf828736ec6640eac87e7715d6bbb9779ea510fce413914868867a6670ca733"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/fe235fc88fd58a08256847f7b9b9e994c0a130d4569850c247cec58cba5e7aa0.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fe235fc88fd58a08256847f7b9b9e994c0a130d4569850c247cec58cba5e7aa0"
+    },
+    {
+      "disposition": "keep",
+      "documents": ["https://community.f5.com/t/75574"],
+      "references": [
+        "community-f5-com/t/75574/assets/fed638509d0bf6e5e52487be79b905a2d215e38e4b0cc857b7a262bd49301133.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fed638509d0bf6e5e52487be79b905a2d215e38e4b0cc857b7a262bd49301133"
+    },
+    {
+      "disposition": "keep",
+      "documents": [
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops"
+      ],
+      "references": [
+        "docs-cloud-f5-com/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops/assets/fff0dc3cd1882263546b62fcbe63f56585784ca48499ebd91c60760676b1c875.png"
+      ],
+      "review": "pixels_reviewed_against_baseline",
+      "sha256": "fff0dc3cd1882263546b62fcbe63f56585784ca48499ebd91c60760676b1c875"
+    }
+  ],
+  "schema_version": 1,
+  "topic": "appstack-retired",
+  "version": "1.0.0"
+}

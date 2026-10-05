@@ -112,7 +112,6 @@ def test_exact_retired_aliases_and_escapes(text: str) -> None:
         "views.securemesh_site_v2",
         "customer-managed AWS VPC and Azure VNet networking",
         "TGW Connect with GRE and BGP",
-        "AppStack",
         "a fleet of applications",
         "authentication and API tokens",
         "unversioned Secure Mesh connectivity",
@@ -136,8 +135,8 @@ def test_catalog_retirement_precedes_mapping_and_fallback() -> None:
         for op in raw_catalog["operations"]
         if op["resource"].rsplit(".", 1)[-1] in load_curation_policy().retired_identities
     ]
-    assert len(retired) == 45
-    assert len([op for op in retired if op["resource"] != "fleet"]) == 39
+    assert len(retired) == 50
+    assert len([op for op in retired if op["resource"] != "fleet"]) == 44
     assert not {op["operation_id"] for op in retired} & {
         op["operation_id"] for op in active.operations
     }
@@ -316,3 +315,125 @@ def test_cli_archive_audit_separation_and_repeated_bytes(tmp_path: Path) -> None
     (tmp_path / "quality-report.json").write_text('{"content_migration": {}}')
     with pytest.raises(ValueError, match="leakage"):
         validate_curation(tmp_path, artifacts=True)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "AppStack",
+        "App Stack",
+        "app-stack",
+        "VoltStack",
+        "Volt Stack",
+        r"App\_Stack",
+        "App%20Stack",
+        "App&#32;Stack",
+        r"App\-Stack",
+        "Volt%53tack",
+        "vesioschemaviewsvoltstack_siteapicreate",
+    ],
+)
+def test_appstack_aliases_and_topic_isolation(text: str) -> None:
+    active = load_curation_policy()
+    assert active.appstack is not None and active.appstack.retired(text)
+    assert not active.sms_candidate(text)
+
+
+def test_appstack_removes_nested_item_and_keeps_mesh_procedure() -> None:
+    appstack = load_curation_policy().appstack
+    assert appstack is not None
+    body = (
+        "# Customer Edge networking\n\n"
+        "Configure Mesh connectivity for an existing Kubernetes cluster.\n\n"
+        "- Deploy the Mesh site.\n"
+        "- Deploy the App Stack site.\n"
+        "  - Attach the managed cluster.\n"
+        "- Verify the Mesh tunnel.\n"
+    )
+    result = appstack.transform(body, BASE + "new-mesh-guide")
+    assert not result.omit
+    assert "Deploy the Mesh site" in result.body
+    assert "Verify the Mesh tunnel" in result.body
+    assert "managed cluster" not in result.body
+    assert "App Stack" not in result.body
+
+
+def test_appstack_rechecks_changed_inputs_and_retired_links() -> None:
+    appstack = load_curation_policy().appstack
+    assert appstack is not None
+    body = (
+        "# Mesh routes\n\n"
+        "Keep independent Mesh routing instructions.\n\n"
+        "[Old deployment](../site-management/create-app-stack-site)\n\n"
+        "Verify the current site route.\n"
+    )
+    result = appstack.transform(body, BASE + "new-routes")
+    assert not result.omit
+    assert "Keep independent Mesh" in result.body
+    assert "Verify the current site route" in result.body
+    assert "create-app-stack-site" not in result.body
+    assert appstack.excludes(
+        "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/create-deploy-managed-k8s"
+    )
+
+
+def test_appstack_only_document_is_omitted() -> None:
+    appstack = load_curation_policy().appstack
+    assert appstack is not None
+    result = appstack.transform("# AppStack setup\n\n1. Create the site.\n", BASE + "new")
+    assert result.omit
+
+
+def test_appstack_code_and_metadata_are_scanned(tmp_path: Path) -> None:
+    active = load_curation_policy()
+    assert active.appstack is not None
+    body = "# Mesh routing\n\nKeep the existing tunnel.\n\n```sh\nappstack create site\n```\n"
+    transformed = active.appstack.transform(body, BASE + "code-example")
+    assert not transformed.omit
+    assert "Keep the existing tunnel" in transformed.body
+    assert "appstack create" not in transformed.body
+    path = document(tmp_path, "metadata-example", "# Mesh routing\n\nCurrent tunnel.")
+    metadata, current = split_document(path.read_text())
+    metadata["title"] = "AppStack setup"
+    path.write_text(serialize_document(PageMetadata.model_validate(metadata), current))
+    with pytest.raises(ValueError, match="prohibited topic"):
+        validate_curation(tmp_path)
+
+
+def test_appstack_dependency_closure_removes_optional_link(tmp_path: Path) -> None:
+    document(tmp_path, "obsolete-example", "# AppStack setup\n\nCreate a site.")
+    current = document(
+        tmp_path,
+        "independent-example",
+        "# Mesh routing\n\nKeep the existing Mesh tunnel.\n\n"
+        "- [Old setup](obsolete-example)\n"
+        "- Verify the Mesh tunnel.\n",
+    )
+    result = curate_topics(tmp_path)
+    assert result["counts"]["keep"] == 1
+    assert not (current.parent.parent / "obsolete-example/index.md").exists()
+    _, body = split_document(current.read_text())
+    assert "Old setup" not in body
+    assert "Verify the Mesh tunnel" in body
+
+
+def test_appstack_media_decisions_are_page_scoped() -> None:
+    sha = "a" * 64
+    raw = registry(media=[{"sha256": sha, "disposition": "remove"}])
+    raw["topics"].append(
+        {
+            "id": "appstack-retired",
+            "mode": "automatic",
+            "retired_identities": [],
+            "retired_urls": [],
+            "retired_patterns": [r"\bapp[ -]?stack\b"],
+            "candidate_detectors": [r"\bapp[ -]?stack\b"],
+            "documents": [],
+            "media": [{"sha256": sha, "disposition": "keep", "documents": [BASE + "current"]}],
+            "evidence_inputs": [],
+        }
+    )
+    active = policy(raw)
+    assert active.media[sha]["disposition"] == "remove"
+    assert active.appstack is not None
+    assert active.appstack.media[sha]["disposition"] == "keep"

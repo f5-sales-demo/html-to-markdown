@@ -18,6 +18,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 
 from markdown_it import MarkdownIt
 
+from .appstack_curation import AppStackFilter
 from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
 from .state import StateStore
@@ -180,6 +181,25 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     return normalize_body(body)
 
 
+@dataclass(frozen=True)
+class SMSPolicy:
+    detectors: tuple[re.Pattern[str], ...]
+    patterns: tuple[re.Pattern[str], ...]
+    decisions: dict[str, dict[str, Any]]
+    media: dict[str, dict[str, Any]]
+
+    @classmethod
+    def from_topic(cls, topic: dict[str, Any] | None) -> SMSPolicy:
+        if topic is None:
+            return cls((), (), {}, {})
+        return cls(
+            tuple(re.compile(value, re.I) for value in topic["candidate_detectors"]),
+            tuple(re.compile(value, re.I) for value in topic["retired_patterns"]),
+            {canonical(item["url"]): item for item in topic["documents"]},
+            {item["sha256"]: item for item in topic["media"]},
+        )
+
+
 class CurationPolicy:
     def __init__(self, raw: dict[str, Any], sha256: str) -> None:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
@@ -192,44 +212,57 @@ class CurationPolicy:
         self.excluded: set[str] = set()
         self.retired_identities: set[str] = set()
         self.retired_patterns: list[re.Pattern[str]] = []
-        self.detectors: list[re.Pattern[str]] = []
-        self.decisions: dict[str, list[dict[str, Any]]] = {}
         self.media: dict[str, dict[str, Any]] = {}
         self.terraform: TerraformFilter | None = None
+        self.appstack: AppStackFilter | None = None
+        sms_topic = next(
+            (topic for topic in self.topics if topic["id"] == "smsv2-current"),
+            next((topic for topic in self.topics if topic.get("mode") != "automatic"), None),
+        )
+        self.sms = SMSPolicy.from_topic(sms_topic)
         for topic in self.topics:
             if topic.get("mode") == "automatic":
-                if self.terraform is not None or topic["id"] != "terraform-provider-current":
+                if topic["id"] == "terraform-provider-current" and self.terraform is None:
+                    self.terraform = TerraformFilter(
+                        topic,
+                        Path(__file__).parent,
+                        blocks=blocks,
+                        digest=digest,
+                        remove_blocks=remove_blocks,
+                    )
+                elif topic["id"] == "appstack-retired" and self.appstack is None:
+                    self.appstack = AppStackFilter(
+                        topic, blocks=blocks, digest=digest, remove_blocks=remove_blocks
+                    )
+                else:
                     raise ValueError("unsupported automatic curation topic")
-                self.terraform = TerraformFilter(
-                    topic,
-                    Path(__file__).parent,
-                    blocks=blocks,
-                    digest=digest,
-                    remove_blocks=remove_blocks,
-                )
             self.retired_identities.update(topic["retired_identities"])
             self.excluded.update(canonical(url) for url in topic["retired_urls"])
             self.retired_patterns.extend(
                 re.compile(value, re.I) for value in topic["retired_patterns"]
             )
-            self.detectors.extend(re.compile(value, re.I) for value in topic["candidate_detectors"])
+            topic_decisions: dict[str, dict[str, Any]] = {}
             for decision in topic["documents"]:
                 url = canonical(decision["url"])
+                if url in topic_decisions and topic_decisions[url] != decision:
+                    raise ValueError("conflicting document decisions")
+                topic_decisions[url] = decision
                 if decision["disposition"] not in {"keep", "remove", "omit"}:
                     raise ValueError("invalid reviewed disposition")
-                self.decisions.setdefault(url, []).append(decision)
                 if decision["disposition"] in {"remove", "omit"}:
                     self.excluded.add(url)
             for media in topic["media"]:
                 if media["disposition"] not in {"keep", "remove"}:
                     raise ValueError("invalid media disposition")
+                if topic["id"] == "appstack-retired":
+                    # The same bytes can be a generic icon in one page and
+                    # obsolete instructional media in another. Review scope
+                    # belongs to the topic and document, not a global digest.
+                    continue
                 key = media["sha256"]
                 if key in self.media and self.media[key] != media:
                     raise ValueError("conflicting media decisions")
                 self.media[key] = media
-        for decisions in self.decisions.values():
-            if len({json.dumps(d, sort_keys=True) for d in decisions}) != 1:
-                raise ValueError("conflicting document decisions")
 
     def excludes(self, url: str) -> bool:
         parsed = urlsplit(normalized(url))
@@ -246,9 +279,30 @@ class CurationPolicy:
 
     def candidate(self, text: str) -> bool:
         decoded = normalized(text)
-        return self.retired(text) or any(pattern.search(decoded) for pattern in self.detectors)
+        return self.retired(text) or any(
+            re.search(value, decoded, re.I)
+            for topic in self.topics
+            for value in topic["candidate_detectors"]
+        )
 
-    def references(self, body: str, base: str, excluded: set[str]) -> list[str]:
+    def sms_retired(self, text: str) -> bool:
+        decoded = normalized(text)
+        return any(pattern.search(decoded) for pattern in self.sms.patterns)
+
+    def sms_candidate(self, text: str) -> bool:
+        decoded = normalized(text)
+        return self.sms_retired(text) or any(
+            pattern.search(decoded) for pattern in self.sms.detectors
+        )
+
+    def references(
+        self,
+        body: str,
+        base: str,
+        excluded: set[str],
+        *,
+        predicate: Any = None,
+    ) -> list[str]:
         # Parse actual href/src destinations, including escaped and HTML URLs.
         found: set[str] = set()
         parsed = MarkdownIt("commonmark").parse(body)
@@ -266,7 +320,8 @@ class CurationPolicy:
             for m in re.finditer(r"(?m)^ {0,3}\[[^\]]+\]:\s*<?([^\s>]+)", body)
         )
         found.update(m.group() for m in re.finditer(r"https?://[^\s<>\"'`\[\]()]+", body))
-        return sorted(url for url in found if self.excludes(url) or canonical(url) in excluded)
+        check = predicate or self.excludes
+        return sorted(url for url in found if check(url) or canonical(url) in excluded)
 
 
 @lru_cache(maxsize=8)
@@ -274,7 +329,21 @@ def load_curation_policy(path: Path | None = None) -> CurationPolicy:
     path = path or Path(__file__).with_name("curation_policy.json")
     data = path.read_bytes()
     raw = json.loads(data)
+    linked = bytearray(data)
     for topic in raw["topics"]:
+        if catalog := topic.get("review_catalog"):
+            target = (path.parent / catalog["path"]).resolve()
+            if path.parent.resolve() not in target.parents:
+                raise ValueError("curation review catalog escapes policy directory")
+            payload = target.read_bytes()
+            if digest(payload) != catalog["sha256"]:
+                raise ValueError("curation review catalog digest mismatch")
+            review = json.loads(payload)
+            if review.get("schema_version") != 1 or review.get("topic") != topic["id"]:
+                raise ValueError("invalid curation review catalog")
+            topic["documents"] = review["documents"]
+            topic["media"] = review["media"]
+            linked.extend(payload)
         for evidence in topic["evidence_inputs"]:
             if "path" not in evidence:
                 continue
@@ -284,7 +353,7 @@ def load_curation_policy(path: Path | None = None) -> CurationPolicy:
                 or digest(target.read_bytes()) != evidence["sha256"]
             ):
                 raise ValueError("curation evidence digest/path mismatch")
-    return CurationPolicy(raw, digest(data))
+    return CurationPolicy(raw, digest(bytes(linked)))
 
 
 def corpus_digest(output: Path) -> str:
@@ -327,6 +396,54 @@ def remove_reviewed_media(body: str, reference: str) -> str:
     return remove_blocks(body, [])
 
 
+def remove_dependent_references(
+    body: str, base_url: str, excluded: set[str], policy: CurationPolicy
+) -> tuple[str, list[str]]:
+    """Remove complete link-bearing Markdown units before omitting a mixed page."""
+    if policy.appstack is None:
+        return body, []
+    parsed = blocks(body)
+    candidates: list[tuple[Block, list[str]]] = []
+    for block in parsed:
+        if block.kind not in {
+            "list_item",
+            "table_row",
+            "paragraph",
+            "fence",
+            "code_block",
+            "html_block",
+            "reference",
+        }:
+            continue
+        dependencies = policy.references(
+            block.text, base_url, excluded, predicate=policy.appstack.excludes
+        )
+        if dependencies:
+            candidates.append((block, dependencies))
+    priority = {
+        "list_item": 0,
+        "table_row": 1,
+        "paragraph": 2,
+        "fence": 2,
+        "code_block": 2,
+        "html_block": 2,
+        "reference": 2,
+    }
+    selected: list[Block] = []
+    removed: set[str] = set()
+    for block, dependencies in sorted(
+        candidates, key=lambda item: (priority[item[0].kind], item[0].start)
+    ):
+        if any(block.start < other.end and other.start < block.end for other in selected):
+            continue
+        selected.append(block)
+        removed.update(dependencies)
+    if not selected:
+        return body, []
+    rules = [{"location": block.location, "sha256": block.sha256} for block in selected]
+    return remove_blocks(body, rules), sorted(removed)
+
+
 # Plan and apply the complete dependency graph as one transaction.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def curate_topics(
@@ -340,18 +457,17 @@ def curate_topics(
     active = policy or load_curation_policy()
     before = corpus_digest(output)
     plans: dict[str, dict[str, Any]] = {}
-    excluded = set(active.excluded)
+    excluded = set() if active.appstack is not None else set(active.excluded)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
-        candidate = active.candidate(
+        candidate = active.sms_candidate(
             body
             + json.dumps(
                 {k: v for k, v in metadata.items() if k not in {"related_documents", "description"}}
             )
         )
-        rules = active.decisions.get(url, [])
-        decision = rules[0] if rules else None
+        decision = active.sms.decisions.get(url)
         finding: dict[str, Any] = {
             "document": path.relative_to(output).as_posix(),
             "url": url,
@@ -378,11 +494,7 @@ def curate_topics(
                 # A later topic may have changed the reviewed SMSv2 output.
                 # Revalidate the SMSv2 invariants instead of treating a whole
                 # document hash mismatch as evidence that its old blocks remain.
-                if (
-                    decision["disposition"] != "keep"
-                    or active.retired(body)
-                    or active.references(body, url, set())
-                ):
+                if decision["disposition"] != "keep" or active.sms_retired(body):
                     finding["disposition"] = "omit"
                     finding["findings"].append("changed_document_input")
                 else:
@@ -401,7 +513,7 @@ def curate_topics(
                 if not decision or decision.get("media_review_required", True)
                 else []
             ):
-                review = active.media.get(media["sha256"] or "")
+                review = active.sms.media.get(media["sha256"] or "")
                 if review is None or review["disposition"] != "keep":
                     finding["disposition"] = "omit"
                     finding["findings"].append("unreviewed_changed_or_removed_media")
@@ -414,16 +526,45 @@ def curate_topics(
                 else None,
             }
         )
+        if finding["disposition"] == "keep" and active.appstack is not None:
+            appstack_before = digest(retained.encode())
+            result = active.appstack.transform(retained, url)
+            retained = result.body
+            finding["appstack"] = result.findings
+            if result.omit:
+                finding["disposition"] = "omit"
+                finding["findings"].append("appstack_retirement")
+            elif result.findings:
+                for media in media_inventory(path, retained):
+                    review = active.appstack.media.get(media["sha256"] or "")
+                    if (
+                        media["kind"] != "local"
+                        or review is None
+                        or review["disposition"] != "keep"
+                        or url not in review.get("documents", [])
+                    ):
+                        finding["disposition"] = "omit"
+                        finding["findings"].append("unreviewed_appstack_media")
+                        break
+            finding["stages"].append(
+                {
+                    "topic": "appstack-retired",
+                    "input_sha256": appstack_before,
+                    "output_sha256": digest(retained.encode())
+                    if finding["disposition"] == "keep"
+                    else None,
+                }
+            )
         if finding["disposition"] == "keep" and active.terraform is not None:
             terraform_before = digest(retained.encode())
-            result = active.terraform.transform(retained, url)
-            retained = result.body
+            terraform_result = active.terraform.transform(retained, url)
+            retained = terraform_result.body
             finding["terraform"] = {
-                "removals": result.findings,
-                "destinations": result.destinations,
-                "removed_media": list(result.removed_media),
+                "removals": terraform_result.findings,
+                "destinations": terraform_result.destinations,
+                "removed_media": list(terraform_result.removed_media),
             }
-            if result.findings and not result.omit:
+            if terraform_result.findings and not terraform_result.omit:
                 for media in media_inventory(path, retained):
                     review = active.media.get(media["sha256"] or "")
                     if review is not None and review["disposition"] == "remove":
@@ -436,13 +577,15 @@ def curate_topics(
                 {
                     "topic": "terraform-provider-current",
                     "input_sha256": terraform_before,
-                    "output_sha256": digest(retained.encode()) if not result.omit else None,
+                    "output_sha256": digest(retained.encode())
+                    if not terraform_result.omit
+                    else None,
                 }
             )
-            if result.omit:
+            if terraform_result.omit:
                 finding["disposition"] = "omit"
                 finding["findings"].append("no_independent_content_after_terraform_curation")
-            elif result.findings:
+            elif terraform_result.findings:
                 for media in media_inventory(path, retained):
                     review = active.media.get(media["sha256"] or "")
                     if (
@@ -485,7 +628,12 @@ def curate_topics(
             finding = plan["finding"]
             if finding["disposition"] != "keep":
                 continue
-            dependencies = active.references(plan["body"], url, excluded)
+            dependencies = active.references(
+                plan["body"],
+                url,
+                excluded,
+                predicate=active.appstack.excludes if active.appstack else None,
+            )
             local_targets: set[Path] = set()
             for token in MarkdownIt("commonmark").parse(plan["body"]):
                 for child in token.children or []:
@@ -507,6 +655,29 @@ def curate_topics(
                     and other["path"].resolve() in local_targets
                 ):
                     dependencies.append(other["finding"]["url"])
+            if dependencies and active.appstack is not None:
+                before_dependencies = digest(plan["body"].encode())
+                repaired, removed = remove_dependent_references(plan["body"], url, excluded, active)
+                remaining = active.references(
+                    repaired, url, excluded, predicate=active.appstack.excludes
+                )
+                meaningful = any(
+                    b.kind not in {"heading", "hr", "section"} and b.text.strip()
+                    for b in blocks(repaired)
+                )
+                if removed and not remaining and meaningful:
+                    plan["body"] = repaired
+                    finding["appstack_dependencies"] = removed
+                    finding["stages"].append(
+                        {
+                            "topic": "appstack-reference-closure",
+                            "input_sha256": before_dependencies,
+                            "output_sha256": digest(repaired.encode()),
+                        }
+                    )
+                    finding["output_sha256"] = digest(repaired.encode())
+                    changed = True
+                    continue
             if dependencies:
                 finding["disposition"] = "omit"
                 finding["findings"].append({"unresolved_dependencies": sorted(set(dependencies))})
@@ -594,9 +765,13 @@ def validate_curation(
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
-        if policy.terraform is not None:
-            result = policy.terraform.transform(body, str(metadata["url"]))
+        if policy.appstack is not None:
+            result = policy.appstack.transform(body, str(metadata["url"]))
             if result.body != body or result.omit:
+                raise ValueError(f"uncurated AppStack content remains: {path}")
+        if policy.terraform is not None:
+            terraform_result = policy.terraform.transform(body, str(metadata["url"]))
+            if terraform_result.body != body or terraform_result.omit:
                 raise ValueError(f"uncurated Terraform provider content remains: {path}")
         if (
             policy.excludes(str(metadata["url"]))
@@ -622,14 +797,46 @@ def validate_curation(
             raise ValueError(f"unreviewed Terraform media remains: {path}")
         if any(item["kind"] == "video" for item in media):
             raise ValueError(f"unverifiable video remains: {path}")
-        required = any(d.get("media_review_required", True) for d in policy.decisions.get(url, []))
-        if (required or policy.candidate(body)) and any(
-            policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+        appstack = policy.appstack
+        appstack_reviewed = (
+            appstack is not None
+            and url in appstack.decisions
+            and appstack.decisions[url]["disposition"] == "keep"
+        )
+        if (
+            appstack is not None
+            and appstack_reviewed
+            and any(
+                item["kind"] != "local"
+                or appstack.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+                or url not in appstack.media.get(item["sha256"] or "", {}).get("documents", [])
+                for item in media
+            )
+        ):
+            raise ValueError(f"unreviewed AppStack media remains: {path}")
+        required = policy.sms.decisions.get(url, {}).get("media_review_required", False)
+        if (required or policy.sms_candidate(body)) and any(
+            policy.sms.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
             for item in media
         ):
             raise ValueError(f"unreviewed media remains: {path}")
-        if policy.references(body, str(metadata["url"]), set()):
+        if policy.references(
+            body,
+            str(metadata["url"]),
+            set(),
+            predicate=policy.appstack.excludes if policy.appstack else None,
+        ):
             raise ValueError(f"retired reference remains: {path}")
+    if artifacts:
+        # Final validation uses the same planner as examination and application.
+        replay = curate_topics(output, policy=policy, apply=False)
+        planned = replay.pop("_planned")
+        actual = {
+            path.relative_to(output).as_posix(): split_document(path.read_text())[1]
+            for path in sorted(output.glob("content/*/**/index.md"))
+        }
+        if {key: value["body"] for key, value in planned.items()} != actual:
+            raise ValueError("curation planner finds changed or omitted consumer content")
     for name in ("quality-report.json", "quality-report.md", "manifest.json") if artifacts else ():
         path = output / name
         if path.is_file() and (

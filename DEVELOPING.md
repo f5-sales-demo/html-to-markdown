@@ -121,12 +121,16 @@ measure retained content only. The manifest remains schema v2.
 `curation_policy.json` declares independent versioned topics, digest-pinned evidence,
 exact retired identities and URLs, reviewed source decisions, structural block
 removals and media decisions. The SMSv2 topic uses reviewed source guards and
-omits unclassified candidates or stale/overlapping removals. The Terraform
+omits unclassified candidates or stale/overlapping removals. The separate
+AppStack topic uses exact aliases, retired site/API identities, reviewed
+document edits, and page-scoped media digests. It rechecks new, changed,
+carried-forward, and restored pages before Terraform curation. The Terraform
 topic runs automatically on new, changed, carried-forward and restored pages.
 It removes retired provider instructions and their dependent material, retains
 independent explanations and cloud infrastructure, and adds only qualified xcsh
 links. See `engineering/smsv2-curation.md` and
-`engineering/terraform-curation.md` for the evidence and ownership boundaries.
+`engineering/terraform-curation.md` and `engineering/appstack-curation.md`
+for the evidence and ownership boundaries.
 
 ```bash
 uv run html-to-markdown examine-content --output verified-corpus > impact.json

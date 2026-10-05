@@ -338,13 +338,24 @@ def migrate_content(
         and prior_audit["content_lineage_sha256"] == _content_lineage_digest(output)
     )
     if apply and audit_matches:
-        if store:
-            purge_excluded_state(store, active)
-        validate_content_policy(output, active)
-        if prior_audit["output_sha256"] != before:
-            prior_audit["output_sha256"] = before
-            audit_path.write_bytes(json_bytes(prior_audit))
-        return dict(prior_audit["content_migration"])
+        # Re-run the actual planner against current bytes. A matching audit is
+        # a lineage hint, never evidence that restored content is still clean.
+        recheck = curate_topics(output, store, apply=False)
+        planned = recheck.pop("_planned")
+        actual = {
+            path.relative_to(output).as_posix(): split_document(path.read_text())[1]
+            for path in sorted(output.glob("content/*/**/index.md"))
+        }
+        if {key: value["body"] for key, value in planned.items()} != actual:
+            audit_matches = False
+        else:
+            if store:
+                purge_excluded_state(store, active)
+            validate_content_policy(output, active)
+            if prior_audit["output_sha256"] != before:
+                prior_audit["output_sha256"] = before
+                audit_path.write_bytes(json_bytes(prior_audit))
+            return dict(prior_audit["content_migration"])
     topics = curate_topics(output, store, apply=apply)
     planned = topics.pop("_planned")
     old = _previous_evidence(output, active, before)

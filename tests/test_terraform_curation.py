@@ -267,7 +267,7 @@ resource "volterra_origin_pool" "old" { name = "old" }
     assert path.read_bytes() == original
     proposal = curate_topics(tmp_path, apply=False)
     assert path.read_bytes() == original
-    assert proposal["documents"][0]["stages"][1]["topic"] == "terraform-provider-current"
+    assert proposal["documents"][0]["stages"][2]["topic"] == "terraform-provider-current"
     assert proposal["documents"][0]["terraform"]["removals"]
     result = runner.invoke(app, ["curate-content", "--output", str(tmp_path)])
     assert result.exit_code == 0, result.exception
