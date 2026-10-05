@@ -16,10 +16,44 @@ hero:
 import CorpusBrowser from '@components/CorpusBrowser.astro';
 
 Curation policies select relevant content and remove material outside the collection’s scope.
-The converted documents retain their headings, examples, links, and images.
+Retained documents keep useful headings, examples, links, and reviewed images.
+[See the active content filters](#content-filters).
 
 <div id="collection"></div>
 <CorpusBrowser />
+
+## Content filters
+
+This collection is a reviewed subset of four public sources. It includes F5 Distributed Cloud
+product documentation and MyF5 support articles; F5.com is limited to the Distributed Cloud
+product family and three reviewed solution pages. Community articles come only from reviewed
+first posts in F5 Technical Articles, Community CodeShare, and F5 Security Insights. Forums,
+news, events, unrelated product pages, and community posts or media awaiting review are excluded.
+
+Each snapshot applies these content filters in order:
+
+1. **Secure Mesh Site transition:** Remove SMSv1 Fleet and legacy cloud-site procedures.
+   Keep Secure Mesh Site v2 guides and independent VPC, VNet, and TGW networking material.
+2. **AppStack retirement:** Remove AppStack and VoltStack site guidance, retired API identities,
+   and managed Kubernetes procedures that require an AppStack Customer Edge site. Keep complete
+   independent Kubernetes, vK8s, Mesh, and networking explanations.
+3. **Terraform provider:** Remove instructions, examples, and linked modules for the retired
+   `volterraedge/volterra` provider. Add current `xcsh` documentation links only where the
+   mapping is qualified; keep independent cloud infrastructure and Terraform explanations.
+4. **API reference:** Exclude superseded `docs-v2/api` and
+   `platform/reference/api-ref` pages. Move legacy links to the pinned enriched API reference
+   using exact operation or resource identities, with a general index for unresolved matches.
+
+Dependent sections, steps, billing and release-note entries, links, and diagrams are removed.
+A page is omitted when it no longer has a complete independent explanation. Source and media
+reviews are checked again when their inputs change.
+
+The [topic policy](https://github.com/f5-sales-demo/html-to-markdown/blob/main/src/html_to_markdown/curation_policy.json),
+[AppStack review decisions](https://github.com/f5-sales-demo/html-to-markdown/blob/main/src/html_to_markdown/appstack_review.json),
+[API-reference policy](https://github.com/f5-sales-demo/html-to-markdown/blob/main/src/html_to_markdown/content_policy.json),
+and [community reviews](https://github.com/f5-sales-demo/html-to-markdown/blob/main/src/html_to_markdown/adapters/community_reviews.json)
+contain the exact rules. Use the [publication details](/html-to-markdown/snapshot/snapshot-provenance.json)
+to identify the source commit for a published snapshot.
 
 ## Markdown navigation and snapshot details
 

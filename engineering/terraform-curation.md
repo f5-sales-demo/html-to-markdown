@@ -2,9 +2,9 @@
 
 The `terraform-provider-current` topic removes instructions for the retired
 `volterraedge/volterra` provider from the curated Markdown corpus. It runs after
-SMSv2 decisions and before API-reference migration on both normal and offline
-builds. Examination uses the same transaction planner and reports proposed
-removals without changing the snapshot.
+SMSv2 and AppStack decisions and before API-reference migration on both
+normal and offline builds. Examination uses the same transaction planner and
+reports proposed removals without changing the snapshot.
 
 ## Evidence boundary
 
