@@ -14312,21 +14312,14 @@
       "id": "appstack-retired",
       "mode": "automatic",
       "version": "1.0.0",
-      "candidate_detectors": [
-        "\\bapp[_ -]?stack\\b",
-        "\\bvolt[_ -]?stack\\b",
-        "vesioschemaviewsvoltstack_siteapi"
-      ],
+      "candidate_detectors": ["\\bapp[_ -]?stack\\b", "\\bvolt[_ -]?stack\\b", "vesioschemaviewsvoltstack_siteapi"],
       "retired_patterns": [
         "\\bapp[_ -]?stack\\b",
         "\\bvolt[_ -]?stack\\b",
         "vesioschemaviewsvoltstack_siteapi",
         "\\bvoltstack_site\\b"
       ],
-      "retired_identities": [
-        "voltstack_site",
-        "appstack_site"
-      ],
+      "retired_identities": ["voltstack_site", "appstack_site"],
       "retired_urls": [
         "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/create-deploy-managed-k8s",
         "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-token-for-managed-k8s",
@@ -14342,7 +14335,7 @@
       "media": [],
       "review_catalog": {
         "path": "appstack_review.json",
-        "sha256": "2e9f039eb555dbde78882be2fdef56ab4d57e1150f93d45c58f01a86c8451207"
+        "sha256": "38fd1e462da9fced19bba4e77e2781031d957167475ddf1f6fee089e8764f8db"
       },
       "evidence_inputs": []
     },

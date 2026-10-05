@@ -342,8 +342,13 @@ async def test_inventory_only_requires_benchmark_and_skips_discovery(
 
 
 @pytest.mark.asyncio
-async def test_fresh_extraction_curates_appstack_and_builds_identically(tmp_path: Path) -> None:
+async def test_fresh_extraction_curates_appstack_and_builds_identically(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from html_to_markdown import state as state_module
     from html_to_markdown.render import split_document
+
+    monkeypatch.setattr(state_module, "utc_now", lambda: "2026-10-05T00:00:00Z")
 
     class MixedFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:
