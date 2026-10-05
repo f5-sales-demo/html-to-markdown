@@ -10,11 +10,13 @@ self-hosted-runner:
     - automation
     - bot-advanced
     - bot-standard
+    - canada
     - cdn
     - cdn-simulator
     - console
     - container-build
     - csd
+    - custom-responses
     - ddos
     - demo-resource-template
     - demo-resources
@@ -47,7 +49,6 @@ self-hosted-runner:
     - traffic-generator
     - ubuntu-24.04-arm
     - vscode-xcsh
-    - waf
     - was
     - webapp-api-protection
     - xcsh
