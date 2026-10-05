@@ -21,6 +21,7 @@ from markdown_it import MarkdownIt
 from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
 from .state import StateStore
+from .terraform_curation import TerraformFilter
 
 
 def digest(data: bytes) -> str:
@@ -194,7 +195,12 @@ class CurationPolicy:
         self.detectors: list[re.Pattern[str]] = []
         self.decisions: dict[str, list[dict[str, Any]]] = {}
         self.media: dict[str, dict[str, Any]] = {}
+        self.terraform: TerraformFilter | None = None
         for topic in self.topics:
+            if topic.get("mode") == "automatic":
+                if self.terraform is not None or topic["id"] != "terraform-provider-current":
+                    raise ValueError("unsupported automatic curation topic")
+                self.terraform = TerraformFilter(topic, Path(__file__).parent)
             self.retired_identities.update(topic["retired_identities"])
             self.excluded.update(canonical(url) for url in topic["retired_urls"])
             self.retired_patterns.extend(
@@ -308,6 +314,13 @@ def media_inventory(path: Path, body: str) -> list[dict[str, Any]]:
     return result
 
 
+def remove_reviewed_media(body: str, reference: str) -> str:
+    escaped = re.escape(reference)
+    body = re.sub(r"!\[[^\]]*\]\(" + escaped + r"\)", "", body)
+    body = re.sub(r"<img\b[^>]*\bsrc=[\"']" + escaped + r"[\"'][^>]*>", "", body, flags=re.I)
+    return remove_blocks(body, [])
+
+
 # Plan and apply the complete dependency graph as one transaction.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def curate_topics(
@@ -341,6 +354,7 @@ def curate_topics(
             "disposition": "keep",
             "findings": [],
             "media": media_inventory(path, body),
+            "stages": [],
         }
         retained = body
         if active.excludes(url) or active.excludes(str(metadata["url"])):
@@ -355,8 +369,18 @@ def curate_topics(
             elif digest(body.encode()) == decision.get("output_sha256"):
                 pass
             elif digest(body.encode()) != decision["input_sha256"]:
-                finding["disposition"] = "omit"
-                finding["findings"].append("changed_document_input")
+                # A later topic may have changed the reviewed SMSv2 output.
+                # Revalidate the SMSv2 invariants instead of treating a whole
+                # document hash mismatch as evidence that its old blocks remain.
+                if (
+                    decision["disposition"] != "keep"
+                    or active.retired(body)
+                    or active.references(body, url, set())
+                ):
+                    finding["disposition"] = "omit"
+                    finding["findings"].append("changed_document_input")
+                else:
+                    finding["findings"].append("reviewed_topic_output_revalidated")
             else:
                 try:
                     retained = remove_blocks(body, decision.get("block_removals", []))
@@ -375,6 +399,54 @@ def curate_topics(
                 if review is None or review["disposition"] != "keep":
                     finding["disposition"] = "omit"
                     finding["findings"].append("unreviewed_changed_or_removed_media")
+        finding["stages"].append(
+            {
+                "topic": "smsv2-current",
+                "input_sha256": digest(body.encode()),
+                "output_sha256": digest(retained.encode())
+                if finding["disposition"] == "keep"
+                else None,
+            }
+        )
+        if finding["disposition"] == "keep" and active.terraform is not None:
+            terraform_before = digest(retained.encode())
+            result = active.terraform.transform(retained, url)
+            retained = result.body
+            finding["terraform"] = {
+                "removals": result.findings,
+                "destinations": result.destinations,
+                "removed_media": list(result.removed_media),
+            }
+            if result.findings and not result.omit:
+                for media in media_inventory(path, retained):
+                    review = active.media.get(media["sha256"] or "")
+                    if review is not None and review["disposition"] == "remove":
+                        retained = remove_reviewed_media(retained, media["reference"])
+                        finding["terraform"]["removed_media"].append(media["reference"])
+                        finding["terraform"]["removals"].append(
+                            {"reason": "reviewed_media_removed", "sha256": media["sha256"]}
+                        )
+            finding["stages"].append(
+                {
+                    "topic": "terraform-provider-current",
+                    "input_sha256": terraform_before,
+                    "output_sha256": digest(retained.encode()) if not result.omit else None,
+                }
+            )
+            if result.omit:
+                finding["disposition"] = "omit"
+                finding["findings"].append("no_independent_content_after_terraform_curation")
+            elif result.findings:
+                for media in media_inventory(path, retained):
+                    review = active.media.get(media["sha256"] or "")
+                    if (
+                        media["kind"] != "local"
+                        or review is None
+                        or review["disposition"] != "keep"
+                    ):
+                        finding["disposition"] = "omit"
+                        finding["findings"].append("unreviewed_terraform_media")
+                        break
         if any(item["kind"] == "video" for item in media_inventory(path, retained)):
             finding["disposition"] = "omit"
             finding["findings"].append("unverifiable_video")
@@ -435,6 +507,17 @@ def curate_topics(
                 excluded.add(url)
                 excluded.add(canonical(str(plan["metadata"]["url"])))
                 changed = True
+    referenced_assets = {
+        (plan["path"].parent / match.group()).resolve()
+        for plan in plans.values()
+        if plan["finding"]["disposition"] == "keep"
+        for match in re.finditer(r"assets/[a-zA-Z0-9_.-]+", plan["body"])
+    }
+    removed_assets = [
+        path.relative_to(output).as_posix()
+        for path in sorted(output.glob("content/*/**/assets/*"))
+        if path.resolve() not in referenced_assets
+    ]
     if apply:
         for plan in plans.values():
             path, finding = plan["path"], plan["finding"]
@@ -447,6 +530,10 @@ def curate_topics(
                         )
                 continue
             retained_metadata = PageMetadata.model_validate(plan["metadata"])
+            if active.terraform is not None and finding.get("terraform", {}).get("removals"):
+                retained_metadata.title = active.terraform.topic.get("title_overrides", {}).get(
+                    finding["url"], retained_metadata.title
+                )
             retained_metadata.related_documents = [
                 item
                 for item in retained_metadata.related_documents
@@ -464,6 +551,11 @@ def curate_topics(
             document = serialize_document(retained_metadata, plan["body"])
             path.write_text(document, encoding="utf-8", newline="\n")
         prune_assets(output)
+    planned = {
+        p["path"].relative_to(output).as_posix(): {"body": p["body"], "metadata": p["metadata"]}
+        for p in plans.values()
+        if p["finding"]["disposition"] == "keep"
+    }
     return {
         "schema_version": 1,
         "policy_sha256": active.sha256,
@@ -474,6 +566,8 @@ def curate_topics(
             key: sum(p["finding"]["disposition"] == key for p in plans.values())
             for key in ("keep", "remove", "omit")
         },
+        "removed_assets": removed_assets,
+        "_planned": planned,
     }
 
 
@@ -488,10 +582,16 @@ def prune_assets(output: Path) -> None:
             path.unlink()
 
 
-def validate_curation(output: Path, *, artifacts: bool = False) -> None:
-    policy = load_curation_policy()
+def validate_curation(
+    output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
+) -> None:
+    policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
+        if policy.terraform is not None:
+            result = policy.terraform.transform(body, str(metadata["url"]))
+            if result.body != body or result.omit:
+                raise ValueError(f"uncurated Terraform provider content remains: {path}")
         if (
             policy.excludes(str(metadata["url"]))
             or policy.retired(body)
@@ -500,6 +600,20 @@ def validate_curation(output: Path, *, artifacts: bool = False) -> None:
             raise ValueError(f"prohibited topic remains: {path}")
         url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
         media = media_inventory(path, body)
+        if (
+            policy.terraform is not None
+            and (
+                str(metadata["url"]) in policy.terraform.reviewed_urls
+                or policy.terraform.catalog["landing"] in body
+                or any(value in normalized(body) for value in policy.terraform.qualified_links)
+            )
+            and any(
+                item["kind"] != "local"
+                or policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+                for item in media
+            )
+        ):
+            raise ValueError(f"unreviewed Terraform media remains: {path}")
         if any(item["kind"] == "video" for item in media):
             raise ValueError(f"unverifiable video remains: {path}")
         required = any(d.get("media_review_required", True) for d in policy.decisions.get(url, []))

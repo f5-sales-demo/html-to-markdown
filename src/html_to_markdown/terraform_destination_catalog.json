@@ -1,0 +1,76 @@
+{
+  "documents": [
+    {
+      "path": "docs/resources/origin_pool.md",
+      "registry_id": "13943560",
+      "resource": "xcsh_origin_pool",
+      "sha256": "b647a32bd5a68209c0137a4fc1d3078945dbb6cedec937534f27a5aec25fa408",
+      "slug": "origin_pool",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/origin_pool"
+    },
+    {
+      "path": "docs/resources/http_loadbalancer.md",
+      "registry_id": "13943534",
+      "resource": "xcsh_http_loadbalancer",
+      "sha256": "80e8b07c41a2e41c101f1d3289ffc4be06c1e9f977a8052299dd7b82cf2efa25",
+      "slug": "http_loadbalancer",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/http_loadbalancer"
+    },
+    {
+      "path": "docs/resources/ip_prefix_set.md",
+      "registry_id": "13943540",
+      "resource": "xcsh_ip_prefix_set",
+      "sha256": "3d688ac9d3bba2b13006b137977ae0bee96a01c660e577c56e0834c332916f83",
+      "slug": "ip_prefix_set",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/ip_prefix_set"
+    },
+    {
+      "path": "docs/resources/app_firewall.md",
+      "registry_id": "13943481",
+      "resource": "xcsh_app_firewall",
+      "sha256": "aa94fa3cd7370d073354110cc56f7ff806a9c1e95599e4d07960016338ba3863",
+      "slug": "app_firewall",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/app_firewall"
+    },
+    {
+      "path": "docs/resources/alert_receiver.md",
+      "registry_id": "13943473",
+      "resource": "xcsh_alert_receiver",
+      "sha256": "6d98a0dd93fc27dcac03097712165accee73d64459ec48a401fe64f642efdac5",
+      "slug": "alert_receiver",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/alert_receiver"
+    },
+    {
+      "path": "docs/resources/securemesh_site_v2.md",
+      "registry_id": "13943576",
+      "resource": "xcsh_securemesh_site_v2",
+      "sha256": "b986fd1d7ec67c22d809e85053119b1927b066a7abf4f2983fb456ce0900fccf",
+      "slug": "securemesh_site_v2",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/securemesh_site_v2"
+    },
+    {
+      "path": "docs/resources/token.md",
+      "registry_id": "13943587",
+      "resource": "xcsh_token",
+      "sha256": "ce13924335851b660d79996d63a33c17e02c6434976f0d6fa779172f90281362",
+      "slug": "token",
+      "url": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest/docs/resources/token"
+    }
+  ],
+  "landing": "https://registry.terraform.io/providers/f5-sales-demo/xcsh/latest",
+  "mappings": {
+    "volterra_alert_receiver": "alert_receiver",
+    "volterra_app_firewall": "app_firewall",
+    "volterra_http_loadbalancer": "http_loadbalancer",
+    "volterra_ip_prefix_set": "ip_prefix_set",
+    "volterra_origin_pool": "origin_pool",
+    "volterra_securemesh_site_v2": "securemesh_site_v2",
+    "volterra_token": "token"
+  },
+  "provider": "f5-sales-demo/xcsh",
+  "registry_response_sha256": "8dca1331ff5a6650a5d85b3923ab6f142adf9a42ac8a353c3cf222b1b724e623",
+  "release_tag": "v13.1.1",
+  "schema_version": 1,
+  "source_commit": "b35faa68ef9f230fa8299444aaceddab43150715",
+  "version": "1.0.0"
+}
