@@ -14309,6 +14309,44 @@
       "version": "1.0.0"
     },
     {
+      "id": "appstack-retired",
+      "mode": "automatic",
+      "version": "1.0.0",
+      "candidate_detectors": [
+        "\\bapp[_ -]?stack\\b",
+        "\\bvolt[_ -]?stack\\b",
+        "vesioschemaviewsvoltstack_siteapi"
+      ],
+      "retired_patterns": [
+        "\\bapp[_ -]?stack\\b",
+        "\\bvolt[_ -]?stack\\b",
+        "vesioschemaviewsvoltstack_siteapi",
+        "\\bvoltstack_site\\b"
+      ],
+      "retired_identities": [
+        "voltstack_site",
+        "appstack_site"
+      ],
+      "retired_urls": [
+        "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/create-deploy-managed-k8s",
+        "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-token-for-managed-k8s",
+        "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/observe/monitor-your-managed-k8s",
+        "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/vk8s-resources",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/app-mgnt/create-workloads-with-multi-interfaces",
+        "https://community.f5.com/t/71329",
+        "https://community.f5.com/t/75882",
+        "https://my.f5.com/manage/s/article/K000147916",
+        "https://my.f5.com/manage/s/article/K000148213"
+      ],
+      "documents": [],
+      "media": [],
+      "review_catalog": {
+        "path": "appstack_review.json",
+        "sha256": "2e9f039eb555dbde78882be2fdef56ab4d57e1150f93d45c58f01a86c8451207"
+      },
+      "evidence_inputs": []
+    },
+    {
       "baseline_reviewed_urls": [
         "https://community.f5.com/t/67361",
         "https://community.f5.com/t/67364",
@@ -15624,5 +15662,5 @@
       "version": "1.0.0"
     }
   ],
-  "version": "1.1.0"
+  "version": "1.2.0"
 }

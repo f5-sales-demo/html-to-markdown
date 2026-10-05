@@ -339,3 +339,53 @@ async def test_inventory_only_requires_benchmark_and_skips_discovery(
         source="all", output=tmp_path, benchmark=benchmark, inventory_only=True
     )
     assert archive.exists()
+
+
+@pytest.mark.asyncio
+async def test_fresh_extraction_curates_appstack_and_builds_identically(tmp_path: Path) -> None:
+    from html_to_markdown.render import split_document
+
+    class MixedFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html=(
+                    "<html><head><title>Mesh guide</title></head><body><main>"
+                    "<h1>Mesh guide</h1>"
+                    "<p>Use Mesh routing to connect the current sites.</p>"
+                    "<p>Deploy AppStack on a Customer Edge site.</p>"
+                    "</main></body></html>"
+                ),
+            )
+
+    async def build(output: Path) -> dict[str, bytes]:
+        pipeline = Pipeline(output)
+        await pipeline.fetcher.close()
+        pipeline.fetcher = MixedFetcher()  # type: ignore[assignment]
+        url = "https://docs.cloud.f5.com/docs-v2/how-to/mixed-mesh-guide"
+        pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
+        records = await pipeline.scrape("docs-cloud-f5-com")
+        assert len(records) == 1
+        assert "AppStack" in records[0].output_path.read_text()
+        pipeline.validate()
+        _, body = split_document(records[0].output_path.read_text())
+        assert "Mesh routing" in body
+        assert "AppStack" not in body
+        pipeline.package("2026-10-05T00:00:00Z", "2026-10-05T00:00:00Z")
+        names = (
+            "quality-report.json",
+            "quality-report.md",
+            "manifest.json",
+            "SHA256SUMS",
+            "html-to-markdown-content.tar.gz",
+            "html-to-markdown-content.tar.gz.sha256",
+            "curation-audit.json",
+        )
+        files = [*output.glob("content/**/*/index.md"), *(output / name for name in names)]
+        artifacts = {path.relative_to(output).as_posix(): path.read_bytes() for path in files}
+        pipeline.store.close()
+        return artifacts
+
+    assert await build(tmp_path / "first") == await build(tmp_path / "second")
