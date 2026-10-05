@@ -1,0 +1,710 @@
+{
+  "entries": [
+    {
+      "commit": null,
+      "disposition": "remove",
+      "evidence_files": [],
+      "path_prefix": "/anz-f5/f5xc-waap-palo-gwlb-aws",
+      "reason": "repository unavailable at examination",
+      "repository": "anz-f5/f5xc-waap-palo-gwlb-aws"
+    },
+    {
+      "commit": null,
+      "disposition": "remove",
+      "evidence_files": [],
+      "path_prefix": "/f5devcentral/F5 XC-hybrid-security-architectures",
+      "reason": "linked repository unavailable at examination",
+      "repository": "f5devcentral/F5 XC-hybrid-security-architectures"
+    },
+    {
+      "commit": "302744d8a34cd45aab313a8c6ce325e32c4a6e39",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "f5/xc/main.tf",
+          "sha256": "3ab5a1e91731b7e24d439258bb64cfb0c96b8c8593dc84a27e8ac6f4303dfd44"
+        }
+      ],
+      "path_prefix": "/f5devcentral/F5-ADSP-Automation",
+      "repository": "f5devcentral/F5-ADSP-Automation"
+    },
+    {
+      "commit": "302744d8a34cd45aab313a8c6ce325e32c4a6e39",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "app/gcp/main.tf",
+          "sha256": "acd5f1e6171560fdf2a6d9d31ece2e4db84d6709c555c599fae33b08235f101a"
+        }
+      ],
+      "path_prefix": "/f5devcentral/F5-ADSP-Automation/tree/main/app/gcp",
+      "replacement_url": "https://github.com/f5devcentral/F5-ADSP-Automation/tree/302744d8a34cd45aab313a8c6ce325e32c4a6e39/app/gcp",
+      "repository": "f5devcentral/F5-ADSP-Automation"
+    },
+    {
+      "commit": "0eeddf1a70a0c81ac1da7a5c5f26576a7559b0dc",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "xc/main.tf",
+          "sha256": "f81aec3e07d82e246116b05e6371b014a8db305ea398c129223f9168390714d2"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-hybrid-security-architectures",
+      "repository": "f5devcentral/f5-hybrid-security-architectures"
+    },
+    {
+      "commit": "0eeddf1a70a0c81ac1da7a5c5f26576a7559b0dc",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "aws/aws-infra/main.tf",
+          "sha256": "6fe0b63050f9cec04c90108d3f6928286dcd403cb49cd8c2a81b7adca41fe18d"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-hybrid-security-architectures/tree/main/aws",
+      "replacement_url": "https://github.com/f5devcentral/f5-hybrid-security-architectures/tree/0eeddf1a70a0c81ac1da7a5c5f26576a7559b0dc/aws",
+      "repository": "f5devcentral/f5-hybrid-security-architectures"
+    },
+    {
+      "commit": "7bb6a5b8a90ceb9cabfc67adf9f7d2231d2f88f7",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "examples/f5-distributed-cloud/terraform/f5-xc-terraform-test/providers.tf",
+          "sha256": "f0e7aede90000752373678feb09bb6364b34f28b966905f9417854c6de25320f"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-professional-services/tree/main/examples/f5-distributed-cloud/terraform/f5-xc-terraform-test",
+      "repository": "f5devcentral/f5-professional-services/tree/main/examples/f5-distributed-cloud/terraform/f5-xc-terraform-test"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "f5/xc/aws-vpc-site/main.tf",
+          "sha256": "89a6d76d9d809a5f29678cd1a2a0a9261ea0b44ed1b64006c0923267165871b4"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "telemetry/f5-xc-telemetry-prometheus/exporter_prometheus.py",
+          "sha256": "8eee7ce7971d795948a60aee5f6263dc06d522f7e3479a7494b8f994e49b2851"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/telemetry/f5-xc-telemetry-prometheus/exporter_prometheus.py",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/telemetry/f5-xc-telemetry-prometheus/exporter_prometheus.py",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-llm-dos/README.rst",
+          "sha256": "988ece985d0103ae3554dbd9196f606efc468bf416c6b9c974129cc36a17e469"
+        },
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-llm-dos/xc-console-demo-guide.rst",
+          "sha256": "317defa9f55731b605fc0763b972167ff6af0312c19635fcedf08724742236fb"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-llm-dos/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/api-security/f5-xc-apisec-llm-dos/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-ce-eks/README.rst",
+          "sha256": "13d961e5a149b0e3fdc02f31850cf7db7ec28069d1d87f9a4cde623d68446ce5"
+        },
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-ce-eks/console.rst",
+          "sha256": "b6560c8d1609d64b1c28954d492bba52b5d6706e5d7b293ce4f38ab7dd87fb90"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-ce-eks/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/api-security/f5-xc-apisec-on-ce-eks/console.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/README.rst",
+          "sha256": "315e7061e576fe95f2dd3c8543339fdf3c8c17f5e07e1c7c3c0e5413dbdd22d0"
+        },
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/console.md",
+          "sha256": "e7e7372ede89dfdf1f99623731978cdec05e8e098deb28cac0ca0b552407d15d"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/console.md",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-re/README.md",
+          "sha256": "827ed369e294705b411765755ce52add8d5c586163b4dfaa605182f0f65082b3"
+        },
+        {
+          "path": "workflow-guides/api-security/f5-xc-apisec-on-re/console.md",
+          "sha256": "e7e7372ede89dfdf1f99623731978cdec05e8e098deb28cac0ca0b552407d15d"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re/README.md",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/api-security/f5-xc-apisec-on-re/console.md",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/automation-demo-guide.rst",
+          "sha256": "ae4e6533a95b0da46f794503c122913f3e6e3579bdea9ff4275cf492f116cb99"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/automation-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/xc-console-demo-guide.rst",
+          "sha256": "bf274e5ed35bb3af95559d9b667f4a1ea05e45d5a9dac082c998249f3d363d13"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/xc-console-demo-guide.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/automation-demo-guide.rst",
+          "sha256": "465938fcc24b9943f696215868a34bf6da30d7cb37407edfbdca50a1edc60bd8"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/automation-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+          "sha256": "3bcb59a4ac80f83e11d8cbe201cf8538550bdadc8c6456a76d8112f8a1cdbd22"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/automation-demo-guide.rst",
+          "sha256": "d17356143ed74418827a655ce154c2745add010dafd9d2e9723d3fc7a744e948"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/automation-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/README.rst",
+          "sha256": "8aa6ca5f520c38c19c57b1f2460880f6477b7db3dbe947f165502b3cb787f793"
+        },
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+          "sha256": "e52c2e3897d431685672b626cd3835e0232e2c2713199f5e3e58cd940ef2e198"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+          "sha256": "e52c2e3897d431685672b626cd3835e0232e2c2713199f5e3e58cd940ef2e198"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/telemetry/f5-xc-telemetry-elk/metrics/README.rst",
+          "sha256": "9ef509b02a526396f6609e442ed57a74a0a416219d79e44bb7d1a28d9689ac59"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/telemetry/f5-xc-telemetry-elk/metrics/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/telemetry/f5-xc-telemetry-elk/metrics/README.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst",
+          "sha256": "b22622ed06bcfc9d0558ebd28e06bed9ea06fe914d6505abbddc3c101b098d7c"
+        },
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-ce/aws/xc-console-demo-guide.rst",
+          "sha256": "6f3954c891972fc70a0a7de8d0c209420668d37ae32cf02179204b68304288a9"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-ce/aws/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-ce/azure/xc-console-demo-guide.rst",
+          "sha256": "2eb2253d403db623d3e224203d20210018825c3b80b2ad6be476dbb3d6206920"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-ce/azure/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst",
+          "sha256": "13d4494de8d1ba2d7fd96b9742d8ca6faec27b241bbc072cb963fc11dd0fc1c9"
+        },
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-ce/gcp/xc-console-demo-guide.rst",
+          "sha256": "d1c293ce3c7738617c33adc565e59c2034c08235d4bcc885fe25913c094d90f3"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-ce/gcp/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/KVM/kvm-deploy-demo-guide.rst",
+          "sha256": "8f98a9c4c9ccb73df3084e98f92917148a2714ff911a98ddd44fe9c2367e4dd9"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/KVM/kvm-deploy-demo-guide.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/KVM/kvm-deploy-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/VMware-ESXi/vmware-esxi-deploy-demo-guide.rst",
+          "sha256": "6547d5539802e7aa5eb524721388bd6bb0414a5b075133632a582498d2325564"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/VMware-ESXi/vmware-esxi-deploy-demo-guide.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/VMware-ESXi/vmware-esxi-deploy-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "f5/xc/aws-vpc-site/main.tf",
+          "sha256": "89a6d76d9d809a5f29678cd1a2a0a9261ea0b44ed1b64006c0923267165871b4"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/xc-console-demo-guide.rst",
+          "sha256": "46e2b895cb5353e04e8424ba16a5292acb82140bad62fd2258726cde7e43b5a9"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+          "sha256": "3bcb59a4ac80f83e11d8cbe201cf8538550bdadc8c6456a76d8112f8a1cdbd22"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/smcn/app-delivery-fabric/terraform/aws-eks/iam.tf",
+          "sha256": "21a018bd3dba7528448f224743ea879e4629060b46ded309f51ebea5a9bbd187"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/app-delivery-fabric",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/smcn/app-delivery-fabric/terraform/aws-eks/main.tf",
+          "sha256": "b0c810d41022011595c1c169c750160c85baf257aca45bf919ea483d25c9d208"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/app-delivery-fabric/terraform/aws-eks",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/tree/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/smcn/app-delivery-fabric/terraform/aws-eks",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-re/xc-console-demo-guide.rst",
+          "sha256": "4a80834ceace765bf19d36f7d3a1528868a572c5880792804d914965e70cb059"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/waf/f5-xc-waf-on-re",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-re/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s/k8s-manual-demo-guide.rst",
+          "sha256": "a56488aa107b7c2ac061e3b1410a6a6eb600b2ac77e3a06d9b0b7ff2c3990df3"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s/k8s-manual-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-re-appconnect/vm/vm-manual-demo-guide.rst",
+          "sha256": "aa8ea1a2bd83b73c87ad259df63414543afe1f24e80e74e9fb3c147a59f23db5"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/vm",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-re-appconnect/vm/vm-manual-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "f5/xc/aws-vpc-site/main.tf",
+          "sha256": "89a6d76d9d809a5f29678cd1a2a0a9261ea0b44ed1b64006c0923267165871b4"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-k8s/README.rst",
+          "sha256": "20b2e988beaa633c1d6f01281a1a854453828d1b634209e237e7784d17244b27"
+        },
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-k8s/manual-workflow.rst",
+          "sha256": "cf3d40c023a9b9c8dc1391b01e693aad85637114c7d750cc3a99895b8f15818f"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-k8s/README.rst",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-k8s/manual-workflow.rst",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "f5/xc/aws-vpc-site/main.tf",
+          "sha256": "89a6d76d9d809a5f29678cd1a2a0a9261ea0b44ed1b64006c0923267165871b4"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/api-security",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/xc-console-demo-guide.rst",
+          "sha256": "46e2b895cb5353e04e8424ba16a5292acb82140bad62fd2258726cde7e43b5a9"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/xc-console-demo-guide.rst",
+          "sha256": "bf274e5ed35bb3af95559d9b667f4a1ea05e45d5a9dac082c998249f3d363d13"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/xc-console-demo-guide.rst",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "canonical_repository": "f5devcentral/f5-xc-terraform-examples",
+      "commit": "b2d6a93b6000161b8e522d39c1e932fa984ac3e0",
+      "disposition": "replace",
+      "evidence_files": [
+        {
+          "path": "workflow-guides/waf/f5-xc-waf-on-k8s/manual-workflow.rst",
+          "sha256": "cf3d40c023a9b9c8dc1391b01e693aad85637114c7d750cc3a99895b8f15818f"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/waf/f5-xc-waf-on-k8s",
+      "replacement_url": "https://github.com/f5devcentral/f5-xc-terraform-examples/blob/b2d6a93b6000161b8e522d39c1e932fa984ac3e0/workflow-guides/waf/f5-xc-waf-on-k8s/manual-workflow.rst",
+      "repository": "f5devcentral/f5-xc-waap-terraform-examples"
+    },
+    {
+      "commit": "01e7e0487c75194545c83f1bf7b3abb89f970ad6",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "main.tf",
+          "sha256": "f8d7ac5b27fc8b07018d02d13cbc690d72b8ce1279cac62723783f258a15a96f"
+        },
+        {
+          "path": "README.md",
+          "sha256": "0d4763844824cb8b6f3204d0924c7695c272d90090cabea39f865343ae7558bd"
+        }
+      ],
+      "path_prefix": "/f5devcentral/f5xc-tailnet-egress",
+      "replacement_url": "https://github.com/f5devcentral/f5xc-tailnet-egress/tree/01e7e0487c75194545c83f1bf7b3abb89f970ad6",
+      "repository": "f5devcentral/f5xc-tailnet-egress"
+    },
+    {
+      "commit": "9587c930309e49ec4c2f7ce15cbd2a3a5783f3f5",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "main.tf",
+          "sha256": "f9fd3a2fc4b4007667fe4f02c25d570751687dd3a606e4efb5631d1b9af0d164"
+        }
+      ],
+      "path_prefix": "/f5devcentral/terraform-nginx-auth",
+      "repository": "f5devcentral/terraform-nginx-auth"
+    },
+    {
+      "commit": "9587c930309e49ec4c2f7ce15cbd2a3a5783f3f5",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "install-nginx-auth/main.tf",
+          "sha256": "ca7d2b7e0cad59b3b1b12cdfb5024085c82ec26201b0d111677596232035fd0d"
+        }
+      ],
+      "path_prefix": "/f5devcentral/terraform-nginx-auth/tree/main/install-nginx-auth",
+      "replacement_url": "https://github.com/f5devcentral/terraform-nginx-auth/tree/9587c930309e49ec4c2f7ce15cbd2a3a5783f3f5/install-nginx-auth",
+      "repository": "f5devcentral/terraform-nginx-auth"
+    },
+    {
+      "commit": "3bab814ad00e65fffc411b02f4086d7abaa9f6c2",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "HTTP_and_Origin_Pool/LB_EXTERNAL_HTTPS_autocert_new_WAAP/main.tf",
+          "sha256": "b0b600e6689dd5d8a6f1eee4b8ff001da2700e5a221f8949170df247ab3bfd6c"
+        }
+      ],
+      "path_prefix": "/f5devcentral/terraform-volterra",
+      "repository": "f5devcentral/terraform-volterra"
+    },
+    {
+      "commit": "f3119a2f5480d9256c87a295622448b1581d66cd",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "terraform/aws-ce-site/providers.tf",
+          "sha256": "d8af31057fa602349edd6f78dae7cb6986493fc6fc8b5dee5d87b1e10b3bb434"
+        }
+      ],
+      "path_prefix": "/f5devcentral/xcedgedemoguide",
+      "repository": "f5devcentral/xcedgedemoguide"
+    },
+    {
+      "commit": "f3119a2f5480d9256c87a295622448b1581d66cd",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "terraform/aws-ce-site/10-aws_vpc.tf",
+          "sha256": "1d6b4623ddde2834bde10c2da01013d219aee066d2649ff0a1680f1ba2c9efda"
+        }
+      ],
+      "path_prefix": "/f5devcentral/xcedgedemoguide/blob/main/terraform/aws-ce-site/10-aws_vpc.tf",
+      "replacement_url": "https://github.com/f5devcentral/xcedgedemoguide/blob/f3119a2f5480d9256c87a295622448b1581d66cd/terraform/aws-ce-site/10-aws_vpc.tf",
+      "repository": "f5devcentral/xcedgedemoguide"
+    },
+    {
+      "commit": "5db69dc96f08456f99b6764951403ac6e2259df0",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "README.md",
+          "sha256": "347e25b0396d452a3e243de21da5d91334d5c873f1de43a70a115ab39f318da7"
+        }
+      ],
+      "path_prefix": "/f5devcentral/xchacedemoguide",
+      "reason": "linked Terraform directory has no Terraform source files at pinned commit",
+      "repository": "f5devcentral/xchacedemoguide"
+    },
+    {
+      "commit": "021b41751c5355dc6c8737ed3007045364361e02",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "terraform/cloud-a/aws/providers.tf",
+          "sha256": "f7821f26a71192fa211d8061001c40d33bd9dc0a46e8773901e70ea76dd8b2f4"
+        }
+      ],
+      "path_prefix": "/f5devcentral/xcmcndemoguide",
+      "repository": "f5devcentral/xcmcndemoguide"
+    },
+    {
+      "commit": "021b41751c5355dc6c8737ed3007045364361e02",
+      "disposition": "keep",
+      "evidence_files": [
+        {
+          "path": "terraform/cloud-a/aws/aws_vpc.tf",
+          "sha256": "dac12d7448da6339e3c192d9d60a841ab51786abf5faefa5192f6eb0f4fefeb0"
+        }
+      ],
+      "path_prefix": "/f5devcentral/xcmcndemoguide/blob/main/terraform/cloud-a/aws/aws_vpc.tf",
+      "replacement_url": "https://github.com/f5devcentral/xcmcndemoguide/blob/021b41751c5355dc6c8737ed3007045364361e02/terraform/cloud-a/aws/aws_vpc.tf",
+      "repository": "f5devcentral/xcmcndemoguide"
+    },
+    {
+      "commit": "6b1be2bccfb8d66cba89c37d6050882c4890c973",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "providers.tf",
+          "sha256": "9e7aa15bb52e97279f908c51148d4e719665e27b277625403901b82b5c75eb25"
+        }
+      ],
+      "path_prefix": "/Mikej81/xc-app-services-tf",
+      "repository": "Mikej81/xc-app-services-tf"
+    },
+    {
+      "commit": "959ba4453707f8e4bf52fc32bf05a26a507ee78e",
+      "disposition": "remove",
+      "evidence_files": [
+        {
+          "path": "Virtual Site/f5xc-ce-aws/provider.tf",
+          "sha256": "1ce38bb1185ab5ca7368b8d153367a430fa045cf6cf85c59edce65fbc97bb0fb"
+        }
+      ],
+      "path_prefix": "/veysph/Prod-TF",
+      "repository": "veysph/Prod-TF"
+    }
+  ],
+  "schema_version": 1,
+  "version": "1.0.0"
+}

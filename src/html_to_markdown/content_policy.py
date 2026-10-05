@@ -285,14 +285,32 @@ def _description(body: str) -> str | None:
     return " ".join(" ".join(lines).split())[:240] or None
 
 
-def _previous_evidence(output: Path, policy: ContentPolicy) -> dict[str, Any]:
+def _previous_evidence(output: Path, policy: ContentPolicy, current_sha256: str) -> dict[str, Any]:
     path = output / "curation-audit.json"
     if not path.is_file():
         return {}
-    value = json.loads(path.read_text()).get("content_migration", {})
+    audit = json.loads(path.read_text())
+    if audit.get("output_sha256") != current_sha256:
+        return {}
+    value = audit.get("content_migration", {})
     return (
         value if value.get("input_digests", {}).get("policy_sha256") == policy.policy_digest else {}
     )
+
+
+def _content_lineage_digest(output: Path) -> str:
+    """Hash bodies and assets without metadata rebuilt by later stages."""
+    entries = []
+    for path in sorted(output.glob("content/**/*")):
+        if not path.is_file():
+            continue
+        payload = (
+            split_document(path.read_text(encoding="utf-8"))[1].encode()
+            if path.name == "index.md"
+            else path.read_bytes()
+        )
+        entries.append((path.relative_to(output).as_posix(), _digest(payload)))
+    return _digest(json_bytes(entries))
 
 
 def migrate_content(
@@ -310,22 +328,31 @@ def migrate_content(
     audit_path = output / "curation-audit.json"
     before = corpus_digest(output)
     prior_audit = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
-    audit_matches = (
-        prior_audit.get("output_sha256") == before
-        and prior_audit.get("policy_sha256") == topic_policy.sha256
+    policies_match = (
+        prior_audit.get("policy_sha256") == topic_policy.sha256
         and prior_audit.get("api_policy_sha256") == active.policy_digest
+    )
+    audit_matches = policies_match and (
+        prior_audit.get("output_sha256") == before
+        or bool(prior_audit.get("content_lineage_sha256"))
+        and prior_audit["content_lineage_sha256"] == _content_lineage_digest(output)
     )
     if apply and audit_matches:
         if store:
             purge_excluded_state(store, active)
-        validate_curation(output)
+        validate_content_policy(output, active)
+        if prior_audit["output_sha256"] != before:
+            prior_audit["output_sha256"] = before
+            audit_path.write_bytes(json_bytes(prior_audit))
         return dict(prior_audit["content_migration"])
     topics = curate_topics(output, store, apply=apply)
-    old = _previous_evidence(output, active)
+    planned = topics.pop("_planned")
+    old = _previous_evidence(output, active, before)
     excluded = {item["url"]: item for item in old.get("exclusions", [])}
-    removed_assets = set(old.get("removed_assets", []))
+    removed_assets = set(old.get("removed_assets", [])) | set(topics["removed_assets"])
     findings = {item["document"]: item for item in old.get("affected_documents", [])}
     images: list[dict[str, Any]] = []
+    stages: list[dict[str, Any]] = []
     if store:
         if apply:
             purge_excluded_state(store, active)
@@ -342,7 +369,13 @@ def migrate_content(
     retained: list[tuple[Path, str]] = []
     for path in sorted(output.glob("content/*/**/index.md")):
         relative = path.relative_to(output).as_posix()
-        metadata_raw, body = split_document(path.read_text(encoding="utf-8"))
+        if relative not in planned:
+            continue
+        metadata_raw, body = (
+            split_document(path.read_text(encoding="utf-8"))
+            if apply
+            else (planned[relative]["metadata"], planned[relative]["body"])
+        )
         url = str(metadata_raw["url"])
         if active.excludes(url) or active.excludes(str(metadata_raw.get("canonical_url", url))):
             item = excluded.setdefault(url, {"url": url, "origins": [], "document": relative})
@@ -381,6 +414,14 @@ def migrate_content(
                 migrated = migrated.split(SECTION, 1)[0].rstrip() + "\n\n" + generated
             else:
                 migrated = migrated.rstrip() + "\n\n" + generated
+        stages.append(
+            {
+                "document": relative,
+                "topic": "api-reference",
+                "input_sha256": _digest(body.encode()),
+                "output_sha256": _digest(migrated.encode()),
+            }
+        )
         metadata.description = _description(migrated)
         metadata.related_documents = [
             item for item in metadata.related_documents if not active.excludes(item.canonical_url)
@@ -443,6 +484,7 @@ def migrate_content(
         "affected_documents": affected,
         "removed_assets": sorted(removed_assets),
         "image_inventory": images,
+        "stages": stages,
     }
     if apply:
         audit = {
@@ -451,6 +493,7 @@ def migrate_content(
             "api_policy_sha256": active.policy_digest,
             "input_sha256": before,
             "output_sha256": corpus_digest(output),
+            "content_lineage_sha256": _content_lineage_digest(output),
             "topics": topics,
             "content_migration": evidence,
         }
@@ -460,6 +503,8 @@ def migrate_content(
             report_path = output / name
             if report_path.is_file():
                 report_path.unlink()
+    else:
+        evidence["topic_inventory"] = topics
     return evidence
 
 

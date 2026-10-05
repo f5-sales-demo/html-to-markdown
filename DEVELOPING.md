@@ -42,8 +42,7 @@ gh release download content-YYYYMMDDTHHMMSSZ \
   --dir snapshot-release
 uv run html-to-markdown verify-publication \
   --output snapshot-release \
-  --release-tag content-YYYYMMDDTHHMMSSZ \
-  --publication-sha256 <sha256>
+  --release-tag content-YYYYMMDDTHHMMSSZ
 ```
 
 The production docs-control verifier additionally binds the receipt's source
@@ -121,19 +120,24 @@ measure retained content only. The manifest remains schema v2.
 
 `curation_policy.json` declares independent versioned topics, digest-pinned evidence,
 exact retired identities and URLs, reviewed source decisions, structural block
-removals and media decisions. Detectors only identify review candidates. Changed
-or unclassified candidates, stale/overlapping guards, unverifiable media and
-incomplete dependencies are omitted. See `engineering/smsv2-curation.md` for the
-first topic's analysis and ownership boundaries.
+removals and media decisions. The SMSv2 topic uses reviewed source guards and
+omits unclassified candidates or stale/overlapping removals. The Terraform
+topic runs automatically on new, changed, carried-forward and restored pages.
+It removes retired provider instructions and their dependent material, retains
+independent explanations and cloud infrastructure, and adds only qualified xcsh
+links. See `engineering/smsv2-curation.md` and
+`engineering/terraform-curation.md` for the evidence and ownership boundaries.
 
 ```bash
 uv run html-to-markdown examine-content --output verified-corpus > impact.json
 uv run html-to-markdown curate-content --output verified-corpus
 ```
 
-Both normal runs and offline curation use the same transformation before API
-migration and packaging. Identical inputs produce identical artifacts; reapplication
-is stable. Updating captured source bytes or decisions requires a versioned PR.
+Both normal runs and offline curation use SMSv2, Terraform and API migration in
+that order through one planner. Examination does not change content and reports
+the same proposed transformations with stage digests. Normal and offline
+reapplication are stable across metadata, reports, manifest, checksums, archive
+and audit. Updating pinned evidence or decisions requires a versioned PR.
 
 Catalog updates require a versioned pull request. Download an immutable enriched
 specification archive, verify its GitHub asset digest, capture the published sitemap,
