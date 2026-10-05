@@ -80,8 +80,8 @@ feature-comparison section is also removed. Retained FAQ facts describe SMSv2
 providers, registration, HA and interfaces. Mixed paragraphs are indivisible;
 no text is renamed from SMSv1 to SMSv2. A tutorial whose prerequisites depend on
 retired deployment is omitted even when its load-balancing or application
-paragraphs are valid. AppStack product and independently applicable managed
-Kubernetes content remain within scope.
+paragraphs are valid. The separate AppStack topic removes retired product
+guidance while retaining independently applicable Kubernetes content.
 
 ## Structural and media decisions
 

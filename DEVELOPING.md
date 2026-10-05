@@ -128,8 +128,8 @@ carried-forward, and restored pages before Terraform curation. The Terraform
 topic runs automatically on new, changed, carried-forward and restored pages.
 It removes retired provider instructions and their dependent material, retains
 independent explanations and cloud infrastructure, and adds only qualified xcsh
-links. See `engineering/smsv2-curation.md` and
-`engineering/terraform-curation.md` and `engineering/appstack-curation.md`
+links. See `engineering/smsv2-curation.md`,
+`engineering/appstack-curation.md`, and `engineering/terraform-curation.md`
 for the evidence and ownership boundaries.
 
 ```bash
@@ -137,9 +137,9 @@ uv run html-to-markdown examine-content --output verified-corpus > impact.json
 uv run html-to-markdown curate-content --output verified-corpus
 ```
 
-Both normal runs and offline curation use SMSv2, Terraform and API migration in
-that order through one planner. Examination does not change content and reports
-the same proposed transformations with stage digests. Normal and offline
+Both normal runs and offline curation use SMSv2, AppStack, Terraform, and
+API-reference migration in that order through one planner. Examination does not
+change content and reports the same proposed transformations with stage digests. Normal and offline
 reapplication are stable across metadata, reports, manifest, checksums, archive
 and audit. Updating pinned evidence or decisions requires a versioned PR.
 
