@@ -200,7 +200,13 @@ class CurationPolicy:
             if topic.get("mode") == "automatic":
                 if self.terraform is not None or topic["id"] != "terraform-provider-current":
                     raise ValueError("unsupported automatic curation topic")
-                self.terraform = TerraformFilter(topic, Path(__file__).parent)
+                self.terraform = TerraformFilter(
+                    topic,
+                    Path(__file__).parent,
+                    blocks=blocks,
+                    digest=digest,
+                    remove_blocks=remove_blocks,
+                )
             self.retired_identities.update(topic["retired_identities"])
             self.excluded.update(canonical(url) for url in topic["retired_urls"])
             self.retired_patterns.extend(

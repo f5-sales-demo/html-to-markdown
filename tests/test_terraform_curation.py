@@ -306,7 +306,9 @@ resource "volterra_origin_pool" "old" { name = "old" }
     assert "volterra_origin_pool" not in split_document(path.read_text())[1]
     # A changed explanation is still analyzed; the old body digest is not a gate.
     changed = body.replace("healthy application servers", "several healthy backend servers")
-    assert load_curation_policy().terraform.transform(changed, BASE + "guide").body != changed
+    automatic = load_curation_policy().terraform
+    assert automatic is not None
+    assert automatic.transform(changed, BASE + "guide").body != changed
 
 
 def test_overlapping_topics_revalidate_final_body_without_audit(tmp_path: Path) -> None:

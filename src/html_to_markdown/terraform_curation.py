@@ -6,8 +6,12 @@ page goes through the same analysis as a first capture or a carried-forward page
 
 from __future__ import annotations
 
+import gzip
+import hashlib
+import html
 import json
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -49,8 +53,6 @@ HCL_DECLARATION = re.compile(
 
 
 def _normal(text: str) -> str:
-    import html  # local import keeps this module's public surface small
-
     return re.sub(r"\\([_\-*\[\]()])", r"\1", html.unescape(unquote(text))).casefold()
 
 
@@ -195,14 +197,27 @@ class TerraformResult:
     omit: bool = False
 
 
+# Catalog identity and injected structural operations share this policy object.
+# pylint: disable-next=too-many-instance-attributes
 class TerraformFilter:
     """Use only digest-bound local policy and a Registry 13.1.1 catalog."""
 
-    def __init__(self, topic: dict[str, Any], root: Path) -> None:
+    # The catalog and its linked evidence are validated together at load time.
+    # pylint: disable-next=too-many-branches
+    def __init__(
+        self,
+        topic: dict[str, Any],
+        root: Path,
+        *,
+        blocks: Callable[[str], list[Any]],
+        digest: Callable[[bytes], str],
+        remove_blocks: Callable[[str, list[dict[str, Any]]], str],
+    ) -> None:
         self.topic = topic
+        self._blocks = blocks
+        self._digest = digest
+        self._remove_blocks = remove_blocks
         path = root / topic["catalog"]["path"]
-        import hashlib
-
         payload = path.read_bytes()
         if hashlib.sha256(payload).hexdigest() != topic["catalog"]["sha256"]:
             raise ValueError("Terraform destination catalog digest mismatch")
@@ -210,8 +225,6 @@ class TerraformFilter:
         if self.catalog.get("release_tag") != "v13.1.1":
             raise ValueError("Terraform destination catalog release mismatch")
         registry_path = root / topic["registry_evidence"]["path"]
-        import gzip
-
         registry_payload = gzip.decompress(registry_path.read_bytes())
         if hashlib.sha256(registry_payload).hexdigest() != self.catalog["registry_response_sha256"]:
             raise ValueError("Terraform Registry response digest mismatch")
@@ -341,15 +354,13 @@ class TerraformFilter:
 
     def _profile(self, body: str, url: str) -> tuple[str, list[dict[str, Any]], list[str]]:
         """Apply a digest-guarded manual review to known complex source layouts."""
-        from .curation import blocks, digest
-
         profile = self.topic.get("profiles", {}).get(url)
         if profile is None:
             return body, [], []
-        if digest(body.encode()) != profile["input_sha256"] and not self._obsolete(body, url):
+        if self._digest(body.encode()) != profile["input_sha256"] and not self._obsolete(body, url):
             return body, [], []
         lines = body.splitlines(keepends=True)
-        headings = [block for block in blocks(body) if block.kind == "heading"]
+        headings = [block for block in self._blocks(body) if block.kind == "heading"]
         removed: list[str] = []
         findings: list[dict[str, Any]] = []
 
@@ -405,16 +416,15 @@ class TerraformFilter:
             findings.append({"reason": "reviewed_wording", "source": old, "destination": new})
         return body, findings, removed
 
+    # Markdown, HCL, reference and media decisions share one ordered pass.
+    # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
     def transform(self, body: str, url: str) -> TerraformResult:
-        # Late import avoids a curation/terraform_curation import cycle.
-        from .curation import blocks, digest, remove_blocks
-
         original = body
         try:
             body, profile_findings, profile_removed = self._profile(body, url)
         except ValueError:
             profile = self.topic.get("profiles", {}).get(url)
-            if profile is not None and digest(body.encode()) == profile["input_sha256"]:
+            if profile is not None and self._digest(body.encode()) == profile["input_sha256"]:
                 raise
             # A changed source may have replaced an exact reviewed span. The
             # reusable identity and dependency rules still analyze it below.
@@ -427,7 +437,7 @@ class TerraformFilter:
             and not (HCL_REFERENCE.search(_normal(body)) and "terraform" in _normal(body))
         ):
             return TerraformResult(body, [], [], [])
-        parsed = blocks(body)
+        parsed = self._blocks(body)
         lines = body.splitlines(keepends=True)
         changed: dict[tuple[int, int], str] = {}
         findings: list[dict[str, Any]] = [*profile_findings, *link_findings]
@@ -585,7 +595,7 @@ class TerraformFilter:
             findings.append(
                 {
                     "location": block.location,
-                    "input_sha256": digest(text.encode()),
+                    "input_sha256": self._digest(text.encode()),
                     "reason": reason,
                 }
             )
@@ -597,7 +607,7 @@ class TerraformFilter:
             for end in ([next((b for a, b in changed if a == i), i + 1)])
             if not any(a < i < b for a, b in changed)
         )
-        rewritten = remove_blocks(rewritten, [])
+        rewritten = self._remove_blocks(rewritten, [])
         rewritten = re.sub(r"(?m)(?:\n---\n)+\s*$", "\n", rewritten)
         # A short fragment containing only the purpose of a removed procedure is
         # not a standalone explanation.
