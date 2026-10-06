@@ -91,6 +91,11 @@ function classifyGitHubError(error, options = {}) {
       resetAtSeconds,
     };
   }
+  // A conditional response has no JSON body for this client to reuse. Only
+  // the tagged GET response below is safe to replay.
+  if (status === 304 && error?.code === 'GITHUB_UNEXPECTED_NOT_MODIFIED') {
+    return { kind: 'transient', retryable: true, status, remaining, resetAtSeconds };
+  }
   if (
     [408, 429, 500, 502, 503, 504].includes(status) ||
     ['ECONNRESET', 'ETIMEDOUT', 'EAI_AGAIN', 'ENETUNREACH'].includes(error?.code)
@@ -228,13 +233,18 @@ async function requestGitHubApi(endpoint, options = {}) {
   if (typeof fetchImplementation !== 'function') throw new Error('fetch is unavailable');
   const startUrl = endpoint.startsWith('https://') ? endpoint : `https://api.github.com/${endpoint.replace(/^\//, '')}`;
   const requestPage = async (url) => {
+    const method = options.method ?? 'GET';
     const response = await fetchImplementation(url, {
-      method: options.method ?? 'GET',
+      method,
+      // Governance reads need a fresh body. A cached 304 cannot be used as
+      // the requested tree or content object.
+      cache: method === 'GET' ? 'no-store' : undefined,
       headers: {
         accept: 'application/vnd.github+json',
         authorization: `Bearer ${token}`,
         'user-agent': 'f5-sales-demo-governance',
         'x-github-api-version': '2022-11-28',
+        ...(method === 'GET' ? { 'cache-control': 'no-store' } : {}),
         ...options.headers,
       },
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
@@ -252,6 +262,9 @@ async function requestGitHubApi(endpoint, options = {}) {
     if (!response.ok) {
       const error = new Error(data?.message ?? `GitHub API returned HTTP ${response.status}`);
       error.status = response.status;
+      if (method === 'GET' && response.status === 304) {
+        error.code = 'GITHUB_UNEXPECTED_NOT_MODIFIED';
+      }
       error.response = { status: response.status, headers: response.headers, data };
       throw error;
     }
