@@ -212,25 +212,32 @@ const requestResult = await requestGitHubApi('repos/f5-sales-demo/example', {
 assert.deepEqual(requestSleeps, [7]);
 assert.deepEqual(requestResult, {repository: 'f5-sales-demo/example'});
 assert.equal(requestUrls.some((url) => url.endsWith('/rate_limit')), false);
+assert.equal(requestUrls[0], requestUrls[1]);
 
 const notModifiedSleeps = [];
+const notModifiedUrls = [];
 let notModifiedCalls = 0;
 const refreshedTree = await requestGitHubApi('repos/f5-sales-demo/example/git/trees/abc', {
   token: 'synthetic-token',
   jitterSeconds: 0,
   sleepSeconds: async (seconds) => notModifiedSleeps.push(seconds),
   onProgress: () => {},
-  fetch: async (_url, options) => {
+  fetch: async (url, options) => {
     notModifiedCalls += 1;
+    notModifiedUrls.push(url);
     assert.equal(options.cache, 'no-store');
     assert.equal(options.headers['cache-control'], 'no-store');
-    return notModifiedCalls === 1
+    return notModifiedCalls <= 2
       ? response(304, null)
       : response(200, {tree: [{path: '.github', type: 'tree'}], truncated: false});
   },
 });
-assert.equal(notModifiedCalls, 2);
-assert.deepEqual(notModifiedSleeps, [5]);
+assert.equal(notModifiedCalls, 3);
+assert.deepEqual(notModifiedSleeps, [5, 10]);
+assert.equal(notModifiedUrls[0], 'https://api.github.com/repos/f5-sales-demo/example/git/trees/abc');
+assert.match(notModifiedUrls[1], /_f5_cache_bust=/);
+assert.match(notModifiedUrls[2], /_f5_cache_bust=/);
+assert.notEqual(notModifiedUrls[1], notModifiedUrls[2]);
 assert.deepEqual(refreshedTree, {tree: [{path: '.github', type: 'tree'}], truncated: false});
 
 let persistentNotModifiedCalls = 0;

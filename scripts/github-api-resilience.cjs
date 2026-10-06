@@ -232,9 +232,18 @@ async function requestGitHubApi(endpoint, options = {}) {
   if (!token) throw new Error('GitHub API token is required');
   if (typeof fetchImplementation !== 'function') throw new Error('fetch is unavailable');
   const startUrl = endpoint.startsWith('https://') ? endpoint : `https://api.github.com/${endpoint.replace(/^\//, '')}`;
+  let unexpectedNotModifiedCount = 0;
   const requestPage = async (url) => {
     const method = options.method ?? 'GET';
-    const response = await fetchImplementation(url, {
+    // GitHub occasionally returns a bodyless 304 for an immutable tree even
+    // with no-store. Give each GET retry a distinct cache key.
+    const requestUrl = (() => {
+      if (method !== 'GET' || unexpectedNotModifiedCount === 0) return url;
+      const fresh = new URL(url);
+      fresh.searchParams.set('_f5_cache_bust', String(Date.now()) + '-' + unexpectedNotModifiedCount);
+      return fresh.toString();
+    })();
+    const response = await fetchImplementation(requestUrl, {
       method,
       // Governance reads need a fresh body. A cached 304 cannot be used as
       // the requested tree or content object.
@@ -251,7 +260,7 @@ async function requestGitHubApi(endpoint, options = {}) {
     });
     const raw = await response.text();
     if (typeof options.onResponse === 'function') {
-      options.onResponse({ url, status: response.status, headers: response.headers });
+      options.onResponse({ url: requestUrl, status: response.status, headers: response.headers });
     }
     let data;
     try {
@@ -263,11 +272,13 @@ async function requestGitHubApi(endpoint, options = {}) {
       const error = new Error(data?.message ?? `GitHub API returned HTTP ${response.status}`);
       error.status = response.status;
       if (method === 'GET' && response.status === 304) {
+        unexpectedNotModifiedCount += 1;
         error.code = 'GITHUB_UNEXPECTED_NOT_MODIFIED';
       }
       error.response = { status: response.status, headers: response.headers, data };
       throw error;
     }
+    unexpectedNotModifiedCount = 0;
     return { data, link: response.headers.get('link') };
   };
   const rateLimit = () =>
