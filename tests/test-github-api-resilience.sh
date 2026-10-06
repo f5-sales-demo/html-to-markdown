@@ -72,6 +72,10 @@ assert.equal(computeWaitSeconds(contentLimit, {
 }), 600);
 
 assert.deepEqual(classifyGitHubError(error('Service unavailable', 503)).kind, 'transient');
+assert.equal(classifyGitHubError(error('Not modified', 304)).retryable, false);
+assert.equal(classifyGitHubError(Object.assign(error('Not modified', 304), {
+  code: 'GITHUB_UNEXPECTED_NOT_MODIFIED',
+})).kind, 'transient');
 assert.equal(classifyGitHubError(error('Bad credentials', 401)).retryable, false);
 assert.equal(classifyGitHubError(error('Validation failed', 422)).retryable, false);
 
@@ -208,6 +212,43 @@ const requestResult = await requestGitHubApi('repos/f5-sales-demo/example', {
 assert.deepEqual(requestSleeps, [7]);
 assert.deepEqual(requestResult, {repository: 'f5-sales-demo/example'});
 assert.equal(requestUrls.some((url) => url.endsWith('/rate_limit')), false);
+
+const notModifiedSleeps = [];
+let notModifiedCalls = 0;
+const refreshedTree = await requestGitHubApi('repos/f5-sales-demo/example/git/trees/abc', {
+  token: 'synthetic-token',
+  jitterSeconds: 0,
+  sleepSeconds: async (seconds) => notModifiedSleeps.push(seconds),
+  onProgress: () => {},
+  fetch: async (_url, options) => {
+    notModifiedCalls += 1;
+    assert.equal(options.cache, 'no-store');
+    assert.equal(options.headers['cache-control'], 'no-store');
+    return notModifiedCalls === 1
+      ? response(304, null)
+      : response(200, {tree: [{path: '.github', type: 'tree'}], truncated: false});
+  },
+});
+assert.equal(notModifiedCalls, 2);
+assert.deepEqual(notModifiedSleeps, [5]);
+assert.deepEqual(refreshedTree, {tree: [{path: '.github', type: 'tree'}], truncated: false});
+
+let persistentNotModifiedCalls = 0;
+await assert.rejects(
+  requestGitHubApi('repos/f5-sales-demo/example/git/trees/abc', {
+    token: 'synthetic-token',
+    maxAttempts: 2,
+    jitterSeconds: 0,
+    sleepSeconds: async () => {},
+    onProgress: () => {},
+    fetch: async () => {
+      persistentNotModifiedCalls += 1;
+      return response(304, null);
+    },
+  }),
+  (failure) => failure instanceof GitHubRetryDeferredError && failure.kind === 'transient',
+);
+assert.equal(persistentNotModifiedCalls, 2);
 
 const primaryUrls = [];
 const primaryRequestSleeps = [];
