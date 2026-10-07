@@ -28,8 +28,6 @@
         "\\binline certificate\\s*\\(legacy\\)",
         "\\bves[ _-]io[ _-](?:default|monitor|power[ _-]developer|admin)[ _-]role\\b",
         "(?<![\\w])(?:volterra_|xcsh_)?(?:securemesh[_-]site(?![_-]v2)|aws[_-]vpc[_-]sites?|aws[_-]tgw[_-]sites?|azure[_-]vnet[_-]sites?|gcp[_-]vpc[_-]sites?)(?![\\w])",
-        "ves\\.io/schema(?:/|\\.)",
-        "/api/(?:config|ves|volterra)/v[01](?:/|\\b)",
         "/migrate-api-ns-ref\\b",
         "\\b(?:old|legacy|deprecated) api namespaces?\\b",
         "\\bapi namespace (?:migration|check enforcement)\\b",

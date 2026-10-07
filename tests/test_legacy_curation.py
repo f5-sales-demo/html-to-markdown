@@ -49,8 +49,8 @@ def test_authored_whole_classification(
         "DELEGATED%20DOMAINS",
         r"Delegated\u0020Domains",
         "SMSv1",
-        "ves.io/schema/site",
-        "/api/config/v1/sites",
+        "/migrate-api-ns-ref",
+        "/api/web/custom/namespaces/all-ns/roles",
         "old API namespaces",
     ],
 )

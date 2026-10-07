@@ -32,17 +32,20 @@ news, events, unrelated product pages, and community posts or media awaiting rev
 
 Each snapshot applies these content filters in order:
 
-1. **Secure Mesh Site transition:** Remove SMSv1 Fleet and legacy cloud-site procedures.
+1. **Authored legacy classifications:** Remove pages explicitly limited to legacy F5 deployments.
+   Mixed current guides require reviewed removal of retired sections, dependencies, and images.
+   Delegated Domains and unsupported API namespace migration guidance are excluded.
+2. **Secure Mesh Site transition:** Remove SMSv1 Fleet and legacy cloud-site procedures.
    Keep Secure Mesh Site v2 guides and independent VPC, VNet, and TGW networking material.
-2. **AppStack retirement:** Remove AppStack and VoltStack site guidance, retired API identities,
+3. **AppStack retirement:** Remove AppStack and VoltStack site guidance, retired API identities,
    and managed Kubernetes procedures that require an AppStack Customer Edge site. Keep complete
    independent Kubernetes, vK8s, Mesh, and networking explanations.
-3. **vesctl retirement:** Omit every document that references vesctl in its title, metadata,
+4. **vesctl retirement:** Omit every document that references vesctl in its title, metadata,
    text, examples, captions, or links. No replacement is added.
-4. **Terraform provider:** Remove instructions, examples, and linked modules for the retired
+5. **Terraform provider:** Remove instructions, examples, and linked modules for the retired
    `volterraedge/volterra` provider. Add current `xcsh` documentation links only where the
    mapping is qualified; keep independent cloud infrastructure and Terraform explanations.
-5. **API reference:** Exclude superseded `docs-v2/api` and
+6. **API reference:** Exclude superseded `docs-v2/api` and
    `platform/reference/api-ref` pages. Move legacy links to the pinned enriched API reference
    using exact operation or resource identities, with a general index for unresolved matches.
 
