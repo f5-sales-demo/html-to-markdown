@@ -37,10 +37,12 @@ Each snapshot applies these content filters in order:
 2. **AppStack retirement:** Remove AppStack and VoltStack site guidance, retired API identities,
    and managed Kubernetes procedures that require an AppStack Customer Edge site. Keep complete
    independent Kubernetes, vK8s, Mesh, and networking explanations.
-3. **Terraform provider:** Remove instructions, examples, and linked modules for the retired
+3. **vesctl retirement:** Omit every document that references vesctl in its title, metadata,
+   text, examples, captions, or links. No replacement is added.
+4. **Terraform provider:** Remove instructions, examples, and linked modules for the retired
    `volterraedge/volterra` provider. Add current `xcsh` documentation links only where the
    mapping is qualified; keep independent cloud infrastructure and Terraform explanations.
-4. **API reference:** Exclude superseded `docs-v2/api` and
+5. **API reference:** Exclude superseded `docs-v2/api` and
    `platform/reference/api-ref` pages. Move legacy links to the pinned enriched API reference
    using exact operation or resource identities, with a general index for unresolved matches.
 

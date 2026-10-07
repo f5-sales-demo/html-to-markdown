@@ -1,0 +1,519 @@
+{
+  "baseline": {
+    "page_count": 739,
+    "publication_sha256": "281d82bb7841b4ad58cdf3958ffca09ebf2497d8dc4817a0f9ce713979876aae",
+    "tag": "content-20261005T134122Z"
+  },
+  "derived_relationships": [
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "platform/quickstart/web-app-security-performance",
+          "title": "Deploy a Secure Application and Monitor Performance"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/configure-advanced/bot-on-http-load-balancer"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "platform/quickstart/web-app-security-performance",
+          "title": "Deploy a Secure Application and Monitor Performance"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/quickstarts/bot-defense-quickstart"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "title": "Blindfold TLS Certificates"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/how-to/app-networking/http-load-balancer"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "title": "Blindfold TLS Certificates"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "title": "Blindfold TLS Certificates"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "platform/quickstart/web-app-security-performance",
+          "title": "Deploy a Secure Application and Monitor Performance"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/quickstart/api-protection"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "platform/quickstart/web-app-security-performance",
+          "title": "Deploy a Secure Application and Monitor Performance"
+        }
+      ],
+      "url": "https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/quickstart/api-security"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "relation": "configure",
+          "source_id": "docs-cloud-f5-com",
+          "stable_path": "multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+          "title": "Blindfold TLS Certificates"
+        }
+      ],
+      "url": "https://my.f5.com/manage/s/article/K000146653"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/distributed-cloud-console",
+          "title": "F5 Distributed Cloud Console"
+        }
+      ],
+      "url": "https://my.f5.com/manage/s/article/K000147739"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "title": "Distributed Cloud DDoS Mitigation Service"
+        },
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/distributed-cloud-waf",
+          "title": "F5 WAF for Distributed Cloud"
+        }
+      ],
+      "url": "https://www.f5.com/products/distributed-cloud-services"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "title": "Distributed Cloud DDoS Mitigation Service"
+        },
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/distributed-cloud-waf",
+          "title": "F5 WAF for Distributed Cloud"
+        }
+      ],
+      "url": "https://www.f5.com/products/distributed-cloud-services/managed-services"
+    },
+    {
+      "relationships": [
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation",
+          "title": "Distributed Cloud DDoS Mitigation Service"
+        },
+        {
+          "canonical_url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf",
+          "relation": "concept",
+          "source_id": "www-f5-com",
+          "stable_path": "products/distributed-cloud-services/distributed-cloud-waf",
+          "title": "F5 WAF for Distributed Cloud"
+        }
+      ],
+      "url": "https://www.f5.com/solutions/web-app-and-api-protection"
+    }
+  ],
+  "documents": [
+    {
+      "disposition": "remove",
+      "document": "content/community-f5-com/t/71350/index.md",
+      "input_sha256": "1c9089396a6f7b67a300314f761ef7b71998332f986a7bb92c0b33ea4c7efb1b",
+      "output_sha256": "1c9089396a6f7b67a300314f761ef7b71998332f986a7bb92c0b33ea4c7efb1b",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Generate API SDK for F5 Distributed Cloud",
+      "url": "https://community.f5.com/t/71350"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/community-f5-com/t/75640/index.md",
+      "input_sha256": "31ad193ef883b0b484fd6ac935f7f97a5025e843994f6fa5b70aff58f939ab36",
+      "output_sha256": "31ad193ef883b0b484fd6ac935f7f97a5025e843994f6fa5b70aff58f939ab36",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "F5 XC CE Debug commands through GUI cloud console and API",
+      "url": "https://community.f5.com/t/75640"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/community-f5-com/t/76970/index.md",
+      "input_sha256": "02cf1a07c1ebd904b4851e22cbc714f0c126b8a34a9d0de453d293a99fcc874c",
+      "output_sha256": "02cf1a07c1ebd904b4851e22cbc714f0c126b8a34a9d0de453d293a99fcc874c",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Bulk-Create Secondary DNS Zones in F5 Distributed Cloud (via API)",
+      "url": "https://community.f5.com/t/76970"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/bot-defense/configure-advanced/bot-on-http-load-balancer/index.md",
+      "input_sha256": "20cc8fc2d2a8f6cb21380893316d471087ff2f2597e345100da92e1910a25eb2",
+      "output_sha256": "69dca8a111980cd849160149ec3bb1f277a3a8dfba32c7489ad2ec02e9e987fd",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "- You must have an HTTP load balancer created in Web App & API Protection or Multi-Cloud App Connect.\n",
+          "source": "- You must have an HTTP load balancer created in Web App & API Protection or Multi-Cloud App Connect. For information about how to create an HTTP load balancer, see [Step 2 of the Web App Security & Performance Quick Start](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Configure Bot Defense on an HTTP load balancer",
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/configure-advanced/bot-on-http-load-balancer"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/bot-defense/quickstarts/bot-defense-quickstart/index.md",
+      "input_sha256": "9f6932616d4771bc661646ce701a689b942bb51cb5d47a5ae5465451e5e389a6",
+      "output_sha256": "e874dd2c241935dc899f4b27000b5025023b39278fabfcd3eebd62e8dce5fa6d",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "  - You must have an HTTP load balancer created in Web App & API Protection or Multi-Cloud App Connect.\n",
+          "source": "  - You must have an HTTP load balancer created in Web App & API Protection or Multi-Cloud App Connect. For information about how to create an HTTP load balancer, see [Step 2 of the Web App Security & Performance Quick Start](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Configure Bot Defense Advanced with F5 Distributed Cloud Web App & API Protection",
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/quickstarts/bot-defense-quickstart"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/bot-defense/quickstarts/bot-defense-waap/index.md",
+      "input_sha256": "e22e1e09ba984e9707a0cba77d8884131120cc1d24aead7f44d83ee83850f977",
+      "output_sha256": "e08c0e24be7bf7471b3424d92744320cf7b9d6073bb90b24c9122f8b6abe63c5",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "> **Note:** For information about how to create an HTTP load balancer, see Step 2 of the [Web App Security & Performance Quick Start](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Configure Bot Defense Standard with F5 Distributed Cloud Web App and API Protection",
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/quickstarts/bot-defense-waap"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/docs/how-to/app-networking/http-load-balancer/index.md",
+      "input_sha256": "8baf443c414e62fcaa7c0bd612584003371e3ac964ae7e4ea03db8629f9eb52b",
+      "output_sha256": "5d969b414c26e0592c97c9c380bbb49612b10384dbbadbd0279d73f0c9774b6f",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "  > **Note:** To paste your certificate instead of importing it from a file, see [Enable TLS on a Load Balancer](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs)\n"
+        }
+      ],
+      "title": "Create HTTP Load Balancer",
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/how-to/app-networking/http-load-balancer"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer/index.md",
+      "input_sha256": "8baf443c414e62fcaa7c0bd612584003371e3ac964ae7e4ea03db8629f9eb52b",
+      "output_sha256": "5d969b414c26e0592c97c9c380bbb49612b10384dbbadbd0279d73f0c9774b6f",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "  > **Note:** To paste your certificate instead of importing it from a file, see [Enable TLS on a Load Balancer](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs)\n"
+        }
+      ],
+      "title": "Create HTTP Load Balancer",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/multi-cloud-app-connect/how-to/observe/monitor-http-load-balancer/index.md",
+      "input_sha256": "1dc7f4f2697a378b1d352d0a7b1847ad69dd6fd8383ed479587914da0133260c",
+      "output_sha256": "7045e8f3a842c220baf3bd4a8667d0f2143e6789ff6dffed6a91a2aa718a7692",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "> **Note**: You can see additional information about security, performance, and app traffic using the Web App and API Protection (WAAP) workspace.\u00a0See [WAAP Performance and Security Monitoring](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Monitor HTTP Load Balancer",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/observe/monitor-http-load-balancer"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts/index.md",
+      "input_sha256": "a22f34024f55dfd3f6cb5d41b2f72d45c66f09c75d3b27f6996062e34b249166",
+      "output_sha256": "c6bd00a530addf27adde48d50fde1c7b42511478c073232137cb1e25b850f269",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "- Click `Configure`.\n",
+          "source": "- Click `Configure`. See [Blindfold your TLS Certificates](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs) guide for more information.\n"
+        }
+      ],
+      "title": "Create and Advertise Virtual Host",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-tos/advanced-app-nwg/virtual-hosts"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/docs-cloud-f5-com/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs/index.md",
+      "input_sha256": "6c60d3b1288a272242e69f17033bc0d4e1f216603a3af7150c06da2a5947d48b",
+      "output_sha256": "6c60d3b1288a272242e69f17033bc0d4e1f216603a3af7150c06da2a5947d48b",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Blindfold TLS Certificates",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/docs-cloud-f5-com/platform/how-to/volt-automation/vesctl/index.md",
+      "input_sha256": "a3bba7da8bea0399ea61cb4ae8c80627fe57d3b94e04c0c06bb654b8184499ef",
+      "output_sha256": "a3bba7da8bea0399ea61cb4ae8c80627fe57d3b94e04c0c06bb654b8184499ef",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Vesctl",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/docs-cloud-f5-com/platform/quickstart/app-delivery-network/index.md",
+      "input_sha256": "660f7aac13db82cbac69148d5e540a33c3f940f3aa7d6c2593e620c07eee1b52",
+      "output_sha256": "660f7aac13db82cbac69148d5e540a33c3f940f3aa7d6c2593e620c07eee1b52",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Deploy App Delivery Network",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/app-delivery-network"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/docs-cloud-f5-com/platform/quickstart/web-app-security-performance/index.md",
+      "input_sha256": "74beed8f271e04e76594d011defbbb2fadcaf0f8d78ca514b54c5de9e65c2fef",
+      "output_sha256": "74beed8f271e04e76594d011defbbb2fadcaf0f8d78ca514b54c5de9e65c2fef",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Deploy a Secure Application and Monitor Performance",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/web-app-and-api-protection/quickstart/api-protection/index.md",
+      "input_sha256": "7af81c07f0aba5862f87e8cafef0b183f47c83b86a4723c37b6b32f165a7ee6c",
+      "output_sha256": "ee8331c29de0c1655b6c17bf1d5f2768e721bc0080ce50179bdbe97b6005a80a",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "- Active HTTP Load Balancer configured for your application within the Distributed Cloud environment.\n",
+          "source": "- Active HTTP Load Balancer configured for your application within the Distributed Cloud environment. See [Setting up a load balancer on WAAP](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Setting Up API Protection",
+      "url": "https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/quickstart/api-protection"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/docs-cloud-f5-com/web-app-and-api-protection/quickstart/api-security/index.md",
+      "input_sha256": "e64df3c4f3c2d47fdc4286bebb8093aa571b6994cd744e207489528e5ce71788",
+      "output_sha256": "f53c080eb857c9cab342b35d025078bcf224cc599c5756488889ec5957c7cbcc",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "- An active HTTP Load Balancer configured for your application within the Distributed Cloud environment.\n",
+          "source": "- An active HTTP Load Balancer configured for your application within the Distributed Cloud environment. See [Deploy a Secure Application and Monitor Performance](https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance).\n"
+        }
+      ],
+      "title": "Setting Up API Discovery",
+      "url": "https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/quickstart/api-security"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/my-f5-com/K000146653/index.md",
+      "input_sha256": "6cb018cb0a5a710a8bd18fdef2c4f1f0b712093d7307e332d5d4924f1eee3b18",
+      "output_sha256": "16692cb109686f73ce154d635bb44a5899612337c2388acc57453fd96558113f",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "- [Blindfold your TLS Certificates](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs)\n"
+        }
+      ],
+      "title": "Host rewrite behavior in F5 Distributed Cloud HTTP Load Balancers",
+      "url": "https://my.f5.com/manage/s/article/K000146653"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/my-f5-com/K000147739/index.md",
+      "input_sha256": "9f4f75d88bb1d8b6133c633edc4a683e93f561a6d69b9b854785d315ca298ad7",
+      "output_sha256": "a6cacbc6b7ffacfc6cc66e8bc390f830e337bd6563c113b49a434cc582674478",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "- [F5 Support Policies](https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console#introduction) \u2014 support scope, SLAs, and escalation guidelines\n"
+        }
+      ],
+      "title": "F5 Distributed Cloud  Support Case Escalation",
+      "url": "https://my.f5.com/manage/s/article/K000147739"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/www-f5-com/products/distributed-cloud-services/distributed-cloud-console/index.md",
+      "input_sha256": "bf2ac27b44cbb63a270ed36aef6bf70817e31959c9d0d8fe7093b9181fa642be",
+      "output_sha256": "bf2ac27b44cbb63a270ed36aef6bf70817e31959c9d0d8fe7093b9181fa642be",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "F5 Distributed Cloud Console",
+      "url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/www-f5-com/products/distributed-cloud-services/distributed-cloud-waf/index.md",
+      "input_sha256": "b3902b0f91d05401deb8c2d0c9f258c0b66b269a1ae712154e52cc64ada3b9be",
+      "output_sha256": "b3902b0f91d05401deb8c2d0c9f258c0b66b269a1ae712154e52cc64ada3b9be",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "F5 WAF for Distributed Cloud",
+      "url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/www-f5-com/products/distributed-cloud-services/index.md",
+      "input_sha256": "aaa78fc58b790a57ca5a055b30197bd31326b864bb4b85c837d6166d712861ca",
+      "output_sha256": "18491394d2eb07db3a6b951d15e11d84d7711ad6ee919586119348bc8723337f",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "[API SecurityAutomatically discover API endpoints, allow legitimate transactions and monitor for anomalous behavior](https://www.f5.com/products/distributed-cloud-services/api-security)[Bot DefenseDetect and mitigate malicious bot attacks in real-time while ensuring an optimal user experience](https://www.f5.com/products/distributed-cloud-services/bot-defense)\n",
+          "source": "[API SecurityAutomatically discover API endpoints, allow legitimate transactions and monitor for anomalous behavior](https://www.f5.com/products/distributed-cloud-services/api-security)[Bot DefenseDetect and mitigate malicious bot attacks in real-time while ensuring an optimal user experience](https://www.f5.com/products/distributed-cloud-services/bot-defense)[DDoS MitigationMitigate app-based (Layer 7) and volumetric (Layer 3) distributed denial of service (DDoS) attacks](https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation)\n"
+        },
+        {
+          "count": 1,
+          "destination": "[API SecurityAutomatically discover API endpoints, allow legitimate transactions and monitor for anomalous behavior](https://www.f5.com/products/distributed-cloud-services/api-security)[Bot DefenseDetect and mitigate malicious bot attacks in real-time while ensuring an optimal user experience](https://www.f5.com/products/distributed-cloud-services/bot-defense)[Web App ScanningUncover exposed web apps and APIs. Find and report vulnerabilities with automated penetration testing.](https://www.f5.com/products/distributed-cloud-services/web-app-scanning)[Client-Side DefenseProtect customer credentials, financial details and PII against client-side supply chain attacks](https://www.f5.com/products/distributed-cloud-services/client-side-defense)[Mobile App ShieldExtend security into the mobile client with app shielding, runtime protection, and trusted app-to-cloud integrity.](https://www.f5.com/resources/demos/protecting-your-mobile-apps-with-f5-distributed-cloud-mobile-app-shield)\n",
+          "source": "[Web App FirewallReduce complexity and enforce consistent app security policies across clouds, on-prem and edge locations](https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf)[API SecurityAutomatically discover API endpoints, allow legitimate transactions and monitor for anomalous behavior](https://www.f5.com/products/distributed-cloud-services/api-security)[Bot DefenseDetect and mitigate malicious bot attacks in real-time while ensuring an optimal user experience](https://www.f5.com/products/distributed-cloud-services/bot-defense)[DDoS MitigationMitigate app-based (Layer 7) and volumetric (Layer 3) distributed denial of service (DDoS) attacks](https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation)[Web App ScanningUncover exposed web apps and APIs. Find and report vulnerabilities with automated penetration testing.](https://www.f5.com/products/distributed-cloud-services/web-app-scanning)[Client-Side DefenseProtect customer credentials, financial details and PII against client-side supply chain attacks](https://www.f5.com/products/distributed-cloud-services/client-side-defense)[Mobile App ShieldExtend security into the mobile client with app shielding, runtime protection, and trusted app-to-cloud integrity.](https://www.f5.com/resources/demos/protecting-your-mobile-apps-with-f5-distributed-cloud-mobile-app-shield)\n"
+        }
+      ],
+      "title": "Distributed Cloud Services",
+      "url": "https://www.f5.com/products/distributed-cloud-services"
+    },
+    {
+      "disposition": "remove",
+      "document": "content/www-f5-com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation/index.md",
+      "input_sha256": "288f2e3ab64f107e9fb389706a879abbedc81034372690871a52e5bce64fc104",
+      "output_sha256": "288f2e3ab64f107e9fb389706a879abbedc81034372690871a52e5bce64fc104",
+      "reason": "direct_reference",
+      "replacements": [],
+      "title": "Distributed Cloud DDoS Mitigation Service",
+      "url": "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/www-f5-com/products/distributed-cloud-services/managed-services/index.md",
+      "input_sha256": "f9787f2aa9f0e6ba9e5df4b4e99138549b51c3fbecc27893cd8fcd24607c426e",
+      "output_sha256": "5237ca5f04fe0d35f4d520faefb3e9c6efe817ebb1984d08d4a0679a46366c25",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "[Bot DefenseStop automated abuse with expert-managed countermeasures and tuning.](https://www.f5.com/products/distributed-cloud-services/bot-defense)[API SecurityDiscover and protect APIs with expert-guided policy and controls.](https://www.f5.com/products/distributed-cloud-services/api-security)\n",
+          "source": "[DDoS MitigationPrepare, mitigate, and tune defenses across the full attack lifecycle.](https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation)[Web Application Firewal (WAF)Continuously tune WAF policy to reduce noise and close gaps.](https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf)[Bot DefenseStop automated abuse with expert-managed countermeasures and tuning.](https://www.f5.com/products/distributed-cloud-services/bot-defense)[API SecurityDiscover and protect APIs with expert-guided policy and controls.](https://www.f5.com/products/distributed-cloud-services/api-security)\n"
+        }
+      ],
+      "title": "Secure Apps with F5 Distributed Cloud Managed Services",
+      "url": "https://www.f5.com/products/distributed-cloud-services/managed-services"
+    },
+    {
+      "disposition": "keep",
+      "document": "content/www-f5-com/solutions/web-app-and-api-protection/index.md",
+      "input_sha256": "8e54675f84977a06b6c5d712c3f596186d0835c178e1fe2634326f73aa04999b",
+      "output_sha256": "5ba427cba51d65d0f05ce36bc58abe600eb2947c14700c7217186e39fd655feb",
+      "reason": "reviewed_independent_explanation",
+      "replacements": [
+        {
+          "count": 4,
+          "destination": "###### F5 WAF for Distributed Cloud\n",
+          "source": "###### [F5 WAF for Distributed Cloud](https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf)\n"
+        },
+        {
+          "count": 2,
+          "destination": "###### F5 Distributed Cloud DDoS Mitigation\n",
+          "source": "###### [F5 Distributed Cloud DDoS Mitigation](https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation)\n"
+        }
+      ],
+      "title": "Web application and API protection solutions",
+      "url": "https://www.f5.com/solutions/web-app-and-api-protection"
+    }
+  ],
+  "media": [
+    {
+      "disposition": "remove",
+      "reason": "visually_confirmed_image_reference",
+      "sha256": "9fb1cfd742bcace36f3cd1be0c40080d934523a110ea82bf2f1bd10a17708af6"
+    }
+  ],
+  "schema_version": 1,
+  "topic": "vesctl-retired"
+}
