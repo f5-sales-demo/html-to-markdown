@@ -44,3 +44,39 @@ pages, and normal fetch/extraction. Release acceptance additionally compares two
 offline builds from the same verified input, checks the complete retained
 relationship graph and assets, and verifies the deployed receipt and Markdown
 inventory using the workflow's immutable builder and verifier pins.
+
+## Blindfold dependency closure
+
+Version 1.1.0 extends this topic using receipt-verified `content-20261007T031703Z`
+(715 documents), publication SHA-256
+`38fda94c2a47369ae7d7d38cc60d3139e00ecf1e2e02c86d3891bdfb71502264`.
+The review records the absent Wingman procedure as a persistent removal alongside
+Blindfold TLS Certificates and Vesctl download and usage. Source URLs and aliases
+are explicit identities, including the verified redirected Wingman setup URL.
+Fresh source captures and original/retained corpus scans are digest recorded.
+
+The original authored graph closes to a fixed point before any other topic runs.
+Markdown links, unused reference definitions, HTML destinations, nested encoded
+URLs, and local Markdown paths remain detectable when a target is absent.
+Normal fetches inspect selected authored HTML and head metadata before URL
+rewriting and preserve original candidate destinations in state. Shared navigation
+is outside the authored guard. Confirmed dynamic removals seed dependency closure.
+
+The Slack, PagerDuty, and OpsGenie procedures still instruct readers to supply
+externally prepared ciphertext. The Slack source combines that instruction with
+`Blindfold New Secret`; the other two share a screenshot whose form is labelled
+Webhook URL. OCR and visual review of 33 image occurrences, including the secret
+forms at original size, cannot establish complete current receiver procedures.
+All three guides are therefore omitted, with their dependent images and captions.
+No Console replacement instructions are inferred from contradictory screenshots.
+
+The Wingman API reference retains its independent status, identity, and secret
+unseal endpoints after exact input, authored classification, replacement-count,
+and output digest review removes the obsolete setup link. Changed reviewed inputs
+fail closed. Independent Console Blindfold, ordinary certificate management,
+platform requirements, and Base64 examples remain eligible.
+
+The review catalog and topic version are pinned together. Consumer descriptions,
+relationships, content hashes, reports, checksums, assets, and archives are rebuilt;
+review details remain in the separate audit artifact. Existing CLI arguments and
+manifest schema v2 remain unchanged.

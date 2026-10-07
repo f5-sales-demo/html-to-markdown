@@ -27,7 +27,8 @@ from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
 from .state import StateStore
 from .terraform_curation import TerraformFilter
-from .vesctl_curation import VesctlFilter
+from .urls import infer_source, stable_path
+from .vesctl_curation import VesctlFilter, VesctlResult, destinations
 
 
 def digest(data: bytes) -> str:
@@ -289,6 +290,7 @@ class CurationPolicy:
         identities = {part.replace("-", "_") for part in parsed.path.split("/")}
         return (
             canonical(url) in self.excluded
+            or (self.vesctl is not None and self.vesctl.excludes(url))
             or (self.legacy is not None and self.legacy.excludes(url))
             or self.retired(url)
             or bool(identities & self.retired_identities)
@@ -327,23 +329,7 @@ class CurationPolicy:
         *,
         predicate: Any = None,
     ) -> list[str]:
-        # Parse actual href/src destinations, including escaped and HTML URLs.
-        found: set[str] = set()
-        parsed = MarkdownIt("commonmark").parse(body)
-        for token in parsed:
-            for child in token.children or []:
-                value = child.attrGet("href") or child.attrGet("src")
-                if value:
-                    found.add(urljoin(base, html.unescape(unquote(str(value)))))
-        found.update(
-            urljoin(base, html.unescape(unquote(m.group(1))))
-            for m in re.finditer(r"""(?:href|src)\s*=\s*["']([^"']+)["']""", body, re.I)
-        )
-        found.update(
-            urljoin(base, m.group(1))
-            for m in re.finditer(r"(?m)^ {0,3}\[[^\]]+\]:\s*<?([^\s>]+)", body)
-        )
-        found.update(m.group() for m in re.finditer(r"https?://[^\s<>\"'`\[\]()]+", body))
+        found = {urljoin(base, value) for value in destinations(body)}
         check = predicate or self.excludes
         return sorted(url for url in found if check(url) or canonical(url) in excluded)
 
@@ -468,6 +454,100 @@ def remove_dependent_references(
     return remove_blocks(body, rules), sorted(removed)
 
 
+# Authored identities, local paths and state evidence form one closure transaction.
+# pylint: disable-next=too-many-locals,too-many-branches
+def retirement_preflight(
+    output: Path,
+    originals: list[tuple[Path, dict[str, Any], str]],
+    policy: CurationPolicy,
+    store: StateStore | None = None,
+) -> tuple[set[Path], dict[Path, VesctlResult], set[str]]:
+    """Close authored dependencies before any topic can erase their evidence."""
+    engine = policy.vesctl
+    if engine is None:
+        return set(), {}, set()
+    excluded = set(engine.excluded)
+    if store is not None:
+        tables = {
+            row[0]
+            for row in store.connection.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        }
+        if "content_exclusions" in tables:
+            excluded.update(
+                canonical(row[0])
+                for row in store.connection.execute(
+                    "SELECT url FROM content_exclusions WHERE origin='whole_document_retirement'"
+                )
+            )
+    matches: set[Path] = set()
+    results: dict[Path, VesctlResult] = {}
+    identities: dict[Path, set[str]] = {}
+    for path, metadata, body in originals:
+        identities[path] = {
+            canonical(str(metadata["url"])),
+            canonical(str(metadata.get("canonical_url") or metadata["url"])),
+        }
+        if engine.original_match(metadata, body) or any(
+            engine.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            for item in media_inventory(path, body)
+        ):
+            matches.add(path)
+        result = engine.transform(body, str(metadata["url"]), metadata=metadata)
+        if path in matches:
+            result = VesctlResult(body, [{"reason": "original_document_reference"}], omit=True)
+        results[path] = result
+        if result.omit:
+            excluded.update(identities[path])
+    changed = True
+    while changed:
+        changed = False
+        omitted_paths = {path.resolve() for path, result in results.items() if result.omit}
+        # Persist local identities even when a target was never captured.
+        for url in excluded:
+            source = infer_source(url)
+            if source:
+                omitted_paths.add(
+                    (output / "content" / source / stable_path(source, url) / "index.md").resolve()
+                )
+        for path, metadata, body in originals:
+            if results[path].omit:
+                continue
+            dependencies = policy.references(
+                results[path].body, str(metadata["url"]), excluded, predicate=engine.excludes
+            )
+            if store is not None and results[path].body == body:
+                dependencies.extend(
+                    value
+                    for value in store.candidate_links(str(metadata["url"]))
+                    if engine.excludes(value) or canonical(value) in excluded
+                )
+            for value in destinations(results[path].body):
+                parsed = urlsplit(value)
+                if parsed.scheme or not parsed.path:
+                    continue
+                destination = parsed.path
+                root = output if destination.startswith("content/") else path.parent
+                target = (root / destination).resolve()
+                if target in omitted_paths or target / "index.md" in omitted_paths:
+                    dependencies.append(value)
+            if dependencies:
+                # A successful review is already applied above. Any remaining
+                # link belongs to an unreviewed or newly retired dependency.
+                results[path] = VesctlResult(
+                    body,
+                    [
+                        {
+                            "reason": "unresolved_authored_dependencies",
+                            "urls": sorted(set(dependencies)),
+                        }
+                    ],
+                    omit=True,
+                )
+                excluded.update(identities[path])
+                changed = True
+    return matches, results, excluded
+
+
 # Plan and apply the complete dependency graph as one transaction.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def curate_topics(
@@ -487,6 +567,9 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    original_matches, retirement_plans, retirement_excluded = retirement_preflight(
+        output, originals, active, store
+    )
     legacy_plans = {}
     legacy_excluded = set(active.legacy.excluded) if active.legacy is not None else set()
     if active.legacy is not None:
@@ -545,21 +628,7 @@ def curate_topics(
                         )
                         dependency_changed = True
     excluded.update(legacy_excluded)
-    original_matches = set()
-    if active.vesctl is not None:
-        for path, metadata, body in originals:
-            if active.vesctl.original_match(metadata, body) or any(
-                active.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
-                for item in media_inventory(path, body)
-            ):
-                original_matches.add(path)
-                retirement_excluded.update(
-                    {
-                        canonical(str(metadata["url"])),
-                        canonical(str(metadata.get("canonical_url") or metadata["url"])),
-                    }
-                )
-        excluded.update(retirement_excluded)
+    excluded.update(retirement_excluded)
     for path, metadata, body in originals:
         url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
         candidate = active.sms_candidate(
@@ -630,6 +699,9 @@ def curate_topics(
             finding["findings"].append(
                 decision.get("reason", "retired_identity") if decision else "retired_identity"
             )
+        elif path in retirement_plans and retirement_plans[path].omit:
+            finding["disposition"] = "omit"
+            finding["findings"].append("unreviewed_authored_retirement_dependency")
         elif finding["disposition"] == "keep" and (candidate or decision):
             if decision is None:
                 finding["disposition"] = "omit"
@@ -705,6 +777,8 @@ def curate_topics(
             vesctl_before = digest(retained.encode())
             if original_match or active.vesctl.excludes(url):
                 finding["vesctl"] = [{"reason": "original_document_reference"}]
+            elif retirement_plans[path].omit:
+                finding["vesctl"] = retirement_plans[path].findings
             elif finding["disposition"] == "keep":
                 dependencies = active.references(
                     retained, url, active.vesctl.excluded, predicate=active.vesctl.excludes
@@ -713,6 +787,7 @@ def curate_topics(
                     retained,
                     str(metadata["url"]),
                     dependent=bool(dependencies or original_dependencies),
+                    metadata=metadata,
                 )
                 retained = vesctl_result.body
                 finding["vesctl"] = vesctl_result.findings

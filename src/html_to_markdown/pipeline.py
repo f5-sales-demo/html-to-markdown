@@ -40,6 +40,7 @@ from .render import render_html, serialize_document
 from .state import StateStore
 from .urls import infer_source, stable_path, validate_source_url
 from .validation import require_valid_document, validate_snapshot
+from .vesctl_curation import destinations
 
 log = structlog.get_logger()
 
@@ -136,8 +137,24 @@ class Pipeline:
         try:
             fetched = await self.fetcher.fetch(adapter, url)
             extracted = adapter.extract(fetched)
+            curation = load_curation_policy()
+            retirement = curation.vesctl
+            if retirement is not None and retirement.original_html_match(
+                extracted.metadata.model_dump(by_alias=True), extracted.html, fetched.html
+            ):
+                target = self.output / "content" / adapter.source_id
+                target /= stable_path(adapter.source_id, url)
+                (target / "index.md").unlink(missing_ok=True)
+                record_exclusion(self.store, url, "whole_document_retirement")
+                with self.store.connection:
+                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
+                return None
             self.store.replace_candidate_links(
-                url, self._candidate_links(extracted.candidate_links, fetched.final_url)
+                url,
+                self._candidate_links(
+                    extracted.candidate_links + sorted(destinations(extracted.html)),
+                    fetched.final_url,
+                ),
             )
             extracted.metadata.canonical_url = validate_source_url(
                 adapter.source_id, fetched.final_url
@@ -147,7 +164,6 @@ class Pipeline:
                 with self.store.connection:
                     self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
                 return None
-            curation = load_curation_policy()
             if curation.legacy is not None and curation.legacy.original_whole(
                 extracted.metadata.model_dump(by_alias=True), extracted.html, fetched.html
             ):
@@ -181,17 +197,6 @@ class Pipeline:
                 )
                 (target / "index.md").unlink(missing_ok=True)
                 record_exclusion(self.store, url, "unreviewed_authored_legacy_input")
-                with self.store.connection:
-                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
-                return None
-            retirement = curation.vesctl
-            if retirement is not None and retirement.original_match(
-                extracted.metadata.model_dump(by_alias=True), extracted.html
-            ):
-                target = self.output / "content" / adapter.source_id
-                target /= stable_path(adapter.source_id, url)
-                (target / "index.md").unlink(missing_ok=True)
-                record_exclusion(self.store, url, "whole_document_retirement")
                 with self.store.connection:
                     self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
                 return None

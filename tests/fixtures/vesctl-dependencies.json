@@ -1,0 +1,62 @@
+[
+  {
+    "name": "alerts-slack",
+    "metadata": {
+      "title": "Configure Alert Notifications for Slack",
+      "tags": ["how-tos", "shared-configuration"],
+      "aliases": [],
+      "category": "shared-configuration",
+      "subcategory": "how-tos",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack",
+      "sourceId": "docs-cloud-f5-com",
+      "slug": "alerts-slack",
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack"
+    },
+    "body": "# Configure Alert Notifications\n\nGet the webhook URL or integration key.\n\nConfigure the receiver with ciphertext from [Blindfold your Application Secrets](https://docs.cloud.f5.com/docs-v2/docs/how-to/secret-mgmt/app-secrets-using-wingman).\n\n![Configure secret](assets/secret.png)\n"
+  },
+  {
+    "name": "alerts-pagerduty",
+    "metadata": {
+      "title": "Configure Alert Notifications for PagerDuty",
+      "tags": ["how-tos", "shared-configuration"],
+      "aliases": [],
+      "category": "shared-configuration",
+      "subcategory": "how-tos",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty",
+      "sourceId": "docs-cloud-f5-com",
+      "slug": "alerts-pagerduty",
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty"
+    },
+    "body": "# Configure Alert Notifications\n\nGet the webhook URL or integration key.\n\nConfigure the receiver with ciphertext from [Blindfold your Application Secrets](https://docs.cloud.f5.com/docs-v2/docs/how-to/secret-mgmt/app-secrets-using-wingman).\n\n![Configure secret](assets/secret.png)\n"
+  },
+  {
+    "name": "alerts-opsgenie",
+    "metadata": {
+      "title": "Configure Alert Notifications for OpsGenie",
+      "tags": ["how-tos", "shared-configuration"],
+      "aliases": [],
+      "category": "shared-configuration",
+      "subcategory": "how-tos",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie",
+      "sourceId": "docs-cloud-f5-com",
+      "slug": "alerts-opsgenie",
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie"
+    },
+    "body": "# Configure Alert Notifications\n\nGet the webhook URL or integration key.\n\nConfigure the receiver with ciphertext from [Blindfold your Application Secrets](https://docs.cloud.f5.com/docs-v2/docs/how-to/secret-mgmt/app-secrets-using-wingman).\n\n![Configure secret](assets/secret.png)\n"
+  },
+  {
+    "name": "wingman-api-reference",
+    "metadata": {
+      "title": "Wingman API Reference",
+      "tags": ["platform", "reference"],
+      "aliases": [],
+      "category": "platform",
+      "subcategory": "reference",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference",
+      "sourceId": "docs-cloud-f5-com",
+      "slug": "wingman-api-reference",
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference"
+    },
+    "body": "​​​\n\n# Wingman API Reference\n\nPublished April 5, 2023 | Last modified October 2, 2026\n\n## Overview\n\nThe sidecar runs in the same pod as the workload. Only the workload can reach it, so it adds no security risk. It prevents applications from handling sensitive material on their own.\n\nTo set up Wingman, see the [guide](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman).\n\n> **Note:** By default, Wingman isn't injected into customer pods. You can optionally set up Wingman sidecar injection if you need Distributed Cloud secrets management services.\n\n## Identity bootstrapping\n\nWhen a pod starts, Wingman makes API calls to the Identity Service (running in Distributed Cloud Services Global Controller). Wingman fetches the pod identity in the form of x.509 certificates. It writes these certificates in a volume that is shared with all containers in the pod.\n\nEach certificate is pod-specific. It carries identity data such as DNS names and pod labels, plus Distributed Cloud attributes such as tenant and site. These identities are recognized across all the vK8s clusters for the tenant.\n\n## Wingman APIs\n\nWingman also starts an HTTP server at `http://localhost:8070` in the application pod. Wingman exposes APIs in the following three categories:\n\n- Status API: To get the status of Wingman\n- Identity APIs: To get certificates/keys/CA-Certificates\n- Secret Management APIs: To decrypt secrets\n\n## Status API\n\n`GET /status`\n\nReturns current state of the Wingman. Wingman can return one of the following states:\n\n- `INITIALIZING`: Wingman is still initializing and does not have identity certificates.\n- `READY`: Wingman has the identity and is ready to serve.\n- `DEGRADED`: Wingman identity certs are about to expire but the last attempt to renew failed.\n- `HALTED`: Wingman was not able to fetch identity certs and is not able to serve anymore.\n\nFor example:\n\nTerminal window\n\n```\n$ curl http://localhost:8070/statusREADY\n```\n> **Note:** `/status` API always returns response code **200** and only fails if Wingman is not up or reachable.\n\n## Identity APIs\n\n`GET /creds/pki/server/key`\n\nReturns the private key of the server certificate in PEM format.\n\n`GET /creds/pki/server/cert`\n\nReturns the server certificate chain in PEM format.\n\n`GET /creds/pki/server/cert-only`\n\nReturns the server certificate (only leaf) in PEM format.\n\n`GET /creds/pki/client/key`\n\nReturns the private key of the client certificate in PEM format.\n\n`GET /creds/pki/client/cert`\n\nReturns the client certificate chain in PEM format.\n\n`GET /creds/pki/client/cert-only`\n\nReturns the client certificate (only leaf) in PEM format.\n\n`GET /trust/pki/{ca_bundle_name}`\n\nReturns the CA certificates for the CA bundle `ca_bundle_name`. Currently, the following `ca_bundle_name` certificates are valid:\n\n- `server_ca`: Returns CA certificates used to trust remote servers running in the vK8s cluster.\n- `client_ca`: Returns CA certificates used to trust remote clients running in the vK8s cluster.\n\n## Secret management API\n\n`POST /secret/unseal`\n\nThis endpoint decrypts a Blindfold secret. Pass the encrypted secret information in the POST body.\n\n### Blindfold secrets\n\nTo fetch an encrypted secret using Distributed Cloud Services Secret Management System (Blindfold), the caller must provide the Base64-encoded encrypted bytes in the request body. Upon success, this API returns Base64-encoded decrypted bytes.\n\nThe request body has the following schema:\n\n```\n{  \"type\": \"blindfold\",  // Secret location  // It must be in url format string:///  \"location\": <secret_url>}\n```\n\nThe potential responses include the following:\n\n| Response code | Error message | Reason |\n| --- | --- | --- |\n| 200 | N/A | Success |\n| 500 | `Internal error while unsealing blindfold secret, please retry again` | Internal/unknown error |\n| 503 | `Wingman is still not ready, current status => %s, please retry after some time` | Wingman is not ready |\n| 400 | `Make sure encrypted secret is secured using blindfold and encrypted secret is not tempered with` | Corrupted/tempered blindfold secret |\n| 400 | `Invalid blindfold secret - make sure encrypted secret is blindfold secret and encrypted secret is not tempered with` | Invalid Blindfold secret: encrypted using wrong policy/public key. |\n| 404 | `Invalid symmetric algorithms used in blindfold encrypted secret, make sure encrypted secret is not tempered with` | Invalid Blindfold secret: invalid symmetric encryption. |\n| 404 | `Error decrypting blindfold secret - make sure if tenant is registered and policy used for encryption still exists` | Policy/Blindfold key is not found |\n| 403 | `Error decrypting blindfold secret, make sure policy used for encryption is correct` | Denied by secret policy |\n\nFor example:\n\nTerminal window\n\n```\n$ cat request.json{  \"type\": \"blindfold\",  \"location\": \"string:///AAAACWN1c3RvbWVyMQAAAAEAAAAAAAAAiAIAAAAFA6ur/XkAAAEArc3DxZa69sWeIn9NRrHGcZlZaXLHWYjc57jIS76Z47AcU0jDmodz3lNEysVO2swNAUn8p6yiuvf8Vj4LUuWB++LdP2yYX5ftEHmMgnHTaTeW0or87X24nK4UPollx/2S9/i+tJN9VcrhCFWYHMMPx9AU7Lw7yJ7CPuv7x5EJZl/BOonWhYst1d7fb6GPMSxhqsxoR2i8aDkl1sMCaFbBv1oANfDrL1DrXnae7iXuZPGzxszeDWlZakvwek3lsWMJT4b2rhjXML2Vq4AdKFBp5zbrh15g7mS0lpdX/xG6h0+IdHyrWPoIg/hZwYyV9xmIOcFc1Jk5PZC554hchHbToQAAAQCKnfbK+kRkQDOOFC6WWHtha8DacIOY25GO5wEO58bYkeXYmtbEBfExvpE7yNndKDlKSWLHVBdS2jqVXzAYD2A4EzmZmWyo7RyCjSclbm/fSaVTN0BFI7kHllcbg6df4BuXlN6CZ2ulh0Y8qGeNGwKUQl215CYjjyX5w0ZUjbgse5nHtC0PhWV8XU7cWwtJBhziIdeQHNHvF44txeIcAhOH7DqfqVVQbq77JUm82B3e66+evUqSSb3HYWbySicv1vog/HQyFSStE3BP8q9mQxkyovY489iTiZEj7iKH3951F44waPH5GwsEB+vztkKLm59c/OaM6aVJuWazQUHsSzRBP/SWxd3/i7ATIsCeDDJW2kc578wsJ45E9G2J5o8sMVL5pTlO9Swp9V85DvQMbeeZiKNj\"}\n```\n\nTerminal window\n\n```\n$ curl http://localhost:8070/secret/unseal -X POST -H 'content-type: application/json' -d @request.jsonVGhpcyBzZWNyZXQgaXMgZm9yIGRlbW8tdGxzLXNlcnZlcgo=\n```\n\n---\n"
+  }
+]
