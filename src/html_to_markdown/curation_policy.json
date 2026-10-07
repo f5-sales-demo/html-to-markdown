@@ -46,7 +46,7 @@
       ],
       "review_catalog": {
         "path": "legacy_review.json",
-        "sha256": "6bce100e8b817b66404c89729dc38e307375792ea9598c9ecb9fe7117a0523b2"
+        "sha256": "d3137a34a277c2a09d198a29121343de155a53db1e8f8f7d095e556fc86cc009"
       },
       "scope_patterns": [
         "(?:this|the) (?:is (?:a|the) |guide.*?is |workflow.*?is )legacy (?:workflow|deployment|guide)",

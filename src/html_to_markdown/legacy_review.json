@@ -1632,6 +1632,21 @@
       ],
       "source_sha256": "78f1101dc90307ad3b1e4fa918946d828633675a65c935d4870a879449af7a5a",
       "url": "https://my.f5.com/manage/s/article/K000147726"
+    },
+    {
+      "block_removals": [
+        {
+          "location": "## Additional Resources@1:list_item:152",
+          "sha256": "356bca7353c1d4a831abc976b584dba8c03694b945a4f6134605a7e42bb76657"
+        }
+      ],
+      "disposition": "keep",
+      "input_sha256": "3bf52d562290769555732f8349a8bba899b37844f80fc24564a567b16f41a6d2",
+      "output_sha256": "81e79220fd68f8c29e11ce1aeab2227b0c8d7ffaca1c4313699d1b78fd10c333",
+      "reason": "optional documentation resource removed; independent certificate CLI retained",
+      "replacements": [],
+      "source_sha256": "d66fa7d0e47c35a1449a0e56d1371731230ad7d3697408d6d6d91cba1ccd7c9b",
+      "url": "https://community.f5.com/t/76453"
     }
   ],
   "media": [
