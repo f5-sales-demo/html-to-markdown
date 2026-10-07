@@ -4,6 +4,9 @@ Detectors propose examination only. Publication accepts reviewed bytes, and ever
 removal is guarded by source identity, structural address and exact span digest.
 """
 
+# Lossless structural review and transaction validation share one planner.
+# pylint: disable=too-many-lines
+
 from __future__ import annotations
 
 import hashlib
@@ -19,6 +22,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from markdown_it import MarkdownIt
 
 from .appstack_curation import AppStackFilter
+from .legacy_curation import LegacyFilter
 from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
 from .state import StateStore
@@ -201,7 +205,10 @@ class SMSPolicy:
         )
 
 
+# The registry owns one optional engine for each independent versioned topic.
+# pylint: disable-next=too-many-instance-attributes
 class CurationPolicy:
+    # pylint: disable-next=too-many-branches
     def __init__(self, raw: dict[str, Any], sha256: str) -> None:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
             raise ValueError("unsupported curation registry")
@@ -216,6 +223,7 @@ class CurationPolicy:
         self.terraform: TerraformFilter | None = None
         self.appstack: AppStackFilter | None = None
         self.vesctl: VesctlFilter | None = None
+        self.legacy: LegacyFilter | None = None
         sms_topic = next(
             (topic for topic in self.topics if topic["id"] == "smsv2-current"),
             next((topic for topic in self.topics if topic.get("mode") != "automatic"), None),
@@ -231,6 +239,8 @@ class CurationPolicy:
                         digest=digest,
                         remove_blocks=remove_blocks,
                     )
+                elif topic["id"] == "legacy-retired" and self.legacy is None:
+                    self.legacy = LegacyFilter(topic, remove_blocks=remove_blocks)
                 elif topic["id"] == "appstack-retired" and self.appstack is None:
                     self.appstack = AppStackFilter(
                         topic, blocks=blocks, digest=digest, remove_blocks=remove_blocks
@@ -255,7 +265,7 @@ class CurationPolicy:
             for media in topic["media"]:
                 if media["disposition"] not in {"keep", "remove"}:
                     raise ValueError("invalid media disposition")
-                if topic["id"] in {"appstack-retired", "vesctl-retired"}:
+                if topic["id"] in {"appstack-retired", "vesctl-retired", "legacy-retired"}:
                     # The same bytes can be a generic icon in one page and
                     # obsolete instructional media in another. Review scope
                     # belongs to the topic and document, not a global digest.
@@ -279,15 +289,17 @@ class CurationPolicy:
         identities = {part.replace("-", "_") for part in parsed.path.split("/")}
         return (
             canonical(url) in self.excluded
+            or (self.legacy is not None and self.legacy.excludes(url))
             or self.retired(url)
             or bool(identities & self.retired_identities)
         )
 
     def retired(self, text: str) -> bool:
         decoded = normalized(text)
-        return (self.vesctl is not None and self.vesctl.retired(text)) or any(
-            pattern.search(decoded) for pattern in self.retired_patterns
-        )
+        return (
+            (self.vesctl is not None and self.vesctl.retired(text))
+            or (self.legacy is not None and self.legacy.retired(text))
+        ) or any(pattern.search(decoded) for pattern in self.retired_patterns)
 
     def candidate(self, text: str) -> bool:
         decoded = normalized(text)
@@ -475,6 +487,64 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    legacy_plans = {}
+    legacy_excluded = set(active.legacy.excluded) if active.legacy is not None else set()
+    if active.legacy is not None:
+        for path, metadata, body in originals:
+            legacy_media_affected = any(
+                active.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                for item in media_inventory(path, body)
+            )
+            legacy_preflight = active.legacy.transform(
+                metadata, body, dependent=legacy_media_affected
+            )
+            legacy_plans[path] = legacy_preflight
+            if legacy_preflight.disposition != "keep":
+                legacy_excluded.update(
+                    {
+                        canonical(str(metadata["url"])),
+                        canonical(str(metadata.get("canonical_url") or metadata["url"])),
+                    }
+                )
+        # Close the original dependency graph before later topics can erase
+        # incoming evidence, including local Markdown destinations.
+        dependency_changed = True
+        while dependency_changed:
+            dependency_changed = False
+            omitted_paths = {
+                path.resolve()
+                for path, result in legacy_plans.items()
+                if result.disposition != "keep"
+            }
+            for path, metadata, body in originals:
+                if legacy_plans[path].disposition != "keep":
+                    continue
+                dependencies = active.references(
+                    body, str(metadata["url"]), legacy_excluded, predicate=active.legacy.excludes
+                )
+                local_dependency = False
+                for token in MarkdownIt("commonmark").parse(body):
+                    for child in token.children or []:
+                        href = child.attrGet("href")
+                        if isinstance(href, str) and not urlsplit(href).scheme:
+                            destination = unquote(urlsplit(href).path)
+                            root = output if destination.startswith("content/") else path.parent
+                            if destination and (root / destination).resolve() in omitted_paths:
+                                local_dependency = True
+                if dependencies or local_dependency:
+                    legacy_dependency_result = active.legacy.transform(
+                        metadata, body, dependent=True
+                    )
+                    legacy_plans[path] = legacy_dependency_result
+                    if legacy_dependency_result.disposition != "keep":
+                        legacy_excluded.update(
+                            {
+                                canonical(str(metadata["url"])),
+                                canonical(str(metadata.get("canonical_url") or metadata["url"])),
+                            }
+                        )
+                        dependency_changed = True
+    excluded.update(legacy_excluded)
     original_matches = set()
     if active.vesctl is not None:
         for path, metadata, body in originals:
@@ -510,6 +580,45 @@ def curate_topics(
             "stages": [],
         }
         retained = body
+        if path in legacy_plans:
+            legacy_result = legacy_plans[path]
+            retained = legacy_result.body
+            finding["legacy"] = legacy_result.reasons
+            finding["disposition"] = legacy_result.disposition
+            finding["stages"].append(
+                {
+                    "topic": "legacy-retired",
+                    "input_sha256": digest(body.encode()),
+                    "original_sha256": active.legacy.source_digest(metadata, body)
+                    if active.legacy
+                    else None,
+                    "output_sha256": digest(retained.encode())
+                    if legacy_result.disposition == "keep"
+                    else None,
+                }
+            )
+            if (
+                active.legacy
+                and finding["disposition"] == "keep"
+                and any(
+                    active.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                    for item in media_inventory(path, retained)
+                )
+            ):
+                finding["disposition"] = "omit"
+                finding["legacy"].append("retired_media_remains")
+            if retained != body:
+                metadata = dict(metadata, description=None)
+            candidate = active.sms_candidate(
+                retained
+                + json.dumps(
+                    {
+                        k: v
+                        for k, v in metadata.items()
+                        if k not in {"related_documents", "description"}
+                    }
+                )
+            )
         original_match = path in original_matches
         original_dependencies = (
             active.references(body, url, retirement_excluded, predicate=active.vesctl.excludes)
@@ -521,24 +630,24 @@ def curate_topics(
             finding["findings"].append(
                 decision.get("reason", "retired_identity") if decision else "retired_identity"
             )
-        elif candidate or decision:
+        elif finding["disposition"] == "keep" and (candidate or decision):
             if decision is None:
                 finding["disposition"] = "omit"
                 finding["findings"].append("unclassified_candidate")
-            elif digest(body.encode()) == decision.get("output_sha256"):
+            elif digest(retained.encode()) == decision.get("output_sha256"):
                 pass
-            elif digest(body.encode()) != decision["input_sha256"]:
+            elif digest(retained.encode()) != decision["input_sha256"]:
                 # A later topic may have changed the reviewed SMSv2 output.
                 # Revalidate the SMSv2 invariants instead of treating a whole
                 # document hash mismatch as evidence that its old blocks remain.
-                if decision["disposition"] != "keep" or active.sms_retired(body):
+                if decision["disposition"] != "keep" or active.sms_retired(retained):
                     finding["disposition"] = "omit"
                     finding["findings"].append("changed_document_input")
                 else:
                     finding["findings"].append("reviewed_topic_output_revalidated")
             else:
                 try:
-                    retained = remove_blocks(body, decision.get("block_removals", []))
+                    retained = remove_blocks(retained, decision.get("block_removals", []))
                     if digest(retained.encode()) != decision["output_sha256"]:
                         raise ValueError("reviewed output digest mismatch")
                 except ValueError as error:
@@ -743,7 +852,19 @@ def curate_topics(
                     if other["path"].resolve() in local_targets
                     and other["finding"]["url"] in retirement_excluded
                 )
-            if dependencies and active.appstack is not None and not retirement_dependencies:
+            legacy_dependencies = (
+                active.references(
+                    plan["body"], url, legacy_excluded, predicate=active.legacy.excludes
+                )
+                if active.legacy
+                else []
+            )
+            if (
+                dependencies
+                and active.appstack is not None
+                and not retirement_dependencies
+                and not legacy_dependencies
+            ):
                 before_dependencies = digest(plan["body"].encode())
                 repaired, removed = remove_dependent_references(plan["body"], url, excluded, active)
                 remaining = active.references(
@@ -852,6 +973,14 @@ def prune_assets(output: Path) -> None:
 def validate_whole_document_retirement(
     policy: CurationPolicy, path: Path, metadata: dict[str, Any], body: str
 ) -> None:
+    if policy.legacy is not None:
+        legacy_media_affected = any(
+            policy.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            for item in media_inventory(path, body)
+        )
+        result = policy.legacy.transform(metadata, body, dependent=legacy_media_affected)
+        if result.disposition != "keep" or result.body != body:
+            raise ValueError(f"retired legacy content remains: {path}")
     if policy.vesctl is not None:
         if policy.vesctl.original_match(metadata, body) or any(
             policy.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
