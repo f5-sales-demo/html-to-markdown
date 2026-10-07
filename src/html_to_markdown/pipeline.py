@@ -23,6 +23,7 @@ from .content_policy import (
     purge_excluded_state,
     record_exclusion,
 )
+from .curation import load_curation_policy
 from .errors import (
     AllowlistError,
     AuthenticationWallError,
@@ -143,6 +144,17 @@ class Pipeline:
             )
             if load_content_policy().excludes(extracted.metadata.canonical_url):
                 record_exclusion(self.store, url, "canonical_redirect")
+                with self.store.connection:
+                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
+                return None
+            retirement = load_curation_policy().vesctl
+            if retirement is not None and retirement.original_match(
+                extracted.metadata.model_dump(by_alias=True), extracted.html
+            ):
+                target = self.output / "content" / adapter.source_id
+                target /= stable_path(adapter.source_id, url)
+                (target / "index.md").unlink(missing_ok=True)
+                record_exclusion(self.store, url, "whole_document_retirement")
                 with self.store.connection:
                     self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
                 return None

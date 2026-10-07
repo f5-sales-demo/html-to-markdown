@@ -23,6 +23,7 @@ from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
 from .state import StateStore
 from .terraform_curation import TerraformFilter
+from .vesctl_curation import VesctlFilter
 
 
 def digest(data: bytes) -> str:
@@ -215,6 +216,7 @@ class CurationPolicy:
         self.media: dict[str, dict[str, Any]] = {}
         self.terraform: TerraformFilter | None = None
         self.appstack: AppStackFilter | None = None
+        self.vesctl: VesctlFilter | None = None
         sms_topic = next(
             (topic for topic in self.topics if topic["id"] == "smsv2-current"),
             next((topic for topic in self.topics if topic.get("mode") != "automatic"), None),
@@ -234,6 +236,8 @@ class CurationPolicy:
                     self.appstack = AppStackFilter(
                         topic, blocks=blocks, digest=digest, remove_blocks=remove_blocks
                     )
+                elif topic["id"] == "vesctl-retired" and self.vesctl is None:
+                    self.vesctl = VesctlFilter(topic)
                 else:
                     raise ValueError("unsupported automatic curation topic")
             self.retired_identities.update(topic["retired_identities"])
@@ -254,7 +258,7 @@ class CurationPolicy:
             for media in topic["media"]:
                 if media["disposition"] not in {"keep", "remove"}:
                     raise ValueError("invalid media disposition")
-                if topic["id"] == "appstack-retired":
+                if topic["id"] in {"appstack-retired", "vesctl-retired"}:
                     # The same bytes can be a generic icon in one page and
                     # obsolete instructional media in another. Review scope
                     # belongs to the topic and document, not a global digest.
@@ -275,7 +279,9 @@ class CurationPolicy:
 
     def retired(self, text: str) -> bool:
         decoded = normalized(text)
-        return any(pattern.search(decoded) for pattern in self.retired_patterns)
+        return (self.vesctl is not None and self.vesctl.retired(text)) or any(
+            pattern.search(decoded) for pattern in self.retired_patterns
+        )
 
     def candidate(self, text: str) -> bool:
         decoded = normalized(text)
@@ -457,7 +463,10 @@ def curate_topics(
     active = policy or load_curation_policy()
     before = corpus_digest(output)
     plans: dict[str, dict[str, Any]] = {}
+    retirement_excluded = set(active.vesctl.excluded) if active.vesctl is not None else set()
     excluded = set() if active.appstack is not None else set(active.excluded)
+    if active.vesctl is not None:
+        excluded.update(active.vesctl.excluded)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
@@ -479,7 +488,19 @@ def curate_topics(
             "stages": [],
         }
         retained = body
-        if active.excludes(url) or active.excludes(str(metadata["url"])):
+        original_match = active.vesctl is not None and (
+            active.vesctl.original_match(metadata, body)
+            or any(
+                active.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                for item in finding["media"]
+            )
+        )
+        original_dependencies = (
+            active.references(body, url, retirement_excluded, predicate=active.vesctl.excludes)
+            if active.vesctl is not None
+            else []
+        )
+        if original_match or active.excludes(url) or active.excludes(str(metadata["url"])):
             finding["disposition"] = "remove"
             finding["findings"].append(
                 decision.get("reason", "retired_identity") if decision else "retired_identity"
@@ -555,6 +576,34 @@ def curate_topics(
                     else None,
                 }
             )
+        if active.vesctl is not None:
+            vesctl_before = digest(retained.encode())
+            if original_match or active.vesctl.excludes(url):
+                finding["vesctl"] = [{"reason": "original_document_reference"}]
+            elif finding["disposition"] == "keep":
+                dependencies = active.references(
+                    retained, url, active.vesctl.excluded, predicate=active.vesctl.excludes
+                )
+                vesctl_result = active.vesctl.transform(
+                    retained,
+                    str(metadata["url"]),
+                    dependent=bool(dependencies or original_dependencies),
+                )
+                retained = vesctl_result.body
+                finding["vesctl"] = vesctl_result.findings
+                if vesctl_result.omit:
+                    finding["disposition"] = "omit"
+                    finding["findings"].append("unseparable_retirement_dependency")
+            finding["stages"].append(
+                {
+                    "topic": "vesctl-retired",
+                    "input_sha256": vesctl_before,
+                    "original_sha256": digest(json_bytes(metadata) + body.encode()),
+                    "output_sha256": digest(retained.encode())
+                    if finding["disposition"] == "keep"
+                    else None,
+                }
+            )
         if finding["disposition"] == "keep" and active.terraform is not None:
             terraform_before = digest(retained.encode())
             terraform_result = active.terraform.transform(retained, url)
@@ -610,6 +659,13 @@ def curate_topics(
         finding["output_sha256"] = (
             digest(retained.encode()) if finding["disposition"] == "keep" else None
         )
+        relationships_raw = metadata.get("related_documents", [])
+        relationships = relationships_raw if isinstance(relationships_raw, list) else []
+        finding["removed_relationships"] = [
+            item
+            for item in relationships
+            if active.vesctl is not None and active.vesctl.excludes(item["canonical_url"])
+        ]
         source_key = str(metadata["url"])
         plans[source_key] = {
             "path": path,
@@ -620,6 +676,8 @@ def curate_topics(
         if finding["disposition"] != "keep":
             excluded.add(url)
             excluded.add(canonical(str(metadata["url"])))
+            if original_match or finding.get("vesctl"):
+                retirement_excluded.update({url, canonical(str(metadata["url"]))})
     changed = True
     while changed:
         changed = False
@@ -655,7 +713,21 @@ def curate_topics(
                     and other["path"].resolve() in local_targets
                 ):
                     dependencies.append(other["finding"]["url"])
-            if dependencies and active.appstack is not None:
+            retirement_dependencies = (
+                active.references(
+                    plan["body"], url, retirement_excluded, predicate=active.vesctl.excludes
+                )
+                if active.vesctl is not None
+                else []
+            )
+            if active.vesctl is not None:
+                retirement_dependencies.extend(
+                    other["finding"]["url"]
+                    for other in plans.values()
+                    if other["path"].resolve() in local_targets
+                    and other["finding"]["url"] in retirement_excluded
+                )
+            if dependencies and active.appstack is not None and not retirement_dependencies:
                 before_dependencies = digest(plan["body"].encode())
                 repaired, removed = remove_dependent_references(plan["body"], url, excluded, active)
                 remaining = active.references(
@@ -683,6 +755,8 @@ def curate_topics(
                 finding["findings"].append({"unresolved_dependencies": sorted(set(dependencies))})
                 excluded.add(url)
                 excluded.add(canonical(str(plan["metadata"]["url"])))
+                if retirement_dependencies:
+                    retirement_excluded.update({url, canonical(str(plan["metadata"]["url"]))})
                 changed = True
     referenced_assets = {
         (plan["path"].parent / match.group()).resolve()
@@ -765,6 +839,20 @@ def validate_curation(
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
+        if policy.vesctl is not None:
+            if policy.vesctl.original_match(metadata, body) or any(
+                policy.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                for item in media_inventory(path, body)
+            ):
+                raise ValueError(f"retired whole document remains: {path}")
+            dependencies = policy.references(
+                body,
+                str(metadata["url"]),
+                policy.vesctl.excluded,
+                predicate=policy.vesctl.excludes,
+            )
+            if dependencies:
+                raise ValueError(f"retired document dependency remains: {path}")
         if policy.appstack is not None:
             result = policy.appstack.transform(body, str(metadata["url"]))
             if result.body != body or result.omit:

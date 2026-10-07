@@ -393,3 +393,44 @@ async def test_fresh_extraction_curates_appstack_and_builds_identically(
         return artifacts
 
     assert await build(tmp_path / "first") == await build(tmp_path / "second")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("where", ["body", "title", "description", "destination"])
+async def test_original_retirement_before_render_and_enrichment(tmp_path: Path, where: str) -> None:
+    class RetiredFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            title = "VeScTl" if where == "title" else "Guide"
+            meta = (
+                '<meta name="description" content="Use v&amp;#101;sctl">'
+                if where == "description"
+                else ""
+            )
+            body = "Use %76esctl." if where == "body" else "Keep independent steps."
+            link = (
+                '<a href="https://example.org/%2576esctl">Tool</a>'
+                if where == "destination"
+                else ""
+            )
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html=(
+                    f"<html><head><title>{title}</title>{meta}</head><body><main>"
+                    f"<h1>{title}</h1><p>{body}</p>{link}</main></body></html>"
+                ),
+            )
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = RetiredFetcher()  # type: ignore[assignment]
+    url = "https://docs.cloud.f5.com/docs-v2/platform/how-to/new-guide"
+    pipeline.store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=url)])
+    old = tmp_path / "content/docs-cloud-f5-com/platform/how-to/new-guide/index.md"
+    old.parent.mkdir(parents=True)
+    old.write_text("old captured content")
+    assert await pipeline.scrape("docs-cloud-f5-com") == []
+    assert not list(tmp_path.glob("content/**/index.md"))
+    assert not pipeline.store.rows()
+    pipeline.store.close()
