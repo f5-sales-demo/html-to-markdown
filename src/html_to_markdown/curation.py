@@ -523,7 +523,12 @@ def retirement_preflight(
             dependencies = policy.references(
                 results[path].body, str(metadata["url"]), excluded, predicate=engine.excludes
             )
-            if store is not None and results[path].body == body:
+            reviewed = engine.decisions.get(engine.canonical(str(metadata["url"])))
+            if (
+                store is not None
+                and results[path].body == body
+                and not (reviewed and digest(body.encode()) == reviewed["output_sha256"])
+            ):
                 dependencies.extend(
                     value
                     for value in store.candidate_links(str(metadata["url"]))

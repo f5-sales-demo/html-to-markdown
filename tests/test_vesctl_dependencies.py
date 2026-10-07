@@ -16,8 +16,9 @@ from html_to_markdown.curation import (
     json_bytes,
     load_curation_policy,
 )
-from html_to_markdown.models import PageMetadata
+from html_to_markdown.models import DiscoveredPage, PageMetadata
 from html_to_markdown.render import serialize_document, split_document
+from html_to_markdown.state import StateStore
 from html_to_markdown.urls import stable_path
 
 WINGMAN = "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
@@ -222,6 +223,15 @@ def test_observability_procedures_survive_reviewed_optional_alert_removal(tmp_pa
                 split_document(paths[fixture["metadata"]["slug"]].read_text())[1] == fixture["body"]
             )
     assert curate_topics(tmp_path, policy=policy)["counts"]["keep"] == 4
+    store = StateStore(tmp_path / "state.sqlite")
+    monitor_url = decision["url"]
+    store.discover([DiscoveredPage(source_id="docs-cloud-f5-com", url=monitor_url)])
+    store.replace_candidate_links(
+        monitor_url,
+        ["https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack"],
+    )
+    assert curate_topics(tmp_path, store, policy=policy)["counts"]["keep"] == 4
+    store.close()
     (paths["adv-http-syn-mon"].parent / decision["reviewed_media"][0]["reference"]).write_bytes(
         b"changed image pixels"
     )
