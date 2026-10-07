@@ -1,8 +1,273 @@
 {
+  "affected_media": [
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/02b2a684f964fc3b373416f3776ec21d0b5455491b9d2efce2b3f597d9bfa038.png",
+      "ocr_sha256": "c5087978c5d7b0832668a66214a0e0c242c815c05deecce05c87dff6ce4d3c7c",
+      "sha256": "02b2a684f964fc3b373416f3776ec21d0b5455491b9d2efce2b3f597d9bfa038"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c.png",
+      "ocr_sha256": "f9f6564aa0ddeda7ef913cb51bb8b3c3f316d73273a4f8b0dde574b2176a208b",
+      "sha256": "2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18.png",
+      "ocr_sha256": "f50b236152fb936cff45ee423be442693cb2dce85eaf90b7f545f14b20876e78",
+      "sha256": "c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809.png",
+      "ocr_sha256": "df7cdb9dbb3a813b9609e30defacf065cf84f50ef7fd4792b5699614b19a61a2",
+      "sha256": "e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/ffdc9d975e2998677f404901d997fdbdbd49aa650f6a48ea4edd293c49491df2.png",
+      "ocr_sha256": "4b88db8b66eb8b7ec1b03082f479cb7d3ba2ecba3f01104294076719327d4b02",
+      "sha256": "ffdc9d975e2998677f404901d997fdbdbd49aa650f6a48ea4edd293c49491df2"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d.png",
+      "ocr_sha256": "5f6f4acb3441df3bde0019e91ce52cb8a6d4b75c21a8a712febc62e3e6601e8a",
+      "sha256": "7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e.png",
+      "ocr_sha256": "a8c3e31db8f62930dd04fb0db0608e605034dc4b3402ed271fc83ec0b494ab1f",
+      "sha256": "ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa.png",
+      "ocr_sha256": "a27a46671c5988b319a261626a6238e0ad6a5844dff03b259cfd9ff4a2e71335",
+      "sha256": "1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae.png",
+      "ocr_sha256": "7da4a992d23f8a037097151ca0ded0ff8cf02919430377d32a2fbeb00cd49c7c",
+      "sha256": "bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-opsgenie/assets/c645856eee802ebbccbaa4760bdfe401951c35d96618e610efe0f2386f7df745.png",
+      "ocr_sha256": "63bf227aced10672bd374b71ba873256acfdbf77062dff401de9abb4dd8dad44",
+      "sha256": "c645856eee802ebbccbaa4760bdfe401951c35d96618e610efe0f2386f7df745"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/7f7dfa304b903d611f18682dbca38c6b164dff02b158a5131cbbbf72cdddae9f.png",
+      "ocr_sha256": "26726044b6589fb4d3046e0630b18742ab9ebf1b2c2b7da8218b2f720239e5d4",
+      "sha256": "7f7dfa304b903d611f18682dbca38c6b164dff02b158a5131cbbbf72cdddae9f"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/18771e699b9d1d3d274aa00b5a2116ddd5df1e4080bcc7fc9aa94f18221e87d8.png",
+      "ocr_sha256": "990f8ad1f384799eab4b27a4fe3f15a8f9617e6e8e8991d0a39eb5720234ef2d",
+      "sha256": "18771e699b9d1d3d274aa00b5a2116ddd5df1e4080bcc7fc9aa94f18221e87d8"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c.png",
+      "ocr_sha256": "f9f6564aa0ddeda7ef913cb51bb8b3c3f316d73273a4f8b0dde574b2176a208b",
+      "sha256": "2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18.png",
+      "ocr_sha256": "f50b236152fb936cff45ee423be442693cb2dce85eaf90b7f545f14b20876e78",
+      "sha256": "c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809.png",
+      "ocr_sha256": "df7cdb9dbb3a813b9609e30defacf065cf84f50ef7fd4792b5699614b19a61a2",
+      "sha256": "e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/ffdc9d975e2998677f404901d997fdbdbd49aa650f6a48ea4edd293c49491df2.png",
+      "ocr_sha256": "4b88db8b66eb8b7ec1b03082f479cb7d3ba2ecba3f01104294076719327d4b02",
+      "sha256": "ffdc9d975e2998677f404901d997fdbdbd49aa650f6a48ea4edd293c49491df2"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/cb1a2b610bb70773fec6130bb74dd72d3bb8caf4b7aab283711938489178f86c.png",
+      "ocr_sha256": "7b2a14ddf278e9c293a5a2e4cc193bdc38a9dce06f5b4a11841dd886e37e0d5e",
+      "sha256": "cb1a2b610bb70773fec6130bb74dd72d3bb8caf4b7aab283711938489178f86c"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d.png",
+      "ocr_sha256": "5f6f4acb3441df3bde0019e91ce52cb8a6d4b75c21a8a712febc62e3e6601e8a",
+      "sha256": "7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e.png",
+      "ocr_sha256": "a8c3e31db8f62930dd04fb0db0608e605034dc4b3402ed271fc83ec0b494ab1f",
+      "sha256": "ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa.png",
+      "ocr_sha256": "a27a46671c5988b319a261626a6238e0ad6a5844dff03b259cfd9ff4a2e71335",
+      "sha256": "1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae.png",
+      "ocr_sha256": "7da4a992d23f8a037097151ca0ded0ff8cf02919430377d32a2fbeb00cd49c7c",
+      "sha256": "bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-pagerduty/assets/8d4807b68fadcd19b2e200b3df65932f4fd0e52dfec6446c000844fe135c7af0.png",
+      "ocr_sha256": "a22f6602f8e2e849244f9b6b908ee0543aefddaf2f62999a35b21e4cbff7c0ee",
+      "sha256": "8d4807b68fadcd19b2e200b3df65932f4fd0e52dfec6446c000844fe135c7af0"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/177be8cc1b8632021f6b6ffa6722096673708687fdc06e877f716d2e6f01680b.png",
+      "ocr_sha256": "8662b12cbee5b692a7a32cf57091d3b580df242fc762da829303b4b479621338",
+      "sha256": "177be8cc1b8632021f6b6ffa6722096673708687fdc06e877f716d2e6f01680b"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c.png",
+      "ocr_sha256": "f9f6564aa0ddeda7ef913cb51bb8b3c3f316d73273a4f8b0dde574b2176a208b",
+      "sha256": "2d18d7b736b2dfc601b4c175cbf39fdf620d37a742e4eccef96c8dcb5b82596c"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18.png",
+      "ocr_sha256": "f50b236152fb936cff45ee423be442693cb2dce85eaf90b7f545f14b20876e78",
+      "sha256": "c71d47171adcb78ae03fe783dc52052cdc7559cc1ffd3ff0b09ea8ca223c7b18"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809.png",
+      "ocr_sha256": "df7cdb9dbb3a813b9609e30defacf065cf84f50ef7fd4792b5699614b19a61a2",
+      "sha256": "e25795594ef48c77130d79a413ad8703c4ee31c03c05f2d23362adb938f08809"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/683601c4c8a8a8260ea72cc11f41d973fc9497aa64416b2d93fa344d57d335e6.png",
+      "ocr_sha256": "5674f457f24ce1e69688c2e51b4e64f495b4a265ff8e2ab47a1865547f2871d9",
+      "sha256": "683601c4c8a8a8260ea72cc11f41d973fc9497aa64416b2d93fa344d57d335e6"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/97b07e1def1ad7ab105dfc56d667b50ec80aa813ed15e967b9bf4dc98d6a90ba.png",
+      "ocr_sha256": "3ab4cd9967f9f3d9c89c1f32d07361f177f4cb7bfc46f01523a0ac1701bf7bb7",
+      "sha256": "97b07e1def1ad7ab105dfc56d667b50ec80aa813ed15e967b9bf4dc98d6a90ba"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/cb1a2b610bb70773fec6130bb74dd72d3bb8caf4b7aab283711938489178f86c.png",
+      "ocr_sha256": "7b2a14ddf278e9c293a5a2e4cc193bdc38a9dce06f5b4a11841dd886e37e0d5e",
+      "sha256": "cb1a2b610bb70773fec6130bb74dd72d3bb8caf4b7aab283711938489178f86c"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d.png",
+      "ocr_sha256": "5f6f4acb3441df3bde0019e91ce52cb8a6d4b75c21a8a712febc62e3e6601e8a",
+      "sha256": "7c25268659f33b695bb531c20f4a3c82308ede9ce06db94a33409b206959920d"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e.png",
+      "ocr_sha256": "a8c3e31db8f62930dd04fb0db0608e605034dc4b3402ed271fc83ec0b494ab1f",
+      "sha256": "ec469e60c95659bd40c16d1a69122349381ff595f4f62946bceab34cbb65ff5e"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa.png",
+      "ocr_sha256": "a27a46671c5988b319a261626a6238e0ad6a5844dff03b259cfd9ff4a2e71335",
+      "sha256": "1f0dbe2ac141cc354db38b458c12396eff181d6de58fb5e6968c2e1989fae5fa"
+    },
+    {
+      "disposition": "remove_with_omitted_guide",
+      "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae.png",
+      "ocr_sha256": "7da4a992d23f8a037097151ca0ded0ff8cf02919430377d32a2fbeb00cd49c7c",
+      "sha256": "bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0"
+    },
+    {
+      "disposition": "remove_optional_alerting",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a"
+    }
+  ],
   "baseline": {
-    "page_count": 739,
-    "publication_sha256": "281d82bb7841b4ad58cdf3958ffca09ebf2497d8dc4817a0f9ce713979876aae",
-    "tag": "content-20261005T134122Z"
+    "page_count": 715,
+    "publication_sha256": "38fda94c2a47369ae7d7d38cc60d3139e00ecf1e2e02c86d3891bdfb71502264",
+    "tag": "content-20261007T031703Z"
   },
   "derived_relationships": [
     {
@@ -317,6 +582,14 @@
     {
       "disposition": "remove",
       "document": "content/docs-cloud-f5-com/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs/index.md",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+        "extracted_sha256": "a5428e8af665feec43a62d257ec4e3b5437881a6e251c45108e744157ecc6da0",
+        "html_sha256": "5cc72211b204ceb76910d9caac6328b71cc380a59a67eb50a94ade18275faf72",
+        "status": 200,
+        "title": "Blindfold TLS Certificates",
+        "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
+      },
       "input_sha256": "6c60d3b1288a272242e69f17033bc0d4e1f216603a3af7150c06da2a5947d48b",
       "output_sha256": "6c60d3b1288a272242e69f17033bc0d4e1f216603a3af7150c06da2a5947d48b",
       "reason": "direct_reference",
@@ -325,8 +598,21 @@
       "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
     },
     {
+      "alias_evidence": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl",
+        "status": 200
+      },
+      "aliases": ["https://docs.cloud.f5.com/docs-v2/docs/how-to/volterra-automation-tools/vesctl"],
       "disposition": "remove",
       "document": "content/docs-cloud-f5-com/platform/how-to/volt-automation/vesctl/index.md",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl",
+        "extracted_sha256": "9acf6d6e3b96b5cadf9511083edecbf7ebe366fb71c77553cb8d6d3d979c22b4",
+        "html_sha256": "072251f4f6bb3fdee7e14fde71e3d6ba1dd66606f4f6bc81de6c5ffe5fe1b59d",
+        "status": 200,
+        "title": "Vesctl",
+        "url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl"
+      },
       "input_sha256": "a3bba7da8bea0399ea61cb4ae8c80627fe57d3b94e04c0c06bb654b8184499ef",
       "output_sha256": "a3bba7da8bea0399ea61cb4ae8c80627fe57d3b94e04c0c06bb654b8184499ef",
       "reason": "direct_reference",
@@ -505,6 +791,252 @@
       ],
       "title": "Web application and API protection solutions",
       "url": "https://www.f5.com/solutions/web-app-and-api-protection"
+    },
+    {
+      "aliases": ["https://docs.cloud.f5.com/docs-v2/docs/how-to/secret-mgmt/app-secrets-using-wingman"],
+      "disposition": "remove",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman",
+        "extracted_sha256": "8baf31a7fbfa27bc59dfae45305f0ea7f56aa1b4d7fe27d4ce60e5eb8ec4c181",
+        "html_sha256": "0ee523ee1d6ed22c35d0a3211c068ab677638d757588576ee10a675a0d3be897",
+        "status": 200,
+        "title": "Encrypt and Decrypt Application Secrets",
+        "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
+      },
+      "input_sha256": "8baf31a7fbfa27bc59dfae45305f0ea7f56aa1b4d7fe27d4ce60e5eb8ec4c181",
+      "output_sha256": "8baf31a7fbfa27bc59dfae45305f0ea7f56aa1b4d7fe27d4ce60e5eb8ec4c181",
+      "reason": "confirmed_vesctl_dependent_procedure",
+      "replacements": [],
+      "title": "Encrypt and Decrypt Application Secrets",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
+    },
+    {
+      "aliases": ["https://docs.cloud.f5.com/docs-v2/docs/reference/wingman-api-ref"],
+      "disposition": "keep",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference",
+        "extracted_sha256": "27ee581fe2651dd61fb195260b9c1fb370f73dbdb703a4e60a6770c729718931",
+        "html_sha256": "8387dda223e646d55c2441344057f8f3b94423286da81944099d2a605dfe58a4",
+        "status": 200,
+        "title": "Wingman API Reference",
+        "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference"
+      },
+      "input_sha256": "8acb720c343c6fc85d16a7efc73fbfd2acd337ecf496c22fae28a51d9b1f8666",
+      "output_sha256": "fec091d98bc1ad2a7e299fc68b6fda3daf4ee84491c58b21d1461acad77365b7",
+      "reason": "independent_status_identity_unseal_api_reference",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "To set up Wingman, see the [guide](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman).\n\n"
+        }
+      ],
+      "source_sha256": "1f31d8ddef411ee1d53045ca70f123854cf6472ac6da55a0fe7a6247bb03935d",
+      "title": "Wingman API Reference",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference"
+    },
+    {
+      "disposition": "omit",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack",
+        "extracted_sha256": "4ee87bba226b6d86ec298b37c7a92797ad03bff28458ddc342d28d3504801e11",
+        "html_sha256": "c433f66c11b6a3bbc10322542170bf7425f2f34592ae3eb38b8d19526f0d3325",
+        "status": 200,
+        "title": "Configure Alert Notifications for Slack",
+        "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack"
+      },
+      "input_sha256": "73ea542bf06395c34e0cff975e8c5639a87a4870e09aeed3897a7d2abadd604a",
+      "output_sha256": "73ea542bf06395c34e0cff975e8c5639a87a4870e09aeed3897a7d2abadd604a",
+      "reason": "current_console_procedure_unverified_external_ciphertext_dependency",
+      "replacements": [],
+      "title": "Configure Alert Notifications for Slack",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack"
+    },
+    {
+      "disposition": "omit",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty",
+        "extracted_sha256": "205dc50d4de3a8d122eda8cbdd1f894f25e88d73da2bfb48d84866183f5076fb",
+        "html_sha256": "0300a4f001150b0d84ebec15c5e9eab1cca9caa45c0e36b5900d35d2b2043292",
+        "status": 200,
+        "title": "Configure Alert Notifications for PagerDuty",
+        "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty"
+      },
+      "input_sha256": "15b343088da54bbf89e59b81c113ff11c709e96ae7c508b6e8421089d1f58fab",
+      "output_sha256": "15b343088da54bbf89e59b81c113ff11c709e96ae7c508b6e8421089d1f58fab",
+      "reason": "current_console_procedure_unverified_external_ciphertext_dependency",
+      "replacements": [],
+      "title": "Configure Alert Notifications for PagerDuty",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty"
+    },
+    {
+      "disposition": "omit",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie",
+        "extracted_sha256": "48cd47fe11bba666f23ed10609c9539bb9a5eec4b56169ef2becb74b2a0b2c45",
+        "html_sha256": "b96bbce16f33629fa6ab4740fefd3f43d2e47d6895beb6ea8e32ea7f2b75490f",
+        "status": 200,
+        "title": "Configure Alert Notifications for OpsGenie",
+        "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie"
+      },
+      "input_sha256": "35525d715eb620081024683b796bbd9d2f47332ad41ef082c9c2664d534140c4",
+      "output_sha256": "35525d715eb620081024683b796bbd9d2f47332ad41ef082c9c2664d534140c4",
+      "reason": "current_console_procedure_unverified_external_ciphertext_dependency",
+      "replacements": [],
+      "title": "Configure Alert Notifications for OpsGenie",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie"
+    },
+    {
+      "disposition": "keep",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon",
+        "html_sha256": "96d863499332bd17ae492fa82a78b52052fe7d5184350ebf55c160ec0e70e18d",
+        "status": 200,
+        "url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon"
+      },
+      "input_sha256": "140020d3854f3a733b075c259689e9b04826d058afb796054e4d726bcb616598",
+      "output_sha256": "7bfabc4bc9b2473cc43876863c42f327f704f4601889535aeaf9c8ef2c0465c1",
+      "reason": "complete_monitor_creation_retained_optional_unverified_alerting_removed",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "**Step 6:** Set up alerting.\n\nAlerting for **Synthetic Monitoring** can be configured similar to other F5\u00ae Distributed Cloud services following the [Alerting](https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack) guides.\n\nOptionally, filter your **Alert Policy** to only send notifications to the receiver based on alerts coming from **Synthetic Monitoring** by either matching the **Group** to **Synthetic-Monitors** or matching the **Alert Name** to **SyntheticMonitorHealthCritical**.\n\n![Figure: Alerting](assets/68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd.png)\n\nFigure: Alerting\n"
+        },
+        {
+          "count": 1,
+          "destination": "",
+          "source": "- [Alerting](https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack)\n"
+        }
+      ],
+      "reviewed_media": [
+        {
+          "ocr_sha256": "7050378e52dd7c9be860c805a200760d16fbea3ced08817560322ccc85631d8e",
+          "reference": "assets/31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3.png",
+          "sha256": "31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3"
+        },
+        {
+          "ocr_sha256": "f8fe1cf665d39d7d0f124c8883672b883ed8023686fb5260d122d400c0cd6bbf",
+          "reference": "assets/3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8.png",
+          "sha256": "3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8"
+        },
+        {
+          "ocr_sha256": "f45a367fd20f98b79344f5562f1156aa0213bcf4225bb1267d274bc63bb9ea03",
+          "reference": "assets/3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053.png",
+          "sha256": "3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053"
+        },
+        {
+          "ocr_sha256": "5f4278bc5c2b5fd36b832a72e5168187fe55bab74ca9fc0313574bb07eac3ad7",
+          "reference": "assets/4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0.png",
+          "sha256": "4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0"
+        },
+        {
+          "ocr_sha256": "f164f6a5848e27b7db1552a461a5f61e5a4025689130ce68a41dad81880d5569",
+          "reference": "assets/68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd.png",
+          "sha256": "68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd"
+        },
+        {
+          "ocr_sha256": "8ce56c7eecf485f36b9fa63beee37b2f01591932ff50faaa877fee03080266ea",
+          "reference": "assets/6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c.png",
+          "sha256": "6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c"
+        },
+        {
+          "ocr_sha256": "c58307671262707a4e28f7e9966a5a5c08142fa8d63d49507d289e880b748ac0",
+          "reference": "assets/779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576.png",
+          "sha256": "779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576"
+        },
+        {
+          "ocr_sha256": "79fff3d9d9c8d7848ce9c3f756e0dfbfa17bc1d590e8db0859fd8fd54fd7f20f",
+          "reference": "assets/949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57.png",
+          "sha256": "949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57"
+        },
+        {
+          "ocr_sha256": "350f3c7cb504fea5b8b922258cdd804ec515b2bab9780e4c1e86495703cc2b8d",
+          "reference": "assets/aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb.png",
+          "sha256": "aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb"
+        },
+        {
+          "ocr_sha256": "9c2c63bd8cdf96ca07cf71085be64ebe8d6a9ed70e661175758a30ff3ca25221",
+          "reference": "assets/b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8.png",
+          "sha256": "b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8"
+        },
+        {
+          "ocr_sha256": "558ec247e00d4440ab147f6e33903d520a5b547c1a73e0e06d0db0604195a3a3",
+          "reference": "assets/be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3.png",
+          "sha256": "be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3"
+        },
+        {
+          "ocr_sha256": "71d6923f5ec7e3cad963c083411366fbe793d78a5a1305cc7e6ba45c24e1ab89",
+          "reference": "assets/bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004.png",
+          "sha256": "bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004"
+        },
+        {
+          "ocr_sha256": "d821bfc212d2fe3d097413d7a9bea0a01a823d96f75e279bb32dcbee37fea283",
+          "reference": "assets/d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a.png",
+          "sha256": "d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a"
+        }
+      ],
+      "source_sha256": "c63a2cb2ad93b052d465cb41234fd110df2d96cb0f65062ffc64b3e07651ce2f",
+      "title": "Create Advanced HTTP(s) Synthetic Monitor",
+      "url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon"
+    }
+  ],
+  "fresh_sources": [
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+      "extracted_sha256": "a5428e8af665feec43a62d257ec4e3b5437881a6e251c45108e744157ecc6da0",
+      "html_sha256": "5cc72211b204ceb76910d9caac6328b71cc380a59a67eb50a94ade18275faf72",
+      "status": 200,
+      "title": "Blindfold TLS Certificates",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl",
+      "extracted_sha256": "9acf6d6e3b96b5cadf9511083edecbf7ebe366fb71c77553cb8d6d3d979c22b4",
+      "html_sha256": "072251f4f6bb3fdee7e14fde71e3d6ba1dd66606f4f6bc81de6c5ffe5fe1b59d",
+      "status": 200,
+      "title": "Vesctl",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman",
+      "extracted_sha256": "8baf31a7fbfa27bc59dfae45305f0ea7f56aa1b4d7fe27d4ce60e5eb8ec4c181",
+      "html_sha256": "0ee523ee1d6ed22c35d0a3211c068ab677638d757588576ee10a675a0d3be897",
+      "status": 200,
+      "title": "Encrypt and Decrypt Application Secrets",
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference",
+      "extracted_sha256": "27ee581fe2651dd61fb195260b9c1fb370f73dbdb703a4e60a6770c729718931",
+      "html_sha256": "8387dda223e646d55c2441344057f8f3b94423286da81944099d2a605dfe58a4",
+      "status": 200,
+      "title": "Wingman API Reference",
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack",
+      "extracted_sha256": "4ee87bba226b6d86ec298b37c7a92797ad03bff28458ddc342d28d3504801e11",
+      "html_sha256": "c433f66c11b6a3bbc10322542170bf7425f2f34592ae3eb38b8d19526f0d3325",
+      "status": 200,
+      "title": "Configure Alert Notifications for Slack",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty",
+      "extracted_sha256": "205dc50d4de3a8d122eda8cbdd1f894f25e88d73da2bfb48d84866183f5076fb",
+      "html_sha256": "0300a4f001150b0d84ebec15c5e9eab1cca9caa45c0e36b5900d35d2b2043292",
+      "status": 200,
+      "title": "Configure Alert Notifications for PagerDuty",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty"
+    },
+    {
+      "canonical_url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie",
+      "extracted_sha256": "48cd47fe11bba666f23ed10609c9539bb9a5eec4b56169ef2becb74b2a0b2c45",
+      "html_sha256": "b96bbce16f33629fa6ab4740fefd3f43d2e47d6895beb6ea8e32ea7f2b75490f",
+      "status": 200,
+      "title": "Configure Alert Notifications for OpsGenie",
+      "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie"
     }
   ],
   "media": [
@@ -514,6 +1046,67 @@
       "sha256": "9fb1cfd742bcace36f3cd1be0c40080d934523a110ea82bf2f1bd10a17708af6"
     }
   ],
+  "media_review": {
+    "contact_sheet_sha256": "0d6bd37a7946e0633327564f0f77a1b718a2816bf95442aeaa1c022f786fa369",
+    "decision": "omit incomplete alert procedures and their media; independent API reference contains no images",
+    "method": "Tesseract OCR and visual contact sheet; secret forms inspected at original size",
+    "monitor_contact_sheet_sha256": "e9cd7b506d32493ad2c3d9dabdb8a6bb0156792b34920a8920992e83978a03a6",
+    "monitor_occurrences": 13,
+    "occurrences": 33,
+    "ocr_sha256": "a12a29638633ada3f2970bcc7e8426d2615bf41351c9f56081abb0e0e103b298"
+  },
   "schema_version": 1,
-  "topic": "vesctl-retired"
+  "source_audit": {
+    "baseline": {
+      "direct_matches": [],
+      "document_count": 715
+    },
+    "original": {
+      "direct_matches": [
+        {
+          "body_sha256": "1c9089396a6f7b67a300314f761ef7b71998332f986a7bb92c0b33ea4c7efb1b",
+          "url": "https://community.f5.com/t/71350"
+        },
+        {
+          "body_sha256": "31ad193ef883b0b484fd6ac935f7f97a5025e843994f6fa5b70aff58f939ab36",
+          "url": "https://community.f5.com/t/75640"
+        },
+        {
+          "body_sha256": "02cf1a07c1ebd904b4851e22cbc714f0c126b8a34a9d0de453d293a99fcc874c",
+          "url": "https://community.f5.com/t/76970"
+        },
+        {
+          "body_sha256": "6c60d3b1288a272242e69f17033bc0d4e1f216603a3af7150c06da2a5947d48b",
+          "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
+        },
+        {
+          "body_sha256": "a3bba7da8bea0399ea61cb4ae8c80627fe57d3b94e04c0c06bb654b8184499ef",
+          "url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl"
+        },
+        {
+          "body_sha256": "660f7aac13db82cbac69148d5e540a33c3f940f3aa7d6c2593e620c07eee1b52",
+          "url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/app-delivery-network"
+        },
+        {
+          "body_sha256": "74beed8f271e04e76594d011defbbb2fadcaf0f8d78ca514b54c5de9e65c2fef",
+          "url": "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance"
+        },
+        {
+          "body_sha256": "bf2ac27b44cbb63a270ed36aef6bf70817e31959c9d0d8fe7093b9181fa642be",
+          "url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console"
+        },
+        {
+          "body_sha256": "b3902b0f91d05401deb8c2d0c9f258c0b66b269a1ae712154e52cc64ada3b9be",
+          "url": "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf"
+        },
+        {
+          "body_sha256": "288f2e3ab64f107e9fb389706a879abbedc81034372690871a52e5bce64fc104",
+          "url": "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation"
+        }
+      ],
+      "document_count": 739
+    }
+  },
+  "topic": "vesctl-retired",
+  "version": "1.1.0"
 }

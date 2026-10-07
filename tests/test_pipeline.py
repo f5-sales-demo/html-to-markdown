@@ -5,6 +5,7 @@ import pytest
 from html_to_markdown import pipeline as module
 from html_to_markdown import state as state_module
 from html_to_markdown.adapters.base import SourceAdapter
+from html_to_markdown.curation import curate_topics
 from html_to_markdown.errors import (
     AllowlistError,
     AuthenticationWallError,
@@ -396,7 +397,7 @@ async def test_fresh_extraction_curates_appstack_and_builds_identically(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("where", ["body", "title", "description", "destination"])
+@pytest.mark.parametrize("where", ["body", "title", "description", "destination", "keywords"])
 async def test_original_retirement_before_render_and_enrichment(tmp_path: Path, where: str) -> None:
     class RetiredFetcher(FakeFetcher):
         async def fetch(self, adapter: object, url: str) -> FetchResult:
@@ -406,6 +407,8 @@ async def test_original_retirement_before_render_and_enrichment(tmp_path: Path, 
                 if where == "description"
                 else ""
             )
+            if where == "keywords":
+                meta = '<meta name="keywords" content="download %2576esctl">'
             body = "Use %76esctl." if where == "body" else "Keep independent steps."
             link = (
                 '<a href="https://example.org/%2576esctl">Tool</a>'
@@ -433,4 +436,40 @@ async def test_original_retirement_before_render_and_enrichment(tmp_path: Path, 
     assert await pipeline.scrape("docs-cloud-f5-com") == []
     assert not list(tmp_path.glob("content/**/index.md"))
     assert not pipeline.store.rows()
+    pipeline.store.close()
+
+
+@pytest.mark.asyncio
+async def test_authored_transitive_dependencies_survive_redirect_resolution(tmp_path: Path) -> None:
+    class RedirectingFetcher(FakeFetcher):
+        async def fetch(self, adapter: object, url: str) -> FetchResult:
+            name = url.rsplit("/", 1)[1]
+            body = {
+                "first": '<p>Keep independent routes.</p><a href="middle">Required setup</a>',
+                "middle": '<p>Keep independent routes.</p><a href="last">Required setup</a>',
+                "last": "<p>Use vesctl.</p>",
+                "independent": "<p>Use Console Blindfold New Secret.</p>",
+            }[name]
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html="<main><h1>Guide</h1>" + body + "</main>",
+            )
+
+    pipeline = Pipeline(tmp_path)
+    await pipeline.fetcher.close()
+    pipeline.fetcher = RedirectingFetcher()  # type: ignore[assignment]
+    base = "https://docs.cloud.f5.com/docs-v2/platform/how-to/"
+    pipeline.store.discover(
+        [
+            DiscoveredPage(source_id="docs-cloud-f5-com", url=base + name)
+            for name in ("first", "middle", "last", "independent")
+        ]
+    )
+    await pipeline.scrape("docs-cloud-f5-com")
+
+    audit = curate_topics(tmp_path, pipeline.store)
+    assert audit["counts"] == {"keep": 1, "remove": 0, "omit": 2}
+    assert len(list(tmp_path.glob("content/**/index.md"))) == 1
     pipeline.store.close()

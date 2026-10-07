@@ -14406,12 +14406,28 @@
       "mode": "automatic",
       "retired_identities": [],
       "retired_patterns": [],
-      "retired_urls": ["https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl"],
+      "retired_urls": [
+        "https://community.f5.com/t/71350",
+        "https://community.f5.com/t/75640",
+        "https://community.f5.com/t/76970",
+        "https://docs.cloud.f5.com/docs-v2/docs/how-to/secret-mgmt/app-secrets-using-wingman",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman",
+        "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl",
+        "https://docs.cloud.f5.com/docs-v2/platform/quickstart/app-delivery-network",
+        "https://docs.cloud.f5.com/docs-v2/platform/quickstart/web-app-security-performance",
+        "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie",
+        "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-pagerduty",
+        "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack",
+        "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-console",
+        "https://www.f5.com/products/distributed-cloud-services/distributed-cloud-waf",
+        "https://www.f5.com/products/distributed-cloud-services/l3-and-l7-ddos-attack-mitigation"
+      ],
       "review_catalog": {
         "path": "vesctl_review.json",
-        "sha256": "a7ab1d18c45f79f6f3f4006672eb352c1f1c1f68e54de81908c6415a64fcd8e9"
+        "sha256": "647fb063814cfc32e73f4c661094f6f3fadea7b22b62ed601eac07d3c298da05"
       },
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "baseline_reviewed_urls": [
