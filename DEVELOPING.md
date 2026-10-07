@@ -137,8 +137,8 @@ uv run html-to-markdown examine-content --output verified-corpus > impact.json
 uv run html-to-markdown curate-content --output verified-corpus
 ```
 
-Both normal runs and offline curation use SMSv2, AppStack, vesctl retirement, Terraform, and
-API-reference migration in that order through one planner. Examination does not
+Both normal runs and offline curation inspect authored legacy classifications before SMSv2, AppStack, vesctl retirement, Terraform, and
+API-reference migration through one planner. See `engineering/legacy-curation.md` for the collection-wide source review. Examination does not
 change content and reports the same proposed transformations with stage digests. Normal and offline
 reapplication are stable across metadata, reports, manifest, checksums, archive
 and audit. Updating pinned evidence or decisions requires a versioned PR.

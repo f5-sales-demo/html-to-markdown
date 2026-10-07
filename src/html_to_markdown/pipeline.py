@@ -147,7 +147,44 @@ class Pipeline:
                 with self.store.connection:
                     self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
                 return None
-            retirement = load_curation_policy().vesctl
+            curation = load_curation_policy()
+            if curation.legacy is not None and curation.legacy.original_whole(
+                extracted.metadata.model_dump(by_alias=True), extracted.html, fetched.html
+            ):
+                target = (
+                    self.output
+                    / "content"
+                    / adapter.source_id
+                    / stable_path(adapter.source_id, url)
+                )
+                (target / "index.md").unlink(missing_ok=True)
+                record_exclusion(self.store, url, "authored_legacy_classification")
+                with self.store.connection:
+                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
+                return None
+            if curation.legacy is not None and (
+                curation.legacy.retired(extracted.html)
+                or any(
+                    curation.legacy.retired(str(value))
+                    for value in curation.legacy.authored(
+                        extracted.metadata.model_dump(by_alias=True)
+                    ).values()
+                )
+            ):
+                # No authored HTML input is implicitly approved by a review of
+                # already curated Markdown; fail closed before URL rewriting.
+                target = (
+                    self.output
+                    / "content"
+                    / adapter.source_id
+                    / stable_path(adapter.source_id, url)
+                )
+                (target / "index.md").unlink(missing_ok=True)
+                record_exclusion(self.store, url, "unreviewed_authored_legacy_input")
+                with self.store.connection:
+                    self.store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
+                return None
+            retirement = curation.vesctl
             if retirement is not None and retirement.original_match(
                 extracted.metadata.model_dump(by_alias=True), extracted.html
             ):

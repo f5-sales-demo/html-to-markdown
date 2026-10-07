@@ -135,8 +135,8 @@ def test_catalog_retirement_precedes_mapping_and_fallback() -> None:
         for op in raw_catalog["operations"]
         if op["resource"].rsplit(".", 1)[-1] in load_curation_policy().retired_identities
     ]
-    assert len(retired) == 50
-    assert len([op for op in retired if op["resource"] != "fleet"]) == 44
+    assert len(retired) == 56
+    assert len([op for op in retired if op["resource"] != "fleet"]) == 50
     assert not {op["operation_id"] for op in retired} & {
         op["operation_id"] for op in active.operations
     }

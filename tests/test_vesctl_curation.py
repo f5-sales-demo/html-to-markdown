@@ -128,6 +128,7 @@ def test_reviewed_dependency_guards_and_reapplication(tmp_path: Path) -> None:
     audit = curate_topics(tmp_path, policy=policy)
     assert split_document(path.read_text())[1] == after
     assert [s["topic"] for s in audit["documents"][0]["stages"]] == [
+        "legacy-retired",
         "smsv2-current",
         "appstack-retired",
         "vesctl-retired",

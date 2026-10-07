@@ -2,6 +2,59 @@
   "schema_version": 1,
   "topics": [
     {
+      "candidate_detectors": [],
+      "documents": [],
+      "evidence_inputs": [
+        {
+          "path": "legacy_media_review.json",
+          "sha256": "4fecd40b95dd1e91116761f5f5032ac2fc8a2595a7180b028f1285bf78b52129"
+        },
+        {
+          "authored_html_sha256": "88db9f648173348df5b90af6dd42a0a36e6ff539206f436b4668120a8f3ba2e3",
+          "review": "only /api/web/custom/namespaces/all-ns/roles retired; system and shared preserved",
+          "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/migrate-api-ns-ref"
+        }
+      ],
+      "id": "legacy-retired",
+      "media": [],
+      "mode": "automatic",
+      "retired_identities": ["dns_domain"],
+      "retired_patterns": [
+        "\\bsmsv[ _-]?1\\b",
+        "(?<![\\w-])delegated[ _-]+domains?\\b",
+        "(?<![\\w-])delegate[ _-]domains?\\b",
+        "\\bdns_domain\\b",
+        "\\blegacy (?:ce|customer edge|secure mesh|sites?|workflows?|deployments?|roles?)\\b",
+        "\\binline certificate\\s*\\(legacy\\)",
+        "\\bves[ _-]io[ _-](?:default|monitor|power[ _-]developer|admin)[ _-]role\\b",
+        "(?<![\\w])(?:volterra_|xcsh_)?(?:securemesh[_-]site(?![_-]v2)|aws[_-]vpc[_-]sites?|aws[_-]tgw[_-]sites?|azure[_-]vnet[_-]sites?|gcp[_-]vpc[_-]sites?)(?![\\w])",
+        "/migrate-api-ns-ref\\b",
+        "\\b(?:old|legacy|deprecated) api namespaces?\\b",
+        "\\bapi namespace (?:migration|check enforcement)\\b",
+        "/api/web/custom/namespaces/all[-_]ns/roles\\b"
+      ],
+      "retired_urls": [
+        "https://docs.cloud.f5.com/docs-v2/docs/images/node-vmware-images",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/ce-operations/mig-leg-nonorch",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/ce-operations/smsv2-mig-util",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/images/node-cert-hw-kvm-images",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/images/node-cloud-images",
+        "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/images/node-vmware-images",
+        "https://docs.cloud.f5.com/docs-v2/platform/reference/migrate-api-ns-ref"
+      ],
+      "review_catalog": {
+        "path": "legacy_review.json",
+        "sha256": "d3137a34a277c2a09d198a29121343de155a53db1e8f8f7d095e556fc86cc009"
+      },
+      "scope_patterns": [
+        "(?:this|the) (?:is (?:a|the) |guide.*?is |workflow.*?is )legacy (?:workflow|deployment|guide)",
+        "(?:apply|applies|limited|only|intended|designed).{0,70}(?:legacy (?:ce|customer edge|secure mesh|sites?|deployments?))",
+        "legacy (?:ce|customer edge|secure mesh).{0,50}(?:migration|migrat|rollback)",
+        "(?:migrat|compar).{0,80}legacy.{0,80}(?:secure mesh|smsv2|ce sites?)"
+      ],
+      "version": "1.0.0"
+    },
+    {
       "candidate_detectors": ["\\bfleets?\\b", "secure[ -]mesh", "\\bsmsv[12]\\b", "cloud[ -]sites?", "orchestrat"],
       "documents": [
         {
@@ -14309,17 +14362,19 @@
       "version": "1.0.0"
     },
     {
-      "id": "appstack-retired",
-      "mode": "automatic",
-      "version": "1.0.0",
       "candidate_detectors": ["\\bapp[_ -]?stack\\b", "\\bvolt[_ -]?stack\\b", "vesioschemaviewsvoltstack_siteapi"],
+      "documents": [],
+      "evidence_inputs": [],
+      "id": "appstack-retired",
+      "media": [],
+      "mode": "automatic",
+      "retired_identities": ["voltstack_site", "appstack_site"],
       "retired_patterns": [
         "\\bapp[_ -]?stack\\b",
         "\\bvolt[_ -]?stack\\b",
         "vesioschemaviewsvoltstack_siteapi",
         "\\bvoltstack_site\\b"
       ],
-      "retired_identities": ["voltstack_site", "appstack_site"],
       "retired_urls": [
         "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/create-deploy-managed-k8s",
         "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-token-for-managed-k8s",
@@ -14331,13 +14386,11 @@
         "https://my.f5.com/manage/s/article/K000147916",
         "https://my.f5.com/manage/s/article/K000148213"
       ],
-      "documents": [],
-      "media": [],
       "review_catalog": {
         "path": "appstack_review.json",
         "sha256": "38fd1e462da9fced19bba4e77e2781031d957167475ddf1f6fee089e8764f8db"
       },
-      "evidence_inputs": []
+      "version": "1.0.0"
     },
     {
       "candidate_detectors": ["vesctl"],
