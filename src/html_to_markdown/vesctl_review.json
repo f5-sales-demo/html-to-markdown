@@ -598,6 +598,11 @@
       "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/adv-security/blindfold-tls-certs"
     },
     {
+      "alias_evidence": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/platform/how-to/volt-automation/vesctl",
+        "status": 200
+      },
+      "aliases": ["https://docs.cloud.f5.com/docs-v2/docs/how-to/volterra-automation-tools/vesctl"],
       "disposition": "remove",
       "document": "content/docs-cloud-f5-com/platform/how-to/volt-automation/vesctl/index.md",
       "fresh_source": {
