@@ -16,6 +16,7 @@ from html_to_markdown.curation import (
     json_bytes,
     load_curation_policy,
 )
+from html_to_markdown.legacy_curation import LegacyFilter
 from html_to_markdown.models import DiscoveredPage, FetchResult
 from html_to_markdown.pipeline import Pipeline
 from html_to_markdown.render import split_document
@@ -99,7 +100,6 @@ def test_mixed_section_review_and_changed_source(tmp_path: Path) -> None:
         b for b in blocks(before) if b.kind == "section" and b.text.startswith("## Retired")
     )
     after = "# Guide\n\nCurrent primary DNS instructions.\n"
-    from html_to_markdown.legacy_curation import LegacyFilter
 
     topic["documents"].append(
         {
