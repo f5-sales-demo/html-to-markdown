@@ -207,3 +207,16 @@ def test_unknown_dependency_is_checked_before_appstack_removal(tmp_path: Path) -
     )
     assert curate_topics(tmp_path)["counts"]["omit"] == 1
     assert not path.exists()
+
+
+def test_dynamic_dependency_precedes_all_topic_edits(tmp_path: Path) -> None:
+    linker = document(
+        tmp_path,
+        "a-linker",
+        f"# Network\n\nKeep routes.\n\n- AppStack uses [setup]({BASE}z-setup).\n",
+    )
+    setup = document(tmp_path, "z-setup", "# Setup\n\nUse vesctl for provisioning.\n")
+    unrelated = document(tmp_path, "independent", "# Network\n\nKeep independent subnets.\n")
+    audit = curate_topics(tmp_path)
+    assert not linker.exists() and not setup.exists() and unrelated.exists()
+    assert audit["counts"] == {"keep": 1, "remove": 1, "omit": 1}

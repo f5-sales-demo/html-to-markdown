@@ -471,10 +471,26 @@ def curate_topics(
     plans: dict[str, dict[str, Any]] = {}
     retirement_excluded = set(active.vesctl.excluded) if active.vesctl is not None else set()
     excluded = set() if active.appstack is not None else set(active.excluded)
+    originals = [
+        (path, *split_document(path.read_text()))
+        for path in sorted(output.glob("content/*/**/index.md"))
+    ]
+    original_matches = set()
     if active.vesctl is not None:
-        excluded.update(active.vesctl.excluded)
-    for path in sorted(output.glob("content/*/**/index.md")):
-        metadata, body = split_document(path.read_text())
+        for path, metadata, body in originals:
+            if active.vesctl.original_match(metadata, body) or any(
+                active.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                for item in media_inventory(path, body)
+            ):
+                original_matches.add(path)
+                retirement_excluded.update(
+                    {
+                        canonical(str(metadata["url"])),
+                        canonical(str(metadata.get("canonical_url") or metadata["url"])),
+                    }
+                )
+        excluded.update(retirement_excluded)
+    for path, metadata, body in originals:
         url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
         candidate = active.sms_candidate(
             body
@@ -494,13 +510,7 @@ def curate_topics(
             "stages": [],
         }
         retained = body
-        original_match = active.vesctl is not None and (
-            active.vesctl.original_match(metadata, body)
-            or any(
-                active.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
-                for item in finding["media"]
-            )
-        )
+        original_match = path in original_matches
         original_dependencies = (
             active.references(body, url, retirement_excluded, predicate=active.vesctl.excludes)
             if active.vesctl is not None
