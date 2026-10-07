@@ -2,6 +2,7 @@
 
 import copy
 from pathlib import Path
+from typing import Any
 
 import pytest
 from typer.testing import CliRunner
@@ -61,7 +62,7 @@ def document(root: Path, name: str, body: str, **metadata: object) -> Path:
 )
 def test_original_mentions_remove_whole_page(tmp_path: Path, value: str, location: str) -> None:
     body = "# Guide\n\nKeep an independent networking explanation.\n"
-    metadata = {}
+    metadata: dict[str, Any] = {}
     if location in {"title", "description"}:
         metadata[location] = value
     elif location == "tags":
@@ -87,10 +88,10 @@ def test_original_guard_precedes_appstack_erasure(tmp_path: Path) -> None:
     path = document(
         tmp_path, "mixed", "# Guide\n\nIndependent network.\n\n- AppStack uses vesctl.\n"
     )
+    appstack = load_curation_policy().appstack
+    assert appstack is not None
     assert (
-        load_curation_policy()
-        .appstack.transform(split_document(path.read_text())[1], BASE + "mixed")
-        .body.find("vesctl")
+        appstack.transform(split_document(path.read_text())[1], BASE + "mixed").body.find("vesctl")
         == -1
     )
     assert curate_topics(tmp_path)["counts"]["remove"] == 1

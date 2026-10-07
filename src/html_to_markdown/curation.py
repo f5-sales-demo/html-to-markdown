@@ -206,7 +206,6 @@ class CurationPolicy:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
             raise ValueError("unsupported curation registry")
         self.raw, self.sha256 = raw, sha256
-        self.topics = raw["topics"]
         ids = [topic["id"] for topic in self.topics]
         if len(ids) != len(set(ids)):
             raise ValueError("duplicate topic identity")
@@ -236,10 +235,8 @@ class CurationPolicy:
                     self.appstack = AppStackFilter(
                         topic, blocks=blocks, digest=digest, remove_blocks=remove_blocks
                     )
-                elif topic["id"] == "vesctl-retired" and self.vesctl is None:
-                    self.vesctl = VesctlFilter(topic)
                 else:
-                    raise ValueError("unsupported automatic curation topic")
+                    self._load_whole_document_topic(topic)
             self.retired_identities.update(topic["retired_identities"])
             self.excluded.update(canonical(url) for url in topic["retired_urls"])
             self.retired_patterns.extend(
@@ -267,6 +264,15 @@ class CurationPolicy:
                 if key in self.media and self.media[key] != media:
                     raise ValueError("conflicting media decisions")
                 self.media[key] = media
+
+    def _load_whole_document_topic(self, topic: dict[str, Any]) -> None:
+        if topic["id"] != "vesctl-retired" or self.vesctl is not None:
+            raise ValueError("unsupported automatic curation topic")
+        self.vesctl = VesctlFilter(topic)
+
+    @property
+    def topics(self) -> list[dict[str, Any]]:
+        return list(self.raw["topics"])
 
     def excludes(self, url: str) -> bool:
         parsed = urlsplit(normalized(url))
@@ -833,26 +839,32 @@ def prune_assets(output: Path) -> None:
             path.unlink()
 
 
+def validate_whole_document_retirement(
+    policy: CurationPolicy, path: Path, metadata: dict[str, Any], body: str
+) -> None:
+    if policy.vesctl is not None:
+        if policy.vesctl.original_match(metadata, body) or any(
+            policy.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            for item in media_inventory(path, body)
+        ):
+            raise ValueError(f"retired whole document remains: {path}")
+        dependencies = policy.references(
+            body,
+            str(metadata["url"]),
+            policy.vesctl.excluded,
+            predicate=policy.vesctl.excludes,
+        )
+        if dependencies:
+            raise ValueError(f"retired document dependency remains: {path}")
+
+
 def validate_curation(
     output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
 ) -> None:
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
-        if policy.vesctl is not None:
-            if policy.vesctl.original_match(metadata, body) or any(
-                policy.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
-                for item in media_inventory(path, body)
-            ):
-                raise ValueError(f"retired whole document remains: {path}")
-            dependencies = policy.references(
-                body,
-                str(metadata["url"]),
-                policy.vesctl.excluded,
-                predicate=policy.vesctl.excludes,
-            )
-            if dependencies:
-                raise ValueError(f"retired document dependency remains: {path}")
+        validate_whole_document_retirement(policy, path, metadata, body)
         if policy.appstack is not None:
             result = policy.appstack.transform(body, str(metadata["url"]))
             if result.body != body or result.omit:
