@@ -5,6 +5,7 @@ import pytest
 from html_to_markdown import pipeline as module
 from html_to_markdown import state as state_module
 from html_to_markdown.adapters.base import SourceAdapter
+from html_to_markdown.curation import curate_topics
 from html_to_markdown.errors import (
     AllowlistError,
     AuthenticationWallError,
@@ -467,7 +468,6 @@ async def test_authored_transitive_dependencies_survive_redirect_resolution(tmp_
         ]
     )
     await pipeline.scrape("docs-cloud-f5-com")
-    from html_to_markdown.curation import curate_topics
 
     audit = curate_topics(tmp_path, pipeline.store)
     assert audit["counts"] == {"keep": 1, "remove": 0, "omit": 2}

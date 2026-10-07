@@ -1,5 +1,7 @@
 """Fresh authored examples and dependencies that survive absent targets and later filters."""
 
+import copy
+import json
 import re
 from pathlib import Path
 from urllib.parse import quote
@@ -7,8 +9,16 @@ from urllib.parse import quote
 import pytest
 from test_vesctl_curation import BASE, document
 
-from html_to_markdown.curation import curate_topics, load_curation_policy
-from html_to_markdown.render import split_document
+from html_to_markdown.curation import (
+    CurationPolicy,
+    curate_topics,
+    digest,
+    json_bytes,
+    load_curation_policy,
+)
+from html_to_markdown.models import PageMetadata
+from html_to_markdown.render import serialize_document, split_document
+from html_to_markdown.urls import stable_path
 
 WINGMAN = "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
 
@@ -36,7 +46,6 @@ WINGMAN = "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos
     ],
 )
 def test_missing_targets_remain_detectable(tmp_path: Path, target: str, syntax: str) -> None:
-    from html_to_markdown.urls import stable_path
 
     local = (
         "content/docs-cloud-f5-com/" + str(stable_path("docs-cloud-f5-com", target)) + "/index.md"
@@ -142,10 +151,6 @@ def test_local_target_removed_after_restoration(tmp_path: Path) -> None:
 
 @pytest.mark.parametrize("changed", ["none", "body", "metadata"])
 def test_authored_incoming_fixtures(tmp_path: Path, changed: str) -> None:
-    import json
-
-    from html_to_markdown.models import PageMetadata
-    from html_to_markdown.render import serialize_document
 
     fixtures = json.loads((Path(__file__).parent / "fixtures/vesctl-dependencies.json").read_text())
     paths = {}
@@ -178,12 +183,6 @@ def test_authored_incoming_fixtures(tmp_path: Path, changed: str) -> None:
 
 
 def test_observability_procedures_survive_reviewed_optional_alert_removal(tmp_path: Path) -> None:
-    import copy
-    import json
-
-    from html_to_markdown.curation import CurationPolicy, digest, json_bytes
-    from html_to_markdown.models import PageMetadata
-    from html_to_markdown.render import serialize_document
 
     fixtures = json.loads(
         (Path(__file__).parent / "fixtures/observability-dependencies.json").read_text()
@@ -223,6 +222,7 @@ def test_observability_procedures_survive_reviewed_optional_alert_removal(tmp_pa
                 split_document(paths[fixture["metadata"]["slug"]].read_text())[1] == fixture["body"]
             )
     assert curate_topics(tmp_path, policy=policy)["counts"]["keep"] == 4
-    kept = paths["adv-http-syn-mon"].parent / decision["reviewed_media"][0]["reference"]
-    kept.write_bytes(b"changed image pixels")
+    (paths["adv-http-syn-mon"].parent / decision["reviewed_media"][0]["reference"]).write_bytes(
+        b"changed image pixels"
+    )
     assert curate_topics(tmp_path, policy=policy)["counts"]["omit"] >= 1
