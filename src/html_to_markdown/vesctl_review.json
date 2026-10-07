@@ -197,6 +197,71 @@
       "document": "content/docs-cloud-f5-com/shared-configuration/how-tos/alerting/alerts-slack/assets/bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae.png",
       "ocr_sha256": "7da4a992d23f8a037097151ca0ded0ff8cf02919430377d32a2fbeb00cd49c7c",
       "sha256": "bc057ced6fca426a4d099bcaadf02d31e5664748d5b31d90fa99bd5942ba86ae"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0"
+    },
+    {
+      "disposition": "remove_optional_alerting",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004"
+    },
+    {
+      "disposition": "keep_independent_monitor_steps",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "sha256": "d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a"
     }
   ],
   "baseline": {
@@ -815,6 +880,100 @@
       "replacements": [],
       "title": "Configure Alert Notifications for OpsGenie",
       "url": "https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-opsgenie"
+    },
+    {
+      "disposition": "keep",
+      "fresh_source": {
+        "canonical_url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon",
+        "html_sha256": "96d863499332bd17ae492fa82a78b52052fe7d5184350ebf55c160ec0e70e18d",
+        "status": 200,
+        "url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon"
+      },
+      "input_sha256": "140020d3854f3a733b075c259689e9b04826d058afb796054e4d726bcb616598",
+      "output_sha256": "7bfabc4bc9b2473cc43876863c42f327f704f4601889535aeaf9c8ef2c0465c1",
+      "reason": "complete_monitor_creation_retained_optional_unverified_alerting_removed",
+      "replacements": [
+        {
+          "count": 1,
+          "destination": "",
+          "source": "**Step 6:** Set up alerting.\n\nAlerting for **Synthetic Monitoring** can be configured similar to other F5\u00ae Distributed Cloud services following the [Alerting](https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack) guides.\n\nOptionally, filter your **Alert Policy** to only send notifications to the receiver based on alerts coming from **Synthetic Monitoring** by either matching the **Group** to **Synthetic-Monitors** or matching the **Alert Name** to **SyntheticMonitorHealthCritical**.\n\n![Figure: Alerting](assets/68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd.png)\n\nFigure: Alerting\n"
+        },
+        {
+          "count": 1,
+          "destination": "",
+          "source": "- [Alerting](https://docs.cloud.f5.com/docs-v2/shared-configuration/how-tos/alerting/alerts-slack)\n"
+        }
+      ],
+      "reviewed_media": [
+        {
+          "ocr_sha256": "7050378e52dd7c9be860c805a200760d16fbea3ced08817560322ccc85631d8e",
+          "reference": "assets/31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3.png",
+          "sha256": "31664740de4f52c5a4feb14e845506c56b19769eedd195db058ce6914a914ab3"
+        },
+        {
+          "ocr_sha256": "f8fe1cf665d39d7d0f124c8883672b883ed8023686fb5260d122d400c0cd6bbf",
+          "reference": "assets/3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8.png",
+          "sha256": "3a9c682403959c946eb0af33e88323da6d9cec924062f7a4fdc7c16b048fdee8"
+        },
+        {
+          "ocr_sha256": "f45a367fd20f98b79344f5562f1156aa0213bcf4225bb1267d274bc63bb9ea03",
+          "reference": "assets/3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053.png",
+          "sha256": "3b65cd7934102ec7fc385326349a18b9cd8f604b07c2e7eba51b954860542053"
+        },
+        {
+          "ocr_sha256": "5f4278bc5c2b5fd36b832a72e5168187fe55bab74ca9fc0313574bb07eac3ad7",
+          "reference": "assets/4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0.png",
+          "sha256": "4b76474a9a5a9dd7e90b1e6328ce4f7145e0048e4ea91c308460a94bf4b166c0"
+        },
+        {
+          "ocr_sha256": "f164f6a5848e27b7db1552a461a5f61e5a4025689130ce68a41dad81880d5569",
+          "reference": "assets/68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd.png",
+          "sha256": "68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd"
+        },
+        {
+          "ocr_sha256": "8ce56c7eecf485f36b9fa63beee37b2f01591932ff50faaa877fee03080266ea",
+          "reference": "assets/6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c.png",
+          "sha256": "6b344ff3f8c40a27460965f7795b8b5e48c65a40d3c945d20a8ece5a37052f7c"
+        },
+        {
+          "ocr_sha256": "c58307671262707a4e28f7e9966a5a5c08142fa8d63d49507d289e880b748ac0",
+          "reference": "assets/779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576.png",
+          "sha256": "779bbd77fb183f38a8ecc741b7a4d985a44cd2a2325a17bda3240d034ee7c576"
+        },
+        {
+          "ocr_sha256": "79fff3d9d9c8d7848ce9c3f756e0dfbfa17bc1d590e8db0859fd8fd54fd7f20f",
+          "reference": "assets/949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57.png",
+          "sha256": "949d21fff2d419f97e03066bfd6153a059e28bc727c107dc92f85b0d6631ec57"
+        },
+        {
+          "ocr_sha256": "350f3c7cb504fea5b8b922258cdd804ec515b2bab9780e4c1e86495703cc2b8d",
+          "reference": "assets/aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb.png",
+          "sha256": "aee0ec4e30789807a192ace66851c9261fefcf9db3eb62936d59d074dfefb9cb"
+        },
+        {
+          "ocr_sha256": "9c2c63bd8cdf96ca07cf71085be64ebe8d6a9ed70e661175758a30ff3ca25221",
+          "reference": "assets/b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8.png",
+          "sha256": "b792005213219e2a4e1af3e81f0c6988e9f9f5acd3b73ba37adacc7d26de3cd8"
+        },
+        {
+          "ocr_sha256": "558ec247e00d4440ab147f6e33903d520a5b547c1a73e0e06d0db0604195a3a3",
+          "reference": "assets/be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3.png",
+          "sha256": "be2d4ebeb47802151a2d3eb0f0d374efb596206fb5b98475bd5128177f72a5f3"
+        },
+        {
+          "ocr_sha256": "71d6923f5ec7e3cad963c083411366fbe793d78a5a1305cc7e6ba45c24e1ab89",
+          "reference": "assets/bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004.png",
+          "sha256": "bf1a009cd53edb80a1190d2e704dc450975e18c5521db2b05faffc761c566004"
+        },
+        {
+          "ocr_sha256": "d821bfc212d2fe3d097413d7a9bea0a01a823d96f75e279bb32dcbee37fea283",
+          "reference": "assets/d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a.png",
+          "sha256": "d3a36495865ac70fb95ef5c2dffd66a8ce75603e68e4daf65ca37bf75cb9241a"
+        }
+      ],
+      "source_sha256": "c63a2cb2ad93b052d465cb41234fd110df2d96cb0f65062ffc64b3e07651ce2f",
+      "title": "Create Advanced HTTP(s) Synthetic Monitor",
+      "url": "https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon"
     }
   ],
   "fresh_sources": [
@@ -886,6 +1045,8 @@
     "contact_sheet_sha256": "0d6bd37a7946e0633327564f0f77a1b718a2816bf95442aeaa1c022f786fa369",
     "decision": "omit incomplete alert procedures and their media; independent API reference contains no images",
     "method": "Tesseract OCR and visual contact sheet; secret forms inspected at original size",
+    "monitor_contact_sheet_sha256": "e9cd7b506d32493ad2c3d9dabdb8a6bb0156792b34920a8920992e83978a03a6",
+    "monitor_occurrences": 13,
     "occurrences": 33,
     "ocr_sha256": "a12a29638633ada3f2970bcc7e8426d2615bf41351c9f56081abb0e0e103b298"
   },

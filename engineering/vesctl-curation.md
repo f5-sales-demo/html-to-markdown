@@ -80,3 +80,11 @@ The review catalog and topic version are pinned together. Consumer descriptions,
 relationships, content hashes, reports, checksums, assets, and archives are rebuilt;
 review details remain in the separate audit artifact. Existing CLI arguments and
 manifest schema v2 remain unchanged.
+
+The advanced HTTP synthetic monitor contains an optional alerting step that links
+to the omitted Slack guide. A fresh source fetch and review of its thirteen images
+support retaining the complete monitor-creation procedure after removing that
+optional step, its caption/image, and the related alert link. Its reviewed media
+bytes are checked on every curation. The TLS report, HTTP monitor quick start,
+and synthetic monitoring reference consequently retain their complete independent
+procedures and navigation.

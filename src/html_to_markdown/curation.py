@@ -495,6 +495,14 @@ def retirement_preflight(
         result = engine.transform(body, str(metadata["url"]), metadata=metadata)
         if path in matches:
             result = VesctlResult(body, [{"reason": "original_document_reference"}], omit=True)
+        decision = engine.decisions.get(engine.canonical(str(metadata["url"])))
+        if decision and "reviewed_media" in decision and not result.omit:
+            reviewed = {item["reference"]: item["sha256"] for item in decision["reviewed_media"]}
+            if any(
+                item["sha256"] != reviewed.get(item["reference"])
+                for item in media_inventory(path, result.body)
+            ):
+                result = VesctlResult(body, [{"reason": "changed_reviewed_media"}], omit=True)
         results[path] = result
         if result.omit:
             excluded.update(identities[path])

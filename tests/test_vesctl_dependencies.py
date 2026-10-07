@@ -1,5 +1,6 @@
 """Fresh authored examples and dependencies that survive absent targets and later filters."""
 
+import re
 from pathlib import Path
 from urllib.parse import quote
 
@@ -7,6 +8,7 @@ import pytest
 from test_vesctl_curation import BASE, document
 
 from html_to_markdown.curation import curate_topics, load_curation_policy
+from html_to_markdown.render import split_document
 
 WINGMAN = "https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-tos/secret-mgmt/pp-secrets-using-wingman"
 
@@ -143,7 +145,7 @@ def test_authored_incoming_fixtures(tmp_path: Path, changed: str) -> None:
     import json
 
     from html_to_markdown.models import PageMetadata
-    from html_to_markdown.render import serialize_document, split_document
+    from html_to_markdown.render import serialize_document
 
     fixtures = json.loads((Path(__file__).parent / "fixtures/vesctl-dependencies.json").read_text())
     paths = {}
@@ -173,3 +175,54 @@ def test_authored_incoming_fixtures(tmp_path: Path, changed: str) -> None:
         assert "Base64-encoded" in body
         assert curate_topics(tmp_path)["counts"]["keep"] == 1
     assert audit["counts"]["keep"] == int(changed == "none")
+
+
+def test_observability_procedures_survive_reviewed_optional_alert_removal(tmp_path: Path) -> None:
+    import copy
+    import json
+
+    from html_to_markdown.curation import CurationPolicy, digest, json_bytes
+    from html_to_markdown.models import PageMetadata
+    from html_to_markdown.render import serialize_document
+
+    fixtures = json.loads(
+        (Path(__file__).parent / "fixtures/observability-dependencies.json").read_text()
+    )
+    raw = copy.deepcopy(load_curation_policy().raw)
+    topic = next(t for t in raw["topics"] if t["id"] == "vesctl-retired")
+    decision = next(d for d in topic["documents"] if d["url"].endswith("/adv-http-syn-mon"))
+    # Synthetic image bytes exercise pixel guards without redistributing upstream screenshots.
+    for item in decision["reviewed_media"]:
+        item["sha256"] = digest(item["reference"].encode())
+    paths = {}
+    for fixture in fixtures:
+        path = tmp_path / fixture["path"]
+        path.parent.mkdir(parents=True)
+        path.write_text(
+            serialize_document(PageMetadata.model_validate(fixture["metadata"]), fixture["body"])
+        )
+        for reference in re.findall(r"assets/[a-zA-Z0-9_.-]+", fixture["body"]):
+            asset = path.parent / reference
+            asset.parent.mkdir(exist_ok=True)
+            asset.write_bytes(reference.encode())
+        paths[fixture["metadata"]["slug"]] = path
+    policy = CurationPolicy(raw, digest(json_bytes(raw)))
+    audit = curate_topics(tmp_path, policy=policy)
+    assert audit["counts"] == {"keep": 4, "remove": 0, "omit": 0}
+    advanced = split_document(paths["adv-http-syn-mon"].read_text())[1]
+    assert "Step 6" not in advanced and "alerts-slack" not in advanced
+    assert "Select **Add HTTP Monitor** to save" in advanced
+    assert "Figure: Setting health policy" in advanced
+    assert not (
+        paths["adv-http-syn-mon"].parent
+        / "assets/68dba405c10ae5c2f39603909d5d31197fe27d2abe8c1fd8d2e9f3f639343cbd.png"
+    ).exists()
+    for fixture in fixtures:
+        if fixture["metadata"]["slug"] != "adv-http-syn-mon":
+            assert (
+                split_document(paths[fixture["metadata"]["slug"]].read_text())[1] == fixture["body"]
+            )
+    assert curate_topics(tmp_path, policy=policy)["counts"]["keep"] == 4
+    kept = paths["adv-http-syn-mon"].parent / decision["reviewed_media"][0]["reference"]
+    kept.write_bytes(b"changed image pixels")
+    assert curate_topics(tmp_path, policy=policy)["counts"]["omit"] >= 1
