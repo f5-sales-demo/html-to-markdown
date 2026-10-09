@@ -1,0 +1,873 @@
+{
+  "snapshot": "content-20261007T124508Z",
+  "receipt_sha256": "f3626d507f0c3ea515b683e6bceecf43cad5793f87922e2d1f80fd353df44f21",
+  "documents": 712,
+  "body_words": 756334,
+  "body_chars": 5915722,
+  "estimated_body_tokens_chars_div_4": 1478930,
+  "word_percentiles": {
+    "0": 1,
+    "25": 376,
+    "50": 749,
+    "75": 1308,
+    "90": 2365,
+    "95": 3139,
+    "99": 5573,
+    "100": 10110
+  },
+  "sources": {
+    "community-f5-com": {
+      "documents": 288,
+      "words": 262235,
+      "chars": 2000665
+    },
+    "docs-cloud-f5-com": {
+      "documents": 327,
+      "words": 448971,
+      "chars": 3554449
+    },
+    "my-f5-com": {
+      "documents": 84,
+      "words": 30984,
+      "chars": 225924
+    },
+    "www-f5-com": {
+      "documents": 13,
+      "words": 14144,
+      "chars": 134684
+    }
+  },
+  "types": {
+    "content_type:knowledge_article": 372,
+    "task_type:support": 372,
+    "content_type:reference": 147,
+    "task_type:reference": 147,
+    "content_type:how_to": 150,
+    "task_type:configure": 149,
+    "content_type:concept": 30,
+    "task_type:concept": 43,
+    "task_type:troubleshoot": 1,
+    "content_type:product_overview": 12,
+    "content_type:solution_overview": 1
+  },
+  "blocks": {
+    "paragraph": 39434,
+    "fence": 384,
+    "table": 305,
+    "html_block": 80
+  },
+  "repetition": {
+    "clusters_at_least_3_documents": 491,
+    "cluster_document_occurrences": 4119,
+    "redundant_chars_upper_bound": 488301,
+    "top_frequency": [
+      {
+        "documents": 222,
+        "occurrences": 222,
+        "chars": 12432,
+        "redundant_chars": 12376,
+        "kind": "paragraph",
+        "text": "Published April 5, 2023 | Last modified October 2, 2026",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles"
+        ]
+      },
+      {
+        "documents": 107,
+        "occurrences": 107,
+        "chars": 9095,
+        "redundant_chars": 9010,
+        "kind": "paragraph",
+        "text": "- [Core Concepts](https://docs.cloud.f5.com/docs-v2/platform/concepts/core-concepts)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt"
+        ]
+      },
+      {
+        "documents": 89,
+        "occurrences": 89,
+        "chars": 7921,
+        "redundant_chars": 7832,
+        "kind": "paragraph",
+        "text": "- [System Overview](https://docs.cloud.f5.com/docs-v2/platform/concepts/system-overview)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure"
+        ]
+      },
+      {
+        "documents": 36,
+        "occurrences": 36,
+        "chars": 7740,
+        "redundant_chars": 7525,
+        "kind": "paragraph",
+        "text": "- An [F5 Distributed Cloud Account](https://console.ves.volterra.io). If you do not have an account, see [Getting Started with Console](https://docs.cloud.f5.com/docs-v2/platform/quickstart/get-started-on-console).",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/application-traffic-insight/how-tos/configure-ati",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/observe/mont-cdn-dist"
+        ]
+      },
+      {
+        "documents": 32,
+        "occurrences": 32,
+        "chars": 4256,
+        "redundant_chars": 4123,
+        "kind": "paragraph",
+        "text": "- [F5 Distributed Cloud - Customer Edge](https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/concepts/f5-xc-customer-edge)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-tos/storage-management/containerized-data-importer",
+          "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-tos/storage-management/create-pvcs",
+          "https://docs.cloud.f5.com/docs-v2/dns-management/quickstart/dns-services"
+        ]
+      },
+      {
+        "documents": 32,
+        "occurrences": 32,
+        "chars": 2528,
+        "redundant_chars": 2449,
+        "kind": "paragraph",
+        "text": "- [Networking](https://docs.cloud.f5.com/docs-v2/platform/concepts/networking)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/dns-management/quickstart/dns-services",
+          "https://docs.cloud.f5.com/docs-v2/docs/how-to/app-networking/http-load-balancer"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5616,
+        "redundant_chars": 5408,
+        "kind": "paragraph",
+        "text": "- [GET relevant source OpenApi schema per API endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiepsourceopenapischema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5265,
+        "redundant_chars": 5070,
+        "kind": "paragraph",
+        "text": "- [Update Vulnerabilities for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapiupdatevulnerabilitiesstate/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5238,
+        "redundant_chars": 5044,
+        "kind": "paragraph",
+        "text": "- [GET GET Learnt Schema per API endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointlearntschema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5211,
+        "redundant_chars": 5018,
+        "kind": "paragraph",
+        "text": "- [Unmerge Source from API Endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapiunmergeapiepsourceopenapischema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5184,
+        "redundant_chars": 4992,
+        "kind": "paragraph",
+        "text": "- [GET Sensitive Data Summary for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigettopsensitivedata/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5130,
+        "redundant_chars": 4940,
+        "kind": "paragraph",
+        "text": "- [GET API Endpoints Schema Updates.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointsschemaupdates/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5130,
+        "redundant_chars": 4940,
+        "kind": "paragraph",
+        "text": "- [GET API Endpoints Stats for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointsstats/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5049,
+        "redundant_chars": 4862,
+        "kind": "paragraph",
+        "text": "- [GET Top APIs Endpoints for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigettopapiendpoints/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 4968,
+        "redundant_chars": 4784,
+        "kind": "paragraph",
+        "text": "- [GET Vulnerabilities for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetvulnerabilities/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 4941,
+        "redundant_chars": 4758,
+        "kind": "paragraph",
+        "text": "- [GET Total API Calls for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapicallsummary/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 4941,
+        "redundant_chars": 4758,
+        "kind": "paragraph",
+        "text": "- [Update API Endpoints Schemas.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapiupdateapiendpointsschemas/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 4779,
+        "redundant_chars": 4602,
+        "kind": "paragraph",
+        "text": "- [Create a ticket for a vulnerability.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapicreateticket/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      }
+    ],
+    "top_volume": [
+      {
+        "documents": 222,
+        "occurrences": 222,
+        "chars": 12432,
+        "redundant_chars": 12376,
+        "kind": "paragraph",
+        "text": "Published April 5, 2023 | Last modified October 2, 2026",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles"
+        ]
+      },
+      {
+        "documents": 107,
+        "occurrences": 107,
+        "chars": 9095,
+        "redundant_chars": 9010,
+        "kind": "paragraph",
+        "text": "- [Core Concepts](https://docs.cloud.f5.com/docs-v2/platform/concepts/core-concepts)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt"
+        ]
+      },
+      {
+        "documents": 89,
+        "occurrences": 89,
+        "chars": 7921,
+        "redundant_chars": 7832,
+        "kind": "paragraph",
+        "text": "- [System Overview](https://docs.cloud.f5.com/docs-v2/platform/concepts/system-overview)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure"
+        ]
+      },
+      {
+        "documents": 36,
+        "occurrences": 36,
+        "chars": 7740,
+        "redundant_chars": 7525,
+        "kind": "paragraph",
+        "text": "- An [F5 Distributed Cloud Account](https://console.ves.volterra.io). If you do not have an account, see [Getting Started with Console](https://docs.cloud.f5.com/docs-v2/platform/quickstart/get-started-on-console).",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/application-traffic-insight/how-tos/configure-ati",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/observe/mont-cdn-dist"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5616,
+        "redundant_chars": 5408,
+        "kind": "paragraph",
+        "text": "- [GET relevant source OpenApi schema per API endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiepsourceopenapischema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5265,
+        "redundant_chars": 5070,
+        "kind": "paragraph",
+        "text": "- [Update Vulnerabilities for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapiupdatevulnerabilitiesstate/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5238,
+        "redundant_chars": 5044,
+        "kind": "paragraph",
+        "text": "- [GET GET Learnt Schema per API endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointlearntschema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5211,
+        "redundant_chars": 5018,
+        "kind": "paragraph",
+        "text": "- [Unmerge Source from API Endpoint.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapiunmergeapiepsourceopenapischema/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5184,
+        "redundant_chars": 4992,
+        "kind": "paragraph",
+        "text": "- [GET Sensitive Data Summary for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigettopsensitivedata/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5130,
+        "redundant_chars": 4940,
+        "kind": "paragraph",
+        "text": "- [GET API Endpoints Schema Updates.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointsschemaupdates/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5130,
+        "redundant_chars": 4940,
+        "kind": "paragraph",
+        "text": "- [GET API Endpoints Stats for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigetapiendpointsstats/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      },
+      {
+        "documents": 27,
+        "occurrences": 27,
+        "chars": 5049,
+        "redundant_chars": 4862,
+        "kind": "paragraph",
+        "text": "- [GET Top APIs Endpoints for Virtual Host.](https://f5-sales-demo.github.io/api-specs-enriched/api-reference/virtual/operations/vesioschemavirtual_hostapiepcustomapigettopapiendpoints/)",
+        "examples": [
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-purge",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/cdn-cache-rules",
+          "https://docs.cloud.f5.com/docs-v2/content-delivery-network/how-to/cdn-mgmt/conf-cache-lb"
+        ]
+      }
+    ]
+  },
+  "issues": {
+    "zero_width": {
+      "documents": 336,
+      "matches": 1069,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/65170",
+          "matches": 1,
+          "examples": ["​"]
+        },
+        {
+          "url": "https://community.f5.com/t/69250",
+          "matches": 4,
+          "examples": ["​", "​"]
+        },
+        {
+          "url": "https://community.f5.com/t/70064",
+          "matches": 1,
+          "examples": ["​"]
+        },
+        {
+          "url": "https://community.f5.com/t/70175",
+          "matches": 7,
+          "examples": ["​", "​"]
+        }
+      ]
+    },
+    "description_cut_mid_sentence": {
+      "documents": 679,
+      "matches": 679,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/65170",
+          "description": "API discovery helps in learning, searching, and identifying loopholes when app communicates via APIs especially in a large micro-services ecosystem. After discovery, the system analyzes the APIs, then will know how to secure the APIs from m"
+        },
+        {
+          "url": "https://community.f5.com/t/65235",
+          "description": "With today’s rapid adoption of multiple clouds by enterprises to solve challenges such as rapid delivery, high-availability, flexibility, cost-effectiveness and avoidance of vendor lock-in, new solutions are needed to provide connectivity a"
+        },
+        {
+          "url": "https://community.f5.com/t/68882",
+          "description": "The previous article gave great coverage of API Discovery functionality on the F5 Distributed Cloud Services Web App and API Protection (XC WAAP) platform. This one gives an overview of what is available in terms of API control features. Th"
+        },
+        {
+          "url": "https://community.f5.com/t/69175",
+          "description": "Advancement in technology brings lot of challenges to security and demands designing strategies to prevent security breaches by either restricting or limiting share of resources. Allowlisting and Denylisting are two such security strategies"
+        }
+      ]
+    },
+    "personal_story": {
+      "documents": 12,
+      "matches": 13,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/69322",
+          "matches": 1,
+          "examples": ["In this series"]
+        },
+        {
+          "url": "https://community.f5.com/t/69635",
+          "matches": 1,
+          "examples": ["In this series"]
+        },
+        {
+          "url": "https://community.f5.com/t/69882",
+          "matches": 1,
+          "examples": ["in the previous article"]
+        },
+        {
+          "url": "https://community.f5.com/t/70354",
+          "matches": 1,
+          "examples": ["In the previous article"]
+        }
+      ]
+    },
+    "share_or_nav_chrome": {
+      "documents": 10,
+      "matches": 16,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/69333",
+          "matches": 1,
+          "examples": ["Select service"]
+        },
+        {
+          "url": "https://community.f5.com/t/69462",
+          "matches": 2,
+          "examples": ["Select Service", "Select Service"]
+        },
+        {
+          "url": "https://community.f5.com/t/70689",
+          "matches": 1,
+          "examples": ["Select Service"]
+        },
+        {
+          "url": "https://community.f5.com/t/71311",
+          "matches": 4,
+          "examples": ["Select Service", "Select Service"]
+        }
+      ]
+    },
+    "duplicate_heading": {
+      "documents": 51,
+      "matches": 51,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/70039",
+          "examples": [["## Summary", 2]]
+        },
+        {
+          "url": "https://community.f5.com/t/70470",
+          "examples": [["##", 5]]
+        },
+        {
+          "url": "https://community.f5.com/t/71162",
+          "examples": [["##", 3]]
+        },
+        {
+          "url": "https://community.f5.com/t/71172",
+          "examples": [["### [Account Manager](https://www.networksolutions.com/my-account/)", 2]]
+        }
+      ]
+    },
+    "polluted_description": {
+      "documents": 327,
+      "matches": 327,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/73351",
+          "description": "F5 Distributed Cloud Bot Defense meets you where you’re at when it comes to deployment flexibility.​​ We make it ridiculously easy for you to deploy XC Bot Defense either in the cloud, on-prem, or as a hybrid configuration with pre-built co"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration",
+          "description": "​​​ The F5 Distributed Cloud Services Administration workspace allows you to manage your tenant settings, users, user groups, roles, login, and account settings. Use the curated resources provided on this Knowledge Hub page to explore the d"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "description": "​​​ Published April 5, 2023 | Last modified October 2, 2026 In a cloud environment, tenants are used to create isolated and secure environments for customers. These tenants can be managed by a Managed Service Provider (MSP), who provides te"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "description": "​​​ Published April 5, 2023 | Last modified October 2, 2026 This guide provides instructions on how to manage general settings for your tenant, and personal account settings in F5® Distributed Cloud Services. The tenant-level settings allow"
+        }
+      ]
+    },
+    "homepage_role_note": {
+      "documents": 23,
+      "matches": 60,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/73547",
+          "matches": 1,
+          "examples": ["homepage is role based"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
+          "matches": 3,
+          "examples": ["Homepage is role based", "homepage may look different"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure",
+          "matches": 1,
+          "examples": ["role customization"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-custom",
+          "matches": 2,
+          "examples": ["Homepage is role based", "role customization"]
+        }
+      ]
+    },
+    "duplicate_figure_caption": {
+      "documents": 178,
+      "matches": 1372,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/74721",
+          "matches": 5,
+          "examples": [
+            "Figure: [Default CE-CE connectivity over REs and F5 network backbone](https://lucid.app/lucidchart/d0c30cb4-b3e1-4c4a-b817-ef3dfb1025c2/edit?viewport_loc=331%2C29%2C1188%2C689%2CeFJK5MZEt8T-&invitationId=inv_a53ab0d3-3a4e-4dd9-b996-356930e2",
+            "Figure: [Sites in Hub-Spoke Site Mesh Group](https://lucid.app/lucidchart/d0c30cb4-b3e1-4c4a-b817-ef3dfb1025c2/edit?viewport_loc=194%2C189%2C1350%2C783%2Cv6ZKzdPQ49pZ&invitationId=inv_a53ab0d3-3a4e-4dd9-b996-356930e2bf71)"
+          ]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "matches": 5,
+          "examples": ["Figure: Tenant Level Diagram", "Figure: Metadata"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "matches": 7,
+          "examples": ["Figure: Tenant Settings Page", "Figure: Custom Logo"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "matches": 7,
+          "examples": ["Figure: Open Roles", "Figure: In-built RBAC Policy Rules"]
+        }
+      ]
+    },
+    "marketing": {
+      "documents": 2,
+      "matches": 2,
+      "examples": [
+        {
+          "url": "https://community.f5.com/t/76791",
+          "matches": 1,
+          "examples": ["Explore our"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/billing-faqs",
+          "matches": 1,
+          "examples": ["Contact Sales"]
+        }
+      ]
+    },
+    "published_date_body": {
+      "documents": 287,
+      "matches": 287,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "matches": 1,
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "matches": 1,
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "matches": 1,
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
+          "matches": 1,
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
+        }
+      ]
+    },
+    "account_signup": {
+      "documents": 121,
+      "matches": 161,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "matches": 2,
+          "examples": ["A [Distributed Cloud Services Account]", "If you do not have an account"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "matches": 1,
+          "examples": ["If you do not have an account"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "matches": 1,
+          "examples": ["If you do not have an account"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
+          "matches": 1,
+          "examples": ["If you do not have an account"]
+        }
+      ]
+    },
+    "closing_link_sections": {
+      "documents": 130,
+      "matches": 283,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
+          "matches": 1,
+          "examples": ["## Concepts\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
+          "matches": 3,
+          "examples": ["## Concepts\n", "## API References\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
+          "matches": 3,
+          "examples": ["## Concepts\n", "## API References\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
+          "matches": 1,
+          "examples": ["## Concepts\n"]
+        }
+      ]
+    },
+    "advanced_nav_note": {
+      "documents": 18,
+      "matches": 36,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
+          "matches": 2,
+          "examples": ["options are not showing available", "Advanced nav options visible"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure",
+          "matches": 2,
+          "examples": ["options are not showing available", "Advanced nav options visible"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-custom",
+          "matches": 2,
+          "examples": ["options are not showing available", "Advanced nav options visible"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-google",
+          "matches": 2,
+          "examples": ["options are not showing available", "Advanced nav options visible"]
+        }
+      ]
+    },
+    "very_short_body": {
+      "documents": 25,
+      "matches": 25,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/bigip-apm/prod-demo/bigip-demo6",
+          "words": 29,
+          "body": "​​​\n\n# F5 BIG-IP Access Policy Manager (APM) - Google Authenticator and Microsoft Authenticator\n\nPublished May 22, 2025 | Last modified October 2, 2026More information can be found [here](https://www.f5.com/resources/videos/f5-big-ip-access-policy-manager-apm-google-authenticator-and-microsoft-authenticator).\n"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/bigip-apm/prod-demo/bigip-demo7",
+          "words": 29,
+          "body": "​​​\n\n# Harnessing the power of F5 BIG-IP Access Policy Manager (APM) and Microsoft\n\nPublished May 22, 2025 | Last modified October 2, 2026More information can be found [here](https://www.f5.com/resources/videos/f5-big-ip-access-policy-manager-apm-and-microsoft).\n"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/bigip-apm/prod-train/bigip-trn-demo2",
+          "words": 21,
+          "body": "​​​\n\n# Classic BIG-IP Service Discovery\n\nPublished June 13, 2025 | Last modified October 2, 2026More information can be found [here](https://training.cloud.f5.com/p/classic_big-ip_service_discovery).\n"
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/bigip-utilities/prod-train/bigip-util-trn-demo1",
+          "words": 21,
+          "body": "​​​\n\n# Classic BIG-IP Service Discovery\n\nPublished June 13, 2025 | Last modified October 2, 2026More information can be found [here](https://training.cloud.f5.com/p/classic_big-ip_service_discovery).\n"
+        }
+      ]
+    },
+    "terminal_window": {
+      "documents": 22,
+      "matches": 119,
+      "examples": [
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/k8s-sts",
+          "matches": 14,
+          "examples": ["Terminal window\n", "Terminal window\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-mesh",
+          "matches": 1,
+          "examples": ["Terminal window\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/vk8s-deployment",
+          "matches": 2,
+          "examples": ["Terminal window\n", "Terminal window\n"]
+        },
+        {
+          "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-tos/storage-management/containerized-data-importer",
+          "matches": 12,
+          "examples": ["Terminal window\n", "Terminal window\n"]
+        }
+      ]
+    }
+  },
+  "longest": [
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/docs/how-to/app-networking/http-load-balancer",
+      "words": 10110,
+      "chars": 73299
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer",
+      "words": 10110,
+      "chars": 73299
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/observe/monitor-http-load-balancer",
+      "words": 8553,
+      "chars": 56849
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/reference/security-events-reference",
+      "words": 7704,
+      "chars": 46059
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/platform/changelogs/node-sw-release-notes",
+      "words": 7450,
+      "chars": 59638
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/billing-faqs",
+      "words": 6865,
+      "chars": 43208
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/reporting-advanced",
+      "words": 5872,
+      "chars": 37622
+    },
+    {
+      "url": "https://docs.cloud.f5.com/docs-v2/bot-defense/configure/big-ip-14-16",
+      "words": 5573,
+      "chars": 37637
+    }
+  ]
+}

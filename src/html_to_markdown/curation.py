@@ -1,3 +1,5 @@
+# Replay imports are deferred until after module initialization to preserve the policy boundary.
+# pylint: disable=cyclic-import
 """Versioned, offline topic decisions over lossless Markdown structural spans.
 
 Detectors propose examination only. Publication accepts reviewed bytes, and every
@@ -1066,8 +1068,18 @@ def validate_whole_document_retirement(
             policy.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
             for item in media_inventory(path, body)
         )
-        result = policy.legacy.transform(metadata, body, dependent=legacy_media_affected)
-        if result.disposition != "keep" or result.body != body:
+        upstream = next(
+            (parent for parent in path.parents if (parent / "enrichment-state.json").is_file()),
+            None,
+        )
+        original_metadata, original_body = metadata, body
+        if upstream is not None and path.relative_to(upstream).parts[0] == "content":
+            original = upstream / ".enrichment" / "curated" / path.relative_to(upstream)
+            original_metadata, original_body = split_document(original.read_text())
+        result = policy.legacy.transform(
+            original_metadata, original_body, dependent=legacy_media_affected
+        )
+        if result.disposition != "keep" or result.body != original_body:
             raise ValueError(f"retired legacy content remains: {path}")
     if policy.vesctl is not None:
         if policy.vesctl.original_match(metadata, body) or any(
@@ -1085,9 +1097,16 @@ def validate_whole_document_retirement(
             raise ValueError(f"retired document dependency remains: {path}")
 
 
+# Original-chain and final-policy guards deliberately remain one audit.
+# pylint: disable-next=too-many-branches
 def validate_curation(
     output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
 ) -> None:
+    enriched = (output / "enrichment-state.json").is_file()
+    if enriched:
+        from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
+
+        verify_enrichment(output)
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
@@ -1154,7 +1173,7 @@ def validate_curation(
             predicate=policy.appstack.excludes if policy.appstack else None,
         ):
             raise ValueError(f"retired reference remains: {path}")
-    if artifacts:
+    if artifacts and not enriched:
         # Final validation uses the same planner as examination and application.
         replay = curate_topics(output, policy=policy, apply=False)
         planned = replay.pop("_planned")

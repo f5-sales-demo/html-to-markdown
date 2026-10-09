@@ -12,6 +12,10 @@ import typer
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
 from .content_policy import load_content_policy, migrate_content
+from .enrichment.analysis import write_analysis
+from .enrichment.engine import prepare, replay, verify_enrichment
+from .enrichment.evaluation import evaluate
+from .enrichment.generate import generate
 from .logging import configure_logging
 from .metadata import enrich_snapshot
 from .models import DiscoveredPage, PageStatus
@@ -287,6 +291,98 @@ def migrate_content_command(
         )
     finally:
         store.close()
+
+
+@app.command("analyze-corpus")
+def analyze_corpus_command(
+    output: Output = Path("build"),
+    report: Annotated[Path, typer.Option(dir_okay=False)] = Path("corpus-analysis.json"),
+) -> None:
+    """Inventory every document and structural span for semantic review."""
+    result = write_analysis(output, report)
+    typer.echo(
+        json.dumps({"documents": len(result["documents"]), "report": str(report)}, sort_keys=True)
+    )
+
+
+@app.command("enrich-content")
+# Each public option is an independent CLI argument.
+# pylint: disable-next=too-many-arguments
+def enrich_content_command(
+    output: Output = Path("build"),
+    decisions: Annotated[Path, typer.Option(dir_okay=False)] = Path("enrichment-decisions.json"),
+    mode: Annotated[
+        str, typer.Option(help="prepare, media, editor, validator, or replay")
+    ] = "replay",
+    decisions_sha256: Annotated[str, typer.Option()] = "",
+    baseline: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+    baseline_tag: Annotated[str, typer.Option()] = "",
+    publication_sha256: Annotated[str, typer.Option()] = "",
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".enrichment-batches"),
+    wait: Annotated[bool, typer.Option()] = False,
+) -> None:
+    """Generate decisions in resumable batches or replay an exact artifact offline."""
+    if mode == "prepare":
+        if baseline is None:
+            raise typer.BadParameter("prepare requires --baseline")
+        artifact = prepare(
+            output, baseline, decisions, tag=baseline_tag, receipt_sha256=publication_sha256
+        )
+        typer.echo(
+            json.dumps(
+                {"documents": len(artifact.documents), "decisions": str(decisions)}, sort_keys=True
+            )
+        )
+    elif mode in {"media", "editor", "validator"}:
+        typer.echo(
+            json.dumps(
+                generate(output, decisions, phase=mode, journal=journal, wait=wait), sort_keys=True
+            )
+        )
+    elif mode == "replay":
+        if not decisions_sha256:
+            raise typer.BadParameter("replay requires --decisions-sha256")
+        report = replay(output, decisions, decisions_sha256)
+        store = StateStore(output / "state.sqlite")
+        try:
+            write_quality_reports(output)
+            validate_snapshot(output, store)
+            prior = json.loads((output / "manifest.json").read_text())
+            write_release(
+                output, build_manifest(output, store, prior["started_at"], prior["ended_at"])
+            )
+        finally:
+            store.close()
+        typer.echo(
+            json.dumps(
+                {"counts": report["counts"], "input_documents": report["input_documents"]},
+                sort_keys=True,
+            )
+        )
+    else:
+        raise typer.BadParameter("invalid enrichment mode")
+
+
+@app.command("verify-enrichment")
+def verify_enrichment_command(output: Output = Path("build")) -> None:
+    """Verify pinned decisions, protected facts, upstream chain and final bytes."""
+    state = verify_enrichment(output)
+    typer.echo(
+        json.dumps({"valid": True, "artifact_sha256": state["artifact_sha256"]}, sort_keys=True)
+    )
+
+
+@app.command("evaluate-enrichment")
+def evaluate_enrichment_command(
+    baseline: Annotated[Path, typer.Option(file_okay=False)],
+    output: Output,
+    questions: Annotated[Path, typer.Option(dir_okay=False)],
+    report: Annotated[Path, typer.Option(dir_okay=False)],
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".enrichment-evaluation"),
+) -> None:
+    """Compare corpus retrieval correctness, evidence, relevance and context size."""
+    result = evaluate(baseline, output, questions, journal, report)
+    typer.echo(json.dumps({"passed": result["passed"], "failures": result["failures"]}))
 
 
 if __name__ == "__main__":

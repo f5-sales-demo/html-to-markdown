@@ -1,3 +1,5 @@
+# Deferred replay imports resolve only after policy module initialization.
+# pylint: disable=cyclic-import
 """Reviewed deterministic snapshot metadata enrichment."""
 
 from __future__ import annotations
@@ -209,6 +211,11 @@ def _accepted(row: Row) -> bool:
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | None = None) -> None:
     """Apply reviewed metadata only after the complete snapshot inventory exists."""
+    if (output / "enrichment-state.json").is_file():
+        from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
+
+        verify_enrichment(output)
+        return
     active_policy = policy or load_metadata_policy()
     rows = [row for row in store.rows() if _accepted(row)]
     documents: dict[str, tuple[Path, PageMetadata, str, Row]] = {}

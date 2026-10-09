@@ -156,10 +156,13 @@ def _validate_asset_entry(asset: object, files: dict[str, bytes], seen: set[str]
 
 
 # Manifest validation deliberately checks the complete closed archive graph.
-# pylint: disable-next=too-many-branches
+# pylint: disable-next=too-many-branches,too-many-locals
 def _validate_manifest(manifest: object, files: dict[str, bytes]) -> None:
     if not isinstance(manifest, dict) or manifest.get("schema_version") != MANIFEST_SCHEMA_VERSION:
         raise ValueError("manifest schema version is invalid")
+    from .enrichment.graph import validate_aliases  # pylint: disable=import-outside-toplevel
+
+    validate_aliases(manifest)
     documents = manifest.get("documents")
     assets = manifest.get("assets")
     if not isinstance(documents, list) or not isinstance(assets, list):
@@ -309,7 +312,7 @@ def build_manifest(
         if isinstance(quality_summary, dict)
         else {"not_compared": 0}
     )
-    return {
+    manifest = {
         "schema_version": MANIFEST_SCHEMA_VERSION,
         "tool_version": __version__,
         "source_roots": SOURCE_ROOTS,
@@ -324,6 +327,15 @@ def build_manifest(
         "failures": [item for item in failures if item["url"] in {doc["url"] for doc in documents}],
         "documents": documents,
     }
+    if (output / "enrichment-state.json").is_file():
+        from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
+
+        state = verify_enrichment(output)
+        manifest["enrichment"] = {
+            "artifact_sha256": state["artifact_sha256"],
+            "aliases": state["report"]["aliases"],
+        }
+    return manifest
 
 
 # Packaging and its final integrity audit intentionally share one transaction.

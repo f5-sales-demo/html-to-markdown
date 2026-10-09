@@ -1,0 +1,24 @@
+{
+  "9376bd8d33bc752cf8d91b4755287c03684a993c0f2c5de606763501943ae411": {
+    "document": "content/docs-cloud-f5-com/platform/reference/wingman-api-reference/index.md",
+    "address": "# Wingman API Reference@1/## Status API@1:fence:41",
+    "source": "```\n$ curl http://localhost:8070/statusREADY\n```\n",
+    "replacement": "```\n$ curl http://localhost:8070/status\nREADY\n```\n",
+    "kind": "html_code_line_boundaries",
+    "html": "<pre data-language=\"shell\"><code class=\"mui-style-3j2nil\"><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#B392F0;--1:#6F42C1\">$</span><span style=\"--0:#E1E4E8;--1:#24292E\"> </span><span style=\"--0:#9ECBFF;--1:#032F62\">curl</span><span style=\"--0:#E1E4E8;--1:#24292E\"> </span><span style=\"--0:#9ECBFF;--1:#032F62\">http://localhost:8070/status</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#B392F0;--1:#6F42C1\">READY</span></div></div></code></pre>",
+    "html_sha256": "9376bd8d33bc752cf8d91b4755287c03684a993c0f2c5de606763501943ae411",
+    "source_url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference",
+    "captured_at": "2026-10-09T02:20:00Z"
+  },
+  "5857c9fe00b270a77597c16a2538a0714d95abcee969412503b4589b3e87f6d5": {
+    "document": "content/docs-cloud-f5-com/platform/reference/wingman-api-reference/index.md",
+    "address": "# Wingman API Reference@1/## Secret management API@1/### Blindfold secrets@1:fence:91",
+    "source": "```\n{  \"type\": \"blindfold\",  // Secret location  // It must be in url format string:///  \"location\": <secret_url>}\n```\n",
+    "replacement": "```\n{\n  \"type\": \"blindfold\",\n  // Secret location\n  // It must be in url format string:///\n  \"location\": <secret_url>\n}\n```\n",
+    "kind": "html_code_line_boundaries",
+    "html": "<pre data-language=\"json\"><code class=\"mui-style-3j2nil\"><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#E1E4E8;--1:#24292E\">{</span></div></div><div class=\"ec-line\"><div class=\"code\"><span class=\"indent\">  </span><span style=\"--0:#79B8FF;--1:#005CC5\">\"type\"</span><span style=\"--0:#E1E4E8;--1:#24292E\">: </span><span style=\"--0:#9ECBFF;--1:#032F62\">\"blindfold\"</span><span style=\"--0:#E1E4E8;--1:#24292E\">,</span></div></div><div class=\"ec-line\"><div class=\"code\"><span class=\"indent\">  </span><span style=\"--0:#99A0A6;--1:#616972\">// Secret location</span></div></div><div class=\"ec-line\"><div class=\"code\"><span class=\"indent\">  </span><span style=\"--0:#99A0A6;--1:#616972\">// It must be in url format string:///</span></div></div><div class=\"ec-line\"><div class=\"code\"><span class=\"indent\">  </span><span style=\"--0:#79B8FF;--1:#005CC5\">\"location\"</span><span style=\"--0:#E1E4E8;--1:#24292E\">: </span><span style=\"--0:#FDAEB7;--0fs:italic;--1:#B31D28;--1fs:italic\">&lt;secret_url&gt;</span></div></div><div class=\"ec-line\"><div class=\"code\"><span style=\"--0:#E1E4E8;--1:#24292E\">}</span></div></div></code></pre>",
+    "html_sha256": "5857c9fe00b270a77597c16a2538a0714d95abcee969412503b4589b3e87f6d5",
+    "source_url": "https://docs.cloud.f5.com/docs-v2/platform/reference/wingman-api-reference",
+    "captured_at": "2026-10-09T02:20:00Z"
+  }
+}
