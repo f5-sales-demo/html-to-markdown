@@ -18,11 +18,13 @@ from ..render import serialize_document, split_document
 from ..state import StateStore
 from ..validation import validate_document
 from .analysis import analyze, links, sha
+from .canonical import canonical_request
 from .contracts import (
     EDITOR_MODEL,
     PROMPT_VERSION,
     VALIDATOR_MODEL,
     Artifact,
+    CanonicalDecision,
     Decision,
     DocumentEvidence,
     ImageAnalysis,
@@ -292,7 +294,7 @@ def artifact_bytes(artifact: Artifact) -> bytes:
 
 
 # The complete acceptance inventory and its source/evidence guards are one transaction.
-# pylint: disable-next=too-many-locals,too-many-branches
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     current_digest = corpus_digest(curated)
     if artifact.prompt_version != PROMPT_VERSION or artifact.curated_sha256 != current_digest:
@@ -382,6 +384,61 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
                 reason="canonical target is not retained",
                 canonical_document=None,
             )
+    for review in artifact.canonical_reviews:
+        try:
+            source = indexed[review.document]
+            target = indexed[review.canonical_document]
+
+            def canonical_identity(doc: dict[str, Any]) -> Any:
+                return doc["metadata"].get("canonical_url") or doc["metadata"]["url"]
+
+            if (
+                canonical_identity(source) != canonical_identity(target)
+                or source["body"] != target["body"]
+            ):
+                raise ValueError("canonical source content differs")
+            source_media = {m["sha256"] for m in source["media"]}
+            target_media = {m["sha256"] for m in target["media"]}
+            if None in source_media or source_media != target_media:
+                raise ValueError("canonical media differs or is unavailable")
+            for canonical_evidence, model in (
+                (review.editor, EDITOR_MODEL),
+                (review.validator, VALIDATOR_MODEL),
+            ):
+                check = parse_response(
+                    canonical_evidence,
+                    CanonicalDecision,
+                    model,
+                    request_hash(canonical_request(source, target, model)),
+                )
+                identity_matches = (
+                    check.document != source["document"]
+                    or check.canonical_document != target["document"]
+                    or check.input_sha256 != source["input_sha256"]
+                    or check.canonical_input_sha256 != target["input_sha256"]
+                )
+                preservation_passed = all(
+                    (
+                        check.approved,
+                        check.canonical_identity_matches,
+                        check.complete_substantive_text_matches,
+                        check.media_bytes_match,
+                        check.preserve_all_existing_routes,
+                        check.no_technical_repair_proposed,
+                    )
+                )
+                if identity_matches or not preservation_passed or check.preservation_failures:
+                    raise ValueError("independent canonical preservation failed")
+            if resolved[target["document"]]["disposition"] in {"alias", "exclude_shell"}:
+                raise ValueError("canonical target unavailable")
+            resolved[source["document"]].update(
+                disposition="alias",
+                canonical_document=target["document"],
+                body=source["body"],
+                reason="exact canonical content independently verified by both models",
+            )
+        except (KeyError, ValueError, TypeError):
+            continue
     graph_fallbacks(analysis, results)
     if cache_key is not None:
         _DECISION_CACHE[cache_key] = (analysis, results)

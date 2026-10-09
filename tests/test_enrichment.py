@@ -18,11 +18,13 @@ from html_to_markdown.content_policy import load_content_policy, migrate_content
 from html_to_markdown.curation import corpus_digest, json_bytes, load_curation_policy
 from html_to_markdown.enrichment.analysis import analyze, inventory, sha
 from html_to_markdown.enrichment.batch import BatchClient
+from html_to_markdown.enrichment.canonical import canonical_request
 from html_to_markdown.enrichment.contracts import (
     EDITOR_MODEL,
     PROMPT_VERSION,
     VALIDATOR_MODEL,
     Artifact,
+    CanonicalEvidence,
     ClassificationDecision,
     Decision,
     DocumentEvidence,
@@ -545,3 +547,61 @@ def test_shared_visual_evidence_roundtrip_keeps_request_identity(tmp_path: Path)
     target.write_text(json.dumps(malformed))
     with pytest.raises(ValueError, match="visual input digest"):
         load_artifact(target)
+
+
+@pytest.mark.parametrize("mismatch", [False, True])
+def test_canonical_consolidation_requires_both_models_and_identical_content(
+    tmp_path: Path, mismatch: bool
+) -> None:
+    source = tmp_path / "source"
+    first = document(source)
+    second = first.parent.parent / "duplicate" / "index.md"
+    second.parent.mkdir()
+    second.write_bytes(first.read_bytes())
+    metadata, body = __import__(
+        "html_to_markdown.render", fromlist=["split_document"]
+    ).split_document(second.read_text())
+    metadata["url"] = "https://docs.cloud.f5.com/docs-v2/duplicate"
+    metadata["canonical_url"] = "https://docs.cloud.f5.com/docs-v2/current"
+    second.write_text(
+        serialize_document(
+            PageMetadata.model_validate(metadata),
+            body + ("\nDifferent technical feature.\n" if mismatch else ""),
+        )
+    )
+    metadata, body = __import__(
+        "html_to_markdown.render", fromlist=["split_document"]
+    ).split_document(first.read_text())
+    metadata["canonical_url"] = "https://docs.cloud.f5.com/docs-v2/current"
+    first.write_text(serialize_document(PageMetadata.model_validate(metadata), body))
+    migrate_content(source)
+    artifact = artifact_for(source)
+    analysis = analyze(source)
+    target = next(d for d in analysis["documents"] if d["document"].endswith("/current/index.md"))
+    alias = next(d for d in analysis["documents"] if d["document"].endswith("/duplicate/index.md"))
+    output = {
+        "document": alias["document"],
+        "canonical_document": target["document"],
+        "input_sha256": alias["input_sha256"],
+        "canonical_input_sha256": target["input_sha256"],
+        "canonical_identity_matches": True,
+        "complete_substantive_text_matches": True,
+        "media_bytes_match": True,
+        "preserve_all_existing_routes": True,
+        "no_technical_repair_proposed": True,
+        "approved": True,
+        "reason": "Exact duplicate.",
+        "preservation_failures": [],
+    }
+    artifact.canonical_reviews = [
+        CanonicalEvidence(
+            document=alias["document"],
+            canonical_document=target["document"],
+            editor=response_for(canonical_request(alias, target, EDITOR_MODEL), output),
+            validator=response_for(canonical_request(alias, target, VALIDATOR_MODEL), output),
+        )
+    ]
+    decisions = tmp_path / "decisions.json"
+    decisions.write_bytes(artifact_bytes(artifact))
+    report = replay(source, decisions, sha(decisions.read_bytes()))
+    assert report["counts"]["alias"] == (0 if mismatch else 1)
