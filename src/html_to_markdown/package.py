@@ -419,11 +419,12 @@ def _read_archive_files(archive: Path) -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     seen_names: set[str] = set()
     expanded = 0
-    with tarfile.open(archive, mode="r:gz") as packaged:
-        members = packaged.getmembers()
-        if not members or len(members) > MAX_MEMBERS:
-            raise ValueError("archive member count is invalid")
-        for member in members:
+    with tarfile.open(archive, mode="r|gz") as packaged:
+        member_count = 0
+        for member in packaged:
+            member_count += 1
+            if member_count > MAX_MEMBERS:
+                raise ValueError("archive member count is invalid")
             path = _safe_member_path(member.name)
             if member.name in seen_names:
                 raise ValueError(f"archive contains a duplicate member: {member.name}")
@@ -447,6 +448,8 @@ def _read_archive_files(archive: Path) -> dict[str, bytes]:
             if handle is None:
                 raise ValueError(f"archive member cannot be read: {path}")
             files[member.name] = handle.read()
+        if member_count == 0:
+            raise ValueError("archive member count is invalid")
     return files
 
 
