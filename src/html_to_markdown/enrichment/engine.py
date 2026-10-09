@@ -240,7 +240,45 @@ def load_artifact(path: Path) -> Artifact:
     raw = path.read_bytes()
     if raw.startswith(b"\x1f\x8b"):
         raw = gzip.decompress(raw)
-    return Artifact.model_validate_json(raw)
+    parsed = json.loads(raw)
+    visual_inputs = parsed.pop("shared_visual_inputs", {})
+    if visual_inputs:
+
+        def restore(value: Any) -> Any:
+            if isinstance(value, str) and value.startswith("enrichment-image://"):
+                digest = value.removeprefix("enrichment-image://")
+                image = visual_inputs.get(digest)
+                if image is None or sha(image) != digest:
+                    raise ValueError("shared visual input digest mismatch")
+                return image
+            if isinstance(value, dict):
+                return {key: restore(item) for key, item in value.items()}
+            if isinstance(value, list):
+                return [restore(item) for item in value]
+            return value
+
+        parsed = restore(parsed)
+    return Artifact.model_validate(parsed)
+
+
+def artifact_bytes(artifact: Artifact) -> bytes:
+    """Store each visual input once without changing model request identities."""
+    visual_inputs: dict[str, str] = {}
+
+    def deduplicate(value: Any) -> Any:
+        if isinstance(value, str) and value.startswith("data:image/"):
+            digest = sha(value)
+            visual_inputs[digest] = value
+            return "enrichment-image://" + digest
+        if isinstance(value, dict):
+            return {key: deduplicate(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [deduplicate(item) for item in value]
+        return value
+
+    data = deduplicate(artifact.model_dump())
+    data["shared_visual_inputs"] = visual_inputs
+    return json_bytes(data)
 
 
 def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[dict[str, Any]]]:

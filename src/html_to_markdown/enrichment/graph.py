@@ -70,7 +70,8 @@ def graph_fallbacks(analysis: dict[str, Any], results: list[dict[str, Any]]) -> 
         after = anchors(result["body"]) if result["disposition"] == "rewrite" else set()
         needed = set()
         for incoming in analysis["documents"]:
-            for link in links(incoming["body"]):
+            incoming_links = incoming["links"] if "links" in incoming else links(incoming["body"])
+            for link in incoming_links:
                 try:
                     parsed = urlsplit(link)
                 except ValueError:

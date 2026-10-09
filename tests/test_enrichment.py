@@ -31,7 +31,13 @@ from html_to_markdown.enrichment.contracts import (
     ResponseEvidence,
     Validation,
 )
-from html_to_markdown.enrichment.engine import context_for, replay, verify_enrichment
+from html_to_markdown.enrichment.engine import (
+    artifact_bytes,
+    context_for,
+    load_artifact,
+    replay,
+    verify_enrichment,
+)
 from html_to_markdown.enrichment.gates import (
     candidate,
     parse_response,
@@ -451,6 +457,7 @@ def test_incoming_anchor_preserves_entire_article(tmp_path: Path) -> None:
     incoming["body"] = (
         "See [procedure](https://docs.cloud.f5.com/docs-v2/current#required-procedure).\n"
     )
+    incoming["links"] = ["https://docs.cloud.f5.com/docs-v2/current#required-procedure"]
     graph_fallbacks({"documents": [doc, incoming]}, [result])
     assert result["disposition"] == "fallback"
     assert result["body"] == doc["body"]
@@ -516,3 +523,25 @@ def test_authoritative_code_line_repair_preserves_literal_tokens(tmp_path: Path)
     dict_to_edit.replacement = replacement.replace("READY", "HALTED")
     with pytest.raises(ValueError, match="evidence mismatch"):
         candidate(doc, decision, {}, {key: repair})
+
+
+def test_shared_visual_evidence_roundtrip_keeps_request_identity(tmp_path: Path) -> None:
+    document(tmp_path)
+    artifact = artifact_for(tmp_path)
+    receipt = artifact.documents[0].editor
+    assert receipt is not None
+    receipt.request["input"][0]["content"].append(
+        {"type": "input_image", "image_url": "data:image/png;base64,YWJj"}
+    )
+    receipt.request_sha256 = request_hash(receipt.request)
+    target = tmp_path / "artifact.json"
+    target.write_bytes(artifact_bytes(artifact))
+    assert "enrichment-image://" in target.read_text()
+    restored = load_artifact(target)
+    assert restored == artifact
+    malformed = json.loads(target.read_text())
+    key = next(iter(malformed["shared_visual_inputs"]))
+    malformed["shared_visual_inputs"][key] = "changed"
+    target.write_text(json.dumps(malformed))
+    with pytest.raises(ValueError, match="visual input digest"):
+        load_artifact(target)
