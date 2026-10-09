@@ -1,5 +1,8 @@
 """Prepare, independently validate and replay a digest-pinned corpus transaction."""
 
+# Receipt verification imports the package module only at runtime after initialization.
+# pylint: disable=cyclic-import
+
 import gzip
 import json
 import shutil
@@ -426,6 +429,7 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
         "estimated_output_tokens": output_tokens,
         "estimated_token_savings": input_tokens - output_tokens,
         "verified_repairs": [],
+        "unresolved_media": artifact.unresolved_media,
         "model_usage": usage,
         "cost_status": "priced"
         if usage and all(v["cost_usd"] is not None for v in usage.values())

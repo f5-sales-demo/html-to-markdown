@@ -11,7 +11,7 @@ from .contracts import EDITOR_MODEL, Decision, ImageCollection, ResponseEvidence
 from .engine import context_for, load_artifact
 from .gates import candidate, parse_response, request_hash
 from .media import image_input
-from .requests import editor_request, image_collection_request, validator_request
+from .requests import editor_request, image_collection_request, image_request, validator_request
 
 
 # Phase orchestration keeps identity, visual evidence and receipts in one transaction.
@@ -55,7 +55,9 @@ def generate(
         remaining = [
             (digest, path)
             for digest, path in sorted(unique.items())
-            if digest not in artifact.images and digest not in artifact.image_groups
+            if digest not in artifact.images
+            and digest not in artifact.image_groups
+            and digest not in artifact.unresolved_media
         ]
         groups = [remaining[i : i + 8] for i in range(0, len(remaining), 8)]
 
@@ -66,6 +68,7 @@ def generate(
                     data_url, ocr = image_input(path)
                     inputs.append((digest, data_url, ocr))
                 except (ValueError, OSError):
+                    artifact.unresolved_media[digest] = "unsupported_or_undecodable_captured_media"
                     continue
             if not inputs:
                 return {}
@@ -84,17 +87,23 @@ def generate(
                     for image in collection.images
                 }
             except ValueError:
-                return {}
+                individual = {}
+                for digest, data_url, ocr in inputs:
+                    individual[digest] = client.execute(image_request(digest, data_url, ocr))
+                return individual
 
         with ThreadPoolExecutor(max_workers=12) as pool:
             futures = [pool.submit(inspect_group, group) for group in groups]
             for index, future in enumerate(as_completed(futures), 1):
                 completed = future.result()
                 for digest, evidence in completed.items():
-                    artifact.image_groups[digest] = evidence.request_sha256
-                    artifact.images[evidence.request_sha256] = evidence.model_copy(
-                        update={"output_selector": None}
-                    )
+                    if evidence.output_selector is None:
+                        artifact.images[digest] = evidence
+                    else:
+                        artifact.image_groups[digest] = evidence.request_sha256
+                        artifact.images[evidence.request_sha256] = evidence.model_copy(
+                            update={"output_selector": None}
+                        )
                 print(
                     f"Media groups {index}/{len(groups)}; reviewed {len(set(unique) & (set(artifact.images) | set(artifact.image_groups)))}/{len(unique)}",
                     flush=True,

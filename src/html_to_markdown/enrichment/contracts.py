@@ -154,6 +154,7 @@ class Artifact(StrictModel):
     assets: dict[str, str]
     images: dict[str, ResponseEvidence]
     image_groups: dict[str, str] = Field(default_factory=dict)
+    unresolved_media: dict[str, str] = Field(default_factory=dict)
     repairs: dict[str, dict[str, Any]]
     pricing: dict[str, dict[str, float]]
     # Rates are USD per million tokens. Empty pricing is explicitly unpriced,
