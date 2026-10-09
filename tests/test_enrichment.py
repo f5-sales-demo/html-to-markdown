@@ -457,6 +457,7 @@ def test_incoming_anchor_preserves_entire_article(tmp_path: Path) -> None:
     incoming["body"] = (
         "See [procedure](https://docs.cloud.f5.com/docs-v2/current#required-procedure).\n"
     )
+    incoming["links"] = ["https://docs.cloud.f5.com/docs-v2/current#required-procedure"]
     graph_fallbacks({"documents": [doc, incoming]}, [result])
     assert result["disposition"] == "fallback"
     assert result["body"] == doc["body"]
