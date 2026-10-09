@@ -71,7 +71,13 @@ def graph_fallbacks(analysis: dict[str, Any], results: list[dict[str, Any]]) -> 
         needed = set()
         for incoming in analysis["documents"]:
             for link in links(incoming["body"]):
-                parsed = urlsplit(link)
+                try:
+                    parsed = urlsplit(link)
+                except ValueError:
+                    # Malformed captured references do not authorize repairs.
+                    if incoming["document"] == result["document"]:
+                        needed.add("malformed_source_reference")
+                    continue
                 target = urls.get(parsed._replace(fragment="").geturl())
                 if link.startswith("#") and incoming["document"] == result["document"]:
                     target = result["document"]
