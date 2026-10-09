@@ -1,3 +1,5 @@
+# Deferred replay imports resolve only after policy module initialization.
+# pylint: disable=cyclic-import
 """Digest-pinned exclusions and exact, offline API reference migration."""
 
 from __future__ import annotations
@@ -324,7 +326,7 @@ def migrate_content(
     # One transaction keeps document, asset and evidence counts consistent.
     # pylint: disable=too-many-locals,too-many-branches,too-many-statements
     if (output / "enrichment-state.json").is_file():
-        from .enrichment.engine import verify_enrichment
+        from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
 
         verify_enrichment(output)
         upstream = output / ".enrichment" / "curated" / "curation-audit.json"

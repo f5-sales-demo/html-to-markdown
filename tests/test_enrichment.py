@@ -6,6 +6,7 @@ import json
 import shutil
 import subprocess
 from pathlib import Path
+from typing import Any
 
 import httpx
 import pytest
@@ -15,7 +16,6 @@ from typer.testing import CliRunner
 from html_to_markdown.cli import app
 from html_to_markdown.content_policy import load_content_policy, migrate_content
 from html_to_markdown.curation import corpus_digest, json_bytes, load_curation_policy
-from html_to_markdown.enrichment import media
 from html_to_markdown.enrichment.analysis import analyze, inventory, sha
 from html_to_markdown.enrichment.batch import BatchClient
 from html_to_markdown.enrichment.contracts import (
@@ -23,9 +23,11 @@ from html_to_markdown.enrichment.contracts import (
     PROMPT_VERSION,
     VALIDATOR_MODEL,
     Artifact,
+    ClassificationDecision,
     Decision,
     DocumentEvidence,
     Edit,
+    FactCheck,
     ResponseEvidence,
     Validation,
 )
@@ -68,7 +70,7 @@ def document(
     return path
 
 
-def decision_for(doc: dict) -> Decision:
+def decision_for(doc: dict[str, Any]) -> Decision:
     blocks = doc["blocks"]
     return Decision(
         document=doc["document"],
@@ -79,25 +81,25 @@ def decision_for(doc: dict) -> Decision:
         description="Keep the required warning.",
         description_evidence=[blocks[0]["address"]],
         classifications=[
-            {
-                "address": b["address"],
-                "classification": "article_explanation",
-                "evidence": "Source text.",
-                "uncertain": False,
-            }
+            ClassificationDecision(
+                address=b["address"],
+                classification="article_explanation",
+                evidence="Source text.",
+                uncertain=False,
+            )
             for b in blocks
         ],
         edits=[
-            {
-                "address": b["address"],
-                "source_sha256": b["sha256"],
-                "source": b["text"],
-                "replacement": "",
-                "count": 1,
-                "reason": "Provenance is in metadata.",
-                "evidence": [b["address"]],
-                "repair_evidence": None,
-            }
+            Edit(
+                address=b["address"],
+                source_sha256=b["sha256"],
+                source=b["text"],
+                replacement="",
+                count=1,
+                reason="Provenance is in metadata.",
+                evidence=[b["address"]],
+                repair_evidence=None,
+            )
             for b in blocks
             if b["text"].startswith("Published")
         ],
@@ -108,7 +110,7 @@ def decision_for(doc: dict) -> Decision:
     )
 
 
-def response_for(body: dict, output: dict) -> ResponseEvidence:
+def response_for(body: dict[str, Any], output: dict[str, Any]) -> ResponseEvidence:
     response = {
         "status": "completed",
         "model": body["model"],
@@ -164,12 +166,12 @@ def artifact_for(root: Path, *, validated: bool = True) -> Artifact:
             media_valid=True,
             classifications_complete=True,
             protected_facts=[
-                {
-                    "source_quote": "Keep the required warning.",
-                    "retained_quote": "Keep the required warning.",
-                    "preserved": True,
-                    "kind": "warning",
-                }
+                FactCheck(
+                    source_quote="Keep the required warning.",
+                    retained_quote="Keep the required warning.",
+                    preserved=True,
+                    kind="warning",
+                )
             ],
             unsupported_claims=[],
             failures=[],
@@ -405,7 +407,7 @@ def test_prompt_injection_is_data_and_cli_available(tmp_path: Path) -> None:
 
 @pytest.mark.parametrize("failure", ["missing", "collision", "path", "pin"])
 def test_alias_graph_rejects_invalid_mapping(failure: str) -> None:
-    manifest = {
+    manifest: dict[str, Any] = {
         "source_roots": {"docs-cloud-f5-com": "https://docs.cloud.f5.com"},
         "documents": [{"path": "content/docs-cloud-f5-com/a/index.md"}],
         "enrichment": {
@@ -461,14 +463,14 @@ def test_ocr_uses_decoded_image_bytes_not_filename(
     Image.new("RGB", (20, 20), "white").save(buffer, format="JPEG")
     path = tmp_path / "mislabeled.png"
     path.write_bytes(buffer.getvalue())
-    monkeypatch.setattr(media.shutil, "which", lambda name: "/fake/tesseract")
+    monkeypatch.setattr(shutil, "which", lambda name: "/fake/tesseract")
 
-    def run(args: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+    def run(args: list[str], **kwargs: Any) -> subprocess.CompletedProcess[bytes]:
         assert args[1:] == ["stdin", "stdout"]
         assert kwargs["input"].startswith(b"\x89PNG")
         return subprocess.CompletedProcess(args, 0, stdout=b"technical text", stderr=b"\x89")
 
-    monkeypatch.setattr(media.subprocess, "run", run)
+    monkeypatch.setattr(subprocess, "run", run)
     visual, ocr = image_input(path)
     assert visual.startswith("data:image/png;base64,")
     assert ocr["sha256"] == sha(buffer.getvalue())

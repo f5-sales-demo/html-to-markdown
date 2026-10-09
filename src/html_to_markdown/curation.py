@@ -1,3 +1,5 @@
+# Replay imports are deferred until after module initialization to preserve the policy boundary.
+# pylint: disable=cyclic-import
 """Versioned, offline topic decisions over lossless Markdown structural spans.
 
 Detectors propose examination only. Publication accepts reviewed bytes, and every
