@@ -33,6 +33,10 @@ from .graph import graph_fallbacks
 from .requests import editor_evidence_hash, validator_request
 
 MARKER = "enrichment-state.json"
+_ARTIFACT_CACHE: dict[str, Artifact] = {}
+_DECISION_CACHE: dict[tuple[str, str], tuple[dict[str, Any], list[dict[str, Any]]]] = {}
+_ARTIFACT_IDENTITIES: dict[int, str] = {}
+_UPSTREAM_POLICY_CACHE: set[tuple[str, str, str]] = set()
 
 
 def import_state(output: Path, store: StateStore) -> None:
@@ -238,6 +242,9 @@ def prepare(
 
 def load_artifact(path: Path) -> Artifact:
     raw = path.read_bytes()
+    identity = sha(raw)
+    if identity in _ARTIFACT_CACHE:
+        return _ARTIFACT_CACHE[identity]
     if raw.startswith(b"\x1f\x8b"):
         raw = gzip.decompress(raw)
     parsed = json.loads(raw)
@@ -258,7 +265,10 @@ def load_artifact(path: Path) -> Artifact:
             return value
 
         parsed = restore(parsed)
-    return Artifact.model_validate(parsed)
+    artifact = Artifact.model_validate(parsed)
+    _ARTIFACT_CACHE[identity] = artifact
+    _ARTIFACT_IDENTITIES[id(artifact)] = identity
+    return artifact
 
 
 def artifact_bytes(artifact: Artifact) -> bytes:
@@ -281,16 +291,21 @@ def artifact_bytes(artifact: Artifact) -> bytes:
     return json_bytes(data)
 
 
+# The complete acceptance inventory and its source/evidence guards are one transaction.
+# pylint: disable-next=too-many-locals,too-many-branches
 def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    if artifact.prompt_version != PROMPT_VERSION or artifact.curated_sha256 != corpus_digest(
-        curated
-    ):
+    current_digest = corpus_digest(curated)
+    if artifact.prompt_version != PROMPT_VERSION or artifact.curated_sha256 != current_digest:
         raise ValueError("stale prompt or changed curated inputs")
     if (
         artifact.policy_sha256 != load_curation_policy().sha256
         or artifact.api_policy_sha256 != load_content_policy().policy_digest
     ):
         raise ValueError("stale upstream policy chain")
+    identity = _ARTIFACT_IDENTITIES.get(id(artifact))
+    cache_key = (identity, current_digest) if identity is not None else None
+    if cache_key is not None and cache_key in _DECISION_CACHE:
+        return _DECISION_CACHE[cache_key]
     analysis = analyze(curated)
     if sha(json_bytes(analysis)) != artifact.analysis_sha256:
         raise ValueError("structural analysis changed")
@@ -368,6 +383,8 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
                 canonical_document=None,
             )
     graph_fallbacks(analysis, results)
+    if cache_key is not None:
+        _DECISION_CACHE[cache_key] = (analysis, results)
     return analysis, results
 
 
@@ -526,7 +543,14 @@ def verify_enrichment(output: Path) -> dict[str, Any]:
         raise ValueError("pinned decision artifact changed")
     artifact = load_artifact(pinned)
     curated = output / ".enrichment" / "curated"
-    validate_content_policy(curated)
+    upstream_key = (
+        corpus_digest(curated),
+        load_curation_policy().sha256,
+        load_content_policy().policy_digest,
+    )
+    if upstream_key not in _UPSTREAM_POLICY_CACHE:
+        validate_content_policy(curated)
+        _UPSTREAM_POLICY_CACHE.add(upstream_key)
     analysis, results = _decisions(curated, artifact)
     expected = {
         r["document"]: r for r in results if r["disposition"] not in {"alias", "exclude_shell"}
