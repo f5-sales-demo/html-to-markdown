@@ -25,7 +25,7 @@
     "question_id": "my-f5-com",
     "question": "What must be configured on the network firewall for Distributed Cloud Load Balancers?",
     "expected_answer": "Allow the public IPv4 subnet ranges listed for Distributed Cloud devices.",
-    "required_evidence": ["Configure your network firewall with the following public IPv4 subnet ranges"],
+    "required_evidence": ["public IPv4 Subnet Ranges"],
     "source": "my-f5-com",
     "document": "content/my-f5-com/K000146630/index.md",
     "category": "source_stratified"
