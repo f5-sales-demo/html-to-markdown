@@ -30,7 +30,7 @@ from .contracts import (
 )
 from .gates import candidate, parse_response, request_hash, validate_candidate
 from .graph import graph_fallbacks
-from .requests import editor_request, validator_request
+from .requests import editor_evidence_hash, validator_request
 
 MARKER = "enrichment-state.json"
 
@@ -105,7 +105,17 @@ def context_for(
                     images[digest] = {"uncertain": True, "reason": "invalid_image_analysis"}
         else:
             images[digest] = {"uncertain": True, "reason": "visual_evidence_unavailable"}
-    return {
+    canonical_candidates = [
+        d
+        for d in analysis["documents"]
+        if (d["metadata"].get("canonical_url") or d["metadata"]["url"])
+        == (doc["metadata"].get("canonical_url") or doc["metadata"]["url"])
+    ]
+    canonical_target = next(
+        (d["document"] for d in canonical_candidates if "/docs/" not in d["document"]),
+        sorted(d["document"] for d in canonical_candidates)[0],
+    )
+    result = {
         "repeated_passages": [
             g
             for g in analysis["exact_repetition"]
@@ -131,6 +141,12 @@ def context_for(
             if repair.get("document") == doc["document"]
         },
     }
+    if len(canonical_candidates) > 1:
+        result["recommended_canonical_document"] = canonical_target
+        result["canonical_instruction"] = (
+            "Use this one target consistently. The target document must be retained, and only another exact duplicate may be an alias. Preserve unresolved technical content exactly; do not rewrite aliases."
+        )
+    return result
 
 
 def _visual_inputs(doc: dict[str, Any], artifact: Artifact) -> list[dict[str, Any]]:
@@ -266,7 +282,10 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
                 raise ValueError("missing editor or independent validator response")
             context = context_for(doc, analysis, artifact)
             decision = parse_response(
-                evidence.editor, Decision, EDITOR_MODEL, request_hash(editor_request(doc, context))
+                evidence.editor,
+                Decision,
+                EDITOR_MODEL,
+                editor_evidence_hash(doc, context, evidence.editor),
             )
             body = candidate(doc, decision, indexed, artifact.repairs)
             # Validate the candidate's render/asset/privacy policy before

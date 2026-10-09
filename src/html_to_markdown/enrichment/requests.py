@@ -102,8 +102,36 @@ def editor_request(doc: dict[str, Any], context: dict[str, Any]) -> dict[str, An
     visual = context.get("image_visual_inputs", [])
     text_context = {k: v for k, v in context.items() if k != "image_visual_inputs"}
     body = request(EDITOR_MODEL, EDITOR_PROMPT, {"document": doc, **text_context}, Decision)
+    constrain_document_schema(body, doc)
     body["input"][0]["content"].extend(visual)
     return body
+
+
+def constrain_document_schema(body: dict[str, Any], doc: dict[str, Any]) -> None:
+    """The model can select only supplied identities and source addresses."""
+    schema = body["text"]["format"]["schema"]
+    schema["properties"]["document"]["enum"] = [doc["document"]]
+    schema["properties"]["input_sha256"]["enum"] = [doc["input_sha256"]]
+    addresses = [block["address"] for block in doc["blocks"]]
+    if addresses and len(addresses) <= 80 and sum(len(address) for address in addresses) <= 5000:
+        for name in ("ClassificationDecision", "Edit", "ProtectedFact"):
+            schema["$defs"][name]["properties"]["address"]["enum"] = addresses
+        schema["$defs"]["Edit"]["properties"]["source_sha256"]["enum"] = sorted(
+            {b["sha256"] for b in doc["blocks"]}
+        )
+        schema["$defs"]["Edit"]["properties"]["evidence"]["items"]["enum"] = addresses
+        schema["properties"]["description_evidence"]["items"]["enum"] = addresses
+
+
+def editor_evidence_hash(doc: dict[str, Any], context: dict[str, Any], evidence: Any) -> str:
+    from .gates import request_hash
+
+    expected = editor_request(doc, context)
+    generic = Decision.model_json_schema()
+    captured = evidence.request.get("text", {}).get("format", {}).get("schema")
+    if captured == generic:
+        expected["text"]["format"]["schema"] = generic
+    return request_hash(expected)
 
 
 def validator_request(

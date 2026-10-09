@@ -11,7 +11,13 @@ from .contracts import EDITOR_MODEL, Decision, ImageCollection, ResponseEvidence
 from .engine import context_for, load_artifact
 from .gates import candidate, parse_response, request_hash
 from .media import image_input
-from .requests import editor_request, image_collection_request, image_request, validator_request
+from .requests import (
+    editor_evidence_hash,
+    editor_request,
+    image_collection_request,
+    image_request,
+    validator_request,
+)
 
 
 # Phase orchestration keeps identity, visual evidence and receipts in one transaction.
@@ -129,7 +135,7 @@ def generate(
                         editor_evidence,
                         Decision,
                         EDITOR_MODEL,
-                        request_hash(editor_request(doc, context)),
+                        editor_evidence_hash(doc, context, editor_evidence),
                     )
                     body = candidate(doc, decision, documents, artifact.repairs)
                     requests[identity] = validator_request(
