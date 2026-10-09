@@ -463,32 +463,22 @@
         {
           "url": "https://community.f5.com/t/65170",
           "matches": 1,
-          "examples": [
-            "​"
-          ]
+          "examples": ["​"]
         },
         {
           "url": "https://community.f5.com/t/69250",
           "matches": 4,
-          "examples": [
-            "​",
-            "​"
-          ]
+          "examples": ["​", "​"]
         },
         {
           "url": "https://community.f5.com/t/70064",
           "matches": 1,
-          "examples": [
-            "​"
-          ]
+          "examples": ["​"]
         },
         {
           "url": "https://community.f5.com/t/70175",
           "matches": 7,
-          "examples": [
-            "​",
-            "​"
-          ]
+          "examples": ["​", "​"]
         }
       ]
     },
@@ -521,30 +511,22 @@
         {
           "url": "https://community.f5.com/t/69322",
           "matches": 1,
-          "examples": [
-            "In this series"
-          ]
+          "examples": ["In this series"]
         },
         {
           "url": "https://community.f5.com/t/69635",
           "matches": 1,
-          "examples": [
-            "In this series"
-          ]
+          "examples": ["In this series"]
         },
         {
           "url": "https://community.f5.com/t/69882",
           "matches": 1,
-          "examples": [
-            "in the previous article"
-          ]
+          "examples": ["in the previous article"]
         },
         {
           "url": "https://community.f5.com/t/70354",
           "matches": 1,
-          "examples": [
-            "In the previous article"
-          ]
+          "examples": ["In the previous article"]
         }
       ]
     },
@@ -555,32 +537,22 @@
         {
           "url": "https://community.f5.com/t/69333",
           "matches": 1,
-          "examples": [
-            "Select service"
-          ]
+          "examples": ["Select service"]
         },
         {
           "url": "https://community.f5.com/t/69462",
           "matches": 2,
-          "examples": [
-            "Select Service",
-            "Select Service"
-          ]
+          "examples": ["Select Service", "Select Service"]
         },
         {
           "url": "https://community.f5.com/t/70689",
           "matches": 1,
-          "examples": [
-            "Select Service"
-          ]
+          "examples": ["Select Service"]
         },
         {
           "url": "https://community.f5.com/t/71311",
           "matches": 4,
-          "examples": [
-            "Select Service",
-            "Select Service"
-          ]
+          "examples": ["Select Service", "Select Service"]
         }
       ]
     },
@@ -590,39 +562,19 @@
       "examples": [
         {
           "url": "https://community.f5.com/t/70039",
-          "examples": [
-            [
-              "## Summary",
-              2
-            ]
-          ]
+          "examples": [["## Summary", 2]]
         },
         {
           "url": "https://community.f5.com/t/70470",
-          "examples": [
-            [
-              "##",
-              5
-            ]
-          ]
+          "examples": [["##", 5]]
         },
         {
           "url": "https://community.f5.com/t/71162",
-          "examples": [
-            [
-              "##",
-              3
-            ]
-          ]
+          "examples": [["##", 3]]
         },
         {
           "url": "https://community.f5.com/t/71172",
-          "examples": [
-            [
-              "### [Account Manager](https://www.networksolutions.com/my-account/)",
-              2
-            ]
-          ]
+          "examples": [["### [Account Manager](https://www.networksolutions.com/my-account/)", 2]]
         }
       ]
     },
@@ -655,32 +607,22 @@
         {
           "url": "https://community.f5.com/t/73547",
           "matches": 1,
-          "examples": [
-            "homepage is role based"
-          ]
+          "examples": ["homepage is role based"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
           "matches": 3,
-          "examples": [
-            "Homepage is role based",
-            "homepage may look different"
-          ]
+          "examples": ["Homepage is role based", "homepage may look different"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure",
           "matches": 1,
-          "examples": [
-            "role customization"
-          ]
+          "examples": ["role customization"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-custom",
           "matches": 2,
-          "examples": [
-            "Homepage is role based",
-            "role customization"
-          ]
+          "examples": ["Homepage is role based", "role customization"]
         }
       ]
     },
@@ -699,26 +641,17 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
           "matches": 5,
-          "examples": [
-            "Figure: Tenant Level Diagram",
-            "Figure: Metadata"
-          ]
+          "examples": ["Figure: Tenant Level Diagram", "Figure: Metadata"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
           "matches": 7,
-          "examples": [
-            "Figure: Tenant Settings Page",
-            "Figure: Custom Logo"
-          ]
+          "examples": ["Figure: Tenant Settings Page", "Figure: Custom Logo"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
           "matches": 7,
-          "examples": [
-            "Figure: Open Roles",
-            "Figure: In-built RBAC Policy Rules"
-          ]
+          "examples": ["Figure: Open Roles", "Figure: In-built RBAC Policy Rules"]
         }
       ]
     },
@@ -729,16 +662,12 @@
         {
           "url": "https://community.f5.com/t/76791",
           "matches": 1,
-          "examples": [
-            "Explore our"
-          ]
+          "examples": ["Explore our"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/purchasing-and-billing/purchase-bill/billing-faqs",
           "matches": 1,
-          "examples": [
-            "Contact Sales"
-          ]
+          "examples": ["Contact Sales"]
         }
       ]
     },
@@ -749,30 +678,22 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
           "matches": 1,
-          "examples": [
-            "Published April 5, 2023 | Last modified October 2, 2026"
-          ]
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
           "matches": 1,
-          "examples": [
-            "Published April 5, 2023 | Last modified October 2, 2026"
-          ]
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
           "matches": 1,
-          "examples": [
-            "Published April 5, 2023 | Last modified October 2, 2026"
-          ]
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
           "matches": 1,
-          "examples": [
-            "Published April 5, 2023 | Last modified October 2, 2026"
-          ]
+          "examples": ["Published April 5, 2023 | Last modified October 2, 2026"]
         }
       ]
     },
@@ -783,31 +704,22 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
           "matches": 2,
-          "examples": [
-            "A [Distributed Cloud Services Account]",
-            "If you do not have an account"
-          ]
+          "examples": ["A [Distributed Cloud Services Account]", "If you do not have an account"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
           "matches": 1,
-          "examples": [
-            "If you do not have an account"
-          ]
+          "examples": ["If you do not have an account"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
           "matches": 1,
-          "examples": [
-            "If you do not have an account"
-          ]
+          "examples": ["If you do not have an account"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
           "matches": 1,
-          "examples": [
-            "If you do not have an account"
-          ]
+          "examples": ["If you do not have an account"]
         }
       ]
     },
@@ -818,32 +730,22 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/managed-services/config-tenant-msp-service",
           "matches": 1,
-          "examples": [
-            "## Concepts\n"
-          ]
+          "examples": ["## Concepts\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/general-management",
           "matches": 3,
-          "examples": [
-            "## Concepts\n",
-            "## API References\n"
-          ]
+          "examples": ["## Concepts\n", "## API References\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/roles",
           "matches": 3,
-          "examples": [
-            "## Concepts\n",
-            "## API References\n"
-          ]
+          "examples": ["## Concepts\n", "## API References\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
           "matches": 1,
-          "examples": [
-            "## Concepts\n"
-          ]
+          "examples": ["## Concepts\n"]
         }
       ]
     },
@@ -854,34 +756,22 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/scim-mngt",
           "matches": 2,
-          "examples": [
-            "options are not showing available",
-            "Advanced nav options visible"
-          ]
+          "examples": ["options are not showing available", "Advanced nav options visible"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-azure",
           "matches": 2,
-          "examples": [
-            "options are not showing available",
-            "Advanced nav options visible"
-          ]
+          "examples": ["options are not showing available", "Advanced nav options visible"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-custom",
           "matches": 2,
-          "examples": [
-            "options are not showing available",
-            "Advanced nav options visible"
-          ]
+          "examples": ["options are not showing available", "Advanced nav options visible"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/administration/how-tos/user-mgmt/sso-google",
           "matches": 2,
-          "examples": [
-            "options are not showing available",
-            "Advanced nav options visible"
-          ]
+          "examples": ["options are not showing available", "Advanced nav options visible"]
         }
       ]
     },
@@ -918,33 +808,22 @@
         {
           "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/k8s-sts",
           "matches": 14,
-          "examples": [
-            "Terminal window\n",
-            "Terminal window\n"
-          ]
+          "examples": ["Terminal window\n", "Terminal window\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/service-mesh",
           "matches": 1,
-          "examples": [
-            "Terminal window\n"
-          ]
+          "examples": ["Terminal window\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-to/app-mgnt/vk8s-deployment",
           "matches": 2,
-          "examples": [
-            "Terminal window\n",
-            "Terminal window\n"
-          ]
+          "examples": ["Terminal window\n", "Terminal window\n"]
         },
         {
           "url": "https://docs.cloud.f5.com/docs-v2/distributed-apps/how-tos/storage-management/containerized-data-importer",
           "matches": 12,
-          "examples": [
-            "Terminal window\n",
-            "Terminal window\n"
-          ]
+          "examples": ["Terminal window\n", "Terminal window\n"]
         }
       ]
     }

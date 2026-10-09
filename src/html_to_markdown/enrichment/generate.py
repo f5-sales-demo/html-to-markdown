@@ -122,7 +122,7 @@ def generate(
                         EDITOR_MODEL,
                         request_hash(editor_request(doc, context)),
                     )
-                    body = candidate(doc, decision, documents)
+                    body = candidate(doc, decision, documents, artifact.repairs)
                     requests[identity] = validator_request(
                         doc, body, decision.model_dump(), context
                     )

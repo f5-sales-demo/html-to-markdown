@@ -25,6 +25,7 @@ from html_to_markdown.enrichment.contracts import (
     Artifact,
     Decision,
     DocumentEvidence,
+    Edit,
     ResponseEvidence,
     Validation,
 )
@@ -473,3 +474,43 @@ def test_ocr_uses_decoded_image_bytes_not_filename(
     assert ocr["sha256"] == sha(buffer.getvalue())
     assert ocr["text"] == "technical text"
     assert not ocr["uncertain"]
+
+
+def test_authoritative_code_line_repair_preserves_literal_tokens(tmp_path: Path) -> None:
+    path = document(
+        tmp_path,
+        "# Configure\n\nKeep the required warning.\n\n```\n$ curl http://localhost:8070/statusREADY\n```\n",
+    )
+    doc = inventory(path, tmp_path)
+    decision = decision_for(doc)
+    code = next(b for b in doc["blocks"] if b["kind"] == "fence")
+    html = '<pre><code><div class="ec-line"><div class="code">$ curl http://localhost:8070/status</div></div><div class="ec-line"><div class="code">READY</div></div></code></pre>'
+    replacement = "```\n$ curl http://localhost:8070/status\nREADY\n```\n"
+    key = sha(html)
+    repair = {
+        "document": doc["document"],
+        "address": code["address"],
+        "source": code["text"],
+        "replacement": replacement,
+        "kind": "html_code_line_boundaries",
+        "html": html,
+        "html_sha256": key,
+    }
+    decision.edits = [
+        dict_to_edit := Edit(
+            address=code["address"],
+            source_sha256=code["sha256"],
+            source=code["text"],
+            replacement=replacement,
+            count=1,
+            reason="Recover authoritative line boundaries.",
+            evidence=[code["address"]],
+            repair_evidence=key,
+        )
+    ]
+    assert "$ curl http://localhost:8070/status\nREADY" in candidate(
+        doc, decision, {}, {key: repair}
+    )
+    dict_to_edit.replacement = replacement.replace("READY", "HALTED")
+    with pytest.raises(ValueError, match="evidence mismatch"):
+        candidate(doc, decision, {}, {key: repair})

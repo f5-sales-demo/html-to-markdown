@@ -5,6 +5,7 @@ import re
 from collections import Counter
 from typing import Any
 
+from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
 from ..curation import blocks
@@ -67,7 +68,10 @@ def technical_payloads(body: str) -> list[str]:
 # The atomic candidate gate checks all preservation invariants before mutation.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def candidate(
-    doc: dict[str, Any], decision: Decision, canonical_docs: dict[str, dict[str, Any]]
+    doc: dict[str, Any],
+    decision: Decision,
+    canonical_docs: dict[str, dict[str, Any]],
+    repairs: dict[str, dict[str, Any]] | None = None,
 ) -> str:
     if decision.document != doc["document"] or decision.input_sha256 != doc["input_sha256"]:
         raise ValueError("document identity or input digest mismatch")
@@ -111,13 +115,33 @@ def candidate(
             or any(e not in by_address for e in edit.evidence)
         ):
             raise ValueError("unsupported replacement evidence")
-        # Runtime/schema repairs are disabled until separately qualified evidence
-        # is implemented. Never accept an editor-provided waiver.
+        verified_repair = False
         if edit.repair_evidence is not None:
-            raise ValueError("technical repair requires qualified authoritative evidence")
+            repair = (repairs or {}).get(edit.repair_evidence)
+            if repair is None or repair.get("document") != doc["document"]:
+                raise ValueError("technical repair requires qualified authoritative evidence")
+            if (
+                repair.get("address") != edit.address
+                or repair.get("source") != edit.source
+                or repair.get("replacement") != edit.replacement
+                or repair.get("kind") != "html_code_line_boundaries"
+                or sha(repair.get("html", "")) != repair.get("html_sha256")
+            ):
+                raise ValueError("technical repair evidence mismatch")
+            nodes = BeautifulSoup(repair["html"], "html.parser").select(".ec-line .code")
+            if not nodes:
+                raise ValueError("authoritative code line evidence missing")
+            original_code_text = "".join(node.get_text() for node in nodes)
+            repaired_code_text = "\n".join(node.get_text() for node in nodes)
+            source_inner = "\n".join(edit.source.strip().splitlines()[1:-1])
+            replacement_inner = "\n".join(edit.replacement.strip().splitlines()[1:-1])
+            if source_inner != original_code_text or replacement_inner != repaired_code_text:
+                raise ValueError("repair alters authoritative code tokens")
+            verified_repair = True
         if (
             source["kind"] in {"fence", "code_block", "table", "table_row"}
             and edit.replacement != edit.source
+            and not verified_repair
         ):
             raise ValueError("technical code/table payload changed")
         edits.append((source["start_line"], source["end_line"], edit.replacement))
@@ -132,9 +156,19 @@ def candidate(
     ):
         raise ValueError("candidate contains navigation chrome")
     existing_links = set(doc["links"])
+    for edit in decision.edits:
+        if edit.repair_evidence is not None:
+            existing_links.update(links(edit.replacement))
     if set(links(retained)) - existing_links:
         raise ValueError("new reference lacks supplied authoritative evidence")
-    before, after = Counter(technical_payloads(body)), Counter(technical_payloads(retained))
+    protected_source = body
+    for edit in decision.edits:
+        if edit.repair_evidence is not None:
+            protected_source = protected_source.replace(edit.source, edit.replacement, 1)
+    before, after = (
+        Counter(technical_payloads(protected_source)),
+        Counter(technical_payloads(retained)),
+    )
     if any(after[value] < count for value, count in before.items()):
         raise ValueError("lost literal technical payload or numeric constraint")
     classifications_by_address = {c.address: c.classification for c in decision.classifications}
@@ -149,7 +183,7 @@ def candidate(
             for number in re.findall(r"\b\d+(?:\.\d+)*\b", block["text"]):
                 if not re.search(r"\b" + re.escape(number) + r"\b", retained):
                     raise ValueError("lost protected numeric value")
-    original_code = [b.text for b in blocks(body) if b.kind in {"fence", "code_block"}]
+    original_code = [b.text for b in blocks(protected_source) if b.kind in {"fence", "code_block"}]
     retained_code = [b.text for b in blocks(retained) if b.kind in {"fence", "code_block"}]
     if original_code != retained_code:
         raise ValueError("technical payload order changed")

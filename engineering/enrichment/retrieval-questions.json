@@ -23,11 +23,9 @@
   },
   {
     "question_id": "my-f5-com",
-    "question": "What does What is the IP address space for XC load balancers? explain?",
-    "expected_answer": "I would like to know what the IP address space is for Distributed Cloud Load Balancers?",
-    "required_evidence": [
-      "I would like to know what the IP address space is for Distributed Cloud Load Balancers?"
-    ],
+    "question": "What must be configured on the network firewall for Distributed Cloud Load Balancers?",
+    "expected_answer": "Allow the public IPv4 subnet ranges listed for Distributed Cloud devices.",
+    "required_evidence": ["Configure your network firewall with the following public IPv4 subnet ranges"],
     "source": "my-f5-com",
     "document": "content/my-f5-com/K000146630/index.md",
     "category": "source_stratified"
@@ -36,9 +34,7 @@
     "question_id": "www-f5-com",
     "question": "What does F5 Distributed Cloud API Security explain?",
     "expected_answer": "![](assets/8f0fad8bcc077ef0153a85d2337ad6f214a6dfecfe54ea893cc1a95852d17461.svg)",
-    "required_evidence": [
-      "![](assets/8f0fad8bcc077ef0153a85d2337ad6f214a6dfecfe54ea893cc1a95852d17461.svg)"
-    ],
+    "required_evidence": ["![](assets/8f0fad8bcc077ef0153a85d2337ad6f214a6dfecfe54ea893cc1a95852d17461.svg)"],
     "source": "www-f5-com",
     "document": "content/www-f5-com/products/distributed-cloud-services/api-security/index.md",
     "category": "source_stratified"

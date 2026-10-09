@@ -121,7 +121,11 @@ def context_for(
         ],
         "image_analysis": images,
         "image_visual_inputs": _visual_inputs(doc, artifact),
-        "authoritative_repairs": artifact.repairs,
+        "authoritative_repairs": {
+            key: repair
+            for key, repair in artifact.repairs.items()
+            if repair.get("document") == doc["document"]
+        },
     }
 
 
@@ -253,7 +257,7 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
             decision = parse_response(
                 evidence.editor, Decision, EDITOR_MODEL, request_hash(editor_request(doc, context))
             )
-            body = candidate(doc, decision, indexed)
+            body = candidate(doc, decision, indexed, artifact.repairs)
             # Validate the candidate's render/asset/privacy policy before
             # accepting any rewrite. No failed candidate is partially applied.
             if privacy_findings(body):
