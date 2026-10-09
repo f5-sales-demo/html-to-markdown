@@ -140,6 +140,28 @@ class DocumentEvidence(StrictModel):
     validator: ResponseEvidence | None
 
 
+class CanonicalDecision(StrictModel):
+    document: str
+    canonical_document: str
+    input_sha256: str
+    canonical_input_sha256: str
+    canonical_identity_matches: bool
+    complete_substantive_text_matches: bool
+    media_bytes_match: bool
+    preserve_all_existing_routes: bool
+    no_technical_repair_proposed: bool
+    approved: bool
+    reason: str
+    preservation_failures: list[str]
+
+
+class CanonicalEvidence(StrictModel):
+    document: str
+    canonical_document: str
+    editor: ResponseEvidence
+    validator: ResponseEvidence
+
+
 class Artifact(StrictModel):
     schema_version: Literal[1]
     prompt_version: str
@@ -156,6 +178,7 @@ class Artifact(StrictModel):
     image_groups: dict[str, str] = Field(default_factory=dict)
     unresolved_media: dict[str, str] = Field(default_factory=dict)
     repairs: dict[str, dict[str, Any]]
+    canonical_reviews: list[CanonicalEvidence] = Field(default_factory=list)
     pricing: dict[str, dict[str, float]]
     # Rates are USD per million tokens. Empty pricing is explicitly unpriced,
     # never a claim of zero spending.
