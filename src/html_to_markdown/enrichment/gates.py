@@ -28,6 +28,13 @@ def parse_response(
     if request_hash(evidence.request) != evidence.request_sha256:
         raise ValueError("captured request digest mismatch")
     response = evidence.response
+    if evidence.transport == "codex_litellm" and any(
+        event.get("type") in {"context.compacted", "thread.compacted", "turn.failed"}
+        or event.get("item", {}).get("type")
+        in {"command_execution", "file_change", "mcp_tool_call", "web_search", "tool_call"}
+        for event in response.get("events", [])
+    ):
+        raise ValueError("document worker used a tool or lost complete input context")
     if sha(json.dumps(response, sort_keys=True, separators=(",", ":"))) != evidence.response_sha256:
         raise ValueError("response digest mismatch")
     if response.get("status") != "completed" or response.get("model") != model:

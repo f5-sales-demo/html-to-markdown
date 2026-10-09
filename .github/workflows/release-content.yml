@@ -14,7 +14,7 @@ on:
         required: false
         type: string
       enrichment-release:
-        description: Exact release containing validated enrichment-decisions.json
+        description: Exact release containing validated enrichment-decisions.json.gz
         required: false
         type: string
       enrichment-sha256:
@@ -111,9 +111,9 @@ jobs:
           [[ "$ENRICHMENT_RELEASE" =~ ^enrichment-[0-9]{8}T[0-9]{6}Z$ ]]
           [[ "$ENRICHMENT_SHA256" =~ ^[0-9a-f]{64}$ ]]
           mkdir -p enrichment-input
-          gh release download "$ENRICHMENT_RELEASE" --pattern enrichment-decisions.json --dir enrichment-input
+          gh release download "$ENRICHMENT_RELEASE" --pattern enrichment-decisions.json.gz --dir enrichment-input
           uv run html-to-markdown enrich-content --output build --mode replay \
-            --decisions enrichment-input/enrichment-decisions.json \
+            --decisions enrichment-input/enrichment-decisions.json.gz \
             --decisions-sha256 "$ENRICHMENT_SHA256"
           uv run html-to-markdown verify-enrichment --output build
       - name: Upload enrichment evidence separately

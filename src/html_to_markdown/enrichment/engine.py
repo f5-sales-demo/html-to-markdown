@@ -1,5 +1,6 @@
 """Prepare, independently validate and replay a digest-pinned corpus transaction."""
 
+import gzip
 import json
 import shutil
 from pathlib import Path
@@ -216,6 +217,13 @@ def prepare(
     return artifact
 
 
+def load_artifact(path: Path) -> Artifact:
+    raw = path.read_bytes()
+    if raw.startswith(b"\x1f\x8b"):
+        raw = gzip.decompress(raw)
+    return Artifact.model_validate_json(raw)
+
+
 def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     if artifact.prompt_version != PROMPT_VERSION or artifact.curated_sha256 != corpus_digest(
         curated
@@ -316,7 +324,7 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
         return dict(state["report"])
     if not (output / "curation-audit.json").is_file():
         raise ValueError("replay requires an upstream curated snapshot and audit")
-    artifact = Artifact.model_validate_json(artifact_path.read_bytes())
+    artifact = load_artifact(artifact_path)
     validate_content_policy(output)
     analysis, results = _decisions(output, artifact)
     preserved = output / ".enrichment" / "curated"
@@ -455,7 +463,7 @@ def verify_enrichment(output: Path) -> dict[str, Any]:
     pinned = output / ".enrichment" / "decisions.json"
     if sha(pinned.read_bytes()) != state["artifact_sha256"]:
         raise ValueError("pinned decision artifact changed")
-    artifact = Artifact.model_validate_json(pinned.read_bytes())
+    artifact = load_artifact(pinned)
     curated = output / ".enrichment" / "curated"
     validate_content_policy(curated)
     analysis, results = _decisions(curated, artifact)

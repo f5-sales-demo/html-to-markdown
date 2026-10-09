@@ -7,8 +7,8 @@ from typing import Any
 from ..curation import corpus_digest, json_bytes
 from .analysis import analyze, sha
 from .codex_client import CodexClient
-from .contracts import EDITOR_MODEL, Artifact, Decision, ImageCollection, ResponseEvidence
-from .engine import context_for
+from .contracts import EDITOR_MODEL, Decision, ImageCollection, ResponseEvidence
+from .engine import context_for, load_artifact
 from .gates import candidate, parse_response, request_hash
 from .media import image_input
 from .requests import editor_request, image_collection_request, validator_request
@@ -19,7 +19,7 @@ from .requests import editor_request, image_collection_request, validator_reques
 def generate(
     curated: Path, destination: Path, *, phase: str, journal: Path, wait: bool = False
 ) -> dict[str, Any]:
-    artifact = Artifact.model_validate_json(destination.read_bytes())
+    artifact = load_artifact(destination)
     analysis = analyze(curated)
     if (
         artifact.curated_sha256 != corpus_digest(curated)
