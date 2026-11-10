@@ -23,7 +23,7 @@ concurrency:
 jobs:
   inventory:
     name: Refresh official documentation
-    runs-on: ubuntu-24.04
+    runs-on: managed-socketless
     environment: repository-settings
     timeout-minutes: 180
     permissions:
@@ -37,7 +37,7 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run playwright install --with-deps chromium
+      - run: uv run playwright install chromium
       - name: Resolve and verify the immutable baseline
         env:
           GH_TOKEN: ${{ github.token }}
