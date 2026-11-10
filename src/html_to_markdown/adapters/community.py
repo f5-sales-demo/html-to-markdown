@@ -575,6 +575,9 @@ async def inventory_pass(
                     "category": CATEGORIES[value["category_id"]],
                     "title": value["title"],
                     "article_hash": digest,
+                    "review_state": "current"
+                    if review.get("article_hash") == digest
+                    else ("changed" if review else "new"),
                     "decision": decision,
                     "reason": reason,
                     "tagged": identifier in tagged,
@@ -633,6 +636,22 @@ async def inventory_pass(
         "topics": sorted(records, key=lambda item: item["id"]),
     }
     (output / "inventory.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
+    queue = [
+        item for item in sorted(records, key=lambda item: item["id"]) if item["id"] in unresolved
+    ]
+    (output / "review-queue.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "started_at": started,
+                "unresolved": len(queue),
+                "topics": queue,
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
+        + "\n"
+    )
     included = {item["id"] for item in records if item["decision"] == "include"}
     if not included >= REQUIRED_IDS:
         raise PublicationBlockedError(
@@ -650,6 +669,21 @@ def validate_community_publication(output: Path, store: Any) -> None:
     rows = store.rows(["community-f5-com"])
     documents = sorted(output.glob("content/community-f5-com/**/index.md"))
     if not rows and not documents:
+        return
+    if (output / "refresh-state.json").exists():
+        from html_to_markdown.refresh import (  # pylint: disable=import-outside-toplevel
+            verify_refresh,
+        )
+
+        state = verify_refresh(output)
+        if any(
+            choice["kind"] != "published"
+            for path, choice in state["documents"].items()
+            if path.startswith("content/community-f5-com/")
+        ):
+            raise PublicationBlockedError(
+                "source refresh cannot introduce unreviewed Community content"
+            )
         return
     inventory_path = output / "community-inventory/inventory.json"
     if not inventory_path.is_file():

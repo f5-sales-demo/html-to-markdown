@@ -211,6 +211,11 @@ def _accepted(row: Row) -> bool:
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | None = None) -> None:
     """Apply reviewed metadata only after the complete snapshot inventory exists."""
+    if (output / "refresh-state.json").is_file():
+        from .refresh import verify_refresh  # pylint: disable=import-outside-toplevel
+
+        verify_refresh(output)
+        return
     if (output / "enrichment-state.json").is_file():
         from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
 

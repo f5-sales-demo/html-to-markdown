@@ -9,14 +9,14 @@ from .analysis import links
 
 
 def validate_aliases(manifest: dict[str, Any]) -> None:
-    enrichment = manifest.get("enrichment")
+    enrichment = manifest.get("refresh") if "aliases" in manifest else manifest.get("enrichment")
     if enrichment is None:
         return
     if not isinstance(enrichment, dict) or not re.fullmatch(
         r"[0-9a-f]{64}", str(enrichment.get("artifact_sha256", ""))
     ):
         raise ValueError("invalid enrichment artifact pin")
-    aliases = enrichment.get("aliases")
+    aliases = manifest.get("aliases") if "aliases" in manifest else enrichment.get("aliases")
     if not isinstance(aliases, list):
         raise ValueError("invalid enrichment aliases")
     documents = {d["path"] for d in manifest["documents"]}

@@ -1,4 +1,5 @@
 import io
+import json
 import zipfile
 from contextlib import asynccontextmanager
 
@@ -6,6 +7,8 @@ import pytest
 
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
 from html_to_markdown.adapters.my_f5 import MyF5Adapter
+from html_to_markdown.errors import ScrapeError
+from html_to_markdown.models import FetchResult
 
 
 class Response:
@@ -94,11 +97,104 @@ async def test_docs_discovery_skips_bad_service() -> None:
             if url != DocsCloudAdapter.root_url:
                 raise RuntimeError("unavailable")
 
-    pages = await DocsCloudAdapter().discover(DocsFetcher(b"not a zip", BrokenPage()))
-    assert [page.url for page in pages] == [
-        "https://docs.cloud.f5.com/docs-v2",
-        "https://docs.cloud.f5.com/docs-v2/platform",
+    with pytest.raises(ScrapeError, match="incomplete docs navigation"):
+        await DocsCloudAdapter().discover(DocsFetcher(b"not a zip", BrokenPage()))
+
+
+@pytest.mark.asyncio
+async def test_docs_discovers_new_routes_without_browser_or_seed_inventory() -> None:
+    class StaticFetcher:
+        async def _http_fetch(self, source: str, url: str) -> FetchResult:
+            payload = {
+                "props": {
+                    "pageProps": {
+                        "nav": [
+                            "/ai-assistant/how-to/use-ai-assistant",
+                            "/multi-cloud-network-connect/reference/ce-site-size-ref",
+                            "/new-service/how-to/new-guide",
+                            "/new-service/how-to/new-guide",
+                        ]
+                    }
+                }
+            }
+            return FetchResult(
+                url=url,
+                final_url=url,
+                status_code=200,
+                html='<script id="__NEXT_DATA__" type="application/json">'
+                + json.dumps(payload)
+                + "</script>",
+            )
+
+    pages = await DocsCloudAdapter().discover(StaticFetcher())
+    assert len(pages) == 4
+    assert any(page.url.endswith("/new-guide") for page in pages)
+    assert any(page.url.endswith("/use-ai-assistant") for page in pages)
+    assert any(page.url.endswith("/ce-site-size-ref") for page in pages)
+
+
+@pytest.mark.asyncio
+async def test_docs_landing_page_bootstraps_full_navigation_and_keeps_evidence() -> None:
+    class LandingFetcher:
+        calls: list[str] = []
+        evidence: tuple[FetchResult, list[str]] | None = None
+
+        async def _http_fetch(self, source: str, url: str) -> FetchResult:
+            self.calls.append(url)
+            if url == DocsCloudAdapter.root_url:
+                html = '<script id="__NEXT_DATA__">{"props":{"pageProps":{"recommendations":[]}}}</script>'
+                html += '<a href="/docs-v2/a/how-to/unavailable">Unavailable</a>'
+                html += '<a href="/docs-v2/b/how-to/current">Current guide</a>'
+            elif url.endswith("unavailable"):
+                raise ScrapeError("transient failure")
+            else:
+                payload = {
+                    "props": {"pageProps": {"nav": ["/docs-v2/new-service/how-to/new-page"]}}
+                }
+                html = '<script id="__NEXT_DATA__">' + json.dumps(payload) + "</script>"
+            return FetchResult(url=url, final_url=url, status_code=200, html=html)
+
+        def record_navigation(self, response: FetchResult, routes: list[str]) -> None:
+            self.evidence = (response, routes)
+
+    fetcher = LandingFetcher()
+    pages = await DocsCloudAdapter().discover(fetcher)
+    assert len(fetcher.calls) == 3
+    assert fetcher.evidence is not None
+    assert [p.url for p in pages] == [
+        DocsCloudAdapter.root_url,
+        "https://docs.cloud.f5.com/docs-v2/new-service/how-to/new-page",
     ]
+
+
+@pytest.mark.parametrize(
+    "nav", [[], {}, [None], ["//evil.test/a"], ["/a/../b"], ["/a?x=1"], ["/a%2fb"], ["/a#fragment"]]
+)
+def test_docs_authoritative_inventory_rejects_invalid_routes(nav: object) -> None:
+    html = (
+        '<script id="__NEXT_DATA__">'
+        + json.dumps({"props": {"pageProps": {"nav": nav}}})
+        + "</script>"
+    )
+    with pytest.raises(ScrapeError):
+        DocsCloudAdapter.navigation_urls(html)
+
+
+def test_docs_authoritative_inventory_rejects_malformed_data() -> None:
+    for value in ("broken", "{}", "null"):
+        with pytest.raises(ScrapeError, match="invalid authoritative"):
+            DocsCloudAdapter.navigation_urls('<script id="__NEXT_DATA__">' + value + "</script>")
+    assert DocsCloudAdapter.navigation_urls("<main>legacy page</main>") is None
+
+
+@pytest.mark.asyncio
+async def test_docs_legacy_expansion_cannot_silently_truncate_navigation() -> None:
+    class EndlessPage(DocsPage):
+        async def evaluate(self, script: str) -> int:
+            return 1
+
+    with pytest.raises(ScrapeError, match="incomplete docs navigation"):
+        await DocsCloudAdapter().discover(DocsFetcher(b"not a zip", EndlessPage()))
 
 
 class Locator:
