@@ -93,6 +93,8 @@ def test_daily_inventory_is_separate_and_keeps_failure_evidence() -> None:
     assert "if: always()" in text
     assert "publication-sha256" in text
     assert "verify-publication" in text
+    assert "previous/revision.json" not in text
+    assert "deployed-revision.json" in text
     assert 'cron: "23 4 * * *"' in text
     assert "releases/latest" not in text
     assert "run --source all" not in text

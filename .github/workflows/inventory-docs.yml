@@ -50,9 +50,9 @@ jobs:
           if [[ -z "$SNAPSHOT_TAG" ]]; then
             test -z "$PUBLICATION_SHA256"
             curl --fail --silent --show-error --retry 3 \
-              https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > previous/revision.json
-            SNAPSHOT_TAG="$(jq -er .snapshot_tag previous/revision.json)"
-            PUBLICATION_SHA256="$(jq -er .publication_sha256 previous/revision.json)"
+              https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > deployed-revision.json
+            SNAPSHOT_TAG="$(jq -er .snapshot_tag deployed-revision.json)"
+            PUBLICATION_SHA256="$(jq -er .publication_sha256 deployed-revision.json)"
           fi
           [[ "$SNAPSHOT_TAG" =~ ^content-[0-9]{8}T[0-9]{6}Z$ ]]
           [[ "$PUBLICATION_SHA256" =~ ^[0-9a-f]{64}$ ]]
