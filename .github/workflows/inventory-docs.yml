@@ -22,6 +22,7 @@ concurrency:
 
 jobs:
   inventory:
+    name: Refresh official documentation
     runs-on: ubuntu-24.04
     environment: repository-settings
     timeout-minutes: 180
