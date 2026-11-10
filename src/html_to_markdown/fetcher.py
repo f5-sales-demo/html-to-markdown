@@ -7,7 +7,7 @@ import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import Any
+from typing import Any, Self
 from urllib.parse import urljoin, urlsplit
 
 import httpx
@@ -35,7 +35,7 @@ class Fetcher:
         self._playwright: Playwright | None = None
         self._browser: Browser | None = None
 
-    async def __aenter__(self) -> Fetcher:
+    async def __aenter__(self) -> Self:
         return self
 
     async def __aexit__(self, *_: object) -> None:

@@ -74,6 +74,8 @@ class CapturingFetcher(Fetcher):
         }
 
 
+# One report accounts for fetched, retained and excluded inputs together.
+# pylint: disable-next=too-many-locals
 def inventory_report(
     output: Path,
     previous: dict[str, Any],

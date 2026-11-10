@@ -1098,7 +1098,7 @@ def validate_whole_document_retirement(
 
 
 # Original-chain and final-policy guards deliberately remain one audit.
-# pylint: disable-next=too-many-branches
+# pylint: disable-next=too-many-branches,too-many-locals
 def validate_curation(
     output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
 ) -> None:

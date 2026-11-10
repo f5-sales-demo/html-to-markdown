@@ -1,5 +1,7 @@
 """Receipt-pinned source refresh with whole-article publication fallbacks."""
 
+# Deferred policy callbacks run after module initialization.
+# pylint: disable=cyclic-import
 from __future__ import annotations
 
 import hashlib
@@ -81,6 +83,8 @@ def _verified_baseline(directory: Path, receipt_sha256: str) -> dict[str, bytes]
     return files
 
 
+# Keep both upstreams and the complete selected graph in one preservation audit.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def verify_refresh(output: Path) -> dict[str, Any]:
     """Check both upstream inputs and every selected body/asset on each replay."""
     state: dict[str, Any] = json.loads((output / MARKER).read_text())
@@ -189,6 +193,8 @@ def inherited_documents(output: Path) -> set[str]:
     return {path for path, choice in state["documents"].items() if choice["kind"] == "published"}
 
 
+# Selection, fallback, alias closure and sealing are one publication transaction.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def combine_docs(
     baseline: Path, current: Path, output: Path, receipt_sha256: str
 ) -> dict[str, Any]:

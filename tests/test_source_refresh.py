@@ -3,7 +3,11 @@ from pathlib import Path
 
 import pytest
 
+from html_to_markdown import refresh
+from html_to_markdown.adapters.community import validate_community_publication
+from html_to_markdown.content_policy import migrate_content
 from html_to_markdown.curation import corpus_digest
+from html_to_markdown.errors import PublicationBlockedError
 from html_to_markdown.metadata import enrich_snapshot
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.package import (
@@ -99,7 +103,6 @@ def test_fresh_docs_publish_while_verified_community_is_preserved(tmp_path: Path
     assert "16 vCPUs and 64 GB RAM" in article.read_text()
     assert split_document(article.read_text())[0]["modification_date"] == "2026-11-10"
     verify_refresh(output)
-    from html_to_markdown.adapters.community import validate_community_publication
 
     with_store = StateStore(output / "state.sqlite")
     validate_community_publication(output, with_store)
@@ -129,10 +132,9 @@ def test_changed_source_cannot_replay_cached_refresh_decisions(tmp_path: Path) -
 def test_rejected_fresh_article_keeps_whole_verified_original(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from html_to_markdown import refresh
 
     baseline, current, pin = prepare(tmp_path)
-    migrate = refresh.migrate_content
+    migrate = migrate_content
 
     def guarded(output: Path) -> object:
         if (output / "content/docs-cloud-f5-com/a/index.md").exists():
@@ -173,9 +175,6 @@ def test_candidate_cannot_introduce_unsupported_prose(tmp_path: Path) -> None:
 def test_refresh_community_gate_rejects_new_articles(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from html_to_markdown import refresh
-    from html_to_markdown.adapters.community import validate_community_publication
-    from html_to_markdown.errors import PublicationBlockedError
 
     (tmp_path / "refresh-state.json").write_text("{}")
     store = StateStore(tmp_path / "state.sqlite")

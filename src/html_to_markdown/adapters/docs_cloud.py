@@ -34,6 +34,8 @@ class DocsCloudAdapter(SourceAdapter):
         title = soup.title.get_text(" ", strip=True) if soup.title else ""
         return " API for " in title and soup.select_one(".api-info") is None
 
+    # Preserve one discovery boundary across authoritative and legacy paths.
+    # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
     async def discover(self, fetcher: object) -> list[DiscoveredPage]:
         # F5 exposes its complete build route inventory in server-rendered data.
         # Read it before relying on the viewport, expansion timing or service cards.

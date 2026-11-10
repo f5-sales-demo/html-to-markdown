@@ -671,8 +671,8 @@ def validate_community_publication(output: Path, store: Any) -> None:
     if not rows and not documents:
         return
     if (output / "refresh-state.json").exists():
-        from html_to_markdown.refresh import (
-            verify_refresh,  # pylint: disable=import-outside-toplevel
+        from html_to_markdown.refresh import (  # pylint: disable=import-outside-toplevel
+            verify_refresh,
         )
 
         state = verify_refresh(output)

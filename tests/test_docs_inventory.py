@@ -3,8 +3,12 @@ from pathlib import Path
 
 import pytest
 
-from html_to_markdown.docs_inventory import inventory_report
-from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
+from html_to_markdown import docs_inventory
+from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.docs_inventory import CapturingFetcher, inventory_report
+from html_to_markdown.fetcher import Fetcher
+from html_to_markdown.models import DiscoveredPage, FetchResult, PageMetadata, PageStatus
+from html_to_markdown.pipeline import Pipeline
 from html_to_markdown.render import serialize_document
 from html_to_markdown.state import StateStore
 
@@ -98,12 +102,11 @@ def test_daily_inventory_is_separate_and_keeps_failure_evidence() -> None:
 async def test_collection_failure_still_records_inventory(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from html_to_markdown import docs_inventory
 
     async def broken_discovery(self: object, source: str) -> int:
         raise RuntimeError("navigation capture interrupted")
 
-    monkeypatch.setattr(docs_inventory.Pipeline, "discover", broken_discovery)
+    monkeypatch.setattr(Pipeline, "discover", broken_discovery)
     with pytest.raises(RuntimeError, match="interrupted"):
         await docs_inventory.collect_docs(tmp_path)
     report = json.loads((tmp_path / "inventory.json").read_text())
@@ -115,10 +118,6 @@ async def test_collection_failure_still_records_inventory(
 async def test_capture_keeps_current_html_and_rechecks_successful_articles(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
-    from html_to_markdown.docs_inventory import CapturingFetcher
-    from html_to_markdown.fetcher import Fetcher
-    from html_to_markdown.models import FetchResult
 
     calls = []
 
