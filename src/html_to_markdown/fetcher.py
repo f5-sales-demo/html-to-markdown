@@ -114,6 +114,8 @@ class Fetcher:
                         continue
                     if response.status_code == 404:
                         raise NotFoundError(f"HTTP 404: {current}")
+                    if response.status_code in {401, 403}:
+                        raise AuthenticationWallError(f"HTTP {response.status_code}: {current}")
                     if response.status_code >= 500:
                         raise httpx.HTTPStatusError(
                             f"HTTP {response.status_code}",

@@ -1,0 +1,133 @@
+name: Inventory official documentation
+
+on:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+    inputs:
+      snapshot-tag:
+        description: Exact baseline snapshot (defaults to deployed revision)
+        required: false
+        type: string
+      publication-sha256:
+        description: Receipt SHA-256 required with an explicit baseline
+        required: false
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: content-snapshot
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    environment: repository-settings
+    timeout-minutes: 180
+    permissions:
+      contents: write # publish receipt-verified changed snapshots
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run playwright install --with-deps chromium
+      - name: Resolve and verify the immutable baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SNAPSHOT_TAG: ${{ inputs.snapshot-tag }}
+          PUBLICATION_SHA256: ${{ inputs.publication-sha256 }}
+        run: |
+          set -euo pipefail
+          mkdir -p previous
+          if [[ -z "$SNAPSHOT_TAG" ]]; then
+            test -z "$PUBLICATION_SHA256"
+            curl --fail --silent --show-error --retry 3 \
+              https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > previous/revision.json
+            SNAPSHOT_TAG="$(jq -er .snapshot_tag previous/revision.json)"
+            PUBLICATION_SHA256="$(jq -er .publication_sha256 previous/revision.json)"
+          fi
+          [[ "$SNAPSHOT_TAG" =~ ^content-[0-9]{8}T[0-9]{6}Z$ ]]
+          [[ "$PUBLICATION_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          echo "baseline_receipt_sha256=$PUBLICATION_SHA256" >> "$GITHUB_ENV"
+          gh release download "$SNAPSHOT_TAG" --repo "$REPOSITORY" --dir previous
+          uv run html-to-markdown verify-publication --output previous \
+            --release-tag "$SNAPSHOT_TAG" --publication-sha256 "$PUBLICATION_SHA256"
+          tar -xzf previous/html-to-markdown-content.tar.gz -C previous
+      - name: Collect current routes and freshly fetched content
+        run: uv run html-to-markdown inventory-docs --output capture --previous-manifest previous/manifest.json
+      - name: Curate fresh articles and preserve verified other sources
+        run: |
+          uv run html-to-markdown combine-content --baseline previous --current capture \
+            --output build --publication-sha256 "$baseline_receipt_sha256"
+          uv run html-to-markdown verify-refresh --output build
+          uv run html-to-markdown validate --output build
+      - name: Detect retained content changes
+        id: changed
+        run: |
+          set -euo pipefail
+          if diff -q \
+              <(jq -S '{documents: [.documents[] | {url,path,body_sha256,file_sha256,size_bytes}],assets,aliases: (.aliases // .enrichment.aliases // [])}' previous/manifest.json) \
+              <(jq -S '{documents: [.documents[] | {url,path,body_sha256,file_sha256,size_bytes}],assets,aliases: (.aliases // .enrichment.aliases // [])}' build/manifest.json); then
+            echo "value=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Seal immutable publication receipt
+        if: steps.changed.outputs.value == 'true'
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          tag="content-$(date -u +%Y%m%dT%H%M%SZ)"
+          uv run html-to-markdown publication --output build --release-tag "$tag" \
+            --source-commit "$SOURCE_COMMIT" --created-at "$(jq -r .ended_at build/manifest.json)" \
+            --published-at "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "release_tag=$tag" >> "$GITHUB_ENV"
+          echo "receipt_sha256=$(sha256sum build/publication.json | cut -d ' ' -f 1)" >> "$GITHUB_ENV"
+      - name: Publish changed snapshot and dispatch pinned Pages build
+        if: steps.changed.outputs.value == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh release create "$release_tag" --repo "$REPOSITORY" --draft --latest=false \
+            --target "$GITHUB_SHA" --title "$release_tag" --generate-notes \
+            build/html-to-markdown-content.tar.gz build/html-to-markdown-content.tar.gz.sha256 \
+            build/manifest.json build/quality-report.json build/quality-report.md build/publication.json
+          mkdir verify-release
+          gh release download "$release_tag" --repo "$REPOSITORY" --dir verify-release
+          uv run html-to-markdown verify-publication --output verify-release \
+            --release-tag "$release_tag" --publication-sha256 "$receipt_sha256"
+          gh release edit "$release_tag" --repo "$REPOSITORY" --draft=false
+          gh workflow run github-pages-deploy.yml --repo "$REPOSITORY" --ref main \
+            -f "snapshot-tag=$release_tag" -f "publication-sha256=$receipt_sha256"
+      - name: Keep inventory and capture evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: official-docs-inventory-${{ github.run_id }}
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            capture/inventory.json
+            capture/inventory.md
+            capture/discovery-exclusions.json
+            capture/navigation.json
+            capture/state.sqlite
+            capture/captures/
+            capture/content/
+            build/curation-audit.json
+            build/refresh-state.json
+            build/.refresh/candidates/
+            build/manifest.json
+            build/state.sqlite
+            build/html-to-markdown-content.tar.gz
+            build/html-to-markdown-content.tar.gz.sha256

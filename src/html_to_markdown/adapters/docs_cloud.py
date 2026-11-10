@@ -3,14 +3,20 @@
 from __future__ import annotations
 
 import io
+import json
 import re
 import zipfile
 from datetime import datetime
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup, Tag
 
-from html_to_markdown.errors import AuthenticationWallError, NavigationOnlyError, NotFoundError
+from html_to_markdown.errors import (
+    AuthenticationWallError,
+    NavigationOnlyError,
+    NotFoundError,
+    ScrapeError,
+)
 from html_to_markdown.models import DiscoveredPage, ExtractedPage, FetchResult, PageMetadata
 from html_to_markdown.urls import validate_source_url
 
@@ -29,12 +35,47 @@ class DocsCloudAdapter(SourceAdapter):
         return " API for " in title and soup.select_one(".api-info") is None
 
     async def discover(self, fetcher: object) -> list[DiscoveredPage]:
+        # F5 exposes its complete build route inventory in server-rendered data.
+        # Read it before relying on the viewport, expansion timing or service cards.
+        http_fetch = getattr(fetcher, "_http_fetch", None)
+        if http_fetch is not None:
+            response = await http_fetch(self.source_id, self.root_url)
+            self.classify_page(response)
+            routes = self.navigation_urls(response.html)
+            if routes is None:
+                soup = BeautifulSoup(response.html, "html.parser")
+                bootstrap = sorted(
+                    {
+                        urljoin(self.root_url, str(a["href"]))
+                        for a in soup.select('a[href*="/docs-v2/"]')
+                        if len(urlsplit(str(a["href"])).path.strip("/").split("/")) > 2
+                        and not str(a["href"]).startswith("/docs-v2/api")
+                    }
+                )
+                for candidate in bootstrap[:3]:
+                    try:
+                        candidate = validate_source_url(self.source_id, candidate)
+                        response = await http_fetch(self.source_id, candidate)
+                        self.classify_page(response)
+                    except ScrapeError:
+                        continue
+                    routes = self.navigation_urls(response.html)
+                    if routes is not None:
+                        break
+            if routes is not None:
+                record = getattr(fetcher, "record_navigation", None)
+                if record is not None:
+                    record(response, routes)
+                return [DiscoveredPage(source_id=self.source_id, url=url) for url in routes]
         urls: set[str] = {self.root_url}
+        failures: list[str] = []
         async with fetcher.browser_page() as page:  # type: ignore[attr-defined]
             await page.goto(self.root_url, wait_until="domcontentloaded")
             service_urls = await page.eval_on_selector_all(
                 'a[href*="/docs-v2/"]', "els => [...new Set(els.map(e => e.href.split('#')[0]))]"
             )
+            if not service_urls:
+                raise ScrapeError("docs root navigation is empty")
             for service_url in service_urls:
                 try:
                     service_url = validate_source_url(self.source_id, service_url)
@@ -56,11 +97,15 @@ class DocsCloudAdapter(SourceAdapter):
                           return clicked;
                         }"""
                         )
-                        if not isinstance(expanded, int) or expanded == 0:
+                        if not isinstance(expanded, int):
+                            raise ScrapeError("invalid docs navigation expansion result")
+                        if expanded == 0:
                             break
                         wait = getattr(page, "wait_for_timeout", None)
                         if wait is not None:
                             await wait(100)
+                    else:
+                        raise ScrapeError("docs navigation expansion did not converge")
                     links = await page.eval_on_selector_all(
                         '[role="tree"] a[href*="/docs-v2/"], main a[href*="/docs-v2/"]',
                         "els => [...new Set(els.map(e => e.href.split('#')[0]))]",
@@ -68,9 +113,10 @@ class DocsCloudAdapter(SourceAdapter):
                     urls.update(validate_source_url(self.source_id, item) for item in links)
                     if not links:
                         urls.add(service_url)
-                except Exception:  # pylint: disable=broad-exception-caught  # nosec B112
-                    # One unavailable service must not prevent discovery of the others.
-                    continue
+                except Exception as error:  # pylint: disable=broad-exception-caught
+                    failures.append(f"{service_url}: {type(error).__name__}")
+        if failures:
+            raise ScrapeError("incomplete docs navigation discovery: " + "; ".join(failures))
         try:
             spec_url = f"{self.root_url}/downloads/f5-distributed-cloud-open-api.zip"
             # Discovery owns this trusted, fixed URL rather than an extracted asset URL.
@@ -92,6 +138,41 @@ class DocsCloudAdapter(SourceAdapter):
         except (OSError, zipfile.BadZipFile):
             pass
         return [DiscoveredPage(source_id=self.source_id, url=url) for url in sorted(urls)]
+
+    @classmethod
+    def navigation_urls(cls, html: str) -> list[str] | None:
+        """Return the full authoritative route set, or use legacy HTML discovery."""
+        soup = BeautifulSoup(html, "html.parser")
+        node = soup.find("script", id="__NEXT_DATA__")
+        if node is None:
+            return None
+        try:
+            data = json.loads(node.get_text())
+            props = data["props"]["pageProps"]
+            if isinstance(props, dict) and "nav" not in props:
+                return None  # The documentation landing page has recommendations only.
+            nav = props["nav"]
+        except (ValueError, KeyError, TypeError) as error:
+            raise ScrapeError("invalid authoritative docs navigation data") from error
+        if not isinstance(nav, list) or not nav or len(nav) > 20_000:
+            raise ScrapeError("empty or oversized authoritative docs navigation")
+        urls = {cls.root_url}
+        for route in nav:
+            if (
+                not isinstance(route, str)
+                or not route.startswith("/")
+                or route.startswith("//")
+                or any(char in route for char in "?#%\\")
+                or any(part in {".", ".."} for part in route.split("/"))
+            ):
+                raise ScrapeError("invalid route in authoritative docs navigation")
+            path = (
+                route
+                if route == "/docs-v2" or route.startswith("/docs-v2/")
+                else "/docs-v2" + route
+            )
+            urls.add(validate_source_url(cls.source_id, "https://docs.cloud.f5.com" + path))
+        return sorted(urls)
 
     def readiness_script(self) -> str | None:
         return "() => document.querySelector('main, article, .api-info') !== null"

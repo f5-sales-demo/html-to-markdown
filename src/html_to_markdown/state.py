@@ -70,7 +70,11 @@ class StateStore:
                        source_last_modified
                    ) VALUES (?, ?, ?, ?, ?, ?)
                    ON CONFLICT(canonical_url) DO UPDATE SET
-                     source_last_modified=excluded.source_last_modified,
+                      status=CASE WHEN excluded.source_last_modified IS NOT NULL
+                        AND excluded.source_last_modified IS NOT pages.source_last_modified
+                        THEN 'discovered' ELSE pages.status END,
+                      source_last_modified=COALESCE(excluded.source_last_modified,
+                        pages.source_last_modified),
                      updated_at=excluded.updated_at""",
                 [
                     (
@@ -90,7 +94,7 @@ class StateStore:
         return rows if not source_ids else [row for row in rows if row["source"] in source_ids]
 
     def pending(self, source_ids: list[str], force: bool = False) -> list[sqlite3.Row]:
-        statuses = {PageStatus.DISCOVERED, PageStatus.FAILED}
+        statuses = {PageStatus.DISCOVERED, PageStatus.FAILED, PageStatus.FETCHING}
         if force:
             statuses.add(PageStatus.SUCCESS)
         return [row for row in self.rows(source_ids) if PageStatus(row["status"]) in statuses]

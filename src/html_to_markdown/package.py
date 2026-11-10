@@ -335,6 +335,20 @@ def build_manifest(
             "artifact_sha256": state["artifact_sha256"],
             "aliases": state["report"]["aliases"],
         }
+    if (output / "refresh-state.json").is_file():
+        from .refresh import verify_refresh  # pylint: disable=import-outside-toplevel
+
+        state = verify_refresh(output)
+        manifest["aliases"] = state["aliases"]
+        manifest["refresh"] = {
+            "artifact_sha256": sha256_file(output / "refresh-state.json"),
+            "baseline_receipt_sha256": state["baseline_receipt_sha256"],
+            "baseline_tag": state["baseline_tag"],
+            "refreshed_sources": ["docs-cloud-f5-com"],
+            "preserved_descriptions": sorted(
+                path for path, choice in state["documents"].items() if choice["kind"] == "published"
+            ),
+        }
     return manifest
 
 

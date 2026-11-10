@@ -12,6 +12,7 @@ import typer
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
 from .content_policy import load_content_policy, migrate_content
+from .docs_inventory import collect_docs
 from .enrichment.analysis import write_analysis
 from .enrichment.engine import prepare, replay, verify_enrichment
 from .enrichment.evaluation import evaluate
@@ -29,6 +30,7 @@ from .package import (
 )
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
+from .refresh import combine_docs, verify_refresh
 from .render import split_document
 from .state import StateStore
 from .validation import validate_snapshot
@@ -109,6 +111,47 @@ def discover(
             return await pipeline.discover(_check_source(source), url)
 
     typer.echo(asyncio.run(execute()))
+
+
+@app.command("inventory-docs")
+def inventory_docs(
+    output: Output = Path("docs-inventory"),
+    previous_manifest: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    concurrency: Annotated[int, typer.Option(min=1, max=20)] = 4,
+    retries: Annotated[int, typer.Option(min=1, max=10)] = 3,
+    timeout: Annotated[float, typer.Option(min=1)] = 30,
+) -> None:
+    """Discover and freshly capture official docs independently of Community reviews."""
+    configure_logging()
+    report = asyncio.run(
+        collect_docs(
+            output,
+            previous_manifest=previous_manifest,
+            concurrency=concurrency,
+            retries=retries,
+            timeout=timeout,
+        )
+    )
+    typer.echo(json.dumps(report["counts"], sort_keys=True))
+
+
+@app.command("combine-content")
+def combine_content(
+    baseline: Annotated[Path, typer.Option(file_okay=False)],
+    current: Annotated[Path, typer.Option(file_okay=False)],
+    publication_sha256: Annotated[str, typer.Option()],
+    output: Output = Path("combined"),
+) -> None:
+    """Publish fresh official docs with receipt-verified prior-source fallbacks."""
+    state = combine_docs(baseline, current, output, publication_sha256)
+    typer.echo(json.dumps({"documents": len(state["documents"]), "aliases": len(state["aliases"])}))
+
+
+@app.command("verify-refresh")
+def verify_refresh_command(output: Output = Path("combined")) -> None:
+    """Verify the source refresh inputs and preserved published content."""
+    verify_refresh(output)
+    typer.echo("valid")
 
 
 @app.command()

@@ -105,6 +105,25 @@ async def test_hard_404() -> None:
     await fetcher.close()
 
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize("status", [401, 403])
+async def test_restricted_docs_do_not_retry_as_transient_failures(status: int) -> None:
+    calls = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request)
+        return httpx.Response(status, request=request)
+
+    async with Fetcher(retries=3) as fetcher:
+        await fetcher._http.aclose()
+        fetcher._http = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+        with pytest.raises(AuthenticationWallError, match=f"HTTP {status}"):
+            await fetcher._http_fetch(
+                "docs-cloud-f5-com", "https://docs.cloud.f5.com/docs-v2/ai-gateway/overview"
+            )
+    assert len(calls) == 1
+
+
 class BrowserResponse:
     status = 200
 

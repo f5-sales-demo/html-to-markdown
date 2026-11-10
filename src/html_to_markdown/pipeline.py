@@ -93,12 +93,24 @@ class Pipeline:
             groups = await asyncio.gather(*(adapter.discover(self.fetcher) for adapter in adapters))
             pages = [page for group in groups for page in group]
         retained = []
+        exclusions = []
         for page in pages:
             if load_content_policy().excludes(page.url):
                 record_exclusion(self.store, page.url, "discovery")
+                exclusions.append(
+                    {
+                        "url": page.url,
+                        "status": "policy_excluded",
+                        "change": "policy_excluded",
+                        "origin": "discovery",
+                    }
+                )
             else:
                 retained.append(page)
         pages = retained
+        (self.output / "discovery-exclusions.json").write_text(
+            json.dumps(exclusions, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
         self.store.discover(pages)
         log.info(
             "discovery_complete",

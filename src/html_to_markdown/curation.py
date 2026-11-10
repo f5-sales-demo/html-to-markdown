@@ -1103,6 +1103,12 @@ def validate_curation(
     output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
 ) -> None:
     enriched = (output / "enrichment-state.json").is_file()
+    refreshed = (output / "refresh-state.json").is_file()
+    inherited: set[str] = set()
+    if refreshed:
+        from .refresh import inherited_documents  # pylint: disable=import-outside-toplevel
+
+        inherited = inherited_documents(output)
     if enriched:
         from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
 
@@ -1110,7 +1116,8 @@ def validate_curation(
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
-        validate_whole_document_retirement(policy, path, metadata, body)
+        if path.relative_to(output).as_posix() not in inherited:
+            validate_whole_document_retirement(policy, path, metadata, body)
         if policy.appstack is not None:
             result = policy.appstack.transform(body, str(metadata["url"]))
             if result.body != body or result.omit:
@@ -1173,7 +1180,7 @@ def validate_curation(
             predicate=policy.appstack.excludes if policy.appstack else None,
         ):
             raise ValueError(f"retired reference remains: {path}")
-    if artifacts and not enriched:
+    if artifacts and not enriched and not refreshed:
         # Final validation uses the same planner as examination and application.
         replay = curate_topics(output, policy=policy, apply=False)
         planned = replay.pop("_planned")

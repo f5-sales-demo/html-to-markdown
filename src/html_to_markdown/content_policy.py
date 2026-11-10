@@ -325,6 +325,14 @@ def migrate_content(
     """Examine or apply a snapshot transaction without fetching any input."""
     # One transaction keeps document, asset and evidence counts consistent.
     # pylint: disable=too-many-locals,too-many-branches,too-many-statements
+    if (output / "refresh-state.json").is_file():
+        from .refresh import verify_refresh  # pylint: disable=import-outside-toplevel
+
+        state = verify_refresh(output)
+        return {
+            "baseline_receipt_sha256": state["baseline_receipt_sha256"],
+            "findings": state["findings"],
+        }
     if (output / "enrichment-state.json").is_file():
         from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
 
