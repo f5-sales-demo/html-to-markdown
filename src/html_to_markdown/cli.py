@@ -235,6 +235,7 @@ def publication_command(
 def verify_publication_command(
     output: Output = Path("build"),
     release_tag: Annotated[str, typer.Option()] = "",
+    publication_sha256: Annotated[str | None, typer.Option()] = None,
 ) -> None:
     """Verify a downloaded release and its closed publication asset set."""
     receipt = json.loads((output / "publication.json").read_text(encoding="utf-8"))
@@ -242,6 +243,7 @@ def verify_publication_command(
         output,
         receipt,
         expected_tag=release_tag,
+        expected_receipt_sha256=publication_sha256,
         actual_asset_names={path.name for path in output.iterdir() if path.is_file()},
     )
     archive = output / "html-to-markdown-content.tar.gz"
