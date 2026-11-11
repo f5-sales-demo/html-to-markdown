@@ -14,6 +14,8 @@ from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.media import all_frame_inputs
+from html_to_markdown.models import PageMetadata
+from html_to_markdown.render import serialize_document
 from html_to_markdown.source_review_jobs import (
     _media_context,
     prepare_reviews,
@@ -82,6 +84,59 @@ class LocalClient:
             transport="codex_litellm",
             runtime_version="test",
         )
+
+
+@pytest.mark.parametrize("approved", [True, False])
+def test_independent_exclusion_remains_unpublished_and_requires_every_check(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, approved: bool
+) -> None:
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    item = inventory["documents"][0]
+    metadata = PageMetadata.model_validate(item["metadata"])
+    metadata.title = "Lifecycle notice"
+    article = serialize_document(
+        metadata, "# Lifecycle notice\n\nThis service has retired.\n"
+    ).encode()
+    source = b"<article><h1>Lifecycle notice</h1><p>This service has retired.</p></article>"
+    atomic_private(capture / item["article_path"], article)
+    atomic_private(capture / item["source_html_path"], source)
+    item.update(
+        article_sha256=sha(article),
+        source_html_sha256=sha(source),
+        metadata=metadata.model_dump(by_alias=True),
+    )
+    atomic_private(capture / "inventory.json", json_bytes(inventory))
+
+    class ExcludingClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            response = super().execute(body)
+            raw = response.response
+            output = json.loads(raw["output"][0]["content"][0]["text"])
+            if body["text"]["format"]["name"] == "relevancedecision":
+                output.update(disposition="exclude", reason="complete source is a lifecycle notice")
+            elif body["text"]["format"]["name"] == "admissionvalidation":
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                assert payload["relevance_decision"]["disposition"] == "exclude"
+                output.update(
+                    approved=approved,
+                    privacy_valid=approved,
+                    failures=[] if approved else ["unresolved privacy finding"],
+                )
+            raw["output"][0]["content"][0]["text"] = json.dumps(output)
+            return response.model_copy(
+                update={
+                    "response_sha256": sha(json.dumps(raw, sort_keys=True, separators=(",", ":")))
+                }
+            )
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", ExcludingClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert report["documents"][0]["disposition"] == ("policy_excluded" if approved else "queued")
+    assert bool(report["exceptions"]) is not approved
+    assert not verify_reviews(capture, output)["accepted_files"]
+    assert not (output / "reviewed").exists()
 
 
 def test_review_and_offline_replay_preserve_complete_article(

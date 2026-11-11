@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from PIL import Image
+from pydantic import Field
 
 from .adapters.community import PRIVACY_PATTERNS
 from .community_media import (
@@ -115,8 +116,12 @@ class AdmissionValidation(StrictModel):
     identity: str
     binding_sha256: str
     output_sha256: str
-    approved: bool
-    relevance_valid: bool
+    approved: bool = Field(
+        description="All mandatory checks validate the proposed include or exclude inventory decision."
+    )
+    relevance_valid: bool = Field(
+        description="The proposed include or exclude disposition is independently justified by the complete source."
+    )
     privacy_valid: bool
     extraction_valid: bool
     technical_relationships_preserved: bool
@@ -393,6 +398,10 @@ and explicit synthetic value mappings. Never approve credential findings. Every 
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
+For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
+exclusion can be approved when every mandatory check passes; it is recorded as a policy exclusion
+and produces no published article. Do not reject a justified exclusion merely because the excluded
+article is irrelevant. Failures describe defects in the proposed decision or transformation.
 Approve only complete relevance, privacy, extraction, retirement and technical-preservation checks.
 Return only the specified structured output. Phase: """
         + phase

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from typing import Any, cast
 from urllib.parse import urljoin
 
 import yaml
@@ -61,6 +62,10 @@ CHROME_SELECTORS = (
 class DeterministicConverter(MarkdownConverter):
     """Markdownify with stable fenced code and callout behavior."""
 
+    def escape(self, text: str, parent_tags: set[str]) -> str:
+        escaped = cast(Any, super()).escape(text.replace("\\", "\\\\"), parent_tags)
+        return str(escaped).replace("<", r"\<").replace(">", r"\>")
+
     def convert_pre(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         candidate = el.find("code")
         code = candidate if isinstance(candidate, Tag) else None
@@ -85,7 +90,7 @@ class DeterministicConverter(MarkdownConverter):
         if re.search(r"callout|admonition|alert", classes, re.IGNORECASE):
             lines = [f"> {line}" if line else ">" for line in text.strip().splitlines()]
             return "\n" + "\n".join(lines) + "\n"
-        return text
+        return str(cast(Any, super()).convert_div(el, text, parent_tags))
 
 
 def normalize_body(body: str) -> str:

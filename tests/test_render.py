@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from markdown_it import MarkdownIt
+
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
 from html_to_markdown.adapters.my_f5 import MyF5Adapter
 from html_to_markdown.models import FetchResult, PageMetadata
@@ -85,3 +87,36 @@ def test_source_code_widget_line_boundaries_preserve_commands_and_order() -> Non
     body = render_html(html, "https://docs.cloud.f5.com/docs-v2/example").body
     assert "export MODE=example\ncurl --retry 3 https://example.com" in body
     assert body.startswith("```bash\n")
+
+
+def test_visible_angle_brackets_remain_text_after_markdown_rendering() -> None:
+    html = """<h2>Support for &lt;legacy&gt;</h2>
+<p>Keep the &lt;legacy&gt; qualifier and C:\\work path.</p>
+<table><tr><th>Schema</th></tr><tr><td>&lt;schema&gt;</td></tr></table>
+<p><code>curl &lt;source&gt; &amp;&amp; echo done</code></p>
+<pre><code>&lt;schema&gt;\\payload&lt;/schema&gt;</code></pre>"""
+    body = render_html(html, "https://example.com").body
+    rendered = MarkdownIt("commonmark", {"html": True}).enable("table").render(body)
+    assert "Support for &lt;legacy&gt;" in rendered
+    assert "Keep the &lt;legacy&gt; qualifier and C:\\work path." in rendered
+    assert "<td>&lt;schema&gt;</td>" in rendered
+    assert "<legacy>" not in rendered and "<schema>" not in rendered
+    assert "`curl <source> && echo done`" in body
+    assert "```\n<schema>\\payload</schema>\n```" in body
+
+
+def test_capability_cards_preserve_title_and_description_boundaries() -> None:
+    html = """<main><div class="cards">
+<div class="card"><div>HTTP checks</div><div>Verify expected status.</div></div>
+<div class="card"><div>DNS checks</div><div>Verify expected records.</div></div>
+</div><table><tr><th>Capability</th></tr>
+<tr><td><div>Latency</div><div>Measure milliseconds.</div></td></tr></table>
+<div class="alert">Preserve the warning.</div></main>"""
+    body = render_html(html, "https://example.com").body
+    rendered = MarkdownIt("commonmark", {"html": True}).enable("table").render(body)
+    assert "<p>HTTP checks</p>" in rendered
+    assert "<p>Verify expected status.</p>" in rendered
+    assert "<p>DNS checks</p>" in rendered
+    assert "<p>Verify expected records.</p>" in rendered
+    assert "Latency Measure milliseconds." in " ".join(rendered.split())
+    assert "> Preserve the warning." in body
