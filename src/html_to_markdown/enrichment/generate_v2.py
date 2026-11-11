@@ -10,7 +10,7 @@ from typing import Any
 from ..content_inventory import atomic_private
 from ..curation import corpus_digest, json_bytes
 from .analysis import analyze, sha
-from .codex_client import CodexClient
+from .codex_client import CodexClient, is_transient_error
 from .contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .contracts_v2 import ClassifiedSection, DocumentDecisionV2, EditedSection, ValidationV2
 from .engine import artifact_bytes, load_artifact
@@ -31,7 +31,11 @@ from .v2 import (
 
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-statements
-def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) -> dict[str, Any]:
+def generate_v2(
+    curated: Path, destination: Path, *, phase: str, journal: Path, limit: int | None = None
+) -> dict[str, Any]:
+    if limit is not None and (limit < 1 or phase != "all"):
+        raise ValueError("enrichment batches require all phases and a positive document limit")
     artifact = load_artifact(destination)
     analysis = analyze(curated)
     if artifact.curated_sha256 != corpus_digest(curated) or artifact.analysis_sha256 != sha(
@@ -40,6 +44,37 @@ def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) 
         raise ValueError("version-two input changed since preparation")
     canonical = {doc["document"]: doc for doc in analysis["documents"]}
     records = {record.document: record for record in artifact.documents}
+
+    def pending(document: str) -> bool:
+        progress = records[document].v2
+        if progress is None:
+            return True
+        return progress.get("selected_attempt") is None and (
+            progress.get("failure_reason") is None
+            or (
+                progress.get("failure_reason") == "incomplete_transport_or_schema_response"
+                and progress.get("retryable", True)
+            )
+        )
+
+    selected = analysis["documents"]
+    if limit is not None:
+        selected = [doc for doc in selected if pending(doc["document"])][:limit]
+    if not selected:
+        return {
+            "phase": phase,
+            "documents": len(records),
+            "processed": 0,
+            "pending": 0,
+            "validated": sum(
+                record.v2 is not None and record.v2.get("selected_attempt") is not None
+                for record in records.values()
+            ),
+            "fallbacks": sum(
+                record.v2 is not None and record.v2.get("failure_reason") is not None
+                for record in records.values()
+            ),
+        }
     client = CodexClient(journal, concurrency=4)
     checkpoint_lock = Lock()
 
@@ -183,6 +218,7 @@ def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) 
                 if evidence is not None and evidence.error is not None:
                     attempt["transport_failure"] = evidence.error
                     progress["failure_reason"] = "incomplete_transport_or_schema_response"
+                    progress["retryable"] = is_transient_error(evidence.error)
                     checkpoint()
                     return
                 attempt["failure"] = str(failure)
@@ -208,7 +244,7 @@ def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) 
 
     try:
         with ThreadPoolExecutor(max_workers=4) as pool:
-            futures = {pool.submit(work, doc): doc["document"] for doc in analysis["documents"]}
+            futures = {pool.submit(work, doc): doc["document"] for doc in selected}
             for future in as_completed(futures):
                 future.result()
     finally:
@@ -216,6 +252,8 @@ def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) 
     return {
         "phase": phase,
         "documents": len(records),
+        "processed": len(selected),
+        "pending": sum(pending(document) for document in records),
         "validated": sum(
             record.v2 is not None and record.v2.get("selected_attempt") is not None
             for record in records.values()

@@ -10,6 +10,9 @@ import shlex
 import subprocess  # nosec B404
 import sys
 import tempfile
+import time
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 from pathlib import Path
 from typing import Any
 
@@ -35,9 +38,12 @@ def worker_once(
     output: Path,
     transport: Path,
     source_commit: str | None = None,
+    batch_size: int = 8,
 ) -> dict[str, Any]:
     if platform.system() != "Darwin":
         raise ValueError("the review worker runs exclusively on the MacBook")
+    if batch_size < 1:
+        raise ValueError("review batch size must be positive")
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
     with (output / "worker.lock").open("a+b") as lock:
         try:
@@ -89,7 +95,7 @@ def worker_once(
             if (
                 previous.get("fingerprint") == entry["fingerprint"]
                 and previous.get("request_context_sha256") == context_pin
-                and previous.get("completed")
+                and (previous.get("completed") or previous.get("settled"))
             ):
                 continue
             directory.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -102,51 +108,54 @@ def worker_once(
                 }
             )
             atomic_private(output / "worker-status.json", json_bytes(status))
-            with tempfile.TemporaryDirectory(prefix="private-content-queue-") as temporary:
-                archive = Path(temporary) / "queue.tar.gz"
-                with archive.open("wb") as stream:
-                    args = [
-                        str(transport),
-                        "--host",
-                        host,
-                        "--",
-                        remote_executable,
-                        "export-review-queue",
-                        "--queue-root",
-                        remote_queue,
-                        "--queue",
-                        identity,
-                    ]
-                    subprocess.run(
-                        args, stdout=stream, stderr=subprocess.PIPE, check=True, timeout=600
-                    )  # nosec B603
-                capture = directory / "capture"
-                unpack_queue(archive, capture)
+            capture = directory / "capture"
+            capture_checkpoint = directory / "capture-checkpoint.json"
+            received = (
+                json.loads(capture_checkpoint.read_bytes()) if capture_checkpoint.exists() else {}
+            )
+            if (
+                received.get("fingerprint") != entry["fingerprint"]
+                or not (
+                    capture
+                    / (
+                        "enrichment-decisions.json"
+                        if entry.get("kind") == "enrichment"
+                        else "inventory.json"
+                    )
+                ).exists()
+            ):
+                _receive_capture(
+                    transport, host, remote_executable, remote_queue, identity, capture
+                )
+                atomic_private(
+                    capture_checkpoint, json_bytes({"fingerprint": entry["fingerprint"]})
+                )
             if entry.get("kind") == "enrichment":
                 decisions = capture / "enrichment-decisions.json"
-                generate_v2(
-                    capture / "combined", decisions, phase="all", journal=output / "journal"
+                enrichment = generate_v2(
+                    capture / "combined",
+                    decisions,
+                    phase="all",
+                    journal=output / "journal",
+                    limit=batch_size,
                 )
-                digest = sha(decisions.read_bytes())
-                args = [
-                    str(transport),
-                    "--host",
-                    host,
-                    "--stdin",
-                    "--",
-                    remote_executable,
-                    "receive-enrichment-input",
-                    "--queue-root",
-                    remote_queue,
-                    "--queue",
-                    identity,
-                    "--decisions-sha256",
-                    digest,
-                ]
-                with decisions.open("rb") as stream:
-                    subprocess.run(
-                        args, stdin=stream, capture_output=True, check=True, timeout=1800
-                    )  # nosec B603
+                if enrichment["pending"]:
+                    atomic_private(
+                        checkpoint,
+                        json_bytes(
+                            {
+                                "fingerprint": entry["fingerprint"],
+                                "request_context_sha256": context_pin,
+                                "completed": False,
+                                "reviewed_at": utc_now(),
+                                "pending": enrichment["pending"],
+                            }
+                        ),
+                    )
+                    continue
+                _return_enrichment(
+                    transport, host, remote_executable, remote_queue, identity, decisions
+                )
                 atomic_private(
                     checkpoint,
                     json_bytes(
@@ -161,34 +170,25 @@ def worker_once(
                 continue
             review = directory / "review"
             run_reviews(capture, review, phase="prepare", journal=output / "journal")
-            report = run_reviews(capture, review, phase="all", journal=output / "journal")
-            completed = not report["exceptions"]
+            report = run_reviews(
+                capture, review, phase="all", journal=output / "journal", limit=batch_size
+            )
+            completed = not report["exceptions"] and not report["pending"]
             # Passing articles progress while exceptions stay visible.
             sealed = directory / "sealed" / (entry["fingerprint"] + "-" + sha(json_bytes(report)))
             if not sealed.exists():
                 seal_source(capture, review, sealed)
             admission_pin = sha((sealed / "source-review-receipt.json").read_bytes())
-            with tempfile.TemporaryDirectory(prefix="reviewed-source-transfer-") as temporary:
-                archive = Path(temporary) / "source.tar.gz"
-                with archive.open("wb") as stream:
-                    pack_private_tree(sealed, stream)
-                args = [
-                    str(transport),
-                    "--host",
+            if previous.get("returned_admission_sha256") != admission_pin:
+                _return_source(
+                    transport,
                     host,
-                    "--stdin",
-                    "--",
                     remote_executable,
-                    "receive-review-input",
-                    "--queue-root",
                     remote_queue,
-                    "--queue",
                     identity,
-                    "--review-sha256",
+                    sealed,
                     admission_pin,
-                ]
-                with archive.open("rb") as stream:
-                    subprocess.run(args, stdin=stream, capture_output=True, check=True, timeout=600)  # nosec B603
+                )
             atomic_private(
                 checkpoint,
                 json_bytes(
@@ -196,8 +196,10 @@ def worker_once(
                         "fingerprint": entry["fingerprint"],
                         "request_context_sha256": context_pin,
                         "completed": completed,
+                        "settled": not report["pending"],
                         "reviewed_at": utc_now(),
                         "exceptions": len(report["exceptions"]),
+                        "pending": report["pending"],
                         "returned_admission_sha256": admission_pin,
                     }
                 ),
@@ -222,6 +224,129 @@ def worker_once(
         return status
 
 
+def _receive_capture(
+    transport: Path,
+    host: str,
+    remote_executable: str,
+    remote_queue: str,
+    identity: str,
+    capture: Path,
+) -> None:
+    with tempfile.TemporaryDirectory(prefix="private-content-queue-") as temporary:
+        archive = Path(temporary) / "queue.tar.gz"
+        with archive.open("wb") as stream:
+            args = [
+                str(transport),
+                "--host",
+                host,
+                "--",
+                remote_executable,
+                "export-review-queue",
+                "--queue-root",
+                remote_queue,
+                "--queue",
+                identity,
+            ]
+            subprocess.run(args, stdout=stream, stderr=subprocess.PIPE, check=True, timeout=600)  # nosec B603
+        unpack_queue(archive, capture)
+
+
+def _return_enrichment(
+    transport: Path,
+    host: str,
+    remote_executable: str,
+    remote_queue: str,
+    identity: str,
+    decisions: Path,
+) -> None:
+    digest = sha(decisions.read_bytes())
+    args = [
+        str(transport),
+        "--host",
+        host,
+        "--stdin",
+        "--",
+        remote_executable,
+        "receive-enrichment-input",
+        "--queue-root",
+        remote_queue,
+        "--queue",
+        identity,
+        "--decisions-sha256",
+        digest,
+    ]
+    with decisions.open("rb") as stream:
+        subprocess.run(args, stdin=stream, capture_output=True, check=True, timeout=1800)  # nosec B603
+
+
+def _return_source(
+    transport: Path,
+    host: str,
+    remote_executable: str,
+    remote_queue: str,
+    identity: str,
+    sealed: Path,
+    admission_pin: str,
+) -> None:
+    with tempfile.TemporaryDirectory(prefix="reviewed-source-transfer-") as temporary:
+        archive = Path(temporary) / "source.tar.gz"
+        with archive.open("wb") as stream:
+            pack_private_tree(sealed, stream)
+        args = [
+            str(transport),
+            "--host",
+            host,
+            "--stdin",
+            "--",
+            remote_executable,
+            "receive-review-input",
+            "--queue-root",
+            remote_queue,
+            "--queue",
+            identity,
+            "--review-sha256",
+            admission_pin,
+        ]
+        with archive.open("rb") as stream:
+            subprocess.run(args, stdin=stream, capture_output=True, check=True, timeout=600)  # nosec B603
+
+
+def monitored_worker(**kwargs: Any) -> dict[str, Any]:
+    """Check the queue every 900 seconds independently of active inference."""
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        future = pool.submit(worker_once, **kwargs)
+        deadline = time.monotonic() + 900
+        while True:
+            try:
+                return future.result(timeout=max(0.01, min(30, deadline - time.monotonic())))
+            except FutureTimeout:
+                if future.done():
+                    return future.result()
+                if time.monotonic() < deadline:
+                    continue
+                heartbeat: dict[str, Any] = {"checked_at": utc_now(), "state": "checking"}
+                args = [
+                    str(kwargs["transport"]),
+                    "--host",
+                    kwargs["host"],
+                    "--",
+                    kwargs["remote_executable"],
+                    "list-review-queues",
+                    "--queue-root",
+                    kwargs["remote_queue"],
+                ]
+                try:
+                    response = subprocess.run(args, capture_output=True, check=True, timeout=60)  # nosec B603
+                    queues = json.loads(response.stdout)
+                    if not isinstance(queues, list):
+                        raise ValueError("queue heartbeat did not return an array") from None
+                    heartbeat.update(state="inference_active", queues=len(queues))
+                except Exception as failure:  # pylint: disable=broad-exception-caught
+                    heartbeat.update(state="queue_check_failed", error_class=type(failure).__name__)
+                atomic_private(kwargs["output"] / "queue-heartbeat.json", json_bytes(heartbeat))
+                deadline = time.monotonic() + 900
+
+
 def install_launch_agent(
     *,
     host: str,
@@ -240,6 +365,7 @@ def install_launch_agent(
     command = [
         str(executable),
         "review-worker",
+        "--monitor",
         "--host",
         host,
         "--remote-executable",

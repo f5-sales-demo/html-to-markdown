@@ -15,7 +15,7 @@ from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.media import all_frame_inputs
 from html_to_markdown.models import PageMetadata
-from html_to_markdown.render import serialize_document
+from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_review_jobs import (
     _media_context,
     prepare_reviews,
@@ -361,3 +361,180 @@ def test_native_frame_replay_ignores_lossless_encoding_and_rejects_changed_media
     else:
         with pytest.raises(ValueError, match="cached"):
             _media_context(source, output, item)
+
+
+def test_batches_prioritize_published_articles_and_keep_semantic_exceptions_visible(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    original = inventory["documents"][0]
+    _, body = split_document((capture / original["article_path"]).read_text())
+    for number in (123457, 123458):
+        item = json.loads(json.dumps(original))
+        identifier = "K000" + str(number)
+        item.update(
+            identity="my-f5-com:" + identifier,
+            url="https://my.f5.com/manage/s/article/" + identifier,
+            article_path="articles/content/my-f5-com/" + identifier + "/index.md",
+        )
+        meta = PageMetadata.model_validate(item["metadata"])
+        meta.url = item["url"]
+        meta.slug = identifier
+        data = serialize_document(meta, body).encode()
+        item.update(article_sha256=sha(data), metadata=meta.model_dump(by_alias=True))
+        atomic_private(capture / item["article_path"], data)
+        if number == 123458:
+            item["origins"] = ["previous_publication"]
+        inventory["documents"].append(item)
+    (capture / "inventory.json").write_text(json.dumps(inventory))
+    output = tmp_path / "review"
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    prepare_reviews(capture, output)
+    first = run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)
+    assert first["processed"] == 1 and first["pending"] == 2
+    assert next(d for d in first["documents"] if d["disposition"] == "accepted")["url"].endswith(
+        "K000123458"
+    )
+    monkeypatch.setattr(LocalClient, "reject", True)
+    second = run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)
+    assert len(second["exceptions"]) == 1 and second["pending"] == 1
+    monkeypatch.setattr(LocalClient, "reject", False)
+    third = run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)
+    assert third["processed"] == 1 and third["pending"] == 0 and len(third["exceptions"]) == 1
+    assert (
+        run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)[
+            "processed"
+        ]
+        == 0
+    )
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 2
+
+
+def test_invalid_privacy_proposal_gets_precise_feedback_before_independent_validation(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    requests = []
+
+    class CorrectingClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            response = super().execute(body)
+            if body["text"]["format"]["name"] == "privacydecision":
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                requests.append(payload)
+                assert body["text"]["format"]["schema"]["properties"]["findings"]["maxItems"] == 0
+                if not payload["validation_feedback"]:
+                    raw = response.response
+                    data = json.loads(raw["output"][0]["content"][0]["text"])
+                    data["findings"] = [
+                        {
+                            "finding_id": "unknown",
+                            "disposition": "documentation_example",
+                            "reason": "bad proposal",
+                        }
+                    ]
+                    raw["output"][0]["content"][0]["text"] = json.dumps(data)
+                    response = response.model_copy(
+                        update={
+                            "response_sha256": sha(
+                                json.dumps(raw, sort_keys=True, separators=(",", ":"))
+                            )
+                        }
+                    )
+            return response
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", CorrectingClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert not report["exceptions"] and len(requests) == 2
+    assert "classify every finding" in requests[1]["validation_feedback"][0]
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+
+
+@pytest.mark.parametrize("transient", [False, True])
+def test_only_transient_model_failures_are_retried_in_later_batches(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, transient: bool
+) -> None:
+    calls = []
+
+    class FailingClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            calls.append(body)
+            response = super().execute(body)
+            if len(calls) == 1:
+                response = response.model_copy(
+                    update={"error": "network timeout" if transient else "invalid response schema"}
+                )
+            return response
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", FailingClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    first = run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)
+    assert len(first["exceptions"]) == 1 and first["pending"] == int(transient)
+    second = run_reviews(capture, output, phase="all", journal=tmp_path / "journal", limit=1)
+    if transient:
+        assert not second["exceptions"] and second["documents"][0]["disposition"] == "accepted"
+        assert len(calls) == 4
+    else:
+        assert len(second["exceptions"]) == 1 and second["processed"] == 0 and len(calls) == 1
+
+
+def test_independent_privacy_rejection_returns_precise_feedback_to_editor(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    feedback = []
+    validations = []
+
+    class CorrectingValidatorClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            response = super().execute(body)
+            phase = body["text"]["format"]["name"]
+            if phase == "privacydecision":
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                feedback.append(payload["validation_feedback"])
+            elif phase == "admissionvalidation":
+                validations.append(body)
+                if len(validations) == 1:
+                    raw = response.response
+                    output = json.loads(raw["output"][0]["content"][0]["text"])
+                    output.update(
+                        approved=False,
+                        privacy_valid=False,
+                        failures=["privacy classification does not cover the complete source"],
+                    )
+                    raw["output"][0]["content"][0]["text"] = json.dumps(output)
+                    response = response.model_copy(
+                        update={
+                            "response_sha256": sha(
+                                json.dumps(raw, sort_keys=True, separators=(",", ":"))
+                            )
+                        }
+                    )
+            return response
+
+    monkeypatch.setattr(
+        "html_to_markdown.source_review_jobs.CodexClient", CorrectingValidatorClient
+    )
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert not report["exceptions"] and len(validations) == 2 and len(feedback) == 2
+    assert "privacy classification does not cover the complete source" in feedback[1][0]
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+
+
+def test_document_replay_does_not_copy_unrelated_media_analysis(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    output = tmp_path / "review"
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    prepare_reviews(capture, output)
+    run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    atomic_private(output / "media/unrelated-native-2.json", b"unrelated private analysis")
+
+    def bulk_copy(*args: object, **kwargs: object) -> None:
+        pytest.fail("document replay must not copy the full corpus media cache")
+
+    monkeypatch.setattr("shutil.copytree", bulk_copy)
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 1

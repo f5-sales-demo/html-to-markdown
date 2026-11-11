@@ -73,7 +73,7 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
     )  # nosec B603
     _verified_baseline(baseline, revision["publication_sha256"])
     selected: dict[str, tuple[Path, str]] = {}
-    dates: dict[str, str] = {}
+    ranks: dict[str, tuple[str, int]] = {}
     for receipt_path in sorted((queue_root / ".reviewed").glob("*/*/*/source-review-receipt.json")):
         directory = receipt_path.parent
         digest = sha(receipt_path.read_bytes())
@@ -81,9 +81,15 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
             raise ValueError("private reviewed input directory does not match its pin")
         receipt = verify_source(directory, digest)
         source = receipt["source"]
-        date = receipt["ended_at"]
-        if source not in selected or date > dates[source]:
-            selected[source], dates[source] = (directory, digest), date
+        rank = (
+            receipt["ended_at"],
+            sum(
+                item["disposition"] in {"accepted", "policy_excluded"}
+                for item in receipt["documents"]
+            ),
+        )
+        if source not in selected or rank > ranks[source]:
+            selected[source], ranks[source] = (directory, digest), rank
     if not selected:
         raise ValueError("no independently reviewed source input is ready")
     combined = output / "combined"
