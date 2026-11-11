@@ -87,6 +87,38 @@ def test_exact_identifying_replacement_preserves_payload_and_metadata() -> None:
         apply_text(meta, original, decision.model_copy(update={"values": []}))
 
 
+def test_mapping_feedback_reports_every_exact_guard_without_source_values() -> None:
+    original = "private-one private-two"
+    changes = []
+    for value in original.split():
+        start = original.index(value)
+        changes.append(
+            TextChange(
+                field="body",
+                start=start,
+                end=start + len(value),
+                source_sha256=sha(value),
+                replacement="example-value",
+                reason="identifying value",
+            )
+        )
+    with pytest.raises(ValueError, match="inconsistent") as failure:
+        apply_text({}, original, proposal(text_changes=changes))
+    message = str(failure.value)
+    for change in changes:
+        assert change.source_sha256 in message
+        assert f"body:{change.start}:{change.end}" in message
+    assert "private-one" not in message and "private-two" not in message
+    corrected = proposal(
+        text_changes=changes,
+        values=[
+            SyntheticValue(source_sha256=change.source_sha256, replacement=change.replacement)
+            for change in changes
+        ],
+    )
+    assert apply_text({}, original, corrected)[1] == "example-value example-value"
+
+
 def test_documented_examples_need_independent_finding_specific_approval() -> None:
     findings = scan({"body": "The documentation uses 192.0.2.1 and author@example.com."})
     decisions = [
@@ -141,6 +173,12 @@ def test_privacy_cannot_change_provenance_or_source_identity(field: str) -> None
     )
     with pytest.raises(ValueError, match="identity"):
         apply_text({}, "", current)
+
+
+@pytest.mark.parametrize("size", [4, 73])
+def test_privacy_label_schema_rejects_sizes_outside_readable_controller_bounds(size: int) -> None:
+    with pytest.raises(ValueError):
+        Label(rectangle=[0, 0, 100, 20], source_value_sha256="a" * 64, text="example", size=size)
 
 
 def test_image_replacement_is_exact_and_consistent_with_text() -> None:

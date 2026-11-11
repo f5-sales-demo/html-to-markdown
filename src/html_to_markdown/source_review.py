@@ -23,6 +23,7 @@ from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.requests import request
+from .media_encoding import png_bytes
 
 VERSION = "source-admission/1"
 CREDENTIALS = {"credential", "private-key", "authorization-header", "session-cookie"}
@@ -40,6 +41,7 @@ def review_context_digest() -> str:
                     "source_review_jobs.py",
                     "source_curation.py",
                     "media_observations.py",
+                    "media_encoding.py",
                     "media_observation_jobs.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
@@ -87,7 +89,7 @@ class Label(StrictModel):
     rectangle: list[int]
     source_value_sha256: str
     text: str
-    size: int
+    size: int = Field(ge=6, le=72)
 
 
 class FrameChange(StrictModel):
@@ -201,6 +203,7 @@ def apply_text(
     if len(mappings) != len(decision.values):
         raise ValueError("duplicate synthetic value mapping")
     grouped: dict[str, list[TextChange]] = {}
+    inconsistent = []
     for change in decision.text_changes:
         if change.field != "body" and change.field.split("/")[1:2] not in (
             ["title"],
@@ -216,10 +219,17 @@ def apply_text(
         if sha(original[change.start : change.end]) != change.source_sha256:
             raise ValueError("privacy source digest guard changed")
         if mappings.get(change.source_sha256) != change.replacement or not change.reason.strip():
-            raise ValueError(
-                "privacy replacement is inconsistent with synthetic relationship mapping"
+            inconsistent.append(
+                f"{change.field}:{change.start}:{change.end} source_sha256={change.source_sha256}"
             )
         grouped.setdefault(change.field, []).append(change)
+    if inconsistent:
+        raise ValueError(
+            "privacy replacement is inconsistent with synthetic relationship mapping: "
+            + "; ".join(inconsistent)
+            + ". Each text change needs a values entry with the identical source_sha256 and "
+            "replacement, and a nonempty reason. Correct all mappings together."
+        )
     for field, changes in grouped.items():
         changes.sort(key=lambda change: change.start)
         if any(left.end > right.start for left, right in zip(changes, changes[1:], strict=False)):
@@ -251,7 +261,8 @@ def preview_media(
             if values.get(label.source_value_sha256) != label.text:
                 raise ValueError("text and image privacy replacements disagree")
         return [
-            {"rectangle": item.rectangle, "text": item.text, "size": item.size} for item in items
+            {"rectangle": item.rectangle, "text": item.text, "size": item.size, "fit": True}
+            for item in items
         ]
 
     transform: dict[str, Any] = {
@@ -300,9 +311,8 @@ def preview_media(
             clean = Image.new(converted.mode, converted.size)
             clean.paste(converted)
             apply_labels_and_rectangles(clean, transform)
-            stream = io.BytesIO()
-            clean.save(stream, format="PNG", optimize=False)
-            output = stream.getvalue()
+            transform["png_encoding"] = "portable-1"
+            output = png_bytes(clean)
     transform["output_sha256"] = sha(output)
     # Replay through the independent existing hash/pixel/playback gate as well.
     checked, _ = reviewed_media(
@@ -398,6 +408,10 @@ Privacy review must examine the entire article, metadata and all media, includin
 by patterns. Keep reserved documentation examples and authoritative attribution in proper context.
 Replace real identifying values consistently across text and images using exact digest-guarded spans
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
+contextual disposition; uncertain content remains queued.
+For every text_changes entry, values must contain the identical source_sha256 and replacement.
+A whole-line span digest differs from an individual visible value digest; include each exact mapping
+needed by text changes and image labels and keep their identifying-value replacements consistent.+ contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
@@ -406,6 +420,10 @@ The controller regenerates OCR from the resulting bytes. Never propose text chan
 For static media (frame_count = 1), use top-level rectangles and labels and leave frames empty.
 Use frames only for animated media, with unique, zero-based frame indices. A native observation's
 frame index locates evidence; it does not make a static image animated.
+Label sizes must be 6 through 72. The controller fits the largest allowed font inside each exact
+rectangle, without enlarging it or covering neighboring technical content. Use shorter consistent
+synthetic labels when needed; never propose unreadable font sizes or broaden identifying regions
+over technical labels. Final independent media and preservation checks remain mandatory.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
 For final validation, candidate is the complete privacy-reviewed source and curation_candidate is
 the actual digest-pinned retirement/API planner output. Verify privacy, extraction and technical

@@ -9,6 +9,7 @@ from typing import Any
 from PIL import Image, ImageDraw, ImageFont
 
 from .errors import PublicationBlockedError
+from .media_encoding import png_bytes
 
 
 def gif_subblocks_end(content: bytes, offset: int) -> int:
@@ -79,12 +80,31 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
         raise ValueError("invalid synthetic label control character")
     if not isinstance(size, int) or isinstance(size, bool) or not 6 <= size <= 72:
         raise ValueError("invalid synthetic label size")
+    fit = label.get("fit", False)
+    if not isinstance(fit, bool):
+        raise ValueError("invalid synthetic label fit mode")
     left, top, right, bottom = label["rectangle"]
-    font = ImageFont.load_default(size=size)
-    bounds = draw.textbbox((left + 2, top + 2), text, font=font)
-    if bounds[2] >= right or bounds[3] >= bottom:
-        raise ValueError("synthetic label does not fit")
-    draw.text((left + 2, top + 2), text, fill="black", font=font)
+    for selected_size in range(size, 5 if fit else size - 1, -1):
+        font = ImageFont.load_default(size=selected_size)
+        if fit:
+            bounds = draw.textbbox((0, 0), text, font=font)
+            width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
+            if width <= right - left and height <= bottom - top:
+                pad_x = min(2, (right - left - width) // 2)
+                pad_y = min(2, (bottom - top - height) // 2)
+                draw.text(
+                    (left + pad_x - bounds[0], top + pad_y - bounds[1]),
+                    text,
+                    fill="black",
+                    font=font,
+                )
+                return
+        else:
+            bounds = draw.textbbox((left + 2, top + 2), text, font=font)
+            if bounds[2] < right and bounds[3] < bottom:
+                draw.text((left + 2, top + 2), text, fill="black", font=font)
+                return
+    raise ValueError("synthetic label does not fit")
 
 
 def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
@@ -236,6 +256,15 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
     return result
 
 
+def privacy_png(image: Image.Image, transform: dict[str, Any]) -> bytes:
+    """Retain historical encodings and version new portable privacy outputs."""
+    if transform.get("png_encoding") == "portable-1":
+        return png_bytes(image)
+    output = io.BytesIO()
+    image.save(output, format="PNG", optimize=False)
+    return output.getvalue()
+
+
 def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[bytes, str | None]:
     """Approve original bytes or apply the explicitly reviewed opaque rectangles."""
     digest = hashlib.sha256(content).hexdigest()
@@ -289,9 +318,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
             image = Image.new(mode, converted.size)
             image.paste(converted)
         apply_labels_and_rectangles(image, transform)
-        output = io.BytesIO()
-        image.save(output, format="PNG", optimize=False)
-        result = output.getvalue()
+        result = privacy_png(image, transform)
     except (OSError, ValueError, TypeError, KeyError) as error:
         raise PublicationBlockedError("community image redaction is invalid") from error
     if hashlib.sha256(result).hexdigest() != transform.get("output_sha256"):
