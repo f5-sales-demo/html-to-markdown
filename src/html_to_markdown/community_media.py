@@ -9,6 +9,7 @@ from typing import Any
 from PIL import Image, ImageDraw, ImageFont
 
 from .errors import PublicationBlockedError
+from .media_encoding import png_bytes
 
 
 def gif_subblocks_end(content: bytes, offset: int) -> int:
@@ -255,6 +256,15 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
     return result
 
 
+def privacy_png(image: Image.Image, transform: dict[str, Any]) -> bytes:
+    """Retain historical encodings and version new portable privacy outputs."""
+    if transform.get("png_encoding") == "portable-1":
+        return png_bytes(image)
+    output = io.BytesIO()
+    image.save(output, format="PNG", optimize=False)
+    return output.getvalue()
+
+
 def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[bytes, str | None]:
     """Approve original bytes or apply the explicitly reviewed opaque rectangles."""
     digest = hashlib.sha256(content).hexdigest()
@@ -308,9 +318,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
             image = Image.new(mode, converted.size)
             image.paste(converted)
         apply_labels_and_rectangles(image, transform)
-        output = io.BytesIO()
-        image.save(output, format="PNG", optimize=False)
-        result = output.getvalue()
+        result = privacy_png(image, transform)
     except (OSError, ValueError, TypeError, KeyError) as error:
         raise PublicationBlockedError("community image redaction is invalid") from error
     if hashlib.sha256(result).hexdigest() != transform.get("output_sha256"):
