@@ -38,6 +38,12 @@ ASSET_HOSTS = frozenset(
 )
 
 
+SCOPED_ASSET_PATHS = {
+    "a.slack-edge.com": r"/production-standard-emoji-assets/14\.0/apple-medium/[0-9a-f-]+@2x\.png",
+    "www.enzoic.com": r"/wp-content/uploads/[A-Za-z0-9_-]+\.png",
+}
+
+
 def canonicalize_url(url: str) -> str:
     parts = urlsplit(url.strip())
     scheme = parts.scheme.lower()
@@ -111,6 +117,18 @@ def infer_source(url: str) -> str | None:
 def validate_asset_url(url: str) -> str:
     canonical = canonicalize_url(url)
     parts = urlsplit(canonical)
+    if parts.scheme == "https" and parts.hostname in SCOPED_ASSET_PATHS:
+        raw = urlsplit(url.strip())
+        has_parameters = bool(raw.query or raw.fragment)
+        if (
+            raw.netloc.lower() != parts.hostname
+            or has_parameters
+            or raw.path != parts.path
+            or unquote(parts.path) != parts.path
+            or not re.fullmatch(SCOPED_ASSET_PATHS[parts.hostname], parts.path)
+        ):
+            raise AllowlistError("asset URL is outside its reviewed public media route")
+        return canonical
     if parts.scheme != "https" or parts.hostname not in ASSET_HOSTS:
         raise AllowlistError(f"asset URL is outside the F5 allowlist: {url}")
     return canonical
