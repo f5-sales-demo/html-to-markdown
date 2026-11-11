@@ -24,6 +24,7 @@ concurrency:
 
 jobs:
   publish:
+    name: Verify and deploy the exact reviewed receipt
     runs-on: managed-socketless
     environment: repository-settings
     timeout-minutes: 180
@@ -76,7 +77,7 @@ jobs:
           RECEIPT_SHA256: ${{ inputs.publication-sha256 }}
         run: |
           set -euo pipefail
-          for attempt in $(seq 1 180); do
+          for ((deployment_poll = 0; deployment_poll < 180; deployment_poll++)); do
             curl --fail --silent --show-error --retry 3 \
               https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > deployed-candidate.json
             if test "$(jq -er .publication_sha256 deployed-candidate.json)" = "$RECEIPT_SHA256"; then
