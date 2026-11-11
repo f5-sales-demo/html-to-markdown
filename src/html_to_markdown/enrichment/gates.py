@@ -25,7 +25,12 @@ def parse_response(
         raise ValueError("failed, wrong-model or stale request evidence")
     if (
         evidence.prompt_version
-        not in {PROMPT_VERSION, "article-enrichment/2", "source-admission/1"}
+        not in {
+            PROMPT_VERSION,
+            "article-enrichment/2",
+            "source-admission/1",
+            "native-media-observation/1",
+        }
         or evidence.reasoning != "high"
     ):
         raise ValueError("stale prompt or reasoning evidence")

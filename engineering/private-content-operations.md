@@ -42,6 +42,14 @@ Independent relevance validation approves or rejects the proposed inventory disp
 exclusions. An approved exclusion emits no article. Privacy or media rejection returns specific independent findings
 for the bounded correction loop; all mandatory checks still have to pass.
 
+When a privacy proposal lacks guards for visible identifying values missed by OCR, the controller requests native-frame
+observations and independent confirmation. Readable values receive literal digest guards. Clipped or unreadable values
+receive guards for their exact media, frame and rectangle without invented hidden text. Those guards support precisely
+placed image labels; they do not authorize redaction or serve as text-edit guards. The final validator still checks the
+complete source, transformed article, every frame, technical relationships and credential enforcement. Private feedback
+can request additional grounded observations within the existing two-correction limit. Failed or stale observations and
+all earlier privacy attempts remain preserved; unresolved regions stay queued.
+
 ## Queue clocks and activation
 
 Install the qualified software into stable user-owned paths before installing either scheduler. Temporary development
@@ -87,6 +95,15 @@ The coordinator assembles admitted sources against the latest deployed immutable
 enrichment for the complete resulting corpus. It preserves the selected source inputs, privacy transformations,
 retirement/API curation and pre-enrichment corpus. Independent replay verifies each stage and final metadata/assets
 separately. Unattempted enrichment documents prevent staging.
+
+Admission preserves the complete privacy-reviewed source separately from the actual retirement/API planner preview.
+Independent validation binds both stages through the exact request and curation digests. Privacy and extraction checks
+compare the source and privacy candidate; retirement checks inspect the curated article and its retained media. Original
+blank fields remain blank unless independently verified source repair evidence supplies their values. Missing or stale
+catalog decisions and independent retirement failures enter `curation-exceptions.json` for the linked catalog-renewal
+workflow. Planner omissions do not become policy exclusions. A successful replay clears its current exception while
+preserving the earlier private failure evidence. The complete combiner still rechecks policy and dependency closure
+against the latest verified baseline before publication.
 
 Private returns are checkpointed only after verification. An interrupted enrichment promotion resumes its exact input
 pin. Superseded jobs remain private and cannot overwrite a newer baseline. The publication workflow uses the existing

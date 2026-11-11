@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
 from html_to_markdown.community_media import (
+    apply_labels_and_rectangles,
     encode_exact_gif,
     reviewed_media,
     strip_gif_metadata,
@@ -476,3 +477,21 @@ def test_animation_frame_policies_reject_unapplied_targets(frames):
     )
     with pytest.raises(ValueError, match="frame"):
         transform_animation(source.getvalue(), {"frame_transforms": frames})
+
+
+def test_opt_in_label_fit_preserves_guarded_region_and_historical_fixed_font():
+    transform = {
+        "labels": [{"rectangle": [5, 5, 80, 27], "text": "example-tenant", "size": 20, "fit": True}]
+    }
+    image = Image.new("RGB", (120, 40), "blue")
+    apply_labels_and_rectangles(image, transform)
+    repeated = Image.new("RGB", (120, 40), "blue")
+    apply_labels_and_rectangles(repeated, transform)
+    assert image.tobytes() == repeated.tobytes()
+    assert image.getpixel((0, 0)) == image.getpixel((119, 39)) == (0, 0, 255)
+    transform["labels"][0].pop("fit")
+    with pytest.raises(ValueError, match="does not fit"):
+        apply_labels_and_rectangles(Image.new("RGB", (120, 40), "blue"), transform)
+    transform["labels"][0].update(fit=True, rectangle=[5, 5, 7, 7])
+    with pytest.raises(ValueError, match="does not fit"):
+        apply_labels_and_rectangles(Image.new("RGB", (120, 40), "blue"), transform)

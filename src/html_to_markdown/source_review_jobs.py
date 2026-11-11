@@ -21,8 +21,16 @@ from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.media import all_frame_inputs
+from .media_observation_jobs import (
+    RequestExecutor,
+    prepare_media_observations,
+)
+from .media_observation_jobs import (
+    confirmed_media_values as _confirmed_media_values,
+)
 from .models import PageMetadata
 from .render import serialize_document, split_document
+from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_review import (
     VERSION,
     AdmissionValidation,
@@ -296,6 +304,12 @@ def _request(
         properties["evidence_addresses"]["items"]["enum"] = addresses
     elif schema is PrivacyDecision:
         schema_body = body["text"]["format"]["schema"]
+        editable = {"title", "description", "tags", "breadcrumb", "slug"}
+        schema_body["$defs"]["TextChange"]["properties"]["field"]["enum"] = [
+            field
+            for field in context["fields"]
+            if field == "body" or field.split("/")[1:2] in [[key] for key in editable]
+        ]
         finding_ids = [finding["id"] for finding in context["findings"]]
         properties["findings"].update(minItems=len(finding_ids), maxItems=len(finding_ids))
         if finding_ids:
@@ -307,7 +321,23 @@ def _request(
             schema_body["$defs"]["MediaChange"]["properties"]["source_sha256"]["enum"] = media_ids
         else:
             properties["media_changes"]["maxItems"] = 0
+    elif schema is AdmissionValidation:
+        identifiers = [finding["id"] for finding in context["candidate"]["findings"]]
+        if identifiers:
+            properties["approved_safe_findings"]["items"]["enum"] = identifiers
+        else:
+            properties["approved_safe_findings"]["maxItems"] = 0
     return body
+
+
+def _prepare_media_observations(
+    capture: Path,
+    output: Path,
+    record: Path,
+    client: RequestExecutor,
+    feedback: list[str] | None = None,
+) -> None:
+    prepare_media_observations(capture, output, record, client, _context, feedback)
 
 
 # Preserve all stage evidence and checks in one transaction.
@@ -319,12 +349,16 @@ def _compile(
     context: dict[str, Any],
     proposal: PrivacyDecision,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], PrivacyDecision, dict[str, bytes]]:
-    if (
+    stale = (
         proposal.identity != context["identity"]
         or proposal.binding_sha256 != context["binding_sha256"]
-        or proposal.unresolved
-    ):
-        raise ValueError("privacy proposal is stale or unresolved")
+    )
+    if stale or proposal.unresolved:
+        raise ValueError(
+            "privacy proposal is stale"
+            if stale
+            else "privacy proposal is unresolved: " + "; ".join(proposal.unresolved)
+        )
     addressed = {choice.finding_id for choice in proposal.findings}
     if len(addressed) != len(proposal.findings) or addressed != {
         finding["id"] for finding in context["findings"]
@@ -438,12 +472,13 @@ def _compile(
 
 
 # Preserve all stage evidence and checks in one transaction.
-# pylint: disable-next=too-many-locals
+# pylint: disable-next=too-many-locals,too-many-branches
 def review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:
     saved = json.loads(record.read_bytes())
     context, visual = _context(capture, output, saved)
+    original_context = dict(context)
     if phase == "relevance":
         body = _request(EDITOR_MODEL, phase, context, visual, RelevanceDecision)
     else:
@@ -470,6 +505,10 @@ def review_one(
         ):
             raise ValueError("source relevance or extraction requires exception review")
         context["relevance_decision"] = relevance.model_dump()
+        if "media_observation_validation" in saved["phases"]:
+            context["confirmed_media_values"] = _confirmed_media_values(
+                saved, original_context, visual
+            )
         if phase == "privacy":
             body = _request(
                 EDITOR_MODEL, phase, context, visual, PrivacyDecision, saved.get("privacy_feedback")
@@ -494,6 +533,12 @@ def review_one(
             )
             context["privacy_decision"] = proposal.model_dump()
             context["candidate"] = candidate
+            if relevance.disposition == "include" and relevance.retirement != "excluded":
+                context["curation_candidate"] = preview_curation(
+                    output,
+                    files,
+                    saved["item"].get("published_path", saved["item"]["article_path"]),
+                )
             body = _request(
                 VALIDATOR_MODEL,
                 "validation",
@@ -508,6 +553,9 @@ def review_one(
                     VALIDATOR_MODEL,
                     request_hash(body),
                 )
+                if "curation_candidate" in context and not validation.retirement_valid:
+                    record_exception(output, candidate["output_sha256"], candidate["metadata"])
+                    raise CurationRequired(CurationRequired.reason)
                 validate_admission(
                     context["identity"],
                     context["binding_sha256"],
@@ -525,6 +573,8 @@ def review_one(
                     transforms=candidate["media_transforms"],
                     enforcement_findings=0,
                 )
+                if "curation_candidate" in context:
+                    saved["curation_sha256"] = context["curation_candidate"]["curation_sha256"]
                 if saved["disposition"] == "accepted":
                     for path, data in files.items():
                         published = Path(path).relative_to("articles")
@@ -584,10 +634,17 @@ def _run_record(
                         "text change",
                         "source value",
                         "rectangle",
+                        "static media cannot have frame changes",
+                        "duplicate animated privacy frame",
                     )
                 )
                 if phase != "all" or not correctable or len(feedback) >= 2 or client is None:
                     raise
+                if saved["item"]["media"] and "privacy proposal is unresolved" in str(failure):
+                    _prepare_media_observations(
+                        capture, output, record, client, [*feedback, str(failure)]
+                    )
+                    saved = json.loads(record.read_bytes())
                 atomic_private(
                     output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
                 )
@@ -700,7 +757,9 @@ def run_reviews(
                 _retire_output(output, saved)
                 saved.update(
                     disposition="queued",
-                    reason="admission_phase_failed",
+                    reason=CurationRequired.reason
+                    if failures[record.name] == "CurationRequired"
+                    else "admission_phase_failed",
                     error_class=failures[record.name],
                 )
             else:
