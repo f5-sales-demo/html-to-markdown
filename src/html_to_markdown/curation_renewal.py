@@ -83,6 +83,7 @@ def proposal_context(
                         "curation_renewal_review.py",
                         "curation_renewal_jobs.py",
                         "curation_renewal_inputs.py",
+                        "curation_renewal_dependencies.py",
                         "curation_renewal_policy.py",
                         "curation_renewal_publication.py",
                         "curation.py",

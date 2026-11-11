@@ -1157,6 +1157,98 @@ def validate_whole_document_retirement(
             raise ValueError(f"retired document dependency remains: {path}")
 
 
+# pylint: disable-next=too-many-branches,too-many-locals
+def _validate_curated_article(path: Path, policy: CurationPolicy, inherited: bool = False) -> None:
+    metadata, body = split_document(path.read_text())
+    if not inherited:
+        validate_whole_document_retirement(policy, path, metadata, body)
+    if policy.appstack is not None:
+        result = policy.appstack.transform(body, str(metadata["url"]))
+        if result.body != body or result.omit:
+            raise ValueError(f"uncurated AppStack content remains: {path}")
+    if policy.terraform is not None:
+        terraform_result = policy.terraform.transform(body, str(metadata["url"]))
+        if terraform_result.body != body or terraform_result.omit:
+            raise ValueError(f"uncurated Terraform provider content remains: {path}")
+    if (
+        policy.excludes(str(metadata["url"]))
+        or policy.retired(body)
+        or policy.retired(json.dumps(metadata))
+    ):
+        raise ValueError(f"prohibited topic remains: {path}")
+    url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
+    media = media_inventory(path, body)
+    if (
+        policy.terraform is not None
+        and (
+            str(metadata["url"]) in policy.terraform.reviewed_urls
+            or policy.terraform.catalog["landing"] in body
+            or any(value in normalized(body) for value in policy.terraform.qualified_links)
+        )
+        and any(
+            item["kind"] != "local"
+            or policy.media_review(
+                "terraform-provider-current", item["sha256"] or "", url, path
+            ).get("disposition")
+            != "keep"
+            for item in media
+        )
+    ):
+        raise ValueError(f"unreviewed Terraform media remains: {path}")
+    if any(item["kind"] == "video" for item in media):
+        raise ValueError(f"unverifiable video remains: {path}")
+    appstack = policy.appstack
+    appstack_reviewed = (
+        appstack is not None
+        and url in appstack.decisions
+        and appstack.decisions[url]["disposition"] == "keep"
+    )
+    if (
+        appstack is not None
+        and appstack_reviewed
+        and any(
+            item["kind"] != "local"
+            or policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
+                "disposition"
+            )
+            != "keep"
+            or url
+            not in policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
+                "documents", []
+            )
+            for item in media
+        )
+    ):
+        raise ValueError(f"unreviewed AppStack media remains: {path}")
+    required = policy.sms.decisions.get(url, {}).get("media_review_required", False)
+    if (required or policy.sms_candidate(body)) and any(
+        policy.media_review("smsv2-current", item["sha256"] or "", url, path).get("disposition")
+        != "keep"
+        for item in media
+    ):
+        raise ValueError(f"unreviewed media remains: {path}")
+    if policy.references(
+        body,
+        str(metadata["url"]),
+        set(),
+        predicate=policy.appstack.excludes if policy.appstack else None,
+    ):
+        raise ValueError(f"retired reference remains: {path}")
+
+
+def curation_validation_errors(output: Path, policy: CurationPolicy) -> dict[str, str]:
+    """Enumerate every article failure privately without weakening final validation."""
+    failures = {}
+    for path in sorted(output.glob("content/*/**/index.md")):
+        try:
+            _validate_curated_article(path, policy)
+        except ValueError as failure:
+            failures[path.relative_to(output).as_posix()] = str(failure).replace(
+                str(path), "article"
+            )
+    return failures
+
+
 # Original-chain and final-policy guards deliberately remain one audit.
 # pylint: disable-next=too-many-branches,too-many-locals
 def validate_curation(
@@ -1175,81 +1267,7 @@ def validate_curation(
         verify_enrichment(output)
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
-        metadata, body = split_document(path.read_text())
-        if path.relative_to(output).as_posix() not in inherited:
-            validate_whole_document_retirement(policy, path, metadata, body)
-        if policy.appstack is not None:
-            result = policy.appstack.transform(body, str(metadata["url"]))
-            if result.body != body or result.omit:
-                raise ValueError(f"uncurated AppStack content remains: {path}")
-        if policy.terraform is not None:
-            terraform_result = policy.terraform.transform(body, str(metadata["url"]))
-            if terraform_result.body != body or terraform_result.omit:
-                raise ValueError(f"uncurated Terraform provider content remains: {path}")
-        if (
-            policy.excludes(str(metadata["url"]))
-            or policy.retired(body)
-            or policy.retired(json.dumps(metadata))
-        ):
-            raise ValueError(f"prohibited topic remains: {path}")
-        url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
-        media = media_inventory(path, body)
-        if (
-            policy.terraform is not None
-            and (
-                str(metadata["url"]) in policy.terraform.reviewed_urls
-                or policy.terraform.catalog["landing"] in body
-                or any(value in normalized(body) for value in policy.terraform.qualified_links)
-            )
-            and any(
-                item["kind"] != "local"
-                or policy.media_review(
-                    "terraform-provider-current", item["sha256"] or "", url, path
-                ).get("disposition")
-                != "keep"
-                for item in media
-            )
-        ):
-            raise ValueError(f"unreviewed Terraform media remains: {path}")
-        if any(item["kind"] == "video" for item in media):
-            raise ValueError(f"unverifiable video remains: {path}")
-        appstack = policy.appstack
-        appstack_reviewed = (
-            appstack is not None
-            and url in appstack.decisions
-            and appstack.decisions[url]["disposition"] == "keep"
-        )
-        if (
-            appstack is not None
-            and appstack_reviewed
-            and any(
-                item["kind"] != "local"
-                or policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
-                    "disposition"
-                )
-                != "keep"
-                or url
-                not in policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
-                    "documents", []
-                )
-                for item in media
-            )
-        ):
-            raise ValueError(f"unreviewed AppStack media remains: {path}")
-        required = policy.sms.decisions.get(url, {}).get("media_review_required", False)
-        if (required or policy.sms_candidate(body)) and any(
-            policy.media_review("smsv2-current", item["sha256"] or "", url, path).get("disposition")
-            != "keep"
-            for item in media
-        ):
-            raise ValueError(f"unreviewed media remains: {path}")
-        if policy.references(
-            body,
-            str(metadata["url"]),
-            set(),
-            predicate=policy.appstack.excludes if policy.appstack else None,
-        ):
-            raise ValueError(f"retired reference remains: {path}")
+        _validate_curated_article(path, policy, path.relative_to(output).as_posix() in inherited)
     if artifacts and not enriched and not refreshed:
         # Final validation uses the same planner as examination and application.
         replay = curate_topics(output, policy=policy, apply=False)

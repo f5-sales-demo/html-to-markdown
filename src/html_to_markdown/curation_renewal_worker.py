@@ -14,6 +14,7 @@ from typing import Any, BinaryIO
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_renewal_delivery import submit_policy
+from .curation_renewal_dependencies import review_dependencies
 from .curation_renewal_inputs import prepare_renewals
 from .curation_renewal_jobs import review_batch
 from .curation_renewal_publication import stage_policy, validate_planner
@@ -76,6 +77,7 @@ def advance_renewals(
             _verified_baseline(Path(temporary), pin)
             Path(temporary).rename(baseline)
     _verified_baseline(baseline, pin)
+    contexts = review_dependencies(output, contexts, baseline, pin, journal)
     client = CodexClient(journal, concurrency=4)
     try:
         qualification = validate_planner(output, contexts, baseline, pin, client)

@@ -10,13 +10,28 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy, migrate_content, validate_content_policy
-from .curation import CurationPolicy, canonical, corpus_digest, json_bytes, load_curation_policy
+from .curation import (
+    CurationPolicy,
+    canonical,
+    corpus_digest,
+    curation_validation_errors,
+    json_bytes,
+    load_curation_policy,
+)
 from .curation_renewal_jobs import replay_renewal
 from .enrichment.analysis import sha
 from .refresh import _verified_baseline
 from .render import split_document
 from .source_review import scan, text_fields
 from .source_review_jobs import _media_context
+
+
+class DependencyReviewRequired(ValueError):
+    """All unreviewed baseline dependencies must independently qualify before promotion."""
+
+    def __init__(self, documents: list[str]) -> None:
+        super().__init__("independent whole-corpus dependency review required")
+        self.documents = documents
 
 
 def policy_files(raw: dict[str, Any]) -> dict[str, bytes]:
@@ -147,7 +162,7 @@ def qualify_policy(
             for path in sorted((root / "content").rglob("index.md"))
         }
         first = migrate_content(root, curation_policy=policy)
-        validate_content_policy(root, curation_policy=policy)
+        validation_errors = curation_validation_errors(root, policy)
         after = {
             path.relative_to(root).as_posix(): sha(path.read_bytes())
             for path in sorted((root / "content").rglob("index.md"))
@@ -157,14 +172,20 @@ def qualify_policy(
             for path in before.keys() | after.keys()
             if before.get(path) != after.get(path) and path not in approved
         )
-        if unknown:
-            atomic_private(
-                output / "dependency-exceptions.json",
-                json_bytes(
-                    {"documents": unknown, "reason": "independent_dependency_review_required"}
-                ),
+        unresolved = sorted(set(unknown) | set(validation_errors))
+        if unresolved:
+            report = json_bytes(
+                {
+                    "documents": unresolved,
+                    "reason": "independent_dependency_review_required",
+                    "validation_errors": validation_errors,
+                    "changed_dependencies": unknown,
+                }
             )
-            raise ValueError("unreviewed whole-corpus curation dependencies changed")
+            atomic_private(output / "dependency-history" / (sha(report) + ".json"), report)
+            atomic_private(output / "dependency-exceptions.json", report)
+            raise DependencyReviewRequired(unresolved)
+        validate_content_policy(root, curation_policy=policy)
         first_digest = corpus_digest(root)
         second = migrate_content(root, curation_policy=policy)
         if corpus_digest(root) != first_digest or second != first:

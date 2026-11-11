@@ -56,3 +56,11 @@ html-to-markdown review-curation --capture captured-source --source-review sourc
 `qualify` executes inference only on the MacBook. `stage` is offline and requires preserved final
 validation. The normal worker transfers raw evidence privately through SSH; public files contain
 only catalog guards, fixed contextual reasons, policy versions and sanitized receipt digests.
+
+Whole-corpus qualification enumerates all baseline article validation gaps and changed
+dependencies before promotion. Each gap receives a complete article and native-media
+review against every topic, bound to the exact verified baseline receipt. Historical
+approval under another topic does not approve the new placement. These reviews retain
+the baseline capture age and do not count as fresh source admission. Unavailable media,
+unresolved reviews, or an actual planner failure after independent review prevent promotion;
+the private dependency inventory and every attempt remain visible for resumption.
