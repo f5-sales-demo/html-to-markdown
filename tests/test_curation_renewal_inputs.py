@@ -42,6 +42,7 @@ def test_complete_curation_exception_can_review_and_replay_without_publishing(
                 "reason": "independent technical procedure",
                 "removals": [],
                 "media": [],
+                "reference_edits": [],
             }
             for topic in TOPICS
         ],
