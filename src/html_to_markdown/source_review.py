@@ -200,6 +200,7 @@ def apply_text(
     if len(mappings) != len(decision.values):
         raise ValueError("duplicate synthetic value mapping")
     grouped: dict[str, list[TextChange]] = {}
+    inconsistent = []
     for change in decision.text_changes:
         if change.field != "body" and change.field.split("/")[1:2] not in (
             ["title"],
@@ -215,10 +216,17 @@ def apply_text(
         if sha(original[change.start : change.end]) != change.source_sha256:
             raise ValueError("privacy source digest guard changed")
         if mappings.get(change.source_sha256) != change.replacement or not change.reason.strip():
-            raise ValueError(
-                "privacy replacement is inconsistent with synthetic relationship mapping"
+            inconsistent.append(
+                f"{change.field}:{change.start}:{change.end} source_sha256={change.source_sha256}"
             )
         grouped.setdefault(change.field, []).append(change)
+    if inconsistent:
+        raise ValueError(
+            "privacy replacement is inconsistent with synthetic relationship mapping: "
+            + "; ".join(inconsistent)
+            + ". Each text change needs a values entry with the identical source_sha256 and "
+            "replacement, and a nonempty reason. Correct all mappings together."
+        )
     for field, changes in grouped.items():
         changes.sort(key=lambda change: change.start)
         if any(left.end > right.start for left, right in zip(changes, changes[1:], strict=False)):
@@ -397,6 +405,10 @@ Privacy review must examine the entire article, metadata and all media, includin
 by patterns. Keep reserved documentation examples and authoritative attribution in proper context.
 Replace real identifying values consistently across text and images using exact digest-guarded spans
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
+contextual disposition; uncertain content remains queued.
+For every text_changes entry, values must contain the identical source_sha256 and replacement.
+A whole-line span digest differs from an individual visible value digest; include each exact mapping
+needed by text changes and image labels and keep their identifying-value replacements consistent.+ contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
