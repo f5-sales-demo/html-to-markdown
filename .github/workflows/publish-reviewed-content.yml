@@ -1,0 +1,102 @@
+name: Publish independently reviewed content
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate-tag:
+        description: Exact private draft containing the prepared consumer archive
+        required: true
+        type: string
+      publication-sha256:
+        description: Exact prepared publication receipt SHA-256
+        required: true
+        type: string
+      baseline-receipt-sha256:
+        description: Deployed baseline used by the private verified assembly
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: content-snapshot
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: managed-socketless
+    environment: repository-settings
+    timeout-minutes: 180
+    permissions:
+      contents: write # promote the independently verified draft
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          python-version: '3.12'
+      - run: uv sync --locked
+      - name: Verify exact candidate and reject a superseded baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          CANDIDATE_TAG: ${{ inputs.candidate-tag }}
+          RECEIPT_SHA256: ${{ inputs.publication-sha256 }}
+          BASELINE_SHA256: ${{ inputs.baseline-receipt-sha256 }}
+        run: |
+          set -euo pipefail
+          [[ "$CANDIDATE_TAG" =~ ^content-[0-9]{8}T[0-9]{6}Z$ ]]
+          [[ "$RECEIPT_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$BASELINE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          curl --fail --silent --show-error --retry 3 \
+            https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > deployed.json
+          test "$(jq -er .publication_sha256 deployed.json)" = "$BASELINE_SHA256"
+          gh release download "$CANDIDATE_TAG" --repo "$REPOSITORY" --dir candidate
+          uv run html-to-markdown verify-publication --output candidate \
+            --release-tag "$CANDIDATE_TAG" --publication-sha256 "$RECEIPT_SHA256"
+          test "$(jq -er .source_commit candidate/publication.json)" = "$GITHUB_SHA"
+      - name: Promote candidate and deploy its exact receipt
+        env:
+          GH_TOKEN: ${{ secrets.REPO_SYNC_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          CANDIDATE_TAG: ${{ inputs.candidate-tag }}
+          RECEIPT_SHA256: ${{ inputs.publication-sha256 }}
+          BASELINE_SHA256: ${{ inputs.baseline-receipt-sha256 }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 3 \
+            https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > final-baseline.json
+          test "$(jq -er .publication_sha256 final-baseline.json)" = "$BASELINE_SHA256"
+          gh release edit "$CANDIDATE_TAG" --repo "$REPOSITORY" --draft=false --latest=false
+          gh workflow run github-pages-deploy.yml --repo "$REPOSITORY" --ref main \
+            -f "snapshot-tag=$CANDIDATE_TAG" -f "publication-sha256=$RECEIPT_SHA256"
+      - name: Hold the snapshot lock until the exact receipt is deployed
+        env:
+          RECEIPT_SHA256: ${{ inputs.publication-sha256 }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 180); do
+            curl --fail --silent --show-error --retry 3 \
+              https://f5-sales-demo.github.io/html-to-markdown/api/revision.json > deployed-candidate.json
+            if test "$(jq -er .publication_sha256 deployed-candidate.json)" = "$RECEIPT_SHA256"; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::exact candidate deployment did not complete while holding the snapshot lock"
+          exit 1
+      - name: Preserve sanitized publication evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: reviewed-publication-${{ github.run_id }}
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            deployed.json
+            final-baseline.json
+            deployed-candidate.json
+            candidate/publication.json
+            candidate/manifest.json
+            candidate/quality-report.json

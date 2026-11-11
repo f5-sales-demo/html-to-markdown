@@ -12,7 +12,7 @@ from typing import Any
 from ..adapters.community import privacy_findings
 from ..content_policy import load_content_policy, validate_content_policy
 from ..curation import corpus_digest, json_bytes, load_curation_policy, prune_assets
-from ..metadata import enrich_snapshot
+from ..metadata import rebuild_metadata
 from ..models import DiscoveredPage, PageMetadata, PageStatus
 from ..render import serialize_document, split_document
 from ..state import StateStore
@@ -28,8 +28,10 @@ from .contracts import (
     Decision,
     DocumentEvidence,
     ImageAnalysis,
+    ResponseEvidence,
     Validation,
 )
+from .contracts_v2 import VERSION as VERSION_TWO
 from .gates import candidate, parse_response, request_hash, validate_candidate
 from .graph import graph_fallbacks
 from .requests import editor_evidence_hash, validator_request
@@ -38,7 +40,7 @@ MARKER = "enrichment-state.json"
 _ARTIFACT_CACHE: dict[str, Artifact] = {}
 _DECISION_CACHE: dict[tuple[str, str], tuple[dict[str, Any], list[dict[str, Any]]]] = {}
 _ARTIFACT_IDENTITIES: dict[int, str] = {}
-_UPSTREAM_POLICY_CACHE: set[tuple[str, str, str]] = set()
+_UPSTREAM_POLICY_CACHE: set[tuple[str, ...]] = set()
 
 
 def import_state(output: Path, store: StateStore) -> None:
@@ -182,7 +184,13 @@ def _visual_inputs(doc: dict[str, Any], artifact: Artifact) -> list[dict[str, An
 
 
 def prepare(
-    curated: Path, baseline: Path, destination: Path, *, tag: str, receipt_sha256: str
+    curated: Path,
+    baseline: Path,
+    destination: Path,
+    *,
+    tag: str,
+    receipt_sha256: str,
+    version: int = 1,
 ) -> Artifact:
     """Bind model work to verified captured and policy-curated inputs."""
     # Package imports curation; defer this edge until the verified-input boundary.
@@ -212,9 +220,11 @@ def prepare(
         p.relative_to(curated).as_posix(): sha(p.read_bytes())
         for p in sorted(curated.glob("content/*/**/assets/*"))
     }
+    if version not in {1, 2}:
+        raise ValueError("unsupported enrichment schema version")
     artifact = Artifact(
-        schema_version=1,
-        prompt_version=PROMPT_VERSION,
+        schema_version=2 if version == 2 else 1,
+        prompt_version=VERSION_TWO if version == 2 else PROMPT_VERSION,
         baseline_tag=tag,
         publication_sha256=receipt_sha256,
         baseline_manifest_sha256=sha((baseline / "manifest.json").read_bytes()),
@@ -222,6 +232,9 @@ def prepare(
         analysis_sha256=sha(json_bytes(analysis)),
         policy_sha256=load_curation_policy().sha256,
         api_policy_sha256=load_content_policy().policy_digest,
+        curation_audit_sha256=sha((curated / "curation-audit.json").read_bytes())
+        if version == 2
+        else None,
         documents=[
             DocumentEvidence(
                 document=d["document"],
@@ -246,7 +259,9 @@ def load_artifact(path: Path) -> Artifact:
     raw = path.read_bytes()
     identity = sha(raw)
     if identity in _ARTIFACT_CACHE:
-        return _ARTIFACT_CACHE[identity]
+        copy = _ARTIFACT_CACHE[identity].model_copy(deep=True)
+        _ARTIFACT_IDENTITIES[id(copy)] = identity
+        return copy
     if raw.startswith(b"\x1f\x8b"):
         raw = gzip.decompress(raw)
     parsed = json.loads(raw)
@@ -268,7 +283,7 @@ def load_artifact(path: Path) -> Artifact:
 
         parsed = restore(parsed)
     artifact = Artifact.model_validate(parsed)
-    _ARTIFACT_CACHE[identity] = artifact
+    _ARTIFACT_CACHE[identity] = artifact.model_copy(deep=True)
     _ARTIFACT_IDENTITIES[id(artifact)] = identity
     return artifact
 
@@ -297,8 +312,15 @@ def artifact_bytes(artifact: Artifact) -> bytes:
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     current_digest = corpus_digest(curated)
-    if artifact.prompt_version != PROMPT_VERSION or artifact.curated_sha256 != current_digest:
+    if (
+        artifact.prompt_version != (VERSION_TWO if artifact.schema_version == 2 else PROMPT_VERSION)
+        or artifact.curated_sha256 != current_digest
+    ):
         raise ValueError("stale prompt or changed curated inputs")
+    if artifact.schema_version == 2 and artifact.curation_audit_sha256 != sha(
+        (curated / "curation-audit.json").read_bytes()
+    ):
+        raise ValueError("upstream curation audit changed")
     if (
         artifact.policy_sha256 != load_curation_policy().sha256
         or artifact.api_policy_sha256 != load_content_policy().policy_digest
@@ -333,42 +355,63 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
                 or evidence.source != doc["metadata"]["sourceId"]
             ):
                 raise ValueError("stale per-document identity")
-            if evidence.editor is None or evidence.validator is None:
-                raise ValueError("missing editor or independent validator response")
-            context = context_for(doc, analysis, artifact)
-            decision = parse_response(
-                evidence.editor,
-                Decision,
-                EDITOR_MODEL,
-                editor_evidence_hash(doc, context, evidence.editor),
-            )
-            body = candidate(doc, decision, indexed, artifact.repairs)
-            # Validate the candidate's render/asset/privacy policy before
-            # accepting any rewrite. No failed candidate is partially applied.
-            if privacy_findings(body):
-                raise ValueError("candidate contains unresolved privacy findings")
+            if artifact.schema_version == 2:
+                from .v2 import replay_document  # pylint: disable=import-outside-toplevel
+
+                progress = evidence.v2
+                if progress is None or progress.get("selected_attempt") is None:
+                    raise ValueError(
+                        (progress or {}).get("failure_reason")
+                        or "missing complete version-two model decisions"
+                    )
+                selected = progress["selected_attempt"]
+                if (
+                    not isinstance(selected, int)
+                    or isinstance(selected, bool)
+                    or not 0 <= selected < len(progress["attempts"])
+                ):
+                    raise ValueError("invalid selected version-two attempt")
+                attempt = progress["attempts"][selected]
+                decision, body, validation = replay_document(
+                    doc, attempt, indexed, artifact.repairs
+                )
+                validation_digest = attempt["validation"]["response_sha256"]
+            else:
+                if evidence.editor is None or evidence.validator is None:
+                    raise ValueError("missing editor or independent validator response")
+                context = context_for(doc, analysis, artifact)
+                decision = parse_response(
+                    evidence.editor,
+                    Decision,
+                    EDITOR_MODEL,
+                    editor_evidence_hash(doc, context, evidence.editor),
+                )
+                body = candidate(doc, decision, indexed, artifact.repairs)
+                if privacy_findings(body):
+                    raise ValueError("candidate contains unresolved privacy findings")
+                validation = parse_response(
+                    evidence.validator,
+                    Validation,
+                    VALIDATOR_MODEL,
+                    request_hash(validator_request(doc, body, decision.model_dump(), context)),
+                )
+                validate_candidate(doc, body, validation)
+                for media in decision.media:
+                    if media.disposition == "remove" or media.alt != "":
+                        image = context["image_analysis"].get(media.sha256, {})
+                        if image.get("uncertain", True):
+                            raise ValueError("media change lacks verified visual evidence")
+                validation_digest = evidence.validator.response_sha256
             policy = load_curation_policy()
             if policy.retired(body) or policy.retired(decision.description):
                 raise ValueError("candidate reintroduces retired material")
-            validation = parse_response(
-                evidence.validator,
-                Validation,
-                VALIDATOR_MODEL,
-                request_hash(validator_request(doc, body, decision.model_dump(), context)),
-            )
-            validate_candidate(doc, body, validation)
-            for media in decision.media:
-                if media.disposition == "remove" or media.alt != "":
-                    image = context["image_analysis"].get(media.sha256, {})
-                    if image.get("uncertain", True):
-                        raise ValueError("media change lacks verified visual evidence")
             result.update(
                 disposition=decision.disposition,
                 body=body,
                 description=decision.description,
                 canonical_document=decision.canonical_document,
                 reason=decision.reason,
-                validation_sha256=evidence.validator.response_sha256,
+                validation_sha256=validation_digest,
             )
         except (ValueError, TypeError, KeyError) as error:
             result["reason"] = str(error)
@@ -458,6 +501,10 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
         return dict(state["report"])
     if not (output / "curation-audit.json").is_file():
         raise ValueError("replay requires an upstream curated snapshot and audit")
+    if (output / "refresh-state.json").is_file():
+        from ..refresh import verify_refresh  # pylint: disable=import-outside-toplevel
+
+        verify_refresh(output)
     artifact = load_artifact(artifact_path)
     validate_content_policy(output)
     analysis, results = _decisions(output, artifact)
@@ -467,6 +514,12 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
     for name in ("manifest.json", "curation-audit.json"):
         if (output / name).is_file():
             shutil.copy2(output / name, preserved / name)
+    for name in ("refresh-state.json", "source-review-receipt.json"):
+        if (output / name).is_file():
+            shutil.copy2(output / name, preserved / name)
+    for name in (".refresh", ".admission"):
+        if (output / name).is_dir():
+            shutil.copytree(output / name, preserved / name)
     pinned = output / ".enrichment" / "decisions.json"
     pinned.write_bytes(artifact_path.read_bytes())
     docs = {d["document"]: d for d in analysis["documents"]}
@@ -504,7 +557,7 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
             metadata.related_documents = []
             path.write_text(serialize_document(metadata, body), encoding="utf-8")
         prune_assets(output)
-        enrich_snapshot(output, store)
+        rebuild_metadata(output, store)
     finally:
         store.close()
     # A malformed candidate falls back BEFORE any output mutation; public
@@ -523,10 +576,36 @@ def replay(output: Path, artifact_path: Path, digest: str) -> dict[str, Any]:
         for p in output.glob("content/*/**/index.md")
     )
     usage: dict[str, dict[str, int | float | None]] = {}
-    for response in [
+    responses = [
         *artifact.images.values(),
         *(e for d in artifact.documents for e in (d.editor, d.validator) if e is not None),
-    ]:
+    ]
+
+    def collect_usage(value: Any) -> None:
+        if isinstance(value, dict):
+            if {
+                "request_sha256",
+                "response_sha256",
+                "request",
+                "response",
+                "model",
+            } <= value.keys():
+                responses.append(ResponseEvidence.model_validate(value))
+            else:
+                for child in value.values():
+                    collect_usage(child)
+        elif isinstance(value, list):
+            for child in value:
+                collect_usage(child)
+
+    for document in artifact.documents:
+        collect_usage(document.v2)
+    seen_responses = set()
+    for response in responses:
+        response_identity = (response.request_sha256, response.response_sha256)
+        if response_identity in seen_responses:
+            continue
+        seen_responses.add(response_identity)
         billed = response.response.get("usage") or {}
         totals = usage.setdefault(
             response.model,
@@ -600,10 +679,15 @@ def verify_enrichment(output: Path) -> dict[str, Any]:
         raise ValueError("pinned decision artifact changed")
     artifact = load_artifact(pinned)
     curated = output / ".enrichment" / "curated"
+    if (curated / "refresh-state.json").is_file():
+        from ..refresh import verify_refresh  # pylint: disable=import-outside-toplevel
+
+        verify_refresh(curated)
     upstream_key = (
         corpus_digest(curated),
         load_curation_policy().sha256,
         load_content_policy().policy_digest,
+        sha((curated / "curation-audit.json").read_bytes()),
     )
     if upstream_key not in _UPSTREAM_POLICY_CACHE:
         validate_content_policy(curated)

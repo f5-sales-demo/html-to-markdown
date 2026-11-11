@@ -13,6 +13,9 @@ uv run playwright install chromium
 
 ## Use
 
+The resumable four-source queue and review/publication boundaries are documented in
+[Private content collection and review](engineering/private-content-operations.md).
+
 ```bash
 uv run html-to-markdown discover --source all --output build
 uv run html-to-markdown scrape --source all --output build

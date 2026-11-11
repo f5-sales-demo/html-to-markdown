@@ -78,3 +78,10 @@ def test_frontmatter_order_unicode_null_dates_and_hash() -> None:
     assert parsed["tags"] == ["alpha", "Zulu"]
     assert parsed["content_hash"] == content_hash(body)
     assert "Café" in document
+
+
+def test_source_code_widget_line_boundaries_preserve_commands_and_order() -> None:
+    html = '<pre><code class="language-bash"><div class="ec-line"><span class="code">export MODE=example</span></div><div class="ec-line"><span class="code">curl --retry 3 https://example.com</span></div></code></pre>'
+    body = render_html(html, "https://docs.cloud.f5.com/docs-v2/example").body
+    assert "export MODE=example\ncurl --retry 3 https://example.com" in body
+    assert body.startswith("```bash\n")

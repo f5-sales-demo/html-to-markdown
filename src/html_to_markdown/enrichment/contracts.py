@@ -138,6 +138,7 @@ class DocumentEvidence(StrictModel):
     input_sha256: str
     editor: ResponseEvidence | None
     validator: ResponseEvidence | None
+    v2: dict[str, Any] | None = None
 
 
 class CanonicalDecision(StrictModel):
@@ -163,7 +164,7 @@ class CanonicalEvidence(StrictModel):
 
 
 class Artifact(StrictModel):
-    schema_version: Literal[1]
+    schema_version: Literal[1, 2]
     prompt_version: str
     baseline_tag: str
     publication_sha256: str
@@ -172,6 +173,7 @@ class Artifact(StrictModel):
     analysis_sha256: str
     policy_sha256: str
     api_policy_sha256: str
+    curation_audit_sha256: str | None = None
     documents: list[DocumentEvidence]
     assets: dict[str, str]
     images: dict[str, ResponseEvidence]

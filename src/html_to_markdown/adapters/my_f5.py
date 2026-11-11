@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import re
 from datetime import datetime
+from typing import Any
 from urllib.parse import quote
 
 from bs4 import BeautifulSoup
 
-from html_to_markdown.errors import AuthenticationWallError, NotFoundError
+from html_to_markdown.errors import AuthenticationWallError, NotFoundError, ScrapeError
 from html_to_markdown.models import DiscoveredPage, ExtractedPage, FetchResult, PageMetadata
 
 from .base import SourceAdapter
@@ -19,50 +20,130 @@ class MyF5Adapter(SourceAdapter):
     root_url = "https://my.f5.com/manage/s"
     browser_only = True
     document_types = ("Support Solution", "Operations Guide", "Knowledge", "Policy")
+    search_terms = ("F5 Distributed Cloud", "Volterra", "VoltMesh", "VoltStack")
+    pagination_limit = 100
 
-    async def discover(self, fetcher: object) -> list[DiscoveredPage]:
+    async def discover(self, fetcher: Any) -> list[DiscoveredPage]:
         filters = ",".join(self.document_types)
-        search = (
-            f"{self.root_url}/global-search/%40uri#q={quote('F5 Distributed Cloud')}"
-            f"&f-f5_document_type={filters}&cf-f5_version={quote('F5 Distributed Cloud')}"
-            "&aq=%40f5_archived&numberOfResults=100"
-        )
         found: set[str] = set()
-        async with fetcher.browser_page() as page:  # type: ignore[attr-defined]
-            await page.goto(search, wait_until="domcontentloaded")
-            await page.wait_for_function(
-                """() => /K\\d{6,}/.test(document.body?.innerText || '') ||
-                  /no results/i.test(document.body?.innerText || '')"""
+        for term in self.search_terms:
+            search = (
+                f"{self.root_url}/global-search/%40uri#q={quote(term)}"
+                f"&f-f5_document_type={filters}&aq=%40f5_archived&numberOfResults=100"
             )
-            for _ in range(100):
-                text = await page.locator("body").inner_text()
-                for article_id in re.findall(r"K\d{6,}", text):
-                    found.add(f"{self.root_url}/article/{article_id}")
-                next_button = page.locator(
-                    'button[aria-label="Next"], button[title="Next"], button:has-text("Next")'
-                ).last
-                if await next_button.count() == 0 or await next_button.is_disabled():
-                    break
-                before = sorted(found)
-                await next_button.click()
-                await page.wait_for_timeout(1000)
-                if sorted(found) == before and "disabled" in (
-                    await next_button.get_attribute("class") or ""
-                ):
-                    break
+            async with fetcher.browser_page() as page:
+                await page.goto(search, wait_until="domcontentloaded")
+                await page.wait_for_function(
+                    """() => /K\\d{6,}/.test(document.body?.innerText || '') ||
+                      /no results/i.test(document.body?.innerText || '')"""
+                )
+                found.update(await self._search_pages(page, fetcher, search))
         return [DiscoveredPage(source_id=self.source_id, url=url) for url in sorted(found)]
+
+    async def _search_pages(self, page: Any, fetcher: Any, origin: str) -> set[str]:
+        found: set[str] = set()
+        seen: set[tuple[str, ...]] = set()
+        record = getattr(fetcher, "record_discovery", None)
+        for number in range(self.pagination_limit):
+            # Read the newly rendered page BEFORE inspecting its terminal control.
+            text = await page.locator("body").inner_text()
+            ids = tuple(sorted(set(re.findall(r"\bK\d{6,}\b", text))))
+            if not ids and (number or not re.search(r"\bno results\b", text, re.I)):
+                raise ScrapeError("MyF5 pagination returned unexpected empty results")
+            if ids in seen:
+                raise ScrapeError("MyF5 pagination loop repeated a result page")
+            seen.add(ids)
+            urls = [f"{self.root_url}/article/{identifier}" for identifier in ids]
+            found.update(urls)
+            if record is not None:
+                record(source=self.source_id, origin=origin, urls=urls, page=number, complete=False)
+            next_button = page.locator(
+                'button[aria-label^="Next" i], button[title^="Next" i], button:has-text("Next")'
+            ).last
+            count = await next_button.count()
+            terminal = not ids
+            if count:
+                terminal = terminal or await next_button.is_disabled()
+                terminal = terminal or await next_button.get_attribute("aria-disabled") == "true"
+                terminal = terminal or bool(
+                    re.search(r"\bdisabled\b", await next_button.get_attribute("class") or "")
+                )
+            elif ids:
+                summary = re.search(
+                    r"(?:results?\s+)?([\d,]+)\s*[-–]\s*([\d,]+)\s+of\s+([\d,]+)", text, re.I
+                )
+                terminal = bool(
+                    summary and int(summary[2].replace(",", "")) == int(summary[3].replace(",", ""))
+                )
+                if not terminal:
+                    raise ScrapeError("MyF5 pagination has no completion evidence")
+            if terminal:
+                if record is not None:
+                    record(
+                        source=self.source_id, origin=origin, urls=urls, page=number, complete=True
+                    )
+                return found
+            await next_button.click()
+            try:
+                await page.wait_for_function(
+                    "before => { const text = document.body?.innerText || ''; "
+                    "const ids = t => JSON.stringify([...new Set(t.match(/\\bK\\d{6,}\\b/g) || [])].sort()); "
+                    "return ids(text) !== ids(before) && !document.querySelector('[aria-busy=\"true\"]') "
+                    "&& (/K\\d{6,}/.test(text) || /no results/i.test(text)); }",
+                    arg=text,
+                )
+            except Exception as error:
+                raise ScrapeError("MyF5 pagination result change was not observed") from error
+        raise ScrapeError("MyF5 pagination exhausted its limit without completion")
 
     def readiness_script(self) -> str | None:
         return """() => {
-          const text = document.body?.innerText || '';
-          const markers = ['Environment', 'Answer', 'Cause', 'Resolution', 'Procedure',
-            'Description', 'Related Content', 'What Happened'];
-          return markers.some(marker => text.includes(marker)) && text.length > 1000;
+          const flatten = node => {
+            const clone = node.cloneNode(false);
+            for (const child of (node.shadowRoot || node).childNodes)
+              clone.appendChild(child.nodeType === Node.ELEMENT_NODE ? flatten(child) : child.cloneNode(true));
+            return clone;
+          };
+          const root = document.querySelector('c-site-article-detail-container, article');
+          if (!root) return false;
+          const clone = flatten(root);
+          if (clone.querySelector('[aria-busy="true"]')) return false;
+          const markers = ['Answer', 'Cause', 'Resolution', 'Procedure', 'Description', 'What Happened'];
+          const headings = [...clone.querySelectorAll('h2,h3,h4,[role="heading"]')];
+          const primary = headings.filter(h => markers.some(m => h.textContent.trim().startsWith(m)));
+          const content = [...clone.querySelectorAll('p,li,pre,table,code')];
+          const level = h => Number(h.getAttribute('aria-level') || h.tagName.slice(1)) || 3;
+          return primary.length > 0 && primary.every(h => {
+            const next = headings.slice(headings.indexOf(h) + 1).find(n => level(n) <= level(h));
+            return content.some(node => node.textContent.trim() &&
+              (h.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+              (!next || (next.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_PRECEDING)));
+          });
         }"""
 
     def classify_page(self, page: FetchResult) -> None:
-        text = BeautifulSoup(page.html, "html.parser").get_text(" ", strip=True).casefold()
-        if any(term in text[:1600] for term in ("log in", "sign in", "forgot your password")):
+        soup = BeautifulSoup(page.html, "html.parser")
+        text = soup.get_text(" ", strip=True).casefold()
+        article = soup.select_one("c-site-article-detail-container, article")
+        structured = (
+            article is not None
+            and article.select_one("h1") is not None
+            and any(
+                marker in article.get_text(" ", strip=True).casefold()
+                for marker in (
+                    "answer",
+                    "environment",
+                    "resolution",
+                    "procedure",
+                    "description",
+                    "cause",
+                )
+            )
+        )
+        if page.status_code in {401, 403} or (
+            not structured
+            and any(term in text[:1600] for term in ("log in", "sign in", "forgot your password"))
+        ):
             raise AuthenticationWallError(f"authentication wall: {page.final_url}")
         soft_404 = ("article not found", "page not found", "we can't find the page")
         if page.status_code == 404 or any(term in text[:1200] for term in soft_404):

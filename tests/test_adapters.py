@@ -180,3 +180,13 @@ def test_my_f5_error_classification(html: str, error: type[Exception]) -> None:
 def test_readiness_and_shadow_dom_scripts_are_explicit() -> None:
     assert "markers" in (MyF5Adapter().readiness_script() or "")
     assert "querySelector" in (DocsCloudAdapter().readiness_script() or "")
+
+
+def test_public_my_f5_login_instructions_are_not_an_authentication_wall() -> None:
+    page = FetchResult(
+        url="https://my.f5.com/manage/s/article/K000148082",
+        final_url="https://my.f5.com/manage/s/article/K000148082",
+        status_code=200,
+        html="<article><h1>Sign in troubleshooting</h1><h2>Answer</h2><p>Log in to the console and select your namespace.</p></article>",
+    )
+    MyF5Adapter().classify_page(page)

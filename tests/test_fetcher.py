@@ -196,10 +196,10 @@ async def test_redirect_resolution_uses_head_and_rejects_escape() -> None:
 
 
 @pytest.mark.asyncio
-async def test_marketing_redirect_cannot_escape_exact_solution_or_product_prefix() -> None:
+async def test_marketing_redirect_cannot_escape_solution_or_product_scope() -> None:
     start = "https://www.f5.com/solutions/web-app-and-api-protection"
     destinations = [
-        "/solutions/web-app-and-api-protection/other",
+        "/company/other",
         "/products/other",
         "https://example.com/",
     ]

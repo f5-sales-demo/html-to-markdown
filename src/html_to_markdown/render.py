@@ -64,7 +64,14 @@ class DeterministicConverter(MarkdownConverter):
     def convert_pre(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         candidate = el.find("code")
         code = candidate if isinstance(candidate, Tag) else None
-        raw = code.get_text() if code else el.get_text()
+        root = code if code else el
+        code_lines = root.select(".ec-line .code")
+        if code_lines:
+            raw = "\n".join(line.get_text() for line in code_lines)
+        else:
+            for line_break in root.select("br"):
+                line_break.replace_with("\n")
+            raw = root.get_text()
         language = ""
         classes = code.get("class", []) if code else []
         for value in classes:
