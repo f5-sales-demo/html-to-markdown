@@ -175,6 +175,12 @@ def test_privacy_cannot_change_provenance_or_source_identity(field: str) -> None
         apply_text({}, "", current)
 
 
+@pytest.mark.parametrize("size", [4, 73])
+def test_privacy_label_schema_rejects_sizes_outside_readable_controller_bounds(size: int) -> None:
+    with pytest.raises(ValueError):
+        Label(rectangle=[0, 0, 100, 20], source_value_sha256="a" * 64, text="example", size=size)
+
+
 def test_image_replacement_is_exact_and_consistent_with_text() -> None:
     image = Image.new("RGB", (160, 80), "blue")
     output = io.BytesIO()

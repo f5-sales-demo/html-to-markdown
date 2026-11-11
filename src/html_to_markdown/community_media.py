@@ -79,12 +79,31 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
         raise ValueError("invalid synthetic label control character")
     if not isinstance(size, int) or isinstance(size, bool) or not 6 <= size <= 72:
         raise ValueError("invalid synthetic label size")
+    fit = label.get("fit", False)
+    if not isinstance(fit, bool):
+        raise ValueError("invalid synthetic label fit mode")
     left, top, right, bottom = label["rectangle"]
-    font = ImageFont.load_default(size=size)
-    bounds = draw.textbbox((left + 2, top + 2), text, font=font)
-    if bounds[2] >= right or bounds[3] >= bottom:
-        raise ValueError("synthetic label does not fit")
-    draw.text((left + 2, top + 2), text, fill="black", font=font)
+    for selected_size in range(size, 5 if fit else size - 1, -1):
+        font = ImageFont.load_default(size=selected_size)
+        if fit:
+            bounds = draw.textbbox((0, 0), text, font=font)
+            width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
+            if width <= right - left and height <= bottom - top:
+                pad_x = min(2, (right - left - width) // 2)
+                pad_y = min(2, (bottom - top - height) // 2)
+                draw.text(
+                    (left + pad_x - bounds[0], top + pad_y - bounds[1]),
+                    text,
+                    fill="black",
+                    font=font,
+                )
+                return
+        else:
+            bounds = draw.textbbox((left + 2, top + 2), text, font=font)
+            if bounds[2] < right and bounds[3] < bottom:
+                draw.text((left + 2, top + 2), text, fill="black", font=font)
+                return
+    raise ValueError("synthetic label does not fit")
 
 
 def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
