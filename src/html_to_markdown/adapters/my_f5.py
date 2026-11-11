@@ -107,13 +107,22 @@ class MyF5Adapter(SourceAdapter):
           const root = document.querySelector('c-site-article-detail-container, article');
           if (!root) return false;
           const clone = flatten(root);
-          if (clone.querySelector('[aria-busy="true"]')) return false;
+          if (clone.querySelector('[aria-busy="true"], lightning-spinner, .slds-spinner, [data-loading="true"]')) return false;
+          if (!clone.querySelector('h1')?.textContent.trim()) return false;
           const markers = ['Answer', 'Cause', 'Resolution', 'Procedure', 'Description', 'What Happened'];
           const headings = [...clone.querySelectorAll('h2,h3,h4,[role="heading"]')];
           const primary = headings.filter(h => markers.some(m => h.textContent.trim().startsWith(m)));
           const content = [...clone.querySelectorAll('p,li,pre,table,code')];
           const level = h => Number(h.getAttribute('aria-level') || h.tagName.slice(1)) || 3;
-          return primary.length > 0 && primary.every(h => {
+          // Some public Knowledge and Operations Guide templates use authored
+          // rich-text fields without semantic section headings. Scope the
+          // fallback to those fields, excluding titles, controls and promotions.
+          if (primary.length === 0) {
+            const fields = [...clone.querySelectorAll('.article-text-block.slds-rich-text-editor__output, .article-text-block .slds-rich-text-editor__output')];
+            return fields.some(field => [...field.querySelectorAll('p,li,pre,table,code')]
+              .some(node => node.textContent.trim()));
+          }
+          return primary.every(h => {
             const next = headings.slice(headings.indexOf(h) + 1).find(n => level(n) <= level(h));
             return content.some(node => node.textContent.trim() &&
               (h.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING) &&
@@ -128,15 +137,23 @@ class MyF5Adapter(SourceAdapter):
         structured = (
             article is not None
             and article.select_one("h1") is not None
-            and any(
-                marker in article.get_text(" ", strip=True).casefold()
-                for marker in (
-                    "answer",
-                    "environment",
-                    "resolution",
-                    "procedure",
-                    "description",
-                    "cause",
+            and (
+                any(
+                    marker in article.get_text(" ", strip=True).casefold()
+                    for marker in (
+                        "answer",
+                        "environment",
+                        "resolution",
+                        "procedure",
+                        "description",
+                        "cause",
+                    )
+                )
+                or any(
+                    field.get_text(" ", strip=True)
+                    for field in article.select(
+                        ".article-text-block.slds-rich-text-editor__output, .article-text-block .slds-rich-text-editor__output"
+                    )
                 )
             )
         )
