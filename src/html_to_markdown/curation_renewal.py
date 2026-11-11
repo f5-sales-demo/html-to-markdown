@@ -6,7 +6,17 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
-from .curation import blocks, json_bytes, remove_blocks
+from pydantic import Field
+
+from .curation import (
+    blocks,
+    canonical,
+    json_bytes,
+    load_curation_policy,
+    reference_spans,
+    remove_blocks,
+    unlink_references,
+)
 from .enrichment.analysis import sha
 from .enrichment.contracts import StrictModel
 from .legacy_curation import LegacyFilter
@@ -21,6 +31,7 @@ TOPICS = (
     "terraform-provider-current",
 )
 VERSION = "curation-renewal/1"
+SCHEMA_VERSION = 2
 
 
 class Removal(StrictModel):
@@ -35,12 +46,19 @@ class MediaChoice(StrictModel):
     reason: str
 
 
+class ReferenceEdit(StrictModel):
+    address: str
+    source_sha256: str
+    reason: str
+
+
 class TopicDecision(StrictModel):
     topic: str
     disposition: Literal["keep", "remove"]
     reason: str
     removals: list[Removal]
     media: list[MediaChoice]
+    reference_edits: list[ReferenceEdit] = Field(default_factory=list)
 
 
 class Proposal(StrictModel):
@@ -68,6 +86,7 @@ def proposal_context(
     result = {
         "identity": url,
         "version": VERSION,
+        "schema_version": SCHEMA_VERSION,
         "metadata": metadata,
         "body": body,
         "media": media,
@@ -95,6 +114,7 @@ def proposal_context(
             )
         ),
         "topics": list(TOPICS),
+        "reference_spans": reference_spans(body),
         "blocks": [
             {
                 "address": block.location,
@@ -133,6 +153,87 @@ def _guarded_removals(
     if any(left["end"] > right["start"] for left, right in zip(chosen, chosen[1:], strict=False)):
         raise ValueError("overlapping curation renewal spans across topics")
     return result
+
+
+def _reference_choices(
+    context: dict[str, Any], proposal: Proposal
+) -> dict[str, list[dict[str, Any]]]:
+    result: dict[str, list[dict[str, Any]]] = {topic.topic: [] for topic in proposal.topics}
+    if not any(topic.reference_edits for topic in proposal.topics):
+        return result
+    policy = load_curation_policy()
+    if policy.sha256 != context["policy_sha256"]:
+        raise ValueError("retired reference policy has been superseded")
+    indexed = {item["address"]: item for item in context["reference_spans"]}
+    chosen = set()
+    for decision in proposal.topics:
+        topic = next(t for t in policy.topics if t["id"] == decision.topic)
+        retired = {canonical(url) for url in topic["retired_urls"]}
+        for edit in decision.reference_edits:
+            item = indexed.get(edit.address)
+            if (
+                item is None
+                or item["source_sha256"] != edit.source_sha256
+                or not edit.reason.strip()
+            ):
+                raise ValueError("stale or absent retired reference guard")
+            from urllib.parse import urlsplit  # pylint: disable=import-outside-toplevel
+
+            url = urlsplit(item["url"])
+            if (
+                url.query
+                or url.username
+                or url.password
+                or "%" in item["url"]
+                or canonical(item["url"]) not in retired
+            ):
+                raise ValueError("reference edit lacks an explicit topic retirement decision")
+            if edit.address in chosen:
+                raise ValueError("overlapping retired reference choices")
+            chosen.add(edit.address)
+            result[decision.topic].append(item)
+    return result
+
+
+def _stage_references(body: str, selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    available = reference_spans(body)
+    grouped: dict[str, dict[str, Any]] = {}
+    for original in selected:
+        prefix = original["block_address"].rsplit(":", 1)[0]
+        matches = [
+            item
+            for item in available
+            if item["source_sha256"] == original["source_sha256"]
+            and item["block_address"].rsplit(":", 1)[0] == prefix
+        ]
+        if len(matches) != 1:
+            raise ValueError("retired reference changed after preceding topic")
+        current = matches[0]
+        rule = grouped.setdefault(
+            current["block_address"],
+            {
+                "location": current["block_address"],
+                "sha256": current["block_sha256"],
+                "unlink_reference_sha256": [],
+            },
+        )
+        rule["unlink_reference_sha256"].append(current["source_sha256"])
+    return list(grouped.values())
+
+
+def projected_fact(
+    context: dict[str, Any], candidate: dict[str, Any], source: dict[str, Any]
+) -> str:
+    """Only compiled, exact retired-link edits may alter a retained source fact's bytes."""
+    lines = context["body"].splitlines(keepends=True)
+    start = sum(len(line) for line in lines[: source["start"]])
+    end = sum(len(line) for line in lines[: source["end"]])
+    selected = [
+        {**item, "start": item["start"] - start, "end": item["end"] - start}
+        for item in candidate.get("reference_edits", [])
+        if start <= item["start"] and item["end"] <= end
+    ]
+    return unlink_references(source["text"], selected)
 
 
 def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, str]]:
@@ -174,6 +275,7 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
     if [topic.topic for topic in proposal.topics] != list(TOPICS):
         raise ValueError("renewal must resolve every policy topic exactly once in order")
     guarded = _guarded_removals(context, proposal)
+    references = _reference_choices(context, proposal)
     current = context["body"]
     stages = []
     disposition = "keep"
@@ -191,7 +293,10 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
             raise ValueError(
                 f"renewal must review every exact media placement for each topic: topic={topic.topic}; expected={len(context['media'])}; actual={len(media_ids)}; missing={missing}; unexpected={unexpected}"
             )
-        rules = _stage_rules(current, guarded[topic.topic])
+        rules = [
+            *_stage_rules(current, guarded[topic.topic]),
+            *_stage_references(current, references[topic.topic]),
+        ]
         retained = remove_blocks(current, rules)
         document = {
             "url": context["identity"],
@@ -226,6 +331,10 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
         if topic.disposition == "remove":
             disposition = "remove"
         current = retained
+    for stage in stages:
+        stage["document"]["accepted_output_sha256"] = sorted(
+            {stage["document"]["output_sha256"], sha(current)}
+        )
     result = {
         "identity": context["identity"],
         "binding_sha256": context["binding_sha256"],
@@ -233,6 +342,7 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
         "body": current,
         "stages": stages,
         "proposal_sha256": sha(json_bytes(proposal.model_dump())),
+        "reference_edits": [item for topic in proposal.topics for item in references[topic.topic]],
         "independent_validation_required": True,
     }
     result["output_sha256"] = sha(json_bytes(result))

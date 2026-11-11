@@ -9,6 +9,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy, rewrite_text
 from .curation import blocks, json_bytes, load_curation_policy
+from .curation_renewal import VERSION
 from .curation_renewal_jobs import _execute, _save, replay_renewal
 from .curation_renewal_policy import policy_files, qualify_policy, reviewed_policy
 from .curation_renewal_review import RenewalValidation, fact_schema
@@ -63,9 +64,7 @@ failed preservation requires rejection and explicit failures. Return only the su
         ],
     }
     body = request(VALIDATOR_MODEL, prompt, payload, PlannerValidation)
-    body["instructions"] = body["instructions"].replace(
-        "article-enrichment/1", "curation-renewal/1"
-    )
+    body["instructions"] = body["instructions"].replace("article-enrichment/1", VERSION)
     body["input"][0]["content"].extend(visual)
     fact_schema(body["text"]["format"]["schema"], context, candidate["body"])
     shape = body["text"]["format"]["schema"]["properties"]

@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .curation import blocks, json_bytes
-from .curation_renewal import TOPICS, VERSION, Proposal
+from .curation_renewal import TOPICS, VERSION, Proposal, projected_fact
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.contracts_v2 import FactV2
@@ -73,7 +73,11 @@ correcting them. A retained source limitation alone is not an unresolved retirem
 unresolved privacy, source extraction, preservation or policy scope still requires rejection.
 Review every policy topic in the supplied order and every media digest in its document placement.
 Use supplied structural addresses and digest guards; never calculate or reproduce a source hash.
-Select exact removals only when the removed material belongs to the retired policy and independent
+Use reference_edits for a supplied direct Markdown link to an explicitly retired topic URL when
+its label or surrounding block contains necessary prerequisites. This exact operation removes only
+the link markup and target, retaining its label and all surrounding source bytes. Never unlink
+unclassified URLs, credentials, code payloads, or necessary factual text. Whole-block removals
+still require independent retirement justification. Select exact removals only when the removed material belongs to the retired policy and independent
 technical explanations remain useful. Preserve prerequisites, commands, payloads, schemas, limits,
 warnings, expected results, action order and useful parent-heading descendants. Original blank
 fields are source limitations; retain them rather than inventing contents. Review original source
@@ -117,6 +121,16 @@ before publication; independent approval here cannot waive those gates."""
         addresses = [block["address"] for block in context["blocks"]]
         if addresses:
             shape["$defs"]["Removal"]["properties"]["address"]["enum"] = addresses
+        references = context["reference_spans"]
+        reference_field = shape["$defs"]["TopicDecision"]["properties"]["reference_edits"]
+        reference_field["maxItems"] = len(references)
+        if references:
+            shape["$defs"]["ReferenceEdit"]["properties"]["address"]["enum"] = [
+                r["address"] for r in references
+            ]
+            shape["$defs"]["ReferenceEdit"]["properties"]["source_sha256"]["enum"] = sorted(
+                {r["source_sha256"] for r in references}
+            )
         media_ids = sorted(context["media"])
         shape["$defs"]["TopicDecision"]["properties"]["media"].update(
             minItems=len(media_ids), maxItems=len(media_ids)
@@ -179,7 +193,7 @@ def verify_validation(
             if (
                 address not in retained
                 or retained[address].sha256 != pin
-                or pin != fact.source_sha256
+                or pin != sha(projected_fact(context, candidate, original[fact.source_address]))
             ):
                 raise ValueError(
                     f"independent retained fact or payload changed: source={fact.source_address}; candidate={address}; expected=exact Markdown candidate_blocks address and digest, never a native media/frame address"

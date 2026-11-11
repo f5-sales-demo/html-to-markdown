@@ -143,16 +143,104 @@ def blocks(body: str) -> list[Block]:
     return sorted(result, key=lambda item: (item.start, -item.end, item.kind))
 
 
+def reference_spans(body: str) -> list[dict[str, Any]]:
+    """Exact direct Markdown links outside code, addressed within smallest source blocks."""
+    parsed = blocks(body)
+    lines = body.splitlines(keepends=True)
+    offsets = [0]
+    for line in lines:
+        offsets.append(offsets[-1] + len(line))
+    code = [(offsets[b.start], offsets[b.end]) for b in parsed if b.kind in {"fence", "code_block"}]
+    code.extend((m.start(), m.end()) for m in re.finditer(r"(`+)(.*?)\1", body, re.S))
+    found = []
+    pattern = r"(?<!!)(?<!\\)\[([^\]\[\n]+)\]\((https?://[^\s()<>]+)\)"
+    for index, match in enumerate(re.finditer(pattern, body)):
+        if any(a <= match.start() < b or a < match.end() <= b for a, b in code):
+            continue
+        candidates = [
+            b
+            for b in parsed
+            if b.kind in {"paragraph", "list_item", "table_row"}
+            and offsets[b.start] <= match.start()
+            and match.end() <= offsets[b.end]
+        ]
+        if not candidates:
+            continue
+        block = min(candidates, key=lambda b: (b.end - b.start, b.kind != "paragraph", b.location))
+        found.append(
+            {
+                "address": block.location + f"/reference:{index}",
+                "block_address": block.location,
+                "block_sha256": block.sha256,
+                "source_sha256": digest(match.group().encode()),
+                "url": match[2],
+                "label": match[1],
+                "start": match.start(),
+                "end": match.end(),
+                "block_start": offsets[block.start],
+                "block_end": offsets[block.end],
+            }
+        )
+    return found
+
+
+def unlink_references(body: str, selected: list[dict[str, Any]]) -> str:
+    """Source markup guards preserve every label and all surrounding bytes."""
+    for item in sorted(selected, key=lambda value: value["start"], reverse=True):
+        source = body[item["start"] : item["end"]]
+        if digest(source.encode()) != item["source_sha256"]:
+            raise ValueError("retired reference source guard changed")
+        body = body[: item["start"]] + item["label"] + body[item["end"] :]
+    return body
+
+
+def _guarded_reference_edits(body: str, block: Block, wanted: list[str]) -> list[dict[str, Any]]:
+    if not wanted or len(wanted) != len(set(wanted)):
+        raise ValueError("invalid retired reference guards")
+    parsed = {item.location: item for item in blocks(body)}
+    available = reference_spans(body)
+    result = []
+    for pin in wanted:
+        selected = [
+            item
+            for item in available
+            if item["source_sha256"] == pin
+            and block.start <= parsed[item["block_address"]].start
+            and parsed[item["block_address"]].end <= block.end
+        ]
+        if len(selected) != 1:
+            raise ValueError("stale or ambiguous retired reference guard")
+        result.append(selected[0])
+    return result
+
+
 def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     parsed = blocks(body)
     spans: list[Block] = []
+    reference_edits = []
     for rule in rules:
         matches = [
             b for b in parsed if b.location == rule["location"] and b.sha256 == rule["sha256"]
         ]
         if len(matches) != 1:
             raise ValueError("stale or ambiguous structural guard")
-        spans.append(matches[0])
+        if "unlink_reference_sha256" in rule:
+            reference_edits.extend(
+                _guarded_reference_edits(body, matches[0], rule["unlink_reference_sha256"])
+            )
+        else:
+            spans.append(matches[0])
+    if any(
+        block.start
+        <= next(b.start for b in parsed if b.location == item["block_address"])
+        < block.end
+        for block in spans
+        for item in reference_edits
+    ):
+        raise ValueError("overlapping block removal and retired reference edit")
+    if len({item["address"] for item in reference_edits}) != len(reference_edits):
+        raise ValueError("overlapping retired reference edits")
+    body = unlink_references(body, reference_edits)
     spans.sort(key=lambda b: (b.start, b.end))
     if any(a.end > b.start for a, b in zip(spans, spans[1:], strict=False)):
         raise ValueError("overlapping structural guards")
@@ -495,6 +583,40 @@ def remove_dependent_references(
     return remove_blocks(body, rules), sorted(removed)
 
 
+def _reviewed_prior_topics(metadata: dict[str, Any], body: str, policy: CurationPolicy) -> str:
+    """Replay only exact reviewed earlier stages before checking a later stage guard."""
+    current = body
+    url = canonical(str(metadata["url"]))
+    for topic in policy.topics:
+        if topic["id"] == "vesctl-retired":
+            break
+        decision = next((d for d in topic["documents"] if canonical(d["url"]) == url), None)
+        if decision is None:
+            continue
+        if decision["disposition"] != "keep":
+            return body
+        if digest(current.encode()) in decision.get(
+            "accepted_output_sha256", [decision["output_sha256"]]
+        ):
+            continue
+        if digest(current.encode()) != decision["input_sha256"]:
+            return body
+        if (
+            topic["id"] == "legacy-retired"
+            and policy.legacy is not None
+            and (policy.legacy.source_digest(metadata, current) != decision.get("source_sha256"))
+        ):
+            return body
+        try:
+            revised = remove_blocks(current, decision.get("block_removals", []))
+        except ValueError:
+            return body
+        if digest(revised.encode()) != decision["output_sha256"]:
+            return body
+        current = revised
+    return current
+
+
 # Authored identities, local paths and state evidence form one closure transaction.
 # pylint: disable-next=too-many-locals,too-many-branches
 def retirement_preflight(
@@ -536,7 +658,8 @@ def retirement_preflight(
             for item in media_inventory(path, body)
         ):
             matches.add(path)
-        result = engine.transform(body, str(metadata["url"]), metadata=metadata)
+        prior = _reviewed_prior_topics(metadata, body, policy)
+        result = engine.transform(prior, str(metadata["url"]), metadata=metadata)
         if path in matches:
             result = VesctlResult(body, [{"reason": "original_document_reference"}], omit=True)
         decision = engine.decisions.get(engine.canonical(str(metadata["url"])))

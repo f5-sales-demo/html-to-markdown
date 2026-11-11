@@ -64,3 +64,10 @@ approval under another topic does not approve the new placement. These reviews r
 the baseline capture age and do not count as fresh source admission. Unavailable media,
 unresolved reviews, or an actual planner failure after independent review prevent promotion;
 the private dependency inventory and every attempt remain visible for resumption.
+
+Curation renewal proposal schema version 2 adds guarded direct Markdown reference edits. Source addresses
+and markup digests identify only explicit retired topic URLs outside code. Unlinking keeps
+the authored label and all surrounding bytes, preserving prerequisites, numeric limits and
+commands. Independent fact guards compare against the exact deterministic reference edit;
+unclassified URLs, stale references and payload changes cannot receive approval. Privacy
+remains a separate prerequisite and cannot be resolved by retirement removals.
