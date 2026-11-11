@@ -1,5 +1,6 @@
 """Admission is reproducible from complete requests; changed sources cannot publish."""
 
+import base64
 import io
 import json
 from pathlib import Path
@@ -8,11 +9,17 @@ import pytest
 from PIL import Image
 
 from html_to_markdown.content_inventory import atomic_private
+from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.media import all_frame_inputs
-from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews, verify_reviews
+from html_to_markdown.source_review_jobs import (
+    _media_context,
+    prepare_reviews,
+    run_reviews,
+    verify_reviews,
+)
 
 
 class LocalClient:
@@ -258,3 +265,44 @@ def test_fresh_unchanged_article_reuses_decisions_but_changed_authored_source_do
     saved = json.loads((output / changed["documents"][0]["path"]).read_bytes())
     assert saved["disposition"] == "queued" and not saved["phases"]
     assert not verify_reviews(capture, output)["accepted_files"]
+
+
+@pytest.mark.parametrize("mutation", ["encoding", "pixel", "crop", "missing", "timing"])
+def test_native_frame_replay_ignores_lossless_encoding_and_rejects_changed_media(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mutation: str
+) -> None:
+    source = tmp_path / "capture"
+    output = tmp_path / "review"
+    raw = io.BytesIO()
+    Image.new("RGB", (30, 20), "blue").save(raw, format="PNG")
+    path = source / "image.png"
+    atomic_private(path, raw.getvalue())
+    item = {"media": [{"path": "image.png", "sha256": sha(raw.getvalue())}]}
+    monkeypatch.setattr(
+        "html_to_markdown.source_review_jobs.all_frame_inputs",
+        lambda path, **kwargs: all_frame_inputs(path, perform_ocr=False),
+    )
+    _media_context(source, output, item)
+    cache = next((output / "media").glob("*.json"))
+    frames = json.loads(cache.read_bytes())
+    if mutation == "missing":
+        frames = []
+    elif mutation == "timing":
+        frames[0][1]["duration"] = 100
+    else:
+        with Image.open(io.BytesIO(base64.b64decode(frames[0][0].split(",", 1)[1]))) as original:
+            image = original.copy()
+        if mutation == "pixel":
+            image.putpixel((0, 0), (255, 0, 0))
+        if mutation == "crop":
+            image = image.crop((0, 0, 10, 10))
+        data = io.BytesIO()
+        image.save(data, format="PNG", compress_level=0)
+        frames[0][0] = "data:image/png;base64," + base64.b64encode(data.getvalue()).decode()
+        frames[0][1]["visual_input_sha256"] = sha(data.getvalue())
+    cache.write_bytes(json_bytes(frames))
+    if mutation == "encoding":
+        _media_context(source, output, item)
+    else:
+        with pytest.raises(ValueError, match="cached"):
+            _media_context(source, output, item)

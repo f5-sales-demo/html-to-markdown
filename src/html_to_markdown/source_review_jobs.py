@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import base64
+import io
 import json
 import shutil
 import tempfile
@@ -10,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
+from PIL import Image
 from pydantic import BaseModel
 
 from .content_inventory import atomic_private, verify_capture
@@ -133,6 +136,38 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     return result
 
 
+def _verify_native_frame(
+    captured_url: str,
+    captured_info: dict[str, Any],
+    expected_url: str,
+    expected_info: dict[str, Any],
+) -> None:
+    for key in (
+        "sha256",
+        "frame",
+        "frame_count",
+        "duration",
+        "width",
+        "height",
+        "loop",
+        "metadata",
+    ):
+        if captured_info.get(key) != expected_info.get(key):
+            raise ValueError("cached native frame metadata changed")
+    captured_bytes = base64.b64decode(captured_url.split(",", 1)[1], validate=True)
+    expected_bytes = base64.b64decode(expected_url.split(",", 1)[1], validate=True)
+    with (
+        Image.open(io.BytesIO(captured_bytes)) as a,
+        Image.open(io.BytesIO(expected_bytes)) as b,
+    ):
+        if (
+            a.mode != b.mode
+            or a.size != b.size
+            or a.convert("RGB").tobytes() != b.convert("RGB").tobytes()
+        ):
+            raise ValueError("cached media does not cover complete native frames")
+
+
 def _media_context(
     capture: Path, output: Path, item: dict[str, Any]
 ) -> tuple[list[dict[str, Any]], dict[str, str], dict[str, Any]]:
@@ -150,16 +185,18 @@ def _media_context(
             frames = all_frame_inputs(path)
             atomic_private(cache, json_bytes(frames))
         expected = all_frame_inputs(path, perform_ocr=False)
-        if [frame[0] for frame in frames] != [frame[0] for frame in expected]:
+        if len(frames) != len(expected):
             raise ValueError("cached media does not cover complete native frames")
+        for (captured_url, captured_info), (expected_url, expected_info) in zip(
+            frames, expected, strict=True
+        ):
+            _verify_native_frame(captured_url, captured_info, expected_url, expected_info)
         receipts[media["sha256"]] = {
             "frame_count": len(frames),
             "frames": [frame[1] for frame in frames],
         }
         for data_url, info in frames:
             # Decode and verify the visual derivative on every replay as well.
-            import base64  # pylint: disable=import-outside-toplevel
-
             if (
                 sha(base64.b64decode(data_url.split(",", 1)[1], validate=True))
                 != info["visual_input_sha256"]
