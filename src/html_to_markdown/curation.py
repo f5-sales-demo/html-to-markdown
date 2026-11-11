@@ -265,6 +265,7 @@ class CurationPolicy:
                     raise ValueError("invalid reviewed disposition")
                 if decision["disposition"] in {"remove", "omit"}:
                     self.excluded.add(url)
+            topic_media: dict[str, dict[str, Any]] = {}
             for media in topic["media"]:
                 if media["disposition"] not in {"keep", "remove"}:
                     raise ValueError("invalid media disposition")
@@ -274,9 +275,47 @@ class CurationPolicy:
                     # belongs to the topic and document, not a global digest.
                     continue
                 key = media["sha256"]
-                if key in self.media and self.media[key] != media:
-                    raise ValueError("conflicting media decisions")
-                self.media[key] = media
+                if key in topic_media and topic_media[key] != media:
+                    previous = topic_media[key]
+                    previous_scope = set(
+                        previous.get("documents", previous.get("source_documents", []))
+                    )
+                    scope = set(media.get("documents", media.get("source_documents", [])))
+                    if previous["disposition"] != media["disposition"] and (
+                        not previous_scope or not scope or previous_scope & scope
+                    ):
+                        raise ValueError("conflicting media decisions")
+                topic_media.setdefault(key, media)
+                self.media.setdefault(key, media)
+
+    def media_review(
+        self, topic_id: str, media_sha256: str, url: str, path: Path
+    ) -> dict[str, Any]:
+        """A reused image digest does not grant a new document-placement approval."""
+        topic = next((item for item in self.topics if item["id"] == topic_id), None)
+        if topic is None and topic_id == "smsv2-current":
+            topic = next((item for item in self.topics if item.get("mode") != "automatic"), None)
+        if topic is None:
+            return {}
+        matches = []
+        for review in topic["media"]:
+            if review["sha256"] != media_sha256:
+                continue
+            if "documents" in review:
+                eligible = canonical(url) in {canonical(value) for value in review["documents"]}
+            elif "source_documents" in review:
+                eligible = any(
+                    path.as_posix().endswith("/content/" + value.removeprefix("content/"))
+                    for value in review["source_documents"]
+                )
+            else:
+                # Historical global retirement evidence remains an exclusion.
+                eligible = review.get("disposition") == "remove"
+            if eligible:
+                matches.append(review)
+        if len({item["disposition"] for item in matches}) > 1:
+            raise ValueError("conflicting document-scoped media decisions")
+        return matches[0] if matches else {}
 
     def _load_whole_document_topic(self, topic: dict[str, Any]) -> None:
         if topic["id"] != "vesctl-retired" or self.vesctl is not None:
@@ -490,7 +529,10 @@ def retirement_preflight(
             canonical(str(metadata.get("canonical_url") or metadata["url"])),
         }
         if engine.original_match(metadata, body) or any(
-            engine.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            policy.media_review(
+                "vesctl-retired", item["sha256"] or "", str(metadata["url"]), path
+            ).get("disposition")
+            == "remove"
             for item in media_inventory(path, body)
         ):
             matches.add(path)
@@ -590,7 +632,10 @@ def curate_topics(
     if active.legacy is not None:
         for path, metadata, body in originals:
             legacy_media_affected = any(
-                active.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                active.media_review(
+                    "legacy-retired", item["sha256"] or "", str(metadata["url"]), path
+                ).get("disposition")
+                == "remove"
                 for item in media_inventory(path, body)
             )
             legacy_preflight = active.legacy.transform(
@@ -685,7 +730,10 @@ def curate_topics(
                 active.legacy
                 and finding["disposition"] == "keep"
                 and any(
-                    active.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+                    active.media_review(
+                        "legacy-retired", item["sha256"] or "", str(metadata["url"]), path
+                    ).get("disposition")
+                    == "remove"
                     for item in media_inventory(path, retained)
                 )
             ):
@@ -746,8 +794,8 @@ def curate_topics(
                 if not decision or decision.get("media_review_required", True)
                 else []
             ):
-                review = active.sms.media.get(media["sha256"] or "")
-                if review is None or review["disposition"] != "keep":
+                review = active.media_review("smsv2-current", media["sha256"] or "", url, path)
+                if review is None or review.get("disposition") != "keep":
                     finding["disposition"] = "omit"
                     finding["findings"].append("unreviewed_changed_or_removed_media")
         finding["stages"].append(
@@ -769,11 +817,13 @@ def curate_topics(
                 finding["findings"].append("appstack_retirement")
             elif result.findings:
                 for media in media_inventory(path, retained):
-                    review = active.appstack.media.get(media["sha256"] or "")
+                    review = active.media_review(
+                        "appstack-retired", media["sha256"] or "", url, path
+                    )
                     if (
                         media["kind"] != "local"
                         or review is None
-                        or review["disposition"] != "keep"
+                        or review.get("disposition") != "keep"
                         or url not in review.get("documents", [])
                     ):
                         finding["disposition"] = "omit"
@@ -830,8 +880,10 @@ def curate_topics(
             }
             if terraform_result.findings and not terraform_result.omit:
                 for media in media_inventory(path, retained):
-                    review = active.media.get(media["sha256"] or "")
-                    if review is not None and review["disposition"] == "remove":
+                    review = active.media_review(
+                        "terraform-provider-current", media["sha256"] or "", url, path
+                    )
+                    if review is not None and review.get("disposition") == "remove":
                         retained = remove_reviewed_media(retained, media["reference"])
                         finding["terraform"]["removed_media"].append(media["reference"])
                         finding["terraform"]["removals"].append(
@@ -851,11 +903,13 @@ def curate_topics(
                 finding["findings"].append("no_independent_content_after_terraform_curation")
             elif terraform_result.findings:
                 for media in media_inventory(path, retained):
-                    review = active.media.get(media["sha256"] or "")
+                    review = active.media_review(
+                        "terraform-provider-current", media["sha256"] or "", url, path
+                    )
                     if (
                         media["kind"] != "local"
                         or review is None
-                        or review["disposition"] != "keep"
+                        or review.get("disposition") != "keep"
                     ):
                         finding["disposition"] = "omit"
                         finding["findings"].append("unreviewed_terraform_media")
@@ -1065,7 +1119,10 @@ def validate_whole_document_retirement(
 ) -> None:
     if policy.legacy is not None:
         legacy_media_affected = any(
-            policy.legacy.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            policy.media_review(
+                "legacy-retired", item["sha256"] or "", str(metadata["url"]), path
+            ).get("disposition")
+            == "remove"
             for item in media_inventory(path, body)
         )
         upstream = next(
@@ -1083,7 +1140,10 @@ def validate_whole_document_retirement(
             raise ValueError(f"retired legacy content remains: {path}")
     if policy.vesctl is not None:
         if policy.vesctl.original_match(metadata, body) or any(
-            policy.vesctl.media.get(item["sha256"] or "", {}).get("disposition") == "remove"
+            policy.media_review(
+                "vesctl-retired", item["sha256"] or "", str(metadata["url"]), path
+            ).get("disposition")
+            == "remove"
             for item in media_inventory(path, body)
         ):
             raise ValueError(f"retired whole document remains: {path}")
@@ -1143,7 +1203,10 @@ def validate_curation(
             )
             and any(
                 item["kind"] != "local"
-                or policy.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+                or policy.media_review(
+                    "terraform-provider-current", item["sha256"] or "", url, path
+                ).get("disposition")
+                != "keep"
                 for item in media
             )
         ):
@@ -1161,15 +1224,22 @@ def validate_curation(
             and appstack_reviewed
             and any(
                 item["kind"] != "local"
-                or appstack.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
-                or url not in appstack.media.get(item["sha256"] or "", {}).get("documents", [])
+                or policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
+                    "disposition"
+                )
+                != "keep"
+                or url
+                not in policy.media_review("appstack-retired", item["sha256"] or "", url, path).get(
+                    "documents", []
+                )
                 for item in media
             )
         ):
             raise ValueError(f"unreviewed AppStack media remains: {path}")
         required = policy.sms.decisions.get(url, {}).get("media_review_required", False)
         if (required or policy.sms_candidate(body)) and any(
-            policy.sms.media.get(item["sha256"] or "", {}).get("disposition") != "keep"
+            policy.media_review("smsv2-current", item["sha256"] or "", url, path).get("disposition")
+            != "keep"
             for item in media
         ):
             raise ValueError(f"unreviewed media remains: {path}")

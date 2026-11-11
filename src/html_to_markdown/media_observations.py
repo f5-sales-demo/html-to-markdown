@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import StrictModel
+from .media_encoding import png_bytes
 
 
 class VisibleValue(StrictModel):
@@ -140,7 +141,7 @@ def observation_views(
     for start in range(0, len(crops), size):
         pixels, description = _region_sheet(crops[start : start + size])
         data = io.BytesIO()
-        pixels.save(data, format="PNG")
+        data.write(png_bytes(pixels))
         result.extend(
             [
                 {

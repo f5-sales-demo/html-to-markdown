@@ -472,7 +472,7 @@ def _compile(
 
 
 # Preserve all stage evidence and checks in one transaction.
-# pylint: disable-next=too-many-locals
+# pylint: disable-next=too-many-locals,too-many-branches
 def review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:

@@ -23,6 +23,7 @@ from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.requests import request
+from .media_encoding import png_bytes
 
 VERSION = "source-admission/1"
 CREDENTIALS = {"credential", "private-key", "authorization-header", "session-cookie"}
@@ -40,6 +41,7 @@ def review_context_digest() -> str:
                     "source_review_jobs.py",
                     "source_curation.py",
                     "media_observations.py",
+                    "media_encoding.py",
                     "media_observation_jobs.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
@@ -87,7 +89,7 @@ class Label(StrictModel):
     rectangle: list[int]
     source_value_sha256: str
     text: str
-    size: int
+    size: int = Field(ge=6, le=72)
 
 
 class FrameChange(StrictModel):
@@ -259,7 +261,8 @@ def preview_media(
             if values.get(label.source_value_sha256) != label.text:
                 raise ValueError("text and image privacy replacements disagree")
         return [
-            {"rectangle": item.rectangle, "text": item.text, "size": item.size} for item in items
+            {"rectangle": item.rectangle, "text": item.text, "size": item.size, "fit": True}
+            for item in items
         ]
 
     transform: dict[str, Any] = {
@@ -308,9 +311,8 @@ def preview_media(
             clean = Image.new(converted.mode, converted.size)
             clean.paste(converted)
             apply_labels_and_rectangles(clean, transform)
-            stream = io.BytesIO()
-            clean.save(stream, format="PNG", optimize=False)
-            output = stream.getvalue()
+            transform["png_encoding"] = "portable-1"
+            output = png_bytes(clean)
     transform["output_sha256"] = sha(output)
     # Replay through the independent existing hash/pixel/playback gate as well.
     checked, _ = reviewed_media(
@@ -418,6 +420,10 @@ The controller regenerates OCR from the resulting bytes. Never propose text chan
 For static media (frame_count = 1), use top-level rectangles and labels and leave frames empty.
 Use frames only for animated media, with unique, zero-based frame indices. A native observation's
 frame index locates evidence; it does not make a static image animated.
+Label sizes must be 6 through 72. The controller fits the largest allowed font inside each exact
+rectangle, without enlarging it or covering neighboring technical content. Use shorter consistent
+synthetic labels when needed; never propose unreadable font sizes or broaden identifying regions
+over technical labels. Final independent media and preservation checks remain mandatory.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
 For final validation, candidate is the complete privacy-reviewed source and curation_candidate is
 the actual digest-pinned retirement/API planner output. Verify privacy, extraction and technical
