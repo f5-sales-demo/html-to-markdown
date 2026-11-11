@@ -30,3 +30,14 @@ def test_editor_schema_requires_every_media_placement_for_every_topic():
     media = schema["$defs"]["TopicDecision"]["properties"]["media"]
     assert media["minItems"] == media["maxItems"] == 2
     assert schema["$defs"]["MediaChoice"]["properties"]["sha256"]["enum"] == ["a" * 64, "b" * 64]
+
+
+def test_native_media_addresses_cannot_witness_markdown_fact_blocks():
+    source = context()
+    candidate = compile_proposal(source, proposal(source))
+    schema = review_request(source, [], candidate)["text"]["format"]["schema"]
+    properties = schema["$defs"]["FactV2"]["properties"]
+    addresses = properties["candidate_addresses"]["items"]["enum"]
+    assert addresses and all(not address.startswith("media/") for address in addresses)
+    assert "media/" + "a" * 64 + "/0" not in addresses
+    assert "a" * 64 not in properties["candidate_sha256"]["items"]["enum"]

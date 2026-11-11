@@ -67,7 +67,7 @@ failed preservation requires rejection and explicit failures. Return only the su
         "article-enrichment/1", "curation-renewal/1"
     )
     body["input"][0]["content"].extend(visual)
-    fact_schema(body["text"]["format"]["schema"], context)
+    fact_schema(body["text"]["format"]["schema"], context, candidate["body"])
     shape = body["text"]["format"]["schema"]["properties"]
     for key, value in {
         "identity": context["identity"],

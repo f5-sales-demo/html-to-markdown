@@ -28,7 +28,7 @@ class RenewalValidation(StrictModel):
     unresolved: list[str]
 
 
-def fact_schema(shape: dict[str, Any], context: dict[str, Any]) -> None:
+def fact_schema(shape: dict[str, Any], context: dict[str, Any], candidate_body: str) -> None:
     """Bound the complete fact domain; controller checks still enforce unique coverage."""
     required = [b for b in context["blocks"] if b["kind"] not in {"section", "heading", "hr"}]
     shape["properties"]["facts"].update(minItems=len(required), maxItems=len(required))
@@ -39,6 +39,17 @@ def fact_schema(shape: dict[str, Any], context: dict[str, Any]) -> None:
         shape["$defs"]["FactV2"]["properties"]["source_sha256"]["enum"] = sorted(
             {b["sha256"] for b in required}
         )
+
+    retained = blocks(candidate_body)
+    for name, values in {
+        "candidate_addresses": [b.location for b in retained],
+        "candidate_sha256": sorted({b.sha256 for b in retained}),
+    }.items():
+        field = shape["$defs"]["FactV2"]["properties"][name]
+        if values:
+            field["items"]["enum"] = values
+        else:
+            field["maxItems"] = 0
 
 
 def review_request(
@@ -80,7 +91,10 @@ Independently validate the proposal against the COMPLETE original and every cand
 The editor's assertions are not proof. Independently enumerate necessary facts and technical
 relationships. Supply one fact decision for every non-section, non-heading, non-separator source
 block, including references, code, tables and list items. Use exact candidate addresses and digests
-to prove preservation. A missing necessary fact, changed payload or action order, privacy problem,
+to prove preservation. For a Markdown image-reference paragraph, use the address and digest of
+that exact candidate_blocks paragraph. Native media/frame addresses and media byte digests are
+separate visual evidence and cannot witness a Markdown block. A missing necessary fact, changed
+payload or action order, privacy problem,
 unsupported claim, incomplete classification or unreviewed media requires rejection. Never waive
 credentials. The controller still requires the actual whole-corpus planner and source admission
 before publication; independent approval here cannot waive those gates."""
@@ -113,7 +127,7 @@ before publication; independent approval here cannot waive those gates."""
             shape["$defs"]["TopicDecision"]["properties"]["media"]["maxItems"] = 0
     else:
         shape["properties"]["output_sha256"]["enum"] = [candidate["output_sha256"]]
-        fact_schema(shape, context)
+        fact_schema(shape, context, candidate["body"])
     return result
 
 
@@ -167,6 +181,8 @@ def verify_validation(
                 or retained[address].sha256 != pin
                 or pin != fact.source_sha256
             ):
-                raise ValueError("independent retained fact or payload changed")
+                raise ValueError(
+                    f"independent retained fact or payload changed: source={fact.source_address}; candidate={address}; expected=exact Markdown candidate_blocks address and digest, never a native media/frame address"
+                )
         if fact.necessary and (not fact.preserved or not fact.candidate_addresses):
             raise ValueError("necessary curation fact was lost")
