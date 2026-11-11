@@ -38,6 +38,7 @@ def review_context_digest() -> str:
                 for name in (
                     "source_review.py",
                     "source_review_jobs.py",
+                    "media_observations.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
                     "enrichment/gates.py",
@@ -398,6 +399,11 @@ and explicit synthetic value mappings. Never approve credential findings. Every 
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
+Confirmed native-media observations provide controller-computed guards for values missed by OCR.
+For null values, guards bind the exact media/frame/region containing clipped or unreadable text.
+Use those guards only for precisely placed image labels, never as guards for text edits. Never
+invent hidden characters. Observation approval confirms readings/regions only; independently
+decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
 exclusion can be approved when every mandatory check passes; it is recorded as a policy exclusion
 and produces no published article. Do not reject a justified exclusion merely because the excluded

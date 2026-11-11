@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
+import html_to_markdown.source_review_jobs as jobs
 from html_to_markdown.content_inventory import atomic_private
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
@@ -16,12 +17,114 @@ from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.media import all_frame_inputs
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document, split_document
+from html_to_markdown.source_review import AdmissionValidation
 from html_to_markdown.source_review_jobs import (
+    _confirmed_media_values,
     _media_context,
+    _observation_request,
+    _prepare_media_observations,
+    _request,
     prepare_reviews,
     run_reviews,
     verify_reviews,
 )
+
+
+def test_observation_requests_bind_native_media_and_final_finding_ids() -> None:
+    context = {
+        "identity": "article",
+        "binding_sha256": "b" * 64,
+        "media": {"a" * 64: {"frames": [{"width": 100, "height": 50}]}},
+        "candidate": {"findings": [{"id": "final-finding"}]},
+    }
+    request = _observation_request(context, [])
+    assert request["text"]["format"]["schema"]["$defs"]["VisibleValue"]["properties"][
+        "media_sha256"
+    ]["enum"] == ["a" * 64]
+    validation = _request("gpt-6-astra", "validation", context, [], AdmissionValidation)
+    assert validation["text"]["format"]["schema"]["properties"]["approved_safe_findings"]["items"][
+        "enum"
+    ] == ["final-finding"]
+
+
+def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    record = next((output / "documents").glob("*.json"))
+    context = {
+        "identity": "native:article",
+        "binding_sha256": "b" * 64,
+        "media": {"a" * 64: {"frames": [{"width": 100, "height": 50, "text": ""}]}},
+    }
+    monkeypatch.setattr(jobs, "_context", lambda *args: (context, []))
+    calls = []
+
+    class Client:
+        def execute(self, body: dict) -> ResponseEvidence:
+            calls.append(body)
+            payload = json.loads(body["input"][0]["content"][0]["text"])
+            result = {
+                "identity": context["identity"],
+                "binding_sha256": context["binding_sha256"],
+                "complete_media_reviewed": True,
+                "unresolved": [],
+            }
+            if body["model"] == "gpt-6.1-sol":
+                result["observations"] = [
+                    {
+                        "media_sha256": "a" * 64,
+                        "frame": 0,
+                        "rectangle": [1, 1, 80, 20],
+                        "value": "198.51.100.10",
+                        "reason": "visible address missed by OCR",
+                    }
+                ]
+            else:
+                result.update(
+                    observations_sha256=payload["observations"]["observations_sha256"],
+                    approved_indices=[0],
+                    failures=[],
+                )
+            response = {
+                "status": "completed",
+                "model": body["model"],
+                "output": [{"content": [{"type": "output_text", "text": json.dumps(result)}]}],
+            }
+            return ResponseEvidence(
+                request_sha256=request_hash(body),
+                response_sha256=sha(json.dumps(response, sort_keys=True, separators=(",", ":"))),
+                model=body["model"],
+                reasoning="high",
+                prompt_version="native-media-observation/1",
+                request=body,
+                response=response,
+                error=None,
+                transport="codex_litellm",
+                runtime_version="test",
+            )
+
+    client = Client()
+    _prepare_media_observations(capture, output, record, client)
+    saved = json.loads(record.read_bytes())
+    values = _confirmed_media_values(saved, context, [])
+    assert values[0]["value_sha256"] == sha("198.51.100.10") and len(calls) == 2
+    _prepare_media_observations(capture, output, record, client)
+    assert len(calls) == 2
+    _prepare_media_observations(
+        capture, output, record, client, ["inspect a candidate region missed by OCR"]
+    )
+    saved = json.loads(record.read_bytes())
+    assert len(calls) == 4 and len(list((output / "history").glob("*.json"))) >= 1
+    assert _confirmed_media_values(saved, context, []) == values
+    augmented = json.loads(calls[-1]["input"][0]["content"][0]["text"])
+    assert augmented["observation_feedback"] == saved["media_observation_feedback"]
+    saved["phases"]["media_observation_validation"]["response"]["output"][0]["content"][0][
+        "text"
+    ] = "{}"
+    with pytest.raises(ValueError):
+        _confirmed_media_values(saved, context, [])
 
 
 class LocalClient:
