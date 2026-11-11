@@ -399,6 +399,9 @@ Replace real identifying values consistently across text and images using exact 
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
+Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
+are evidence, not editable text fields: change image pixels or strip metadata through media_changes.
+The controller regenerates OCR from the resulting bytes. Never propose text changes to media/... fields.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
 Confirmed native-media observations provide controller-computed guards for values missed by OCR.
 For null values, guards bind the exact media/frame/region containing clipped or unreadable text.

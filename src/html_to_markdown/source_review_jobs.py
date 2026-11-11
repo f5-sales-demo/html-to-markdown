@@ -303,6 +303,12 @@ def _request(
         properties["evidence_addresses"]["items"]["enum"] = addresses
     elif schema is PrivacyDecision:
         schema_body = body["text"]["format"]["schema"]
+        editable = {"title", "description", "tags", "breadcrumb", "slug"}
+        schema_body["$defs"]["TextChange"]["properties"]["field"]["enum"] = [
+            field
+            for field in context["fields"]
+            if field == "body" or field.split("/")[1:2] in [[key] for key in editable]
+        ]
         finding_ids = [finding["id"] for finding in context["findings"]]
         properties["findings"].update(minItems=len(finding_ids), maxItems=len(finding_ids))
         if finding_ids:

@@ -23,7 +23,7 @@ from html_to_markdown.media_observation_jobs import (
 )
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document, split_document
-from html_to_markdown.source_review import AdmissionValidation
+from html_to_markdown.source_review import AdmissionValidation, PrivacyDecision
 from html_to_markdown.source_review_jobs import (
     _media_context,
     _prepare_media_observations,
@@ -49,6 +49,25 @@ def test_observation_requests_bind_native_media_and_final_finding_ids() -> None:
     assert validation["text"]["format"]["schema"]["properties"]["approved_safe_findings"]["items"][
         "enum"
     ] == ["final-finding"]
+
+
+def test_privacy_text_edits_cannot_target_source_identity_dates_or_ocr_evidence() -> None:
+    context = {
+        "identity": "article",
+        "binding_sha256": "b" * 64,
+        "fields": {
+            "body": "source",
+            "metadata/title": "title",
+            "metadata/url": "https://example.com",
+            "metadata/published_at": "2026-11-11",
+            "media/" + "a" * 64 + "/0/ocr": "image text",
+        },
+        "findings": [],
+        "media": {},
+    }
+    body = _request("gpt-6.1-sol", "privacy", context, [], PrivacyDecision)
+    fields = body["text"]["format"]["schema"]["$defs"]["TextChange"]["properties"]["field"]["enum"]
+    assert fields == ["body", "metadata/title"]
 
 
 def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
