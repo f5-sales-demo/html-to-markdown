@@ -99,6 +99,7 @@ def prepared(tmp_path):
                 "reason": "independent current cloud explanation",
                 "removals": [],
                 "media": [],
+                "reference_edits": [],
             }
             for topic in TOPICS
         ],

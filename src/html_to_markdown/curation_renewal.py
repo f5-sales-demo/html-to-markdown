@@ -6,8 +6,6 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
-from pydantic import Field
-
 from .curation import (
     blocks,
     canonical,
@@ -58,7 +56,7 @@ class TopicDecision(StrictModel):
     reason: str
     removals: list[Removal]
     media: list[MediaChoice]
-    reference_edits: list[ReferenceEdit] = Field(default_factory=list)
+    reference_edits: list[ReferenceEdit]
 
 
 class Proposal(StrictModel):

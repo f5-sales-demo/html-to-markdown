@@ -41,3 +41,9 @@ def test_native_media_addresses_cannot_witness_markdown_fact_blocks():
     assert addresses and all(not address.startswith("media/") for address in addresses)
     assert "media/" + "a" * 64 + "/0" not in addresses
     assert "a" * 64 not in properties["candidate_sha256"]["items"]["enum"]
+
+
+def test_topic_schema_requires_reference_edits_even_when_empty():
+    schema = review_request(context(), [])["text"]["format"]["schema"]["$defs"]["TopicDecision"]
+    assert set(schema["required"]) == set(schema["properties"])
+    assert "reference_edits" in schema["required"]

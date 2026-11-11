@@ -61,6 +61,7 @@ def proposal(source):
                 if topic == TOPICS[0]
                 else [],
                 "media": [],
+                "reference_edits": [],
             }
             for topic in TOPICS
         ],
