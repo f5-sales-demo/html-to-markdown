@@ -61,11 +61,12 @@ def test_enrichment_batches_preserve_progress_and_return_only_after_completion(
     monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
     captures = []
     returned = []
-    batches = []
+    batches: list[Path] = []
 
     def receive(*args: object) -> None:
         captures.append(args)
         directory = args[-1]
+        assert isinstance(directory, Path)
         directory.mkdir(parents=True)
         (directory / "enrichment-decisions.json").write_text("prepared")
 
@@ -100,18 +101,21 @@ def test_enrichment_batches_preserve_progress_and_return_only_after_completion(
         "html_to_markdown.mac_worker._return_enrichment",
         lambda *args: returned.append(args[-1].read_text()),
     )
-    args = {
-        "host": "test.invalid",
-        "remote_executable": "/private/cli",
-        "remote_queue": "/private/queue",
-        "output": tmp_path,
-        "transport": Path("/private/transport"),
-    }
-    worker_once(**args)
+
+    def run_worker() -> dict:
+        return worker_once(
+            host="test.invalid",
+            remote_executable="/private/cli",
+            remote_queue="/private/queue",
+            output=tmp_path,
+            transport=Path("/private/transport"),
+        )
+
+    run_worker()
     assert not returned
-    worker_once(**args)
+    run_worker()
     assert returned == ["complete"] and len(captures) == 1
-    worker_once(**args)
+    run_worker()
     assert len(batches) == 2 and len(returned) == 1
 
 
