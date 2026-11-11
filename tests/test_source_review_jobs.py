@@ -25,6 +25,7 @@ from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_review import AdmissionValidation, PrivacyDecision
 from html_to_markdown.source_review_jobs import (
+    _compile,
     _media_context,
     _prepare_media_observations,
     _request,
@@ -181,7 +182,7 @@ def test_static_frame_proposals_receive_bounded_feedback_and_independent_replay(
     capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failures: int
 ) -> None:
     output = tmp_path / "review"
-    original = jobs._compile
+    original = _compile
     attempts = 0
 
     def compile_candidate(*args):
