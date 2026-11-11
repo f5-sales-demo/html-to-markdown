@@ -26,6 +26,10 @@ def generate(
     curated: Path, destination: Path, *, phase: str, journal: Path, wait: bool = False
 ) -> dict[str, Any]:
     artifact = load_artifact(destination)
+    if artifact.schema_version == 2 and phase != "media":
+        from .generate_v2 import generate_v2  # pylint: disable=import-outside-toplevel
+
+        return generate_v2(curated, destination, phase=phase, journal=journal)
     analysis = analyze(curated)
     if (
         artifact.curated_sha256 != corpus_digest(curated)
@@ -98,7 +102,7 @@ def generate(
                     individual[digest] = client.execute(image_request(digest, data_url, ocr))
                 return individual
 
-        with ThreadPoolExecutor(max_workers=12) as pool:
+        with ThreadPoolExecutor(max_workers=4) as pool:
             futures = [pool.submit(inspect_group, group) for group in groups]
             for index, future in enumerate(as_completed(futures), 1):
                 completed = future.result()

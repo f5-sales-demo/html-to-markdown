@@ -23,8 +23,18 @@ def parse_response(
         or evidence.request_sha256 != expected_request_hash
     ):
         raise ValueError("failed, wrong-model or stale request evidence")
-    if evidence.prompt_version != PROMPT_VERSION or evidence.reasoning != "high":
+    if (
+        evidence.prompt_version
+        not in {PROMPT_VERSION, "article-enrichment/2", "source-admission/1"}
+        or evidence.reasoning != "high"
+    ):
         raise ValueError("stale prompt or reasoning evidence")
+    if evidence.prompt_version != PROMPT_VERSION and not evidence.request.get(
+        "instructions", ""
+    ).endswith("Prompt version: " + evidence.prompt_version):
+        raise ValueError("request does not bind its review prompt version")
+    if evidence.prompt_version != PROMPT_VERSION and evidence.transport != "codex_litellm":
+        raise ValueError("new review inference must use MacBook Codex through LiteLLM")
     if request_hash(evidence.request) != evidence.request_sha256:
         raise ValueError("captured request digest mismatch")
     response = evidence.response

@@ -22,6 +22,8 @@ concurrency:
 
 jobs:
   inventory:
+    # Activate only after the private Ubuntu clocks and Mac worker are qualified.
+    if: vars.PRIVATE_CONTENT_QUEUE_ENABLED != 'true'
     name: Refresh official documentation
     runs-on: managed-socketless
     environment: repository-settings
@@ -110,7 +112,14 @@ jobs:
           gh release edit "$release_tag" --repo "$REPOSITORY" --draft=false
           gh workflow run github-pages-deploy.yml --repo "$REPOSITORY" --ref main \
             -f "snapshot-tag=$release_tag" -f "publication-sha256=$receipt_sha256"
-      - name: Keep inventory and capture evidence on success or failure
+      - name: Sanitize inventory evidence
+        if: always()
+        run: |
+          if test -f capture/inventory.json; then
+            uv run html-to-markdown sanitize-inventory --input-path capture/inventory.json \
+              --output sanitized-inventory.json
+          fi
+      - name: Keep safe inventory evidence on success or failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -118,17 +127,9 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
           path: |
-            capture/inventory.json
-            capture/inventory.md
-            capture/discovery-exclusions.json
-            capture/navigation.json
-            capture/state.sqlite
-            capture/captures/
-            capture/content/
+            sanitized-inventory.json
             build/curation-audit.json
             build/refresh-state.json
-            build/.refresh/candidates/
             build/manifest.json
-            build/state.sqlite
             build/html-to-markdown-content.tar.gz
             build/html-to-markdown-content.tar.gz.sha256

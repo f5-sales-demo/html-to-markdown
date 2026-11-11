@@ -75,7 +75,9 @@ def validate_source_url(source_id: str, url: str) -> str:
             or any(segment in {".", ".."} for segment in value.path.split("/"))
         ):
             raise AllowlistError(f"URL is outside {source_id}: {url}")
-        if canonical in WWW_F5_SOLUTION_URLS:
+        # Discovery eligibility is broader than reviewed publication eligibility.
+        # Solution candidates still require document-specific relevance admission.
+        if value.path.startswith(("/solutions/", "/industries/")):
             return canonical
     if value.path != root_path and not value.path.startswith(f"{root_path}/"):
         raise AllowlistError(f"URL path is outside {root_path}: {url}")

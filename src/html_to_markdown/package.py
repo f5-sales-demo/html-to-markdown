@@ -276,6 +276,8 @@ def _asset_entries(output: Path) -> list[dict[str, object]]:
     ]
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 def build_manifest(
     output: Path, store: StateStore, started_at: str, ended_at: str
 ) -> dict[str, object]:
@@ -312,7 +314,7 @@ def build_manifest(
         if isinstance(quality_summary, dict)
         else {"not_compared": 0}
     )
-    manifest = {
+    manifest: dict[str, Any] = {
         "schema_version": MANIFEST_SCHEMA_VERSION,
         "tool_version": __version__,
         "source_roots": SOURCE_ROOTS,
@@ -344,11 +346,35 @@ def build_manifest(
             "artifact_sha256": sha256_file(output / "refresh-state.json"),
             "baseline_receipt_sha256": state["baseline_receipt_sha256"],
             "baseline_tag": state["baseline_tag"],
-            "refreshed_sources": ["docs-cloud-f5-com"],
+            "refreshed_sources": sorted(state.get("sources", {"docs-cloud-f5-com": {}})),
             "preserved_descriptions": sorted(
-                path for path, choice in state["documents"].items() if choice["kind"] == "published"
+                path
+                for path, choice in state["documents"].items()
+                if choice["kind"] == "published"
+                and path in {document["path"] for document in documents}
             ),
         }
+        if state.get("schema_version") == 2:
+            manifest["refresh"].update(schema_version=2, source_inputs=state["sources"])
+        if "enrichment" in manifest:
+            entries = [*state["aliases"], *manifest["enrichment"]["aliases"]]
+            by_path = {alias["path"]: alias for alias in entries}
+            if len(by_path) != len(entries):
+                raise ValueError("composed snapshot has conflicting alias decisions")
+            canonical_paths = {document["path"] for document in documents}
+            unified = []
+            for alias in entries:
+                target = alias["target"]
+                seen = {alias["path"]}
+                while target in by_path:
+                    if target in seen:
+                        raise ValueError("composed alias cycle")
+                    seen.add(target)
+                    target = by_path[target]["target"]
+                if target not in canonical_paths:
+                    raise ValueError("composed alias target was excluded")
+                unified.append({**alias, "target": target})
+            manifest["aliases"] = sorted(unified, key=lambda alias: alias["path"])
     return manifest
 
 

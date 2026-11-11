@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "f5-html-to-markdown"
-version = "1.13.1"
+version = "1.14.0"
 description = "Deterministic F5 HTML-to-Markdown snapshot pipeline"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -22,6 +22,7 @@ dependencies = [
   "pyyaml>=6.0.2",
   "structlog>=25.4.0",
   "typer>=0.16.1",
+  "jsonschema>=4.25",
 ]
 
 [project.scripts]
@@ -38,6 +39,7 @@ dev = [
   "ruff>=0.12.10",
   "types-beautifulsoup4>=4.12.0.20250516",
   "types-defusedxml>=0.7.0",
+  "types-jsonschema>=4.26.0.20261006",
   "types-pyyaml>=6.0.12.20250516",
 ]
 

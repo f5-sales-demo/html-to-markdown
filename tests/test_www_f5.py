@@ -67,8 +67,8 @@ async def test_discovery_is_scoped_ordered_and_captures_lastmod() -> None:
     </urlset>""".encode()
     pages = await WwwF5Adapter().discover(SitemapFetcher(xml))
     urls = [item.url for item in pages]
-    assert urls == sorted({PRODUCT, f"{PRODUCT}/a", f"{PRODUCT}/z"} | WWW_F5_SOLUTION_URLS)
-    assert len(pages) == 6
+    assert urls == sorted({PRODUCT, f"{PRODUCT}/a", f"{PRODUCT}/z"})
+    assert len(pages) == 3
     assert next(item for item in pages if item.url == f"{PRODUCT}/z").source_last_modified == (
         "2026-09-27T10:00:00Z"
     )
@@ -112,8 +112,8 @@ async def test_discovery_rejects_redirected_sitemap() -> None:
     [
         f"{BASE}/products/other",
         f"{PRODUCT}-other",
-        f"{BASE}/solutions/other",
-        f"{BASE}/solutions/web-app-and-api-protection/other",
+        f"{BASE}/solutions/other?campaign=x",
+        f"{BASE}/solutions/%2e%2e/other",
         f"{PRODUCT}/a?campaign=x",
         f"{PRODUCT}/%2e%2e/other",
         "https://user@www.f5.com/products/distributed-cloud-services",
@@ -205,3 +205,38 @@ def test_metadata_fallbacks_and_duplicate_image_removal() -> None:
     assert result.metadata.publication_date is None
     assert result.metadata.modification_date is None
     assert len(render_html(result.html, product.url).assets) == 1
+
+
+def test_solution_extraction_preserves_heading_descendants_and_discards_scoped_chrome() -> None:
+    candidate = page("solution")
+    candidate.html = """<main><h1>Distributed Cloud integration</h1><h2></h2>
+      <p>Substantive guidance explains Distributed Cloud networking integration with existing services.</p>
+      <section><h2>Next steps</h2><a class="button" href="/trial">Request a trial</a></section>
+      <h2>Requirements</h2><h3>Connection</h3><p>Allow port 443 and preserve the 30 second timeout.</p>
+      <script type="application/ld+json">[{"dateModified":"2026-11-10"}]</script></main>"""
+    result = WwwF5Adapter().extract(candidate)
+    assert result.metadata.title == "Distributed Cloud integration"
+    assert result.metadata.modification_date == "2026-11-10"
+    assert "Connection" in result.html and "port 443" in result.html
+    assert "Next steps" not in result.html
+    assert "Request a trial" not in result.html
+    empty = candidate.model_copy(
+        update={"html": "<main><h1>Menu</h1><p>Short navigation.</p></main>"}
+    )
+    with pytest.raises(NavigationOnlyError):
+        WwwF5Adapter().extract(empty)
+    missing = candidate.model_copy(update={"html": "<main>We can't find the page.</main>"})
+    with pytest.raises(NotFoundError):
+        WwwF5Adapter().extract(missing)
+
+
+def test_faq_control_question_and_substantive_promotion_answer_survive_extraction() -> None:
+    candidate = page("product")
+    candidate.html = """<main><h1>API Security</h1><section class="promotion-content">
+      <h2>Frequently asked questions</h2><button aria-controls="answer">How does discovery work?<svg></svg></button>
+      <div id="answer"><p>Distributed Cloud discovers APIs from observed traffic. Keep the required 30 second timeout and configure TLS before collection.</p></div>
+      <button aria-controls="missing">Contact us</button></section></main>"""
+    body = render_html(WwwF5Adapter().extract(candidate).html, candidate.url).body
+    assert "### How does discovery work?" in body
+    assert "configure TLS before collection" in body
+    assert "Contact us" not in body

@@ -6,7 +6,7 @@ import json
 import re
 from datetime import date, datetime
 from typing import Any
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 import httpx
 from bs4 import BeautifulSoup, Tag
@@ -14,13 +14,14 @@ from defusedxml import ElementTree
 from defusedxml.common import DefusedXmlException
 
 from html_to_markdown.errors import (
+    AllowlistError,
     AuthenticationWallError,
     NavigationOnlyError,
     NotFoundError,
     ScrapeError,
 )
 from html_to_markdown.models import DiscoveredPage, ExtractedPage, FetchResult, PageMetadata
-from html_to_markdown.urls import WWW_F5_SOLUTION_URLS, validate_source_url
+from html_to_markdown.urls import validate_source_url
 
 from .base import SourceAdapter
 
@@ -33,6 +34,8 @@ class WwwF5Adapter(SourceAdapter):
     def needs_browser(self, html: str) -> bool:
         return False
 
+    # Preserve all stage evidence and checks in one transaction.
+    # pylint: disable-next=too-many-branches
     async def discover(self, fetcher: Any) -> list[DiscoveredPage]:
         try:
             response = await fetcher._http.get(  # pylint: disable=protected-access
@@ -58,7 +61,11 @@ class WwwF5Adapter(SourceAdapter):
             location = entry.findtext("{*}loc")
             if not location:
                 raise ScrapeError("marketing sitemap contains an empty location")
-            if location == self.root_url or location.startswith(f"{self.root_url}/"):
+            if (
+                location == self.root_url
+                or location.startswith(f"{self.root_url}/")
+                or location.startswith("https://www.f5.com/solutions/")
+            ):
                 url = validate_source_url(self.source_id, location)
                 pages[url] = DiscoveredPage(
                     source_id=self.source_id,
@@ -67,8 +74,48 @@ class WwwF5Adapter(SourceAdapter):
                 )
         if not pages or self.root_url not in pages:
             raise ScrapeError("marketing sitemap contains no Distributed Cloud product root")
-        for url in WWW_F5_SOLUTION_URLS:
-            pages[url] = DiscoveredPage(source_id=self.source_id, url=url)
+        record = getattr(fetcher, "record_discovery", None)
+        if record is not None:
+            record(
+                source=self.source_id, origin=self.sitemap_url, urls=sorted(pages), complete=True
+            )
+        # Follow links only within already-scoped F5 article content, never the
+        # global corporate navigation. All solutions remain review candidates.
+        http_fetch = getattr(fetcher, "_http_fetch", None)
+        if http_fetch is not None:
+            pending = sorted(pages)
+            while pending:
+                url = pending.pop(0)
+                try:
+                    fetched = await http_fetch(self.source_id, url)
+                except AllowlistError:
+                    if record is not None:
+                        record(
+                            source=self.source_id,
+                            origin=url,
+                            urls=[],
+                            complete=True,
+                            disposition="outside_discovery_scope",
+                        )
+                    continue
+                main = BeautifulSoup(fetched.html, "html.parser").select_one("main")
+                if main is None:
+                    continue
+                for nav in main.select('nav, header, footer, [role="navigation"]'):
+                    nav.decompose()
+                links = set()
+                for anchor in main.select("a[href]"):
+                    candidate = urljoin(url, str(anchor["href"])).split("#", 1)[0]
+                    try:
+                        candidate = validate_source_url(self.source_id, candidate)
+                    except ScrapeError:
+                        continue
+                    links.add(candidate)
+                    if candidate not in pages:
+                        pages[candidate] = DiscoveredPage(source_id=self.source_id, url=candidate)
+                        pending.append(candidate)
+                if record is not None:
+                    record(source=self.source_id, origin=url, urls=sorted(links), complete=True)
         return [pages[url] for url in sorted(pages)]
 
     def readiness_script(self) -> str | None:
@@ -99,6 +146,8 @@ class WwwF5Adapter(SourceAdapter):
     async def rendered_html(self, playwright_page: Any) -> str:
         return str(await playwright_page.content())
 
+    # Preserve all stage evidence and checks in one transaction.
+    # pylint: disable-next=too-many-branches
     def extract(self, page: FetchResult) -> ExtractedPage:
         self.classify_page(page)
         soup = BeautifulSoup(page.html, "html.parser")
@@ -106,6 +155,18 @@ class WwwF5Adapter(SourceAdapter):
         if not isinstance(main, Tag):
             raise NavigationOnlyError(f"no marketing main content: {page.final_url}")
         clone = BeautifulSoup(str(main), "html.parser")
+        # Accordion controls carry authored FAQ questions. Preserve their labels
+        # as headings when the scoped answer is present, before removing UI controls.
+        for button in clone.select("button[aria-controls]"):
+            controls = str(button.get("aria-controls", "")).split()
+            answers = [clone.find(id=identifier) for identifier in controls]
+            if any(
+                isinstance(answer, Tag) and answer.get_text(" ", strip=True) for answer in answers
+            ):
+                button.name = "h3"
+                button.attrs = {}
+                for icon in button.select("svg"):
+                    icon.decompose()
         for selector in (
             "nav",
             "header",
@@ -119,7 +180,7 @@ class WwwF5Adapter(SourceAdapter):
             '[class*="cookie" i]',
             '[class*="sticky" i]',
             '[class*="breadcrumb" i]',
-            '[class*="promo" i]',
+            ".promo-band",
             '[class*="gated" i]',
             '[data-testid*="gated" i]',
             '[class*="related-resource" i]',

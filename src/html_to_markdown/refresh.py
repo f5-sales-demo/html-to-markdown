@@ -87,7 +87,16 @@ def _verified_baseline(directory: Path, receipt_sha256: str) -> dict[str, bytes]
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def verify_refresh(output: Path) -> dict[str, Any]:
     """Check both upstream inputs and every selected body/asset on each replay."""
+    if (output / "enrichment-state.json").is_file():
+        from .enrichment.engine import verify_enrichment  # pylint: disable=import-outside-toplevel
+
+        verify_enrichment(output)
+        return verify_refresh(output / ".enrichment" / "curated")
     state: dict[str, Any] = json.loads((output / MARKER).read_text())
+    if state.get("schema_version") == 2:
+        from .combined_sources import verify_combined  # pylint: disable=import-outside-toplevel
+
+        return verify_combined(output)
     root = output / ".refresh"
     published = _verified_baseline(root / "baseline", state["baseline_receipt_sha256"])
     current = root / "current"

@@ -47,10 +47,10 @@ PRIVACY_PATTERNS = {
     "email": re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
     "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
     "credential": re.compile(
-        r"\b(?:api[_-]?key|password|secret|token)\s*[:=]\s*[\"']?[A-Za-z0-9+/=_-]{16,}", re.I
+        r"\b(?:api[_-]?key|password|secret|token)[\"']?\s*[:=]\s*[\"']?[A-Za-z0-9+./=_-]{16,}", re.I
     ),
     "authorization-header": re.compile(
-        r"Authorization[\s\"':]+(?:Bearer|APIToken)\s+(?!EXAMPLE_API_TOKEN)[A-Za-z0-9+/=_-]{16,}",
+        r"Authorization[\s\"':]+(?:Bearer|APIToken)\s+[A-Za-z0-9+/=_-]{16,}",
         re.I,
     ),
     "session-cookie": re.compile(
@@ -230,6 +230,7 @@ class CommunityClient:
         self.retries = retries
         self.lock = asyncio.Lock()
         self.next_request = 0.0
+        self.discovery_recorder: Any = None
 
     @staticmethod
     def validate_request_url(current: str, expected_id: int | None, asset: bool) -> None:
@@ -340,6 +341,17 @@ class CommunityClient:
                 if isinstance(item.get("excerpt"), str):
                     result[item["id"]]["excerpt"] = item["excerpt"]
             more = listing.get("more_topics_url")
+            if self.discovery_recorder is not None:
+                self.discovery_recorder(
+                    source="community-f5-com",
+                    origin=current,
+                    urls=[
+                        f"{BASE}/t/{item['id']}"
+                        for item in listing["topics"]
+                        if item["category_id"] in CATEGORIES
+                    ],
+                    complete=not bool(more),
+                )
             if more:
                 parts = urlsplit(urljoin(BASE, more))
                 expected_path = urlsplit(initial).path.removesuffix(".json")
@@ -676,6 +688,16 @@ def validate_community_publication(output: Path, store: Any) -> None:
         )
 
         state = verify_refresh(output)
+        if state.get("schema_version") == 2:
+            # The verifier replays every selected source's complete admission
+            # and upstream curation; a partial queue cannot add consumer bytes.
+            if any(
+                choice["kind"] not in {"published", "admitted"}
+                for path, choice in state["documents"].items()
+                if path.startswith("content/community-f5-com/")
+            ):
+                raise PublicationBlockedError("Community source lacks verified admission")
+            return
         if any(
             choice["kind"] != "published"
             for path, choice in state["documents"].items()

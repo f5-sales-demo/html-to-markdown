@@ -30,6 +30,8 @@ concurrency:
 
 jobs:
   snapshot:
+    # The existing Sunday clock moves to the private Ubuntu timer at activation.
+    if: vars.PRIVATE_CONTENT_QUEUE_ENABLED != 'true'
     name: Build and publish snapshot
     environment: repository-settings
     runs-on: ubuntu-24.04
@@ -121,6 +123,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: enrichment-evidence-${{ github.run_id }}
+          retention-days: 90
           if-no-files-found: error
           path: |
             build/enrichment-state.json
@@ -156,6 +159,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: html-to-markdown-content-${{ github.run_id }}
+          retention-days: 90
           if-no-files-found: error
           path: |
             build/html-to-markdown-content.tar.gz
@@ -168,18 +172,24 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: curation-audit-${{ github.run_id }}
+          retention-days: 90
           if-no-files-found: error
           path: build/curation-audit.json
-      - name: Preserve Community review queue after a blocked collection
+      - name: Sanitize Community review queue
+        if: always()
+        run: |
+          if test -f build/community-inventory/inventory.json; then
+            uv run html-to-markdown sanitize-inventory --input-path build/community-inventory/inventory.json \
+              --output sanitized-community-inventory.json
+          fi
+      - name: Preserve safe Community review queue after a blocked collection
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: community-review-queue-${{ github.run_id }}
+          retention-days: 90
           if-no-files-found: ignore
-          path: |
-            build/community-inventory/inventory.json
-            build/community-inventory/review-queue.json
-            build/community-inventory/incomplete.json
+          path: sanitized-community-inventory.json
       - name: Publish changed snapshot
         if: steps.changed.outputs.value == 'true'
         env:

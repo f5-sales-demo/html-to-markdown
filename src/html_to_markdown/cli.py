@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import sys
 from pathlib import Path
 from typing import Annotated
 
@@ -11,6 +12,8 @@ import typer
 
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
+from .combined_sources import combine_sources
+from .content_inventory import collect_content, repair_captured_extraction
 from .content_policy import load_content_policy, migrate_content
 from .docs_inventory import collect_docs
 from .enrichment.analysis import write_analysis
@@ -32,10 +35,26 @@ from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
 from .refresh import combine_docs, verify_refresh
 from .render import split_document
+from .safe_reports import sanitize_inventory
+from .source_inputs import seal_source, verify_source
+from .source_review_jobs import run_reviews, verify_reviews
 from .state import StateStore
 from .validation import validate_snapshot
+from .work_queue import export_queue, list_queues, receive_enrichment, receive_source
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
+
+
+@app.command("sanitize-inventory")
+def sanitize_inventory_command(
+    input_path: Annotated[Path, typer.Option(dir_okay=False)],
+    output: Annotated[Path, typer.Option(dir_okay=False)],
+) -> None:
+    """Write an allowlisted CI receipt without captured text, media or diagnostics."""
+    result = sanitize_inventory(input_path, output)
+    typer.echo(json.dumps({"documents": len(result["documents"]), "counts": result["counts"]}))
+
+
 Source = Annotated[
     str, typer.Option(help="all, docs-cloud-f5-com, my-f5-com, www-f5-com, or community-f5-com")
 ]
@@ -48,6 +67,137 @@ def _check_source(source: str) -> str:
             "must be all, docs-cloud-f5-com, my-f5-com, www-f5-com, or community-f5-com"
         )
     return source
+
+
+@app.command("list-review-queues")
+def list_review_queues(queue_root: Annotated[Path, typer.Option(file_okay=False)]) -> None:
+    """List private captured queues for the MacBook worker."""
+    typer.echo(json.dumps(list_queues(queue_root), sort_keys=True))
+
+
+@app.command("scheduled-collection")
+def scheduled_collection_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    source: Annotated[str, typer.Option()] = "all",
+    full: Annotated[bool, typer.Option()] = False,
+    install: Annotated[bool, typer.Option()] = False,
+) -> None:
+    """Collect privately on Ubuntu independently of MacBook review availability."""
+    from .collection_service import (  # pylint: disable=import-outside-toplevel
+        install_collectors,
+        scheduled_collection,
+    )
+
+    if install:
+        typer.echo(json.dumps({"timers": install_collectors(queue_root)}))
+    else:
+        typer.echo(
+            json.dumps(
+                asyncio.run(scheduled_collection(queue_root, source=source, full=full)),
+                sort_keys=True,
+            )
+        )
+
+
+@app.command("export-review-queue")
+def export_review_queue(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    queue: Annotated[str, typer.Option()],
+) -> None:
+    """Stream one private verified capture snapshot to the MacBook."""
+    export_queue(queue_root, queue, sys.stdout.buffer)
+
+
+@app.command("review-worker")
+def review_worker(
+    host: Annotated[str, typer.Option()],
+    remote_executable: Annotated[str, typer.Option()],
+    remote_queue: Annotated[str, typer.Option()],
+    output: Output,
+    transport: Annotated[Path, typer.Option(dir_okay=False)],
+    install: Annotated[bool, typer.Option()] = False,
+    source_commit: Annotated[str | None, typer.Option()] = None,
+) -> None:
+    """Check Ubuntu queues and run up to four isolated MacBook inference jobs."""
+    from .mac_worker import (  # pylint: disable=import-outside-toplevel
+        install_launch_agent,
+        worker_once,
+    )
+
+    if install:
+        typer.echo(
+            install_launch_agent(
+                host=host,
+                remote_executable=remote_executable,
+                remote_queue=remote_queue,
+                output=output,
+                transport=transport,
+                source_commit=source_commit,
+            )
+        )
+    else:
+        result = worker_once(
+            host=host,
+            remote_executable=remote_executable,
+            remote_queue=remote_queue,
+            output=output,
+            transport=transport,
+            source_commit=source_commit,
+        )
+        typer.echo(json.dumps({"state": result["state"], "queues": len(result.get("queues", []))}))
+
+
+@app.command("receive-review-input")
+def receive_review_input(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    queue: Annotated[str, typer.Option()],
+    review_sha256: Annotated[str, typer.Option()],
+) -> None:
+    """Receive and independently replay a private MacBook admission bundle."""
+    typer.echo(receive_source(queue_root, queue, review_sha256, sys.stdin.buffer))
+
+
+@app.command("receive-enrichment-input")
+def receive_enrichment_input(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    queue: Annotated[str, typer.Option()],
+    decisions_sha256: Annotated[str, typer.Option()],
+) -> None:
+    """Replay MacBook enrichment against the preserved private source chain."""
+    typer.echo(receive_enrichment(queue_root, queue, decisions_sha256, sys.stdin.buffer))
+
+
+@app.command("prepare-publication")
+def prepare_publication_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)], output: Output
+) -> None:
+    """Assemble reviewed source inputs against the latest verified deployed baseline."""
+    from .publication_queue import prepare_publication  # pylint: disable=import-outside-toplevel
+
+    typer.echo(json.dumps(prepare_publication(queue_root, output), sort_keys=True))
+
+
+@app.command("advance-publication")
+def advance_publication_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    source_commit: Annotated[str | None, typer.Option()] = None,
+) -> None:
+    """Progress the private review-to-publication chain with visible pending gates."""
+    from .publication_queue import advance_publication  # pylint: disable=import-outside-toplevel
+
+    typer.echo(
+        json.dumps(advance_publication(queue_root, source_commit=source_commit), sort_keys=True)
+    )
+
+
+@app.command("stage-publication")
+def stage_publication_command(
+    output: Output, source_commit: Annotated[str, typer.Option()]
+) -> None:
+    """Stage consumer assets for promotion under the existing snapshot lock."""
+    from .publication_queue import stage_publication  # pylint: disable=import-outside-toplevel
+
+    typer.echo(json.dumps(stage_publication(output, source_commit=source_commit), sort_keys=True))
 
 
 @app.command()
@@ -135,16 +285,154 @@ def inventory_docs(
     typer.echo(json.dumps(report["counts"], sort_keys=True))
 
 
+@app.command("inventory-content")
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-arguments
+def inventory_content(
+    source: Source = "all",
+    output: Output = Path("content-inventory"),
+    previous_manifest: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    resume: Annotated[bool, typer.Option(help="Continue the exact interrupted capture")] = False,
+    full: Annotated[bool, typer.Option(help="Record a full reconciliation pass")] = False,
+    concurrency: Annotated[int, typer.Option(min=1, max=20)] = 4,
+    retries: Annotated[int, typer.Option(min=1, max=10)] = 3,
+    timeout: Annotated[float, typer.Option(min=1)] = 30,
+) -> None:
+    """Capture all discovered and published candidates into a private review queue."""
+    report = asyncio.run(
+        collect_content(
+            output,
+            source=_check_source(source),
+            previous_manifest=previous_manifest,
+            resume=resume,
+            full=full,
+            concurrency=concurrency,
+            retries=retries,
+            timeout=timeout,
+        )
+    )
+    typer.echo(
+        json.dumps(
+            {"counts": report["counts"], "completeness": report["completeness"]}, sort_keys=True
+        )
+    )
+    if not report["completeness"]["enumeration"] or not report["completeness"]["capture"]:
+        raise typer.Exit(1)
+
+
+@app.command("repair-captured-extraction")
+def repair_captured_extraction_command(output: Output) -> None:
+    """Apply corrected extraction to preserved captures without repeating collection."""
+    typer.echo(json.dumps(repair_captured_extraction(output), sort_keys=True))
+
+
+@app.command("review-content")
+def review_content(
+    capture: Annotated[Path, typer.Option(file_okay=False)],
+    output: Output = Path("source-review"),
+    phase: Annotated[
+        str, typer.Option(help="prepare, relevance, privacy, validation, replay, all or verify")
+    ] = "all",
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".source-review-journal"),
+) -> None:
+    """Review complete captured sources through isolated Codex or offline replay."""
+    if phase == "verify":
+        result = verify_reviews(capture, output)
+        typer.echo(json.dumps({"accepted_files": len(result["accepted_files"])}))
+        return
+    if phase == "all":
+        run_reviews(capture, output, phase="prepare", journal=journal)
+    result = run_reviews(capture, output, phase=phase, journal=journal)
+    typer.echo(
+        json.dumps(
+            {
+                "phase": phase,
+                "documents": len(result["documents"]),
+                "exceptions": len(result.get("exceptions", {})),
+            }
+        )
+    )
+
+
 @app.command("combine-content")
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-arguments
 def combine_content(
     baseline: Annotated[Path, typer.Option(file_okay=False)],
-    current: Annotated[Path, typer.Option(file_okay=False)],
     publication_sha256: Annotated[str, typer.Option()],
     output: Output = Path("combined"),
+    current: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+    source_input: Annotated[
+        list[str] | None, typer.Option(help="Repeat SOURCE=sealed-directory")
+    ] = None,
+    review_sha256: Annotated[
+        list[str] | None, typer.Option(help="Repeat SOURCE=admission-receipt-sha256")
+    ] = None,
+    enrichment_input: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    enrichment_sha256: Annotated[str, typer.Option()] = "",
 ) -> None:
-    """Publish fresh official docs with receipt-verified prior-source fallbacks."""
-    state = combine_docs(baseline, current, output, publication_sha256)
+    """Combine independently reviewed sources against an exact verified baseline."""
+    if source_input:
+
+        def pairs(values: list[str]) -> dict[str, str]:
+            result = {}
+            for value in values:
+                if "=" not in value:
+                    raise typer.BadParameter("source input must be SOURCE=VALUE")
+                source, target = value.split("=", 1)
+                if source not in ADAPTERS or source in result or not target:
+                    raise typer.BadParameter("unknown, duplicate or empty source input")
+                result[source] = target
+            return result
+
+        directories, pins = pairs(source_input), pairs(review_sha256 or [])
+        if directories.keys() != pins.keys() or current is not None:
+            raise typer.BadParameter("each selected source requires its exact review pin")
+        state = combine_sources(
+            baseline,
+            {source: (Path(path), pins[source]) for source, path in directories.items()},
+            output,
+            publication_sha256,
+        )
+    else:
+        if current is None:
+            raise typer.BadParameter(
+                "supply --current or repeat --source-input and --review-sha256"
+            )
+        state = combine_docs(baseline, current, output, publication_sha256)
+    if enrichment_input is not None:
+        if not enrichment_sha256:
+            raise typer.BadParameter("enrichment input requires --enrichment-sha256")
+        replay(output, enrichment_input, enrichment_sha256)
+        store = StateStore(output / "state.sqlite")
+        try:
+            write_quality_reports(output)
+            validate_snapshot(output, store)
+            prior = json.loads((output / "manifest.json").read_bytes())
+            write_release(
+                output, build_manifest(output, store, prior["started_at"], prior["ended_at"])
+            )
+        finally:
+            store.close()
     typer.echo(json.dumps({"documents": len(state["documents"]), "aliases": len(state["aliases"])}))
+
+
+@app.command("seal-source-input")
+def seal_source_input(
+    capture: Annotated[Path, typer.Option(file_okay=False)],
+    review: Annotated[Path, typer.Option(file_okay=False)],
+    output: Output,
+) -> None:
+    """Seal a private replayable source admission bundle for governed publication."""
+    seal_source(capture, review, output)
+    typer.echo(sha256_file(output / "source-review-receipt.json"))
+
+
+@app.command("verify-source-input")
+def verify_source_input(output: Output, review_sha256: Annotated[str, typer.Option()]) -> None:
+    """Verify captured bytes, privacy transformations and independent admission."""
+    verify_source(output, review_sha256)
+    typer.echo("valid")
 
 
 @app.command("verify-refresh")
@@ -365,20 +653,30 @@ def enrich_content_command(
     publication_sha256: Annotated[str, typer.Option()] = "",
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".enrichment-batches"),
     wait: Annotated[bool, typer.Option()] = False,
+    prompt_version: Annotated[
+        str, typer.Option(help="article-enrichment/1 or article-enrichment/2")
+    ] = "article-enrichment/2",
 ) -> None:
     """Generate decisions in resumable batches or replay an exact artifact offline."""
     if mode == "prepare":
+        if prompt_version not in {"article-enrichment/1", "article-enrichment/2"}:
+            raise typer.BadParameter("unsupported enrichment prompt version")
         if baseline is None:
             raise typer.BadParameter("prepare requires --baseline")
         artifact = prepare(
-            output, baseline, decisions, tag=baseline_tag, receipt_sha256=publication_sha256
+            output,
+            baseline,
+            decisions,
+            tag=baseline_tag,
+            receipt_sha256=publication_sha256,
+            version=2 if prompt_version == "article-enrichment/2" else 1,
         )
         typer.echo(
             json.dumps(
                 {"documents": len(artifact.documents), "decisions": str(decisions)}, sort_keys=True
             )
         )
-    elif mode in {"media", "editor", "validator"}:
+    elif mode in {"media", "editor", "validator", "all"}:
         typer.echo(
             json.dumps(
                 generate(output, decisions, phase=mode, journal=journal, wait=wait), sort_keys=True
