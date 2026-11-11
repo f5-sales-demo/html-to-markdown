@@ -156,6 +156,21 @@ def _documents(database: sqlite3.Connection) -> list[dict[str, Any]]:
 
 def verify_capture(output: Path, item: dict[str, Any]) -> None:
     """Never resume or review bytes that have drifted from their capture receipt."""
+    if published := item.get("published_path"):
+        path = Path(published)
+        expected = (
+            Path("articles/content")
+            / item["sourceId"]
+            / stable_path(item["sourceId"], item["url"])
+            / "index.md"
+        )
+        if (
+            path.is_absolute()
+            or ".." in path.parts
+            or path != expected
+            or any((output / parent).is_symlink() for parent in [path, *path.parents])
+        ):
+            raise ValueError("unsafe or mismatched capture publication path")
     pairs = [
         (item.get("source_html_path"), item.get("source_html_sha256")),
         (item.get("article_path"), item.get("article_sha256")),
