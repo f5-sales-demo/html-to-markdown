@@ -39,6 +39,7 @@ def review_context_digest() -> str:
                 for name in (
                     "source_review.py",
                     "source_review_jobs.py",
+                    "source_curation.py",
                     "media_observations.py",
                     "media_encoding.py",
                     "media_observation_jobs.py",
@@ -424,6 +425,15 @@ rectangle, without enlarging it or covering neighboring technical content. Use s
 synthetic labels when needed; never propose unreadable font sizes or broaden identifying regions
 over technical labels. Final independent media and preservation checks remain mandatory.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
+For final validation, candidate is the complete privacy-reviewed source and curation_candidate is
+the actual digest-pinned retirement/API planner output. Verify privacy, extraction and technical
+preservation against the original and privacy candidate; assess retirement and current guidance
+against curation_candidate. Permit only policy-justified differences with preserved stage evidence.
+For retirement checks, inspect the media still referenced by curation_candidate and its file hashes.
+Review removed media against the complete original for justified removal and preserved technical facts.
+Original empty cells and absent source values are source limitations; never invent their contents
+or reject an unchanged blank merely because no mapping was supplied by the author. Planner omissions
+from missing or stale reviews remain exceptions and cannot be treated as justified policy exclusions.
 Confirmed native-media observations provide controller-computed guards for values missed by OCR.
 For null values, guards bind the exact media/frame/region containing clipped or unreadable text.
 Use those guards only for precisely placed image labels, never as guards for text edits. Never

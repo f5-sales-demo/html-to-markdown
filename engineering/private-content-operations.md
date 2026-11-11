@@ -96,6 +96,15 @@ enrichment for the complete resulting corpus. It preserves the selected source i
 retirement/API curation and pre-enrichment corpus. Independent replay verifies each stage and final metadata/assets
 separately. Unattempted enrichment documents prevent staging.
 
+Admission preserves the complete privacy-reviewed source separately from the actual retirement/API planner preview.
+Independent validation binds both stages through the exact request and curation digests. Privacy and extraction checks
+compare the source and privacy candidate; retirement checks inspect the curated article and its retained media. Original
+blank fields remain blank unless independently verified source repair evidence supplies their values. Missing or stale
+catalog decisions and independent retirement failures enter `curation-exceptions.json` for the linked catalog-renewal
+workflow. Planner omissions do not become policy exclusions. A successful replay clears its current exception while
+preserving the earlier private failure evidence. The complete combiner still rechecks policy and dependency closure
+against the latest verified baseline before publication.
+
 Private returns are checkpointed only after verification. An interrupted enrichment promotion resumes its exact input
 pin. Superseded jobs remain private and cannot overwrite a newer baseline. The publication workflow uses the existing
 `content-snapshot` lock, verifies the downloaded draft and holds the lock until the exact receipt is deployed.

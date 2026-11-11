@@ -30,6 +30,7 @@ from .media_observation_jobs import (
 )
 from .models import PageMetadata
 from .render import serialize_document, split_document
+from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_review import (
     VERSION,
     AdmissionValidation,
@@ -471,7 +472,7 @@ def _compile(
 
 
 # Preserve all stage evidence and checks in one transaction.
-# pylint: disable-next=too-many-locals
+# pylint: disable-next=too-many-locals,too-many-branches
 def review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:
@@ -532,6 +533,12 @@ def review_one(
             )
             context["privacy_decision"] = proposal.model_dump()
             context["candidate"] = candidate
+            if relevance.disposition == "include" and relevance.retirement != "excluded":
+                context["curation_candidate"] = preview_curation(
+                    output,
+                    files,
+                    saved["item"].get("published_path", saved["item"]["article_path"]),
+                )
             body = _request(
                 VALIDATOR_MODEL,
                 "validation",
@@ -546,6 +553,9 @@ def review_one(
                     VALIDATOR_MODEL,
                     request_hash(body),
                 )
+                if "curation_candidate" in context and not validation.retirement_valid:
+                    record_exception(output, candidate["output_sha256"], candidate["metadata"])
+                    raise CurationRequired(CurationRequired.reason)
                 validate_admission(
                     context["identity"],
                     context["binding_sha256"],
@@ -563,6 +573,8 @@ def review_one(
                     transforms=candidate["media_transforms"],
                     enforcement_findings=0,
                 )
+                if "curation_candidate" in context:
+                    saved["curation_sha256"] = context["curation_candidate"]["curation_sha256"]
                 if saved["disposition"] == "accepted":
                     for path, data in files.items():
                         published = Path(path).relative_to("articles")
@@ -745,7 +757,9 @@ def run_reviews(
                 _retire_output(output, saved)
                 saved.update(
                     disposition="queued",
-                    reason="admission_phase_failed",
+                    reason=CurationRequired.reason
+                    if failures[record.name] == "CurationRequired"
+                    else "admission_phase_failed",
                     error_class=failures[record.name],
                 )
             else:
