@@ -286,3 +286,40 @@ def test_clipped_mac_region_does_not_authorize_an_added_json_quote():
     with pytest.raises(ValueError, match="Null/region guards cannot authorize quotes"):
         guard_label_quotes(context, quoted_proposal(chr(34) + "02:00:00:00:00:02" + chr(34), guard))
     guard_label_quotes(context, quoted_proposal("02:00:00:00:00:02", guard))
+
+
+def test_anonymizing_a_quoted_identifier_can_remove_internal_identifying_punctuation():
+    original = chr(34) + "O'Connor-node" + chr(34)
+    replacement = chr(34) + "example-node" + chr(34)
+    observation = {
+        "media_sha256": "a" * 64,
+        "frame": 0,
+        "rectangle": [512, 752, 666, 763],
+        "value": original,
+        "value_sha256": sha(original),
+    }
+    guard_label_quotes(
+        {"confirmed_media_values": [observation]}, quoted_proposal(replacement, sha(original))
+    )
+    malformed = chr(34) + "example" + chr(34) + "-node" + chr(34)
+    with pytest.raises(ValueError, match="unguarded quote punctuation"):
+        guard_label_quotes(
+            {"confirmed_media_values": [observation]}, quoted_proposal(malformed, sha(original))
+        )
+
+
+def test_whole_quoted_region_keeps_boundaries_and_rejects_invalid_json_escapes():
+    original = json.dumps('original"node')
+    observation = {
+        "media_sha256": "a" * 64,
+        "frame": 0,
+        "rectangle": [512, 752, 666, 763],
+        "value": original,
+        "value_sha256": sha(original),
+    }
+    context = {"confirmed_media_values": [observation]}
+    guard_label_quotes(context, quoted_proposal(json.dumps("example-node"), sha(original)))
+    malformed = chr(34) + "example" + chr(34) + "node" + chr(34)
+    for replacement in [malformed, "example-node"]:
+        with pytest.raises(ValueError, match="unguarded quote punctuation"):
+            guard_label_quotes(context, quoted_proposal(replacement, sha(original)))
