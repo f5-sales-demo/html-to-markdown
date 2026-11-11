@@ -27,6 +27,7 @@ ASSET_HOSTS = frozenset(
     {
         "community.f5.com",
         "d20hrnpixdzcsd.cloudfront.net",
+        "assets-devcentralsbx-f5-prod-us.s3.dualstack.us-west-2.amazonaws.com",
         "docs.cloud.f5.com",
         "my.f5.com",
         "cdn.f5.com",
