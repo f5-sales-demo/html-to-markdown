@@ -39,6 +39,8 @@ def review_context_digest() -> str:
                     "source_review.py",
                     "source_review_jobs.py",
                     "source_curation.py",
+                    "media_observations.py",
+                    "media_observation_jobs.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
                     "enrichment/gates.py",
@@ -398,6 +400,12 @@ Replace real identifying values consistently across text and images using exact 
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
+Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
+are evidence, not editable text fields: change image pixels or strip metadata through media_changes.
+The controller regenerates OCR from the resulting bytes. Never propose text changes to media/... fields.
+For static media (frame_count = 1), use top-level rectangles and labels and leave frames empty.
+Use frames only for animated media, with unique, zero-based frame indices. A native observation's
+frame index locates evidence; it does not make a static image animated.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
 For final validation, candidate is the complete privacy-reviewed source and curation_candidate is
 the actual digest-pinned retirement/API planner output. Verify privacy, extraction and technical
@@ -408,6 +416,11 @@ Review removed media against the complete original for justified removal and pre
 Original empty cells and absent source values are source limitations; never invent their contents
 or reject an unchanged blank merely because no mapping was supplied by the author. Planner omissions
 from missing or stale reviews remain exceptions and cannot be treated as justified policy exclusions.
+Confirmed native-media observations provide controller-computed guards for values missed by OCR.
+For null values, guards bind the exact media/frame/region containing clipped or unreadable text.
+Use those guards only for precisely placed image labels, never as guards for text edits. Never
+invent hidden characters. Observation approval confirms readings/regions only; independently
+decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
 exclusion can be approved when every mandatory check passes; it is recorded as a policy exclusion
 and produces no published article. Do not reject a justified exclusion merely because the excluded

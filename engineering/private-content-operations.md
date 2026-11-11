@@ -42,6 +42,14 @@ Independent relevance validation approves or rejects the proposed inventory disp
 exclusions. An approved exclusion emits no article. Privacy or media rejection returns specific independent findings
 for the bounded correction loop; all mandatory checks still have to pass.
 
+When a privacy proposal lacks guards for visible identifying values missed by OCR, the controller requests native-frame
+observations and independent confirmation. Readable values receive literal digest guards. Clipped or unreadable values
+receive guards for their exact media, frame and rectangle without invented hidden text. Those guards support precisely
+placed image labels; they do not authorize redaction or serve as text-edit guards. The final validator still checks the
+complete source, transformed article, every frame, technical relationships and credential enforcement. Private feedback
+can request additional grounded observations within the existing two-correction limit. Failed or stale observations and
+all earlier privacy attempts remain preserved; unresolved regions stay queued.
+
 ## Queue clocks and activation
 
 Install the qualified software into stable user-owned paths before installing either scheduler. Temporary development
