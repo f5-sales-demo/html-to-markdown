@@ -276,6 +276,8 @@ def _asset_entries(output: Path) -> list[dict[str, object]]:
     ]
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 def build_manifest(
     output: Path, store: StateStore, started_at: str, ended_at: str
 ) -> dict[str, object]:

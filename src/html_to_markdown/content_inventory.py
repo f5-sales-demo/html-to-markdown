@@ -201,6 +201,8 @@ async def _community_discovery(fetcher: InventoryFetcher) -> list[DiscoveredPage
     ]
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str, Any]:
     adapter = ADAPTERS[item["sourceId"]]()
     result = dict(item)
@@ -264,7 +266,7 @@ async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str,
             reason="exact_retired_route_policy" if excluded else "admission_review_required",
             capture_complete=True,
         )
-    except Exception as failure:
+    except Exception as failure:  # pylint: disable=broad-exception-caught
         error = {"type": type(failure).__name__, "message": str(failure), "at": utc_now()}
         atomic_private(fetcher.output / "errors" / (sha(item["url"]) + ".json"), json_bytes(error))
         result.update(
@@ -325,6 +327,8 @@ def _report(
     return report
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-arguments,too-many-locals
 async def collect_content(
     output: Path,
     *,
@@ -407,7 +411,7 @@ async def collect_content(
                         "full": full,
                         "completed_at": utc_now(),
                     }
-                except Exception as failure:
+                except Exception as failure:  # pylint: disable=broad-exception-caught
                     phases[name] = {
                         "enumeration_complete": False,
                         "full": full,

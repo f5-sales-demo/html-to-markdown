@@ -17,6 +17,7 @@ from .content_inventory import atomic_private
 from .content_policy import load_content_policy
 from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
+from .enrichment.generate_v2 import generate_v2
 from .models import utc_now
 from .source_inputs import seal_source
 from .source_review import review_context_digest
@@ -24,6 +25,8 @@ from .source_review_jobs import run_reviews
 from .work_queue import pack_private_tree, unpack_queue
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals,too-many-statements
 def worker_once(
     *,
     host: str,
@@ -120,13 +123,9 @@ def worker_once(
                 capture = directory / "capture"
                 unpack_queue(archive, capture)
             if entry.get("kind") == "enrichment":
-                from .enrichment.generate_v2 import (
-                    generate_v2,  # pylint: disable=import-outside-toplevel
-                )
-
                 decisions = capture / "enrichment-decisions.json"
                 generate_v2(
-                    capture / "combined", decisions, phase="all", journal=directory / "journal"
+                    capture / "combined", decisions, phase="all", journal=output / "journal"
                 )
                 digest = sha(decisions.read_bytes())
                 args = [
@@ -161,8 +160,8 @@ def worker_once(
                 )
                 continue
             review = directory / "review"
-            run_reviews(capture, review, phase="prepare", journal=directory / "journal")
-            report = run_reviews(capture, review, phase="all", journal=directory / "journal")
+            run_reviews(capture, review, phase="prepare", journal=output / "journal")
+            report = run_reviews(capture, review, phase="all", journal=output / "journal")
             completed = not report["exceptions"]
             # Passing articles progress while exceptions stay visible.
             sealed = directory / "sealed" / (entry["fingerprint"] + "-" + sha(json_bytes(report)))

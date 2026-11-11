@@ -5,10 +5,10 @@ import json
 import subprocess
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Any
 
 import pytest
 from test_source_review_jobs import LocalClient
-from test_source_review_jobs import capture as capture
 
 from html_to_markdown.mac_worker import worker_once
 from html_to_markdown.work_queue import pack_private_tree, receive_source
@@ -26,7 +26,7 @@ def test_return_interruption_retries_then_context_change_revalidates(
     returns = []
     fail = True
 
-    def run(args: list[str], **kwargs: object):
+    def run(args: list[str], **kwargs: Any):
         nonlocal fail
         if "list-review-queues" in args:
             return SimpleNamespace(
@@ -58,7 +58,7 @@ def test_return_interruption_retries_then_context_change_revalidates(
         return SimpleNamespace(stdout=b"{}")
 
     monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", run)
-    args = dict(
+    args: dict[str, Any] = dict(  # pylint: disable=use-dict-literal
         host="worker.example.invalid",
         remote_executable="/private/html-to-markdown",
         remote_queue="/private/queue",

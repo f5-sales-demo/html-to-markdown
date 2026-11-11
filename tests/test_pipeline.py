@@ -1,10 +1,13 @@
 from pathlib import Path
 
 import pytest
+from bs4 import BeautifulSoup
 
 from html_to_markdown import pipeline as module
 from html_to_markdown import state as state_module
 from html_to_markdown.adapters.base import SourceAdapter
+from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.content_policy import load_content_policy
 from html_to_markdown.curation import curate_topics
 from html_to_markdown.errors import (
     AllowlistError,
@@ -479,10 +482,6 @@ async def test_authored_transitive_dependencies_survive_redirect_resolution(tmp_
 async def test_redirect_reuse_limits_and_retired_targets_preserve_link_contracts(
     tmp_path: Path,
 ) -> None:
-    from bs4 import BeautifulSoup
-
-    from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
-    from html_to_markdown.content_policy import load_content_policy
 
     pipeline = Pipeline(tmp_path)
     await pipeline.fetcher.close()
@@ -490,12 +489,12 @@ async def test_redirect_reuse_limits_and_retired_targets_preserve_link_contracts
     class Redirects(FakeFetcher):
         calls = []
 
-        async def resolve_redirect(self, source: str, url: str) -> str:
+        async def resolve_redirect(self, source_id: str, url: str) -> str:
             self.calls.append(url)
             return url + "-current"
 
     fetcher = Redirects()
-    pipeline.fetcher = fetcher
+    pipeline.fetcher = fetcher  # type: ignore[assignment]
     base = "https://docs.cloud.f5.com/docs-v2/platform/how-to/"
     retired = "https://docs.cloud.f5.com/docs-v2/api/config/global"
     assert load_content_policy().excludes(retired)
@@ -503,13 +502,15 @@ async def test_redirect_reuse_limits_and_retired_targets_preserve_link_contracts
     html += f'<a href="{base}first">First</a><a href="{base}first">Repeated</a>'
     html += f'<a href="{retired}">Retired</a>'
     html += "".join(f'<a href="{base}page-{index}">Page</a>' for index in range(101))
-    output = await pipeline._resolve_redirects(DocsCloudAdapter(), base, html)
+    output = await pipeline._resolve_redirects(  # pylint: disable=protected-access
+        DocsCloudAdapter(), base, html
+    )
     links = [a.get("href") for a in BeautifulSoup(output, "html.parser").find_all("a")]
     assert fetcher.calls.count(base + "first") == 1
     assert len(fetcher.calls) == 100 and retired not in fetcher.calls
     assert links.count(base + "first-current") == 2
     assert base + "page-100" in links and retired in links
-    assert Pipeline._candidate_links(
+    assert Pipeline._candidate_links(  # pylint: disable=protected-access
         ["", "https://docs.cloud.f5.com/docs-v2/a", "https://community.f5.com/not-topic"], base
     ) == ["https://docs.cloud.f5.com/docs-v2/a"]
     pipeline.store.close()

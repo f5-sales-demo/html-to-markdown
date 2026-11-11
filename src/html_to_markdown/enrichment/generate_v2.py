@@ -29,6 +29,8 @@ from .v2 import (
 )
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-statements
 def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) -> dict[str, Any]:
     artifact = load_artifact(destination)
     analysis = analyze(curated)
@@ -45,6 +47,8 @@ def generate_v2(curated: Path, destination: Path, *, phase: str, journal: Path) 
         with checkpoint_lock:
             atomic_private(destination, artifact_bytes(artifact))
 
+    # Preserve all stage evidence and checks in one transaction.
+    # pylint: disable-next=too-many-locals,too-many-statements
     def work(doc: dict[str, Any]) -> None:
         record = records[doc["document"]]
         if record.v2 is None:

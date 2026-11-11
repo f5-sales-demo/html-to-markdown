@@ -272,6 +272,8 @@ def stage_publication(output: Path, *, source_commit: str) -> dict[str, Any]:
     return result
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-return-statements
 def advance_publication(queue_root: Path, *, source_commit: str | None = None) -> dict[str, Any]:
     """Progress preparation, Mac review and locked promotion without mixing baselines."""
     if platform.system() != "Linux":

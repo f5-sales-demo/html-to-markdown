@@ -49,6 +49,15 @@ def _retire_output(output: Path, saved: dict[str, Any]) -> None:
             path.unlink()
 
 
+def _article_html(capture: Path, item: dict[str, Any]) -> str:
+    """Scope complete authored source exactly as the admission request does."""
+    source_html = (capture / item["source_html_path"]).read_text()
+    if item["sourceId"] == "community-f5-com":
+        source_html = json.loads(source_html)["post_stream"]["posts"][0]["cooked"]
+    soup = BeautifulSoup(source_html, "html.parser")
+    return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
+
+
 def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -74,7 +83,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
             )
             continue
         verify_capture(capture, item)
-        binding = binding_for(item)
+        binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
             if saved:
@@ -91,6 +100,15 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
                 "disposition": "queued",
                 "reason": "admission_review_required",
             }
+            atomic_private(destination, json_bytes(saved))
+        elif saved["item"] != item:
+            # Capture age and raw response wrappers do not change the reviewed
+            # article. Bind the fresh raw receipt while retaining exact decisions.
+            atomic_private(
+                output / "history" / (sha(destination.read_bytes()) + ".json"),
+                destination.read_bytes(),
+            )
+            saved["item"] = item
             atomic_private(destination, json_bytes(saved))
         records.append(
             {
@@ -164,19 +182,13 @@ def _context(
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     item = saved["item"]
     verify_capture(capture, item)
+    source_article = _article_html(capture, item)
     if (
-        binding_for(item) != saved["binding"]
+        binding_for(item, source_article_sha256=sha(source_article)) != saved["binding"]
         or sha(json_bytes(saved["binding"])) != saved["binding_sha256"]
     ):
         raise ValueError("stale source policy or admission binding")
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    source_html = (capture / item["source_html_path"]).read_text()
-    if item["sourceId"] == "community-f5-com":
-        source_html = json.loads(source_html)["post_stream"]["posts"][0]["cooked"]
-    source_soup = BeautifulSoup(source_html, "html.parser")
-    source_article = (
-        source_soup.select_one("c-site-article-detail-container, article, main") or source_soup
-    )
     policy = json.loads(Path(__file__).with_name("curation_policy.json").read_bytes())
     policy_keys = {
         "id",
@@ -240,6 +252,8 @@ def _request(
     return body
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals,too-many-statements
 def _compile(
     capture: Path,
     output: Path,
@@ -365,6 +379,8 @@ def _compile(
     return payload, visual, proposal.model_copy(update={"findings": projected}), files
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 def review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:
@@ -563,9 +579,8 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
         # Replay into an isolated copy so verification never repairs its target.
         with tempfile.TemporaryDirectory(prefix="source-review-replay-") as directory:
             scratch = Path(directory)
-            shutil.copytree(output / "media", scratch / "media") if (
-                output / "media"
-            ).exists() else None
+            if (output / "media").exists():
+                shutil.copytree(output / "media", scratch / "media")
             copy = scratch / "document.json"
             atomic_private(copy, path.read_bytes())
             actual = review_one(capture, scratch, copy, "replay", None)

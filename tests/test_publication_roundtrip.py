@@ -10,7 +10,6 @@ import pytest
 from test_combined_sources import admitted
 from test_generate_v2 import ModelClient
 from test_source_refresh import prepare
-from test_source_review_jobs import capture as capture
 
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.generate_v2 import generate_v2
@@ -20,6 +19,8 @@ from html_to_markdown.work_queue import export_queue, list_queues, receive_enric
 
 
 @pytest.mark.parametrize("interrupted", [False, True])
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals,too-many-statements
 def test_full_private_publication_chain_replays_and_packages_identically(
     capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, interrupted: bool
 ) -> None:
@@ -140,7 +141,7 @@ def test_full_private_publication_chain_replays_and_packages_identically(
         actual_asset_names={path.name for path in verify.iterdir()},
     )
     assert any(args[1:3] == ["release", "create"] and "--draft" in args for args in calls)
-    assert list_queues(queues) == []
+    assert not list_queues(queues)
 
 
 def test_failed_preparation_preserves_evidence_without_blocking_retry(

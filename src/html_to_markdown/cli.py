@@ -286,6 +286,8 @@ def inventory_docs(
 
 
 @app.command("inventory-content")
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-arguments
 def inventory_content(
     source: Source = "all",
     output: Output = Path("content-inventory"),
@@ -353,6 +355,8 @@ def review_content(
 
 
 @app.command("combine-content")
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-arguments
 def combine_content(
     baseline: Annotated[Path, typer.Option(file_okay=False)],
     publication_sha256: Annotated[str, typer.Option()],

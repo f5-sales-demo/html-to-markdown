@@ -30,9 +30,14 @@ def test_private_coordinator_waits_for_source_then_mac_then_qualified_software(
     (job / "validated-enrichment.json").write_text("{}")
     assert advance_publication(tmp_path)["state"] == "waiting_for_qualified_software_commit"
     calls = []
+
+    def stage(path: Path, source_commit: str) -> dict[str, str]:
+        calls.append((path, source_commit))
+        return {"tag": "content-test"}
+
     monkeypatch.setattr(
         "html_to_markdown.publication_queue.stage_publication",
-        lambda path, source_commit: calls.append((path, source_commit)) or {"tag": "content-test"},
+        stage,
     )
     assert advance_publication(tmp_path, source_commit="a" * 40)["state"] == "staged"
     assert calls == [(job, "a" * 40)]

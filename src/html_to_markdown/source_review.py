@@ -331,13 +331,14 @@ def enforce(
             raise ValueError("unresolved final privacy enforcement finding")
 
 
-def binding_for(item: dict[str, Any]) -> dict[str, Any]:
+def binding_for(
+    item: dict[str, Any], *, source_article_sha256: str | None = None
+) -> dict[str, Any]:
     result = {
         "identity": item["identity"],
         "capture_provenance": {
             key: item.get(key)
             for key in (
-                "captured_at",
                 "source_published_at",
                 "source_modified_at",
                 "final_url",
@@ -345,7 +346,7 @@ def binding_for(item: dict[str, Any]) -> dict[str, Any]:
                 "published_path",
             )
         },
-        "source_html_sha256": item["source_html_sha256"],
+        "source_article_html_sha256": source_article_sha256 or item["source_html_sha256"],
         "article_sha256": item["article_sha256"],
         "metadata": item["metadata"],
         "media": item["media"],

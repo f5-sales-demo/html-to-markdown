@@ -89,6 +89,8 @@ def list_queues(root: Path) -> list[dict[str, Any]]:
     return records
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 def export_queue(root: Path, relative: str, stream: BinaryIO) -> None:
     path = Path(relative)
     if (
@@ -150,7 +152,7 @@ def export_queue(root: Path, relative: str, stream: BinaryIO) -> None:
         connection.close()
     binding = json.loads((directory / "capture-binding.json").read_bytes())
     ended_at = max(
-        [item.get("captured_at", binding["started_at"]) for item in items],
+        (item.get("captured_at", binding["started_at"]) for item in items),
         default=binding["started_at"],
     )
     source = path.parts[-1]
@@ -192,14 +194,8 @@ def unpack_queue(archive: Path, destination: Path) -> None:
         names = set()
         for member in members:
             path = Path(member.name)
-            if (
-                path.is_absolute()
-                or ".." in path.parts
-                or "\\" in member.name
-                or member.name in names
-                or not member.isfile()
-                or member.size < 0
-            ):
+            unsafe_path = path.is_absolute() or ".." in path.parts or "\\" in member.name
+            if unsafe_path or member.name in names or not member.isfile() or member.size < 0:
                 raise ValueError("unsafe private queue archive")
             names.add(member.name)
         destination.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -263,6 +259,8 @@ def receive_enrichment(root: Path, relative: str, digest: str, stream: BinaryIO)
         return _receive_enrichment(root, relative, digest, stream)
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals
 def _receive_enrichment(root: Path, relative: str, digest: str, stream: BinaryIO) -> Path:
     import shutil  # pylint: disable=import-outside-toplevel
     import tempfile  # pylint: disable=import-outside-toplevel

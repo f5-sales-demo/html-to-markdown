@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 from test_source_refresh import prepare
 from test_source_review_jobs import LocalClient
-from test_source_review_jobs import capture as capture
 
 from html_to_markdown.combined_sources import combine_sources, verify_combined
 from html_to_markdown.enrichment.analysis import sha

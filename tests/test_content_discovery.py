@@ -7,7 +7,8 @@ import pytest
 
 from html_to_markdown.adapters.my_f5 import MyF5Adapter
 from html_to_markdown.adapters.www_f5 import WwwF5Adapter
-from html_to_markdown.errors import ScrapeError
+from html_to_markdown.errors import AllowlistError, ScrapeError
+from html_to_markdown.models import FetchResult
 from html_to_markdown.urls import validate_source_url
 
 
@@ -108,14 +109,15 @@ def test_useful_short_answer_readiness_has_no_character_quota() -> None:
 
 @pytest.mark.asyncio
 async def test_link_discovery_continues_after_scoped_out_redirect() -> None:
-    from html_to_markdown.errors import AllowlistError
-    from html_to_markdown.models import FetchResult
 
     root = WwwF5Adapter.root_url
     redirected = "https://www.f5.com/solutions/old-corporate-route"
     integration = "https://www.f5.com/solutions/new-cloud-integration"
 
     class Fetcher:
+        def __init__(self) -> None:
+            self._http = self
+
         events: list[dict] = []
 
         async def get(self, url: str, **kwargs: object):
@@ -142,7 +144,6 @@ async def test_link_discovery_continues_after_scoped_out_redirect() -> None:
             self.events.append(event)
 
     fetcher = Fetcher()
-    fetcher._http = fetcher
     pages = await WwwF5Adapter().discover(fetcher)
     assert {page.url for page in pages} == {root, redirected, integration}
     assert any(event.get("disposition") == "outside_discovery_scope" for event in fetcher.events)
@@ -155,6 +156,9 @@ async def test_sitemap_discovers_solutions_without_fixed_seeds() -> None:
     solution = "https://www.f5.com/solutions/new-distributed-cloud-integration"
 
     class Fetcher:
+        def __init__(self) -> None:
+            self._http = self
+
         async def get(self, url: str, **kwargs: object):
             return SimpleNamespace(
                 status_code=200,
@@ -167,7 +171,6 @@ async def test_sitemap_discovers_solutions_without_fixed_seeds() -> None:
             )
 
     fetcher = Fetcher()
-    fetcher._http = fetcher
     pages = await WwwF5Adapter().discover(fetcher)
     assert {p.url for p in pages} == {root, solution}
     assert validate_source_url("www-f5-com", solution) == solution

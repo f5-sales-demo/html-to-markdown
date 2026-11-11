@@ -38,6 +38,8 @@ def _write_files(root: Path, files: dict[str, bytes]) -> None:
         path.write_bytes(data)
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def combine_sources(
     baseline: Path, inputs: dict[str, tuple[Path, str]], output: Path, receipt_sha256: str
 ) -> dict[str, Any]:

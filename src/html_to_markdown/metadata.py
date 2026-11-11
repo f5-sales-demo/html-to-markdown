@@ -224,6 +224,8 @@ def enrich_snapshot(output: Path, store: StateStore, policy: MetadataPolicy | No
     rebuild_metadata(output, store, policy)
 
 
+# Preserve all stage evidence and checks in one transaction.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def rebuild_metadata(output: Path, store: StateStore, policy: MetadataPolicy | None = None) -> None:
     """Rebuild final metadata inside a controller-verified transformation transaction."""
     active_policy = policy or load_metadata_policy()

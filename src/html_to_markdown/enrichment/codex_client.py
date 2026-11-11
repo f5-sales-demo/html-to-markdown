@@ -114,6 +114,8 @@ class CodexClient:
             raise RuntimeError("Codex worker did not record an attempt")
         return last
 
+    # Preserve all stage evidence and checks in one transaction.
+    # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
     def _execute_once(self, body: dict[str, Any]) -> ResponseEvidence:
         digest = request_hash(body)
         cache = self.journal / f"{digest}.codex.json"

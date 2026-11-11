@@ -1,17 +1,17 @@
 """Admission is reproducible from complete requests; changed sources cannot publish."""
 
+import io
 import json
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 from html_to_markdown.content_inventory import atomic_private
-from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
-from html_to_markdown.models import PageMetadata
-from html_to_markdown.render import serialize_document
+from html_to_markdown.enrichment.media import all_frame_inputs
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews, verify_reviews
 
 
@@ -75,42 +75,6 @@ class LocalClient:
             transport="codex_litellm",
             runtime_version="test",
         )
-
-
-@pytest.fixture
-def capture(tmp_path: Path) -> Path:
-    root = tmp_path / "capture"
-    metadata = PageMetadata(
-        sourceId="my-f5-com",
-        title="Configure service",
-        slug="k000123456",
-        url="https://my.f5.com/manage/s/article/K000123456",
-        category="knowledge",
-    )
-    article = serialize_document(
-        metadata, "# Configure service\n\nRun `curl --retry 3` within 30 seconds.\n"
-    ).encode()
-    item = {
-        "identity": "my-f5-com:K000123456",
-        "sourceId": "my-f5-com",
-        "url": metadata.url,
-        "capture_complete": True,
-        "disposition": "queued",
-        "reason": "admission_review_required",
-        "source_html_path": "captures/source.html",
-        "source_html_sha256": sha(b"captured"),
-        "article_path": "articles/content/my-f5-com/K000123456/index.md",
-        "article_sha256": sha(article),
-        "metadata": metadata.model_dump(by_alias=True),
-        "media": [],
-    }
-    atomic_private(root / item["source_html_path"], b"captured")
-    atomic_private(root / item["article_path"], article)
-    atomic_private(
-        root / "inventory.json",
-        json_bytes({"binding": {}, "completeness": {"enumeration": True}, "documents": [item]}),
-    )
-    return root
 
 
 def test_review_and_offline_replay_preserve_complete_article(
@@ -202,11 +166,6 @@ def test_failed_replay_revokes_accepted_status_without_losing_emitted_bytes(
 def test_admission_and_replay_cover_complete_media_and_immutable_extraction(
     capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    import io
-
-    from PIL import Image
-
-    from html_to_markdown.enrichment.media import all_frame_inputs
 
     output = tmp_path / "review"
     inventory = json.loads((capture / "inventory.json").read_bytes())
@@ -249,3 +208,53 @@ def test_admission_and_replay_cover_complete_media_and_immutable_extraction(
         output / "reviewed/content/my-f5-com/K000123456/assets" / (sha(raw) + ".png")
     ).read_bytes() == raw
     assert sha(raw) + ".png" in published.read_text()
+
+
+def test_fresh_unchanged_article_reuses_decisions_but_changed_authored_source_does_not(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    output = tmp_path / "review"
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    item = inventory["documents"][0]
+    authored = "<main><h1>Configure service</h1><p>Run the service within 30 seconds.</p></main>"
+
+    def recapture(wrapper: str, at: str) -> None:
+        raw = wrapper.encode()
+        path = "captures/" + sha(raw) + ".html"
+        atomic_private(capture / path, raw)
+        item.update(source_html_path=path, source_html_sha256=sha(raw), captured_at=at)
+        (capture / "inventory.json").write_text(json.dumps(inventory))
+
+    recapture(
+        "<html>" + authored + "<footer>Old navigation</footer></html>", "2026-11-10T00:00:00Z"
+    )
+    calls = []
+    execute = LocalClient.execute
+
+    def record_execute(client: LocalClient, body: dict):
+        calls.append(body)
+        return execute(client, body)
+
+    monkeypatch.setattr(LocalClient, "execute", record_execute)
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    first = prepare_reviews(capture, output)
+    run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert len(calls) == 3
+    recapture(
+        "<html><head><script>changed wrapper</script></head>"
+        + authored
+        + "<footer>New navigation</footer></html>",
+        "2026-11-11T00:00:00Z",
+    )
+    fresh = prepare_reviews(capture, output)
+    assert first["documents"][0]["binding_sha256"] == fresh["documents"][0]["binding_sha256"]
+    result = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert not result["exceptions"] and len(calls) == 3
+    saved = json.loads((output / fresh["documents"][0]["path"]).read_bytes())
+    assert saved["item"]["captured_at"] == "2026-11-11T00:00:00Z"
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+    recapture(authored.replace("30 seconds", "10 seconds"), "2026-11-12T00:00:00Z")
+    changed = prepare_reviews(capture, output)
+    saved = json.loads((output / changed["documents"][0]["path"]).read_bytes())
+    assert saved["disposition"] == "queued" and not saved["phases"]
+    assert not verify_reviews(capture, output)["accepted_files"]

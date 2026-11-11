@@ -1,6 +1,8 @@
 """Private capture and public queue contracts, including resumed partial discovery."""
 
 import json
+import sqlite3
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import httpx
@@ -8,6 +10,7 @@ import pytest
 
 from html_to_markdown import content_inventory
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.errors import AuthenticationWallError
 from html_to_markdown.fetcher import Fetcher
 from html_to_markdown.models import DiscoveredPage, FetchResult
@@ -58,7 +61,7 @@ async def test_pending_review_never_aborts_capture_and_resume_verifies_hashes(
 async def test_partial_discovery_is_preserved_and_known_urls_still_capture(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    async def discover(self: object, fetcher: object):
+    async def discover(self: object, fetcher: content_inventory.InventoryFetcher):
         fetcher.record_discovery(source=SOURCE, origin="navigation", urls=[URL], complete=False)
         raise RuntimeError("interrupted before final navigation")
 
@@ -110,7 +113,6 @@ async def test_previous_publication_and_aliases_are_captured_even_if_not_discove
 
 @pytest.mark.asyncio
 async def test_http_access_failure_retains_response_bytes_privately(tmp_path: Path) -> None:
-    import sqlite3
 
     database = sqlite3.connect(":memory:")
     async with content_inventory.InventoryFetcher(tmp_path, database) as fetcher:
@@ -163,9 +165,6 @@ async def test_extraction_repair_keeps_old_export_readable(
 
 
 def test_concurrent_private_checkpoints_and_symlinked_capture_parent(tmp_path: Path) -> None:
-    from concurrent.futures import ThreadPoolExecutor
-
-    from html_to_markdown.enrichment.analysis import sha
 
     path = tmp_path / "checkpoint.json"
     values = [json.dumps({"worker": index, "payload": "x" * 1000}).encode() for index in range(24)]

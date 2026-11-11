@@ -8,14 +8,7 @@ from urllib.parse import unquote, urlsplit
 from .analysis import links
 
 
-def validate_aliases(manifest: dict[str, Any]) -> None:
-    for name in ("refresh", "enrichment"):
-        if name in manifest:
-            evidence = manifest[name]
-            if not isinstance(evidence, dict) or not re.fullmatch(
-                r"[0-9a-f]{64}", str(evidence.get("artifact_sha256", ""))
-            ):
-                raise ValueError(f"invalid {name} artifact pin")
+def validate_source_pins(manifest: dict[str, Any]) -> None:
     refresh = manifest.get("refresh")
     if isinstance(refresh, dict) and refresh.get("schema_version") == 2:
         selected, inputs = refresh.get("refreshed_sources"), refresh.get("source_inputs")
@@ -24,7 +17,10 @@ def validate_aliases(manifest: dict[str, Any]) -> None:
             or not isinstance(inputs, dict)
             or not selected
             or any(not isinstance(source, str) for source in selected)
-            or len(selected) != len(set(selected))
+        ):
+            raise ValueError("invalid refreshed source inventory")
+        if (
+            len(selected) != len(set(selected))
             or set(selected) != set(inputs)
             or set(selected) - set(manifest["source_roots"])
         ):
@@ -35,6 +31,17 @@ def validate_aliases(manifest: dict[str, Any]) -> None:
                 for field in ("admission_sha256", "content_sha256", "inventory_sha256")
             ):
                 raise ValueError(f"invalid source admission pin: {source}")
+
+
+def validate_aliases(manifest: dict[str, Any]) -> None:
+    for name in ("refresh", "enrichment"):
+        if name in manifest:
+            evidence = manifest[name]
+            if not isinstance(evidence, dict) or not re.fullmatch(
+                r"[0-9a-f]{64}", str(evidence.get("artifact_sha256", ""))
+            ):
+                raise ValueError(f"invalid {name} artifact pin")
+    validate_source_pins(manifest)
     enrichment = manifest.get("refresh") if "aliases" in manifest else manifest.get("enrichment")
     if enrichment is None:
         return
