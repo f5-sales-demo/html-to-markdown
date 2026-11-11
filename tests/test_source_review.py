@@ -61,8 +61,8 @@ def validation(**updates: object) -> AdmissionValidation:
 
 
 def test_exact_identifying_replacement_preserves_payload_and_metadata() -> None:
-    original = "Connect to robin@customer.invalid, then run `curl --retry 3` within 30 seconds."
-    value = "robin@customer.invalid"
+    original = "Connect to alice@example.com, then run `curl --retry 3` within 30 seconds."
+    value = "alice@example.com"
     start = original.index(value)
     decision = proposal(
         values=[SyntheticValue(source_sha256=sha(value), replacement="user@example.com")],
@@ -82,7 +82,7 @@ def test_exact_identifying_replacement_preserves_payload_and_metadata() -> None:
     assert result_meta == meta
     assert "user@example.com" in result and "`curl --retry 3` within 30 seconds" in result
     with pytest.raises(ValueError, match="digest"):
-        apply_text(meta, original.replace(value, "other@customer.invalid"), decision)
+        apply_text(meta, original.replace(value, "other@example.com"), decision)
     with pytest.raises(ValueError, match="inconsistent"):
         apply_text(meta, original, decision.model_copy(update={"values": []}))
 
