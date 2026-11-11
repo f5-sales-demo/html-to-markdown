@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, Literal
 
@@ -150,11 +151,28 @@ def review_final_findings(
 def _quote_signature(text: str) -> tuple[str, str, int, int]:
     quotes = chr(34) + chr(39)
     return (
-        text[0] if text and text[0] in quotes else "",
-        text[-1] if text and text[-1] in quotes else "",
+        text[: len(text) - len(text.lstrip(quotes))],
+        text[len(text.rstrip(quotes)) :],
         text.count(chr(34)),
         text.count(chr(39)),
     )
+
+
+def _preserves_quote_syntax(original: str, replacement: str) -> bool:
+    source, target = _quote_signature(original), _quote_signature(replacement)
+    if source[:2] != target[:2] or any(t > s for s, t in zip(source[2:], target[2:], strict=True)):
+        return False
+    try:
+        parsed = json.loads(original)
+    except ValueError:
+        # Authored non-JSON syntax remains an independent preservation question.
+        return True
+    if isinstance(parsed, str):
+        try:
+            return isinstance(json.loads(replacement), str)
+        except ValueError:
+            return False
+    return True
 
 
 def guard_label_quotes(context: dict[str, Any], proposal: PrivacyDecision) -> None:
@@ -164,8 +182,6 @@ def guard_label_quotes(context: dict[str, Any], proposal: PrivacyDecision) -> No
         placements = [(0, change.labels), *[(frame.frame, frame.labels) for frame in change.frames]]
         for frame, labels in placements:
             for label in labels:
-                if not any(quote in label.text for quote in (chr(34), chr(39))):
-                    continue
                 eligible = [
                     observation
                     for observation in confirmed
@@ -175,8 +191,11 @@ def guard_label_quotes(context: dict[str, Any], proposal: PrivacyDecision) -> No
                     and observation["value_sha256"] == label.source_value_sha256
                     and isinstance(observation.get("value"), str)
                 ]
-                if not any(
-                    _quote_signature(o["value"]) == _quote_signature(label.text) for o in eligible
+                quoted = any(quote in label.text for quote in (chr(34), chr(39))) or any(
+                    any(_quote_signature(o["value"])[:2]) for o in eligible
+                )
+                if quoted and not any(
+                    _preserves_quote_syntax(o["value"], label.text) for o in eligible
                 ):
                     raise ValueError(
                         "privacy proposal is unresolved: privacy transformation introduces unguarded quote punctuation: "
