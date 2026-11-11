@@ -1,7 +1,12 @@
 import pytest
 
 from html_to_markdown.errors import AllowlistError
-from html_to_markdown.urls import canonicalize_url, stable_path, validate_source_url
+from html_to_markdown.urls import (
+    canonicalize_url,
+    stable_path,
+    validate_asset_url,
+    validate_source_url,
+)
 
 
 def test_canonicalization_and_stable_paths() -> None:
@@ -26,3 +31,19 @@ def test_canonicalization_and_stable_paths() -> None:
 def test_source_allowlist_rejects_escapes(url: str) -> None:
     with pytest.raises(AllowlistError):
         validate_source_url("docs-cloud-f5-com", url)
+
+
+def test_devcentral_media_bucket_is_accepted_only_as_an_https_asset() -> None:
+    host = "assets-devcentralsbx-f5-prod-us.s3.dualstack.us-west-2.amazonaws.com"
+    url = "https://" + host + "/diagram.png"
+    assert validate_asset_url(url) == url
+    for source in ["community-f5-com", "docs-cloud-f5-com", "my-f5-com", "www-f5-com"]:
+        with pytest.raises(AllowlistError):
+            validate_source_url(source, url)
+    for rejected in [
+        "http://" + host + "/diagram.png",
+        "https://" + host + ".evil.test/diagram.png",
+        "https://other-bucket.s3.dualstack.us-west-2.amazonaws.com/diagram.png",
+    ]:
+        with pytest.raises(AllowlistError):
+            validate_asset_url(rejected)
