@@ -622,6 +622,8 @@ def _run_record(
                         "text change",
                         "source value",
                         "rectangle",
+                        "static media cannot have frame changes",
+                        "duplicate animated privacy frame",
                     )
                 )
                 if phase != "all" or not correctable or len(feedback) >= 2 or client is None:

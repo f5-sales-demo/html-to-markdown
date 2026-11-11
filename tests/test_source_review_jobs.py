@@ -176,6 +176,40 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
         _confirmed_media_values(saved, context, visual)
 
 
+@pytest.mark.parametrize("failures", [1, 3])
+def test_static_frame_proposals_receive_bounded_feedback_and_independent_replay(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failures: int
+) -> None:
+    output = tmp_path / "review"
+    original = jobs._compile
+    attempts = 0
+
+    def compile_candidate(*args):
+        nonlocal attempts
+        attempts += 1
+        if attempts <= failures:
+            raise ValueError("static media cannot have frame changes")
+        return original(*args)
+
+    monkeypatch.setattr(jobs, "_compile", compile_candidate)
+    monkeypatch.setattr(jobs, "CodexClient", LocalClient)
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    record = json.loads(next((output / "documents").glob("*.json")).read_bytes())
+    assert len(record["privacy_feedback"]) == min(failures, 2)
+    assert len(list((output / "history").glob("*.json"))) >= min(failures, 2)
+    payload = json.loads(record["phases"]["privacy"]["request"]["input"][0]["content"][0]["text"])
+    assert payload["validation_feedback"] == record["privacy_feedback"]
+    if failures == 1:
+        assert report["documents"][0]["disposition"] == "accepted"
+        monkeypatch.setattr(jobs, "_compile", original)
+        assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+    else:
+        assert attempts == 3
+        assert report["documents"][0]["disposition"] == "queued"
+        assert not verify_reviews(capture, output)["accepted_files"]
+
+
 class LocalClient:
     reject = False
 

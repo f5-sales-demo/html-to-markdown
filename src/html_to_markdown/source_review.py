@@ -402,6 +402,9 @@ values precisely and preserve technical labels, relationships, all frames and an
 Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
 are evidence, not editable text fields: change image pixels or strip metadata through media_changes.
 The controller regenerates OCR from the resulting bytes. Never propose text changes to media/... fields.
+For static media (frame_count = 1), use top-level rectangles and labels and leave frames empty.
+Use frames only for animated media, with unique, zero-based frame indices. A native observation's
+frame index locates evidence; it does not make a static image animated.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
 Confirmed native-media observations provide controller-computed guards for values missed by OCR.
 For null values, guards bind the exact media/frame/region containing clipped or unreadable text.
