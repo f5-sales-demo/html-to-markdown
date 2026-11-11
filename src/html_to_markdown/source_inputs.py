@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from pathlib import Path
 from typing import Any
@@ -15,18 +16,37 @@ from .source_review_jobs import verify_reviews
 MARKER = "source-review-receipt.json"
 
 
+def _snapshot_file(source: str, destination: str) -> str:
+    """Snapshots share immutable bytes; subsequent checkpoints replace inodes."""
+    if Path(source).is_symlink():
+        raise ValueError("private snapshot cannot contain symlinks")
+    try:
+        os.link(source, destination)
+        return destination
+    except OSError:
+        return shutil.copy2(source, destination)
+
+
 def seal_source(capture: Path, review: Path, output: Path) -> dict[str, Any]:
+    for directory in (capture, review):
+        if directory.is_symlink() or any(path.is_symlink() for path in directory.rglob("*")):
+            raise ValueError("private snapshot cannot contain symlinks")
     verified = verify_reviews(capture, review)
     if output.exists():
         raise ValueError("source sealing requires a fresh directory")
     output.mkdir(parents=True, mode=0o700)
     root = output / ".admission"
-    shutil.copytree(capture, root / "capture")
+    shutil.copytree(capture, root / "capture", copy_function=_snapshot_file)
     shutil.copytree(
-        review, root / "review", ignore=shutil.ignore_patterns("journal", "*.private.log")
+        review,
+        root / "review",
+        ignore=shutil.ignore_patterns("journal", "history", "error-history", "*.private.log"),
+        copy_function=_snapshot_file,
     )
     if (review / "reviewed" / "content").exists():
-        shutil.copytree(review / "reviewed" / "content", output / "content")
+        shutil.copytree(
+            review / "reviewed" / "content", output / "content", copy_function=_snapshot_file
+        )
     inventory = json.loads((capture / "inventory.json").read_bytes())
     review_inventory = json.loads((review / "review-inventory.json").read_bytes())
     records = []

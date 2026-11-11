@@ -41,6 +41,17 @@ DISABLED = (
 )
 
 
+def is_transient_error(error: str | None) -> bool:
+    return bool(
+        error
+        and re.search(
+            r"\b429\b|\b5\d\d\b|timeout|timed out|network|connection|temporar|stream disconnected",
+            error,
+            re.I,
+        )
+    )
+
+
 class CodexClient:
     """Run isolated structured document workers; never forward scraped text to tools."""
 
@@ -102,11 +113,7 @@ class CodexClient:
         last: ResponseEvidence | None = None
         for attempt in range(3):
             last = self._execute_once(body)
-            if not last.error or not re.search(
-                r"429|5\d\d|timeout|timed out|network|connection|temporar|stream disconnected",
-                last.error,
-                re.I,
-            ):
+            if not is_transient_error(last.error):
                 return last
             if attempt < 2:
                 time.sleep(2**attempt)

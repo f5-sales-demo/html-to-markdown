@@ -109,6 +109,8 @@ def export_review_queue(
 
 
 @app.command("review-worker")
+# Each public option is an independent CLI argument.
+# pylint: disable-next=too-many-arguments
 def review_worker(
     host: Annotated[str, typer.Option()],
     remote_executable: Annotated[str, typer.Option()],
@@ -117,10 +119,12 @@ def review_worker(
     transport: Annotated[Path, typer.Option(dir_okay=False)],
     install: Annotated[bool, typer.Option()] = False,
     source_commit: Annotated[str | None, typer.Option()] = None,
+    monitor: Annotated[bool, typer.Option()] = False,
 ) -> None:
     """Check Ubuntu queues and run up to four isolated MacBook inference jobs."""
     from .mac_worker import (  # pylint: disable=import-outside-toplevel
         install_launch_agent,
+        monitored_worker,
         worker_once,
     )
 
@@ -136,7 +140,8 @@ def review_worker(
             )
         )
     else:
-        result = worker_once(
+        execute = monitored_worker if monitor else worker_once
+        result = execute(
             host=host,
             remote_executable=remote_executable,
             remote_queue=remote_queue,
@@ -334,6 +339,7 @@ def review_content(
         str, typer.Option(help="prepare, relevance, privacy, validation, replay, all or verify")
     ] = "all",
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".source-review-journal"),
+    limit: Annotated[int | None, typer.Option(min=1)] = None,
 ) -> None:
     """Review complete captured sources through isolated Codex or offline replay."""
     if phase == "verify":
@@ -342,7 +348,7 @@ def review_content(
         return
     if phase == "all":
         run_reviews(capture, output, phase="prepare", journal=journal)
-    result = run_reviews(capture, output, phase=phase, journal=journal)
+    result = run_reviews(capture, output, phase=phase, journal=journal, limit=limit)
     typer.echo(
         json.dumps(
             {

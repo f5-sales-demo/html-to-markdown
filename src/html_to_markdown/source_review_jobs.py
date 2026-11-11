@@ -18,7 +18,7 @@ from pydantic import BaseModel
 from .content_inventory import atomic_private, verify_capture
 from .curation import blocks, json_bytes
 from .enrichment.analysis import sha
-from .enrichment.codex_client import CodexClient
+from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.media import all_frame_inputs
@@ -271,10 +271,19 @@ def _context(
 
 
 def _request(
-    model: str, phase: str, context: dict[str, Any], visual: list[dict[str, Any]], schema: Any
+    model: str,
+    phase: str,
+    context: dict[str, Any],
+    visual: list[dict[str, Any]],
+    schema: Any,
+    feedback: list[str] | None = None,
 ) -> dict[str, Any]:
     payload = (
-        {**context, "addressed_spans": addressed_spans(context["fields"])}
+        {
+            **context,
+            "addressed_spans": addressed_spans(context["fields"]),
+            "validation_feedback": feedback or [],
+        }
         if phase == "privacy"
         else context
     )
@@ -286,6 +295,19 @@ def _request(
     if schema is RelevanceDecision:
         addresses = [block["address"] for block in context["structural_addresses"]]
         properties["evidence_addresses"]["items"]["enum"] = addresses
+    elif schema is PrivacyDecision:
+        schema_body = body["text"]["format"]["schema"]
+        finding_ids = [finding["id"] for finding in context["findings"]]
+        properties["findings"].update(minItems=len(finding_ids), maxItems=len(finding_ids))
+        if finding_ids:
+            schema_body["$defs"]["FindingDecision"]["properties"]["finding_id"]["enum"] = (
+                finding_ids
+            )
+        media_ids = sorted(context["media"])
+        if media_ids:
+            schema_body["$defs"]["MediaChange"]["properties"]["source_sha256"]["enum"] = media_ids
+        else:
+            properties["media_changes"]["maxItems"] = 0
     return body
 
 
@@ -450,9 +472,18 @@ def review_one(
             raise ValueError("source relevance or extraction requires exception review")
         context["relevance_decision"] = relevance.model_dump()
         if phase == "privacy":
-            body = _request(EDITOR_MODEL, phase, context, visual, PrivacyDecision)
+            body = _request(
+                EDITOR_MODEL, phase, context, visual, PrivacyDecision, saved.get("privacy_feedback")
+            )
         else:
-            privacy_body = _request(EDITOR_MODEL, "privacy", context, visual, PrivacyDecision)
+            privacy_body = _request(
+                EDITOR_MODEL,
+                "privacy",
+                context,
+                visual,
+                PrivacyDecision,
+                saved.get("privacy_feedback"),
+            )
             proposal = parse_response(
                 ResponseEvidence.model_validate(saved["phases"]["privacy"]),
                 PrivacyDecision,
@@ -531,64 +562,158 @@ def review_one(
     return dict(saved)
 
 
-def run_reviews(capture: Path, output: Path, *, phase: str, journal: Path) -> dict[str, Any]:
+def _run_record(
+    capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
+) -> None:
+    phases = ["relevance", "privacy", "validation", "replay"] if phase == "all" else [phase]
+    for current in phases:
+        while True:
+            try:
+                review_one(capture, output, record, current, client)
+                break
+            except ValueError as failure:
+                saved = json.loads(record.read_bytes())
+                feedback = saved.get("privacy_feedback", [])
+                correctable = current in {"validation", "replay"} and any(
+                    marker in str(failure)
+                    for marker in (
+                        "privacy proposal",
+                        "privacy finding",
+                        "synthetic",
+                        "transformation",
+                        "replacement",
+                        "text change",
+                        "source value",
+                        "rectangle",
+                    )
+                )
+                if phase != "all" or not correctable or len(feedback) >= 2 or client is None:
+                    raise
+                atomic_private(
+                    output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
+                )
+                saved["privacy_feedback"] = [*feedback, str(failure)]
+                saved["phases"].pop("privacy", None)
+                saved["phases"].pop("validation", None)
+                atomic_private(record, json_bytes(saved))
+                review_one(capture, output, record, "privacy", client)
+                if current == "replay":
+                    review_one(capture, output, record, "validation", client)
+
+
+# The batch receipt includes every existing admission and exception disposition.
+# pylint: disable-next=too-many-locals,too-many-branches
+def run_reviews(
+    capture: Path, output: Path, *, phase: str, journal: Path, limit: int | None = None
+) -> dict[str, Any]:
     if phase == "prepare":
         return prepare_reviews(capture, output)
     if phase not in {"relevance", "privacy", "validation", "replay", "all"}:
         raise ValueError(
             "review phase must be prepare, relevance, privacy, validation, replay or all"
         )
+    if limit is not None and (limit < 1 or phase != "all"):
+        raise ValueError("review batches require all phases and a positive document limit")
     inventory = json.loads((output / "review-inventory.json").read_bytes())
     records = [output / record["path"] for record in inventory["documents"] if "path" in record]
-    # OCR and shared visual inputs are prepared once before concurrent inference.
+    selected = records
+    if limit is not None:
+        eligible = []
+        for record in records:
+            saved = json.loads(record.read_bytes())
+            attempted = saved.get("attempted_binding_sha256") == saved["binding_sha256"]
+            if saved["disposition"] not in {"accepted", "policy_excluded"} and (
+                not attempted or saved.get("retryable")
+            ):
+                eligible.append(
+                    (
+                        "previous_publication" not in saved["item"].get("origins", []),
+                        saved["item"]["url"],
+                        record,
+                    )
+                )
+        selected = [entry[2] for entry in sorted(eligible)[:limit]]
     ready = []
     failures: dict[str, str] = {}
-    for record in records:
+    for record in selected:
         saved = json.loads(record.read_bytes())
         try:
             _media_context(capture, output, saved["item"])
             ready.append(record)
-        except (ValueError, OSError) as failure:
+        except Exception as failure:  # pylint: disable=broad-exception-caught
             failures[record.name] = "MediaPreparationError"
             atomic_private(
                 output / "errors" / (record.name + ".json"),
                 json_bytes({"phase": "media", "error": str(failure)}),
             )
-    client = None if phase == "replay" else CodexClient(journal, concurrency=4)
-    phases = ["relevance", "privacy", "validation", "replay"] if phase == "all" else [phase]
+    client = None if phase == "replay" or not ready else CodexClient(journal, concurrency=4)
     try:
-        for current in phases:
-            with ThreadPoolExecutor(max_workers=4) as pool:
-                futures = {
-                    pool.submit(review_one, capture, output, record, current, client): record
-                    for record in ready
-                }
-                for future in as_completed(futures):
-                    record = futures[future]
-                    try:
-                        future.result()
-                        failures.pop(record.name, None)
-                    except (ValueError, KeyError, OSError) as failure:
-                        failures[record.name] = type(failure).__name__
-                        atomic_private(
-                            output / "errors" / (record.name + ".json"),
-                            json_bytes({"phase": current, "error": str(failure)}),
-                        )
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            futures = {
+                pool.submit(_run_record, capture, output, record, phase, client): record
+                for record in ready
+            }
+            for count, future in enumerate(as_completed(futures), 1):
+                record = futures[future]
+                try:
+                    future.result()
+                except Exception as failure:  # pylint: disable=broad-exception-caught
+                    failures[record.name] = type(failure).__name__
+                    error = {"phase": phase, "error": str(failure)}
+                    atomic_private(output / "errors" / (record.name + ".json"), json_bytes(error))
+                    atomic_private(
+                        output
+                        / "error-history"
+                        / (sha(json_bytes(error) + record.read_bytes()) + ".json"),
+                        json_bytes(error),
+                    )
+                atomic_private(
+                    output / "review-progress.json",
+                    json_bytes(
+                        {
+                            "processed": count,
+                            "batch_size": len(ready),
+                            "available": len(records),
+                            "exceptions": len(failures),
+                        }
+                    ),
+                )
     finally:
         if client is not None:
             client.close()
+    selected_names = {record.name for record in selected}
     result: dict[str, Any] = {
         "schema_version": 1,
         "phase": phase,
         "documents": [],
-        "exceptions": failures,
+        "exceptions": {},
+        "pending": 0,
+        "processed": len(selected),
     }
     for record in records:
         saved = json.loads(record.read_bytes())
-        if record.name in failures:
-            _retire_output(output, saved)
-            saved.update(disposition="queued", reason="admission_phase_failed")
+        if record.name in selected_names:
+            saved["attempted_binding_sha256"] = saved["binding_sha256"]
+            saved["retryable"] = any(
+                is_transient_error(response.get("error")) for response in saved["phases"].values()
+            )
+            if record.name in failures:
+                _retire_output(output, saved)
+                saved.update(
+                    disposition="queued",
+                    reason="admission_phase_failed",
+                    error_class=failures[record.name],
+                )
+            else:
+                saved.pop("error_class", None)
             atomic_private(record, json_bytes(saved))
+        if saved.get("error_class"):
+            result["exceptions"][record.name] = saved["error_class"]
+        if saved["disposition"] == "queued" and (
+            saved.get("attempted_binding_sha256") != saved["binding_sha256"]
+            or saved.get("retryable")
+        ):
+            result["pending"] += 1
         result["documents"].append(
             {
                 "identity": saved["item"]["identity"],

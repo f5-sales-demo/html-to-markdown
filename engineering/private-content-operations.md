@@ -59,6 +59,17 @@ html-to-markdown review-worker --install --host VERIFIED_SSH_ROUTE \
   --source-commit QUALIFIED_PROTECTED_MAIN_COMMIT
 ```
 
+Each sweep reviews at most eight articles per source, prioritizing previously published articles, and at most eight
+enrichment documents per prepared job. Partial admission returns preserve the complete queue and independently verified
+passing articles. A new batch does not alter earlier sealed inputs. Interrupted transfers resume before the return
+checkpoint advances. Publication selects the most complete reviewed batch for a capture when capture dates match.
+
+The monitor checks Ubuntu queues every 900 seconds during active inference as well as between sweeps. Its private
+heartbeat distinguishes an active worker from a failed queue check. Pending counts include unattempted articles and
+transient transport failures; unchanged semantic and malformed-response failures stay in the exception report until
+source or policy context changes. Invalid privacy proposals receive at most two corrections with exact validation
+feedback. A settled queue may still contain exceptions and does not establish complete discovery or publication.
+
 After timer status, the credential route and queue round trips are verified, set the repository variable
 `PRIVATE_CONTENT_QUEUE_ENABLED=true`. This suppresses the legacy GitHub collection/publication jobs while retaining
 their original clocks for rollback. The CLI commands and official-doc combiner remain compatible. Sleep, transport
