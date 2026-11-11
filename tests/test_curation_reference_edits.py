@@ -215,3 +215,20 @@ def test_dns_retirement_alias_is_limited_to_its_declared_identity_and_authority(
     assert not retired_reference(topic, url.replace("www.volterra.io", "unrelated.invalid"))
     assert not retired_reference({**topic, "retired_identities": []}, url)
     assert not retired_reference(topic, url + "?token=example")
+
+
+def test_actual_retirement_removal_preserves_unrelated_authored_blank_heading():
+    body = "# Diagnostics\n\n## Answer/Recommended Actions\n\n## Retired instructions\n\nUse retired_tool.\n\n## Verification\n\nExpect a healthy site within 30 seconds.\n"
+    retired = next(b for b in blocks(body) if b.kind == "paragraph" and "retired_tool" in b.text)
+    output = remove_blocks(body, [{"location": retired.location, "sha256": retired.sha256}])
+    assert "## Answer/Recommended Actions\n\n## Verification" in output
+    assert "## Retired instructions" not in output
+    assert "30 seconds" in output
+
+
+def test_original_blank_descendant_keeps_context_after_neighboring_content_is_removed():
+    body = "# Instructions\n\nUse retired_tool.\n\n## Optional field\n\n# Verification\n\nExpect a healthy site within 30 seconds.\n"
+    retired = next(b for b in blocks(body) if b.kind == "paragraph" and "retired_tool" in b.text)
+    output = remove_blocks(body, [{"location": retired.location, "sha256": retired.sha256}])
+    assert output.startswith("# Instructions\n\n## Optional field\n\n# Verification")
+    assert "retired_tool" not in output

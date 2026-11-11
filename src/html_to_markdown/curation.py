@@ -214,6 +214,29 @@ def _guarded_reference_edits(body: str, block: Block, wanted: list[str]) -> list
     return result
 
 
+def _empty_heading_spans(parsed: list[Block], line_count: int) -> list[tuple[int, int]]:
+    empty = []
+    for i, block in enumerate(parsed):
+        if block.kind != "heading":
+            continue
+        level = len(block.text.lstrip().split(" ", 1)[0])
+        end = next(
+            (
+                b.start
+                for b in parsed[i + 1 :]
+                if b.kind == "heading" and len(b.text.lstrip().split(" ", 1)[0]) <= level
+            ),
+            line_count,
+        )
+        if not any(
+            b.kind not in {"heading", "hr", "section"} and b.text.strip()
+            for b in parsed
+            if block.end <= b.start < end
+        ):
+            empty.append((block.start, end))
+    return empty
+
+
 def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     parsed = blocks(body)
     spans: list[Block] = []
@@ -249,33 +272,22 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     lines = body.splitlines(keepends=True)
     discarded = {line for b in spans for line in range(b.start, b.end)}
     body = "".join(line for i, line in enumerate(lines) if i not in discarded)
-    # Delete empty enclosing headings, separators and orphan figure captions only
-    # when the caption itself was included in a reviewed span.
+    protected = {start for start, _ in _empty_heading_spans(parsed, len(lines))}
+    origins = [i for i in range(len(lines)) if i not in discarded]
+    # Keep authored blank fields and their enclosing context. Only newly empty
+    # sections without a surviving original blank field are cleanup candidates.
     while True:
-        parsed = blocks(body)
         lines = body.splitlines(keepends=True)
-        empty: set[int] = set()
-        for i, block in enumerate(parsed):
-            if block.kind != "heading":
-                continue
-            level = len(block.text.lstrip().split(" ", 1)[0])
-            end = len(lines)
-            for following in parsed[i + 1 :]:
-                if (
-                    following.kind == "heading"
-                    and len(following.text.lstrip().split(" ", 1)[0]) <= level
-                ):
-                    end = following.start
-                    break
-            if not any(
-                b.kind not in {"heading", "hr", "section"} and b.text.strip()
-                for b in parsed
-                if block.end <= b.start < end
-            ):
-                empty.update(range(block.start, end))
+        empty = {
+            line
+            for start, end in _empty_heading_spans(blocks(body), len(lines))
+            if not any(origins[i] in protected for i in range(start, end))
+            for line in range(start, end)
+        }
         if not empty:
             break
         body = "".join(line for i, line in enumerate(lines) if i not in empty)
+        origins = [origin for i, origin in enumerate(origins) if i not in empty]
     return normalize_body(body)
 
 
