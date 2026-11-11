@@ -81,7 +81,16 @@ still require independent retirement justification. Select exact removals only w
 technical explanations remain useful. Preserve prerequisites, commands, payloads, schemas, limits,
 warnings, expected results, action order and useful parent-heading descendants. Original blank
 fields are source limitations; retain them rather than inventing contents. Review original source
-classifications and all original/privacy-transformed media. Do not hide unresolved privacy or
+classifications and all original/privacy-transformed media. Prior document guards and broad reasons
+are historical source decisions bound to their supplied older inputs, not declarations that every
+retained target URL is retired. Explicitly reconcile those decisions against the complete current
+article and authoritative retirement rules. A previous blanket obsolete-reference reason alone
+cannot justify losing attachment requirements or unlinking a current, unclassified target.
+When current evidence establishes an independent useful procedure with no declared retired target
+or demonstrated retired-step dependency, explicitly ground renewed retention and acknowledge the
+older classification. Such a supported renewed decision is not inherently unresolved merely because
+it differs from the historical one. Genuine uncertainty about retirement or dependencies still
+requires rejection. Do not hide unresolved privacy or
 retirement by proposing a policy exclusion. Ambiguity remains unresolved. No compression quota.
 Remove a whole article only when independently justified under the supplied retirement policy.
 Inspect every original and privacy-candidate finding in its precise text/media placement and

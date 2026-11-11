@@ -39,6 +39,7 @@ def review_context_digest() -> str:
                 for name in (
                     "source_review.py",
                     "source_review_jobs.py",
+                    "source_review_reconciliation.py",
                     "source_curation.py",
                     "media_observations.py",
                     "media_encoding.py",
@@ -409,6 +410,11 @@ by patterns. Keep reserved documentation examples and authoritative attribution 
 Replace real identifying values consistently across text and images using exact digest-guarded spans
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
 contextual disposition; uncertain content remains queued.
+Public vendor factory-default initial-login guidance explicitly stated by the authoritative source
+with mandatory password change is a necessary product fact; retain both the fact and its required
+change relationship. Deployment tokens, UIDs, tenant identities, populated password fields and
+private keys are never factory-default documentation facts. Actual credential enforcement findings
+always require rejection; this distinction cannot approve a credential finding.
 For every text_changes entry, values must contain the identical source_sha256 and replacement.
 A whole-line span digest differs from an individual visible value digest; include each exact mapping
 needed by text changes and image labels and keep their identifying-value replacements consistent.+ contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
@@ -436,7 +442,10 @@ or reject an unchanged blank merely because no mapping was supplied by the autho
 from missing or stale reviews remain exceptions and cannot be treated as justified policy exclusions.
 Confirmed native-media observations provide controller-computed guards for values missed by OCR.
 For null values, guards bind the exact media/frame/region containing clipped or unreadable text.
-Use those guards only for precisely placed image labels, never as guards for text edits. Never
+Use those guards only for precisely placed image labels, never as guards for text edits. A quoted
+image label requires an independently confirmed native literal with the same boundary punctuation
+and exact rectangle. Null/region guards cannot authorize adding quotes. Keep authored quotes outside
+the replacement region and do not invent closing punctuation clipped by the source screenshot. Never
 invent hidden characters. Observation approval confirms readings/regions only; independently
 decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
