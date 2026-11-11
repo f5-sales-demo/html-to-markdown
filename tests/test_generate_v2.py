@@ -173,6 +173,50 @@ def fixture(tmp_path: Path) -> tuple[Path, Path]:
     return corpus, destination
 
 
+def test_bounded_enrichment_resumes_without_repeating_settled_documents(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    corpus, destination = fixture(tmp_path)
+    original = next((corpus / "content").rglob("index.md"))
+    second = corpus / "content/my-f5-com/K000123457/index.md"
+    second.parent.mkdir(parents=True)
+    second.write_text(original.read_text().replace("K000123456", "K000123457"))
+    analysis = analyze(corpus)
+    artifact = load_artifact(destination)
+    artifact.curated_sha256 = corpus_digest(corpus)
+    artifact.analysis_sha256 = sha(json_bytes(analysis))
+    artifact.documents = [
+        DocumentEvidence(
+            document=doc["document"],
+            source="my-f5-com",
+            input_sha256=doc["input_sha256"],
+            editor=None,
+            validator=None,
+        )
+        for doc in analysis["documents"]
+    ]
+    destination.write_bytes(json_bytes(artifact.model_dump()))
+    monkeypatch.setattr("html_to_markdown.enrichment.generate_v2.CodexClient", ModelClient)
+    monkeypatch.setattr(ModelClient, "calls", [])
+    monkeypatch.setattr(ModelClient, "validations", 0)
+    monkeypatch.setattr(ModelClient, "fail_until", 0)
+    first = generate_v2(corpus, destination, phase="all", journal=tmp_path / "journal", limit=1)
+    assert first["processed"] == 1 and first["pending"] == 1 and first["validated"] == 1
+    second_result = generate_v2(
+        corpus, destination, phase="all", journal=tmp_path / "journal", limit=1
+    )
+    assert second_result["processed"] == 1 and second_result["pending"] == 0
+    assert second_result["validated"] == 2
+    calls = len(ModelClient.calls)
+    assert (
+        generate_v2(corpus, destination, phase="all", journal=tmp_path / "journal", limit=1)[
+            "processed"
+        ]
+        == 0
+    )
+    assert len(ModelClient.calls) == calls
+
+
 def test_validator_feedback_has_two_corrected_proposals_then_offline_replay(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

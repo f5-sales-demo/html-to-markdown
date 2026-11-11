@@ -194,12 +194,34 @@ def unpack_queue(archive: Path, destination: Path) -> None:
         names = set()
         for member in members:
             path = Path(member.name)
-            unsafe_path = path.is_absolute() or ".." in path.parts or "\\" in member.name
-            if unsafe_path or member.name in names or not member.isfile() or member.size < 0:
+            name = path.as_posix()
+            unsafe_path = (
+                path.is_absolute()
+                or ".." in path.parts
+                or "\\" in member.name
+                or not path.parts
+                or name != member.name
+            )
+            if unsafe_path or name in names or not member.isfile() or member.size < 0:
                 raise ValueError("unsafe private queue archive")
-            names.add(member.name)
+            if any((destination / parent).is_symlink() for parent in [path, *path.parents]):
+                raise ValueError("unsafe private queue destination")
+            names.add(name)
+        if any(parent.as_posix() in names for name in names for parent in Path(name).parents):
+            raise ValueError("conflicting private queue archive paths")
         destination.mkdir(parents=True, exist_ok=True, mode=0o700)
-        data.extractall(destination, members=members, filter="data")
+        from .content_inventory import atomic_private  # pylint: disable=import-outside-toplevel
+
+        for member in members:
+            path = Path(member.name)
+            # Recheck immediately before writing as well as during complete preflight.
+            if any((destination / parent).is_symlink() for parent in [path, *path.parents]):
+                raise ValueError("unsafe private queue destination")
+            stream = data.extractfile(member)
+            if stream is None:
+                raise ValueError("private queue member data missing")
+            with stream:
+                atomic_private(destination / path, stream.read())
 
 
 def pack_private_tree(directory: Path, stream: BinaryIO) -> None:
@@ -247,7 +269,9 @@ def receive_source(root: Path, relative: str, digest: str, stream: BinaryIO) -> 
 
             shutil.copyfileobj(stream, target)
         unpack_queue(archive, staging / "source")
-        verify_source(staging / "source", digest)
+        receipt = verify_source(staging / "source", digest)
+        if receipt["source"] != path.parts[-1]:
+            raise ValueError("received admission source differs from queue identity")
         (staging / "source").rename(destination)
     return destination
 
