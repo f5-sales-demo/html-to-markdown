@@ -503,7 +503,9 @@ def repair_captured_extraction(output: Path) -> dict[str, Any]:
             repaired.append(item["identity"])
         inventory = json.loads((output / "inventory.json").read_bytes())
         inventory["documents"] = _documents(database)
-        inventory["extraction_repairs"] = repaired
+        inventory["extraction_repairs"] = sorted(
+            set(inventory.get("extraction_repairs", [])) | set(repaired)
+        )
         atomic_private(output / "inventory.json", json_bytes(inventory))
     finally:
         database.close()

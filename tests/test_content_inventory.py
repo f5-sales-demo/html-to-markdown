@@ -162,6 +162,11 @@ async def test_extraction_repair_keeps_old_export_readable(
     assert (tmp_path / old["article_path"]).read_bytes() == old_data
     content_inventory.verify_capture(tmp_path, old)
     content_inventory.verify_capture(tmp_path, fresh)
+    inventory_bytes = (tmp_path / "inventory.json").read_bytes()
+    repeated = content_inventory.repair_captured_extraction(tmp_path)
+    assert isinstance(repeated["repaired"], list)
+    assert not repeated["repaired"]
+    assert (tmp_path / "inventory.json").read_bytes() == inventory_bytes
 
 
 def test_concurrent_private_checkpoints_and_symlinked_capture_parent(tmp_path: Path) -> None:

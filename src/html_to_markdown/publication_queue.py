@@ -74,12 +74,24 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
     _verified_baseline(baseline, revision["publication_sha256"])
     selected: dict[str, tuple[Path, str]] = {}
     ranks: dict[str, tuple[str, int]] = {}
+    rejected = []
     for receipt_path in sorted((queue_root / ".reviewed").glob("*/*/*/source-review-receipt.json")):
         directory = receipt_path.parent
         digest = sha(receipt_path.read_bytes())
         if directory.name != digest:
             raise ValueError("private reviewed input directory does not match its pin")
-        receipt = verify_source(directory, digest)
+        try:
+            receipt = verify_source(directory, digest)
+        except (ValueError, KeyError, TypeError, OSError) as failure:
+            rejected.append(
+                {
+                    "input_sha256": digest,
+                    "queue": directory.parent.parent.name + "/" + directory.parent.name,
+                    "reason": "source_input_verification_failed",
+                    "error_class": type(failure).__name__,
+                }
+            )
+            continue
         source = receipt["source"]
         rank = (
             receipt["ended_at"],
@@ -90,6 +102,7 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
         )
         if source not in selected or rank > ranks[source]:
             selected[source], ranks[source] = (directory, digest), rank
+    atomic_private(queue_root / ".publication/source-input-exceptions.json", json_bytes(rejected))
     if not selected:
         raise ValueError("no independently reviewed source input is ready")
     combined = output / "combined"
@@ -110,6 +123,7 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
         "baseline_receipt_sha256": revision["publication_sha256"],
         "curated_sha256": corpus_digest(combined),
         "selected_sources": {source: pin for source, (_, pin) in selected.items()},
+        "rejected_source_inputs": rejected,
         "prepared_at": utc_now(),
     }
     atomic_private(output / "publication-job.json", json_bytes(job))

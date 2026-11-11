@@ -15,6 +15,7 @@ from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.generate_v2 import generate_v2
 from html_to_markdown.package import RELEASE_ASSET_NAMES, verify_publication_receipt
 from html_to_markdown.publication_queue import prepare_publication, stage_publication
+from html_to_markdown.source_review import review_context_digest
 from html_to_markdown.work_queue import export_queue, list_queues, receive_enrichment, unpack_queue
 
 
@@ -160,3 +161,51 @@ def test_failed_preparation_preserves_evidence_without_blocking_retry(
         next(tmp_path.glob("failed-*/private-error.json")).read_text()
         == "captured failure evidence"
     )
+
+
+def test_stale_source_decision_stays_visible_while_fresh_verified_inputs_progress(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    current_context = review_context_digest()
+    monkeypatch.setattr("html_to_markdown.source_review.review_context_digest", lambda: "old")
+    old, old_pin = admitted(capture, tmp_path / "old", monkeypatch)
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.review_context_digest", lambda: current_context
+    )
+    fresh, fresh_pin = admitted(capture, tmp_path / "fresh", monkeypatch)
+    queues = tmp_path / "queues"
+    stale = queues / ".reviewed/old/my-f5-com" / old_pin
+    shutil.copytree(old, stale)
+    shutil.copytree(fresh, queues / ".reviewed/fresh/my-f5-com" / fresh_pin)
+    baseline, _, receipt = prepare(tmp_path / "baseline-input")
+    monkeypatch.setattr("html_to_markdown.publication_queue.platform.system", lambda: "Linux")
+    monkeypatch.setattr(
+        "html_to_markdown.publication_queue.deployed_revision",
+        lambda: {"snapshot_tag": "content-20261002T000100Z", "publication_sha256": receipt},
+    )
+    monkeypatch.setattr(
+        "html_to_markdown.publication_queue.shutil.which", lambda name: "/usr/bin/gh"
+    )
+
+    def download(args: list[str], **kwargs: object):
+        assert args[1:3] == ["release", "download"]
+        destination = Path(args[args.index("--dir") + 1])
+        for name in (*RELEASE_ASSET_NAMES, "publication.json"):
+            shutil.copy2(baseline / name, destination / name)
+
+    monkeypatch.setattr("html_to_markdown.publication_queue.subprocess.run", download)
+    job = prepare_publication(queues, queues / ".publication/fresh-job")
+    assert job["selected_sources"] == {"my-f5-com": fresh_pin}
+    assert job["rejected_source_inputs"] == [
+        {
+            "input_sha256": old_pin,
+            "queue": "old/my-f5-com",
+            "reason": "source_input_verification_failed",
+            "error_class": "ValueError",
+        }
+    ]
+    assert (
+        json.loads((queues / ".publication/source-input-exceptions.json").read_bytes())
+        == job["rejected_source_inputs"]
+    )
+    assert (stale / "source-review-receipt.json").exists()
