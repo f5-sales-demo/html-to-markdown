@@ -1,6 +1,11 @@
 """Visible image values need exact independently confirmed guards."""
 
+import base64
+import io
+import json
+
 import pytest
+from PIL import Image
 
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.media_observations import (
@@ -8,6 +13,7 @@ from html_to_markdown.media_observations import (
     ObservationValidation,
     VisibleValue,
     observation_payload,
+    observation_views,
     verify_observations,
 )
 from html_to_markdown.source_review import Label, MediaChange, preview_media
@@ -104,3 +110,46 @@ def test_observation_approval_cannot_bypass_text_image_replacement_consistency()
     )
     with pytest.raises(ValueError, match="replacements disagree"):
         preview_media(b"image", change, {"b" * 64: "different"})
+
+
+def test_region_views_preserve_exact_native_pixels_and_do_not_replace_complete_frames() -> None:
+    original = Image.new("RGB", (100, 50), "white")
+    original.putpixel((6, 6), (5, 10, 15))
+    data = io.BytesIO()
+    original.save(data, format="PNG")
+    visual = [
+        {"type": "input_text", "text": "media/" + "a" * 64 + "/0"},
+        {
+            "type": "input_image",
+            "image_url": "data:image/png;base64," + base64.b64encode(data.getvalue()).decode(),
+        },
+    ]
+    region = {"media_sha256": "a" * 64, "frame": 0, "rectangle": [5, 5, 60, 20]}
+    views = observation_views([region], visual)
+    assert len(visual) == 2 and len(views) == 2
+    with Image.open(io.BytesIO(base64.b64decode(views[1]["image_url"].split(",", 1)[1]))) as crop:
+        assert crop.size == (220, 60)
+        assert crop.getpixel((4, 4)) == (5, 10, 15)
+        assert crop.getpixel((7, 7)) == (5, 10, 15)
+    with pytest.raises(ValueError, match="outside"):
+        observation_views([{**region, "rectangle": [5, 5, 101, 20]}], visual)
+    with pytest.raises(ValueError, match="absent"):
+        observation_views([{**region, "frame": 1}], visual)
+    complete = visual * 20
+    sheets = observation_views([region] * 84, complete)
+    assert sum(item["type"] == "input_image" for item in complete + sheets) <= 50
+    assert len(complete) == 40
+    panel_count = 0
+    for description, content in zip(sheets[::2], sheets[1::2], strict=True):
+        encoded = description["text"].split("annotations. ", 1)[1].split(" Report rectangles", 1)[0]
+        panels = json.loads(encoded)
+        panel_count += len(panels)
+        with Image.open(
+            io.BytesIO(base64.b64decode(content["image_url"].split(",", 1)[1]))
+        ) as sheet:
+            for panel in panels:
+                restored = sheet.crop(panel["sheet_rectangle"]).resize(
+                    (55, 15), Image.Resampling.NEAREST
+                )
+                assert restored.tobytes() == original.crop((5, 5, 60, 20)).tobytes()
+    assert panel_count == 84

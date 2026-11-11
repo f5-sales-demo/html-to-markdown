@@ -15,13 +15,17 @@ from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.media import all_frame_inputs
+from html_to_markdown.media_observation_jobs import (
+    confirmed_media_values as _confirmed_media_values,
+)
+from html_to_markdown.media_observation_jobs import (
+    observation_request as _observation_request,
+)
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_review import AdmissionValidation
 from html_to_markdown.source_review_jobs import (
-    _confirmed_media_values,
     _media_context,
-    _observation_request,
     _prepare_media_observations,
     _request,
     prepare_reviews,
@@ -58,10 +62,22 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
         "binding_sha256": "b" * 64,
         "media": {"a" * 64: {"frames": [{"width": 100, "height": 50, "text": ""}]}},
     }
-    monkeypatch.setattr(jobs, "_context", lambda *args: (context, []))
+    raw = io.BytesIO()
+    Image.new("RGB", (100, 50), "white").save(raw, format="PNG")
+    visual = [
+        {"type": "input_text", "text": "media/" + "a" * 64 + "/0"},
+        {
+            "type": "input_image",
+            "image_url": "data:image/png;base64," + base64.b64encode(raw.getvalue()).decode(),
+        },
+    ]
+    monkeypatch.setattr(jobs, "_context", lambda *args: (context, visual))
     calls = []
 
     class Client:
+        reject_next_validation = False
+        reject_all_validation = False
+
         def execute(self, body: dict) -> ResponseEvidence:
             calls.append(body)
             payload = json.loads(body["input"][0]["content"][0]["text"])
@@ -82,11 +98,13 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
                     }
                 ]
             else:
+                rejected = self.reject_next_validation or self.reject_all_validation
                 result.update(
                     observations_sha256=payload["observations"]["observations_sha256"],
-                    approved_indices=[0],
-                    failures=[],
+                    approved_indices=[] if rejected else [0],
+                    failures=["inspect this source region more closely"] if rejected else [],
                 )
+                self.reject_next_validation = False
             response = {
                 "status": "completed",
                 "model": body["model"],
@@ -108,7 +126,7 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
     client = Client()
     _prepare_media_observations(capture, output, record, client)
     saved = json.loads(record.read_bytes())
-    values = _confirmed_media_values(saved, context, [])
+    values = _confirmed_media_values(saved, context, visual)
     assert values[0]["value_sha256"] == sha("198.51.100.10") and len(calls) == 2
     _prepare_media_observations(capture, output, record, client)
     assert len(calls) == 2
@@ -117,14 +135,26 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
     )
     saved = json.loads(record.read_bytes())
     assert len(calls) == 4 and len(list((output / "history").glob("*.json"))) >= 1
-    assert _confirmed_media_values(saved, context, []) == values
+    assert _confirmed_media_values(saved, context, visual) == values
     augmented = json.loads(calls[-1]["input"][0]["content"][0]["text"])
     assert augmented["observation_feedback"] == saved["media_observation_feedback"]
+    client.reject_next_validation = True
+    _prepare_media_observations(capture, output, record, client, ["independent recheck"])
+    saved = json.loads(record.read_bytes())
+    assert len(calls) == 8 and saved["media_observation_regions"]
+    assert "inspect this source region more closely" in saved["media_observation_feedback"]
+    assert sum(c["type"] == "input_image" for c in calls[-1]["input"][0]["content"]) == 2
+    assert _confirmed_media_values(saved, context, visual) == values
+    client.reject_all_validation = True
+    with pytest.raises(ValueError, match="independently confirmed"):
+        _prepare_media_observations(capture, output, record, client, ["keep independent rejection"])
+    assert len(calls) == 14
+    client.reject_all_validation = False
     saved["phases"]["media_observation_validation"]["response"]["output"][0]["content"][0][
         "text"
     ] = "{}"
     with pytest.raises(ValueError):
-        _confirmed_media_values(saved, context, [])
+        _confirmed_media_values(saved, context, visual)
 
 
 class LocalClient:
