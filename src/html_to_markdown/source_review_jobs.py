@@ -5,7 +5,6 @@ from __future__ import annotations
 import base64
 import io
 import json
-import shutil
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -742,7 +741,12 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
         with tempfile.TemporaryDirectory(prefix="source-review-replay-") as directory:
             scratch = Path(directory)
             if (output / "media").exists():
-                shutil.copytree(output / "media", scratch / "media")
+                digests = {media["sha256"] for media in saved["item"]["media"]}
+                digests.update(saved.get("file_hashes", {}).values())
+                for digest in sorted(digests):
+                    cache = output / "media" / (digest + "-native-2.json")
+                    if cache.is_file():
+                        atomic_private(scratch / "media" / cache.name, cache.read_bytes())
             copy = scratch / "document.json"
             atomic_private(copy, path.read_bytes())
             actual = review_one(capture, scratch, copy, "replay", None)

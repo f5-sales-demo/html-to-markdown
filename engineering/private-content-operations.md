@@ -20,6 +20,9 @@ SQLite preserves discovery events and completed records during interruptions. En
 publication completeness are independent. Unavailable articles and media remain explicit exceptions.
 `repair-captured-extraction` re-renders preserved source bytes into immutable extraction paths and retains the previous
 extraction; it does not fetch or approve content.
+Repair history is cumulative, and repeating an unchanged repair preserves the stored inventory bytes. Literal
+angle-bracket text and ordinary capability-card boundaries remain visible after Markdown rendering; code payloads
+retain their exact strings.
 
 On the MacBook, prepare and review transferred captures:
 
@@ -35,6 +38,9 @@ Workers use the installed Codex CLI and its existing LiteLLM Responses route. Cl
 or collaboration tools. The controller handles capture, OCR and exact transformations. Complete requests, native media
 frames, attempts and private transformation evidence remain available for replay. Changed source, media, policy or
 controller context invalidates admission. Credential findings cannot be waived.
+Independent relevance validation approves or rejects the proposed inventory disposition, including justified
+exclusions. An approved exclusion emits no article. Privacy or media rejection returns specific independent findings
+for the bounded correction loop; all mandatory checks still have to pass.
 
 ## Queue clocks and activation
 
@@ -85,6 +91,9 @@ separately. Unattempted enrichment documents prevent staging.
 Private returns are checkpointed only after verification. An interrupted enrichment promotion resumes its exact input
 pin. Superseded jobs remain private and cannot overwrite a newer baseline. The publication workflow uses the existing
 `content-snapshot` lock, verifies the downloaded draft and holds the lock until the exact receipt is deployed.
+Stale or invalid source inputs remain in `source-input-exceptions.json` while fresh verified inputs progress. They are
+not treated as policy exclusions or reused as approvals. Offline document replay copies only the original and resulting
+media analysis needed by that article and checks the complete accepted article/media inventory.
 
 `sanitize-inventory` emits allowlisted CI receipts with dispositions, counts, source routes and digests. Raw captures,
 OCR, model responses, unreviewed Markdown, SQLite state and identifying transformation evidence are excluded from CI

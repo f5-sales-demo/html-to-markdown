@@ -433,4 +433,7 @@ def validate_admission(
         validation.complete_media_reviewed,
     ]
     if not all(checks) or validation.failures or validation.unresolved:
-        raise ValueError("independent source admission failed")
+        details = [*validation.failures, *validation.unresolved]
+        if not validation.privacy_valid or not validation.media_valid:
+            details.insert(0, "privacy proposal failed independent text or media validation")
+        raise ValueError("independent source admission failed: " + "; ".join(details))

@@ -163,7 +163,9 @@ async def test_extraction_repair_keeps_old_export_readable(
     content_inventory.verify_capture(tmp_path, old)
     content_inventory.verify_capture(tmp_path, fresh)
     inventory_bytes = (tmp_path / "inventory.json").read_bytes()
-    assert content_inventory.repair_captured_extraction(tmp_path)["repaired"] == []
+    repeated = content_inventory.repair_captured_extraction(tmp_path)
+    assert isinstance(repeated["repaired"], list)
+    assert not repeated["repaired"]
     assert (tmp_path / "inventory.json").read_bytes() == inventory_bytes
 
 
