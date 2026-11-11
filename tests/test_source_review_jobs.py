@@ -357,6 +357,25 @@ def test_failed_independent_review_keeps_candidate_queued(
     assert not (output / "reviewed").exists()
 
 
+@pytest.mark.parametrize(
+    "target",
+    [
+        "../../outside.md",
+        "/tmp/outside.md",
+        "articles/content/www-f5-com/products/other/index.md",
+        "articles/content/my-f5-com/other/index.md",
+    ],
+)
+def test_capture_publication_paths_are_checked_before_review_or_derivative_writes(
+    capture: Path, tmp_path: Path, target: str
+) -> None:
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    inventory["documents"][0]["published_path"] = target
+    atomic_private(capture / "inventory.json", json_bytes(inventory))
+    with pytest.raises(ValueError, match="publication path"):
+        prepare_reviews(capture, tmp_path / "review")
+
+
 def test_mutated_capture_is_rejected_before_any_model_request(
     capture: Path, tmp_path: Path
 ) -> None:
