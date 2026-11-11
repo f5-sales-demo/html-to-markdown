@@ -168,7 +168,9 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
         or proposal.binding_sha256 != context["binding_sha256"]
     ):
         raise ValueError("stale curation renewal source or request binding")
-    if proposal.unresolved or [topic.topic for topic in proposal.topics] != list(TOPICS):
+    if proposal.unresolved:
+        raise ValueError("curation renewal proposal has unresolved source decisions")
+    if [topic.topic for topic in proposal.topics] != list(TOPICS):
         raise ValueError("renewal must resolve every policy topic exactly once in order")
     guarded = _guarded_removals(context, proposal)
     current = context["body"]

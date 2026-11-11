@@ -190,6 +190,7 @@ def run_renewal(
         attempt = directory / f"attempt-{state['attempt']:03d}"
         attempt.mkdir(mode=0o700, exist_ok=True)
         evidence = []
+        proposal = None
         validation = None
         try:
             editor_body = review_request(context, visual, feedback=state["feedback"])
@@ -215,7 +216,9 @@ def run_renewal(
             if invalidator is not None:
                 for response in evidence:
                     invalidator(response)
-            details = validation.failures if validation is not None else []
+            details = proposal.unresolved if proposal is not None else []
+            if validation is not None:
+                details = [*details, *validation.failures, *validation.unresolved]
             state["feedback"] = [*state["feedback"], str(failure), *details]
             state.update(attempt=state["attempt"] + 1, status="queued", retryable=False)
             _save(state_path, state)
