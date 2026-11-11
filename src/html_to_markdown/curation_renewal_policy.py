@@ -119,6 +119,22 @@ def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPol
     return _materialized_policy(raw)
 
 
+def _record_dependencies(
+    output: Path, unknown: list[str], validation_errors: dict[str, str]
+) -> None:
+    unresolved = sorted(set(unknown) | set(validation_errors))
+    report = json_bytes(
+        {
+            "documents": unresolved,
+            "reason": "independent_dependency_review_required",
+            "validation_errors": validation_errors,
+            "changed_dependencies": unknown,
+        }
+    )
+    atomic_private(output / "dependency-history" / (sha(report) + ".json"), report)
+    atomic_private(output / "dependency-exceptions.json", report)
+
+
 # Qualification compares the complete baseline with all selected source inputs.
 # pylint: disable-next=too-many-locals
 def qualify_policy(
@@ -174,16 +190,7 @@ def qualify_policy(
         )
         unresolved = sorted(set(unknown) | set(validation_errors))
         if unresolved:
-            report = json_bytes(
-                {
-                    "documents": unresolved,
-                    "reason": "independent_dependency_review_required",
-                    "validation_errors": validation_errors,
-                    "changed_dependencies": unknown,
-                }
-            )
-            atomic_private(output / "dependency-history" / (sha(report) + ".json"), report)
-            atomic_private(output / "dependency-exceptions.json", report)
+            _record_dependencies(output, unknown, validation_errors)
             raise DependencyReviewRequired(unresolved)
         validate_content_policy(root, curation_policy=policy)
         first_digest = corpus_digest(root)
