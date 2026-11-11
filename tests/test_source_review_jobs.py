@@ -50,6 +50,12 @@ class LocalClient:
             output.update(findings=[], values=[], text_changes=[], media_changes=[], unresolved=[])
         elif phase == "admissionvalidation":
             assert "candidate" in payload and "body" in payload
+            if payload["relevance_decision"]["disposition"] == "include":
+                assert payload["curation_candidate"]["curation_sha256"]
+                assert (
+                    payload["curation_candidate"]["source_files_sha256"]
+                    == payload["candidate"]["output_sha256"]
+                )
             output.update(
                 output_sha256=payload["candidate"]["output_sha256"],
                 approved=not self.reject,
@@ -155,6 +161,77 @@ def test_review_and_offline_replay_preserve_complete_article(
     article.write_text("tampered")
     with pytest.raises(ValueError, match="bytes changed"):
         verify_reviews(capture, output)
+
+
+def test_admission_validator_sees_curation_but_source_receipt_retains_privacy_input(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    item = inventory["documents"][0]
+    metadata = PageMetadata.model_validate(item["metadata"])
+    body = (
+        "# Configure service\n\nRun `curl --retry 3` within 30 seconds.\n\n"
+        "See https://docs.cloud.f5.com/docs-v2/api/http-loadbalancer#Create.\n\n"
+        "| Source field | Value |\n| --- | --- |\n| Optional mapping | |\n"
+    )
+    article = serialize_document(metadata, body).encode()
+    atomic_private(capture / item["article_path"], article)
+    item["article_sha256"] = sha(article)
+    atomic_private(capture / "inventory.json", json_bytes(inventory))
+    observed = []
+
+    class CurationClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            if body["text"]["format"]["name"] == "admissionvalidation":
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                assert "docs.cloud.f5.com/docs-v2/api" in payload["candidate"]["body"]
+                assert "docs.cloud.f5.com/docs-v2/api" not in payload["curation_candidate"]["body"]
+                assert "| Optional mapping | |" in payload["curation_candidate"]["body"]
+                observed.append(payload["curation_candidate"]["curation_sha256"])
+            return super().execute(body)
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", CurationClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert not report["exceptions"] and len(observed) == 1
+    reviewed = output / "reviewed/content/my-f5-com/K000123456/index.md"
+    assert reviewed.read_bytes() == article
+    record = json.loads(next((output / "documents").glob("*.json")).read_bytes())
+    assert record["curation_sha256"] == observed[0]
+    verify_reviews(capture, output)
+
+
+def test_independent_retirement_failure_creates_curation_queue_without_publishing(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    class RetirementClient(LocalClient):
+        def execute(self, body: dict) -> ResponseEvidence:
+            response = super().execute(body)
+            if body["text"]["format"]["name"] == "admissionvalidation":
+                raw = response.response
+                decision = json.loads(raw["output"][0]["content"][0]["text"])
+                decision.update(
+                    approved=False, retirement_valid=False, failures=["retired workflow remains"]
+                )
+                raw["output"][0]["content"][0]["text"] = json.dumps(decision)
+                return response.model_copy(
+                    update={
+                        "response_sha256": sha(
+                            json.dumps(raw, sort_keys=True, separators=(",", ":"))
+                        )
+                    }
+                )
+            return response
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", RetirementClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert report["documents"][0]["disposition"] == "queued"
+    assert report["documents"][0]["reason"] == "source_curation_requires_review"
+    assert (output / "curation-exceptions.json").is_file()
+    assert not verify_reviews(capture, output)["accepted_files"]
 
 
 def test_failed_independent_review_keeps_candidate_queued(

@@ -38,6 +38,7 @@ def review_context_digest() -> str:
                 for name in (
                     "source_review.py",
                     "source_review_jobs.py",
+                    "source_curation.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
                     "enrichment/gates.py",
@@ -398,6 +399,15 @@ and explicit synthetic value mappings. Never approve credential findings. Every 
 contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Validators independently inspect the original and resulting article/media; proposals are not proof.
+For final validation, candidate is the complete privacy-reviewed source and curation_candidate is
+the actual digest-pinned retirement/API planner output. Verify privacy, extraction and technical
+preservation against the original and privacy candidate; assess retirement and current guidance
+against curation_candidate. Permit only policy-justified differences with preserved stage evidence.
+For retirement checks, inspect the media still referenced by curation_candidate and its file hashes.
+Review removed media against the complete original for justified removal and preserved technical facts.
+Original empty cells and absent source values are source limitations; never invent their contents
+or reject an unchanged blank merely because no mapping was supplied by the author. Planner omissions
+from missing or stale reviews remain exceptions and cannot be treated as justified policy exclusions.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
 exclusion can be approved when every mandatory check passes; it is recorded as a policy exclusion
 and produces no published article. Do not reject a justified exclusion merely because the excluded
