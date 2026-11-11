@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .curation import blocks, json_bytes
-from .curation_renewal import TOPICS, VERSION, Proposal, projected_fact
+from .curation_renewal import TOPICS, VERSION, Proposal, projected_fact, retired_reference
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.contracts_v2 import FactV2
@@ -84,6 +84,18 @@ fields are source limitations; retain them rather than inventing contents. Revie
 classifications and all original/privacy-transformed media. Do not hide unresolved privacy or
 retirement by proposing a policy exclusion. Ambiguity remains unresolved. No compression quota.
 Remove a whole article only when independently justified under the supplied retirement policy.
+Inspect every original and privacy-candidate finding in its precise text/media placement and
+record its contextual classification, with its finding ID, in the relevant topic rationale.
+privacy_candidate.finding_decisions contains deterministic projection hints; an unmatched final
+finding requires fresh contextual classification, not an inferred privacy violation. Reserved
+service-output examples and scanner matches inside synthetic UUIDs require independent inspection.
+Do not invent a new retirement decision to hide such findings. Actual credential enforcement
+findings always require rejection. Public vendor factory-default initial-login guidance explicitly
+stated by the authoritative source with mandatory password change is a necessary product fact;
+retain both the fact and its required-change relationship. Deployment tokens, UIDs, tenant
+identities, populated password fields and private keys are never factory-default facts.
+The final actual-planner validation must classify every final finding separately and enforce zero
+unresolved or credential findings; contextual rationale here cannot waive that independent gate.
 All source spans and media are present. Proposals are private and confer no publication approval.
 Return only the supplied structured schema."""
     payload = {**context, "validation_feedback": feedback or []}
@@ -100,7 +112,10 @@ that exact candidate_blocks paragraph. Native media/frame addresses and media by
 separate visual evidence and cannot witness a Markdown block. A missing necessary fact, changed
 payload or action order, privacy problem,
 unsupported claim, incomplete classification or unreviewed media requires rejection. Never waive
-credentials. The controller still requires the actual whole-corpus planner and source admission
+actual credential enforcement findings. Public vendor factory-default login guidance explicitly
+stated by the authoritative source, with a mandatory initial password-change requirement, is
+a necessary product fact. Retain that fact and its password-change relationship. Deployment tokens,
+UIDs, tenant identities, populated password fields and private keys are never factory-default facts. The controller still requires the actual whole-corpus planner and source admission
 before publication; independent approval here cannot waive those gates."""
         payload["candidate"] = candidate
         payload["candidate_blocks"] = [
@@ -121,7 +136,14 @@ before publication; independent approval here cannot waive those gates."""
         addresses = [block["address"] for block in context["blocks"]]
         if addresses:
             shape["$defs"]["Removal"]["properties"]["address"]["enum"] = addresses
-        references = context["reference_spans"]
+        from .curation import load_curation_policy  # pylint: disable=import-outside-toplevel
+
+        topics = load_curation_policy().topics
+        references = [
+            r
+            for r in context["reference_spans"]
+            if any(retired_reference(t, r["url"]) for t in topics)
+        ]
         reference_field = shape["$defs"]["TopicDecision"]["properties"]["reference_edits"]
         reference_field["maxItems"] = len(references)
         if references:

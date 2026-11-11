@@ -29,6 +29,7 @@ def _topic_rules(context: dict[str, Any], candidate: dict[str, Any]) -> list[dic
         "dependency_rules",
         "provider_identities",
         "provider_aliases",
+        "retired_documentation_urls",
         "omit_urls",
         "candidate_detectors",
     }

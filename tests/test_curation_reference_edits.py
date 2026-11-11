@@ -20,6 +20,7 @@ from html_to_markdown.curation_renewal import (
     compile_proposal,
     projected_fact,
     proposal_context,
+    retired_reference,
 )
 from html_to_markdown.curation_renewal_review import verify_validation
 from html_to_markdown.enrichment.analysis import sha
@@ -200,3 +201,17 @@ def test_code_payloads_and_images_are_not_editable_link_references():
     )
     refs = reference_spans(body)
     assert len(refs) == 1 and refs[0]["label"] == "`site_token`"
+
+
+def test_noop_topic_preserves_authored_blank_section():
+    body = "# Diagnostics\n\n## Answer/Recommended Actions\n\n## Verification\n\nExpect a healthy site within 30 seconds.\n"
+    assert remove_blocks(body, []) == body
+
+
+def test_dns_retirement_alias_is_limited_to_its_declared_identity_and_authority():
+    topic = next(t for t in load_curation_policy().topics if t["id"] == "legacy-retired")
+    url = "https://www.volterra.io/docs/how-to/app-networking/domain-delegation"
+    assert retired_reference(topic, url)
+    assert not retired_reference(topic, url.replace("www.volterra.io", "unrelated.invalid"))
+    assert not retired_reference({**topic, "retired_identities": []}, url)
+    assert not retired_reference(topic, url + "?token=example")

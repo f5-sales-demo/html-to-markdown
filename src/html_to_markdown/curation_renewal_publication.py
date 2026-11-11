@@ -48,7 +48,11 @@ removals. Preserve commands, schemas, payloads, limits, prerequisites, warnings,
 results and useful descendants. Blank source fields are limitations, never grounds for invention.
 Whole-document exclusion requires independent policy justification. An omitted article is not proof
 of retirement. Classify every final privacy finding separately as a reserved documentation example
-or authoritative attribution only when grounded in its context. Credentials always require rejection.
+or authoritative attribution only when grounded in its context. Actual credential enforcement findings always require rejection. Public vendor factory-default
+login guidance explicitly stated by the authoritative source together with mandatory initial
+password change is a necessary product fact; retain that fact and its required change relationship.
+Deployment tokens, UIDs, tenant identities, populated password fields and private keys are not
+factory-default documentation facts.
 Any missing fact, unreviewed media, identifying value, unsupported claim, ambiguous exclusion or
 failed preservation requires rejection and explicit failures. Return only the supplied schema."""
     payload = {

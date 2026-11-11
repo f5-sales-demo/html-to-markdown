@@ -153,6 +153,30 @@ def _guarded_removals(
     return result
 
 
+def retired_reference(topic: dict[str, Any], url: str) -> bool:
+    """Apply declared identities and known documentation aliases, never arbitrary domains."""
+    from urllib.parse import urlsplit  # pylint: disable=import-outside-toplevel
+
+    parsed = urlsplit(url)
+    if parsed.query or parsed.username or parsed.password or "%" in url:
+        return False
+    value = canonical(url)
+    if value in {canonical(item) for item in topic["retired_urls"]}:
+        return True
+    if topic["id"] == "legacy-retired" and "dns_domain" in topic["retired_identities"]:
+        return (
+            parsed.scheme == "https"
+            and parsed.netloc == "www.volterra.io"
+            and parsed.path.rstrip("/") == "/docs/how-to/app-networking/domain-delegation"
+        )
+    if topic["id"] == "terraform-provider-current":
+        return any(
+            value == canonical(item) or value.startswith(canonical(item) + "/")
+            for item in topic.get("retired_documentation_urls", [])
+        )
+    return False
+
+
 def _reference_choices(
     context: dict[str, Any], proposal: Proposal
 ) -> dict[str, list[dict[str, Any]]]:
@@ -166,7 +190,6 @@ def _reference_choices(
     chosen = set()
     for decision in proposal.topics:
         topic = next(t for t in policy.topics if t["id"] == decision.topic)
-        retired = {canonical(url) for url in topic["retired_urls"]}
         for edit in decision.reference_edits:
             item = indexed.get(edit.address)
             if (
@@ -175,17 +198,10 @@ def _reference_choices(
                 or not edit.reason.strip()
             ):
                 raise ValueError("stale or absent retired reference guard")
-            from urllib.parse import urlsplit  # pylint: disable=import-outside-toplevel
-
-            url = urlsplit(item["url"])
-            if (
-                url.query
-                or url.username
-                or url.password
-                or "%" in item["url"]
-                or canonical(item["url"]) not in retired
-            ):
-                raise ValueError("reference edit lacks an explicit topic retirement decision")
+            if not retired_reference(topic, item["url"]):
+                raise ValueError(
+                    f"reference edit lacks an explicit topic retirement decision: topic={decision.topic}; address={edit.address}"
+                )
             if edit.address in chosen:
                 raise ValueError("overlapping retired reference choices")
             chosen.add(edit.address)

@@ -241,6 +241,8 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     if len({item["address"] for item in reference_edits}) != len(reference_edits):
         raise ValueError("overlapping retired reference edits")
     body = unlink_references(body, reference_edits)
+    if not spans:
+        return normalize_body(body)
     spans.sort(key=lambda b: (b.start, b.end))
     if any(a.end > b.start for a, b in zip(spans, spans[1:], strict=False)):
         raise ValueError("overlapping structural guards")
