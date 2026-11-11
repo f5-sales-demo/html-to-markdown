@@ -135,7 +135,7 @@ def test_catalog_delivery_creates_linked_pr_once_across_interruption(tmp_path, m
     for args in [
         ["git", "init", "--initial-branch=main"],
         ["git", "config", "user.name", "Test"],
-        ["git", "config", "user.email", "test@example.invalid"],
+        ["git", "config", "user.email", "test@example.com"],
         ["git", "remote", "add", "origin", "https://github.com/f5-sales-demo/html-to-markdown.git"],
         ["git", "add", "src"],
         ["git", "commit", "-m", "test: baseline"],
