@@ -186,7 +186,11 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
             or set(media_ids) != set(context["media"])
             or any(not choice.reason.strip() for choice in topic.media)
         ):
-            raise ValueError("renewal must review every exact media placement for each topic")
+            missing = sorted(set(context["media"]) - set(media_ids))
+            unexpected = sorted(set(media_ids) - set(context["media"]))
+            raise ValueError(
+                f"renewal must review every exact media placement for each topic: topic={topic.topic}; expected={len(context['media'])}; actual={len(media_ids)}; missing={missing}; unexpected={unexpected}"
+            )
         rules = _stage_rules(current, guarded[topic.topic])
         retained = remove_blocks(current, rules)
         document = {

@@ -11,7 +11,7 @@ from .content_policy import load_content_policy, rewrite_text
 from .curation import blocks, json_bytes, load_curation_policy
 from .curation_renewal_jobs import _execute, _save, replay_renewal
 from .curation_renewal_policy import policy_files, qualify_policy, reviewed_policy
-from .curation_renewal_review import RenewalValidation
+from .curation_renewal_review import RenewalValidation, fact_schema
 from .enrichment.analysis import sha
 from .enrichment.contracts import VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash, technical_payloads
@@ -67,6 +67,7 @@ failed preservation requires rejection and explicit failures. Return only the su
         "article-enrichment/1", "curation-renewal/1"
     )
     body["input"][0]["content"].extend(visual)
+    fact_schema(body["text"]["format"]["schema"], context)
     shape = body["text"]["format"]["schema"]["properties"]
     for key, value in {
         "identity": context["identity"],

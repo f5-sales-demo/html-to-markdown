@@ -28,6 +28,19 @@ class RenewalValidation(StrictModel):
     unresolved: list[str]
 
 
+def fact_schema(shape: dict[str, Any], context: dict[str, Any]) -> None:
+    """Bound the complete fact domain; controller checks still enforce unique coverage."""
+    required = [b for b in context["blocks"] if b["kind"] not in {"section", "heading", "hr"}]
+    shape["properties"]["facts"].update(minItems=len(required), maxItems=len(required))
+    if required:
+        shape["$defs"]["FactV2"]["properties"]["source_address"]["enum"] = [
+            b["address"] for b in required
+        ]
+        shape["$defs"]["FactV2"]["properties"]["source_sha256"]["enum"] = sorted(
+            {b["sha256"] for b in required}
+        )
+
+
 def review_request(
     context: dict[str, Any],
     visual: list[dict[str, Any]],
@@ -91,12 +104,16 @@ before publication; independent approval here cannot waive those gates."""
         if addresses:
             shape["$defs"]["Removal"]["properties"]["address"]["enum"] = addresses
         media_ids = sorted(context["media"])
+        shape["$defs"]["TopicDecision"]["properties"]["media"].update(
+            minItems=len(media_ids), maxItems=len(media_ids)
+        )
         if media_ids:
             shape["$defs"]["MediaChoice"]["properties"]["sha256"]["enum"] = media_ids
         else:
             shape["$defs"]["TopicDecision"]["properties"]["media"]["maxItems"] = 0
     else:
         shape["properties"]["output_sha256"]["enum"] = [candidate["output_sha256"]]
+        fact_schema(shape, context)
     return result
 
 
@@ -132,7 +149,12 @@ def verify_validation(
     }
     covered = [fact.source_address for fact in validation.facts]
     if len(covered) != len(set(covered)) or set(covered) != set(original):
-        raise ValueError("independent curation renewal fact coverage is incomplete")
+        missing = sorted(set(original) - set(covered))
+        unexpected = sorted(set(covered) - set(original))
+        duplicates = sorted({address for address in covered if covered.count(address) > 1})
+        raise ValueError(
+            f"independent curation renewal fact coverage is incomplete: missing={missing}; unexpected={unexpected}; duplicates={duplicates}"
+        )
     retained = {block.location: block for block in blocks(candidate["body"])}
     for fact in validation.facts:
         if fact.source_sha256 != original[fact.source_address]["sha256"]:
