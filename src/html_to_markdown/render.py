@@ -66,6 +66,12 @@ class DeterministicConverter(MarkdownConverter):
         escaped = cast(Any, super()).escape(text.replace("\\", "\\\\"), parent_tags)
         return str(escaped).replace("<", r"\<").replace(">", r"\>")
 
+    def convert_summary(self, el: Tag, text: str, parent_tags: set[str]) -> str:
+        return "\n\n" + text.strip() + "\n\n"
+
+    def convert_details(self, el: Tag, text: str, parent_tags: set[str]) -> str:
+        return "\n\n" + text.strip() + "\n\n"
+
     def convert_pre(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         candidate = el.find("code")
         code = candidate if isinstance(candidate, Tag) else None
