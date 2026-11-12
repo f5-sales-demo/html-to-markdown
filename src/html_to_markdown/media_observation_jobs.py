@@ -16,6 +16,7 @@ from .enrichment.requests import request
 from .media_observations import (
     MediaObservations,
     ObservationValidation,
+    boundary_views,
     observation_payload,
     observation_views,
     verify_observations,
@@ -65,15 +66,16 @@ def observation_request(
         "article-enrichment/1", "native-media-observation/1"
     )
     body["input"][0]["content"].extend(visual)
-    body["input"][0]["content"].extend(
-        observation_views(
-            context.get("observation_regions", []),
-            visual,
-            context_margin=128
-            if context.get("binding", {}).get("privacy_version") == "source-privacy/2"
-            else 0,
-        )
+    regions = observation_views(
+        context.get("observation_regions", []),
+        visual,
+        context_margin=128
+        if context.get("binding", {}).get("privacy_version") == "source-privacy/2"
+        else 0,
     )
+    body["input"][0]["content"].extend(regions)
+    if context.get("binding", {}).get("privacy_version") == "source-privacy/2":
+        body["input"][0]["content"].extend(boundary_views(context, visual + regions))
     properties = body["text"]["format"]["schema"]["properties"]
     properties["identity"]["enum"] = [context["identity"]]
     properties["binding_sha256"]["enum"] = [context["binding_sha256"]]

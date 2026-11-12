@@ -175,6 +175,48 @@ def observation_views(
     return result
 
 
+def boundary_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Expose native edge pixels for feedback-named frames before regions exist."""
+    if sum(item["type"] == "input_image" for item in visual) >= 50:
+        return []
+    hints = " ".join(context.get("observation_feedback", []))
+    regions = []
+    for digest, media in sorted(context["media"].items()):
+        if digest not in hints:
+            continue
+        for index, frame in enumerate(media["frames"]):
+            width, height = frame["width"], frame["height"]
+            if any(
+                not isinstance(value, int) or isinstance(value, bool) or value < 1
+                for value in (width, height)
+            ):
+                raise ValueError("native boundary view requires valid frame dimensions")
+            for top in sorted({0, max(0, height - 128)}):
+                for left in range(0, width, 448):
+                    regions.append(
+                        {
+                            "media_sha256": digest,
+                            "frame": index,
+                            "rectangle": [
+                                left,
+                                top,
+                                min(width, left + 512),
+                                min(height, top + 128),
+                            ],
+                        }
+                    )
+    views = observation_views(regions, visual)
+    for view in views:
+        if view["type"] == "input_text":
+            view["text"] = (
+                "Geometry-only native boundary inspection tiles: rectangles describe tiles, "
+                "not identifying fields or redaction authorization. Feedback selects candidate "
+                "frames only; derive any field rectangle from source pixels and require "
+                "independent confirmation. " + view["text"]
+            )
+    return views
+
+
 def _region_sheet(group: list[tuple[dict[str, Any], Any]]) -> tuple[Any, str]:
     if len(group) == 1:
         region, pixels = group[0]
