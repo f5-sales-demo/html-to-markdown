@@ -252,9 +252,10 @@ class CurationPolicy:
                     self._load_whole_document_topic(topic)
             self.retired_identities.update(topic["retired_identities"])
             self.excluded.update(canonical(url) for url in topic["retired_urls"])
-            self.retired_patterns.extend(
-                re.compile(value, re.I) for value in topic["retired_patterns"]
-            )
+            if topic["id"] != "appstack-retired" or self.appstack is None:
+                self.retired_patterns.extend(
+                    re.compile(value, re.I) for value in topic["retired_patterns"]
+                )
             topic_decisions: dict[str, dict[str, Any]] = {}
             for decision in topic["documents"]:
                 url = canonical(decision["url"])
@@ -298,10 +299,16 @@ class CurationPolicy:
             or bool(identities & self.retired_identities)
         )
 
-    def retired(self, text: str) -> bool:
+    def retired(self, text: str, *, url: str | None = None) -> bool:
         decoded = normalized(text)
-        return (
-            (self.vesctl is not None and self.vesctl.retired(text))
+        appstack_retired = self.appstack is not None and (
+            self.appstack.unreviewed_retired(text, url)
+            if url is not None
+            else self.appstack.retired(text)
+        )
+        return bool(
+            appstack_retired
+            or (self.vesctl is not None and self.vesctl.retired(text))
             or (self.legacy is not None and self.legacy.retired(text))
         ) or any(pattern.search(decoded) for pattern in self.retired_patterns)
 
@@ -863,7 +870,7 @@ def curate_topics(
         if any(item["kind"] == "video" for item in media_inventory(path, retained)):
             finding["disposition"] = "omit"
             finding["findings"].append("unverifiable_video")
-        if finding["disposition"] == "keep" and active.retired(retained):
+        if finding["disposition"] == "keep" and active.retired(retained, url=url):
             finding["disposition"] = "omit"
             finding["findings"].append("retired_subject_remaining")
         if not any(
@@ -1128,7 +1135,7 @@ def validate_curation(
                 raise ValueError(f"uncurated Terraform provider content remains: {path}")
         if (
             policy.excludes(str(metadata["url"]))
-            or policy.retired(body)
+            or policy.retired(body, url=str(metadata["url"]))
             or policy.retired(json.dumps(metadata))
         ):
             raise ValueError(f"prohibited topic remains: {path}")
