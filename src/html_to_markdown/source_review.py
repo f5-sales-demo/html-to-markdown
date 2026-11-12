@@ -274,6 +274,12 @@ def preview_media(
         raise ValueError("changed media bytes or absent privacy rationale")
     with Image.open(io.BytesIO(raw)) as source:
         frames = getattr(source, "n_frames", 1)
+        if not (change.rectangles or change.labels or change.frames or change.strip_metadata):
+            for frame in range(frames):
+                source.seek(frame)
+                source.load()
+            checked, _ = reviewed_media(raw, "captured", {"assets": {"captured": sha(raw)}})
+            return checked, {"output_sha256": sha(raw)}
         if frames > 1:
             if source.format != "GIF":
                 raise ValueError("animated non-GIF transformation requires qualified codec")
