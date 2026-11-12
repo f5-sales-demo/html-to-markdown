@@ -33,6 +33,7 @@ def parse_response(
             "native-media-observation/1",
             "curation-renewal/1",
             "final-privacy-findings/1",
+            "final-privacy-findings/2",
         }
         or evidence.reasoning != "high"
     ):
