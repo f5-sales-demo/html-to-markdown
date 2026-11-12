@@ -215,7 +215,7 @@ def prepare(
     if (curated / MARKER).exists():
         raise ValueError("prepare requires preserved pre-enrichment inputs")
     validate_content_policy(curated)
-    analysis = analyze(curated)
+    analysis = analyze(curated, address_version=2 if version == 2 else 1)
     assets = {
         p.relative_to(curated).as_posix(): sha(p.read_bytes())
         for p in sorted(curated.glob("content/*/**/assets/*"))
@@ -224,6 +224,7 @@ def prepare(
         raise ValueError("unsupported enrichment schema version")
     artifact = Artifact(
         schema_version=2 if version == 2 else 1,
+        structural_address_version=2 if version == 2 else 1,
         prompt_version=VERSION_TWO if version == 2 else PROMPT_VERSION,
         baseline_tag=tag,
         publication_sha256=receipt_sha256,
@@ -330,7 +331,7 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
     cache_key = (identity, current_digest) if identity is not None else None
     if cache_key is not None and cache_key in _DECISION_CACHE:
         return _DECISION_CACHE[cache_key]
-    analysis = analyze(curated)
+    analysis = analyze(curated, address_version=artifact.structural_address_version)
     if sha(json_bytes(analysis)) != artifact.analysis_sha256:
         raise ValueError("structural analysis changed")
     indexed = {d["document"]: d for d in analysis["documents"]}

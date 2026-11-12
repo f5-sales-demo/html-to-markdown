@@ -37,7 +37,7 @@ def generate_v2(
     if limit is not None and (limit < 1 or phase != "all"):
         raise ValueError("enrichment batches require all phases and a positive document limit")
     artifact = load_artifact(destination)
-    analysis = analyze(curated)
+    analysis = analyze(curated, address_version=artifact.structural_address_version)
     if artifact.curated_sha256 != corpus_digest(curated) or artifact.analysis_sha256 != sha(
         json_bytes(analysis)
     ):
