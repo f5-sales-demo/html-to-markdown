@@ -27,6 +27,17 @@ a page left without a complete explanation is omitted. Current Mesh,
 security, billing, WAAP, API, networking, and independent Kubernetes content
 remains in the consumer corpus.
 
+A retained source limitation can name the unsupported retired service while
+preserving a current Mesh procedure and its version limit. Such a notice needs
+an explicit `retained_notices` structural guard in the document decision, its
+exact reviewed output digest, and independent renewal binding and validation
+digests. Notice detection produces review candidates only. Independent review
+must establish that the complete article has no retired-step dependency before
+the governed catalog can carry those guards. Changed or unreviewed articles,
+metadata, deployment commands, links, and other retired occurrences retain the
+normal conservative checks. Application and final validation use the same
+notice guards without changing the retained source bytes.
+
 The policy digest includes the pinned review catalog. Update the review catalog
 and its digest together when reviewing changed source bytes or media. The
 consumer manifest remains schema v2; detailed decisions stay only in
