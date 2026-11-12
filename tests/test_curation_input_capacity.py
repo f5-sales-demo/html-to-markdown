@@ -5,9 +5,15 @@ import json
 
 import pytest
 from test_curation_renewal import context, proposal
+from test_curation_renewal_publication import Client
 
+from html_to_markdown import curation_renewal_jobs as jobs
 from html_to_markdown.curation_renewal import TOPICS, compile_proposal, proposal_context
-from html_to_markdown.curation_renewal_review import fact_blocks, review_request
+from html_to_markdown.curation_renewal_review import (
+    ReviewCapacityRequired,
+    fact_blocks,
+    review_request,
+)
 from html_to_markdown.enrichment.analysis import sha
 
 
@@ -104,11 +110,6 @@ def test_oversized_indexing_rejects_changed_source_digest():
 def test_capacity_queue_preserves_attempt_and_does_not_spend_semantic_corrections(
     tmp_path, monkeypatch
 ):
-    from test_curation_renewal_publication import Client
-
-    from html_to_markdown import curation_renewal_jobs as jobs
-    from html_to_markdown.curation_renewal_review import ReviewCapacityRequired
-
     source = context()
     decision = proposal(source)
     client = Client(source, decision)
