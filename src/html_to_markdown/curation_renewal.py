@@ -117,6 +117,7 @@ def proposal_context(
                         "curation_renewal_media.py",
                         "curation_media.py",
                         "curation_spans.py",
+                        "curation_api_evidence.py",
                         "curation_renewal_review.py",
                         "curation_renewal_evidence.py",
                         "curation_renewal_jobs.py",

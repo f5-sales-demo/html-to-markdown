@@ -9,6 +9,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy, rewrite_text
 from .curation import json_bytes, load_curation_policy
+from .curation_api_evidence import api_reference_evidence
 from .curation_renewal import VERSION
 from .curation_renewal_evidence import index_planner_candidate, index_planner_candidate_facts
 from .curation_renewal_jobs import _execute, _save, replay_renewal
@@ -102,7 +103,14 @@ Enumerate one fact for EVERY source block other than section, heading or hr, usi
 addresses and digests. Necessary facts require exact actual-output addresses/digests and preserved
 meaning. Use source_fact_blocks and candidate_blocks for these fact witnesses. Coincident nested
 spans have distinct occurrence addresses and each supplied span needs exactly one fact decision.
-technical meaning. Allow only supplied qualified API references and policy-justified retirement
+technical meaning. api_reference_evidence supplies the effective authoritative API policy,
+its exact alias rules, selected source mappings, operation/schema records and captured target
+qualification. Inspect those records and their relationship to this article. Hashes and prior
+assertions alone cannot establish eligibility. Only supplied qualified targets may remain;
+Operation records also establish resource/schema identity; they are not claims that all
+listed operations belong in the article. New related references require an explicit task
+or operation reference, rather than shared resource membership.
+Allow only supplied qualified API references and policy-justified retirement
 removals. Preserve commands, schemas, payloads, limits, prerequisites, warnings, conditions, expected
 results and useful descendants. Blank source fields are limitations, never grounds for invention.
 Whole-document exclusion requires independent policy justification. An omitted article is not proof
@@ -125,6 +133,13 @@ failed preservation requires rejection and explicit failures. Return only the su
         "source_fact_blocks": fact_blocks(context["blocks"]),
         "candidate_blocks": candidate_fact_blocks(candidate["body"]),
     }
+    api_evidence = api_reference_evidence(context, reviewed, candidate)
+    if (
+        api_evidence["targets"]
+        and qualification.get("api_policy_sha256") != api_evidence["policy_sha256"]
+    ):
+        raise ValueError("actual-planner API policy pin changed")
+    payload["api_reference_evidence"] = api_evidence
     body = request(VALIDATOR_MODEL, prompt, payload, PlannerValidation)
     body["instructions"] = body["instructions"].replace("article-enrichment/1", VERSION)
     body["input"][0]["content"].extend(visual)
@@ -155,6 +170,12 @@ def verify_planner_validation(
         or validation.output_sha256 != sha(json_bytes(candidate))
     ):
         raise ValueError("stale actual-planner independent validation")
+    api_evidence = api_reference_evidence(context, reviewed, candidate)
+    if (
+        api_evidence["targets"]
+        and qualification.get("api_policy_sha256") != api_evidence["policy_sha256"]
+    ):
+        raise ValueError("actual-planner API policy pin changed")
     checks = [
         validation.approved,
         validation.complete_document_reviewed,

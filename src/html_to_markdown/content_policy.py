@@ -33,6 +33,12 @@ FAMILIES = (
     "https://docs.cloud.f5.com/docs-v2/api",
     "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref",
 )
+API_ALIASES = (
+    (
+        "https://docs.cloud.f5.com/docs-v2/docs/api",
+        "https://docs.cloud.f5.com/docs-v2/api",
+    ),
+)
 URL_TOKEN = re.compile(
     r"""(?:https?://[^\s<>"'`\[\]()]+|//docs\.cloud\.f5\.com[^\s<>"'`\[\]()]+|(?<![\w:/])(?:/?docs-v2/|(?:\.\./)+|\./|api/|platform/reference/api-ref/)[^\s<>"'`\[\]()]+)"""
 )
@@ -54,7 +60,11 @@ def _normalized(value: str) -> str:
 def _canonical(value: str) -> str:
     parsed = urlsplit(value)
     path = unquote(parsed.path).rstrip("/")
-    return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path, "", ""))
+    canonical = urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path, "", ""))
+    for alias, target in API_ALIASES:
+        if canonical == alias or canonical.startswith(alias + "/"):
+            return target + canonical[len(alias) :]
+    return canonical
 
 
 def _destination(value: str) -> str:
@@ -91,6 +101,8 @@ class ContentPolicy:
     ) -> None:
         self.raw, self.catalog = raw, catalog
         self.policy_digest, self.catalog_digest = policy_digest, catalog_digest
+        self.policy_projection_digest = _digest(_json(raw).encode())
+        self.catalog_projection_digest = _digest(_json(catalog).encode())
         self.topic_policy = curation_policy or load_curation_policy()
         if raw.get("schema_version") != 1 or catalog.get("schema_version") != 1:
             raise ValueError("unsupported content policy/catalog schema")
@@ -160,20 +172,32 @@ class ContentPolicy:
             if not (destinations - {self.fallback}) <= routes:
                 raise ValueError("catalog destination absent from pinned route inventory")
 
+    def validate_projection(self) -> None:
+        """A pinned API policy cannot silently change through its cached object."""
+        if (
+            _digest(_json(self.raw).encode()) != self.policy_projection_digest
+            or _digest(_json(self.catalog).encode()) != self.catalog_projection_digest
+        ):
+            raise ValueError("API policy/catalog projection changed")
+
     @classmethod
     def from_catalog(cls, raw: dict[str, Any], catalog: dict[str, Any]) -> ContentPolicy:
         return cls(raw, catalog, _digest(_json(raw).encode()), _digest(_json(catalog).encode()))
 
     def excludes(self, url: str) -> bool:
         canonical = _canonical(url)
-        return self.topic_policy.excludes(url) or any(
-            canonical == family or canonical.startswith(family + "/")
-            for family in self.raw["exclusions"]
+        return (
+            self.topic_policy.excludes(url)
+            or self.topic_policy.excludes(canonical)
+            or any(
+                canonical == family or canonical.startswith(family + "/")
+                for family in self.raw["exclusions"]
+            )
         )
 
     def resolve(self, url: str) -> dict[str, Any]:
         """Resolve only exact declared identities; retain all ambiguous candidates."""
-        if self.topic_policy.excludes(url):
+        if self.topic_policy.excludes(url) or self.topic_policy.excludes(_canonical(url)):
             raise ValueError("retired reference has no replacement")
         if not self.excludes(url):
             raise ValueError(f"reference outside excluded families: {url}")
@@ -203,13 +227,13 @@ class ContentPolicy:
             urls = sorted({op["url"] for op in candidates})
             reason = "exact_operation" if len(urls) == 1 else "ambiguous_operation"
             target = urls[0] if len(urls) == 1 else self.fallback
-            related: list[str] = []
+            related: list[str] = [target] if reason == "exact_operation" else []
         else:
             candidates = self.by_resource.get(_normalized(leaf), [])
             identities = {(op["resource"], op["domain"]) for op in candidates}
             if len(identities) == 1:
                 reason, target = "exact_resource", candidates[0]["overview_url"]
-                related = sorted({op["url"] for op in candidates})
+                related = []
             else:
                 reason = "ambiguous_resource" if identities else "unmatched"
                 target, related = self.fallback, []
@@ -270,7 +294,9 @@ def rewrite_text(
         # Sentence punctuation is outside the URL; preserve it byte for byte.
         value = token.rstrip(".,;:")
         candidate = urljoin(base_url, "/" + value if value.startswith("docs-v2/") else value)
-        if policy.topic_policy.excludes(candidate):
+        if policy.topic_policy.excludes(candidate) or policy.topic_policy.excludes(
+            _canonical(candidate)
+        ):
             # Examination never manufactures an API destination for retirement.
             return token
         if not policy.excludes(candidate):

@@ -111,3 +111,11 @@ Proposed prose spans contain only start/end selectors. The staged `prose_span.sh
 checks the exact selected text alongside the full structural guard; a missing or altered
 digest cannot become an approved policy edit. Published catalog reasons remain fixed and
 contain no original source text or identifying transformation values.
+
+Actual-planner requests include the effective API policy, exact alias rules and selected
+source mappings, operation/schema records and captured destination qualification. Each
+retained governed target requires its qualified route and HTML digest. Cached policy and
+catalog projections cannot change after loading. Only selected records are supplied;
+independent review still checks their applicability to the complete article. New generated
+related references require explicit operation links. A resource link keeps its qualified
+overview without adding unrelated CRUD operations.
