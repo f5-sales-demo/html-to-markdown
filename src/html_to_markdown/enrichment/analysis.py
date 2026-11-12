@@ -3,12 +3,13 @@
 import hashlib
 import re
 from collections import defaultdict
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
 from markdown_it import MarkdownIt
 
-from ..curation import blocks, corpus_digest, json_bytes, media_inventory
+from ..curation import Block, blocks, corpus_digest, json_bytes, media_inventory
 from ..render import split_document
 
 
@@ -26,10 +27,28 @@ def links(body: str) -> list[str]:
     return sorted(set(result))
 
 
-def inventory(path: Path, root: Path) -> dict[str, Any]:
+def addressed_blocks(body: str, address_version: int = 1) -> list[Block]:
+    """Preserve legacy spans and optionally disambiguate coincident review addresses."""
+    if address_version not in {1, 2}:
+        raise ValueError("unsupported structural address contract")
+    parsed = blocks(body)
+    if address_version == 1:
+        return parsed
+    occurrences: dict[str, int] = {}
+    result = []
+    for block in parsed:
+        address = block.location
+        occurrences[address] = occurrences.get(address, 0) + 1
+        if occurrences[address] > 1:
+            address += f":occurrence:{occurrences[address]}"
+        result.append(replace(block, location=address))
+    return result
+
+
+def inventory(path: Path, root: Path, *, address_version: int = 1) -> dict[str, Any]:
     raw = path.read_text(encoding="utf-8")
     metadata, body = split_document(raw)
-    parsed = blocks(body)
+    parsed = addressed_blocks(body, address_version)
     spans = []
     for block in parsed:
         spans.append(
@@ -92,11 +111,15 @@ def inventory(path: Path, root: Path) -> dict[str, Any]:
         "links": links(body),
         "media": media_inventory(path, body),
         "findings": findings,
+        **({"structural_address_version": 2} if address_version == 2 else {}),
     }
 
 
-def analyze(root: Path) -> dict[str, Any]:
-    documents = [inventory(path, root) for path in sorted(root.glob("content/*/**/index.md"))]
+def analyze(root: Path, *, address_version: int = 1) -> dict[str, Any]:
+    documents = [
+        inventory(path, root, address_version=address_version)
+        for path in sorted(root.glob("content/*/**/index.md"))
+    ]
     passages: dict[str, list[dict[str, Any]]] = defaultdict(list)
     near: dict[str, list[dict[str, Any]]] = defaultdict(list)
     canonical: dict[str, list[dict[str, Any]]] = defaultdict(list)
