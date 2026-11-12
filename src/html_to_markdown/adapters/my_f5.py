@@ -112,16 +112,16 @@ class MyF5Adapter(SourceAdapter):
           const markers = ['Answer', 'Cause', 'Resolution', 'Procedure', 'Description', 'What Happened'];
           const headings = [...clone.querySelectorAll('h2,h3,h4,[role="heading"]')];
           const primary = headings.filter(h => markers.some(m => h.textContent.trim().startsWith(m)));
-          const content = [...clone.querySelectorAll('p,li,pre,table,code')];
+          const content = [...clone.querySelectorAll('p,li,pre,table,code')]
+            .filter(node => !node.closest('nav,footer,aside,[role="navigation"]'));
           const level = h => Number(h.getAttribute('aria-level') || h.tagName.slice(1)) || 3;
-          // Some public Knowledge and Operations Guide templates use authored
-          // rich-text fields without semantic section headings. Scope the
-          // fallback to those fields, excluding titles, controls and promotions.
-          if (primary.length === 0) {
-            const fields = [...clone.querySelectorAll('.article-text-block.slds-rich-text-editor__output, .article-text-block .slds-rich-text-editor__output')];
-            return fields.some(field => [...field.querySelectorAll('p,li,pre,table,code')]
-              .some(node => node.textContent.trim()));
-          }
+          // Lightning can render intentionally empty Description/Cause labels
+          // beside populated authored fields, including same-level descendants.
+          // Read the scoped fields without requiring every label to have content.
+          const fields = [...clone.querySelectorAll('.article-text-block.slds-rich-text-editor__output, .article-text-block .slds-rich-text-editor__output')];
+          if (fields.length) return fields.some(field => [...field.querySelectorAll('p,li,pre,table,code')]
+            .some(node => node.textContent.trim() && !node.closest('nav,footer,aside,[role="navigation"]')));
+          if (primary.length === 0) return false;
           return primary.every(h => {
             const next = headings.slice(headings.indexOf(h) + 1).find(n => level(n) <= level(h));
             return content.some(node => node.textContent.trim() &&
