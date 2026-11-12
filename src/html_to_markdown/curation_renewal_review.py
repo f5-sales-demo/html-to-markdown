@@ -7,6 +7,7 @@ from typing import Any
 
 from .curation import blocks, json_bytes
 from .curation_renewal import TOPICS, VERSION, Proposal, projected_fact, retired_reference
+from .curation_renewal_evidence import index_candidate_stages
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.contracts_v2 import FactV2
@@ -60,6 +61,21 @@ def _fit_review_request(result: dict[str, Any], payload: dict[str, Any]) -> None
         "\nPrompt version: ",
         1,
     )
+    if _request_characters(result) > 1048576:
+        index_candidate_stages(payload)
+        result["input"][0]["content"][0]["text"] = json.dumps(
+            payload, sort_keys=True, ensure_ascii=False
+        )
+        result["instructions"] = result["instructions"].replace(
+            "\nPrompt version: ",
+            "\nCandidate stage body representation 1: candidate_stage_bodies supplies every "
+            "distinct exact complete stage body keyed by its digest. Each input_body and "
+            "output_body stage_body_sha256 reference resolves to that body in this same request. "
+            "Read every referenced body and review every topic even when bodies are identical. "
+            "No source, candidate, rationale or fact is omitted; digest equality is not approval."
+            "\nPrompt version: ",
+            1,
+        )
     if _request_characters(result) > 1048576:
         raise ReviewCapacityRequired(
             "complete curation review exceeds native input capacity; section-boundary review required"
@@ -192,6 +208,10 @@ Return only the supplied structured schema."""
     if candidate is not None:
         prompt += """
 Independently validate the proposal against the COMPLETE original and every candidate stage.
+The complete original editor proposal is supplied in candidate.proposal, including topic, media,
+removal and reference rationales. It is private untrusted evidence bound to proposal_sha256.
+Review those exact assertions against the complete source and policy; they are never proof or
+credential exemptions. Generic public catalog reasons do not replace the private rationale.
 The editor's assertions are not proof. Independently enumerate necessary facts and technical
 relationships. Supply one fact decision for every non-section, non-heading, non-separator source
 block, including references, code, tables and list items. Use exact candidate addresses and digests

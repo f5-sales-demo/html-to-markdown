@@ -98,6 +98,7 @@ def proposal_context(
                     for name in (
                         "curation_renewal.py",
                         "curation_renewal_review.py",
+                        "curation_renewal_evidence.py",
                         "curation_renewal_jobs.py",
                         "curation_renewal_inputs.py",
                         "curation_renewal_dependencies.py",
@@ -356,6 +357,7 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
         "body": current,
         "stages": stages,
         "proposal_sha256": sha(json_bytes(proposal.model_dump())),
+        "proposal": proposal.model_dump(),
         "reference_edits": [item for topic in proposal.topics for item in references[topic.topic]],
         "independent_validation_required": True,
     }
