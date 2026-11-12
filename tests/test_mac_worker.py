@@ -9,7 +9,9 @@ from types import SimpleNamespace
 
 import pytest
 
+from html_to_markdown.curation import json_bytes
 from html_to_markdown.mac_worker import install_launch_agent, monitored_worker, worker_once
+from html_to_markdown.policy_transport import installed_policy_pins
 
 
 def test_idle_worker_checks_private_route_and_preserves_safe_status(
@@ -20,6 +22,10 @@ def test_idle_worker_checks_private_route_and_preserves_safe_status(
 
     def run(args: list[str], **kwargs: object):
         calls.append(args)
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
         return SimpleNamespace(
             stdout=b"[]"
             if "list-review-queues" in args
@@ -35,7 +41,8 @@ def test_idle_worker_checks_private_route_and_preserves_safe_status(
         transport=Path("/private/safe-ssh-exec"),
     )
     assert status["state"] == "idle" and status["concurrency"] == 4
-    assert calls[0][-3:] == ["list-review-queues", "--queue-root", "/private/queue"]
+    assert "export-policy-runtime" in calls[0]
+    assert calls[1][-3:] == ["list-review-queues", "--queue-root", "/private/queue"]
     assert json.loads((tmp_path / "worker/worker-status.json").read_bytes())["state"] == "idle"
 
 
@@ -78,6 +85,10 @@ def test_enrichment_batches_preserve_progress_and_return_only_after_completion(
         return {"pending": int(len(batches) == 1)}
 
     def run(args: list[str], **kwargs: object):
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
         return SimpleNamespace(
             stdout=json.dumps(
                 [
