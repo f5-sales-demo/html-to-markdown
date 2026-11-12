@@ -21,6 +21,7 @@ from ..curation import json_bytes
 from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
+from .native_visuals import native_visual_view, validate_visual_manifest, visual_manifest_text
 
 DISABLED = (
     "shell_tool",
@@ -176,18 +177,23 @@ class CodexClient:
                 args += ["-c", f"model_providers.litellm.{key}={json.dumps(value)}"]
             for feature in DISABLED:
                 args += ["-c", f"features.{feature}=false"]
-            texts = []
-            for item in body["input"]:
-                for content in item["content"]:
-                    if content["type"] == "input_text":
-                        texts.append(content["text"])
-                    elif content["type"] == "input_image":
-                        header, data = content["image_url"].split(",", 1)
-                        if not header.startswith("data:image/") or ";base64" not in header:
-                            raise ValueError("Codex visual input must be captured image bytes")
-                        image = root / f"image-{sha(data)}.png"
-                        image.write_bytes(base64.b64decode(data, validate=True))
-                        args += ["--image", str(image)]
+            texts = [
+                content["text"]
+                for item in body["input"]
+                for content in item["content"]
+                if content["type"] == "input_text"
+            ]
+            visuals, visual_manifest = native_visual_view(body)
+            if visual_manifest is not None:
+                validate_visual_manifest(body, visual_manifest)
+                texts.append(visual_manifest_text(visual_manifest))
+            for content in visuals:
+                header, data = content["image_url"].split(",", 1)
+                if not header.startswith("data:image/") or ";base64" not in header:
+                    raise ValueError("Codex visual input must be captured image bytes")
+                image = root / f"image-{sha(data)}.png"
+                image.write_bytes(base64.b64decode(data, validate=True))
+                args += ["--image", str(image)]
             args += ["-"]
             error = None
             raw: dict[str, Any] = {}
@@ -211,6 +217,9 @@ class CodexClient:
                     "stderr": process.stderr,
                     "returncode": process.returncode,
                 }
+                if visual_manifest is not None:
+                    raw["native_visual_manifest"] = visual_manifest
+                    raw["native_prompt_sha256"] = sha("\n\n".join(texts))
                 forbidden = {
                     "command_execution",
                     "file_change",
@@ -258,6 +267,9 @@ class CodexClient:
                     },
                     "events": events,
                 }
+                if visual_manifest is not None:
+                    normalized["native_visual_manifest"] = visual_manifest
+                    normalized["native_prompt_sha256"] = sha("\n\n".join(texts))
             except (
                 ValueError,
                 OSError,
@@ -308,6 +320,18 @@ class CodexClient:
             for e in events
         ):
             raise ValueError("cached response used tools or context compaction")
+        if "native_visual_manifest" in response:
+            manifest = response["native_visual_manifest"]
+            validate_visual_manifest(body, manifest)
+            texts = [
+                c["text"]
+                for item in body["input"]
+                for c in item["content"]
+                if c["type"] == "input_text"
+            ]
+            texts.append(visual_manifest_text(manifest))
+            if response.get("native_prompt_sha256") != sha("\n\n".join(texts)):
+                raise ValueError("cached native visual request context changed")
         text = [
             c["text"]
             for item in response.get("output", [])
