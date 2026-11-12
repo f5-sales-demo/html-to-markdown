@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from typing import Any
 from urllib.parse import unquote, urljoin, urlsplit
 
+from .curation_media import relocate_references
+
 
 def _normal(text: str) -> str:
     return re.sub(r"\\([_\-*\[\]()])", r"\1", html.unescape(unquote(text))).casefold()
@@ -191,6 +193,7 @@ class AppStackFilter:
                 raise ValueError("stale AppStack wording guard")
             retained = retained.replace(old, new)
         retained = self._remove_blocks(retained, decision.get("block_removals", []))
+        retained = relocate_references(retained, decision.get("media_references", []))
         if self._digest(retained.encode()) != decision["output_sha256"]:
             raise ValueError("AppStack reviewed output digest mismatch")
         if self.unreviewed_retired(retained, decision["url"]):

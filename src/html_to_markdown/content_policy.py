@@ -16,6 +16,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from bs4 import BeautifulSoup
 
 from .curation import (
+    CurationPolicy,
     corpus_digest,
     curate_topics,
     json_bytes,
@@ -80,10 +81,17 @@ class ContentPolicy:
     """Validated policy and its compact specification/route projection."""
 
     def __init__(
-        self, raw: dict[str, Any], catalog: dict[str, Any], policy_digest: str, catalog_digest: str
+        self,
+        raw: dict[str, Any],
+        catalog: dict[str, Any],
+        policy_digest: str,
+        catalog_digest: str,
+        *,
+        curation_policy: CurationPolicy | None = None,
     ) -> None:
         self.raw, self.catalog = raw, catalog
         self.policy_digest, self.catalog_digest = policy_digest, catalog_digest
+        self.topic_policy = curation_policy or load_curation_policy()
         if raw.get("schema_version") != 1 or catalog.get("schema_version") != 1:
             raise ValueError("unsupported content policy/catalog schema")
         if raw.get("exclusions") != list(FAMILIES):
@@ -94,7 +102,7 @@ class ContentPolicy:
         self.operations = [
             op
             for op in catalog["operations"]
-            if op["resource"].rsplit(".", 1)[-1] not in load_curation_policy().retired_identities
+            if op["resource"].rsplit(".", 1)[-1] not in self.topic_policy.retired_identities
         ]
         self.by_operation: dict[str, list[dict[str, Any]]] = {}
         self.by_legacy: dict[str, list[dict[str, Any]]] = {}
@@ -158,14 +166,14 @@ class ContentPolicy:
 
     def excludes(self, url: str) -> bool:
         canonical = _canonical(url)
-        return load_curation_policy().excludes(url) or any(
+        return self.topic_policy.excludes(url) or any(
             canonical == family or canonical.startswith(family + "/")
             for family in self.raw["exclusions"]
         )
 
     def resolve(self, url: str) -> dict[str, Any]:
         """Resolve only exact declared identities; retain all ambiguous candidates."""
-        if load_curation_policy().excludes(url):
+        if self.topic_policy.excludes(url):
             raise ValueError("retired reference has no replacement")
         if not self.excludes(url):
             raise ValueError(f"reference outside excluded families: {url}")
@@ -262,7 +270,7 @@ def rewrite_text(
         # Sentence punctuation is outside the URL; preserve it byte for byte.
         value = token.rstrip(".,;:")
         candidate = urljoin(base_url, "/" + value if value.startswith("docs-v2/") else value)
-        if load_curation_policy().excludes(candidate):
+        if policy.topic_policy.excludes(candidate):
             # Examination never manufactures an API destination for retirement.
             return token
         if not policy.excludes(candidate):
@@ -320,6 +328,7 @@ def migrate_content(
     store: StateStore | None = None,
     *,
     policy: ContentPolicy | None = None,
+    curation_policy: CurationPolicy | None = None,
     apply: bool = True,
 ) -> dict[str, Any]:
     """Examine or apply a snapshot transaction without fetching any input."""
@@ -340,7 +349,15 @@ def migrate_content(
         upstream = output / ".enrichment" / "curated" / "curation-audit.json"
         return dict(json.loads(upstream.read_text())["content_migration"])
     active = policy or load_content_policy()
-    topic_policy = load_curation_policy()
+    topic_policy = curation_policy or active.topic_policy
+    if active.topic_policy.sha256 != topic_policy.sha256:
+        active = ContentPolicy(
+            active.raw,
+            active.catalog,
+            active.policy_digest,
+            active.catalog_digest,
+            curation_policy=topic_policy,
+        )
     audit_path = output / "curation-audit.json"
     before = corpus_digest(output)
     prior_audit = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
@@ -356,7 +373,7 @@ def migrate_content(
     if apply and audit_matches:
         # Re-run the actual planner against current bytes. A matching audit is
         # a lineage hint, never evidence that restored content is still clean.
-        recheck = curate_topics(output, store, apply=False)
+        recheck = curate_topics(output, store, apply=False, policy=topic_policy)
         planned = recheck.pop("_planned")
         actual = {
             path.relative_to(output).as_posix(): split_document(path.read_text())[1]
@@ -367,12 +384,12 @@ def migrate_content(
         else:
             if store:
                 purge_excluded_state(store, active)
-            validate_content_policy(output, active)
+            validate_content_policy(output, active, curation_policy=topic_policy)
             if prior_audit["output_sha256"] != before:
                 prior_audit["output_sha256"] = before
                 audit_path.write_bytes(json_bytes(prior_audit))
             return dict(prior_audit["content_migration"])
-    topics = curate_topics(output, store, apply=apply)
+    topics = curate_topics(output, store, apply=apply, policy=topic_policy)
     planned = topics.pop("_planned")
     old = _previous_evidence(output, active, before)
     excluded = {item["url"]: item for item in old.get("exclusions", [])}
@@ -535,9 +552,23 @@ def migrate_content(
     return evidence
 
 
-def validate_content_policy(output: Path, policy: ContentPolicy | None = None) -> None:
+def validate_content_policy(
+    output: Path,
+    policy: ContentPolicy | None = None,
+    *,
+    curation_policy: CurationPolicy | None = None,
+) -> None:
     active = policy or load_content_policy()
-    validate_curation(output)
+    topic_policy = curation_policy or active.topic_policy
+    if active.topic_policy.sha256 != topic_policy.sha256:
+        active = ContentPolicy(
+            active.raw,
+            active.catalog,
+            active.policy_digest,
+            active.catalog_digest,
+            curation_policy=topic_policy,
+        )
+    validate_curation(output, policy=topic_policy)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         if active.excludes(str(metadata["url"])) or active.excludes(
