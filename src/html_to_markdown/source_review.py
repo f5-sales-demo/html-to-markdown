@@ -410,9 +410,10 @@ by patterns. Keep reserved documentation examples and authoritative attribution 
 Replace real identifying values consistently across text and images using exact digest-guarded spans
 and explicit synthetic value mappings. Never approve credential findings. Every finding needs a
 contextual disposition; uncertain content remains queued.
-Public vendor factory-default initial-login guidance explicitly stated by the authoritative source
-with mandatory password change is a necessary product fact; retain both the fact and its required
-change relationship. Deployment tokens, UIDs, tenant identities, populated password fields and
+Public vendor factory-default login guidance explicitly stated by the authoritative source is a
+necessary product fact, including its documented default value. Retain any password-change
+requirement the source states, and never invent a missing change requirement. A documented public
+factory default is not a private deployment password merely because the source omits a change step. Deployment tokens, UIDs, tenant identities, populated password fields and
 private keys are never factory-default documentation facts. Actual credential enforcement findings
 always require rejection; this distinction cannot approve a credential finding.
 For every text_changes entry, values must contain the identical source_sha256 and replacement.

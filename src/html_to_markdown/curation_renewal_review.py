@@ -99,9 +99,10 @@ privacy_candidate.finding_decisions contains deterministic projection hints; an 
 finding requires fresh contextual classification, not an inferred privacy violation. Reserved
 service-output examples and scanner matches inside synthetic UUIDs require independent inspection.
 Do not invent a new retirement decision to hide such findings. Actual credential enforcement
-findings always require rejection. Public vendor factory-default initial-login guidance explicitly
-stated by the authoritative source with mandatory password change is a necessary product fact;
-retain both the fact and its required-change relationship. Deployment tokens, UIDs, tenant
+findings always require rejection. Public vendor factory-default login guidance explicitly
+stated by the authoritative source is a necessary product fact, including its documented value.
+Preserve any stated password-change relationship and never invent a missing change requirement.
+An omitted change step does not make an authoritative public default a private deployment password. Deployment tokens, UIDs, tenant
 identities, populated password fields and private keys are never factory-default facts.
 The final actual-planner validation must classify every final finding separately and enforce zero
 unresolved or credential findings; contextual rationale here cannot waive that independent gate.
@@ -122,8 +123,9 @@ separate visual evidence and cannot witness a Markdown block. A missing necessar
 payload or action order, privacy problem,
 unsupported claim, incomplete classification or unreviewed media requires rejection. Never waive
 actual credential enforcement findings. Public vendor factory-default login guidance explicitly
-stated by the authoritative source, with a mandatory initial password-change requirement, is
-a necessary product fact. Retain that fact and its password-change relationship. Deployment tokens,
+stated by the authoritative source is a necessary product fact. Preserve its value and any stated
+password-change relationship; never invent a missing change requirement or treat that omission as
+proof of a private deployment password. Deployment tokens,
 UIDs, tenant identities, populated password fields and private keys are never factory-default facts. The controller still requires the actual whole-corpus planner and source admission
 before publication; independent approval here cannot waive those gates."""
         payload["candidate"] = candidate
