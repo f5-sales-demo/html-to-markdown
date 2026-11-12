@@ -94,7 +94,55 @@ def privacy_ledger(previous: dict[str, Any], current_binding: dict[str, Any]) ->
     return {
         "privacy_ledger_version": PRIVACY_VERSION,
         "privacy_feedback": list(feedback),
-        "privacy_exhausted": len(feedback) >= 2 and not independently_validated_privacy(previous),
+        "privacy_exhausted": len(feedback) >= 2
+        and not independently_validated_privacy(previous)
+        and not pending_privacy_proposal(previous, current_binding),
+    }
+
+
+def pending_privacy_proposal(
+    previous: dict[str, Any], current_binding: dict[str, Any]
+) -> dict[str, Any]:
+    """Carry exact unapproved proposal data when a catalog blocked its first validation."""
+    from .source_review import PrivacyDecision  # pylint: disable=import-outside-toplevel
+
+    if (
+        source_core(previous.get("binding", {})) != source_core(current_binding)
+        or (
+            previous.get("reason") != "source_curation_requires_review"
+            and not previous.get("privacy_proposal_pending_validation")
+        )
+        or previous.get("phases", {}).get("validation")
+    ):
+        return {}
+    try:
+        evidence = ResponseEvidence.model_validate(previous["phases"]["privacy"])
+        if evidence.prompt_version != PRIVACY_VERSION:
+            return {}
+        proposal = parse_response(
+            evidence, PrivacyDecision, EDITOR_MODEL, request_hash(evidence.request)
+        )
+        binding = {**source_core(current_binding), "privacy_version": PRIVACY_VERSION}
+        if proposal.binding_sha256 != sha(json_bytes(binding)) or proposal.unresolved:
+            return {}
+    except (ValueError, KeyError, TypeError):
+        return {}
+    return {
+        "privacy_proposal_pending_validation": True,
+        "phases": {
+            key: value
+            for key, value in previous["phases"].items()
+            if key in PRIVATE_PHASES and value.get("error") is None
+        },
+        **{
+            key: previous[key]
+            for key in (
+                "privacy_feedback",
+                "media_observation_feedback",
+                "media_observation_regions",
+            )
+            if key in previous
+        },
     }
 
 
@@ -188,6 +236,11 @@ leave spaces inside distant original quotes. Null/clipped region guards cannot i
 preserve source punctuation outside them and never invent clipped characters. Never erase a visible
 boundary quote because its identifying value is clipped. A null guard covering a visible delimiter
 is unusable: request an independently confirmed region excluding that delimiter before labeling.
+For populated masked credential fields with Reveal passwords unchecked, repaint every region with
+a fixed synthetic mask placeholder such as ********. Never substitute plaintext demonstration
+passwords or change the Reveal control. These are synthetic display pixels, not inferred hidden
+values. Preserve field roles and the new/confirmation relationship without retaining original
+mask lengths. Complete native source/candidate comparison and final enforcement remain mandatory.
 Preserve JSON keys,
 endpoint ports, states, prefix lengths and cross-text/image equality relationships.
 This phase proposes transformations; it does not approve original credentials or publication.

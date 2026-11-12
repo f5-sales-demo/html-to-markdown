@@ -173,3 +173,60 @@ def test_privacy_context_excludes_curation_state_but_keeps_complete_source():
     assert privacy_context(changed) == first
     assert first["body"] == original["body"] and first["media"] == original["media"]
     assert "retirement_rules" not in first and "relevance_decision" not in first
+
+
+def test_catalog_update_finishes_pending_validation_without_an_extra_privacy_proposal(
+    capture, tmp_path, monkeypatch
+):
+    # pylint: disable=import-outside-toplevel
+    import html_to_markdown.source_review_jobs as jobs  # pylint: disable=import-outside-toplevel
+    from html_to_markdown.source_curation import (
+        CurationRequired,  # pylint: disable=import-outside-toplevel
+    )
+
+    calls = []
+
+    class Client(LocalClient):
+        def execute(self, body):
+            calls.append(body["text"]["format"]["name"])
+            return super().execute(body)
+
+    monkeypatch.setattr(jobs, "CodexClient", Client)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    record = next((output / "documents").glob("*.json"))
+    pending = json.loads(record.read_bytes())
+    pending["privacy_feedback"] = ["first correction", "second correction"]
+    record.write_text(json.dumps(pending))
+    original_preview = jobs.preview_curation
+
+    def missing_catalog(*_):
+        raise CurationRequired(CurationRequired.reason)
+
+    monkeypatch.setattr(jobs, "preview_curation", missing_catalog)
+    first = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert first["documents"][0]["reason"] == CurationRequired.reason
+    pending = json.loads(record.read_bytes())
+    proposal = pending["phases"]["privacy"]
+    assert "validation" not in pending["phases"]
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.load_curation_policy",
+        lambda: SimpleNamespace(sha256="changed-policy"),
+    )
+    monkeypatch.setattr(jobs, "preview_curation", original_preview)
+    prepare_reviews(capture, output)
+    current = json.loads(record.read_bytes())
+    assert current["privacy_exhausted"] is False
+    assert current["privacy_proposal_pending_validation"] is True
+    assert current["phases"]["privacy"] == proposal
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.load_curation_policy",
+        lambda: SimpleNamespace(sha256="changed-again"),
+    )
+    prepare_reviews(capture, output)
+    assert json.loads(record.read_bytes())["phases"]["privacy"] == proposal
+    second = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert not second["exceptions"]
+    assert calls.count("privacydecision") == 1
+    assert calls.count("admissionvalidation") == 1
+    assert len(verify_reviews(capture, output)["accepted_files"]) == 1

@@ -33,6 +33,7 @@ from .render import serialize_document, split_document
 from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_phase_bindings import (
     invalidate_failed_review,
+    pending_privacy_proposal,
     privacy_context,
     privacy_ledger,
     privacy_request,
@@ -109,7 +110,11 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
         binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
-            retained = {**privacy_ledger(saved, binding), **reusable_privacy(saved, binding)}
+            retained = {
+                **privacy_ledger(saved, binding),
+                **pending_privacy_proposal(saved, binding),
+                **reusable_privacy(saved, binding),
+            }
             if saved:
                 history = output / "history" / (sha(destination.read_bytes()) + ".json")
                 atomic_private(history, destination.read_bytes())
@@ -649,6 +654,7 @@ def review_one(
                     validation,
                 )
                 enforce(candidate["findings"], projected, validation)
+                saved.pop("privacy_proposal_pending_validation", None)
                 saved.update(
                     disposition="accepted"
                     if relevance.disposition == "include" and relevance.retirement != "excluded"
@@ -692,6 +698,10 @@ def review_one(
             )
     if client is None:
         raise ValueError("inference phase requires the MacBook Codex client")
+    if phase == "privacy" and saved.get("privacy_proposal_pending_validation"):
+        raise ValueError(
+            "pending privacy proposal request changed; exact validation remains queued"
+        )
     if phase == "privacy" and "privacy_reconciliation" in saved["phases"]:
         atomic_private(
             output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
