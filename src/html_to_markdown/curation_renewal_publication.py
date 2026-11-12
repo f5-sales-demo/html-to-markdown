@@ -10,7 +10,7 @@ from .content_inventory import atomic_private
 from .content_policy import load_content_policy, rewrite_text
 from .curation import json_bytes, load_curation_policy
 from .curation_renewal import VERSION
-from .curation_renewal_evidence import index_planner_candidate
+from .curation_renewal_evidence import index_planner_candidate, index_planner_candidate_facts
 from .curation_renewal_jobs import _execute, _save, replay_renewal
 from .curation_renewal_policy import policy_files, qualify_policy, reviewed_policy
 from .curation_renewal_review import (
@@ -55,6 +55,7 @@ def _fit_planner_request(result: dict[str, Any], payload: dict[str, Any]) -> Non
         )
     payload["source_fact_blocks"] = indexed
     index_planner_candidate(payload)
+    index_planner_candidate_facts(payload)
     result["input"][0]["content"][0]["text"] = json.dumps(
         payload, sort_keys=True, ensure_ascii=False
     )
@@ -63,7 +64,10 @@ def _fit_planner_request(result: dict[str, Any], payload: dict[str, Any]) -> Non
         "\nActual-planner lossless representation 1: every source_fact_blocks "
         "source_block_index addresses the zero-based complete source.blocks array. "
         "Read its exact text and verify the supplied digest, retaining distinct coincident "
-        "fact addresses. planner_candidate_stage_bodies supplies every distinct complete "
+        "fact addresses. candidate_blocks may also use a source_block_index into the same "
+        "complete source.blocks array only when that candidate text and digest match exactly. "
+        "Candidate fact addresses remain distinct from source fact addresses. Read all indexed "
+        "text from its complete supplied block. planner_candidate_stage_bodies supplies every distinct complete "
         "reviewed_proposal.candidate stage body keyed by digest. Resolve each input_body "
         "and output_body stage_body_sha256 reference from that pool. Review every topic "
         "and fact even when bodies coincide; digest equality is never approval. Complete "

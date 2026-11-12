@@ -7,7 +7,11 @@ import pytest
 from test_curation_retained_notices import source_context, source_proposal
 
 from html_to_markdown.curation_renewal import compile_proposal
-from html_to_markdown.curation_renewal_evidence import restore_planner_candidate
+from html_to_markdown.curation_renewal_evidence import (
+    index_planner_candidate_facts,
+    restore_planner_candidate,
+    restore_planner_fact_blocks,
+)
 from html_to_markdown.curation_renewal_publication import planner_request
 from html_to_markdown.curation_renewal_review import ReviewCapacityRequired, fact_blocks
 
@@ -76,3 +80,29 @@ def test_a_complete_planner_input_that_still_exceeds_capacity_fails_visibly():
     source, reviewed, qualification, candidate = planner_inputs(1500000)
     with pytest.raises(ReviewCapacityRequired):
         planner_request(source, reviewed, qualification, candidate, [])
+
+
+def test_candidate_fact_index_preserves_distinct_addresses_and_rejects_stale_text():
+    source, _, _, candidate = planner_inputs(40)
+    facts = fact_blocks(source["blocks"])
+    selected = [
+        {
+            "address": "candidate:" + f["address"],
+            "sha256": f["sha256"],
+            "text": f["text"],
+            "kind": f["kind"],
+        }
+        for f in facts
+    ]
+    payload = {"source": source, "candidate_blocks": deepcopy(selected)}
+    index_planner_candidate_facts(payload)
+    assert restore_planner_fact_blocks(payload, "candidate_blocks") == selected
+    assert [b["address"] for b in payload["candidate_blocks"]] == [b["address"] for b in selected]
+    assert all("text" not in b and "source_block_index" in b for b in payload["candidate_blocks"])
+    payload["candidate_blocks"][0]["source_block_index"] = True
+    with pytest.raises(ValueError, match="reference"):
+        restore_planner_fact_blocks(payload, "candidate_blocks")
+    payload["candidate_blocks"][0]["source_block_index"] = 0
+    payload["candidate_blocks"][0]["sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="digest"):
+        restore_planner_fact_blocks(payload, "candidate_blocks")

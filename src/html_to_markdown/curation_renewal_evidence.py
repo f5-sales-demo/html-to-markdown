@@ -74,3 +74,45 @@ def index_planner_candidate(payload: dict[str, Any]) -> None:
     payload["planner_candidate_stage_bodies"] = view["candidate_stage_bodies"]
     if restore_planner_candidate(payload) != original:
         raise ValueError("actual-planner reviewed candidate reconstruction changed")
+
+
+def restore_planner_fact_blocks(payload: dict[str, Any], field: str) -> list[dict[str, Any]]:
+    """Resolve exact source text while keeping every distinct fact address and digest."""
+    originals = payload["source"]["blocks"]
+    restored = []
+    for item in payload[field]:
+        block = dict(item)
+        if "source_block_index" in block:
+            index = block.pop("source_block_index")
+            if (
+                isinstance(index, bool)
+                or not isinstance(index, int)
+                or not 0 <= index < len(originals)
+            ):
+                raise ValueError("actual-planner fact source reference is invalid")
+            text = originals[index]["text"]
+            if "text" in block or sha(text) != block["sha256"]:
+                raise ValueError("actual-planner fact source digest changed")
+            block["text"] = text
+        restored.append(block)
+    return restored
+
+
+def index_planner_candidate_facts(payload: dict[str, Any]) -> None:
+    """Reused candidate text remains supplied in its exact complete source block."""
+    original = payload["candidate_blocks"]
+    source = {
+        (block["sha256"], block["text"]): index
+        for index, block in enumerate(payload["source"]["blocks"])
+    }
+    payload["candidate_blocks"] = [
+        {
+            **{key: value for key, value in block.items() if key != "text"},
+            "source_block_index": source[(block["sha256"], block["text"])],
+        }
+        if (block["sha256"], block["text"]) in source
+        else block
+        for block in original
+    ]
+    if restore_planner_fact_blocks(payload, "candidate_blocks") != original:
+        raise ValueError("actual-planner candidate fact reconstruction changed")
