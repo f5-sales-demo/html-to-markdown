@@ -8,11 +8,16 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy, rewrite_text
-from .curation import blocks, json_bytes, load_curation_policy
+from .curation import json_bytes, load_curation_policy
 from .curation_renewal import VERSION
 from .curation_renewal_jobs import _execute, _save, replay_renewal
 from .curation_renewal_policy import policy_files, qualify_policy, reviewed_policy
-from .curation_renewal_review import RenewalValidation, fact_schema
+from .curation_renewal_review import (
+    RenewalValidation,
+    candidate_fact_blocks,
+    fact_blocks,
+    fact_schema,
+)
 from .enrichment.analysis import sha
 from .enrichment.contracts import VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash, technical_payloads
@@ -43,6 +48,8 @@ Review the COMPLETE source, every proposed topic stage and every retained media 
 Validate actual final metadata, content, media, retirement, privacy, coherence and action order.
 Enumerate one fact for EVERY source block other than section, heading or hr, using the supplied
 addresses and digests. Necessary facts require exact actual-output addresses/digests and preserved
+meaning. Use source_fact_blocks and candidate_blocks for these fact witnesses. Coincident nested
+spans have distinct occurrence addresses and each supplied span needs exactly one fact decision.
 technical meaning. Allow only supplied qualified API references and policy-justified retirement
 removals. Preserve commands, schemas, payloads, limits, prerequisites, warnings, conditions, expected
 results and useful descendants. Blank source fields are limitations, never grounds for invention.
@@ -63,10 +70,8 @@ failed preservation requires rejection and explicit failures. Return only the su
             key: value for key, value in qualification.items() if key != "candidates"
         },
         "candidate": candidate,
-        "candidate_blocks": [
-            {"address": b.location, "sha256": b.sha256, "text": b.text}
-            for b in blocks(candidate["body"])
-        ],
+        "source_fact_blocks": fact_blocks(context["blocks"]),
+        "candidate_blocks": candidate_fact_blocks(candidate["body"]),
     }
     body = request(VALIDATOR_MODEL, prompt, payload, PlannerValidation)
     body["instructions"] = body["instructions"].replace("article-enrichment/1", VERSION)
@@ -111,13 +116,15 @@ def verify_planner_validation(
     if not all(checks) or validation.failures or validation.unresolved:
         raise ValueError("independent actual-planner preservation validation rejected")
     original = {
-        b["address"]: b for b in context["blocks"] if b["kind"] not in {"section", "heading", "hr"}
+        b["address"]: b
+        for b in fact_blocks(context["blocks"])
+        if b["kind"] not in {"section", "heading", "hr"}
     }
     if len(validation.facts) != len(original) or {
         f.source_address for f in validation.facts
     } != set(original):
         raise ValueError("actual-planner source fact coverage is incomplete")
-    retained = {b.location: b for b in blocks(candidate["body"])}
+    retained = {b["address"]: b for b in candidate_fact_blocks(candidate["body"])}
     necessary = {
         fact["source_address"] for fact in reviewed["preservation"]["facts"] if fact["necessary"]
     }
@@ -127,7 +134,7 @@ def verify_planner_validation(
         ) != len(fact.candidate_sha256):
             raise ValueError("actual-planner source or candidate fact guard changed")
         if any(
-            address not in retained or retained[address].sha256 != pin
+            address not in retained or retained[address]["sha256"] != pin
             for address, pin in zip(fact.candidate_addresses, fact.candidate_sha256, strict=True)
         ):
             raise ValueError("actual-planner candidate fact guard changed")

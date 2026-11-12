@@ -448,6 +448,9 @@ Use those guards only for precisely placed image labels, never as guards for tex
 image label requires an independently confirmed native literal with the same boundary punctuation
 and exact rectangle. Null/region guards cannot authorize adding quotes. Keep authored quotes outside
 the replacement region and do not invent closing punctuation clipped by the source screenshot. Never
+erase a visible boundary quote merely because the identifying value is clipped. A null-region
+guard covering that punctuation is unusable: request a new native region that excludes the visible
+delimiter before proposing its unquoted label. Preserve every visible source delimiter in place.
 invent hidden characters. Observation approval confirms readings/regions only; independently
 decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
@@ -458,6 +461,8 @@ Approve only complete relevance, privacy, extraction, retirement and technical-p
 Return only the specified structured output. Phase: """
         + phase
     )
+    if phase == "privacy":
+        prompt += "\nThis phase proposes exact transformations; it does not approve original credentials or publication. When exact native guards support sanitizing populated credential regions, supply complete transformations. The controller will independently validate resulting text/media, technical preservation, retirement and final findings afterward. A pending mandatory later check alone is not an unresolved proposal. Unresolved means actual missing guards, unreadable placement, incomplete transformations or substantive ambiguity that prevents a complete proposal. Never waive credentials or assume the later check will pass."
     prompt += "\nUse supplied value_sha256 or addressed_spans guards; never calculate a source digest. Image coordinates use native frame width and height. Supplied retirement rules are authoritative; patterns are review hints."
     body = request(model, prompt, payload, schema)
     body["instructions"] = body["instructions"].replace("article-enrichment/1", VERSION)
