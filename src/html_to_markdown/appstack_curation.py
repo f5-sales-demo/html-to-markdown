@@ -119,6 +119,68 @@ class AppStackFilter:
             for block in sorted(selected, key=lambda b: b.start)
         ]
 
+    def _limitation_notice(self, block: Any) -> bool:
+        """Identify review candidates; this grammar grants no retention approval."""
+        text = _normal(block.text)
+        if (
+            block.kind != "paragraph"
+            or not re.match(r"^>\s*\*\*note:\*\*\s+", text)
+            or re.search(r"https?://|`|\]\(|<|\[.*\]", text)
+        ):
+            return False
+        remainder, count = re.subn(
+            r"\bdoes not support\s+(?:f5®?\s+)?(?:distributed cloud\s+)?"
+            r"(?:app[_ -]?stack|volt[_ -]?stack)\b",
+            "",
+            text,
+        )
+        return count > 0 and not self.retired(remainder)
+
+    def notice_rules(self, body: str) -> list[dict[str, str]]:
+        """Return complete limitation-notice candidates for independent review."""
+        return [
+            {"location": block.location, "sha256": block.sha256}
+            for block in self._blocks(body)
+            if self._limitation_notice(block)
+        ]
+
+    def _without_reviewed_notices(self, body: str, decision: dict[str, Any]) -> str:
+        rules = decision.get("retained_notices", [])
+        if not rules:
+            return body
+        if not isinstance(rules, list) or any(
+            not re.fullmatch(r"[0-9a-f]{64}", str(decision.get(field, "")))
+            for field in ("renewal_binding_sha256", "renewal_validation_sha256")
+        ):
+            raise ValueError("AppStack notice lacks independent review binding")
+        outputs = decision.get("accepted_output_sha256", [])
+        if not isinstance(outputs, list) or any(
+            not isinstance(pin, str) or not re.fullmatch(r"[0-9a-f]{64}", pin) for pin in outputs
+        ):
+            raise ValueError("invalid AppStack notice output guards")
+        accepted = [decision["output_sha256"], *outputs]
+        if self._digest(body.encode()) not in accepted:
+            raise ValueError("stale AppStack notice document guard")
+        candidates = self.notice_rules(body)
+        if any(rule not in candidates for rule in rules) or len(
+            {json_rule["location"] for json_rule in rules}
+        ) != len(rules):
+            raise ValueError("stale or ambiguous AppStack notice block guard")
+        return self._remove_blocks(body, rules)
+
+    def unreviewed_retired(self, body: str, url: str) -> bool:
+        """Exact reviewed notices never authorize another occurrence or changed input."""
+        decision = self.decisions.get(self.canonical(url), {})
+        try:
+            retained = (
+                self._without_reviewed_notices(body, decision)
+                if decision.get("disposition") == "keep"
+                else body
+            )
+        except (ValueError, KeyError, TypeError):
+            return True
+        return self.obsolete(retained, url)
+
     def _reviewed(self, body: str, decision: dict[str, Any]) -> AppStackResult:
         if decision["disposition"] != "keep":
             return AppStackResult(body, [{"reason": decision["reason"]}], omit=True)
@@ -131,7 +193,7 @@ class AppStackFilter:
         retained = self._remove_blocks(retained, decision.get("block_removals", []))
         if self._digest(retained.encode()) != decision["output_sha256"]:
             raise ValueError("AppStack reviewed output digest mismatch")
-        if self.retired(retained):
+        if self.unreviewed_retired(retained, decision["url"]):
             raise ValueError("AppStack identity survives reviewed edit")
         return AppStackResult(
             retained,
@@ -168,9 +230,14 @@ class AppStackFilter:
             except ValueError:
                 result = AppStackResult(body, [{"reason": "stale_appstack_review"}], omit=True)
         elif (
-            decision and decision["disposition"] == "keep" and current == decision["output_sha256"]
+            decision
+            and decision["disposition"] == "keep"
+            and current in [decision["output_sha256"], *decision.get("accepted_output_sha256", [])]
         ) or not self.obsolete(body, url):
-            result = AppStackResult(body, [])
+            invalid = self.unreviewed_retired(body, url)
+            result = AppStackResult(
+                body, [{"reason": "stale_appstack_review"}] if invalid else [], omit=invalid
+            )
         else:
             result = self._automatic(body, url)
         return result
