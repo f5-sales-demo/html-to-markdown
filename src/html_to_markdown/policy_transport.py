@@ -5,17 +5,21 @@ from __future__ import annotations
 import base64
 import fcntl
 import json
+import os
 import platform
+import shutil
 import subprocess  # nosec B404
 from pathlib import Path
 from typing import Any
 
+from .content_policy import load_content_policy
 from .curation import json_bytes, load_curation_policy
 from .policy_activation import (
     POLICY,
     RECEIPT,
     _policy_files,
     activate_bundle,
+    active_policy_path,
     confirm_cohort,
     controller_digest,
     create_bundle,
@@ -25,8 +29,23 @@ from .policy_activation import (
 REPOSITORY = "f5-sales-demo/html-to-markdown"
 
 
+def policy_repository() -> Path:
+    return Path(
+        os.environ.get("HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown")
+    )
+
+
+def _executable(name: str) -> str:
+    path = shutil.which(name)
+    if path is None:
+        raise ValueError(f"existing Ubuntu {name} executable is unavailable")
+    return path
+
+
 def _git(repository: Path, *args: str) -> bytes:
-    return subprocess.run(["git", *args], cwd=repository, capture_output=True, check=True).stdout  # nosec B603
+    return subprocess.run(
+        [_executable("git"), *args], cwd=repository, capture_output=True, check=True
+    ).stdout  # nosec B603
 
 
 def protected_main(repository: Path) -> str:
@@ -40,8 +59,10 @@ def protected_main(repository: Path) -> str:
         raise ValueError("policy export repository identity mismatch")
     _git(repository, "fetch", "--prune")
     commit = _git(repository, "rev-parse", "origin/main").decode().strip()
-    response = subprocess.run(
-        ["gh", "api", "repos/" + REPOSITORY + "/branches/main"], capture_output=True, check=True
+    response = subprocess.run(  # nosec B603
+        [_executable("gh"), "api", "repos/" + REPOSITORY + "/branches/main"],
+        capture_output=True,
+        check=True,
     ).stdout  # nosec B603
     branch = json.loads(response)
     if not branch.get("protected") or branch["commit"]["sha"] != commit:
@@ -49,8 +70,7 @@ def protected_main(repository: Path) -> str:
     return commit
 
 
-def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
-    commit = protected_main(repository)
+def _merged_inputs(repository: Path, commit: str) -> tuple[dict[str, bytes], str]:
     prefix = "src/html_to_markdown/"
     registry = _git(repository, "show", commit + ":" + prefix + POLICY)
     files = {
@@ -64,7 +84,46 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
         if catalog := topic.get("review_catalog"):
             linked.extend(files[catalog["path"]])
     policy_pin = sha(bytes(linked))
-    if policy_pin == load_curation_policy().sha256:
+    names = _git(repository, "ls-tree", "-r", "--name-only", commit, prefix).decode().splitlines()
+    code = {
+        name.removeprefix(prefix): sha(_git(repository, "show", commit + ":" + name))
+        for name in names
+        if name.endswith(".py")
+    }
+    if sha(json_bytes(code)) != controller_digest():
+        raise ValueError("merged policy requires a compatible software release before activation")
+    api = load_content_policy()
+    if (
+        sha(_git(repository, "show", commit + ":" + prefix + "content_policy.json"))
+        != api.policy_digest
+        or sha(_git(repository, "show", commit + ":" + prefix + api.raw["catalog"]["path"]))
+        != api.catalog_digest
+    ):
+        raise ValueError(
+            "merged API policy requires a compatible software release before activation"
+        )
+    if protected_main(repository) != commit:
+        raise ValueError("protected-main changed while reading merged policy inputs")
+    return files, policy_pin
+
+
+def require_current_policy(repository: Path, state_root: Path | None = None) -> str:
+    """Publication and confirmation must use the current protected-main policy and code."""
+    commit = protected_main(repository)
+    _, pin = _merged_inputs(repository, commit)
+    path = active_policy_path(state_root)
+    installed = load_curation_policy(path) if path else load_curation_policy()
+    if pin != installed.sha256:
+        raise ValueError("merged policy was superseded; installed workers require activation")
+    return commit
+
+
+def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
+    commit = protected_main(repository)
+    files, policy_pin = _merged_inputs(repository, commit)
+    path = active_policy_path(state_root)
+    installed = load_curation_policy(path) if path else load_curation_policy()
+    if policy_pin == installed.sha256:
         pointer = state_root / "active.json"
         if not pointer.exists():
             return {"state": "policy_current", "source_commit": commit, "policy_sha256": policy_pin}
@@ -74,6 +133,8 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
         from .policy_activation import verify_bundle  # pylint: disable=import-outside-toplevel
 
         verify_bundle(root, candidate["bundle_sha256"])
+        if manifest["policy_sha256"] != policy_pin:
+            raise ValueError("active policy changed during protected-main export")
         return {
             "state": "policy_already_active",
             "candidate": candidate,
@@ -83,14 +144,6 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
                 for name in manifest["files"]
             },
         }
-    names = _git(repository, "ls-tree", "-r", "--name-only", commit, prefix).decode().splitlines()
-    code = {
-        name.removeprefix(prefix): sha(_git(repository, "show", commit + ":" + name))
-        for name in names
-        if name.endswith(".py")
-    }
-    if sha(json_bytes(code)) != controller_digest():
-        raise ValueError("merged policy requires a compatible software release before activation")
     qualification = _git(repository, "show", commit + ":engineering/" + RECEIPT)
     manifest, payload = create_bundle(
         files,
@@ -106,6 +159,13 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
         "manifest": manifest,
         "files": {name: base64.b64encode(data).decode() for name, data in payload.items()},
     }
+
+
+def remote_confirm(repository: Path, state_root: Path, peer: dict[str, Any]) -> dict[str, Any]:
+    with (state_root / "activation.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        require_current_policy(repository, state_root)
+        return confirm_cohort(state_root, peer)
 
 
 def remote_activate(
@@ -133,7 +193,7 @@ def synchronize_policy(
     if platform.system() != "Darwin":
         raise ValueError("policy synchronization runs on the MacBook")
     base = [str(transport), "--host", host, "--", executable]
-    result = subprocess.run(
+    result = subprocess.run(  # nosec B603
         [*base, "export-policy-runtime", "--repository", repository, "--state-root", remote_state],
         capture_output=True,
         check=True,
@@ -167,11 +227,11 @@ def synchronize_policy(
         candidate
         if exported["state"] == "policy_already_active"
         else json.loads(
-            subprocess.run(
+            subprocess.run(  # nosec B603
                 args, input=json_bytes(candidate), capture_output=True, check=True, timeout=120
             ).stdout
         )
-    )  # nosec B603
+    )
     pointer = local_state / "active.json"
     previous = json.loads(pointer.read_bytes()) if pointer.exists() else {}
     local = activate_bundle(local_state, candidate, expected_parent=previous.get("bundle_sha256"))
@@ -185,15 +245,17 @@ def synchronize_policy(
         "--",
         executable,
         "confirm-policy-runtime",
+        "--repository",
+        repository,
         "--state-root",
         remote_state,
         "--queue-root",
         queue_root,
     ]
     peer = json.loads(
-        subprocess.run(
+        subprocess.run(  # nosec B603
             args, input=json_bytes(local), capture_output=True, check=True, timeout=120
         ).stdout
-    )  # nosec B603
+    )
     confirm_cohort(local_state, peer)
     return {"state": "policy_active", "candidate": local}

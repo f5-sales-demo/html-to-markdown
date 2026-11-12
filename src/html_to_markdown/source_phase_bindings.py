@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from .curation import json_bytes
 from .enrichment.analysis import sha
+from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
+from .enrichment.gates import parse_response, request_hash
 from .enrichment.requests import request
 
 PRIVACY_VERSION = "source-privacy/2"
@@ -51,6 +54,8 @@ def reusable_privacy(previous: dict[str, Any], current_binding: dict[str, Any]) 
     privacy = previous.get("phases", {}).get("privacy", {})
     if privacy.get("prompt_version") != PRIVACY_VERSION or privacy.get("error") is not None:
         return {}
+    if not independently_validated_privacy(previous):
+        return {}
     # Reuse remains conditional on exact request/response replay when consumed.
     phases = {
         key: value
@@ -62,7 +67,97 @@ def reusable_privacy(previous: dict[str, Any], current_binding: dict[str, Any]) 
         for key in ("privacy_feedback", "media_observation_feedback", "media_observation_regions")
         if key in previous
     }
-    return {"phases": phases, **fields}
+    proof = previous.get("phases", {}).get("validation") or previous["privacy_validation_evidence"]
+    proof_binding = (
+        previous["binding_sha256"]
+        if previous.get("phases", {}).get("validation")
+        else previous["privacy_validation_binding_sha256"]
+    )
+    return {
+        "phases": phases,
+        "privacy_validation_evidence": proof,
+        "privacy_validation_binding_sha256": proof_binding,
+        **fields,
+    }
+
+
+def privacy_ledger(previous: dict[str, Any], current_binding: dict[str, Any]) -> dict[str, Any]:
+    """A catalog change cannot reset corrections for an unchanged privacy context."""
+    if source_core(previous.get("binding", {})) != source_core(current_binding):
+        return {}
+    phase = previous.get("phases", {}).get("privacy", {})
+    if phase.get("prompt_version", previous.get("privacy_ledger_version")) != PRIVACY_VERSION:
+        return {}
+    feedback = previous.get("privacy_feedback", [])
+    if not feedback:
+        return {}
+    return {
+        "privacy_ledger_version": PRIVACY_VERSION,
+        "privacy_feedback": list(feedback),
+        "privacy_exhausted": len(feedback) >= 2 and not independently_validated_privacy(previous),
+    }
+
+
+def independently_validated_privacy(previous: dict[str, Any]) -> bool:
+    """A complete native proposal needs independent privacy and preservation proof."""
+    from .source_review import (  # pylint: disable=import-outside-toplevel
+        AdmissionValidation,
+        PrivacyDecision,
+    )
+
+    try:
+        phases = previous["phases"]
+        editor = ResponseEvidence.model_validate(phases["privacy"])
+        proof = phases.get("validation") or previous["privacy_validation_evidence"]
+        proof_binding = (
+            previous["binding_sha256"]
+            if phases.get("validation")
+            else previous["privacy_validation_binding_sha256"]
+        )
+        validator = ResponseEvidence.model_validate(proof)
+        proposal = parse_response(
+            editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor.request)
+        )
+        result = parse_response(
+            validator, AdmissionValidation, VALIDATOR_MODEL, request_hash(validator.request)
+        )
+        context = json.loads(validator.request["input"][0]["content"][0]["text"])
+        core = {**source_core(previous["binding"]), "privacy_version": PRIVACY_VERSION}
+        return (
+            proposal.binding_sha256 == sha(json_bytes(core))
+            and result.identity == proposal.identity == context["identity"]
+            and result.binding_sha256 == proof_binding
+            and result.output_sha256 == context["candidate"]["output_sha256"]
+            and context["privacy_decision"] == proposal.model_dump()
+            and all(
+                (
+                    result.privacy_valid,
+                    result.extraction_valid,
+                    result.media_valid,
+                    result.technical_relationships_preserved,
+                    result.complete_document_reviewed,
+                    result.complete_media_reviewed,
+                )
+            )
+            and not proposal.unresolved
+            and not result.failures
+            and not result.unresolved
+        )
+    except (ValueError, KeyError, TypeError, IndexError):
+        return False
+
+
+def invalidate_failed_review(saved: dict[str, Any], phase: str, client: Any) -> None:
+    """Preserve private attempts while retiring failed exact-request transport caches."""
+    invalidate = getattr(client, "invalidate", None)
+    if invalidate is None:
+        return
+    phases = ["validation" if phase == "replay" else phase]
+    if phase in {"validation", "replay"} and not independently_validated_privacy(saved):
+        phases.append("privacy")
+    for name in phases:
+        if evidence := saved.get("phases", {}).get(name):
+            invalidate(ResponseEvidence.model_validate(evidence))
 
 
 def privacy_request(model: str, payload: dict[str, Any], schema: Any) -> dict[str, Any]:
@@ -90,7 +185,10 @@ controller fits text inside exact native rectangles, never expanding over techni
 Readable quoted JSON values need complete independently confirmed literal/rectangle guards,
 including boundary quotes and escapes. Replace the whole representation so shorter values cannot
 leave spaces inside distant original quotes. Null/clipped region guards cannot introduce quotes;
-preserve source punctuation outside them and never invent clipped characters. Preserve JSON keys,
+preserve source punctuation outside them and never invent clipped characters. Never erase a visible
+boundary quote because its identifying value is clipped. A null guard covering a visible delimiter
+is unusable: request an independently confirmed region excluding that delimiter before labeling.
+Preserve JSON keys,
 endpoint ports, states, prefix lengths and cross-text/image equality relationships.
 This phase proposes transformations; it does not approve original credentials or publication.
 Where exact guards support sanitizing populated credential regions, supply complete transformations.

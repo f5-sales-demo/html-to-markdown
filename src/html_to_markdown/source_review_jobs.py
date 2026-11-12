@@ -31,7 +31,13 @@ from .media_observation_jobs import (
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .source_curation import CurationRequired, preview_curation, record_exception
-from .source_phase_bindings import privacy_context, privacy_request, reusable_privacy
+from .source_phase_bindings import (
+    invalidate_failed_review,
+    privacy_context,
+    privacy_ledger,
+    privacy_request,
+    reusable_privacy,
+)
 from .source_review import (
     VERSION,
     AdmissionValidation,
@@ -103,7 +109,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
         binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
-            retained = reusable_privacy(saved, binding)
+            retained = {**privacy_ledger(saved, binding), **reusable_privacy(saved, binding)}
             if saved:
                 history = output / "history" / (sha(destination.read_bytes()) + ".json")
                 atomic_private(history, destination.read_bytes())
@@ -699,6 +705,10 @@ def review_one(
 def _run_record(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> None:
+    if json.loads(record.read_bytes()).get("privacy_exhausted"):
+        raise ValueError(
+            "privacy proposal exhausted two corrections; unchanged privacy context remains queued"
+        )
     phases = ["relevance", "privacy", "validation", "replay"] if phase == "all" else [phase]
     for current in phases:
         while True:
@@ -708,6 +718,7 @@ def _run_record(
             except ValueError as failure:
                 saved = json.loads(record.read_bytes())
                 invalidate_classification(saved, client)
+                invalidate_failed_review(saved, current, client)
                 feedback = saved.get("privacy_feedback", [])
                 correctable = current in {"validation", "replay"} and any(
                     marker in str(failure)

@@ -16,11 +16,12 @@ import httpx
 from . import __version__
 from .combined_sources import combine_sources
 from .content_inventory import atomic_private
-from .curation import corpus_digest, json_bytes
+from .curation import corpus_digest, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.engine import load_artifact, prepare, verify_enrichment
 from .models import utc_now
 from .package import RELEASE_ASSET_NAMES, verify_publication_receipt, write_publication_receipt
+from .policy_transport import policy_repository, require_current_policy
 from .refresh import _verified_baseline
 from .source_inputs import verify_source
 
@@ -138,6 +139,7 @@ def stage_publication(output: Path, *, source_commit: str) -> dict[str, Any]:
     combined = output / "combined"
     if not (combined / "enrichment-state.json").is_file():
         raise ValueError("publication requires the complete initial enrichment pass")
+    require_current_policy(policy_repository())
     if job["baseline_receipt_sha256"] != deployed_revision()["publication_sha256"]:
         raise ValueError("publication baseline has been superseded")
     verify_enrichment(combined)
@@ -305,9 +307,8 @@ def advance_publication(queue_root: Path, *, source_commit: str | None = None) -
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             return {"state": "already_running"}
-        from .policy_activation import (
-            require_active_cohort,  # pylint: disable=import-outside-toplevel
-        )
+        # pylint: disable=import-outside-toplevel
+        from .policy_activation import require_active_cohort
 
         require_active_cohort()
         current = state_root / "current-job.json"
@@ -315,12 +316,15 @@ def advance_publication(queue_root: Path, *, source_commit: str | None = None) -
             (str(path), sha(path.read_bytes()))
             for path in sorted((queue_root / ".reviewed").glob("*/*/*/source-review-receipt.json"))
         ]
+        if inputs or current.exists():
+            require_current_policy(policy_repository())
         revision = deployed_revision() if inputs or current.exists() else None
         fingerprint = sha(
             json_bytes(
                 {
                     "inputs": inputs,
                     "software": __version__,
+                    "curation_policy": load_curation_policy().sha256,
                     "baseline": revision["publication_sha256"] if revision else None,
                 }
             )

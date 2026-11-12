@@ -41,6 +41,13 @@ def test_catalog_update_reuses_exact_privacy_but_requires_new_relevance_and_vali
     assert pending["disposition"] == "queued"
     assert set(pending["phases"]) == {"privacy"}
     assert pending["phases"]["privacy"] == privacy
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.load_curation_policy",
+        lambda: SimpleNamespace(sha256="changed-policy-again"),
+    )
+    prepare_reviews(capture, output)
+    pending_again = json.loads(record.read_bytes())
+    assert pending_again["phases"]["privacy"] == privacy
     second = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
     assert not second["exceptions"]
     assert calls == [
@@ -55,19 +62,13 @@ def test_catalog_update_reuses_exact_privacy_but_requires_new_relevance_and_vali
 
 
 @pytest.mark.parametrize("field", ["article_sha256", "metadata", "media", "request_context_sha256"])
-def test_changed_privacy_inputs_do_not_reuse_approvals(field):
-    base = {
-        "identity": "article",
-        "article_sha256": "a",
-        "metadata": {},
-        "media": [],
-        "request_context_sha256": "code",
-        "curation_policy_sha256": "old",
-    }
-    old = {
-        "binding": base,
-        "phases": {"privacy": {"prompt_version": "source-privacy/2", "error": None}},
-    }
+def test_changed_privacy_inputs_do_not_reuse_approvals(field, capture, tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    old = json.loads(next((output / "documents").glob("*.json")).read_bytes())
+    base = old["binding"]
     assert reusable_privacy(old, {**base, "curation_policy_sha256": "new"})
     assert not reusable_privacy(old, {**base, field: "changed"})
     assert not reusable_privacy(
@@ -78,6 +79,72 @@ def test_changed_privacy_inputs_do_not_reuse_approvals(field):
         {**old, "phases": {"privacy": {"prompt_version": "source-privacy/2", "error": "failed"}}},
         base,
     )
+
+
+def test_unvalidated_proposal_is_not_reused_as_a_completed_privacy_decision():
+    base = {"identity": "article", "curation_policy_sha256": "old", "article_sha256": "a"}
+    pending = {
+        "binding": base,
+        "phases": {"privacy": {"prompt_version": "source-privacy/2", "error": None}},
+    }
+    assert not reusable_privacy(pending, {**base, "curation_policy_sha256": "new"})
+
+
+def test_independent_rejection_invalidates_failed_response_caches(capture, tmp_path, monkeypatch):
+    invalidated = []
+
+    class RejectedClient(LocalClient):
+        reject = True
+
+        def invalidate(self, evidence):
+            invalidated.append(evidence.request_sha256)
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", RejectedClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert report["documents"][0]["disposition"] == "queued"
+    failed = json.loads(next((output / "documents").glob("*.json")).read_bytes())
+    assert not reusable_privacy(failed, {**failed["binding"], "curation_policy_sha256": "new"})
+    assert set(invalidated) == {
+        failed["phases"][p]["request_sha256"] for p in ("privacy", "validation")
+    }
+
+
+def test_catalog_update_cannot_reset_exhausted_privacy_corrections(capture, tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    output = tmp_path / "review"
+    prepare_reviews(capture, output)
+    run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    record = next((output / "documents").glob("*.json"))
+    failed = json.loads(record.read_bytes())
+    failed["phases"].pop("validation")
+    failed["privacy_feedback"] = ["first rejected correction", "second rejected correction"]
+    failed["disposition"] = "queued"
+    record.write_text(json.dumps(failed))
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.load_curation_policy",
+        lambda: SimpleNamespace(sha256="changed-policy"),
+    )
+    prepare_reviews(capture, output)
+    current = json.loads(record.read_bytes())
+    assert current["privacy_feedback"] == failed["privacy_feedback"]
+    assert current["privacy_exhausted"] is True
+    assert not current["phases"]
+    monkeypatch.setattr(
+        "html_to_markdown.source_review.load_curation_policy",
+        lambda: SimpleNamespace(sha256="changed-again"),
+    )
+    prepare_reviews(capture, output)
+    assert json.loads(record.read_bytes())["privacy_exhausted"] is True
+
+    class NoMoreInference(LocalClient):
+        def execute(self, body):
+            pytest.fail("catalog changes cannot buy additional privacy proposals")
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", NoMoreInference)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert report["documents"][0]["disposition"] == "queued"
 
 
 def test_privacy_context_excludes_curation_state_but_keeps_complete_source():

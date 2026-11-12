@@ -196,7 +196,7 @@ def test_synthetic_uuid_finding_needs_fresh_classification_and_independent_valid
         "admissionvalidation",
     ] * (1 if approved else 3)
     assert calls == expected_calls
-    assert len(invalidated) == (0 if approved else 3)
+    assert len(invalidated) == (0 if approved else 9)
     assert len(set(invalidated)) == len(invalidated)
     verified = verify_reviews(capture, output)
     assert bool(verified["accepted_files"]) is approved

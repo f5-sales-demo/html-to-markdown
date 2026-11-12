@@ -226,6 +226,8 @@ def activate_bundle(
     }
     if candidate != expected:
         raise ValueError("policy activation candidate pin changed")
+    if previous != expected:
+        (state_root / "cohort.json").unlink(missing_ok=True)
     atomic_private(current, _json(expected))
     return expected
 
