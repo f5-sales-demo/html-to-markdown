@@ -385,11 +385,11 @@ def _compile(
     item = saved["item"]
     for original in item["media"]:
         raw = (capture / original["path"]).read_bytes()
-        transformed = original["sha256"] in changes
-        if transformed:
+        if original["sha256"] in changes:
             raw, transform = preview_media(raw, changes[original["sha256"]], values)
             transforms[original["sha256"]] = transform
         digest = sha(raw)
+        transformed = digest != original["sha256"]
         # Consumer assets need a media extension for the Pages MIME contract.
         from .pipeline import Pipeline  # pylint: disable=import-outside-toplevel
 
