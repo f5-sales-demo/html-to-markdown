@@ -89,6 +89,7 @@ def validate_source_url(source_id: str, url: str) -> str:
                 "/solutions/",
                 "/industries/",
                 "/resources/articles/",
+                "/resources/reports/",
                 "/resources/solution-guides/",
                 "/go/ebook/",
                 "/go/report/",
