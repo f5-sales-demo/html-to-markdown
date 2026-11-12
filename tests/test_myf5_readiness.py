@@ -47,6 +47,18 @@ async def browser():
             '<h1>Cloud services</h1><lightning-spinner></lightning-spinner><div class="article-text-block slds-rich-text-editor__output"><p>Use port 8443.</p></div>',
             False,
         ),
+        (
+            '<h1>Cloud services</h1><h2>Description</h2><div class="article-text-block slds-rich-text-editor__output"><h2>Configure the service</h2><p>Use port 8443.</p></div><h2>Cause</h2>',
+            True,
+        ),
+        (
+            '<h1>Cloud services</h1><h2>Description</h2><h2>Cause</h2><h2>Recommended Actions</h2><div class="article-text-block"><div class="slds-rich-text-editor__output"><p>Restart the service. Expect healthy origins within 30 seconds.</p></div></div>',
+            True,
+        ),
+        (
+            '<h1>Cloud services</h1><h2>Description</h2><div class="article-text-block slds-rich-text-editor__output"><nav><a href="/related">Related content</a></nav></div><footer><p>Promotions</p></footer>',
+            False,
+        ),
     ],
 )
 async def test_article_structure_readiness(browser, body, expected):
@@ -100,3 +112,32 @@ async def test_public_rich_text_login_instruction_is_not_an_authentication_wall(
         html='<article><h1>Cloud services</h1><section><div class="article-text-block"><div class="slds-rich-text-editor__output"><p>Log in to configure the origin pool before the load balancer.</p></div></div></section></article>',
     )
     MyF5Adapter().classify_page(page)
+
+
+async def test_empty_shadow_field_labels_preserve_useful_procedure_and_source_limits(browser):
+    page = await browser.new_page()
+    adapter = MyF5Adapter()
+    try:
+        await page.set_content(
+            "<c-site-article-detail-container></c-site-article-detail-container>"
+        )
+        await page.evaluate("""() => {
+          const root=document.querySelector('c-site-article-detail-container').attachShadow({mode:'open'});
+          root.innerHTML='<article><h1>K000123456: Cloud services</h1><h2>Description</h2><h2>Cause</h2><h2>Recommended Actions</h2><div class="article-text-block"><div class="slds-rich-text-editor__output"><p>Configure the origin pool before the load balancer.</p><p>Use port 8443. Expect healthy origins within 30 seconds.</p></div></div></article>';
+        }""")
+        assert await page.evaluate(adapter.readiness_script()) is True
+        html = await adapter.rendered_html(page)
+        result = adapter.extract(
+            FetchResult(
+                url="https://my.f5.com/manage/s/article/K000123456",
+                final_url="https://my.f5.com/manage/s/article/K000123456",
+                status_code=200,
+                html=html,
+                headers={},
+            )
+        )
+        assert "<h2>Description</h2>" in result.html and "<h2>Cause</h2>" in result.html
+        assert "before the load balancer" in result.html
+        assert "port 8443" in result.html and "within 30 seconds" in result.html
+    finally:
+        await page.close()
