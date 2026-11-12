@@ -82,6 +82,7 @@ def article(root: Path, body: str = BODY) -> Path:
 
 def test_exact_reviewed_notice_keeps_source_bytes_and_version_limit() -> None:
     policy = reviewed_policy()
+    assert policy.appstack is not None
     result = policy.appstack.transform(BODY, URL)
     assert not result.omit
     assert result.body == BODY
@@ -93,6 +94,7 @@ def test_exact_reviewed_notice_keeps_source_bytes_and_version_limit() -> None:
 def test_application_validation_and_repeat_use_same_notice_guards(tmp_path: Path) -> None:
     path = article(tmp_path)
     policy = reviewed_policy()
+    assert policy.appstack is not None
     first = curate_topics(tmp_path, policy=policy)
     assert first["counts"]["keep"] == 1
     assert split_document(path.read_text())[1] == BODY
@@ -106,6 +108,7 @@ def test_application_validation_and_repeat_use_same_notice_guards(tmp_path: Path
 @pytest.mark.parametrize("fault", ["missing", "stale", "duplicate", "binding", "validation"])
 def test_unqualified_or_stale_notice_guards_never_allow_retirement(fault: str) -> None:
     policy = reviewed_policy()
+    assert policy.appstack is not None
     decision = policy.appstack.decisions[URL]
     if fault == "missing":
         decision.pop("retained_notices")
@@ -121,6 +124,7 @@ def test_unqualified_or_stale_notice_guards_never_allow_retirement(fault: str) -
 
 def test_changed_article_does_not_reuse_reviewed_notice() -> None:
     policy = reviewed_policy()
+    assert policy.appstack is not None
     changed = BODY.replace("1.23", "1.24")
     assert policy.retired(changed, url=URL)
     result = policy.appstack.transform(changed, URL)
@@ -138,6 +142,7 @@ def test_changed_article_does_not_reuse_reviewed_notice() -> None:
 def test_notice_guard_does_not_cover_other_retired_material(addition: str) -> None:
     body = BODY + addition
     policy = reviewed_policy(body)
+    assert policy.appstack is not None
     assert policy.appstack.transform(body, URL).omit
 
 
@@ -153,17 +158,20 @@ def test_notice_guard_does_not_cover_other_retired_material(addition: str) -> No
 def test_guard_is_not_permission_for_a_procedure_link_or_code(notice: str) -> None:
     body = "# Mesh networking\n\n" + notice + "\nVerify the tunnel.\n"
     policy = reviewed_policy(body, notice)
+    assert policy.appstack is not None
     assert policy.appstack.transform(body, URL).omit
 
 
 def test_notice_candidates_are_hints_and_have_complete_structural_guards() -> None:
     policy = reviewed_policy()
+    assert policy.appstack is not None
     candidates = policy.appstack.notice_rules(BODY)
     assert candidates == policy.appstack.decisions[URL]["retained_notices"]
     unreviewed = copy.deepcopy(policy.raw)
     unreviewed["topics"][0]["documents"] = []
     without_review = CurationPolicy(unreviewed, digest(json_bytes(unreviewed)))
     assert without_review.retired(BODY, url=URL)
+    assert without_review.appstack is not None
     result = without_review.appstack.transform(BODY, URL)
     assert NOTE not in result.body
 
@@ -176,6 +184,7 @@ def test_final_validation_rejects_a_changed_notice(tmp_path: Path) -> None:
 
 def test_later_reviewed_output_needs_its_own_document_digest() -> None:
     policy = reviewed_policy()
+    assert policy.appstack is not None
     final = BODY + "\nCheck the route status.\n"
     decision = policy.appstack.decisions[URL]
     assert policy.retired(final, url=URL)
