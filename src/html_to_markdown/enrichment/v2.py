@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from ..curation import blocks
 from ..source_review import (
     AdmissionValidation,
     FindingDecision,
@@ -15,7 +14,7 @@ from ..source_review import (
     scan,
     text_fields,
 )
-from .analysis import sha
+from .analysis import addressed_blocks, sha
 from .contracts import (
     EDITOR_MODEL,
     VALIDATOR_MODEL,
@@ -309,7 +308,7 @@ def validation_request(
             "start_line": block.start,
             "end_line": block.end,
         }
-        for block in blocks(candidate_body)
+        for block in addressed_blocks(candidate_body, doc.get("structural_address_version", 1))
     ]
     body = _request(
         VALIDATOR_MODEL,
@@ -336,7 +335,10 @@ def validation_request(
 
 def verify_validation(doc: dict[str, Any], candidate_body: str, value: ValidationV2) -> Validation:
     original = {block["address"]: block for block in doc["blocks"]}
-    target = {block.location: block for block in blocks(candidate_body)}
+    target = {
+        block.location: block
+        for block in addressed_blocks(candidate_body, doc.get("structural_address_version", 1))
+    }
     addresses = [fact.source_address for fact in value.protected_facts]
     if len(addresses) != len(set(addresses)) or set(addresses) != original.keys():
         raise ValueError("independent fact coverage is incomplete")
