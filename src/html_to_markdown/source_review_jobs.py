@@ -47,6 +47,12 @@ from .source_review import (
     text_fields,
     validate_admission,
 )
+from .source_review_reconciliation import (
+    guard_label_quotes,
+    invalidate_classification,
+    replay_classification,
+    review_final_findings,
+)
 
 
 def _retire_output(output: Path, saved: dict[str, Any]) -> None:
@@ -366,6 +372,7 @@ def _compile(
         raise ValueError("privacy proposal must classify every finding exactly once")
     if any(choice.disposition == "unresolved" for choice in proposal.findings):
         raise ValueError("privacy finding is unresolved")
+    guard_label_quotes(context, proposal)
     metadata, body = apply_text(context["metadata"], context["body"], proposal)
     changes = {change.source_sha256: change for change in proposal.media_changes}
     if len(changes) != len(proposal.media_changes) or changes.keys() - context["media"].keys():
@@ -468,7 +475,47 @@ def _compile(
         "file_hashes": {path: sha(data) for path, data in sorted(files.items())},
     }
     payload["output_sha256"] = sha(json_bytes(payload["file_hashes"]))
+    payload, projected = _compiled_findings(capture, output, saved, context, item, payload, visual)
     return payload, visual, proposal.model_copy(update={"findings": projected}), files
+
+
+def _compiled_findings(
+    capture: Path,
+    output: Path,
+    saved: dict[str, Any],
+    context: dict[str, Any],
+    item: dict[str, Any],
+    candidate: dict[str, Any],
+    visual: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[FindingDecision]]:
+    if "privacy_reconciliation" in saved.get("phases", {}):
+        original_visual, _, _ = _media_context(capture, output, item)
+        candidate = replay_classification(saved, context, candidate, original_visual + visual)
+    return candidate, [FindingDecision.model_validate(c) for c in candidate["finding_decisions"]]
+
+
+def _compile_admission(
+    capture: Path,
+    output: Path,
+    record: Path,
+    context: dict[str, Any],
+    visual: list[dict[str, Any]],
+    proposal: PrivacyDecision,
+    client: CodexClient | None,
+) -> tuple[dict[str, Any], list[dict[str, Any]], PrivacyDecision, dict[str, bytes]]:
+    saved = json.loads(record.read_bytes())
+    candidate, candidate_visual, projected, files = _compile(
+        capture, output, saved, context, proposal
+    )
+    if any(choice.disposition == "unresolved" for choice in projected.findings):
+        if client is None:
+            raise ValueError("new final privacy findings require the MacBook classifier")
+        review_final_findings(
+            saved, record, output, context, candidate, visual + candidate_visual, client
+        )
+        saved = json.loads(record.read_bytes())
+        return _compile(capture, output, saved, context, proposal)
+    return candidate, candidate_visual, projected, files
 
 
 # Preserve all stage evidence and checks in one transaction.
@@ -528,9 +575,16 @@ def review_one(
                 EDITOR_MODEL,
                 request_hash(privacy_body),
             )
-            candidate, candidate_visual, projected, files = _compile(
-                capture, output, saved, context, proposal
+            candidate, candidate_visual, projected, files = _compile_admission(
+                capture,
+                output,
+                record,
+                context,
+                visual,
+                proposal,
+                client if phase != "replay" else None,
             )
+            saved = json.loads(record.read_bytes())
             context["privacy_decision"] = proposal.model_dump()
             context["candidate"] = candidate
             if relevance.disposition == "include" and relevance.retirement != "excluded":
@@ -606,6 +660,11 @@ def review_one(
             )
     if client is None:
         raise ValueError("inference phase requires the MacBook Codex client")
+    if phase == "privacy" and "privacy_reconciliation" in saved["phases"]:
+        atomic_private(
+            output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
+        )
+        saved["phases"].pop("privacy_reconciliation")
     saved["phases"][phase] = client.execute(body).model_dump()
     atomic_private(record, json_bytes(saved))
     return dict(saved)
@@ -622,6 +681,7 @@ def _run_record(
                 break
             except ValueError as failure:
                 saved = json.loads(record.read_bytes())
+                invalidate_classification(saved, client)
                 feedback = saved.get("privacy_feedback", [])
                 correctable = current in {"validation", "replay"} and any(
                     marker in str(failure)
@@ -651,6 +711,7 @@ def _run_record(
                 saved["privacy_feedback"] = [*feedback, str(failure)]
                 saved["phases"].pop("privacy", None)
                 saved["phases"].pop("validation", None)
+                saved["phases"].pop("privacy_reconciliation", None)
                 atomic_private(record, json_bytes(saved))
                 review_one(capture, output, record, "privacy", client)
                 if current == "replay":
