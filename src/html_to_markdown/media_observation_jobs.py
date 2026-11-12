@@ -78,7 +78,13 @@ def observation_request(
     )
     body["input"][0]["content"].extend(visual)
     body["input"][0]["content"].extend(
-        observation_views(context.get("observation_regions", []), visual)
+        observation_views(
+            context.get("observation_regions", []),
+            visual,
+            context_margin=128
+            if context.get("binding", {}).get("privacy_version") == "source-privacy/2"
+            else 0,
+        )
     )
     properties = body["text"]["format"]["schema"]["properties"]
     properties["identity"]["enum"] = [context["identity"]]
