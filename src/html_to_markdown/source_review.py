@@ -447,6 +447,9 @@ Use those guards only for precisely placed image labels, never as guards for tex
 image label requires an independently confirmed native literal with the same boundary punctuation
 and exact rectangle. Null/region guards cannot authorize adding quotes. Keep authored quotes outside
 the replacement region and do not invent closing punctuation clipped by the source screenshot. Never
+erase a visible boundary quote merely because the identifying value is clipped. A null-region
+guard covering that punctuation is unusable: request a new native region that excludes the visible
+delimiter before proposing its unquoted label. Preserve every visible source delimiter in place.
 invent hidden characters. Observation approval confirms readings/regions only; independently
 decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
