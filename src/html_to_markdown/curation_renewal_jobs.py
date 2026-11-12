@@ -11,7 +11,12 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_renewal import Proposal, compile_proposal, proposal_context
-from .curation_renewal_review import RenewalValidation, review_request, verify_validation
+from .curation_renewal_review import (
+    RenewalValidation,
+    ReviewCapacityRequired,
+    review_request,
+    verify_validation,
+)
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
@@ -206,6 +211,11 @@ def run_renewal(
                 validator, RenewalValidation, VALIDATOR_MODEL, request_hash(validator_body)
             )
             verify_validation(context, candidate, validation.model_dump())
+        except ReviewCapacityRequired as failure:
+            _save(attempt / "failure.json", {"error": str(failure)})
+            state.update(status="queued", retryable=False)
+            _save(state_path, state)
+            raise
         except TransportFailure:
             state.update(status="queued", retryable=True)
             _save(state_path, state)

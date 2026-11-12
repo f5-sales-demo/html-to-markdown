@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from .curation import blocks, json_bytes
@@ -10,6 +11,59 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.contracts_v2 import FactV2
 from .enrichment.requests import request
+
+
+class ReviewCapacityRequired(ValueError):
+    """Complete input needs a section-boundary review before inference can proceed."""
+
+
+def _request_characters(body: dict[str, Any]) -> int:
+    return len(
+        "\n\n".join(
+            content["text"]
+            for item in body["input"]
+            for content in item["content"]
+            if content["type"] == "input_text"
+        )
+    )
+
+
+def _fit_review_request(result: dict[str, Any], payload: dict[str, Any]) -> None:
+    """Index duplicated facts while retaining complete source blocks and request custody."""
+    if _request_characters(result) <= 1048576:
+        return
+    indexed = []
+    facts = payload["source_fact_blocks"]
+    originals = payload["blocks"]
+    if len(facts) != len(originals):
+        raise ValueError("complete source fact index coverage changed")
+    for index, block in enumerate(facts):
+        if block["text"] != originals[index]["text"] or sha(block["text"]) != block["sha256"]:
+            raise ValueError("indexed source fact digest changed")
+        indexed.append(
+            {
+                **{key: value for key, value in block.items() if key != "text"},
+                "source_block_index": index,
+            }
+        )
+    payload["source_fact_blocks"] = indexed
+    result["input"][0]["content"][0]["text"] = json.dumps(
+        payload, sort_keys=True, ensure_ascii=False
+    )
+    result["instructions"] = result["instructions"].replace(
+        "\nPrompt version: ",
+        "\nsource_fact_blocks uses lossless indexed representation 1: each source_block_index "
+        "is the zero-based index into the complete blocks array supplied in this same request. "
+        "Read that block's exact text and verify its digest. Coincident spans keep their distinct "
+        "fact addresses and index positions. Every source character remains supplied; an index "
+        "is not evidence of preservation. Review every fact and the complete source and candidate."
+        "\nPrompt version: ",
+        1,
+    )
+    if _request_characters(result) > 1048576:
+        raise ReviewCapacityRequired(
+            "complete curation review exceeds native input capacity; section-boundary review required"
+        )
 
 
 class RenewalValidation(StrictModel):
@@ -199,6 +253,7 @@ before publication; independent approval here cannot waive those gates."""
     else:
         shape["properties"]["output_sha256"]["enum"] = [candidate["output_sha256"]]
         fact_schema(shape, context, candidate["body"])
+        _fit_review_request(result, payload)
     return result
 
 
