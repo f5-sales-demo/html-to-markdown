@@ -17,6 +17,7 @@ from .curation import (
     unlink_references,
 )
 from .curation_renewal_media import projected_media_fact, reviewed_output_media, stage_media
+from .curation_spans import prose_guard
 from .enrichment.analysis import sha
 from .enrichment.contracts import StrictModel
 from .legacy_curation import LegacyFilter
@@ -34,10 +35,16 @@ VERSION = "curation-renewal/1"
 SCHEMA_VERSION = 2
 
 
+class ProseSpan(StrictModel):
+    start: int
+    end: int
+
+
 class Removal(StrictModel):
     address: str
     source_sha256: str
     reason: str
+    prose_span: ProseSpan | None = None
 
 
 class MediaMask(StrictModel):
@@ -109,6 +116,7 @@ def proposal_context(
                         "curation_renewal.py",
                         "curation_renewal_media.py",
                         "curation_media.py",
+                        "curation_spans.py",
                         "curation_renewal_review.py",
                         "curation_renewal_evidence.py",
                         "curation_renewal_jobs.py",
@@ -162,8 +170,13 @@ def _guarded_removals(
                 or not removal.reason.strip()
             ):
                 raise ValueError("stale or absent renewal structural guard")
-            chosen.append(block)
-            result[topic.topic].append(block)
+            selected = dict(block)
+            if removal.prose_span is not None:
+                selected["prose_span"] = prose_guard(
+                    block["text"], block["kind"], removal.prose_span.model_dump()
+                )
+            chosen.append(selected)
+            result[topic.topic].append(selected)
     chosen.sort(key=lambda block: (block["start"], block["end"]))
     if any(left["end"] > right["start"] for left, right in zip(chosen, chosen[1:], strict=False)):
         raise ValueError("overlapping curation renewal spans across topics")
@@ -264,10 +277,19 @@ def projected_fact(
         for item in candidate.get("reference_edits", [])
         if start <= item["start"] and item["end"] <= end
     ]
-    return projected_media_fact(unlink_references(source["text"], selected), candidate)
+    text = source["text"]
+    for removal in sorted(
+        candidate.get("prose_removals", []), key=lambda item: item["start"], reverse=True
+    ):
+        if start <= removal["start"] and removal["end"] <= end:
+            left, right = removal["start"] - start, removal["end"] - start
+            if sha(text[left:right]) != removal["sha256"]:
+                raise ValueError("partial prose fact projection digest changed")
+            text = text[:left] + text[right:]
+    return projected_media_fact(unlink_references(text, selected), candidate)
 
 
-def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, str]]:
+def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, Any]]:
     parsed = blocks(body)
     result = []
     for original in removals:
@@ -280,8 +302,34 @@ def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, st
         ]
         if len(matches) != 1:
             raise ValueError("ambiguous or changed renewal span after preceding topic")
-        result.append({"location": matches[0].location, "sha256": matches[0].sha256})
+        rule: dict[str, Any] = {"location": matches[0].location, "sha256": matches[0].sha256}
+        if "prose_span" in original:
+            rule["prose_span"] = original["prose_span"]
+        result.append(rule)
     return result
+
+
+def _prose_removal_records(
+    context: dict[str, Any], guarded: dict[str, list[dict[str, Any]]]
+) -> list[dict[str, Any]]:
+    prose_removals = []
+    lines = context["body"].splitlines(keepends=True)
+    for removals in guarded.values():
+        for block in removals:
+            if "prose_span" not in block:
+                continue
+            offset = sum(len(line) for line in lines[: block["start"]])
+            span = block["prose_span"]
+            prose_removals.append(
+                {
+                    "source_address": block["address"],
+                    "source_sha256": block["sha256"],
+                    "start": offset + span["start"],
+                    "end": offset + span["end"],
+                    "sha256": span["sha256"],
+                }
+            )
+    return prose_removals
 
 
 # Full source, topic, reference and pixel guards remain one deterministic transaction.
@@ -387,6 +435,8 @@ def compile_proposal(
         "reference_edits": [item for topic in proposal.topics for item in references[topic.topic]],
         "independent_validation_required": True,
     }
+    if prose_removals := _prose_removal_records(context, guarded):
+        result["prose_removals"] = prose_removals
     if media_transforms:
         result["media_transforms"] = media_transforms
     result["output_sha256"] = sha(json_bytes(result))

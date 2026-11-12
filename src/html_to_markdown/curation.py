@@ -240,6 +240,11 @@ def _empty_heading_spans(parsed: list[Block], line_count: int) -> list[tuple[int
 
 def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
     parsed = blocks(body)
+    if any("prose_span" in rule for rule in rules):
+        from .curation_spans import apply_prose_removals  # pylint: disable=import-outside-toplevel
+
+        body, rules = apply_prose_removals(body, rules, parsed, blocks)
+        parsed = blocks(body)
     spans: list[Block] = []
     reference_edits = []
     for rule in rules:

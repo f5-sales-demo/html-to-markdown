@@ -84,6 +84,9 @@ def test_native_media_choice_requires_explicit_empty_masks():
                 "masks": [],
             }
         ]
+    for topic in value["topics"]:
+        for removal in topic["removals"]:
+            removal["prose_span"] = None
     schema = review_request(source, [])["text"]["format"]["schema"]
     Draft202012Validator(schema).validate(value)
     value["topics"][0]["media"][0].pop("masks")

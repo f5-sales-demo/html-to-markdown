@@ -183,8 +183,15 @@ Use supplied structural addresses and digest guards; never calculate or reproduc
 Use reference_edits for a supplied direct Markdown link to an explicitly retired topic URL when
 its label or surrounding block contains necessary prerequisites. This exact operation removes only
 the link markup and target, retaining its label and all surrounding source bytes. Never unlink
-unclassified URLs, credentials, code payloads, or necessary factual text. Whole-block removals
-still require independent retirement justification. Select exact removals only when the removed material belongs to the retired policy and independent
+unclassified URLs, credentials, code payloads, or necessary factual text. Use removals.prose_span only for an exact retired prose range within a mixed paragraph
+that contains independently necessary facts. Its start/end are zero-based Python Unicode
+character offsets in that complete supplied source block, with an exclusive end. Supply
+null for whole-block removal. The compiler retrieves the exact text and computes its
+digest; do not calculate or reproduce a selected-span hash. This permits deletion only,
+never replacement prose or a partial code/payload edit. Independent validation must
+retain the necessary fact and its necessity while checking the exact projected remainder.
+Removing a retired sentence cannot justify removing an independent ownership condition.
+Whole-block removals still require independent retirement justification. Select exact removals only when the removed material belongs to the retired policy and independent
 technical explanations remain useful. Preserve prerequisites, commands, payloads, schemas, limits,
 warnings, expected results, action order and useful parent-heading descendants. Original blank
 fields are source limitations; retain them rather than inventing contents. Review original source
@@ -264,6 +271,9 @@ before publication; independent approval here cannot waive those gates."""
         from .curation import load_curation_policy  # pylint: disable=import-outside-toplevel
 
         topics = load_curation_policy().topics
+        removal_shape = shape["$defs"]["Removal"]
+        removal_shape["required"] = list(removal_shape["properties"])
+        removal_shape["properties"]["prose_span"].pop("default", None)
         references = [
             r
             for r in context["reference_spans"]

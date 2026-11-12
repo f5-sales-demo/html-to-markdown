@@ -93,3 +93,16 @@ including reapplication against final output. Examination prepares virtual asset
 without changing source files. The actual planner writes only approved referenced
 outputs, and final policy and packaging checks verify their exact digests. Source
 privacy, source identity and credential checks remain independent prerequisites.
+
+Mixed paragraphs can propose `removals.prose_span` with zero-based Unicode character
+offsets and an exclusive end. Whole-block proposals supply null. The compiler retrieves
+the selected source text and computes its digest; workers do not reproduce source strings
+or calculate selected-span hashes. Staged rules bind the complete paragraph and exact
+selected-range digest, with deletion as the only supported operation.
+
+Partial deletion cannot remove a whole paragraph, intersect inline code, overlap another
+structural or reference operation, or change an adjacent guarded block. Independent review
+must preserve the exact remaining ownership conditions and other necessary facts without
+weakening their necessity. Historical whole-block proposals keep their original unset
+fields. Complete source, media, retirement, privacy and actual-planner validation remain
+mandatory before promotion.
