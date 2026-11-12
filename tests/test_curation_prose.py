@@ -12,7 +12,12 @@ from html_to_markdown.curation_renewal import (
     projected_fact,
     proposal_context,
 )
-from html_to_markdown.curation_renewal_review import review_request
+from html_to_markdown.curation_renewal_review import (
+    candidate_fact_blocks,
+    fact_blocks,
+    review_request,
+    verify_validation,
+)
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.models import PageMetadata
 
@@ -168,12 +173,6 @@ def test_native_removal_schema_is_strict_and_historical_whole_blocks_still_parse
 
 
 def test_partial_projection_requires_the_exact_independent_ownership_witness():
-    from html_to_markdown.curation_renewal_review import (
-        candidate_fact_blocks,
-        fact_blocks,
-        verify_validation,
-    )
-
     context = source()
     candidate = compile_proposal(context, decision(context))
     retained = candidate_fact_blocks(candidate["body"])
