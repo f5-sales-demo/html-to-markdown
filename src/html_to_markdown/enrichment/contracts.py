@@ -1,8 +1,15 @@
 """Strict, versioned model and replay contracts."""
 
-from typing import Any, Literal
+from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    SerializerFunctionWrapHandler,
+    model_serializer,
+    model_validator,
+)
 
 PROMPT_VERSION = "article-enrichment/1"
 EDITOR_MODEL = "gpt-6.1-sol"
@@ -165,6 +172,7 @@ class CanonicalEvidence(StrictModel):
 
 class Artifact(StrictModel):
     schema_version: Literal[1, 2]
+    structural_address_version: Literal[1, 2] = 1
     prompt_version: str
     baseline_tag: str
     publication_sha256: str
@@ -184,3 +192,16 @@ class Artifact(StrictModel):
     pricing: dict[str, dict[str, float]]
     # Rates are USD per million tokens. Empty pricing is explicitly unpriced,
     # never a claim of zero spending.
+
+    @model_validator(mode="after")
+    def compatible_address_contract(self) -> Self:
+        if self.schema_version == 1 and self.structural_address_version != 1:
+            raise ValueError("version-one enrichment requires its historical address contract")
+        return self
+
+    @model_serializer(mode="wrap")
+    def serialize_address_contract(self, handler: SerializerFunctionWrapHandler) -> dict[str, Any]:
+        result: dict[str, Any] = handler(self)
+        if self.structural_address_version == 1:
+            result.pop("structural_address_version", None)
+        return result
