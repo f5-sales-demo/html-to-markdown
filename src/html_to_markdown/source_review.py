@@ -40,6 +40,7 @@ def review_context_digest() -> str:
                     "source_review.py",
                     "source_review_jobs.py",
                     "source_review_reconciliation.py",
+                    "source_replacements.py",
                     "source_curation.py",
                     "media_observations.py",
                     "media_encoding.py",

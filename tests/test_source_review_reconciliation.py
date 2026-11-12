@@ -154,7 +154,7 @@ def test_synthetic_uuid_finding_needs_fresh_classification_and_independent_valid
                             for f in payload["candidate"]["findings"]
                         ],
                     },
-                    "final-privacy-findings/1",
+                    body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
                 )
             existing = super().execute(body)
             output = json.loads(existing.response["output"][0]["content"][0]["text"])

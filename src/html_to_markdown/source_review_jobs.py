@@ -475,7 +475,9 @@ def _compile(
         "file_hashes": {path: sha(data) for path, data in sorted(files.items())},
     }
     payload["output_sha256"] = sha(json_bytes(payload["file_hashes"]))
-    payload, projected = _compiled_findings(capture, output, saved, context, item, payload, visual)
+    payload, projected = _compiled_findings(
+        capture, output, saved, context, item, payload, visual, proposal
+    )
     return payload, visual, proposal.model_copy(update={"findings": projected}), files
 
 
@@ -487,10 +489,13 @@ def _compiled_findings(
     item: dict[str, Any],
     candidate: dict[str, Any],
     visual: list[dict[str, Any]],
+    proposal: PrivacyDecision,
 ) -> tuple[dict[str, Any], list[FindingDecision]]:
     if "privacy_reconciliation" in saved.get("phases", {}):
         original_visual, _, _ = _media_context(capture, output, item)
-        candidate = replay_classification(saved, context, candidate, original_visual + visual)
+        candidate = replay_classification(
+            saved, context, candidate, original_visual + visual, proposal
+        )
     return candidate, [FindingDecision.model_validate(c) for c in candidate["finding_decisions"]]
 
 
@@ -511,7 +516,7 @@ def _compile_admission(
         if client is None:
             raise ValueError("new final privacy findings require the MacBook classifier")
         review_final_findings(
-            saved, record, output, context, candidate, visual + candidate_visual, client
+            saved, record, output, context, candidate, visual + candidate_visual, client, proposal
         )
         saved = json.loads(record.read_bytes())
         return _compile(capture, output, saved, context, proposal)
