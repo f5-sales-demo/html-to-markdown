@@ -481,6 +481,8 @@ def _compile(
     return payload, visual, proposal.model_copy(update={"findings": projected}), files
 
 
+# Keep exact proposal data with the complete source and candidate evidence.
+# pylint: disable-next=too-many-arguments
 def _compiled_findings(
     capture: Path,
     output: Path,
