@@ -71,3 +71,12 @@ the authored label and all surrounding bytes, preserving prerequisites, numeric 
 commands. Independent fact guards compare against the exact deterministic reference edit;
 unclassified URLs, stale references and payload changes cannot receive approval. Privacy
 remains a separate prerequisite and cannot be resolved by retirement removals.
+
+The compiler can propose exact retained-notice guards for complete AppStack negative-support
+limitations. These guards remain unapproved until independent review establishes that the
+article and media have no retired-step dependency. The planner applies only document-scoped,
+digest-bound guards with independent validation provenance, preserving source limitations
+and numeric version requirements without exempting other occurrences. Controller bindings
+include the retirement filters themselves. Oversized actual-planner requests index duplicate
+source facts and complete reviewed stage bodies losslessly; every character and independent
+fact remains supplied, and inputs that still exceed native capacity fail visibly.

@@ -161,6 +161,12 @@ procedures only when their steps require an AppStack Customer Edge site. Apply t
 test to regional-edge deployment too; independent Kubernetes, origins, load balancers and their
 prerequisites remain current unless they depend on a retired step. Virtual K8s alone is not proof
 of an AppStack Customer Edge dependency. Do not broaden retirement policy from a product label.
+A compiled retained_notices guard identifies a complete negative-support source limitation
+candidate. Independently inspect each notice against the entire procedure and all media; its
+pattern or digest is never semantic approval. Preserve the exact Mesh-only relationship and
+Kubernetes version limit when there is no retired-step dependency. A notice cannot exempt a
+retired command, target link, deployment requirement or any other occurrence. Reject unsupported
+retention and incomplete notice classifications in the relevant topic rationale.
 Differences already present between source text, commands and screenshots are authored source
 limitations. Preserve them exactly and record them in contextual rationale rather than silently
 correcting them. A retained source limitation alone is not an unresolved retirement decision;

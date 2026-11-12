@@ -105,6 +105,10 @@ def proposal_context(
                         "curation_renewal_policy.py",
                         "curation_renewal_publication.py",
                         "curation.py",
+                        "appstack_curation.py",
+                        "legacy_curation.py",
+                        "vesctl_curation.py",
+                        "terraform_curation.py",
                         "content_policy.py",
                         "enrichment/gates.py",
                         "enrichment/requests.py",
@@ -322,6 +326,12 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
             "block_removals": rules,
             "review_index": None,
         }
+        if topic.topic == "appstack-retired" and topic.disposition == "keep":
+            appstack = load_curation_policy().appstack
+            if appstack is not None and (notices := appstack.notice_rules(retained)):
+                # Compilation only proposes guards; independent review and the
+                # actual whole-corpus planner must qualify their full context.
+                document["retained_notices"] = notices
         if topic.topic == "legacy-retired":
             document["source_sha256"] = LegacyFilter.source_digest(context["metadata"], current)
         elif topic.topic == "vesctl-retired":

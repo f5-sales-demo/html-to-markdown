@@ -55,3 +55,22 @@ def index_candidate_stages(payload: dict[str, Any]) -> None:
     payload["candidate_stage_bodies"] = pool
     if restore_candidate_stages(payload) != original:
         raise ValueError("candidate stage body reconstruction changed")
+
+
+def restore_planner_candidate(payload: dict[str, Any]) -> dict[str, Any]:
+    """Recover the complete reviewed proposal candidate from an actual-planner view."""
+    view = {"candidate": payload["reviewed_proposal"]["candidate"]}
+    if "planner_candidate_stage_bodies" in payload:
+        view["candidate_stage_bodies"] = payload["planner_candidate_stage_bodies"]
+    return restore_candidate_stages(view)
+
+
+def index_planner_candidate(payload: dict[str, Any]) -> None:
+    """Do not mutate the preserved reviewed proposal while indexing duplicate stages."""
+    original = payload["reviewed_proposal"]["candidate"]
+    view = {"candidate": original}
+    index_candidate_stages(view)
+    payload["reviewed_proposal"] = {**payload["reviewed_proposal"], "candidate": view["candidate"]}
+    payload["planner_candidate_stage_bodies"] = view["candidate_stage_bodies"]
+    if restore_planner_candidate(payload) != original:
+        raise ValueError("actual-planner reviewed candidate reconstruction changed")
