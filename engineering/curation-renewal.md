@@ -106,3 +106,8 @@ must preserve the exact remaining ownership conditions and other necessary facts
 weakening their necessity. Historical whole-block proposals keep their original unset
 fields. Complete source, media, retirement, privacy and actual-planner validation remain
 mandatory before promotion.
+
+Proposed prose spans contain only start/end selectors. The staged `prose_span.sha256`
+checks the exact selected text alongside the full structural guard; a missing or altered
+digest cannot become an approved policy edit. Published catalog reasons remain fixed and
+contain no original source text or identifying transformation values.
