@@ -114,7 +114,26 @@ def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPol
                     ]
                     if remaining:
                         media.append({**old, "documents": remaining})
-                media.append({**choice, "reason": "independently_validated_document_placement"})
+                promoted = {**choice, "reason": "independently_validated_document_placement"}
+                if "transformation" in choice:
+                    promoted.update(
+                        renewal_binding_sha256=context["binding_sha256"],
+                        renewal_validation_sha256=sha(json_bytes(result)),
+                    )
+                    promoted["transformation"] = copy.deepcopy(choice["transformation"])
+                    for mask in promoted["transformation"]["masks"]:
+                        mask["reason"] = "independently_validated_retirement_region"
+                    media.append(
+                        {
+                            "sha256": choice["output_sha256"],
+                            "disposition": "keep",
+                            "documents": choice["documents"],
+                            "reason": "independently_validated_retirement_output",
+                            "renewal_binding_sha256": context["binding_sha256"],
+                            "renewal_validation_sha256": sha(json_bytes(result)),
+                        }
+                    )
+                media.append(promoted)
                 topic["media"] = media
     return _materialized_policy(raw)
 

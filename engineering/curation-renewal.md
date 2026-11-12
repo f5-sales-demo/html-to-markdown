@@ -80,3 +80,16 @@ and numeric version requirements without exempting other occurrences. Controller
 include the retirement filters themselves. Oversized actual-planner requests index duplicate
 source facts and complete reviewed stage bodies losslessly; every character and independent
 fact remains supplied, and inputs that still exceed native capacity fail visibly.
+
+Necessary screenshots can now propose exact retirement masks for separate positive
+retired capability claims. Each mask binds its source image, frame, rectangle,
+original pixels, fill and output digest; independent review must preserve all
+necessary states, controls, versions and sanitized examples. Masks do not create
+new factual claims. All pixels outside the selected regions remain unchanged.
+Animated inputs require a qualified frame-preserving codec and are never flattened.
+
+Compiled asset references and derived-media decisions carry through every topic,
+including reapplication against final output. Examination prepares virtual assets
+without changing source files. The actual planner writes only approved referenced
+outputs, and final policy and packaging checks verify their exact digests. Source
+privacy, source identity and credential checks remain independent prerequisites.

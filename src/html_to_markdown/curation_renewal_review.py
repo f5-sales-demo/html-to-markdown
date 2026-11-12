@@ -172,6 +172,13 @@ limitations. Preserve them exactly and record them in contextual rationale rathe
 correcting them. A retained source limitation alone is not an unresolved retirement decision;
 unresolved privacy, source extraction, preservation or policy scope still requires rejection.
 Review every policy topic in the supplied order and every media digest in its document placement.
+A necessary screenshot may contain a separate positive retired capability claim. Keep all
+useful states, controls, commands, versions and sanitized examples. For appstack-retired only,
+propose masks for minimal retired regions with exact source-pixel rectangle coordinates and
+solid RGB fill colors; never erase necessary image information or waive a retired occurrence
+as generic branding. Mask proposals are private, unapproved transformations. Independent review
+must compare complete original and masked media, every source fact and the complete procedure.
+Negative-support source limitations remain distinct from positive retired capability claims.
 Use supplied structural addresses and digest guards; never calculate or reproduce a source hash.
 Use reference_edits for a supplied direct Markdown link to an explicitly retired topic URL when
 its label or surrounding block contains necessary prerequisites. This exact operation removes only

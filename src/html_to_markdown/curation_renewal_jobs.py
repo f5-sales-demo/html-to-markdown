@@ -11,6 +11,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_renewal import Proposal, compile_proposal, proposal_context
+from .curation_renewal_media import candidate_visuals, source_media
 from .curation_renewal_review import (
     RenewalValidation,
     ReviewCapacityRequired,
@@ -150,8 +151,15 @@ def replay_renewal(
         EDITOR_MODEL,
         request_hash(editor_body),
     )
-    candidate = compile_proposal(context, proposal.model_dump())
-    validation_body = review_request(context, visual, candidate, state["feedback"])
+    raw_media = (
+        source_media(context, directory)
+        if any(t.masks for topic in proposal.topics for t in topic.media)
+        else {}
+    )
+    candidate = compile_proposal(context, proposal.model_dump(exclude_unset=True), raw_media)
+    validation_body = review_request(
+        context, visual + candidate_visuals(candidate, raw_media), candidate, state["feedback"]
+    )
     validation = parse_response(
         ResponseEvidence.model_validate_json((attempt / "validator.json").read_bytes()),
         RenewalValidation,
@@ -202,9 +210,21 @@ def run_renewal(
             editor = _execute(attempt / "editor.json", editor_body, client)
             evidence.append(editor)
             proposal = parse_response(editor, Proposal, EDITOR_MODEL, request_hash(editor_body))
-            candidate = compile_proposal(context, proposal.model_dump())
+            raw_media = (
+                source_media(context, directory)
+                if any(t.masks for topic in proposal.topics for t in topic.media)
+                else {}
+            )
+            candidate = compile_proposal(
+                context, proposal.model_dump(exclude_unset=True), raw_media
+            )
             _save(attempt / "candidate.json", candidate)
-            validator_body = review_request(context, visual, candidate, state["feedback"])
+            validator_body = review_request(
+                context,
+                visual + candidate_visuals(candidate, raw_media),
+                candidate,
+                state["feedback"],
+            )
             validator = _execute(attempt / "validator.json", validator_body, client)
             evidence.append(validator)
             validation = parse_response(

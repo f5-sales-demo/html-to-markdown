@@ -24,6 +24,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from markdown_it import MarkdownIt
 
 from .appstack_curation import AppStackFilter
+from .curation_media import plan_masks, relocate_references
 from .legacy_curation import LegacyFilter
 from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
@@ -532,7 +533,9 @@ def corpus_digest(output: Path) -> str:
     return digest(json_bytes(entries))
 
 
-def media_inventory(path: Path, body: str) -> list[dict[str, Any]]:
+def media_inventory(
+    path: Path, body: str, virtual: dict[Path, bytes] | None = None
+) -> list[dict[str, Any]]:
     values = re.findall(r"!\[[^\]]*\]\((?:<)?([^\s)>]+)", body)
     values.extend(
         m.group(1)
@@ -547,7 +550,9 @@ def media_inventory(path: Path, body: str) -> list[dict[str, Any]]:
         result.append(
             {
                 "reference": value,
-                "sha256": digest(target.read_bytes()) if local and target.is_file() else None,
+                "sha256": digest(virtual[target])
+                if local and virtual is not None and target in virtual
+                else (digest(target.read_bytes()) if local and target.is_file() else None),
                 "kind": "local" if local else "remote",
             }
         )
@@ -637,6 +642,7 @@ def _reviewed_prior_topics(metadata: dict[str, Any], body: str, policy: Curation
             return body
         try:
             revised = remove_blocks(current, decision.get("block_removals", []))
+            revised = relocate_references(revised, decision.get("media_references", []))
         except ValueError:
             return body
         if digest(revised.encode()) != decision["output_sha256"]:
@@ -775,6 +781,11 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    virtual_media = plan_masks(active.topics, originals)
+
+    def inventory(path: Path, body: str) -> list[dict[str, Any]]:
+        return media_inventory(path, body, virtual_media)
+
     original_matches, retirement_plans, retirement_excluded = retirement_preflight(
         output, originals, active, store
     )
@@ -787,7 +798,7 @@ def curate_topics(
                     "legacy-retired", item["sha256"] or "", str(metadata["url"]), path
                 ).get("disposition")
                 == "remove"
-                for item in media_inventory(path, body)
+                for item in inventory(path, body)
             )
             legacy_preflight = active.legacy.transform(
                 metadata, body, dependent=legacy_media_affected
@@ -856,7 +867,7 @@ def curate_topics(
             "candidate": candidate,
             "disposition": "keep",
             "findings": [],
-            "media": media_inventory(path, body),
+            "media": inventory(path, body),
             "stages": [],
         }
         retained = body
@@ -885,7 +896,7 @@ def curate_topics(
                         "legacy-retired", item["sha256"] or "", str(metadata["url"]), path
                     ).get("disposition")
                     == "remove"
-                    for item in media_inventory(path, retained)
+                    for item in inventory(path, retained)
                 )
             ):
                 finding["disposition"] = "omit"
@@ -941,7 +952,7 @@ def curate_topics(
                     finding["findings"].append(str(error))
             # Any media on a candidate page requires committed pixel-bound review.
             for media in (
-                media_inventory(path, retained)
+                inventory(path, retained)
                 if not decision or decision.get("media_review_required", True)
                 else []
             ):
@@ -967,7 +978,7 @@ def curate_topics(
                 finding["disposition"] = "omit"
                 finding["findings"].append("appstack_retirement")
             elif result.findings:
-                for media in media_inventory(path, retained):
+                for media in inventory(path, retained):
                     review = active.media_review(
                         "appstack-retired", media["sha256"] or "", url, path
                     )
@@ -1030,7 +1041,7 @@ def curate_topics(
                 "removed_media": list(terraform_result.removed_media),
             }
             if terraform_result.findings and not terraform_result.omit:
-                for media in media_inventory(path, retained):
+                for media in inventory(path, retained):
                     review = active.media_review(
                         "terraform-provider-current", media["sha256"] or "", url, path
                     )
@@ -1053,7 +1064,7 @@ def curate_topics(
                 finding["disposition"] = "omit"
                 finding["findings"].append("no_independent_content_after_terraform_curation")
             elif terraform_result.findings:
-                for media in media_inventory(path, retained):
+                for media in inventory(path, retained):
                     review = active.media_review(
                         "terraform-provider-current", media["sha256"] or "", url, path
                     )
@@ -1065,7 +1076,7 @@ def curate_topics(
                         finding["disposition"] = "omit"
                         finding["findings"].append("unreviewed_terraform_media")
                         break
-        if any(item["kind"] == "video" for item in media_inventory(path, retained)):
+        if any(item["kind"] == "video" for item in inventory(path, retained)):
             finding["disposition"] = "omit"
             finding["findings"].append("unverifiable_video")
         if finding["disposition"] == "keep" and active.retired(retained, url=url):
@@ -1202,6 +1213,9 @@ def curate_topics(
         if path.resolve() not in referenced_assets
     ]
     if apply:
+        for asset_destination, data in virtual_media.items():
+            if asset_destination in referenced_assets:
+                asset_destination.write_bytes(data)
         for plan in plans.values():
             path, finding = plan["path"], plan["finding"]
             if finding["disposition"] != "keep":

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Literal
 
@@ -15,6 +16,7 @@ from .curation import (
     remove_blocks,
     unlink_references,
 )
+from .curation_renewal_media import projected_media_fact, reviewed_output_media, stage_media
 from .enrichment.analysis import sha
 from .enrichment.contracts import StrictModel
 from .legacy_curation import LegacyFilter
@@ -38,10 +40,18 @@ class Removal(StrictModel):
     reason: str
 
 
+class MediaMask(StrictModel):
+    frame: int
+    rectangle: list[int]
+    color: list[int]
+    reason: str
+
+
 class MediaChoice(StrictModel):
     sha256: str
     disposition: Literal["keep", "remove"]
     reason: str
+    masks: list[MediaMask] = []
 
 
 class ReferenceEdit(StrictModel):
@@ -97,6 +107,8 @@ def proposal_context(
                     name: sha((Path(__file__).parent / name).read_bytes())
                     for name in (
                         "curation_renewal.py",
+                        "curation_renewal_media.py",
+                        "curation_media.py",
                         "curation_renewal_review.py",
                         "curation_renewal_evidence.py",
                         "curation_renewal_jobs.py",
@@ -252,7 +264,7 @@ def projected_fact(
         for item in candidate.get("reference_edits", [])
         if start <= item["start"] and item["end"] <= end
     ]
-    return unlink_references(source["text"], selected)
+    return projected_media_fact(unlink_references(source["text"], selected), candidate)
 
 
 def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, str]]:
@@ -272,7 +284,11 @@ def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, st
     return result
 
 
-def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str, Any]:
+# Full source, topic, reference and pixel guards remain one deterministic transaction.
+# pylint: disable-next=too-many-locals
+def compile_proposal(
+    context: dict[str, Any], value: dict[str, Any], media_bytes: dict[str, bytes] | None = None
+) -> dict[str, Any]:
     """Retrieve exact strings deterministically; compilation grants no approval."""
     proposal = Proposal.model_validate(value)
     expected_context = proposal_context(
@@ -296,6 +312,8 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
     guarded = _guarded_removals(context, proposal)
     references = _reference_choices(context, proposal)
     current = context["body"]
+    current_media = {digest: digest for digest in context["media"]}
+    media_transforms: dict[str, Any] = {}
     stages = []
     disposition = "keep"
     for topic in proposal.topics:
@@ -317,6 +335,9 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
             *_stage_references(current, references[topic.topic]),
         ]
         retained = remove_blocks(current, rules)
+        retained, media_reviews, media_references = stage_media(
+            context, topic, retained, media_bytes or {}, current_media, media_transforms
+        )
         document = {
             "url": context["identity"],
             "disposition": topic.disposition,
@@ -326,6 +347,8 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
             "block_removals": rules,
             "review_index": None,
         }
+        if media_references:
+            document["media_references"] = media_references
         if topic.topic == "appstack-retired" and topic.disposition == "keep":
             appstack = load_curation_policy().appstack
             if appstack is not None and (notices := appstack.notice_rules(retained)):
@@ -342,20 +365,13 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
                 "document": document,
                 "input_body": current,
                 "output_body": retained,
-                "media": [
-                    {
-                        "sha256": choice.sha256,
-                        "disposition": choice.disposition,
-                        "documents": [context["identity"]],
-                        "reason": "independent_curation_validation_required",
-                    }
-                    for choice in topic.media
-                ],
+                "media": media_reviews,
             }
         )
         if topic.disposition == "remove":
             disposition = "remove"
         current = retained
+    reviewed_output_media(context, stages, media_transforms)
     for stage in stages:
         stage["document"]["accepted_output_sha256"] = sorted(
             {stage["document"]["output_sha256"], sha(current)}
@@ -366,10 +382,12 @@ def compile_proposal(context: dict[str, Any], value: dict[str, Any]) -> dict[str
         "disposition": disposition,
         "body": current,
         "stages": stages,
-        "proposal_sha256": sha(json_bytes(proposal.model_dump())),
-        "proposal": proposal.model_dump(),
+        "proposal_sha256": sha(json_bytes(value)),
+        "proposal": deepcopy(value),
         "reference_edits": [item for topic in proposal.topics for item in references[topic.topic]],
         "independent_validation_required": True,
     }
+    if media_transforms:
+        result["media_transforms"] = media_transforms
     result["output_sha256"] = sha(json_bytes(result))
     return result
