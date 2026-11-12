@@ -246,7 +246,14 @@ def test_media_requires_exact_review_and_changed_bytes_omit(tmp_path: Path) -> N
     media = assets / "current.png"
     media.write_bytes(b"reviewed pixels")
     raw = registry(
-        [decision("media", body)], [{"sha256": digest(media.read_bytes()), "disposition": "keep"}]
+        [decision("media", body)],
+        [
+            {
+                "sha256": digest(media.read_bytes()),
+                "disposition": "keep",
+                "documents": [BASE + "media"],
+            }
+        ],
     )
     assert curate_topics(tmp_path, policy=policy(raw), apply=False)["counts"]["keep"] == 1
     media.write_bytes(b"changed pixels")

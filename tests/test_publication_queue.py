@@ -11,6 +11,9 @@ from html_to_markdown.publication_queue import advance_publication, stage_public
 @pytest.fixture(autouse=True)
 def deployed(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(
+        "html_to_markdown.publication_queue.require_current_policy", lambda _: "a" * 40
+    )
+    monkeypatch.setattr(
         "html_to_markdown.publication_queue.deployed_revision",
         lambda: {"publication_sha256": "b" * 64},
     )
@@ -72,6 +75,28 @@ def test_draft_publication_requires_enrichment_before_any_github_write(
     (tmp_path / "publication-job.json").write_text("{}")
     with pytest.raises(ValueError, match="initial enrichment"):
         stage_publication(tmp_path, source_commit="a" * 40)
+
+
+def test_queued_publication_cannot_progress_after_policy_supersession(tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.publication_queue.platform.system", lambda: "Linux")
+    state = tmp_path / ".publication"
+    job = state / "job-old"
+    job.mkdir(parents=True)
+    (state / "current-job.json").write_text(json.dumps({"job": "job-old"}))
+    (job / "publication-job.json").write_text(json.dumps({"baseline_receipt_sha256": "b" * 64}))
+    (job / "validated-enrichment.json").write_text("preserved")
+
+    def superseded(_):
+        raise ValueError("merged policy was superseded")
+
+    monkeypatch.setattr("html_to_markdown.publication_queue.require_current_policy", superseded)
+    monkeypatch.setattr(
+        "html_to_markdown.publication_queue.stage_publication",
+        lambda *a, **k: pytest.fail("stale policy must not stage"),
+    )
+    with pytest.raises(ValueError, match="superseded"):
+        advance_publication(tmp_path, source_commit="a" * 40)
+    assert (job / "validated-enrichment.json").read_text() == "preserved"
 
 
 def test_publication_workflow_serializes_and_rechecks_latest_baseline() -> None:
