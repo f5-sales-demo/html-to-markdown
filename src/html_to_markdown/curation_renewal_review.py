@@ -28,9 +28,33 @@ class RenewalValidation(StrictModel):
     unresolved: list[str]
 
 
+def fact_blocks(source: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Give coincident nested spans unique review IDs without changing legacy guards."""
+    occurrences: dict[str, int] = {}
+    result = []
+    for block in source:
+        address = block["address"]
+        occurrences[address] = occurrences.get(address, 0) + 1
+        if occurrences[address] > 1:
+            address += f":occurrence:{occurrences[address]}"
+        result.append({**block, "address": address})
+    return result
+
+
+def candidate_fact_blocks(body: str) -> list[dict[str, Any]]:
+    return fact_blocks(
+        [
+            {"address": b.location, "sha256": b.sha256, "text": b.text, "kind": b.kind}
+            for b in blocks(body)
+        ]
+    )
+
+
 def fact_schema(shape: dict[str, Any], context: dict[str, Any], candidate_body: str) -> None:
     """Bound the complete fact domain; controller checks still enforce unique coverage."""
-    required = [b for b in context["blocks"] if b["kind"] not in {"section", "heading", "hr"}]
+    required = [
+        b for b in fact_blocks(context["blocks"]) if b["kind"] not in {"section", "heading", "hr"}
+    ]
     shape["properties"]["facts"].update(minItems=len(required), maxItems=len(required))
     if required:
         shape["$defs"]["FactV2"]["properties"]["source_address"]["enum"] = [
@@ -40,10 +64,10 @@ def fact_schema(shape: dict[str, Any], context: dict[str, Any], candidate_body: 
             {b["sha256"] for b in required}
         )
 
-    retained = blocks(candidate_body)
+    retained = candidate_fact_blocks(candidate_body)
     for name, values in {
-        "candidate_addresses": [b.location for b in retained],
-        "candidate_sha256": sorted({b.sha256 for b in retained}),
+        "candidate_addresses": [b["address"] for b in retained],
+        "candidate_sha256": sorted({b["sha256"] for b in retained}),
     }.items():
         field = shape["$defs"]["FactV2"]["properties"][name]
         if values:
@@ -117,6 +141,8 @@ Independently validate the proposal against the COMPLETE original and every cand
 The editor's assertions are not proof. Independently enumerate necessary facts and technical
 relationships. Supply one fact decision for every non-section, non-heading, non-separator source
 block, including references, code, tables and list items. Use exact candidate addresses and digests
+from source_fact_blocks and candidate_blocks. Coincident nested list spans have distinct occurrence
+addresses even when their source lines or bytes match; review each supplied fact span exactly once.
 to prove preservation. For a Markdown image-reference paragraph, use the address and digest of
 that exact candidate_blocks paragraph. Native media/frame addresses and media byte digests are
 separate visual evidence and cannot witness a Markdown block. A missing necessary fact, changed
@@ -129,10 +155,8 @@ proof of a private deployment password. Deployment tokens,
 UIDs, tenant identities, populated password fields and private keys are never factory-default facts. The controller still requires the actual whole-corpus planner and source admission
 before publication; independent approval here cannot waive those gates."""
         payload["candidate"] = candidate
-        payload["candidate_blocks"] = [
-            {"address": block.location, "sha256": block.sha256, "text": block.text}
-            for block in blocks(candidate["body"])
-        ]
+        payload["source_fact_blocks"] = fact_blocks(context["blocks"])
+        payload["candidate_blocks"] = candidate_fact_blocks(candidate["body"])
         schema = RenewalValidation
         model = VALIDATOR_MODEL
     result = request(model, prompt, payload, schema)
@@ -205,7 +229,7 @@ def verify_validation(
         raise ValueError("independent curation renewal validation rejected")
     original = {
         block["address"]: block
-        for block in context["blocks"]
+        for block in fact_blocks(context["blocks"])
         if block["kind"] not in {"section", "heading", "hr"}
     }
     covered = [fact.source_address for fact in validation.facts]
@@ -216,7 +240,7 @@ def verify_validation(
         raise ValueError(
             f"independent curation renewal fact coverage is incomplete: missing={missing}; unexpected={unexpected}; duplicates={duplicates}"
         )
-    retained = {block.location: block for block in blocks(candidate["body"])}
+    retained = {block["address"]: block for block in candidate_fact_blocks(candidate["body"])}
     for fact in validation.facts:
         if fact.source_sha256 != original[fact.source_address]["sha256"]:
             raise ValueError("independent source fact digest changed")
@@ -225,7 +249,7 @@ def verify_validation(
         for address, pin in zip(fact.candidate_addresses, fact.candidate_sha256, strict=True):
             if (
                 address not in retained
-                or retained[address].sha256 != pin
+                or retained[address]["sha256"] != pin
                 or pin != sha(projected_fact(context, candidate, original[fact.source_address]))
             ):
                 raise ValueError(

@@ -11,7 +11,12 @@ from html_to_markdown.content_policy import migrate_content, validate_content_po
 from html_to_markdown.curation import CurationPolicy, blocks, json_bytes, load_curation_policy
 from html_to_markdown.curation_renewal import TOPICS, compile_proposal, proposal_context
 from html_to_markdown.curation_renewal_jobs import replay_renewal, run_renewal
-from html_to_markdown.curation_renewal_review import review_request, verify_validation
+from html_to_markdown.curation_renewal_review import (
+    candidate_fact_blocks,
+    fact_blocks,
+    review_request,
+    verify_validation,
+)
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
@@ -84,6 +89,45 @@ def test_structural_renewal_preserves_independent_facts_and_blank_cells():
     for stage in result["stages"]:
         assert stage["document"]["input_sha256"] == sha(stage["input_body"])
         assert stage["document"]["output_sha256"] == sha(stage["output_body"])
+
+
+def test_nested_same_line_list_facts_have_distinct_lossless_review_addresses():
+    body = "# Debug\n\n1. 1. Collect debug info\n   2. Download the archive\n\n- - ```\n    curl --output debug.tar.bz2\n    ```\n"
+    source = proposal_context(context()["metadata"], body, {}, "a" * 64, "b" * 64)
+    facts = fact_blocks(source["blocks"])
+    assert len({b["address"] for b in facts}) == len(facts)
+    assert [b["text"] for b in facts] == [b["text"] for b in source["blocks"]]
+    assert any(":occurrence:2" in b["address"] for b in facts)
+    candidate = {"body": body, "output_sha256": "c" * 64}
+    request = review_request(source, [], candidate)
+    schema = request["text"]["format"]["schema"]
+    required = [b for b in facts if b["kind"] not in {"section", "heading", "hr"}]
+    addresses = schema["$defs"]["FactV2"]["properties"]["source_address"]["enum"]
+    assert len(addresses) == len(set(addresses)) == len(required)
+    assert schema["properties"]["facts"]["minItems"] == len(required)
+    assert fact_blocks(source["blocks"]) == facts
+    decision = {
+        "identity": source["identity"],
+        "binding_sha256": source["binding_sha256"],
+        "topics": [
+            {
+                "topic": t,
+                "disposition": "keep",
+                "reason": "Current debug requirements remain useful.",
+                "removals": [],
+                "media": [],
+                "reference_edits": [],
+            }
+            for t in TOPICS
+        ],
+        "unresolved": [],
+    }
+    compiled = compile_proposal(source, decision)
+    approved = validation(source, compiled)
+    verify_validation(source, compiled, approved)
+    approved["facts"][-1] = approved["facts"][0]
+    with pytest.raises(ValueError, match="coverage is incomplete"):
+        verify_validation(source, compiled, approved)
 
 
 def test_actual_migration_uses_the_proposed_topic_policy_without_global_changes(tmp_path):
@@ -237,7 +281,7 @@ def test_changed_media_and_incomplete_placement_reviews_are_rejected():
 
 
 def validation(source, candidate):
-    retained = blocks(candidate["body"])
+    retained = candidate_fact_blocks(candidate["body"])
     return {
         "identity": source["identity"],
         "binding_sha256": source["binding_sha256"],
@@ -253,13 +297,15 @@ def validation(source, candidate):
             {
                 "source_address": b["address"],
                 "source_sha256": b["sha256"],
-                "necessary": any(c.sha256 == b["sha256"] for c in retained),
-                "candidate_addresses": [c.location for c in retained if c.sha256 == b["sha256"]],
-                "candidate_sha256": [c.sha256 for c in retained if c.sha256 == b["sha256"]],
-                "preserved": any(c.sha256 == b["sha256"] for c in retained),
+                "necessary": any(c["sha256"] == b["sha256"] for c in retained),
+                "candidate_addresses": [
+                    c["address"] for c in retained if c["sha256"] == b["sha256"]
+                ],
+                "candidate_sha256": [c["sha256"] for c in retained if c["sha256"] == b["sha256"]],
+                "preserved": any(c["sha256"] == b["sha256"] for c in retained),
                 "kind": "fact",
             }
-            for b in source["blocks"]
+            for b in fact_blocks(source["blocks"])
             if b["kind"] not in {"section", "heading", "hr"}
         ],
         "failures": [],
