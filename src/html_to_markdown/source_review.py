@@ -450,6 +450,14 @@ the replacement region and do not invent closing punctuation clipped by the sour
 erase a visible boundary quote merely because the identifying value is clipped. A null-region
 guard covering that punctuation is unusable: request a new native region that excludes the visible
 delimiter before proposing its unquoted label. Preserve every visible source delimiter in place.
+Preserve credential-control display state. When a screenshot shows populated masked password
+fields and Reveal passwords is unchecked, repaint each credential region with a fixed synthetic
+mask placeholder such as ********. Never draw plaintext demo passwords into a masked field or
+change the Reveal control. Mask placeholders describe synthetic display pixels, not inferred
+hidden password values. Do not retain the original mask length as identifying evidence. Preserve
+field roles and the new/confirmation relationship; source images and exact transforms are checked
+independently. Public factory-default login text outside those populated controls remains a
+necessary documented product fact and must retain its value and any stated change relationship.
 invent hidden characters. Observation approval confirms readings/regions only; independently
 decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
