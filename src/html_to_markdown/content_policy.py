@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 
-from bs4 import BeautifulSoup
+from markdown_it import MarkdownIt
 
 from .curation import (
     corpus_digest,
@@ -275,16 +275,19 @@ def rewrite_text(
 
 
 def _description(body: str) -> str | None:
-    text = re.sub(r"```.*?```", "", body, flags=re.DOTALL)
-    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
-    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
-    text = BeautifulSoup(text, "html.parser").get_text(" ", strip=True)
-    lines = [
-        re.sub(r"[*_`>#]", "", line).strip()
-        for line in text.splitlines()
-        if line.strip() and not line.startswith(("#", "<!--"))
-    ]
-    return " ".join(" ".join(lines).split())[:240] or None
+    """Derive a complete retained prose paragraph without clipping technical values."""
+    previous = ""
+    for token in MarkdownIt().parse(body.split(SECTION, 1)[0]):
+        if token.type == "inline" and previous == "paragraph_open":
+            text = "".join(
+                child.content if child.type in {"text", "code_inline"} else " "
+                for child in token.children or []
+                if child.type in {"text", "code_inline", "softbreak", "hardbreak"}
+            )
+            if description := " ".join(text.split()):
+                return description
+        previous = token.type
+    return None
 
 
 def _previous_evidence(output: Path, policy: ContentPolicy, current_sha256: str) -> dict[str, Any]:
@@ -449,7 +452,8 @@ def migrate_content(
                 "output_sha256": _digest(migrated.encode()),
             }
         )
-        metadata.description = _description(migrated)
+        if migrated != body or not metadata.description:
+            metadata.description = _description(migrated)
         metadata.related_documents = [
             item for item in metadata.related_documents if not active.excludes(item.canonical_url)
         ]

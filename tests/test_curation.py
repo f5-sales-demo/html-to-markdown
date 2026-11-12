@@ -437,3 +437,33 @@ def test_appstack_media_decisions_are_page_scoped() -> None:
     assert active.media[sha]["disposition"] == "remove"
     assert active.appstack is not None
     assert active.appstack.media[sha]["disposition"] == "keep"
+
+
+@pytest.mark.parametrize("changed", [False, True])
+def test_curation_description_matches_retained_body_in_preview_and_apply(
+    tmp_path: Path, changed: bool
+) -> None:
+    body = "# Current\n\nKeep the current load-balancer instructions.\n"
+    if changed:
+        body += "\nRetired securemesh_site instructions.\n"
+    path = document(tmp_path, "description", body)
+    metadata, _ = split_document(path.read_text())
+    metadata["description"] = (
+        "Keep current load-balancer instructions and the described deployment."
+    )
+    path.write_text(serialize_document(PageMetadata.model_validate(metadata), body))
+    removals = [
+        guard(b) for b in blocks(body) if b.kind == "paragraph" and "securemesh_site" in b.text
+    ]
+    active = policy(registry([decision("description", body, removals)]))
+    before = path.read_bytes()
+    preview = curate_topics(tmp_path, policy=active, apply=False)
+    planned = preview["_planned"][path.relative_to(tmp_path).as_posix()]
+    expected = None if changed else metadata["description"]
+    assert planned["metadata"]["description"] == expected
+    assert path.read_bytes() == before
+    curate_topics(tmp_path, policy=active)
+    result, retained = split_document(path.read_text())
+    assert result.get("description") == expected
+    assert retained == planned["body"]
+    assert "Retired securemesh_site instructions" not in retained

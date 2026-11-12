@@ -888,6 +888,8 @@ def curate_topics(
             for item in relationships
             if active.vesctl is not None and active.vesctl.excludes(item["canonical_url"])
         ]
+        if retained != body:
+            metadata = dict(metadata, description=None)
         source_key = str(metadata["url"])
         plans[source_key] = {
             "path": path,
@@ -973,6 +975,7 @@ def curate_topics(
                 )
                 if removed and not remaining and meaningful:
                     plan["body"] = repaired
+                    plan["metadata"] = dict(plan["metadata"], description=None)
                     finding["appstack_dependencies"] = removed
                     finding["stages"].append(
                         {
@@ -1031,7 +1034,6 @@ def curate_topics(
             retained_metadata.aliases = [
                 item for item in retained_metadata.aliases if not active.retired(item)
             ]
-            retained_metadata.description = None
             retained_metadata.replacement_url = None
             document = serialize_document(retained_metadata, plan["body"])
             path.write_text(document, encoding="utf-8", newline="\n")

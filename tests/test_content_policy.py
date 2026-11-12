@@ -275,3 +275,77 @@ async def test_fresh_discovery_filters_explicit_and_adapter_inventory(tmp_path: 
         assert await pipeline.discover("docs-cloud-f5-com") == 0
     assert not pipeline.store.rows()
     pipeline.store.close()
+
+
+@pytest.mark.parametrize(
+    ("description", "body"),
+    [
+        (
+            "BGP communities let you inspect the complete AS path.",
+            "# Description\n\n"
+            + "BGP attributes remain available for diagnostics. " * 4
+            + "AS-path example: 6453 35280 55002 64501.",
+        ),
+        (
+            "Route-leak detection identifies an unexpected change to the advertised path.",
+            "# Description\n\n"
+            + "Inspect the route advertisements before changing policy. " * 5
+            + "Route-leak detection identifies the path change.",
+        ),
+        (
+            "Investigate the reported connection errors and apply the documented workaround.",
+            "# Description\n\n"
+            + "Collect the observed diagnostic output and compare the documented conditions. " * 4
+            + "Error messages support the documented workaround.",
+        ),
+    ],
+)
+def test_migration_preserves_complete_unchanged_description(
+    tmp_path: Path, policy: ContentPolicy, description: str, body: str
+) -> None:
+    path = write_doc(tmp_path, "https://docs.cloud.f5.com/docs-v2/how-to/guide", body)
+    metadata, _ = split_document(path.read_text())
+    metadata["description"] = description
+    path.write_text(serialize_document(PageMetadata.model_validate(metadata), body))
+    migrate_content(tmp_path, policy=policy)
+    result, retained = split_document(path.read_text())
+    assert result["description"] == description
+    assert retained.strip() == body.strip()
+
+
+def test_missing_description_keeps_complete_first_paragraph(
+    tmp_path: Path, policy: ContentPolicy
+) -> None:
+    paragraph = "Inspect the full path before changing the route policy. " * 5
+    paragraph += "AS-path example: 6453 35280 55002 64501."
+    body = f"# Description\n\n{paragraph}\n\nLater diagnostic details.\n"
+    path = write_doc(tmp_path, "https://docs.cloud.f5.com/docs-v2/how-to/guide", body)
+    migrate_content(tmp_path, policy=policy)
+    metadata, _ = split_document(path.read_text())
+    assert metadata["description"] == paragraph
+
+
+def test_changed_body_rebuilds_complete_description_without_generated_references(
+    tmp_path: Path, policy: ContentPolicy
+) -> None:
+    prose = f"Inspect the [operation]({LEGACY}/http-loadbalancer) before configuring the listener. "
+    prose += "The documented route policy and complete AS path remain applicable. " * 5
+    body = "# Guide\n\n![Diagram](assets/diagram.png)\n\n```text\nnot prose\n```\n\n" + prose
+    path = write_doc(tmp_path, "https://docs.cloud.f5.com/docs-v2/how-to/guide", body)
+    (path.parent / "assets").mkdir()
+    (path.parent / "assets/diagram.png").write_bytes(b"image bytes")
+    metadata, _ = split_document(path.read_text())
+    metadata["description"] = "Original summary referencing a replaced API destination."
+    path.write_text(serialize_document(PageMetadata.model_validate(metadata), body))
+    migrate_content(tmp_path, policy=policy)
+    metadata, migrated = split_document(path.read_text())
+    assert (
+        metadata["description"]
+        == prose.replace(f"[operation]({LEGACY}/http-loadbalancer)", "operation").strip()
+    )
+    assert "Related API reference" in migrated
+    before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
+    migrate_content(tmp_path, policy=policy)
+    assert {
+        p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()
+    } == before
