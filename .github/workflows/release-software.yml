@@ -47,6 +47,7 @@ jobs:
         run: |
           set -euo pipefail
           uv sync --all-groups --locked
+          uv run playwright install --with-deps chromium
           uv run pytest
           uv build
           test "$(find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \) | wc -l)" -eq 2
