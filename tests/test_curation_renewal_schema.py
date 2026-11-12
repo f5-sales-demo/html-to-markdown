@@ -1,8 +1,10 @@
 """Exact request domains prevent headings or unreviewed media escaping coverage."""
 
+import pytest
+from jsonschema import Draft202012Validator, ValidationError
 from test_curation_renewal import context, proposal
 
-from html_to_markdown.curation_renewal import compile_proposal, proposal_context
+from html_to_markdown.curation_renewal import Proposal, compile_proposal, proposal_context
 from html_to_markdown.curation_renewal_review import review_request
 
 
@@ -47,3 +49,55 @@ def test_topic_schema_requires_reference_edits_even_when_empty():
     schema = review_request(context(), [])["text"]["format"]["schema"]["$defs"]["TopicDecision"]
     assert set(schema["required"]) == set(schema["properties"])
     assert "reference_edits" in schema["required"]
+
+
+def test_native_editor_schema_requires_all_nested_object_properties():
+    schema = review_request(context(), [])["text"]["format"]["schema"]
+
+    def check(node):
+        if isinstance(node, dict):
+            if node.get("type") == "object":
+                assert set(node["required"]) == set(node["properties"])
+                assert node["additionalProperties"] is False
+            for value in node.values():
+                check(value)
+        elif isinstance(node, list):
+            for value in node:
+                check(value)
+
+    check(schema)
+    assert "default" not in schema["$defs"]["MediaChoice"]["properties"]["masks"]
+
+
+def test_native_media_choice_requires_explicit_empty_masks():
+    source = context()
+    source = proposal_context(
+        source["metadata"], source["body"], {"a" * 64: {}}, "c" * 64, "d" * 64
+    )
+    value = proposal(source)
+    for topic in value["topics"]:
+        topic["media"] = [
+            {
+                "sha256": "a" * 64,
+                "disposition": "keep",
+                "reason": "Necessary dashboard",
+                "masks": [],
+            }
+        ]
+    schema = review_request(source, [])["text"]["format"]["schema"]
+    Draft202012Validator(schema).validate(value)
+    value["topics"][0]["media"][0].pop("masks")
+    with pytest.raises(ValidationError, match="masks"):
+        Draft202012Validator(schema).validate(value)
+
+
+def test_historical_media_choices_preserve_original_unset_fields():
+    source = context()
+    value = proposal(source)
+    for topic in value["topics"]:
+        topic["media"] = [
+            {"sha256": "a" * 64, "disposition": "keep", "reason": "Necessary dashboard"}
+        ]
+    parsed = Proposal.model_validate(value)
+    assert parsed.model_dump(exclude_unset=True) == value
+    assert all(not choice.masks for topic in parsed.topics for choice in topic.media)

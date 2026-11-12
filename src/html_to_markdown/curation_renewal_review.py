@@ -255,6 +255,9 @@ before publication; independent approval here cannot waive those gates."""
     if candidate is None:
         shape["$defs"]["TopicDecision"]["properties"]["topic"]["enum"] = list(TOPICS)
         shape["properties"]["topics"].update(minItems=len(TOPICS), maxItems=len(TOPICS))
+        media_shape = shape["$defs"]["MediaChoice"]
+        media_shape["required"] = list(media_shape["properties"])
+        media_shape["properties"]["masks"].pop("default", None)
         addresses = [block["address"] for block in context["blocks"]]
         if addresses:
             shape["$defs"]["Removal"]["properties"]["address"]["enum"] = addresses
