@@ -35,6 +35,8 @@ def test_return_interruption_retries_then_context_change_revalidates(
 
     def run(args: list[str], **kwargs: Any):
         nonlocal fail
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(stdout=b'{"state":"policy_current"}')
         if "list-review-queues" in args:
             return SimpleNamespace(
                 stdout=json.dumps(

@@ -31,6 +31,7 @@ from .media_observation_jobs import (
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .source_curation import CurationRequired, preview_curation, record_exception
+from .source_phase_bindings import privacy_context, privacy_request, reusable_privacy
 from .source_review import (
     VERSION,
     AdmissionValidation,
@@ -102,6 +103,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
         binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
+            retained = reusable_privacy(saved, binding)
             if saved:
                 history = output / "history" / (sha(destination.read_bytes()) + ".json")
                 atomic_private(history, destination.read_bytes())
@@ -115,6 +117,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
                 "phases": {},
                 "disposition": "queued",
                 "reason": "admission_review_required",
+                **retained,
             }
             atomic_private(destination, json_bytes(saved))
         elif saved["item"] != item:
@@ -291,6 +294,8 @@ def _request(
     schema: Any,
     feedback: list[str] | None = None,
 ) -> dict[str, Any]:
+    if phase == "privacy":
+        context = privacy_context(context)
     payload = (
         {
             **context,
@@ -300,7 +305,11 @@ def _request(
         if phase == "privacy"
         else context
     )
-    body = admission_request(model, phase, payload, schema)
+    body = (
+        privacy_request(model, payload, schema)
+        if phase == "privacy"
+        else admission_request(model, phase, payload, schema)
+    )
     body["input"][0]["content"].extend(visual)
     properties = body["text"]["format"]["schema"]["properties"]
     properties["identity"]["enum"] = [context["identity"]]
@@ -343,7 +352,16 @@ def _prepare_media_observations(
     client: RequestExecutor,
     feedback: list[str] | None = None,
 ) -> None:
-    prepare_media_observations(capture, output, record, client, _context, feedback)
+    prepare_media_observations(
+        capture, output, record, client, _privacy_observation_context, feedback
+    )
+
+
+def _privacy_observation_context(
+    capture: Path, output: Path, saved: dict[str, Any]
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    context, visual = _context(capture, output, saved)
+    return privacy_context(context), visual
 
 
 # Preserve all stage evidence and checks in one transaction.
@@ -357,7 +375,7 @@ def _compile(
 ) -> tuple[dict[str, Any], list[dict[str, Any]], PrivacyDecision, dict[str, bytes]]:
     stale = (
         proposal.identity != context["identity"]
-        or proposal.binding_sha256 != context["binding_sha256"]
+        or proposal.binding_sha256 != privacy_context(context)["binding_sha256"]
     )
     if stale or proposal.unresolved:
         raise ValueError(
@@ -490,7 +508,9 @@ def _compiled_findings(
 ) -> tuple[dict[str, Any], list[FindingDecision]]:
     if "privacy_reconciliation" in saved.get("phases", {}):
         original_visual, _, _ = _media_context(capture, output, item)
-        candidate = replay_classification(saved, context, candidate, original_visual + visual)
+        candidate = replay_classification(
+            saved, privacy_context(context), candidate, original_visual + visual
+        )
     return candidate, [FindingDecision.model_validate(c) for c in candidate["finding_decisions"]]
 
 
@@ -511,7 +531,13 @@ def _compile_admission(
         if client is None:
             raise ValueError("new final privacy findings require the MacBook classifier")
         review_final_findings(
-            saved, record, output, context, candidate, visual + candidate_visual, client
+            saved,
+            record,
+            output,
+            privacy_context(context),
+            candidate,
+            visual + candidate_visual,
+            client,
         )
         saved = json.loads(record.read_bytes())
         return _compile(capture, output, saved, context, proposal)
@@ -554,7 +580,7 @@ def review_one(
         context["relevance_decision"] = relevance.model_dump()
         if "media_observation_validation" in saved["phases"]:
             context["confirmed_media_values"] = _confirmed_media_values(
-                saved, original_context, visual
+                saved, privacy_context(original_context), visual
             )
         if phase == "privacy":
             body = _request(

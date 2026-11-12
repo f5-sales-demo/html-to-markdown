@@ -13,6 +13,7 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .media_observation_jobs import confirmed_media_values as _confirmed_media_values
+from .source_phase_bindings import privacy_context
 from .source_review import PrivacyDecision, RelevanceDecision
 from .source_review_jobs import _compile, _context, _request
 
@@ -76,7 +77,7 @@ def prepare_renewals(capture: Path, review: Path, output: Path) -> dict[str, Any
                     key: value for key, value in source.items() if key != "relevance_decision"
                 }
                 source["confirmed_media_values"] = _confirmed_media_values(
-                    saved, original, original_visual
+                    saved, privacy_context(original), original_visual
                 )
             privacy_body = _request(
                 EDITOR_MODEL,

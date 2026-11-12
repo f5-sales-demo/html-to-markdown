@@ -117,7 +117,7 @@ def test_synthetic_uuid_finding_needs_fresh_classification_and_independent_valid
             response_sha256=sha(json.dumps(raw, sort_keys=True, separators=(",", ":"))),
             model=body["model"],
             reasoning="high",
-            prompt_version=version,
+            prompt_version=body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
             request=body,
             response=raw,
             error=None,
