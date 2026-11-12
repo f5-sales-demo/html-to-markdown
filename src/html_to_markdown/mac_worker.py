@@ -58,6 +58,23 @@ def worker_once(
             "queues": [],
         }
         atomic_private(output / "worker-status.json", json_bytes(status))
+        from .policy_activation import (
+            require_active_cohort,  # pylint: disable=import-outside-toplevel
+        )
+        from .policy_transport import synchronize_policy  # pylint: disable=import-outside-toplevel
+
+        policy_state = Path.home() / ".local/share/html-to-markdown/policy"
+        status["policy_activation"] = synchronize_policy(
+            transport,
+            host,
+            remote_executable,
+            "/data/robin-GIT/html-to-markdown",
+            "/home/robin/.local/share/html-to-markdown/policy",
+            policy_state,
+            remote_queue,
+        )
+        require_active_cohort(policy_state)
+        atomic_private(output / "worker-status.json", json_bytes(status))
         args = [
             str(transport),
             "--host",

@@ -477,9 +477,16 @@ class CurationPolicy:
         return sorted(url for url in found if check(url) or canonical(url) in excluded)
 
 
-@lru_cache(maxsize=8)
 def load_curation_policy(path: Path | None = None) -> CurationPolicy:
-    path = path or Path(__file__).with_name("curation_policy.json")
+    if path is None:
+        from .policy_activation import active_policy_path  # pylint: disable=import-outside-toplevel
+
+        path = active_policy_path() or Path(__file__).with_name("curation_policy.json")
+    return _load_curation_policy(path)
+
+
+@lru_cache(maxsize=8)
+def _load_curation_policy(path: Path) -> CurationPolicy:
     data = path.read_bytes()
     raw = json.loads(data)
     linked = bytearray(data)

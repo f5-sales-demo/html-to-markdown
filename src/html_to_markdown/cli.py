@@ -810,3 +810,42 @@ def evaluate_enrichment_command(
 
 if __name__ == "__main__":
     app()
+
+
+@app.command("export-policy-runtime")
+def export_policy_runtime(repository: Path, state_root: Path) -> None:
+    """Export only current protected-main qualified public policy inputs on Ubuntu."""
+    from .policy_transport import export_policy  # pylint: disable=import-outside-toplevel
+
+    typer.echo(json.dumps(export_policy(repository, state_root)))
+
+
+@app.command("activate-policy-runtime")
+def activate_policy_runtime(repository: Path, state_root: Path, queue_root: Path) -> None:
+    """Activate a verified candidate under the existing Ubuntu publication lock."""
+    import fcntl  # pylint: disable=import-outside-toplevel
+
+    from .policy_transport import remote_activate  # pylint: disable=import-outside-toplevel
+
+    candidate = json.load(sys.stdin)
+    directory = queue_root / ".publication"
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / "coordinator.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        result = remote_activate(repository, state_root, candidate)
+    typer.echo(json.dumps(result))
+
+
+@app.command("confirm-policy-runtime")
+def confirm_policy_runtime(state_root: Path, queue_root: Path) -> None:
+    """Confirm matching active policy pins before Ubuntu can publish again."""
+    import fcntl  # pylint: disable=import-outside-toplevel
+
+    from .policy_activation import confirm_cohort  # pylint: disable=import-outside-toplevel
+
+    directory = queue_root / ".publication"
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / "coordinator.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        result = confirm_cohort(state_root, json.load(sys.stdin))
+    typer.echo(json.dumps(result))

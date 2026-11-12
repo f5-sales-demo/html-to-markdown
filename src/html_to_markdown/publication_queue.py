@@ -305,6 +305,11 @@ def advance_publication(queue_root: Path, *, source_commit: str | None = None) -
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             return {"state": "already_running"}
+        from .policy_activation import (
+            require_active_cohort,  # pylint: disable=import-outside-toplevel
+        )
+
+        require_active_cohort()
         current = state_root / "current-job.json"
         inputs = [
             (str(path), sha(path.read_bytes()))

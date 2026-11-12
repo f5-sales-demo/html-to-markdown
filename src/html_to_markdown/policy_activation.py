@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -230,7 +231,12 @@ def activate_bundle(
 
 
 def active_policy_path(state_root: Path | None = None) -> Path | None:
-    state_root = state_root or Path.home() / ".local/share/html-to-markdown/policy"
+    state_root = state_root or Path(
+        os.environ.get(
+            "HTML_TO_MARKDOWN_POLICY_STATE",
+            str(Path.home() / ".local/share/html-to-markdown/policy"),
+        )
+    )
     current = state_root / "active.json"
     if not current.exists():
         return None
@@ -248,3 +254,27 @@ def active_policy_path(state_root: Path | None = None) -> Path | None:
 def require_cohort(local: dict[str, Any], remote: dict[str, Any]) -> None:
     if not local or local != remote:
         raise ValueError("Mac and Ubuntu policy activation pins do not agree")
+
+
+def require_active_cohort(state_root: Path | None = None) -> None:
+    state_root = state_root or Path(
+        os.environ.get(
+            "HTML_TO_MARKDOWN_POLICY_STATE",
+            str(Path.home() / ".local/share/html-to-markdown/policy"),
+        )
+    )
+    pointer = state_root / "active.json"
+    if pointer.exists():
+        active_policy_path(state_root)
+        cohort = state_root / "cohort.json"
+        if not cohort.exists():
+            raise ValueError("policy activation awaits confirmed Mac and Ubuntu agreement")
+        require_cohort(json.loads(pointer.read_bytes()), json.loads(cohort.read_bytes()))
+
+
+def confirm_cohort(state_root: Path, peer: dict[str, Any]) -> dict[str, Any]:
+    active_policy_path(state_root)
+    local: dict[str, Any] = json.loads((state_root / "active.json").read_bytes())
+    require_cohort(local, peer)
+    atomic_private(state_root / "cohort.json", _json(local))
+    return local

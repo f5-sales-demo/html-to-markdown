@@ -15,7 +15,7 @@ from PIL import Image
 from pydantic import BaseModel
 
 from .content_inventory import atomic_private, verify_capture
-from .curation import blocks, json_bytes
+from .curation import blocks, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
@@ -239,7 +239,7 @@ def _context(
     ):
         raise ValueError("stale source policy or admission binding")
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    policy = json.loads(Path(__file__).with_name("curation_policy.json").read_bytes())
+    policy = load_curation_policy().raw
     policy_keys = {
         "id",
         "version",
