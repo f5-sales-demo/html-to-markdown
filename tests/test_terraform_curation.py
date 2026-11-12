@@ -430,7 +430,13 @@ resource "volterra_origin_pool" "old" { name = "old" }
     asset.parent.mkdir()
     asset.write_bytes(b"reviewed diagram pixels")
     raw = copy.deepcopy(load_curation_policy().raw)
-    raw["topics"][-1]["media"].append({"sha256": digest(asset.read_bytes()), "disposition": "keep"})
+    raw["topics"][-1]["media"].append(
+        {
+            "sha256": digest(asset.read_bytes()),
+            "disposition": "keep",
+            "source_documents": [path.relative_to(tmp_path / "content").as_posix()],
+        }
+    )
     active = CurationPolicy(raw, digest(json_bytes(raw)))
     assert curate_topics(tmp_path, policy=active)["counts"]["keep"] == 1
     validate_curation(tmp_path, policy=active)
