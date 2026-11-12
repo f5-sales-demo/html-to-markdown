@@ -23,7 +23,9 @@ def test_idle_worker_checks_private_route_and_preserves_safe_status(
     def run(args: list[str], **kwargs: object):
         calls.append(args)
         if "export-policy-runtime" in args:
-            return SimpleNamespace(stdout=json_bytes({"state": "policy_current", **installed_policy_pins()}))
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
         return SimpleNamespace(
             stdout=b"[]"
             if "list-review-queues" in args
@@ -84,7 +86,9 @@ def test_enrichment_batches_preserve_progress_and_return_only_after_completion(
 
     def run(args: list[str], **kwargs: object):
         if "export-policy-runtime" in args:
-            return SimpleNamespace(stdout=json_bytes({"state": "policy_current", **installed_policy_pins()}))
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
         return SimpleNamespace(
             stdout=json.dumps(
                 [
