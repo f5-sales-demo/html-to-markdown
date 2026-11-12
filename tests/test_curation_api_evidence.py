@@ -6,8 +6,8 @@ from copy import deepcopy
 import pytest
 
 from html_to_markdown.content_policy import load_content_policy, rewrite_text
-from html_to_markdown.curation_api_evidence import api_reference_evidence
 from html_to_markdown.curation import load_curation_policy
+from html_to_markdown.curation_api_evidence import api_reference_evidence
 from html_to_markdown.curation_renewal import TOPICS, compile_proposal, proposal_context
 from html_to_markdown.curation_renewal_publication import planner_request
 from html_to_markdown.models import PageMetadata
