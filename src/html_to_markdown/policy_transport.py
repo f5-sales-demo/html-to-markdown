@@ -35,6 +35,18 @@ def policy_repository() -> Path:
     )
 
 
+def installed_policy_pins(state_root: Path | None = None) -> dict[str, str]:
+    """Report compatible installed code, curation and API inputs on either host."""
+    path = active_policy_path(state_root) or Path(__file__).with_name(POLICY)
+    api = load_content_policy()
+    return {
+        "controller_sha256": controller_digest(),
+        "policy_sha256": load_curation_policy(path).sha256,
+        "api_policy_sha256": api.policy_digest,
+        "api_catalog_sha256": api.catalog_digest,
+    }
+
+
 def _executable(name: str) -> str:
     path = shutil.which(name)
     if path is None:
@@ -126,24 +138,37 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
     if policy_pin == installed.sha256:
         pointer = state_root / "active.json"
         if not pointer.exists():
-            return {"state": "policy_current", "source_commit": commit, "policy_sha256": policy_pin}
-        candidate = json.loads(pointer.read_bytes())
-        root = state_root / "bundles" / candidate["bundle_sha256"]
-        manifest = json.loads((root / "manifest.json").read_bytes())
-        from .policy_activation import verify_bundle  # pylint: disable=import-outside-toplevel
+            receipt_path = "engineering/" + RECEIPT
+            receipts = (
+                _git(repository, "ls-tree", "-r", "--name-only", commit, receipt_path)
+                .decode()
+                .splitlines()
+            )
+            if receipt_path not in receipts:
+                return {
+                    "state": "policy_current",
+                    "source_commit": commit,
+                    **installed_policy_pins(state_root),
+                }
+        else:
+            candidate = json.loads(pointer.read_bytes())
+            root = state_root / "bundles" / candidate["bundle_sha256"]
+            manifest = json.loads((root / "manifest.json").read_bytes())
+            from .policy_activation import verify_bundle  # pylint: disable=import-outside-toplevel
 
-        verify_bundle(root, candidate["bundle_sha256"])
-        if manifest["policy_sha256"] != policy_pin:
-            raise ValueError("active policy changed during protected-main export")
-        return {
-            "state": "policy_already_active",
-            "candidate": candidate,
-            "manifest": manifest,
-            "files": {
-                name: base64.b64encode((root / name).read_bytes()).decode()
-                for name in manifest["files"]
-            },
-        }
+            verify_bundle(root, candidate["bundle_sha256"])
+            if manifest["policy_sha256"] != policy_pin:
+                raise ValueError("active policy changed during protected-main export")
+            return {
+                "state": "policy_already_active",
+                "installed_pins": installed_policy_pins(state_root),
+                "candidate": candidate,
+                "manifest": manifest,
+                "files": {
+                    name: base64.b64encode((root / name).read_bytes()).decode()
+                    for name in manifest["files"]
+                },
+            }
     qualification = _git(repository, "show", commit + ":engineering/" + RECEIPT)
     manifest, payload = create_bundle(
         files,
@@ -155,6 +180,7 @@ def export_policy(repository: Path, state_root: Path) -> dict[str, Any]:
     candidate = stage_bundle(state_root, manifest, payload)
     return {
         "state": "policy_staged",
+        "installed_pins": installed_policy_pins(state_root),
         "candidate": candidate,
         "manifest": manifest,
         "files": {name: base64.b64encode(data).decode() for name, data in payload.items()},
@@ -201,7 +227,18 @@ def synchronize_policy(
     ).stdout  # nosec B603
     exported = json.loads(result)
     if exported["state"] == "policy_current":
+        if any(
+            exported.get(key) != value for key, value in installed_policy_pins(local_state).items()
+        ):
+            raise ValueError("Mac and Ubuntu installed policy or code pins do not agree")
         return dict(exported)
+    local_pins = installed_policy_pins(local_state)
+    if any(
+        exported.get("installed_pins", {}).get(key) != value
+        for key, value in local_pins.items()
+        if key != "policy_sha256"
+    ):
+        raise ValueError("Mac and Ubuntu installed policy or code pins do not agree")
     payload = {
         name: base64.b64decode(value, validate=True) for name, value in exported["files"].items()
     }

@@ -15,6 +15,7 @@ from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.mac_worker import worker_once
 from html_to_markdown.models import PageMetadata
+from html_to_markdown.policy_transport import installed_policy_pins
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_inputs import seal_source, verify_source
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews
@@ -36,7 +37,7 @@ def test_return_interruption_retries_then_context_change_revalidates(
     def run(args: list[str], **kwargs: Any):
         nonlocal fail
         if "export-policy-runtime" in args:
-            return SimpleNamespace(stdout=b'{"state":"policy_current"}')
+            return SimpleNamespace(stdout=json_bytes({"state": "policy_current", **installed_policy_pins()}))
         if "list-review-queues" in args:
             return SimpleNamespace(
                 stdout=json.dumps(

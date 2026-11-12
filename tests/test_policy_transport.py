@@ -83,6 +83,54 @@ def test_reactivating_identical_verified_bundle_preserves_current_cohort(tmp_pat
     require_active_cohort(tmp_path)
 
 
+def test_current_packaged_policy_still_bootstraps_qualified_active_bundle(
+    tmp_path, monkeypatch, merged_tree
+):
+    _, files = qualified_bundle()
+    original = policy_transport._git  # pylint: disable=protected-access
+    receipt_path = "engineering/curation-renewal-receipt.json"
+
+    def git(repository, operation, *args):
+        if operation == "ls-tree" and args[-1] == receipt_path:
+            return receipt_path.encode()
+        if operation == "show" and args[0].endswith(":" + receipt_path):
+            return files["curation-renewal-receipt.json"]
+        return original(repository, operation, *args)
+
+    monkeypatch.setattr(policy_transport, "_git", git)
+    exported = export_policy(Path("/repo"), tmp_path)
+    assert exported["state"] == "policy_staged"
+    assert (
+        exported["candidate"]["policy_sha256"]
+        == json.loads(files["curation-renewal-receipt.json"])["policy_sha256"]
+    )
+    assert not (tmp_path / "active.json").exists()
+
+
+@pytest.mark.parametrize("state", ["policy_current", "policy_staged", "policy_already_active"])
+def test_current_ubuntu_policy_cannot_hide_incompatible_mac_code(tmp_path, monkeypatch, state):
+    monkeypatch.setattr(policy_transport.platform, "system", lambda: "Darwin")
+    pins = policy_transport.installed_policy_pins()
+    pins["controller_sha256"] = "e" * 64
+    monkeypatch.setattr(
+        policy_transport.subprocess,
+        "run",
+        lambda *a, **k: SimpleNamespace(
+            stdout=json_bytes({"state": state, "installed_pins": pins, **pins})
+        ),
+    )
+    with pytest.raises(ValueError, match="Mac and Ubuntu installed policy"):
+        synchronize_policy(
+            Path("/transport"),
+            "worker.invalid",
+            "/cli",
+            "/repo",
+            "/remote/policy",
+            tmp_path,
+            "/remote/queue",
+        )
+
+
 def test_new_activation_invalidates_old_cohort_even_when_returning_to_an_old_bundle(tmp_path):
     manifest, files = qualified_bundle()
     first = stage_bundle(tmp_path, manifest, files)
@@ -128,6 +176,7 @@ def test_cross_host_activation_agrees_before_publication_and_recovers_sleep_resu
         if "export-policy-runtime" in args:
             value = {
                 "state": "policy_already_active" if already_active else "policy_staged",
+                "installed_pins": policy_transport.installed_policy_pins(),
                 "candidate": candidate,
                 "manifest": manifest,
                 "files": {name: base64.b64encode(data).decode() for name, data in files.items()},
