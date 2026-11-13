@@ -69,6 +69,37 @@ class DeterministicConverter(MarkdownConverter):
     def convert_summary(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         return "\n\n" + text.strip() + "\n\n"
 
+    def convert_a(self, el: Tag, text: str, parent_tags: set[str]) -> str:
+        if not el.get("href") or "_noformat" in parent_tags:
+            return str(cast(Any, super()).convert_a(el, text, parent_tags))
+        complex_content = el.find(["pre", "table", "ul", "ol", "blockquote"]) is not None or any(
+            "\n" in code.get_text() for code in el.find_all(["code", "kbd", "samp"])
+        )
+        if complex_content:
+            heading = el.find(re.compile(r"^h[1-6]$"))
+            label = (
+                heading.get_text(" ", strip=True)
+                if isinstance(heading, Tag)
+                else str(el.get("aria-label") or el.get("title") or el["href"])
+            )
+            link = cast(Any, super()).convert_a(el, self.escape(label, parent_tags), parent_tags)
+            return text.rstrip() + "\n\n" + str(link).strip() + "\n\n"
+        if "_inline" not in parent_tags and el.find(
+            ["div", "p", "h1", "h2", "h3", "h4", "h5", "h6"]
+        ):
+            return str(cast(Any, super()).process_tag(el, parent_tags | {"_inline"}))
+        return str(cast(Any, super()).convert_a(el, text, parent_tags))
+
+    def convert_hN(self, n: int, el: Tag, text: str, parent_tags: set[str]) -> str:
+        if "a" in parent_tags and "_inline" in parent_tags:
+            return " " + text.strip() + " "
+        return str(cast(Any, super()).convert_hN(n, el, text, parent_tags))
+
+    def convert_img(self, el: Tag, text: str, parent_tags: set[str]) -> str:
+        if "a" in parent_tags:
+            parent_tags = parent_tags - {"_inline"}
+        return str(cast(Any, super()).convert_img(el, text, parent_tags))
+
     def convert_details(self, el: Tag, text: str, parent_tags: set[str]) -> str:
         return "\n\n" + text.strip() + "\n\n"
 
