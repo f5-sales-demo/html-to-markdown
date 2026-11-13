@@ -616,7 +616,7 @@ def validate_content_policy(
             active.catalog_digest,
             curation_policy=topic_policy,
         )
-    validate_curation(output, policy=topic_policy)
+    validate_curation(output, policy=topic_policy, api_policy=active)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         if active.excludes(str(metadata["url"])) or active.excludes(

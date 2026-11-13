@@ -100,20 +100,7 @@ def api_source(
             and registrations.get(relative) != sha(target.read_bytes())
         ):
             raise ValueError("private API intermediate differs from its preserved audit")
-    if policy.legacy is not None:
-        authored = policy.legacy.authored(metadata)
-        if (
-            policy.legacy.whole(metadata, body)
-            or policy.legacy.retired(body)
-            or any(policy.legacy.retired(str(value)) for value in authored.values())
-            or {k: v for k, v in authored.items() if k != "description"}
-            != {
-                k: v
-                for k, v in policy.legacy.authored(record["metadata"]).items()
-                if k != "description"
-            }
-        ):
-            raise ValueError("API projection cannot bypass authored retirement or metadata guards")
+    _validate_authored_metadata(policy, metadata, body, record)
     api = api_policy or load_content_policy()
     api.validate_projection()
     expected = {
@@ -135,16 +122,73 @@ def api_source(
         original = policy.legacy.transform(record["metadata"], record["body"])
         if original.disposition != "keep" or original.body != record["body"]:
             raise ValueError("API intermediate fails original retirement guards")
-    projected, mappings, _ = project_api_body(
+    projected, mappings, related = project_api_body(
         record["body"], metadata.get("canonical_url") or metadata["url"], api, policy
     )
     if not mappings or normalize_body(projected) != body:
         raise ValueError("API output differs from its exact qualified transformation")
+    _validate_api_additions(policy, api, mappings, related)
     return record["metadata"], record["body"]
 
 
+def _validate_authored_metadata(policy: Any, metadata: Any, body: str, record: Any) -> None:
+    if policy.legacy is not None:
+        authored = policy.legacy.authored(metadata)
+        if (
+            policy.legacy.whole(metadata, body)
+            or policy.legacy.retired(body)
+            or any(policy.legacy.retired(str(value)) for value in authored.values())
+            or {k: v for k, v in authored.items() if k != "description"}
+            != {
+                k: v
+                for k, v in policy.legacy.authored(record["metadata"]).items()
+                if k != "description"
+            }
+        ):
+            raise ValueError("API projection cannot bypass authored retirement or metadata guards")
+
+
+def _validate_api_additions(policy: Any, api: Any, mappings: Any, related: Any) -> None:
+    additions = [item["destination"] for item in mappings]
+    additions.extend(op["summary"] for op in api.operations if op["url"] in related)
+    if any(policy.retired(text) for text in additions):
+        raise ValueError("qualified API projection introduces retired content")
+
+
+def retirement_metadata(
+    policy: Any, metadata: dict[str, Any], body: str, retirement_body: str
+) -> dict[str, Any]:
+    """Permit only the exact plain description of an independently reviewed notice."""
+    from .content_policy import _description  # pylint: disable=import-outside-toplevel
+    from .curation import blocks  # pylint: disable=import-outside-toplevel
+
+    description = metadata.get("description")
+    if (
+        not description
+        or policy.appstack is None
+        or description != _description(body)
+        or policy.retired(retirement_body, url=str(metadata["url"]))
+    ):
+        return metadata
+    decision = policy.appstack.decisions.get(policy.appstack.canonical(str(metadata["url"])), {})
+    rules = decision.get("retained_notices", [])
+    for block in blocks(retirement_body):
+        if {
+            "location": block.location,
+            "sha256": block.sha256,
+        } in rules and description == _description(block.text):
+            return {key: value for key, value in metadata.items() if key != "description"}
+    return metadata
+
+
 def legacy_result(
-    policy: Any, path: Path, metadata: dict[str, Any], body: str, *, dependent: bool = False
+    policy: Any,
+    path: Path,
+    metadata: dict[str, Any],
+    body: str,
+    *,
+    dependent: bool = False,
+    api_policy: Any = None,
 ) -> LegacyResult:
     """Check both complete stages; the final planner still needs independent approval."""
     result: LegacyResult = policy.legacy.transform(metadata, body, dependent=dependent)
@@ -156,6 +200,6 @@ def legacy_result(
         or any(policy.legacy.retired(str(v)) for v in policy.legacy.authored(metadata).values())
     ):
         return result
-    if api_source(policy, path, metadata, body) is None:
+    if api_source(policy, path, metadata, body, api_policy) is None:
         return result
     return LegacyResult(body, ["verified_retirement_and_api_stages"])

@@ -1319,7 +1319,12 @@ def prune_assets(output: Path) -> None:
 
 
 def validate_whole_document_retirement(
-    policy: CurationPolicy, path: Path, metadata: dict[str, Any], body: str
+    policy: CurationPolicy,
+    path: Path,
+    metadata: dict[str, Any],
+    body: str,
+    *,
+    api_policy: Any = None,
 ) -> None:
     if policy.legacy is not None:
         legacy_media_affected = any(
@@ -1349,6 +1354,7 @@ def validate_whole_document_retirement(
                 original_metadata,
                 original_body,
                 dependent=legacy_media_affected,
+                api_policy=api_policy,
             )
         if result.disposition != "keep" or result.body != original_body:
             raise ValueError(f"retired legacy content remains: {path}")
@@ -1372,22 +1378,31 @@ def validate_whole_document_retirement(
 
 
 # pylint: disable-next=too-many-branches,too-many-locals
-def _validate_curated_article(path: Path, policy: CurationPolicy, inherited: bool = False) -> None:
+def _validate_curated_article(
+    path: Path, policy: CurationPolicy, inherited: bool = False, *, api_policy: Any = None
+) -> None:
     metadata, body = split_document(path.read_text())
     if not inherited:
-        validate_whole_document_retirement(policy, path, metadata, body)
+        validate_whole_document_retirement(policy, path, metadata, body, api_policy=api_policy)
+    from .curation_api_chain import (  # pylint: disable=import-outside-toplevel
+        api_source,
+        retirement_metadata,
+    )
+
+    verified_input = api_source(policy, path, metadata, body, api_policy)
+    retirement_body = verified_input[1] if verified_input is not None else body
     if policy.appstack is not None:
-        result = policy.appstack.transform(body, str(metadata["url"]))
-        if result.body != body or result.omit:
+        result = policy.appstack.transform(retirement_body, str(metadata["url"]))
+        if result.body != retirement_body or result.omit:
             raise ValueError(f"uncurated AppStack content remains: {path}")
     if policy.terraform is not None:
-        terraform_result = policy.terraform.transform(body, str(metadata["url"]))
-        if terraform_result.body != body or terraform_result.omit:
+        terraform_result = policy.terraform.transform(retirement_body, str(metadata["url"]))
+        if terraform_result.body != retirement_body or terraform_result.omit:
             raise ValueError(f"uncurated Terraform provider content remains: {path}")
     if (
         policy.excludes(str(metadata["url"]))
-        or policy.retired(body, url=str(metadata["url"]))
-        or policy.retired(json.dumps(metadata))
+        or policy.retired(retirement_body, url=str(metadata["url"]))
+        or policy.retired(json.dumps(retirement_metadata(policy, metadata, body, retirement_body)))
     ):
         raise ValueError(f"prohibited topic remains: {path}")
     url = canonical(str(metadata.get("canonical_url") or metadata["url"]))
@@ -1450,12 +1465,14 @@ def _validate_curated_article(path: Path, policy: CurationPolicy, inherited: boo
         raise ValueError(f"retired reference remains: {path}")
 
 
-def curation_validation_errors(output: Path, policy: CurationPolicy) -> dict[str, str]:
+def curation_validation_errors(
+    output: Path, policy: CurationPolicy, *, api_policy: Any = None
+) -> dict[str, str]:
     """Enumerate every article failure privately without weakening final validation."""
     failures = {}
     for path in sorted(output.glob("content/*/**/index.md")):
         try:
-            _validate_curated_article(path, policy)
+            _validate_curated_article(path, policy, api_policy=api_policy)
         except ValueError as failure:
             failures[path.relative_to(output).as_posix()] = str(failure).replace(
                 str(path), "article"
@@ -1466,7 +1483,11 @@ def curation_validation_errors(output: Path, policy: CurationPolicy) -> dict[str
 # Original-chain and final-policy guards deliberately remain one audit.
 # pylint: disable-next=too-many-branches,too-many-locals
 def validate_curation(
-    output: Path, *, artifacts: bool = False, policy: CurationPolicy | None = None
+    output: Path,
+    *,
+    artifacts: bool = False,
+    policy: CurationPolicy | None = None,
+    api_policy: Any = None,
 ) -> None:
     enriched = (output / "enrichment-state.json").is_file()
     refreshed = (output / "refresh-state.json").is_file()
@@ -1481,10 +1502,12 @@ def validate_curation(
         verify_enrichment(output)
     policy = policy or load_curation_policy()
     for path in sorted(output.glob("content/*/**/index.md")):
-        _validate_curated_article(path, policy, path.relative_to(output).as_posix() in inherited)
+        _validate_curated_article(
+            path, policy, path.relative_to(output).as_posix() in inherited, api_policy=api_policy
+        )
     if artifacts and not enriched and not refreshed:
         # Final validation uses the same planner as examination and application.
-        replay = curate_topics(output, policy=policy, apply=False)
+        replay = curate_topics(output, policy=policy, apply=False, api_policy=api_policy)
         planned = replay.pop("_planned")
         actual = {
             path.relative_to(output).as_posix(): split_document(path.read_text())[1]

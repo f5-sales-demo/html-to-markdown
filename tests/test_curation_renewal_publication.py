@@ -158,6 +158,20 @@ def test_reviewed_retirement_guard_survives_qualified_api_migration(tmp_path):
     assert "Expect healthy origins within 30 seconds." in candidate["body"]
 
 
+def test_reviewed_limitation_notice_survives_qualified_api_migration(tmp_path):
+    body = (
+        "# Mesh connectivity\n\n"
+        "> **Note:** Site as pods supports only Mesh functionalities and does not support "
+        "F5® Distributed Cloud App Stack. The supported Kubernetes version is 1.23.\n\n"
+        "Use the [endpoint API](https://docs.cloud.f5.com/docs-v2/docs/api/endpoint).\n"
+    )
+    output, source, _, baseline, pin, _ = prepared(tmp_path, body)
+    result = qualify_policy(output, [source], baseline, pin)
+    candidate = next(iter(result["candidates"].values()))
+    assert "The supported Kubernetes version is 1.23." in candidate["body"]
+    assert "https://docs.cloud.f5.com/docs-v2/docs/api/endpoint" not in candidate["body"]
+
+
 def test_policy_cannot_stage_without_actual_independent_planner_approval(tmp_path):
     output, source, _, baseline, pin, client = prepared(tmp_path)
     destination = tmp_path / "public"
