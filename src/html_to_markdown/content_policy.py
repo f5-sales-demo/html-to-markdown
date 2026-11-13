@@ -8,6 +8,7 @@ import gzip
 import hashlib
 import json
 import re
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -351,7 +352,11 @@ def _description(body: str) -> str | None:
                 for child in token.children or []
                 if child.type in {"text", "code_inline", "softbreak", "hardbreak"}
             )
-            if description := " ".join(text.split()):
+            description = " ".join(text.split())
+            if description and any(
+                not character.isspace() and unicodedata.category(character) != "Cf"
+                for character in description
+            ):
                 return description
         previous = token.type
     return None
