@@ -30,7 +30,7 @@ from .source_review import (
 )
 from .source_review_jobs import _media_context, _request
 
-VERSION = "baseline-source-privacy/1"
+VERSION = "baseline-source-privacy/2"
 LIMIT = 2
 
 
@@ -207,7 +207,13 @@ results, action order, useful descendants, quotes, controls and animation. Retai
 examples or authoritative attribution in their proper context. Never approve a credential finding.
 Retirement/API curation is a separate mandatory later stage: set approved=false and
 retirement_valid=false. Those two pending checks alone are not privacy failures. Return all other
-checks truthfully. Only independently safe final finding IDs may be approved. Missing guards,
+checks truthfully. The failures and unresolved arrays describe ONLY actual defects or ambiguity
+in this privacy-only review: relevance, provided-Markdown extraction, privacy, complete media,
+technical preservation or immutable bindings. Never put pending retirement, API curation or
+publication authorization in those arrays. When all checks in this privacy-only scope pass,
+return failures=[] and unresolved=[] while approved=false and retirement_valid=false. Later
+retirement/API and publication gates remain mandatory and are not waived by this result.
+Only independently safe final finding IDs may be approved. Missing guards,
 unreadable changes or lost facts remain failures. No privacy result confers publication approval.
 Return only the specified structured schema."""
     body = request(VALIDATOR_MODEL, prompt, payload, AdmissionValidation)
@@ -216,6 +222,25 @@ Return only the specified structured schema."""
     )
     body["input"][0]["content"].extend(visual)
     props = body["text"]["format"]["schema"]["properties"]
+    props["approved"].update(
+        enum=[False],
+        description="Privacy-only intermediate; publication approval is always false.",
+    )
+    props["retirement_valid"].update(
+        enum=[False],
+        description="Retirement/API curation is a separate mandatory later review.",
+    )
+    for key in ("failures", "unresolved"):
+        props[key]["description"] = (
+            "Actual defects or ambiguity in the privacy-only scope: relevance, provided-Markdown "
+            "extraction, privacy, complete media, technical preservation or immutable bindings. "
+            "Never list pending retirement, API curation or publication authorization. "
+            "Return an empty array when all privacy-only checks pass."
+        )
+    props["extraction_valid"]["description"] = (
+        "The complete provided archived Markdown and media are reviewed; original HTML is "
+        "unavailable. This does not claim fresh capture or current source availability."
+    )
     for key, value in [
         ("identity", context["identity"]),
         ("binding_sha256", context["binding_sha256"]),
@@ -298,13 +323,30 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
                 raise ValueError(
                     "privacy-only validation cannot claim retirement or publication approval"
                 )
-            if checked.output_sha256 != candidate["output_sha256"] or not checked.relevance_valid:
-                raise ValueError("stale or ungrounded baseline source privacy validation")
+            if checked.output_sha256 != candidate["output_sha256"]:
+                raise ValueError("stale baseline source privacy output_sha256")
+            if not checked.relevance_valid:
+                raise ValueError("independent baseline source privacy relevance_valid=false")
             saved["privacy_validation_evidence"] = validator.model_dump(mode="json")
             saved["privacy_validation_binding_sha256"] = context["binding_sha256"]
             if not independently_validated_privacy(saved):
+                failures = {
+                    "failed_checks": [
+                        key
+                        for key, value in checked.model_dump().items()
+                        if isinstance(value, bool)
+                        and not value
+                        and key not in {"approved", "retirement_valid"}
+                    ],
+                    "failures": checked.failures,
+                    "unresolved": checked.unresolved,
+                }
                 raise ValueError(
-                    "independent baseline privacy, complete media or preservation failed"
+                    "independent baseline privacy, complete media or preservation failed: "
+                    + json.dumps(failures, ensure_ascii=False)
+                    + ". Correct the exact reported defects. Pending downstream retirement/API "
+                    "and publication checks do not belong in this privacy-only result's failures "
+                    "or unresolved arrays; they remain mandatory separate later gates."
                 )
             enforce(candidate["findings"], projected, checked)
             saved.update(

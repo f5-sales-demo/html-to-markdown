@@ -40,9 +40,11 @@ def prepared(tmp_path, monkeypatch):
 
 
 class Client:
-    def __init__(self, reject=False, approve_publication=False):
+    def __init__(self, reject=False, approve_publication=False, unresolved=None, fail_check=None):
         self.reject = reject
         self.approve_publication = approve_publication
+        self.unresolved = unresolved or []
+        self.fail_check = fail_check
         self.calls = []
 
     def invalidate(self, response):
@@ -92,8 +94,10 @@ class Client:
                 complete_media_reviewed=True,
                 approved_safe_findings=[],
                 failures=["unsafe candidate"] if self.reject else [],
-                unresolved=[],
+                unresolved=self.unresolved,
             )
+            if self.fail_check:
+                value[self.fail_check] = False
         response = {
             "status": "completed",
             "model": body["model"],
@@ -127,6 +131,57 @@ def test_baseline_requires_independent_privacy_and_preserves_source_dates(prepar
     before = record.read_bytes()
     assert source.review_baseline_privacy(output, record) == result
     assert record.read_bytes() == before
+
+
+def test_privacy_validator_contract_identifies_downstream_checks_as_separate(prepared):
+    _, output, record, _ = prepared
+    client = Client()
+    source.review_baseline_privacy(output, record, client)
+    request = client.calls[-1]
+    properties = request["text"]["format"]["schema"]["properties"]
+    assert properties["approved"]["enum"] == [False]
+    assert properties["retirement_valid"]["enum"] == [False]
+    for name in ("failures", "unresolved"):
+        assert "privacy-only" in properties[name]["description"]
+        assert "retirement" in properties[name]["description"]
+    assert "failures=[] and unresolved=[]" in request["input"][0]["content"][0]["text"] or (
+        "failures=[] and unresolved=[]" in request["instructions"]
+    )
+
+
+def test_pending_retirement_response_is_preserved_and_never_silently_accepted(prepared):
+    _, output, record, _ = prepared
+    unresolved = ["Mandatory retirement/API curation remains pending."]
+    with pytest.raises(ValueError, match="exhausted"):
+        source.review_baseline_privacy(output, record, Client(unresolved=unresolved))
+    saved = json.loads(record.read_bytes())
+    assert saved["status"] == "privacy_review_required"
+    assert len(saved["privacy_feedback"]) == 3
+    assert all(unresolved[0] in feedback for feedback in saved["privacy_feedback"])
+    assert not (output / "reviewed").exists()
+    assert len(list((output / "attempts" / record.stem).glob("attempt-*/validator.json"))) == 3
+
+
+@pytest.mark.parametrize(
+    "check",
+    [
+        "relevance_valid",
+        "privacy_valid",
+        "extraction_valid",
+        "technical_relationships_preserved",
+        "media_valid",
+        "complete_document_reviewed",
+        "complete_media_reviewed",
+    ],
+)
+def test_each_in_scope_failure_blocks_privacy_intermediate_with_precise_feedback(prepared, check):
+    _, output, record, _ = prepared
+    with pytest.raises(ValueError, match="exhausted"):
+        source.review_baseline_privacy(output, record, Client(fail_check=check))
+    saved = json.loads(record.read_bytes())
+    assert saved["status"] == "privacy_review_required"
+    assert all(check in feedback for feedback in saved["privacy_feedback"])
+    assert not (output / "reviewed").exists()
 
 
 @pytest.mark.parametrize("case", ["privacy", "publication"])
