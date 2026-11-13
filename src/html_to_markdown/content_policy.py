@@ -16,12 +16,14 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from markdown_it import MarkdownIt
 
 from .curation import (
+    CurationPolicy,
     corpus_digest,
     curate_topics,
     json_bytes,
     load_curation_policy,
     validate_curation,
 )
+from .curation_api_chain import api_record_hash, preserve_api_input
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .state import StateStore
@@ -31,6 +33,12 @@ FALLBACK = DESTINATION_ROOT + "en/api-reference/"
 FAMILIES = (
     "https://docs.cloud.f5.com/docs-v2/api",
     "https://docs.cloud.f5.com/docs-v2/platform/reference/api-ref",
+)
+API_ALIASES = (
+    (
+        "https://docs.cloud.f5.com/docs-v2/docs/api",
+        "https://docs.cloud.f5.com/docs-v2/api",
+    ),
 )
 URL_TOKEN = re.compile(
     r"""(?:https?://[^\s<>"'`\[\]()]+|//docs\.cloud\.f5\.com[^\s<>"'`\[\]()]+|(?<![\w:/])(?:/?docs-v2/|(?:\.\./)+|\./|api/|platform/reference/api-ref/)[^\s<>"'`\[\]()]+)"""
@@ -53,7 +61,11 @@ def _normalized(value: str) -> str:
 def _canonical(value: str) -> str:
     parsed = urlsplit(value)
     path = unquote(parsed.path).rstrip("/")
-    return urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path, "", ""))
+    canonical = urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), path, "", ""))
+    for alias, target in API_ALIASES:
+        if canonical == alias or canonical.startswith(alias + "/"):
+            return target + canonical[len(alias) :]
+    return canonical
 
 
 def _destination(value: str) -> str:
@@ -80,10 +92,19 @@ class ContentPolicy:
     """Validated policy and its compact specification/route projection."""
 
     def __init__(
-        self, raw: dict[str, Any], catalog: dict[str, Any], policy_digest: str, catalog_digest: str
+        self,
+        raw: dict[str, Any],
+        catalog: dict[str, Any],
+        policy_digest: str,
+        catalog_digest: str,
+        *,
+        curation_policy: CurationPolicy | None = None,
     ) -> None:
         self.raw, self.catalog = raw, catalog
         self.policy_digest, self.catalog_digest = policy_digest, catalog_digest
+        self.policy_projection_digest = _digest(_json(raw).encode())
+        self.catalog_projection_digest = _digest(_json(catalog).encode())
+        self.topic_policy = curation_policy or load_curation_policy()
         if raw.get("schema_version") != 1 or catalog.get("schema_version") != 1:
             raise ValueError("unsupported content policy/catalog schema")
         if raw.get("exclusions") != list(FAMILIES):
@@ -94,7 +115,7 @@ class ContentPolicy:
         self.operations = [
             op
             for op in catalog["operations"]
-            if op["resource"].rsplit(".", 1)[-1] not in load_curation_policy().retired_identities
+            if op["resource"].rsplit(".", 1)[-1] not in self.topic_policy.retired_identities
         ]
         self.by_operation: dict[str, list[dict[str, Any]]] = {}
         self.by_legacy: dict[str, list[dict[str, Any]]] = {}
@@ -152,20 +173,32 @@ class ContentPolicy:
             if not (destinations - {self.fallback}) <= routes:
                 raise ValueError("catalog destination absent from pinned route inventory")
 
+    def validate_projection(self) -> None:
+        """A pinned API policy cannot silently change through its cached object."""
+        if (
+            _digest(_json(self.raw).encode()) != self.policy_projection_digest
+            or _digest(_json(self.catalog).encode()) != self.catalog_projection_digest
+        ):
+            raise ValueError("API policy/catalog projection changed")
+
     @classmethod
     def from_catalog(cls, raw: dict[str, Any], catalog: dict[str, Any]) -> ContentPolicy:
         return cls(raw, catalog, _digest(_json(raw).encode()), _digest(_json(catalog).encode()))
 
     def excludes(self, url: str) -> bool:
         canonical = _canonical(url)
-        return load_curation_policy().excludes(url) or any(
-            canonical == family or canonical.startswith(family + "/")
-            for family in self.raw["exclusions"]
+        return (
+            self.topic_policy.excludes(url)
+            or self.topic_policy.excludes(canonical)
+            or any(
+                canonical == family or canonical.startswith(family + "/")
+                for family in self.raw["exclusions"]
+            )
         )
 
     def resolve(self, url: str) -> dict[str, Any]:
         """Resolve only exact declared identities; retain all ambiguous candidates."""
-        if load_curation_policy().excludes(url):
+        if self.topic_policy.excludes(url) or self.topic_policy.excludes(_canonical(url)):
             raise ValueError("retired reference has no replacement")
         if not self.excludes(url):
             raise ValueError(f"reference outside excluded families: {url}")
@@ -195,13 +228,13 @@ class ContentPolicy:
             urls = sorted({op["url"] for op in candidates})
             reason = "exact_operation" if len(urls) == 1 else "ambiguous_operation"
             target = urls[0] if len(urls) == 1 else self.fallback
-            related: list[str] = []
+            related: list[str] = [target] if reason == "exact_operation" else []
         else:
             candidates = self.by_resource.get(_normalized(leaf), [])
             identities = {(op["resource"], op["domain"]) for op in candidates}
             if len(identities) == 1:
                 reason, target = "exact_resource", candidates[0]["overview_url"]
-                related = sorted({op["url"] for op in candidates})
+                related = []
             else:
                 reason = "ambiguous_resource" if identities else "unmatched"
                 target, related = self.fallback, []
@@ -262,7 +295,9 @@ def rewrite_text(
         # Sentence punctuation is outside the URL; preserve it byte for byte.
         value = token.rstrip(".,;:")
         candidate = urljoin(base_url, "/" + value if value.startswith("docs-v2/") else value)
-        if load_curation_policy().excludes(candidate):
+        if policy.topic_policy.excludes(candidate) or policy.topic_policy.excludes(
+            _canonical(candidate)
+        ):
             # Examination never manufactures an API destination for retirement.
             return token
         if not policy.excludes(candidate):
@@ -272,6 +307,38 @@ def rewrite_text(
         return str(mapping["destination"]) + token[len(value) :]
 
     return URL_TOKEN.sub(replace, text), [mappings[key] for key in sorted(mappings)]
+
+
+def project_api_body(
+    body: str,
+    base_url: str,
+    policy: ContentPolicy,
+    topics: CurationPolicy,
+    previous: list[dict[str, Any]] | None = None,
+) -> tuple[str, list[dict[str, Any]], list[str]]:
+    """Replay the same complete qualified link/reference transformation at both stages."""
+    migrated, mappings = rewrite_text(body, base_url, policy)
+    if not mappings:
+        mappings = previous or []
+    allowed = {op["url"] for op in policy.operations}
+    mappings = [dict(item) for item in mappings if not topics.excludes(item["legacy_url"])]
+    for item in mappings:
+        item["related_operations"] = [
+            target for target in item["related_operations"] if target in allowed
+        ]
+    related = sorted({target for item in mappings for target in item["related_operations"]})
+    if related:
+        generated = (
+            SECTION
+            + "\n## Related API reference\n\n"
+            + "\n".join(
+                f"- [{next(op['summary'] for op in policy.operations if op['url'] == target)}]({target})"
+                for target in related
+            )
+            + "\n"
+        )
+        migrated = migrated.split(SECTION, 1)[0].rstrip() + "\n\n" + generated
+    return migrated, mappings, related
 
 
 def _description(body: str) -> str | None:
@@ -323,6 +390,7 @@ def migrate_content(
     store: StateStore | None = None,
     *,
     policy: ContentPolicy | None = None,
+    curation_policy: CurationPolicy | None = None,
     apply: bool = True,
 ) -> dict[str, Any]:
     """Examine or apply a snapshot transaction without fetching any input."""
@@ -343,7 +411,15 @@ def migrate_content(
         upstream = output / ".enrichment" / "curated" / "curation-audit.json"
         return dict(json.loads(upstream.read_text())["content_migration"])
     active = policy or load_content_policy()
-    topic_policy = load_curation_policy()
+    topic_policy = curation_policy or active.topic_policy
+    if active.topic_policy.sha256 != topic_policy.sha256:
+        active = ContentPolicy(
+            active.raw,
+            active.catalog,
+            active.policy_digest,
+            active.catalog_digest,
+            curation_policy=topic_policy,
+        )
     audit_path = output / "curation-audit.json"
     before = corpus_digest(output)
     prior_audit = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
@@ -359,7 +435,7 @@ def migrate_content(
     if apply and audit_matches:
         # Re-run the actual planner against current bytes. A matching audit is
         # a lineage hint, never evidence that restored content is still clean.
-        recheck = curate_topics(output, store, apply=False)
+        recheck = curate_topics(output, store, apply=False, policy=topic_policy, api_policy=active)
         planned = recheck.pop("_planned")
         actual = {
             path.relative_to(output).as_posix(): split_document(path.read_text())[1]
@@ -370,12 +446,12 @@ def migrate_content(
         else:
             if store:
                 purge_excluded_state(store, active)
-            validate_content_policy(output, active)
+            validate_content_policy(output, active, curation_policy=topic_policy)
             if prior_audit["output_sha256"] != before:
                 prior_audit["output_sha256"] = before
                 audit_path.write_bytes(json_bytes(prior_audit))
             return dict(prior_audit["content_migration"])
-    topics = curate_topics(output, store, apply=apply)
+    topics = curate_topics(output, store, apply=apply, policy=topic_policy, api_policy=active)
     planned = topics.pop("_planned")
     old = _previous_evidence(output, active, before)
     excluded = {item["url"]: item for item in old.get("exclusions", [])}
@@ -383,6 +459,7 @@ def migrate_content(
     findings = {item["document"]: item for item in old.get("affected_documents", [])}
     images: list[dict[str, Any]] = []
     stages: list[dict[str, Any]] = []
+    api_inputs: dict[str, str] = {}
     if store:
         if apply:
             purge_excluded_state(store, active)
@@ -418,32 +495,15 @@ def migrate_content(
                         store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
             continue
         metadata = PageMetadata.model_validate(metadata_raw)
-        migrated, mappings = rewrite_text(body, metadata.canonical_url or url, active)
         previous = findings.get(relative, {})
-        # Keep original transformation evidence when reapplying migrated bytes.
-        if not mappings:
-            mappings = previous.get("mappings", [])
-        allowed_operations = {op["url"] for op in active.operations}
-        mappings = [item for item in mappings if not topic_policy.excludes(item["legacy_url"])]
-        for item in mappings:
-            item["related_operations"] = [
-                target for target in item["related_operations"] if target in allowed_operations
-            ]
-        related = sorted({target for item in mappings for target in item["related_operations"]})
-        if related:
-            generated = (
-                SECTION
-                + "\n## Related API reference\n\n"
-                + "\n".join(
-                    f"- [{next(op['summary'] for op in active.operations if op['url'] == target)}]({target})"
-                    for target in related
-                )
-                + "\n"
-            )
-            if SECTION in migrated:
-                migrated = migrated.split(SECTION, 1)[0].rstrip() + "\n\n" + generated
-            else:
-                migrated = migrated.rstrip() + "\n\n" + generated
+        migrated, mappings, related = project_api_body(
+            body, metadata.canonical_url or url, active, topic_policy, previous.get("mappings")
+        )
+        if apply and migrated != body:
+            preserve_api_input(path, metadata_raw, body, migrated, topic_policy, active)
+
+        if digest := api_record_hash(path):
+            api_inputs[relative] = digest
         stages.append(
             {
                 "document": relative,
@@ -516,6 +576,7 @@ def migrate_content(
         "removed_assets": sorted(removed_assets),
         "image_inventory": images,
         "stages": stages,
+        "api_inputs": api_inputs,
     }
     if apply:
         audit = {
@@ -539,9 +600,23 @@ def migrate_content(
     return evidence
 
 
-def validate_content_policy(output: Path, policy: ContentPolicy | None = None) -> None:
+def validate_content_policy(
+    output: Path,
+    policy: ContentPolicy | None = None,
+    *,
+    curation_policy: CurationPolicy | None = None,
+) -> None:
     active = policy or load_content_policy()
-    validate_curation(output)
+    topic_policy = curation_policy or active.topic_policy
+    if active.topic_policy.sha256 != topic_policy.sha256:
+        active = ContentPolicy(
+            active.raw,
+            active.catalog,
+            active.policy_digest,
+            active.catalog_digest,
+            curation_policy=topic_policy,
+        )
+    validate_curation(output, policy=topic_policy, api_policy=active)
     for path in sorted(output.glob("content/*/**/index.md")):
         metadata, body = split_document(path.read_text())
         if active.excludes(str(metadata["url"])) or active.excludes(
