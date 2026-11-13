@@ -129,20 +129,19 @@ def _fitted_label(
     if not lines:
         return False
     bounds = [draw.textbbox((0, 0), line, font=font) for line in lines]
-    widths = [box[2] - box[0] for box in bounds]
     height = max(box[3] - box[1] for box in bounds)
     extra = 2 if underline else 0
     total = len(lines) * (height + extra) + (len(lines) - 1) * 2
     if total > bottom - top:
         return False
-    pad_x = min(2, (right - left - max(widths)) // 2)
+    pad_x = min(2, (right - left - max(box[2] - box[0] for box in bounds)) // 2)
     pad_y = min(2, (bottom - top - total) // 2)
-    for index, (line, box, width) in enumerate(zip(lines, bounds, widths, strict=True)):
+    for index, (line, box) in enumerate(zip(lines, bounds, strict=True)):
         y = top + pad_y + index * (height + extra + 2)
         draw.text((left + pad_x - box[0], y - box[1]), line, fill=foreground, font=font)
-        if underline and width:
+        if underline and box[2] > box[0]:
             draw.line(
-                (left + pad_x, y + height + 1, left + pad_x + width - 1, y + height + 1),
+                (left + pad_x, y + height + 1, left + pad_x + box[2] - box[0] - 1, y + height + 1),
                 fill=foreground,
             )
     return True
@@ -174,10 +173,9 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
                 continue
             bounds = draw.textbbox((0, 0), text, font=font)
             width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
-            extra = 2 if underline else 0
-            if width <= right - left and height + extra <= bottom - top:
+            if width <= right - left and height + (2 if underline else 0) <= bottom - top:
                 pad_x = min(2, (right - left - width) // 2)
-                pad_y = min(2, (bottom - top - height - extra) // 2)
+                pad_y = min(2, (bottom - top - height - (2 if underline else 0)) // 2)
                 draw.text(
                     (left + pad_x - bounds[0], top + pad_y - bounds[1]),
                     text,
