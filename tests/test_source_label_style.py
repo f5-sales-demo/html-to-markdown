@@ -7,9 +7,34 @@ from PIL import Image, ImageDraw, ImageFont
 
 from html_to_markdown.community_media import apply_labels_and_rectangles, transform_animation
 from html_to_markdown.enrichment.analysis import sha
-from html_to_markdown.source_review import Label, LabelStyle, MediaChange, preview_media
+from html_to_markdown.source_review import (
+    Label,
+    LabelStyle,
+    MediaChange,
+    PrivacyDecision,
+    preview_media,
+)
 
 STYLE = {"foreground": [0, 96, 192], "background": [245, 245, 245], "underline": True}
+
+
+@pytest.mark.parametrize("model", [Label, PrivacyDecision])
+def test_privacy_schemas_meet_the_responses_required_property_contract(model) -> None:
+    def verify(node):
+        if isinstance(node, dict):
+            if node.get("type") == "object":
+                assert set(node.get("required", [])) == set(node.get("properties", {}))
+                assert node.get("additionalProperties") is False
+            for child in node.values():
+                verify(child)
+        elif isinstance(node, list):
+            for child in node:
+                verify(child)
+
+    schema = model.model_json_schema()
+    verify(schema)
+    label = schema if model is Label else schema["$defs"]["Label"]
+    assert any(option.get("type") == "null" for option in label["properties"]["style"]["anyOf"])
 
 
 def test_reviewed_link_label_preserves_region_color_underline_and_exact_replay() -> None:

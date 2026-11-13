@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Annotated, Any, Literal
 
 from PIL import Image
-from pydantic import Field, model_serializer
+from pydantic import ConfigDict, Field, model_serializer
 
 from .adapters.community import PRIVACY_PATTERNS
 from .community_media import (
@@ -95,7 +95,15 @@ class LabelStyle(StrictModel):
     underline: bool
 
 
+def label_schema(schema: dict[str, Any]) -> None:
+    """Strict Responses schemas require nullable fields; old records may still omit them."""
+    schema["required"] = list(schema["properties"])
+    schema["properties"]["style"].pop("default", None)
+
+
 class Label(StrictModel):
+    model_config = ConfigDict(extra="forbid", strict=True, json_schema_extra=label_schema)
+
     rectangle: list[int]
     source_value_sha256: str
     text: str
