@@ -14,6 +14,25 @@ from .content_policy import (
     load_content_policy,
     rewrite_text,
 )
+from .enrichment.analysis import sha
+
+
+def pending_api_evidence(
+    context: dict[str, Any], candidate: dict[str, Any] | None = None
+) -> dict[str, Any]:
+    """Qualify future planner mappings while preserving the source-stage article."""
+    active = load_content_policy()
+    body = context["body"] if candidate is None else candidate["body"]
+    preview, _ = rewrite_text(body, context["identity"], active)
+    result = api_reference_evidence(
+        context, {"candidate": {"body": body}}, {"body": preview}, active
+    )
+    return {
+        **result,
+        "stage": "pending_actual_planner",
+        "source_body_sha256": sha(body),
+        "migration_preview_sha256": sha(preview),
+    }
 
 
 def api_reference_evidence(

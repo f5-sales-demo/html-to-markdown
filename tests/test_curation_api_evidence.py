@@ -5,11 +5,13 @@ from copy import deepcopy
 
 import pytest
 
+from html_to_markdown import curation_api_evidence
 from html_to_markdown.content_policy import load_content_policy, rewrite_text
 from html_to_markdown.curation import load_curation_policy
 from html_to_markdown.curation_api_evidence import api_reference_evidence
 from html_to_markdown.curation_renewal import TOPICS, compile_proposal, proposal_context
 from html_to_markdown.curation_renewal_publication import planner_request
+from html_to_markdown.curation_renewal_review import review_request
 from html_to_markdown.models import PageMetadata
 
 ALIAS = "https://docs.cloud.f5.com/docs-v2/docs/api/endpoint"
@@ -98,3 +100,35 @@ def test_request_needs_the_exact_qualification_policy_pin():
     qualification["api_policy_sha256"] = "0" * 64
     with pytest.raises(ValueError, match="API policy"):
         planner_request(context, reviewed, qualification, candidate, [])
+
+
+@pytest.mark.parametrize("validation", [False, True])
+def test_source_review_has_qualified_api_prerequisites_without_rewriting_source(validation):
+    context, reviewed, _, _, active = inputs()
+    original = deepcopy(context)
+    candidate = reviewed["candidate"] if validation else None
+    body = review_request(context, [], candidate)
+    payload = json.loads(body["input"][0]["content"][0]["text"])
+    evidence = payload["api_reference_evidence"]
+    target = active.resolve(ALIAS)["destination"]
+    assert evidence["policy"] == active.raw
+    assert evidence["policy_sha256"] == active.policy_digest
+    assert evidence["catalog_sha256"] == active.catalog_digest
+    assert {row["url"] for row in evidence["targets"]} == {target}
+    assert evidence["mappings"][0]["legacy_url"] == ALIAS
+    assert evidence["operations"]
+    assert evidence["stage"] == "pending_actual_planner"
+    assert payload["body"] == original["body"] and context == original
+    if validation:
+        assert payload["candidate"]["body"] == original["body"]
+    assert "actual planner" in " ".join(body["instructions"].split())
+
+
+@pytest.mark.parametrize("validation", [False, True])
+def test_source_review_rejects_missing_api_qualification(monkeypatch, validation):
+    context, reviewed, _, _, active = inputs()
+    broken = deepcopy(active)
+    broken.catalog["qualification"] = []
+    monkeypatch.setattr(curation_api_evidence, "load_content_policy", lambda: broken)
+    with pytest.raises(ValueError):
+        review_request(context, [], reviewed["candidate"] if validation else None)
