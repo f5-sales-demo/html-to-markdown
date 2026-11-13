@@ -11,6 +11,7 @@ import pytest
 
 from html_to_markdown import content_inventory
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.content_inventory import _immutable_route_excluded
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.errors import AuthenticationWallError
 from html_to_markdown.fetcher import Fetcher
@@ -346,7 +347,7 @@ async def test_immutable_canonical_redirect_is_excluded_without_losing_source_id
 
 
 def test_content_bound_community_omission_is_not_an_immutable_route() -> None:
-    assert not content_inventory._immutable_route_excluded("https://community.f5.com/t/66432")
-    assert content_inventory._immutable_route_excluded(
+    assert not _immutable_route_excluded("https://community.f5.com/t/66432")
+    assert _immutable_route_excluded(
         "https://docs.cloud.f5.com/docs-v2/api/endpoint"
     )
