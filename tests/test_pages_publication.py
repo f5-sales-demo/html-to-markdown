@@ -1,4 +1,5 @@
 import re
+import tomllib
 from pathlib import Path
 
 import yaml
@@ -75,12 +76,17 @@ def test_pages_and_release_workflows_use_immutable_publication_contract() -> Non
     assert "releases/latest" not in content_release
 
 
-def test_software_version_and_release_are_semver_1_14_5() -> None:
+def test_software_version_and_release_have_one_consistent_stable_semver() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     package = (ROOT / "src/html_to_markdown/__init__.py").read_text(encoding="utf-8")
     release = (ROOT / ".github/workflows/release-software.yml").read_text(encoding="utf-8")
-    assert 'version = "1.14.5"' in pyproject
-    assert '__version__ = "1.14.5"' in package
+    version = tomllib.loads(pyproject)["project"]["version"]
+    assert re.fullmatch(r"(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)", version)
+    assert re.findall(r'^__version__ = "([^"\n]+)"$', package, re.MULTILINE) == [version]
+    lock = tomllib.loads((ROOT / "uv.lock").read_text(encoding="utf-8"))
+    assert [p["version"] for p in lock["package"] if p["name"] == "f5-html-to-markdown"] == [
+        version
+    ]
     assert "refs/tags/v" in release
     assert "uv build" in release
     assert "-name '*.whl' -o -name '*.tar.gz'" in release
