@@ -27,6 +27,7 @@ jobs:
           persist-credentials: false
       - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
         with:
+          version: "0.13.0"
           python-version: "3.12"
           enable-cache: false # release artifacts must not consume mutable caches
       - name: Verify tag and project version
@@ -43,14 +44,24 @@ jobs:
           module_version=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' src/html_to_markdown/__init__.py)
           test "$RELEASE_TAG" = "v$project_version"
           test "$module_version" = "$project_version"
+          source_date_epoch="$(git show -s --format=%ct HEAD)"
+          [[ "$source_date_epoch" =~ ^[0-9]+$ ]]
+          echo "SOURCE_DATE_EPOCH=$source_date_epoch" >> "$GITHUB_ENV"
       - name: Build and test release
         run: |
           set -euo pipefail
           uv sync --all-groups --locked
-          uv run playwright install --with-deps chromium
+          uv run playwright install chromium
           uv run pytest
-          uv build
+          uv build --build-constraints build-constraints.txt
           test "$(find dist -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \) | wc -l)" -eq 2
+          repeat_dir="${RUNNER_TEMP}/software-repeat"
+          test ! -e "$repeat_dir"
+          uv build --build-constraints build-constraints.txt --out-dir "$repeat_dir"
+          test "$(find "$repeat_dir" -maxdepth 1 -type f \( -name '*.whl' -o -name '*.tar.gz' \) | wc -l)" -eq 2
+          for artifact in dist/*.whl dist/*.tar.gz; do
+            cmp -- "$artifact" "$repeat_dir/$(basename "$artifact")"
+          done
       - name: Verify wheel in an isolated environment
         run: |
           set -euo pipefail
