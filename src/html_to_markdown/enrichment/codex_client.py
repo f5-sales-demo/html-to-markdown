@@ -21,6 +21,7 @@ from ..curation import json_bytes
 from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
+from .model_policy import validate_new_request
 from .native_visuals import native_visual_view, validate_visual_manifest, visual_manifest_text
 
 DISABLED = (
@@ -199,6 +200,7 @@ class CodexClient:
             raw: dict[str, Any] = {}
             normalized: dict[str, Any] = {}
             try:
+                validate_new_request(body)
                 process = subprocess.run(
                     args,
                     input="\n\n".join(texts),

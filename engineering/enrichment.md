@@ -18,7 +18,7 @@ Batch submission is available as a transport module but is not used for this
 delivery. No credential is copied into artifacts or repository files.
 
 `gpt-6.1-sol` classifies every structural address and proposes exact-span edits.
-`gpt-6-astra` independently reviews the complete original and candidate, including
+A separate `gpt-6.1-sol` worker at high reasoning independently reviews the complete original and candidate, including
 necessary facts, action order, descriptions and media relevance. Both use high
 reasoning effort and Structured Outputs. Isolated document workers disable
 execution, connectors, plugins, web search and collaboration tools. Scraped

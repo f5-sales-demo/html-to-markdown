@@ -34,6 +34,7 @@ from .contracts_v2 import (
 )
 from .gates import candidate, parse_response, request_hash, validate_candidate
 from .media import all_frame_inputs
+from .model_policy import compatible_request
 from .requests import request
 
 EDITOR_PROMPT = """Review captured technical content for useful standalone Markdown.
@@ -211,7 +212,7 @@ def assemble(
 def _request(
     model: str, phase: str, doc: dict[str, Any], payload: dict[str, Any], schema: Any
 ) -> dict[str, Any]:
-    prompt = VALIDATOR_PROMPT if model == VALIDATOR_MODEL else EDITOR_PROMPT
+    prompt = VALIDATOR_PROMPT if phase == "whole_document_validation" else EDITOR_PROMPT
     prompt += (
         """\nVersion two: use supplied structural addresses and digest guards. Never reproduce
 exact source strings; deterministic code retrieves them. Classification and editing requests may
@@ -224,7 +225,13 @@ Parent headings with useful descendants remain substantive. Correct proposals on
 supplied validation feedback. No compression or rewrite quota applies. Phase: """
         + phase
     )
-    body = request(model, prompt, payload, schema)
+    body = request(
+        model,
+        prompt,
+        payload,
+        schema,
+        role="validator" if phase == "whole_document_validation" else "editor",
+    )
     body["instructions"] = body["instructions"].replace(
         "Prompt version: article-enrichment/1", "Prompt version: " + VERSION
     )
@@ -461,7 +468,7 @@ def replay_document(
         raise ValueError("version-two section request coverage is incomplete")
     feedback = evidence["feedback"]
     for group, response in zip(groups, evidence["classification"], strict=True):
-        body = classification_request(doc, group, feedback)
+        body = compatible_request(classification_request(doc, group, feedback), response["request"])
         classified.append(
             parse_response(
                 ResponseEvidence.model_validate(response),
@@ -474,7 +481,9 @@ def replay_document(
         value.model_dump() for section in classified for value in section.classifications
     ]
     for group, response in zip(groups, evidence["editing"], strict=True):
-        body = edit_request(doc, group, all_classes, feedback)
+        body = compatible_request(
+            edit_request(doc, group, all_classes, feedback), response["request"]
+        )
         edited.append(
             parse_response(
                 ResponseEvidence.model_validate(response),
@@ -493,6 +502,7 @@ def replay_document(
         },
         evidence["visual"],
     )
+    header_body = compatible_request(header_body, evidence["document"]["request"])
     header = parse_response(
         ResponseEvidence.model_validate(evidence["document"]),
         DocumentDecisionV2,
@@ -500,11 +510,14 @@ def replay_document(
         request_hash(header_body),
     )
     decision, candidate_body = assemble(doc, groups, classified, edited, header, canonical, repairs)
-    validator_body = validation_request(doc, candidate_body, decision, {}, evidence["visual"])
+    validator_body = compatible_request(
+        validation_request(doc, candidate_body, decision, {}, evidence["visual"]),
+        evidence["validation"]["request"],
+    )
     checked = parse_response(
         ResponseEvidence.model_validate(evidence["validation"]),
         ValidationV2,
-        VALIDATOR_MODEL,
+        validator_body["model"],
         request_hash(validator_body),
     )
     enforce_enrichment(doc, candidate_body, header, checked)

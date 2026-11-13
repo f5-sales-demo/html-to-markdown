@@ -13,7 +13,7 @@ from pydantic import (
 
 PROMPT_VERSION = "article-enrichment/1"
 EDITOR_MODEL = "gpt-6.1-sol"
-VALIDATOR_MODEL = "gpt-6-astra"
+VALIDATOR_MODEL = "gpt-6.1-sol"
 REASONING = "high"
 
 Classification = Literal[

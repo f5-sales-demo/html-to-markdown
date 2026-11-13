@@ -68,6 +68,24 @@ def _article_html(capture: Path, item: dict[str, Any]) -> str:
     return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
 
 
+def _privacy_budget(previous: dict[str, Any], binding: dict[str, Any]) -> dict[str, Any]:
+    """Model and controller changes cannot grant new corrections on identical source data."""
+    ignored = {
+        "curation_policy_sha256",
+        "api_policy_sha256",
+        "request_context_sha256",
+        "editor_model",
+        "validator_model",
+        "model_policy_version",
+    }
+    old = {key: value for key, value in previous.get("binding", {}).items() if key not in ignored}
+    current = {key: value for key, value in binding.items() if key not in ignored}
+    feedback = previous.get("privacy_feedback", [])
+    if old != current or not feedback:
+        return {}
+    return {"privacy_feedback": list(feedback), "privacy_exhausted": len(feedback) >= 2}
+
+
 def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -96,6 +114,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
         binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
+            retained_budget = _privacy_budget(saved, binding)
             if saved:
                 history = output / "history" / (sha(destination.read_bytes()) + ".json")
                 atomic_private(history, destination.read_bytes())
@@ -109,6 +128,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
                 "phases": {},
                 "disposition": "queued",
                 "reason": "admission_review_required",
+                **retained_budget,
             }
             atomic_private(destination, json_bytes(saved))
         elif saved["item"] != item:
@@ -614,6 +634,10 @@ def review_one(
 def _run_record(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> None:
+    if json.loads(record.read_bytes()).get("privacy_exhausted"):
+        raise ValueError(
+            "privacy proposal exhausted two corrections; unchanged source remains queued"
+        )
     phases = ["relevance", "privacy", "validation", "replay"] if phase == "all" else [phase]
     for current in phases:
         while True:

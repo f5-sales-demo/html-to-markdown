@@ -100,7 +100,7 @@ def test_full_private_publication_chain_replays_and_packages_identically(
         monkeypatch.setattr(Path, "rename", rename)
     receive_enrichment(queues, ".publication/job-test", sha(raw), io.BytesIO(raw))
     enrichment = json.loads((job / "combined/enrichment-state.json").read_bytes())
-    assert set(enrichment["report"]["model_usage"]) == {"gpt-6.1-sol", "gpt-6-astra"}
+    assert set(enrichment["report"]["model_usage"]) == {"gpt-6.1-sol"}
     assert sum(value["input_tokens"] for value in enrichment["report"]["model_usage"].values()) > 0
     assert enrichment["report"]["cost_status"] == "unpriced"
     if not interrupted:

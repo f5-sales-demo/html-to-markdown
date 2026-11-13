@@ -34,10 +34,15 @@ html-to-markdown review-content --capture PRIVATE_CAPTURE --output PRIVATE_REVIE
 ```
 
 Workers use the installed Codex CLI and its existing LiteLLM Responses route. Classification and proposals use
-`gpt-6.1-sol`; independent validation uses `gpt-6-astra`, both with high reasoning and no execution, browsing, connector
+`gpt-6.1-sol`; routine independent validation uses a separate `gpt-6.1-sol` worker at high reasoning, with no execution, browsing, connector
 or collaboration tools. The controller handles capture, OCR and exact transformations. Complete requests, native media
 frames, attempts and private transformation evidence remain available for replay. Changed source, media, policy or
 controller context invalidates admission. Credential findings cannot be waived.
+Model policy two binds editor and validator roles separately even when both use Sol. Different role/request hashes
+prevent the validator from reusing the proposer response. Astra escalation requires an exact completed Sol validation
+with specific unresolved privacy or preservation findings, an explicit reason and preserved prior evidence. Unknown
+policy versions, wrong roles and ungrounded escalation fail closed. Historical Astra receipts replay under their
+original model and request contracts; new uncached Astra requests require a verified exception.
 Independent relevance validation approves or rejects the proposed inventory disposition, including justified
 exclusions. An approved exclusion emits no article. Privacy or media rejection returns specific independent findings
 for the bounded correction loop; all mandatory checks still have to pass.
