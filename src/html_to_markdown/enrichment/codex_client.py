@@ -22,6 +22,7 @@ from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
 from .native_visuals import native_visual_view, validate_visual_manifest, visual_manifest_text
+from .visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 
 DISABLED = (
     "shell_tool",
@@ -43,10 +44,33 @@ DISABLED = (
 
 
 def is_transient_error(error: str | None) -> bool:
+    if not error:
+        return False
+    # Typed permanent failures outrank incidental numbers or document vocabulary.
+    if re.search(
+        r"invalid_request_error|BadRequestError|invalid_json_schema|failed validating|"
+        r"decoded image capacity|resolved image size|model refusal|context.compact|"
+        r"is not of type|is not one of|SchemaValidationError|insufficient_quota",
+        error,
+        re.I,
+    ):
+        return False
+    statuses = re.findall(
+        r"(?:HTTP(?:\s+(?:status|error|code))?\s*[:=]?\s*|"
+        r"[\"'](?:status_code|status|code)[\"']\s*:\s*[\"']?)([45]\d\d)\b",
+        error,
+        re.I,
+    )
+    if statuses:
+        return all(int(code) == 429 or 500 <= int(code) < 600 for code in statuses)
+    if re.search(r"\b429\s+(?:too many requests|rate limit)\b", error, re.I):
+        return True
     return bool(
-        error
-        and re.search(
-            r"\b429\b|\b5\d\d\b|timeout|timed out|network|connection|temporar|stream disconnected",
+        re.search(
+            r"\b(?:timeout|timed out|ReadTimeout|ConnectTimeout|ConnectError|"
+            r"ConnectionError|ConnectionResetError|NetworkError|connection reset|"
+            r"connection refused|network error|"
+            r"temporarily unavailable|stream disconnected)\b",
             error,
             re.I,
         )
@@ -183,22 +207,27 @@ class CodexClient:
                 for content in item["content"]
                 if content["type"] == "input_text"
             ]
-            visuals, visual_manifest = native_visual_view(body)
-            if visual_manifest is not None:
-                validate_visual_manifest(body, visual_manifest)
-                texts.append(visual_manifest_text(visual_manifest))
-            for content in visuals:
-                header, data = content["image_url"].split(",", 1)
-                if not header.startswith("data:image/") or ";base64" not in header:
-                    raise ValueError("Codex visual input must be captured image bytes")
-                image = root / f"image-{sha(data)}.png"
-                image.write_bytes(base64.b64decode(data, validate=True))
-                args += ["--image", str(image)]
-            args += ["-"]
             error = None
-            raw: dict[str, Any] = {}
+            raw: dict[str, Any] = {"invoked": False}
             normalized: dict[str, Any] = {}
             try:
+                visuals, visual_manifest = native_visual_view(body)
+                if visual_manifest is not None:
+                    validate_visual_manifest(body, visual_manifest)
+                    texts.append(visual_manifest_text(visual_manifest))
+                if decoded_image_bytes(visuals) > MAX_DECODED_BYTES:
+                    raise ValueError(
+                        "complete physical native attachments exceed decoded image capacity"
+                    )
+                for content in visuals:
+                    header, data = content["image_url"].split(",", 1)
+                    if not header.startswith("data:image/") or ";base64" not in header:
+                        raise ValueError("Codex visual input must be captured image bytes")
+                    image = root / f"image-{sha(data)}.png"
+                    image.write_bytes(base64.b64decode(data, validate=True))
+                    args += ["--image", str(image)]
+                args += ["-"]
+                raw["invoked"] = True
                 process = subprocess.run(
                     args,
                     input="\n\n".join(texts),
@@ -207,16 +236,16 @@ class CodexClient:
                     timeout=1800,
                     check=False,
                 )  # nosec B603
-                events = [
-                    json.loads(line)
-                    for line in process.stdout.splitlines()
-                    if line.strip().startswith("{")
-                ]
                 raw = {
                     "stdout": process.stdout,
                     "stderr": process.stderr,
                     "returncode": process.returncode,
                 }
+                events = [
+                    json.loads(line)
+                    for line in process.stdout.splitlines()
+                    if line.strip().startswith("{")
+                ]
                 if visual_manifest is not None:
                     raw["native_visual_manifest"] = visual_manifest
                     raw["native_prompt_sha256"] = sha("\n\n".join(texts))
@@ -270,13 +299,35 @@ class CodexClient:
                 if visual_manifest is not None:
                     normalized["native_visual_manifest"] = visual_manifest
                     normalized["native_prompt_sha256"] = sha("\n\n".join(texts))
+            except subprocess.TimeoutExpired as failure:
+                raw = {
+                    "invoked": True,
+                    "timeout": failure.timeout,
+                    "stdout_base64": base64.b64encode(
+                        failure.stdout.encode()
+                        if isinstance(failure.stdout, str)
+                        else failure.stdout or b""
+                    ).decode(),
+                    "stderr_base64": base64.b64encode(
+                        failure.stderr.encode()
+                        if isinstance(failure.stderr, str)
+                        else failure.stderr or b""
+                    ).decode(),
+                    "partial_output_base64": base64.b64encode(
+                        output.read_bytes() if output.is_file() else b""
+                    ).decode(),
+                }
+                error = str(failure)
             except (
                 ValueError,
                 OSError,
-                subprocess.TimeoutExpired,
                 SchemaValidationError,
             ) as failure:
-                error = str(failure)
+                error = (
+                    "SchemaValidationError: " + str(failure)
+                    if isinstance(failure, SchemaValidationError)
+                    else str(failure)
+                )
             evidence = ResponseEvidence(
                 request_sha256=digest,
                 response_sha256=sha(json.dumps(normalized, sort_keys=True, separators=(",", ":"))),

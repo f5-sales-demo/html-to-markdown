@@ -50,6 +50,13 @@ complete source, transformed article, every frame, technical relationships and c
 can request additional grounded observations within the existing two-correction limit. Failed or stale observations and
 all earlier privacy attempts remain preserved; unresolved regions stay queued.
 
+Native requests check the decoded size of their actual attachments before inference. Supplemental inspection views use
+the largest configured context margin that fits the 450 MiB RGBA budget beneath the observed 512 MB provider limit.
+Every complete original frame and selected region remains supplied with exact native coordinates and pixels enlarged
+four times. A source that cannot fit without losing complete input stays queued. Permanent request, capacity and schema
+failures are recorded once; actual transient HTTP or transport failures retain at most three attempts. Timeout and
+malformed-response evidence preserves partial output privately, and failed results never become reusable approvals.
+
 ## Queue clocks and activation
 
 Install the qualified software into stable user-owned paths before installing either scheduler. Temporary development
