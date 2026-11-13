@@ -52,8 +52,9 @@ def _failed_validation(evidence: dict[str, Any], routine: dict[str, Any]) -> Non
         != hashlib.sha256(
             json.dumps(routine, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
         ).hexdigest()
-        or evidence.get("request") != routine
     ):
+        raise ValueError("Astra escalation requires an exact completed Sol validation")
+    if evidence.get("request") != routine:
         raise ValueError("Astra escalation requires an exact completed Sol validation")
     response = evidence["response"]
     if (
