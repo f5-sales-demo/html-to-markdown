@@ -98,6 +98,56 @@ def label_style(label: dict[str, Any]) -> tuple[Any, Any, bool]:
     return colors[0], colors[1], style["underline"]
 
 
+def _label_lines(draw: Any, text: str, font: Any, width: int) -> list[str] | None:
+    """Wrap display pixels while retaining every character of the guarded value."""
+    lines = []
+    remaining = text
+    while remaining:
+        count = 0
+        for end in range(1, len(remaining) + 1):
+            bounds = draw.textbbox((0, 0), remaining[:end], font=font)
+            if bounds[2] - bounds[0] > width:
+                break
+            count = end
+        if not count:
+            return None
+        if count < len(remaining):
+            boundary = max(
+                (i + 1 for i, char in enumerate(remaining[:count]) if char in " .-_/"), default=0
+            )
+            count = boundary or count
+        lines.append(remaining[:count])
+        remaining = remaining[count:]
+    return lines
+
+
+def _fitted_label(
+    draw: Any, label: dict[str, Any], font: Any, foreground: Any, underline: bool
+) -> bool:
+    left, top, right, bottom = label["rectangle"]
+    lines = _label_lines(draw, label["text"], font, right - left)
+    if not lines:
+        return False
+    bounds = [draw.textbbox((0, 0), line, font=font) for line in lines]
+    widths = [box[2] - box[0] for box in bounds]
+    height = max(box[3] - box[1] for box in bounds)
+    extra = 2 if underline else 0
+    total = len(lines) * (height + extra) + (len(lines) - 1) * 2
+    if total > bottom - top:
+        return False
+    pad_x = min(2, (right - left - max(widths)) // 2)
+    pad_y = min(2, (bottom - top - total) // 2)
+    for index, (line, box, width) in enumerate(zip(lines, bounds, widths, strict=True)):
+        y = top + pad_y + index * (height + extra + 2)
+        draw.text((left + pad_x - box[0], y - box[1]), line, fill=foreground, font=font)
+        if underline and width:
+            draw.line(
+                (left + pad_x, y + height + 1, left + pad_x + width - 1, y + height + 1),
+                fill=foreground,
+            )
+    return True
+
+
 def draw_label(draw: Any, label: dict[str, Any]) -> None:
     """Draw a reviewed synthetic label only when it fits its cleared area."""
     text, size = label["text"], label["size"]
@@ -110,6 +160,9 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
     fit = label.get("fit", False)
     if not isinstance(fit, bool):
         raise ValueError("invalid synthetic label fit mode")
+    layout = label.get("layout")
+    if layout not in {None, "wrapped/2"} or (layout is not None and not fit):
+        raise ValueError("invalid synthetic label layout")
     left, top, right, bottom = label["rectangle"]
     foreground, _, underline = label_style(label)
     if not text:
@@ -118,6 +171,10 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
     for selected_size in range(size, 5 if fit else size - 1, -1):
         font = ImageFont.load_default(size=selected_size)
         if fit:
+            if layout == "wrapped/2":
+                if _fitted_label(draw, label, font, foreground, underline):
+                    return
+                continue
             bounds = draw.textbbox((0, 0), text, font=font)
             width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
             extra = 2 if underline else 0

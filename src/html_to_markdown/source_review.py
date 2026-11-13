@@ -296,6 +296,7 @@ def preview_media(
                 "text": item.text,
                 "size": item.size,
                 "fit": True,
+                "layout": "wrapped/2",
                 **({"style": item.style.model_dump()} if item.style is not None else {}),
             }
             for item in items
