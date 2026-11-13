@@ -90,6 +90,8 @@ class DeterministicConverter(MarkdownConverter):
             return str(cast(Any, super()).process_tag(el, parent_tags | {"_inline"}))
         return str(cast(Any, super()).convert_a(el, text, parent_tags))
 
+    # Markdownify dispatches headings through this exact public method name.
+    # pylint: disable-next=invalid-name
     def convert_hN(self, n: int, el: Tag, text: str, parent_tags: set[str]) -> str:
         if "a" in parent_tags and "_inline" in parent_tags:
             return " " + text.strip() + " "
