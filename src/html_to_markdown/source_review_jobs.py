@@ -82,6 +82,24 @@ def _article_html(capture: Path, item: dict[str, Any]) -> str:
     return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
 
 
+def _privacy_budget(previous: dict[str, Any], binding: dict[str, Any]) -> dict[str, Any]:
+    """Model and controller changes cannot grant new corrections on identical source data."""
+    ignored = {
+        "curation_policy_sha256",
+        "api_policy_sha256",
+        "request_context_sha256",
+        "editor_model",
+        "validator_model",
+        "model_policy_version",
+    }
+    old = {key: value for key, value in previous.get("binding", {}).items() if key not in ignored}
+    current = {key: value for key, value in binding.items() if key not in ignored}
+    feedback = previous.get("privacy_feedback", [])
+    if old != current or not feedback:
+        return {}
+    return {"privacy_feedback": list(feedback), "privacy_exhausted": len(feedback) >= 2}
+
+
 def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -111,6 +129,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
             retained = {
+                **_privacy_budget(saved, binding),
                 **privacy_ledger(saved, binding),
                 **pending_privacy_proposal(saved, binding),
                 **reusable_privacy(saved, binding),

@@ -28,6 +28,7 @@ from html_to_markdown.source_review_jobs import (
     _compile,
     _media_context,
     _prepare_media_observations,
+    _privacy_budget,
     _request,
     prepare_reviews,
     run_reviews,
@@ -598,6 +599,7 @@ def test_fresh_unchanged_article_reuses_decisions_but_changed_authored_source_do
     saved = json.loads((output / fresh["documents"][0]["path"]).read_bytes())
     assert saved["item"]["captured_at"] == "2026-11-11T00:00:00Z"
     assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+
     recapture(authored.replace("30 seconds", "10 seconds"), "2026-11-12T00:00:00Z")
     changed = prepare_reviews(capture, output)
     saved = json.loads((output / changed["documents"][0]["path"]).read_bytes())
@@ -821,3 +823,41 @@ def test_document_replay_does_not_copy_unrelated_media_analysis(
 
     monkeypatch.setattr("shutil.copytree", bulk_copy)
     assert len(verify_reviews(capture, output)["accepted_files"]) == 1
+
+
+def test_model_upgrade_preserves_exhausted_source_corrections(capture, tmp_path, monkeypatch):
+    output = tmp_path / "model-budget-review"
+    monkeypatch.setattr("html_to_markdown.source_review.VALIDATOR_MODEL", "gpt-6-astra")
+    monkeypatch.setattr("html_to_markdown.source_review.review_context_digest", lambda: "old")
+    prepare_reviews(capture, output)
+    record = next((output / "documents").glob("*.json"))
+    previous = json.loads(record.read_bytes())
+    previous["binding"].pop("model_policy_version")
+    previous["binding_sha256"] = sha(json_bytes(previous["binding"]))
+    previous["privacy_feedback"] = ["first rejected correction", "second rejected correction"]
+    atomic_private(record, json_bytes(previous))
+    original = record.read_bytes()
+    monkeypatch.setattr("html_to_markdown.source_review.VALIDATOR_MODEL", "gpt-6.1-sol")
+    monkeypatch.setattr("html_to_markdown.source_review.review_context_digest", lambda: "new")
+    prepare_reviews(capture, output)
+    current = json.loads(record.read_bytes())
+    assert current["privacy_feedback"] == previous["privacy_feedback"]
+    assert current["privacy_exhausted"] is True
+    assert (output / "history" / (sha(original) + ".json")).read_bytes() == original
+
+    class NoInference(LocalClient):
+        def execute(self, body):
+            pytest.fail("model changes must not buy a third privacy correction")
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", NoInference)
+    report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    assert report["exceptions"]
+    assert report["documents"][0]["disposition"] == "queued"
+    assert json.loads(record.read_bytes())["privacy_feedback"] == previous["privacy_feedback"]
+
+
+@pytest.mark.parametrize("field", ["article_sha256", "metadata", "media"])
+def test_changed_source_has_its_own_privacy_budget(field):
+    binding = {"identity": "article", "article_sha256": "original", "metadata": {}, "media": {}}
+    previous = {"binding": binding, "privacy_feedback": ["first", "second"]}
+    assert not _privacy_budget(previous, {**binding, field: "changed"})
