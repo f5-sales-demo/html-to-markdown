@@ -28,8 +28,8 @@ from .adapters.community import (
     topic_id,
     validate_topic,
 )
-from .content_policy import load_content_policy
-from .curation import json_bytes
+from .content_policy import _canonical, load_content_policy
+from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .errors import AuthenticationWallError
 from .fetcher import Fetcher
@@ -190,6 +190,46 @@ def verify_capture(output: Path, item: dict[str, Any]) -> None:
             raise ValueError("capture receipt digest mismatch")
 
 
+def _immutable_route_excluded(url: str) -> bool:
+    """Reviewed content omissions need current admission, not URL-only reuse."""
+    canonical = _canonical(url)
+    policy = load_content_policy()
+    families = [_canonical(value) for value in policy.raw["exclusions"]]
+    topics = load_curation_policy().topics
+    exact = {_canonical(value) for topic in topics for value in topic["retired_urls"]}
+    families.extend(
+        _canonical(value)
+        for topic in topics
+        for value in topic.get("retired_documentation_urls", [])
+    )
+    return canonical in exact or any(
+        canonical == family or canonical.startswith(family + "/") for family in families
+    )
+
+
+def _reconcile_capture_dispositions(output: Path, database: sqlite3.Connection) -> None:
+    """Preserve old records before correcting completed inventory eligibility."""
+    for url, raw in database.execute("SELECT url,data FROM documents ORDER BY url").fetchall():
+        item = json.loads(raw)
+        if not item.get("capture_complete") or item["disposition"] not in {
+            "queued",
+            "policy_excluded",
+        }:
+            continue
+        excluded = _immutable_route_excluded(url) or _immutable_route_excluded(
+            item.get("final_url", url)
+        )
+        disposition = "policy_excluded" if excluded else "queued"
+        reason = "exact_retired_route_policy" if excluded else "admission_review_required"
+        if item["disposition"] == disposition and item["reason"] == reason:
+            continue
+        previous = raw.encode()
+        atomic_private(output / "inventory-history" / (sha(previous) + ".json"), previous)
+        item.update(disposition=disposition, reason=reason)
+        with database:
+            database.execute("UPDATE documents SET data=? WHERE url=?", (json.dumps(item), url))
+
+
 async def _community_discovery(fetcher: InventoryFetcher) -> list[DiscoveredPage]:
     client = fetcher.community_client
     listings: dict[int, Any] = {}
@@ -269,7 +309,9 @@ async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str,
         data = serialize_document(metadata, rendered.body).encode()
         extracted_path = Path("extractions") / sha(data) / "index.md"
         atomic_private(fetcher.output / extracted_path, data)
-        excluded = load_content_policy().excludes(item["url"])
+        excluded = _immutable_route_excluded(item["url"]) or _immutable_route_excluded(
+            fetched.final_url
+        )
         result.update(
             article_path=extracted_path.as_posix(),
             published_path=article.as_posix(),
@@ -390,6 +432,7 @@ async def collect_content(
         async with InventoryFetcher(output, database, timeout=timeout, retries=retries) as fetcher:
             for item in _documents(database):
                 verify_capture(output, item)
+            _reconcile_capture_dispositions(output, database)
             for name in sources:
                 urls = [
                     item["url"]
