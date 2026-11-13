@@ -14,6 +14,7 @@ from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document
+from html_to_markdown.source_review import PrivacyDecision
 
 
 @pytest.fixture
@@ -40,11 +41,19 @@ def prepared(tmp_path, monkeypatch):
 
 
 class Client:
-    def __init__(self, reject=False, approve_publication=False, unresolved=None, fail_check=None):
+    def __init__(
+        self,
+        reject=False,
+        approve_publication=False,
+        unresolved=None,
+        fail_check=None,
+        require_phase_link=False,
+    ):
         self.reject = reject
         self.approve_publication = approve_publication
         self.unresolved = unresolved or []
         self.fail_check = fail_check
+        self.require_phase_link = require_phase_link
         self.calls = []
 
     def invalidate(self, response):
@@ -98,6 +107,24 @@ class Client:
             )
             if self.fail_check:
                 value[self.fail_check] = False
+            if self.require_phase_link:
+                links = payload.get("phase_bindings", {})
+                private = links.get("source_privacy", {})
+                linked = (
+                    private.get("sha256") == payload["privacy_decision"]["binding_sha256"]
+                    and private.get("sha256") == sha(json_bytes(private.get("binding", {})))
+                    and links.get("baseline_review_sha256") == payload["binding_sha256"]
+                    and links.get("relevance_sha256")
+                    == payload["relevance_decision"]["binding_sha256"]
+                )
+                if not linked:
+                    value.update(
+                        privacy_valid=False,
+                        failures=[
+                            "Missing immutable source-privacy to baseline-review binding link"
+                        ],
+                        unresolved=["Privacy decision applicability remains unverified"],
+                    )
         response = {
             "status": "completed",
             "model": body["model"],
@@ -147,6 +174,52 @@ def test_privacy_validator_contract_identifies_downstream_checks_as_separate(pre
     assert "failures=[] and unresolved=[]" in request["input"][0]["content"][0]["text"] or (
         "failures=[] and unresolved=[]" in request["instructions"]
     )
+
+
+def test_baseline_validator_receives_and_checks_distinct_phase_bindings(prepared):
+    _, output, record, _ = prepared
+    client = Client(require_phase_link=True)
+    result = source.review_baseline_privacy(output, record, client)
+    assert result["status"] == "privacy_only_validated"
+    payload = json.loads(client.calls[-1]["input"][0]["content"][0]["text"])
+    links = payload["phase_bindings"]
+    private = links["source_privacy"]
+    expected = {
+        k: v
+        for k, v in payload["binding"].items()
+        if k not in {"curation_policy_sha256", "api_policy_sha256"}
+    }
+    expected["privacy_version"] = "source-privacy/2"
+    assert private["binding"] == expected
+    assert private["sha256"] == sha(json_bytes(expected))
+    assert private["sha256"] != payload["binding_sha256"]
+    assert links["baseline_review_sha256"] == links["relevance_sha256"]
+    before = record.read_bytes()
+    assert source.review_baseline_privacy(output, record) == result
+    assert record.read_bytes() == before
+
+
+@pytest.mark.parametrize(
+    "field", ["privacy_binding", "privacy_identity", "relevance_binding", "relevance_identity"]
+)
+def test_baseline_validator_rejects_stale_phase_data_before_inference(prepared, field):
+    _, output, record, _ = prepared
+    client = Client(require_phase_link=True)
+    source.review_baseline_privacy(output, record, client)
+    context = json.loads(client.calls[-1]["input"][0]["content"][0]["text"])
+    proposal = PrivacyDecision.model_validate(context["privacy_decision"])
+    if field == "privacy_binding":
+        proposal = proposal.model_copy(update={"binding_sha256": "f" * 64})
+    elif field == "privacy_identity":
+        proposal = proposal.model_copy(
+            update={"identity": "https://docs.cloud.f5.com/docs-v2/other"}
+        )
+    elif field == "relevance_binding":
+        context["relevance_decision"]["binding_sha256"] = "f" * 64
+    else:
+        context["relevance_decision"]["identity"] = "https://docs.cloud.f5.com/docs-v2/other"
+    with pytest.raises(ValueError, match="stale baseline"):
+        source._validation_request(context, context["candidate"], proposal, [], [])
 
 
 def test_pending_retirement_response_is_preserved_and_never_silently_accepted(prepared):
