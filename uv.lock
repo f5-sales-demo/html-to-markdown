@@ -440,7 +440,7 @@ wheels = [
 
 [[package]]
 name = "f5-html-to-markdown"
-version = "1.14.8"
+version = "1.14.9"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },

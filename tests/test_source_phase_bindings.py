@@ -111,7 +111,8 @@ def test_independent_rejection_invalidates_failed_response_caches(capture, tmp_p
     }
 
 
-def test_catalog_update_cannot_reset_exhausted_privacy_corrections(capture, tmp_path, monkeypatch):
+@pytest.mark.parametrize("change", ["catalog", "controller"])
+def test_upgrade_cannot_reset_exhausted_privacy_corrections(capture, tmp_path, monkeypatch, change):
     monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
     output = tmp_path / "review"
     prepare_reviews(capture, output)
@@ -122,19 +123,29 @@ def test_catalog_update_cannot_reset_exhausted_privacy_corrections(capture, tmp_
     failed["privacy_feedback"] = ["first rejected correction", "second rejected correction"]
     failed["disposition"] = "queued"
     record.write_text(json.dumps(failed))
-    monkeypatch.setattr(
-        "html_to_markdown.source_review.load_curation_policy",
-        lambda: SimpleNamespace(sha256="changed-policy"),
-    )
+    if change == "catalog":
+        monkeypatch.setattr(
+            "html_to_markdown.source_review.load_curation_policy",
+            lambda: SimpleNamespace(sha256="changed-policy"),
+        )
+    else:
+        monkeypatch.setattr(
+            "html_to_markdown.source_review.review_context_digest", lambda: "new-controller"
+        )
     prepare_reviews(capture, output)
     current = json.loads(record.read_bytes())
     assert current["privacy_feedback"] == failed["privacy_feedback"]
     assert current["privacy_exhausted"] is True
     assert not current["phases"]
-    monkeypatch.setattr(
-        "html_to_markdown.source_review.load_curation_policy",
-        lambda: SimpleNamespace(sha256="changed-again"),
-    )
+    if change == "catalog":
+        monkeypatch.setattr(
+            "html_to_markdown.source_review.load_curation_policy",
+            lambda: SimpleNamespace(sha256="changed-again"),
+        )
+    else:
+        monkeypatch.setattr(
+            "html_to_markdown.source_review.review_context_digest", lambda: "another-controller"
+        )
     prepare_reviews(capture, output)
     assert json.loads(record.read_bytes())["privacy_exhausted"] is True
 

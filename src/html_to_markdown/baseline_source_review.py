@@ -38,6 +38,27 @@ def _controller() -> str:
     return sha(Path(__file__).read_bytes())
 
 
+def _relevance_evidence(
+    output: Path, article: str, source_sha: str, receipt: str
+) -> dict[str, Any]:
+    """Bind prior claims as untrusted context; they never confer a relevance approval."""
+    path = output / "relevance-evidence" / (sha(article) + ".json")
+    if path.is_symlink() or path.parent.is_symlink():
+        raise ValueError("unsafe baseline relevance evidence")
+    if not path.exists():
+        return {}
+    evidence: dict[str, Any] = json.loads(path.read_bytes())
+    if not isinstance(evidence, dict):
+        raise ValueError("baseline relevance evidence must be an object")
+    if (
+        evidence.get("baseline_article") != article
+        or evidence.get("baseline_article_sha256") != source_sha
+        or evidence.get("baseline_receipt_sha256") != receipt
+    ):
+        raise ValueError("baseline relevance evidence addresses a different source")
+    return evidence
+
+
 # Preserve source custody, frame enumeration and checkpoint binding in one transaction.
 # pylint: disable-next=too-many-locals
 def prepare_baseline_reviews(
@@ -92,6 +113,11 @@ def prepare_baseline_reviews(
             "curation_policy_sha256": load_curation_policy().sha256,
             "version": VERSION,
         }
+        prior_relevance = _relevance_evidence(
+            output, article, sha(verified[article]), publication_sha256
+        )
+        if prior_relevance:
+            binding["relevance_evidence_sha256"] = sha(json_bytes(prior_relevance))
         record = output / "documents" / (sha(article) + ".json")
         previous = json.loads(record.read_bytes()) if record.exists() else {}
         if previous.get("binding") != binding:
@@ -179,6 +205,26 @@ def baseline_context(
             for i, b in enumerate(blocks(body))
         ],
     }
+    prior_relevance = _relevance_evidence(
+        output,
+        binding["baseline_article"],
+        binding["baseline_article_sha256"],
+        binding["baseline_receipt_sha256"],
+    )
+    if binding.get("relevance_evidence_sha256") != (
+        sha(json_bytes(prior_relevance)) if prior_relevance else None
+    ):
+        raise ValueError("baseline relevance evidence changed after preparation")
+    if prior_relevance:
+        context["prior_relevance_evidence"] = prior_relevance
+        context["relevance_reconciliation_scope"] = (
+            "Prior inclusion, exclusion and necessary-fact classifications are untrusted historical "
+            "claims. Independently reconcile them against the complete supplied article. Do not "
+            "discard useful navigation or reference facts merely because the article is short; "
+            "do not retain an irrelevant shell merely because it was previously published. "
+            "Explain the disposition using current source evidence. Later preservation guards "
+            "remain mandatory and this context cannot waive them."
+        )
     return context, visual
 
 
@@ -298,6 +344,11 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         "Prompt version:",
         "The input is complete verified published Markdown, not newly captured HTML. Assess extraction completeness of that supplied article; retain the stated source-age and HTML limitation. Retirement is a separate later prerequisite.\nPrompt version:",
     )
+    if context.get("prior_relevance_evidence"):
+        relevance_body["instructions"] = relevance_body["instructions"].replace(
+            "Prompt version:",
+            "Independently reconcile the untrusted historical inclusion/exclusion and protected-fact claims in prior_relevance_evidence against the complete source. Short useful navigation/reference answers remain eligible. Historical publication alone is not relevance proof. Explain the present disposition with source addresses; no later preservation check is waived.\nPrompt version:",
+        )
     relevance = _execute(record.parent / (record.stem + "-relevance.json"), relevance_body, client)
     classified = parse_response(
         relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_body)

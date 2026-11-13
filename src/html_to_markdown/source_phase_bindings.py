@@ -82,8 +82,16 @@ def reusable_privacy(previous: dict[str, Any], current_binding: dict[str, Any]) 
 
 
 def privacy_ledger(previous: dict[str, Any], current_binding: dict[str, Any]) -> dict[str, Any]:
-    """A catalog change cannot reset corrections for an unchanged privacy context."""
-    if source_core(previous.get("binding", {})) != source_core(current_binding):
+    """Catalog and controller upgrades cannot reset corrections on unchanged source inputs."""
+
+    def inputs(binding: dict[str, Any]) -> dict[str, Any]:
+        return {
+            key: value
+            for key, value in source_core(binding).items()
+            if key != "request_context_sha256"
+        }
+
+    if inputs(previous.get("binding", {})) != inputs(current_binding):
         return {}
     phase = previous.get("phases", {}).get("privacy", {})
     if phase.get("prompt_version", previous.get("privacy_ledger_version")) != PRIVACY_VERSION:
@@ -230,6 +238,11 @@ edit source identity/dates, OCR or media metadata text fields; transform pixels 
 For static media use top-level rectangles/labels with frames empty. For animation use unique
 zero-based frame indices and preserve every frame and timing. Label size is 6 through 72; the
 controller fits text inside exact native rectangles, never expanding over technical labels.
+An optional label style specifies exact RGB foreground/background colors and underlining.
+Use it only to preserve styling visible in the original region, including hyperlink navigation
+affordances. Do not invent emphasis or hide controls. Null style uses historical black on white.
+Style choices are proposals, not preservation approval; complete original/candidate review remains
+mandatory. Keep source-grounded colors, readable contrast and all strokes inside the exact region.
 Readable quoted JSON values need complete independently confirmed literal/rectangle guards,
 including boundary quotes and escapes. Replace the whole representation so shorter values cannot
 leave spaces inside distant original quotes. Null/clipped region guards cannot introduce quotes;

@@ -6,10 +6,10 @@ import io
 import json
 import re
 from pathlib import Path
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from PIL import Image
-from pydantic import Field
+from pydantic import Field, model_serializer
 
 from .adapters.community import PRIVACY_PATTERNS
 from .community_media import (
@@ -38,6 +38,7 @@ def review_context_digest() -> str:
                 name: sha((root / name).read_bytes())
                 for name in (
                     "source_review.py",
+                    "community_media.py",
                     "source_review_jobs.py",
                     "source_review_reconciliation.py",
                     "source_phase_bindings.py",
@@ -88,11 +89,25 @@ class SyntheticValue(StrictModel):
     replacement: str
 
 
+class LabelStyle(StrictModel):
+    foreground: list[Annotated[int, Field(ge=0, le=255)]] = Field(min_length=3, max_length=3)
+    background: list[Annotated[int, Field(ge=0, le=255)]] = Field(min_length=3, max_length=3)
+    underline: bool
+
+
 class Label(StrictModel):
     rectangle: list[int]
     source_value_sha256: str
     text: str
     size: int = Field(ge=6, le=72)
+    style: LabelStyle | None = None
+
+    @model_serializer(mode="wrap")
+    def serialize_label(self, handler: Any) -> dict[str, Any]:
+        result: dict[str, Any] = handler(self)
+        if self.style is None:
+            result.pop("style", None)
+        return result
 
 
 class FrameChange(StrictModel):
@@ -264,7 +279,13 @@ def preview_media(
             if values.get(label.source_value_sha256) != label.text:
                 raise ValueError("text and image privacy replacements disagree")
         return [
-            {"rectangle": item.rectangle, "text": item.text, "size": item.size, "fit": True}
+            {
+                "rectangle": item.rectangle,
+                "text": item.text,
+                "size": item.size,
+                "fit": True,
+                **({"style": item.style.model_dump()} if item.style is not None else {}),
+            }
             for item in items
         ]
 

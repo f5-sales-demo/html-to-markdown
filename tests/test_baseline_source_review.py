@@ -39,6 +39,34 @@ def prepared(tmp_path, monkeypatch):
     return baseline, output, output / inventory["documents"][0]["path"], article
 
 
+def test_relevance_reconciliation_changes_request_binding_preserves_budget_and_rejects_tampering(
+    prepared,
+):
+    baseline, output, record, article = prepared
+    before = json.loads(record.read_bytes())
+    before["privacy_feedback"] = ["first correction", "second correction"]
+    record.write_bytes(json_bytes(before))
+    path = output / "relevance-evidence" / (sha(article) + ".json")
+    path.parent.mkdir()
+    evidence = {
+        "baseline_article": article,
+        "baseline_article_sha256": before["binding"]["baseline_article_sha256"],
+        "baseline_receipt_sha256": "a" * 64,
+        "prior_necessary_facts": ["Configure the origin pool first"],
+        "prior_dispositions": ["include", "exclude"],
+    }
+    path.write_bytes(json_bytes(evidence))
+    source.prepare_baseline_reviews(baseline, "a" * 64, [article], output)
+    after = json.loads(record.read_bytes())
+    assert after["binding_sha256"] != before["binding_sha256"]
+    assert after["privacy_feedback"] == before["privacy_feedback"]
+    context, _ = source.baseline_context(output / after["source"], output, after)
+    assert context["prior_relevance_evidence"] == evidence
+    path.write_bytes(json_bytes({**evidence, "prior_dispositions": ["include"]}))
+    with pytest.raises(ValueError, match="evidence changed"):
+        source.baseline_context(output / after["source"], output, after)
+
+
 class Client:
     def __init__(
         self,

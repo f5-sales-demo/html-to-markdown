@@ -71,6 +71,33 @@ def strip_gif_metadata(content: bytes) -> bytes:
     raise ValueError("missing GIF trailer")
 
 
+def label_style(label: dict[str, Any]) -> tuple[Any, Any, bool]:
+    """Validate explicit reviewed RGB styling; absent styles preserve historical bytes."""
+    style = label.get("style")
+    if style is None:
+        return "black", "white", False
+    if not isinstance(style, dict) or set(style) != {"foreground", "background", "underline"}:
+        raise ValueError("invalid synthetic label style")
+    colors = []
+    for key in ("foreground", "background"):
+        color = style[key]
+        if (
+            not isinstance(color, list)
+            or len(color) != 3
+            or any(
+                not isinstance(value, int) or isinstance(value, bool) or not 0 <= value <= 255
+                for value in color
+            )
+        ):
+            raise ValueError("invalid synthetic label color")
+        colors.append(tuple(color))
+    if not isinstance(style["underline"], bool):
+        raise ValueError("invalid synthetic label underline")
+    if colors[0] == colors[1]:
+        raise ValueError("synthetic label has no color contrast")
+    return colors[0], colors[1], style["underline"]
+
+
 def draw_label(draw: Any, label: dict[str, Any]) -> None:
     """Draw a reviewed synthetic label only when it fits its cleared area."""
     text, size = label["text"], label["size"]
@@ -84,6 +111,7 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
     if not isinstance(fit, bool):
         raise ValueError("invalid synthetic label fit mode")
     left, top, right, bottom = label["rectangle"]
+    foreground, _, underline = label_style(label)
     if not text:
         # The caller already validated and cleared this exact rectangle.
         return
@@ -92,20 +120,28 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
         if fit:
             bounds = draw.textbbox((0, 0), text, font=font)
             width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
-            if width <= right - left and height <= bottom - top:
+            extra = 2 if underline else 0
+            if width <= right - left and height + extra <= bottom - top:
                 pad_x = min(2, (right - left - width) // 2)
-                pad_y = min(2, (bottom - top - height) // 2)
+                pad_y = min(2, (bottom - top - height - extra) // 2)
                 draw.text(
                     (left + pad_x - bounds[0], top + pad_y - bounds[1]),
                     text,
-                    fill="black",
+                    fill=foreground,
                     font=font,
                 )
+                if underline:
+                    y = top + pad_y + height + 1
+                    draw.line((left + pad_x, y, left + pad_x + width - 1, y), fill=foreground)
                 return
         else:
             bounds = draw.textbbox((left + 2, top + 2), text, font=font)
-            if bounds[2] < right and bounds[3] < bottom:
-                draw.text((left + 2, top + 2), text, fill="black", font=font)
+            if bounds[2] < right and bounds[3] + (2 if underline else 0) < bottom:
+                draw.text((left + 2, top + 2), text, fill=foreground, font=font)
+                if underline:
+                    draw.line(
+                        (bounds[0], bounds[3] + 1, bounds[2] - 1, bounds[3] + 1), fill=foreground
+                    )
                 return
     raise ValueError("synthetic label does not fit")
 
@@ -115,9 +151,10 @@ def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
     labels = transform.get("labels", [])
     if not isinstance(labels, list) or any(not isinstance(label, dict) for label in labels):
         raise ValueError("invalid synthetic labels")
-    rectangles = transform.get("rectangles", []) + [label["rectangle"] for label in labels]
+    rectangles = [(rectangle, "white") for rectangle in transform.get("rectangles", [])]
+    rectangles.extend((label["rectangle"], label_style(label)[1]) for label in labels)
     draw = ImageDraw.Draw(image)
-    for rectangle in rectangles:
+    for rectangle, background in rectangles:
         if (
             not isinstance(rectangle, list)
             or len(rectangle) != 4
@@ -127,7 +164,7 @@ def apply_labels_and_rectangles(image: Any, transform: dict[str, Any]) -> None:
         left, top, right, bottom = rectangle
         if not 0 <= left < right <= image.width or not 0 <= top < bottom <= image.height:
             raise ValueError("rectangle is outside image")
-        draw.rectangle((left, top, right - 1, bottom - 1), fill="white")
+        draw.rectangle((left, top, right - 1, bottom - 1), fill=background)
     for label in labels:
         draw_label(draw, label)
 
@@ -194,7 +231,7 @@ def apply_animation_frame(image: Any, frame_transform: dict[str, Any], exact_gif
     draw = ImageDraw.Draw(image)
     for label in frame_transform["labels"]:
         left, top, right, bottom = label["rectangle"]
-        draw.rectangle((left, top, right - 1, bottom - 1), fill="white")
+        draw.rectangle((left, top, right - 1, bottom - 1), fill=label_style(label)[1])
     draw.fontmode = "1"
     for label in frame_transform["labels"]:
         draw_label(draw, label)
