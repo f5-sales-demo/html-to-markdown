@@ -13,6 +13,7 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.requests import request
+from .enrichment.visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 from .media_observations import (
     MediaObservations,
     ObservationValidation,
@@ -78,16 +79,7 @@ def observation_request(
         "article-enrichment/1", "native-media-observation/1"
     )
     body["input"][0]["content"].extend(visual)
-    regions = observation_views(
-        context.get("observation_regions", []),
-        visual,
-        context_margin=128
-        if context.get("binding", {}).get("privacy_version") == "source-privacy/2"
-        else 0,
-    )
-    body["input"][0]["content"].extend(regions)
-    if context.get("binding", {}).get("privacy_version") == "source-privacy/2":
-        body["input"][0]["content"].extend(boundary_views(context, visual + regions))
+    body["input"][0]["content"].extend(_bounded_views(context, visual))
     properties = body["text"]["format"]["schema"]["properties"]
     properties["identity"]["enum"] = [context["identity"]]
     properties["binding_sha256"]["enum"] = [context["binding_sha256"]]
@@ -103,6 +95,22 @@ def observation_request(
             "enum"
         ] = sorted(context["media"])
     return body
+
+
+def _bounded_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep full frames and every region while bounding supplemental context."""
+    if decoded_image_bytes(visual) > MAX_DECODED_BYTES:
+        raise ValueError("complete original native frames exceed decoded image capacity")
+    private = context.get("binding", {}).get("privacy_version") == "source-privacy/2"
+    margins = (128, 96, 64, 48, 32, 16, 0) if private else (0,)
+    for margin in margins:
+        regions = observation_views(
+            context.get("observation_regions", []), visual, context_margin=margin
+        )
+        edges = boundary_views(context, visual + regions) if private else []
+        if decoded_image_bytes(visual + regions + edges) <= MAX_DECODED_BYTES:
+            return regions + edges
+    raise ValueError("complete native frames and every source region exceed decoded image capacity")
 
 
 def _observation_context(saved: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
