@@ -4,7 +4,7 @@ Parent delivery is #155; implementation and public-queue resolution are tracked 
 
 The current catalogs bind older source and media bytes. Admission must preserve the privacy
 source and queue missing or stale retirement guards instead of waiving them. Renewal proposals
-use the installed Mac Codex transport and the existing two-model, high-reasoning, four-job
+use the installed Mac Codex transport and the versioned independent-review, high-reasoning, four-job
 limit. Every article, original source classification and media placement remains untrusted data.
 
 The controller supplies structural addresses and digest guards and retrieves exact source

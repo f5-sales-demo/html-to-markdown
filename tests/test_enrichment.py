@@ -136,6 +136,10 @@ def response_for(body: dict[str, Any], output: dict[str, Any]) -> ResponseEviden
         request=body,
         response=response,
         error=None,
+        transport="codex_litellm"
+        if body.get("metadata", {}).get("content_review_model_policy") == "2"
+        else "openai_batch",
+        runtime_version="test",
     )
 
 
@@ -198,6 +202,30 @@ def artifact_for(root: Path, *, validated: bool = True) -> Artifact:
             )
         )
     return artifact
+
+
+def test_historical_astra_artifact_replays_under_original_model_policy(tmp_path):
+    source = tmp_path / "historical-source"
+    document(source)
+    migrate_content(source)
+    artifact = artifact_for(source)
+    for item in artifact.documents:
+        for field, role in (("editor", "editor"), ("validator", "validator")):
+            current = getattr(item, field)
+            old_request = copy.deepcopy(current.request)
+            old_request["instructions"] = old_request["instructions"].replace(
+                "\nContent review model policy 2; role: " + role, ""
+            )
+            old_request.pop("metadata")
+            old_request["model"] = EDITOR_MODEL if role == "editor" else "gpt-6-astra"
+            output = json.loads(current.response["output"][0]["content"][0]["text"])
+            setattr(item, field, response_for(old_request, output))
+    decisions = tmp_path / "historical-decisions.json"
+    original = artifact_bytes(artifact)
+    decisions.write_bytes(original)
+    result = replay(source, decisions, sha(original))
+    assert result["counts"]["rewrite"] == 1
+    assert decisions.read_bytes() == original
 
 
 def test_inventory_preserves_all_structural_text_and_candidates(tmp_path: Path) -> None:
@@ -294,7 +322,7 @@ def test_malformed_and_incomplete_responses_fail_closed(tmp_path: Path, failure:
     elif failure == "request":
         evidence.request["instructions"] = "different prompt"
     elif failure == "model":
-        response["model"] = VALIDATOR_MODEL
+        response["model"] = "gpt-6-astra"
     elif failure == "malformed":
         response["output"][0]["content"][0]["text"] = '{"document":"wrong"}'
     if failure != "digest":
@@ -550,7 +578,7 @@ def test_shared_visual_evidence_roundtrip_keeps_request_identity(tmp_path: Path)
 
 
 @pytest.mark.parametrize("mismatch", [False, True])
-def test_canonical_consolidation_requires_both_models_and_identical_content(
+def test_canonical_consolidation_requires_independent_reviews_and_identical_content(
     tmp_path: Path, mismatch: bool
 ) -> None:
     source = tmp_path / "source"
@@ -598,7 +626,9 @@ def test_canonical_consolidation_requires_both_models_and_identical_content(
             document=alias["document"],
             canonical_document=target["document"],
             editor=response_for(canonical_request(alias, target, EDITOR_MODEL), output),
-            validator=response_for(canonical_request(alias, target, VALIDATOR_MODEL), output),
+            validator=response_for(
+                canonical_request(alias, target, VALIDATOR_MODEL, role="validator"), output
+            ),
         )
     ]
     decisions = tmp_path / "decisions.json"

@@ -46,7 +46,7 @@ def test_observation_requests_bind_native_media_and_final_finding_ids() -> None:
     assert request["text"]["format"]["schema"]["$defs"]["VisibleValue"]["properties"][
         "media_sha256"
     ]["enum"] == ["a" * 64]
-    validation = _request("gpt-6-astra", "validation", context, [], AdmissionValidation)
+    validation = _request("gpt-6.1-sol", "validation", context, [], AdmissionValidation)
     assert validation["text"]["format"]["schema"]["properties"]["approved_safe_findings"]["items"][
         "enum"
     ] == ["final-finding"]
@@ -107,7 +107,7 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
                 "complete_media_reviewed": True,
                 "unresolved": [],
             }
-            if body["model"] == "gpt-6.1-sol":
+            if body["metadata"]["content_review_role"] == "editor":
                 result["observations"] = [
                     {
                         "media_sha256": "a" * 64,

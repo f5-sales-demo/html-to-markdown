@@ -17,7 +17,7 @@ def test_unresolved_proposal_reasons_survive_into_exact_corrected_request(tmp_pa
         emitted = False
 
         def execute(self, body):
-            if body["model"] == "gpt-6.1-sol" and not self.emitted:
+            if body["metadata"]["content_review_role"] == "editor" and not self.emitted:
                 self.emitted = True
                 self.calls.append(body)
                 return evidence(body, {**decision, "unresolved": [explanation]})

@@ -7,8 +7,9 @@ from typing import Any
 
 from .curation import json_bytes
 from .enrichment.analysis import sha
-from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
+from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .enrichment.model_policy import validation_model
 from .enrichment.requests import request
 from .source_binding_context import PRIVACY_VERSION, privacy_context, source_core
 
@@ -73,7 +74,7 @@ def privacy_ledger(previous: dict[str, Any], current_binding: dict[str, Any]) ->
         return {
             key: value
             for key, value in source_core(binding).items()
-            if key != "request_context_sha256"
+            if key not in {"request_context_sha256", "validator_model", "model_policy_version"}
         }
 
     if inputs(previous.get("binding", {})) != inputs(current_binding):
@@ -160,7 +161,10 @@ def independently_validated_privacy(previous: dict[str, Any]) -> bool:
             editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor.request)
         )
         result = parse_response(
-            validator, AdmissionValidation, VALIDATOR_MODEL, request_hash(validator.request)
+            validator,
+            AdmissionValidation,
+            validation_model(validator.request),
+            request_hash(validator.request),
         )
         context = json.loads(validator.request["input"][0]["content"][0]["text"])
         core = {**source_core(previous["binding"]), "privacy_version": PRIVACY_VERSION}

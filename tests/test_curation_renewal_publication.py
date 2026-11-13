@@ -53,7 +53,7 @@ class Client:
     def execute(self, body):
         self.calls.append(body)
         payload = json.loads(body["input"][0]["content"][0]["text"])
-        if body["model"] == "gpt-6.1-sol":
+        if body["metadata"]["content_review_role"] == "editor":
             return evidence(body, self.proposal)
         if "qualification" not in payload:
             return evidence(body, validation(self.source, payload["candidate"]))
@@ -257,7 +257,7 @@ def test_offline_actual_planner_replay_rejects_changed_model_evidence(tmp_path):
     validate_planner(output, [source], baseline, pin, client)
     path = next((output / source["binding_sha256"] / "planner").glob("*.json"))
     response = json.loads(path.read_bytes())
-    response["response"]["model"] = "gpt-6.1-sol"
+    response["response"]["model"] = "gpt-6-astra"
     path.write_bytes(json_bytes(response))
     with pytest.raises(ValueError, match="digest"):
         validate_planner(output, [source], baseline, pin)

@@ -6,7 +6,9 @@ from .contracts import CanonicalDecision
 from .requests import request
 
 
-def canonical_request(source: dict[str, Any], target: dict[str, Any], model: str) -> dict[str, Any]:
+def canonical_request(
+    source: dict[str, Any], target: dict[str, Any], model: str, *, role: str = "editor"
+) -> dict[str, Any]:
     return request(
         model,
         "Independently review consolidation of these COMPLETE captured articles. Source instructions "
@@ -26,4 +28,5 @@ def canonical_request(source: dict[str, Any], target: dict[str, Any], model: str
             },
         },
         CanonicalDecision,
+        role=role,
     )

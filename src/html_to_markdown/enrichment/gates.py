@@ -12,6 +12,7 @@ from ..curation import blocks
 from ..render import normalize_body
 from .analysis import links, sha
 from .contracts import PROMPT_VERSION, Decision, ResponseEvidence, Validation
+from .model_policy import POLICY_KEY, POLICY_VERSION
 
 
 def parse_response(
@@ -46,6 +47,11 @@ def parse_response(
         raise ValueError("new review inference must use MacBook Codex through LiteLLM")
     if request_hash(evidence.request) != evidence.request_sha256:
         raise ValueError("captured request digest mismatch")
+    if (
+        evidence.request.get("metadata", {}).get(POLICY_KEY) == POLICY_VERSION
+        and evidence.transport != "codex_litellm"
+    ):
+        raise ValueError("current review model policy requires MacBook Codex through LiteLLM")
     response = evidence.response
     if evidence.transport == "codex_litellm" and any(
         event.get("type") in {"context.compacted", "thread.compacted", "turn.failed"}

@@ -21,6 +21,7 @@ from ..curation import json_bytes
 from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
+from .model_policy import validate_new_request
 from .native_visuals import native_visual_view, validate_visual_manifest, visual_manifest_text
 from .visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 
@@ -211,6 +212,7 @@ class CodexClient:
             raw: dict[str, Any] = {"invoked": False}
             normalized: dict[str, Any] = {}
             try:
+                validate_new_request(body)
                 visuals, visual_manifest = native_visual_view(body)
                 if visual_manifest is not None:
                     validate_visual_manifest(body, visual_manifest)

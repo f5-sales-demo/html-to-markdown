@@ -40,7 +40,7 @@ def context():
 
 def test_validation_supplies_the_exact_distinct_privacy_and_relevance_bindings():
     source = context()
-    body = admission_request("gpt-6-astra", "validation", source, AdmissionValidation)
+    body = admission_request("gpt-6.1-sol", "validation", source, AdmissionValidation)
     payload = json.loads(body["input"][0]["content"][0]["text"])
     links = payload["phase_bindings"]
     assert links["source_review_sha256"] == links["relevance_sha256"] == source["binding_sha256"]
@@ -55,4 +55,4 @@ def test_stale_phase_is_rejected_before_inference(phase):
     source = context()
     source[phase]["binding_sha256"] = "f" * 64
     with pytest.raises(ValueError, match="stale.*linkage"):
-        admission_request("gpt-6-astra", "validation", source, AdmissionValidation)
+        admission_request("gpt-6.1-sol", "validation", source, AdmissionValidation)

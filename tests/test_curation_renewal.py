@@ -343,7 +343,7 @@ def test_review_requests_use_pinned_models_and_exact_controller_context():
     editor = review_request(source, [])
     reviewer = review_request(source, [], candidate)
     assert editor["model"] == "gpt-6.1-sol"
-    assert reviewer["model"] == "gpt-6-astra"
+    assert reviewer["model"] == "gpt-6.1-sol"
     assert editor["reasoning"] == reviewer["reasoning"] == {"effort": "high"}
     assert editor["store"] is False and "tools" not in editor
     assert reviewer["text"]["format"]["schema"]["properties"]["output_sha256"]["enum"] == [
@@ -363,7 +363,7 @@ def test_private_journal_bounds_corrections_and_replays_exact_requests(tmp_path,
         def execute(self, body):
             calls.append(body)
             payload = json.loads(body["input"][0]["content"][0]["text"])
-            if body["model"] == "gpt-6.1-sol":
+            if body["metadata"]["content_review_role"] == "editor":
                 result = proposal(source)
             else:
                 self.validations += 1
