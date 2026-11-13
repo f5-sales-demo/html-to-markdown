@@ -71,7 +71,7 @@ class Client:
         return evidence(body, decision)
 
 
-def prepared(tmp_path):
+def prepared(tmp_path, source_body=None):
     baseline, _, pin = prepare(tmp_path)
     metadata = PageMetadata(
         sourceId="my-f5-com",
@@ -82,7 +82,8 @@ def prepared(tmp_path):
     )
     article = serialize_document(
         metadata,
-        "# Cloud services\n\nOrchestrate workloads with independent origin pools.\n\nConfigure the origin pool first. Expect healthy origins within 30 seconds.\n\n```sh\ncurl --fail https://example.com/health\n```\n",
+        source_body
+        or "# Cloud services\n\nOrchestrate workloads with independent origin pools.\n\nConfigure the origin pool first. Expect healthy origins within 30 seconds.\n\n```sh\ncurl --fail https://example.com/health\n```\n",
     )
     fields, body = split_document(article)
     relative = "articles/content/my-f5-com/K000123456/index.md"
@@ -140,6 +141,21 @@ def test_actual_planner_replay_and_catalog_pins_are_deterministic(tmp_path):
         b"curl --fail" not in data and b"Expect healthy origins" not in data
         for data in first.values()
     )
+
+
+def test_reviewed_retirement_guard_survives_qualified_api_migration(tmp_path):
+    alias = "https://docs.cloud.f5.com/docs-v2/docs/api/endpoint"
+    body = (
+        "# Cloud services\n\nOrchestrate independent origin pools with the "
+        "[endpoint API](" + alias + ").\n\n"
+        "Configure the origin pool first. Expect healthy origins within 30 seconds.\n"
+    )
+    output, source, _, baseline, pin, _ = prepared(tmp_path, body)
+    result = qualify_policy(output, [source], baseline, pin)
+    candidate = next(iter(result["candidates"].values()))
+    assert alias not in candidate["body"]
+    assert "https://f5-sales-demo.github.io/api-specs-enriched/" in candidate["body"]
+    assert "Expect healthy origins within 30 seconds." in candidate["body"]
 
 
 def test_policy_cannot_stage_without_actual_independent_planner_approval(tmp_path):

@@ -24,6 +24,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from markdown_it import MarkdownIt
 
 from .appstack_curation import AppStackFilter
+from .curation_api_chain import legacy_result as replay_legacy_stage
 from .curation_media import plan_masks, relocate_references
 from .legacy_curation import LegacyFilter
 from .models import PageMetadata
@@ -775,6 +776,7 @@ def curate_topics(
     *,
     policy: CurationPolicy | None = None,
     apply: bool = True,
+    api_policy: Any = None,
 ) -> dict[str, Any]:
     """Plan all pages before applying, then close dependencies to a fixed point."""
     active = policy or load_curation_policy()
@@ -786,6 +788,15 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    # Re-evaluate retirement on the preserved prior stage, then replay API migration.
+    from .curation_api_chain import api_source  # pylint: disable=import-outside-toplevel
+
+    api_replayed: set[Path] = set()
+    for index, (path, metadata, body) in enumerate(originals):
+        prior_stage = api_source(active, path, metadata, body, api_policy)
+        if prior_stage is not None:
+            originals[index] = (path, metadata, prior_stage[1])
+            api_replayed.add(path)
     virtual_media = plan_masks(active.topics, originals)
 
     def inventory(path: Path, body: str) -> list[dict[str, Any]]:
@@ -808,6 +819,10 @@ def curate_topics(
             legacy_preflight = active.legacy.transform(
                 metadata, body, dependent=legacy_media_affected
             )
+            if legacy_preflight.disposition != "keep":
+                legacy_preflight = replay_legacy_stage(
+                    active, path, metadata, body, dependent=legacy_media_affected
+                )
             legacy_plans[path] = legacy_preflight
             if legacy_preflight.disposition != "keep":
                 legacy_excluded.update(
@@ -1255,11 +1270,28 @@ def curate_topics(
             document = serialize_document(retained_metadata, plan["body"])
             path.write_text(document, encoding="utf-8", newline="\n")
         prune_assets(output)
-    planned = {
-        p["path"].relative_to(output).as_posix(): {"body": p["body"], "metadata": p["metadata"]}
-        for p in plans.values()
-        if p["finding"]["disposition"] == "keep"
-    }
+    planned = {}
+    for plan in plans.values():
+        if plan["finding"]["disposition"] != "keep":
+            continue
+        planned_body = plan["body"]
+        if not apply and plan["path"] in api_replayed:
+            from .content_policy import (  # pylint: disable=import-outside-toplevel
+                load_content_policy,
+                project_api_body,
+            )
+
+            planned_body, _, _ = project_api_body(
+                planned_body,
+                plan["metadata"].get("canonical_url") or plan["metadata"]["url"],
+                api_policy or load_content_policy(),
+                active,
+            )
+            planned_body = normalize_body(planned_body)
+        planned[plan["path"].relative_to(output).as_posix()] = {
+            "body": planned_body,
+            "metadata": plan["metadata"],
+        }
     return {
         "schema_version": 1,
         "policy_sha256": active.sha256,
@@ -1302,12 +1334,22 @@ def validate_whole_document_retirement(
             None,
         )
         original_metadata, original_body = metadata, body
+        checked_path = path
         if upstream is not None and path.relative_to(upstream).parts[0] == "content":
             original = upstream / ".enrichment" / "curated" / path.relative_to(upstream)
             original_metadata, original_body = split_document(original.read_text())
+            checked_path = original
         result = policy.legacy.transform(
             original_metadata, original_body, dependent=legacy_media_affected
         )
+        if result.disposition != "keep":
+            result = replay_legacy_stage(
+                policy,
+                checked_path,
+                original_metadata,
+                original_body,
+                dependent=legacy_media_affected,
+            )
         if result.disposition != "keep" or result.body != original_body:
             raise ValueError(f"retired legacy content remains: {path}")
     if policy.vesctl is not None:

@@ -23,6 +23,7 @@ from .curation import (
     load_curation_policy,
     validate_curation,
 )
+from .curation_api_chain import api_record_hash, preserve_api_input
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .state import StateStore
@@ -308,6 +309,38 @@ def rewrite_text(
     return URL_TOKEN.sub(replace, text), [mappings[key] for key in sorted(mappings)]
 
 
+def project_api_body(
+    body: str,
+    base_url: str,
+    policy: ContentPolicy,
+    topics: CurationPolicy,
+    previous: list[dict[str, Any]] | None = None,
+) -> tuple[str, list[dict[str, Any]], list[str]]:
+    """Replay the same complete qualified link/reference transformation at both stages."""
+    migrated, mappings = rewrite_text(body, base_url, policy)
+    if not mappings:
+        mappings = previous or []
+    allowed = {op["url"] for op in policy.operations}
+    mappings = [dict(item) for item in mappings if not topics.excludes(item["legacy_url"])]
+    for item in mappings:
+        item["related_operations"] = [
+            target for target in item["related_operations"] if target in allowed
+        ]
+    related = sorted({target for item in mappings for target in item["related_operations"]})
+    if related:
+        generated = (
+            SECTION
+            + "\n## Related API reference\n\n"
+            + "\n".join(
+                f"- [{next(op['summary'] for op in policy.operations if op['url'] == target)}]({target})"
+                for target in related
+            )
+            + "\n"
+        )
+        migrated = migrated.split(SECTION, 1)[0].rstrip() + "\n\n" + generated
+    return migrated, mappings, related
+
+
 def _description(body: str) -> str | None:
     """Derive a complete retained prose paragraph without clipping technical values."""
     previous = ""
@@ -402,7 +435,7 @@ def migrate_content(
     if apply and audit_matches:
         # Re-run the actual planner against current bytes. A matching audit is
         # a lineage hint, never evidence that restored content is still clean.
-        recheck = curate_topics(output, store, apply=False, policy=topic_policy)
+        recheck = curate_topics(output, store, apply=False, policy=topic_policy, api_policy=active)
         planned = recheck.pop("_planned")
         actual = {
             path.relative_to(output).as_posix(): split_document(path.read_text())[1]
@@ -418,7 +451,7 @@ def migrate_content(
                 prior_audit["output_sha256"] = before
                 audit_path.write_bytes(json_bytes(prior_audit))
             return dict(prior_audit["content_migration"])
-    topics = curate_topics(output, store, apply=apply, policy=topic_policy)
+    topics = curate_topics(output, store, apply=apply, policy=topic_policy, api_policy=active)
     planned = topics.pop("_planned")
     old = _previous_evidence(output, active, before)
     excluded = {item["url"]: item for item in old.get("exclusions", [])}
@@ -426,6 +459,7 @@ def migrate_content(
     findings = {item["document"]: item for item in old.get("affected_documents", [])}
     images: list[dict[str, Any]] = []
     stages: list[dict[str, Any]] = []
+    api_inputs: dict[str, str] = {}
     if store:
         if apply:
             purge_excluded_state(store, active)
@@ -461,32 +495,15 @@ def migrate_content(
                         store.connection.execute("DELETE FROM pages WHERE canonical_url=?", (url,))
             continue
         metadata = PageMetadata.model_validate(metadata_raw)
-        migrated, mappings = rewrite_text(body, metadata.canonical_url or url, active)
         previous = findings.get(relative, {})
-        # Keep original transformation evidence when reapplying migrated bytes.
-        if not mappings:
-            mappings = previous.get("mappings", [])
-        allowed_operations = {op["url"] for op in active.operations}
-        mappings = [item for item in mappings if not topic_policy.excludes(item["legacy_url"])]
-        for item in mappings:
-            item["related_operations"] = [
-                target for target in item["related_operations"] if target in allowed_operations
-            ]
-        related = sorted({target for item in mappings for target in item["related_operations"]})
-        if related:
-            generated = (
-                SECTION
-                + "\n## Related API reference\n\n"
-                + "\n".join(
-                    f"- [{next(op['summary'] for op in active.operations if op['url'] == target)}]({target})"
-                    for target in related
-                )
-                + "\n"
-            )
-            if SECTION in migrated:
-                migrated = migrated.split(SECTION, 1)[0].rstrip() + "\n\n" + generated
-            else:
-                migrated = migrated.rstrip() + "\n\n" + generated
+        migrated, mappings, related = project_api_body(
+            body, metadata.canonical_url or url, active, topic_policy, previous.get("mappings")
+        )
+        if apply and migrated != body:
+            preserve_api_input(path, metadata_raw, body, migrated, topic_policy, active)
+
+        if digest := api_record_hash(path):
+            api_inputs[relative] = digest
         stages.append(
             {
                 "document": relative,
@@ -559,6 +576,7 @@ def migrate_content(
         "removed_assets": sorted(removed_assets),
         "image_inventory": images,
         "stages": stages,
+        "api_inputs": api_inputs,
     }
     if apply:
         audit = {
