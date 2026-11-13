@@ -28,6 +28,7 @@ from html_to_markdown.source_review_jobs import (
     _compile,
     _media_context,
     _prepare_media_observations,
+    _privacy_budget,
     _request,
     prepare_reviews,
     run_reviews,
@@ -857,8 +858,6 @@ def test_model_upgrade_preserves_exhausted_source_corrections(capture, tmp_path,
 
 @pytest.mark.parametrize("field", ["article_sha256", "metadata", "media"])
 def test_changed_source_has_its_own_privacy_budget(field):
-    from html_to_markdown.source_review_jobs import _privacy_budget
-
     binding = {"identity": "article", "article_sha256": "original", "metadata": {}, "media": {}}
     previous = {"binding": binding, "privacy_feedback": ["first", "second"]}
-    assert _privacy_budget(previous, {**binding, field: "changed"}) == {}
+    assert not _privacy_budget(previous, {**binding, field: "changed"})
