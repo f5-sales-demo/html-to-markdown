@@ -14,7 +14,6 @@ from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document
-from html_to_markdown.source_review import PrivacyDecision
 
 
 @pytest.fixture
@@ -54,6 +53,7 @@ class Client:
         self.unresolved = unresolved or []
         self.fail_check = fail_check
         self.require_phase_link = require_phase_link
+        self.tamper_phase = None
         self.calls = []
 
     def invalidate(self, response):
@@ -125,6 +125,14 @@ class Client:
                         ],
                         unresolved=["Privacy decision applicability remains unverified"],
                     )
+        if kind == "privacydecision" and self.tamper_phase == "privacy_binding":
+            value["binding_sha256"] = "f" * 64
+        elif kind == "privacydecision" and self.tamper_phase == "privacy_identity":
+            value["identity"] = "https://docs.cloud.f5.com/docs-v2/other"
+        elif kind == "relevancedecision" and self.tamper_phase == "relevance_binding":
+            value["binding_sha256"] = "f" * 64
+        elif kind == "relevancedecision" and self.tamper_phase == "relevance_identity":
+            value["identity"] = "https://docs.cloud.f5.com/docs-v2/other"
         response = {
             "status": "completed",
             "model": body["model"],
@@ -205,21 +213,14 @@ def test_baseline_validator_receives_and_checks_distinct_phase_bindings(prepared
 def test_baseline_validator_rejects_stale_phase_data_before_inference(prepared, field):
     _, output, record, _ = prepared
     client = Client(require_phase_link=True)
-    source.review_baseline_privacy(output, record, client)
-    context = json.loads(client.calls[-1]["input"][0]["content"][0]["text"])
-    proposal = PrivacyDecision.model_validate(context["privacy_decision"])
-    if field == "privacy_binding":
-        proposal = proposal.model_copy(update={"binding_sha256": "f" * 64})
-    elif field == "privacy_identity":
-        proposal = proposal.model_copy(
-            update={"identity": "https://docs.cloud.f5.com/docs-v2/other"}
-        )
-    elif field == "relevance_binding":
-        context["relevance_decision"]["binding_sha256"] = "f" * 64
-    else:
-        context["relevance_decision"]["identity"] = "https://docs.cloud.f5.com/docs-v2/other"
-    with pytest.raises(ValueError, match="stale baseline"):
-        source._validation_request(context, context["candidate"], proposal, [], [])
+    client.tamper_phase = field
+    with pytest.raises(ValueError, match="exhausted"):
+        source.review_baseline_privacy(output, record, client)
+    saved = json.loads(record.read_bytes())
+    assert saved["status"] == "privacy_review_required"
+    assert all("stale" in feedback for feedback in saved["privacy_feedback"])
+    assert not (output / "reviewed").exists()
+    assert all(c["text"]["format"]["name"] != "admissionvalidation" for c in client.calls)
 
 
 def test_pending_retirement_response_is_preserved_and_never_silently_accepted(prepared):
