@@ -22,7 +22,6 @@ from .canonical import canonical_request
 from .contracts import (
     EDITOR_MODEL,
     PROMPT_VERSION,
-    VALIDATOR_MODEL,
     Artifact,
     CanonicalDecision,
     Decision,
@@ -34,6 +33,7 @@ from .contracts import (
 from .contracts_v2 import VERSION as VERSION_TWO
 from .gates import candidate, parse_response, request_hash, validate_candidate
 from .graph import graph_fallbacks
+from .model_policy import compatible_request
 from .requests import editor_evidence_hash, validator_request
 
 MARKER = "enrichment-state.json"
@@ -390,11 +390,15 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
                 body = candidate(doc, decision, indexed, artifact.repairs)
                 if privacy_findings(body):
                     raise ValueError("candidate contains unresolved privacy findings")
+                validator_body = compatible_request(
+                    validator_request(doc, body, decision.model_dump(), context),
+                    evidence.validator.request,
+                )
                 validation = parse_response(
                     evidence.validator,
                     Validation,
-                    VALIDATOR_MODEL,
-                    request_hash(validator_request(doc, body, decision.model_dump(), context)),
+                    validator_body["model"],
+                    request_hash(validator_body),
                 )
                 validate_candidate(doc, body, validation)
                 for media in decision.media:
@@ -445,15 +449,19 @@ def _decisions(curated: Path, artifact: Artifact) -> tuple[dict[str, Any], list[
             target_media = {m["sha256"] for m in target["media"]}
             if None in source_media or source_media != target_media:
                 raise ValueError("canonical media differs or is unavailable")
-            for canonical_evidence, model in (
-                (review.editor, EDITOR_MODEL),
-                (review.validator, VALIDATOR_MODEL),
+            for canonical_evidence, role in (
+                (review.editor, "editor"),
+                (review.validator, "validator"),
             ):
+                expected = compatible_request(
+                    canonical_request(source, target, EDITOR_MODEL, role=role),
+                    canonical_evidence.request,
+                )
                 check = parse_response(
                     canonical_evidence,
                     CanonicalDecision,
-                    model,
-                    request_hash(canonical_request(source, target, model)),
+                    expected["model"],
+                    request_hash(expected),
                 )
                 identity_matches = (
                     check.document != source["document"]

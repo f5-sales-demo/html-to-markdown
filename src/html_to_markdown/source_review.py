@@ -46,6 +46,8 @@ def review_context_digest() -> str:
                     "media_observation_jobs.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
+                    "enrichment/model_policy.py",
+                    "enrichment/contracts.py",
                     "enrichment/gates.py",
                     "adapters/community.py",
                 )
@@ -410,6 +412,7 @@ def binding_for(
         "api_policy_sha256": load_content_policy().policy_digest,
         "editor_model": EDITOR_MODEL,
         "validator_model": VALIDATOR_MODEL,
+        "model_policy_version": 2,
         "reasoning": "high",
     }
     if item["media"]:

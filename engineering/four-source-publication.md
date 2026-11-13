@@ -19,7 +19,7 @@ not yet compose into one replayable publication chain.
   current/legacy search aliases; discover scoped products/solutions from sitemaps and links.
 - Add relevance, privacy, extraction and retirement admission, independent validation, and offline replay. Use
   exclusively MacBook-installed Codex with the configured LiteLLM Responses provider, gpt-6.1-sol proposals and
-  gpt-6-astra validation at high reasoning, four concurrent inference jobs, and no tools. Bind decisions to complete
+  separate gpt-6.1-sol validation at high reasoning, with evidence-bound Astra escalation for difficult exceptions, four concurrent inference jobs, and no tools. Bind decisions to complete
   content, metadata, media and policy/request digests. Exact independently checked transformations must retain technical
   relationships and yield zero enforcement findings. Keep raw captures/OCR/responses/transformation evidence private.
 - Add enrichment prompt/schema v2 with structural addresses and digest guards, deterministic source retrieval,

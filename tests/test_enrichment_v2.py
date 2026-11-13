@@ -79,6 +79,16 @@ def test_sections_retain_every_character_and_classify_every_address_once(documen
     assert len(groups) == 3
 
 
+def test_whole_document_validation_uses_independent_prompt_and_role(document: dict) -> None:
+    from html_to_markdown.enrichment.contracts_v2 import ValidationV2
+    from html_to_markdown.enrichment.v2 import VALIDATOR_PROMPT, _request
+
+    body = _request("gpt-6.1-sol", "whole_document_validation", document, {}, ValidationV2)
+    assert body["instructions"].startswith(VALIDATOR_PROMPT)
+    assert body["metadata"]["content_review_role"] == "validator"
+    assert body["reasoning"] == {"effort": "high"}
+
+
 def test_model_never_has_to_reproduce_exact_source_strings(document: dict) -> None:
     groups = sections(document)
     block = next(
