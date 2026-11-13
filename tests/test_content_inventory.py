@@ -348,6 +348,4 @@ async def test_immutable_canonical_redirect_is_excluded_without_losing_source_id
 
 def test_content_bound_community_omission_is_not_an_immutable_route() -> None:
     assert not _immutable_route_excluded("https://community.f5.com/t/66432")
-    assert _immutable_route_excluded(
-        "https://docs.cloud.f5.com/docs-v2/api/endpoint"
-    )
+    assert _immutable_route_excluded("https://docs.cloud.f5.com/docs-v2/api/endpoint")
