@@ -4,12 +4,14 @@ import json
 import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from types import SimpleNamespace
 
 import httpx
 import pytest
 
 from html_to_markdown import content_inventory
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
+from html_to_markdown.content_inventory import _immutable_route_excluded
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.errors import AuthenticationWallError
 from html_to_markdown.fetcher import Fetcher
@@ -187,3 +189,163 @@ def test_concurrent_private_checkpoints_and_symlinked_capture_parent(tmp_path: P
             tmp_path,
             {"source_html_path": "captures/source.html", "source_html_sha256": sha(b"source")},
         )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("change", ["content", "media", "metadata"])
+async def test_old_content_bound_exclusion_queues_current_capture(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, change: str
+) -> None:
+    async def discover(self: object, fetcher: object):
+        return [DiscoveredPage(source_id=SOURCE, url=URL)]
+
+    async def fetch(self: object, adapter: object, url: str):
+        media = (
+            '<img src="https://docs.cloud.f5.com/current.png" alt="Current diagram">'
+            if change == "media"
+            else ""
+        )
+        title = "Updated current procedure" if change == "metadata" else "Current procedure"
+        return FetchResult(
+            url=url,
+            final_url=url,
+            status_code=200,
+            html=f"<main><h1>{title}</h1><p>Use current networking on port 8443.</p>{media}</main>",
+        )
+
+    async def asset(self: object, url: str):
+        return b"new captured media bytes", "image/png"
+
+    # The old URL-level answer includes a content-bound reviewed omission;
+    # no immutable route exclusion applies to this current capture.
+    policy = SimpleNamespace(raw={"exclusions": []}, excludes=lambda url: True)
+    monkeypatch.setattr(content_inventory, "load_content_policy", lambda: policy)
+    monkeypatch.setattr(DocsCloudAdapter, "discover", discover)
+    monkeypatch.setattr(Fetcher, "fetch", fetch)
+    monkeypatch.setattr(Fetcher, "fetch_asset", asset)
+    report = await content_inventory.collect_content(tmp_path, source=SOURCE)
+    item = report["documents"][0]
+    assert item["capture_complete"]
+    assert item["disposition"] == "queued"
+    assert item["reason"] == "admission_review_required"
+    assert not report["completeness"]["review"]
+    content_inventory.verify_capture(tmp_path, item)
+
+
+@pytest.mark.asyncio
+async def test_resume_reconciles_old_exclusion_without_recapture_and_preserves_record(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    calls = []
+
+    async def discover(self: object, fetcher: object):
+        return [DiscoveredPage(source_id=SOURCE, url=URL)]
+
+    async def fetch(self: object, adapter: object, url: str):
+        calls.append(url)
+        return FetchResult(
+            url=url,
+            final_url=url,
+            status_code=200,
+            html="<main><h1>Current</h1><p>Preserve the current route policy.</p></main>",
+        )
+
+    monkeypatch.setattr(DocsCloudAdapter, "discover", discover)
+    monkeypatch.setattr(Fetcher, "fetch", fetch)
+    first = await content_inventory.collect_content(tmp_path, source=SOURCE)
+    old = {
+        **first["documents"][0],
+        "disposition": "policy_excluded",
+        "reason": "exact_retired_route_policy",
+    }
+    with sqlite3.connect(tmp_path / "inventory.sqlite") as database:
+        database.execute("UPDATE documents SET data=? WHERE url=?", (json.dumps(old), URL))
+    monkeypatch.setattr(
+        content_inventory,
+        "load_content_policy",
+        lambda: SimpleNamespace(raw={"exclusions": []}, excludes=lambda url: True),
+    )
+    resumed = await content_inventory.collect_content(tmp_path, source=SOURCE, resume=True)
+    current = resumed["documents"][0]
+    assert calls == [URL]
+    assert current["disposition"] == "queued"
+    assert current["article_sha256"] == old["article_sha256"]
+    history = [
+        json.loads(path.read_bytes()) for path in (tmp_path / "inventory-history").glob("*.json")
+    ]
+    assert old in history
+    original_bytes = json.dumps(old).encode()
+    assert (
+        tmp_path / "inventory-history" / (sha(original_bytes) + ".json")
+    ).read_bytes() == original_bytes
+    content_inventory.verify_capture(tmp_path, old)
+    content_inventory.verify_capture(tmp_path, current)
+    resumed_again = await content_inventory.collect_content(tmp_path, source=SOURCE, resume=True)
+    assert resumed_again["documents"] == resumed["documents"]
+    assert calls == [URL]
+    assert len(list((tmp_path / "inventory-history").glob("*.json"))) == len(history)
+
+
+@pytest.mark.asyncio
+async def test_declared_immutable_route_remains_policy_excluded(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    async def discover(self: object, fetcher: object):
+        return [DiscoveredPage(source_id=SOURCE, url=URL)]
+
+    async def fetch(self: object, adapter: object, url: str):
+        return FetchResult(
+            url=url,
+            final_url=url,
+            status_code=200,
+            html="<main><h1>Retired</h1><p>Captured source remains private.</p></main>",
+        )
+
+    monkeypatch.setattr(
+        content_inventory,
+        "load_content_policy",
+        lambda: SimpleNamespace(raw={"exclusions": [URL]}, excludes=lambda url: True),
+    )
+    monkeypatch.setattr(DocsCloudAdapter, "discover", discover)
+    monkeypatch.setattr(Fetcher, "fetch", fetch)
+    report = await content_inventory.collect_content(tmp_path, source=SOURCE)
+    assert report["documents"][0]["disposition"] == "policy_excluded"
+
+
+@pytest.mark.asyncio
+async def test_immutable_canonical_redirect_is_excluded_without_losing_source_identity(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    canonical = URL + "-retired"
+
+    async def discover(self: object, fetcher: object):
+        return [DiscoveredPage(source_id=SOURCE, url=URL)]
+
+    async def fetch(self: object, adapter: object, url: str):
+        return FetchResult(
+            url=url,
+            final_url=canonical,
+            status_code=200,
+            html="<main><h1>Retired</h1><p>Preserve captured evidence.</p></main>",
+        )
+
+    monkeypatch.setattr(
+        content_inventory,
+        "load_content_policy",
+        lambda: SimpleNamespace(
+            raw={"exclusions": [canonical]}, excludes=lambda url: url == canonical
+        ),
+    )
+    monkeypatch.setattr(DocsCloudAdapter, "discover", discover)
+    monkeypatch.setattr(Fetcher, "fetch", fetch)
+    report = await content_inventory.collect_content(tmp_path, source=SOURCE)
+    item = report["documents"][0]
+    assert item["url"] == URL and item["final_url"] == canonical
+    assert item["disposition"] == "policy_excluded"
+    resumed = await content_inventory.collect_content(tmp_path, source=SOURCE, resume=True)
+    assert resumed["documents"] == report["documents"]
+
+
+def test_content_bound_community_omission_is_not_an_immutable_route() -> None:
+    assert not _immutable_route_excluded("https://community.f5.com/t/66432")
+    assert _immutable_route_excluded("https://docs.cloud.f5.com/docs-v2/api/endpoint")
