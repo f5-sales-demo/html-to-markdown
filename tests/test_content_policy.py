@@ -8,7 +8,12 @@ import pytest
 from typer.testing import CliRunner
 
 from html_to_markdown.cli import app
-from html_to_markdown.content_policy import ContentPolicy, load_content_policy, migrate_content
+from html_to_markdown.content_policy import (
+    ContentPolicy,
+    load_content_policy,
+    migrate_content,
+    rewrite_text,
+)
 from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
 from html_to_markdown.pipeline import Pipeline
 from html_to_markdown.reconcile import (
@@ -69,7 +74,7 @@ def test_exact_operation_resource_fragment_and_fallback(policy: ContentPolicy) -
     )
     resource = policy.resolve(LEGACY + "/http-loadbalancer")
     assert resource["destination"] == OVERVIEW
-    assert resource["related_operations"] == [DEST]
+    assert resource["related_operations"] == []
     missing = policy.resolve(LEGACY + "/http-loadbalanc")
     assert missing["destination"] == FALLBACK
     assert missing["reason"] == "unmatched"
@@ -328,7 +333,7 @@ def test_missing_description_keeps_complete_first_paragraph(
 def test_changed_body_rebuilds_complete_description_without_generated_references(
     tmp_path: Path, policy: ContentPolicy
 ) -> None:
-    prose = f"Inspect the [operation]({LEGACY}/http-loadbalancer) before configuring the listener. "
+    prose = f"Inspect the [operation]({LEGACY}/http-loadbalancer#Create) before configuring the listener. "
     prose += "The documented route policy and complete AS path remain applicable. " * 5
     body = "# Guide\n\n![Diagram](assets/diagram.png)\n\n```text\nnot prose\n```\n\n" + prose
     path = write_doc(tmp_path, "https://docs.cloud.f5.com/docs-v2/how-to/guide", body)
@@ -341,7 +346,7 @@ def test_changed_body_rebuilds_complete_description_without_generated_references
     metadata, migrated = split_document(path.read_text())
     assert (
         metadata["description"]
-        == prose.replace(f"[operation]({LEGACY}/http-loadbalancer)", "operation").strip()
+        == prose.replace(f"[operation]({LEGACY}/http-loadbalancer#Create)", "operation").strip()
     )
     assert "Related API reference" in migrated
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -349,3 +354,69 @@ def test_changed_body_rebuilds_complete_description_without_generated_references
     assert {
         p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()
     } == before
+
+
+@pytest.mark.parametrize(
+    "resource", ["endpoint", "cluster", "route", "advertise-policy", "virtual-host"]
+)
+def test_verified_docs_api_alias_is_excluded_and_resolves_identically(resource: str) -> None:
+    active = load_content_policy()
+    alias = "https://docs.cloud.f5.com/docs-v2/docs/api/" + resource
+    canonical = "https://docs.cloud.f5.com/docs-v2/api/" + resource
+    assert active.excludes(alias)
+    actual, expected = active.resolve(alias), active.resolve(canonical)
+    assert actual == {**expected, "legacy_url": alias}
+    body = f"See [API]({alias}).\n"
+    migrated, mappings = rewrite_text(body, "https://docs.cloud.f5.com/docs-v2/guide", active)
+    assert migrated == f"See [API]({expected['destination']}).\n"
+    assert mappings == [actual]
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://docs.cloud.f5.com/docs-v2/docs/api-guides/endpoint",
+        "https://docs.cloud.f5.com/docs-v2/docs2/api/endpoint",
+        "https://docs.cloud.f5.com.evil.example/docs-v2/docs/api/endpoint",
+        "https://docs.cloud.f5.com:444/docs-v2/docs/api/endpoint",
+        "http://docs.cloud.f5.com/docs-v2/docs/api/endpoint",
+    ],
+)
+def test_api_alias_normalization_preserves_exact_host_and_path_boundaries(url: str) -> None:
+    assert not load_content_policy().excludes(url)
+
+
+def test_redirected_retired_api_identity_never_gets_a_replacement() -> None:
+    active = load_content_policy()
+    with pytest.raises(ValueError, match="no replacement"):
+        active.resolve("https://docs.cloud.f5.com/docs-v2/docs/api/aws-vpc-site#Create")
+
+
+def test_resource_links_do_not_invent_crud_related_references(
+    tmp_path: Path, policy: ContentPolicy
+) -> None:
+    path = write_doc(
+        tmp_path,
+        "https://docs.cloud.f5.com/docs-v2/how-to/guide",
+        f"# Guide\n\nSee [the resource]({LEGACY}/http-loadbalancer).\n",
+    )
+    migrate_content(tmp_path, policy=policy)
+    _, body = split_document(path.read_text())
+    assert f"[the resource]({OVERVIEW})" in body
+    assert "Related API reference" not in body
+    assert DEST not in body
+
+
+def test_explicit_operation_can_supply_a_grounded_related_reference(
+    tmp_path: Path, policy: ContentPolicy
+) -> None:
+    path = write_doc(
+        tmp_path,
+        "https://docs.cloud.f5.com/docs-v2/how-to/guide",
+        f"# Guide\n\nSee [the operation]({LEGACY}/http-loadbalancer#Create).\n",
+    )
+    migrate_content(tmp_path, policy=policy)
+    _, body = split_document(path.read_text())
+    assert f"[the operation]({DEST})" in body
+    assert "Related API reference" in body
+    assert body.count(DEST) == 2

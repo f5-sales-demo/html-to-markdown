@@ -19,6 +19,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy
 from .curation import json_bytes, load_curation_policy
+from .curation_renewal_worker import advance_renewals
 from .enrichment.analysis import sha
 from .enrichment.generate_v2 import generate_v2
 from .models import utc_now
@@ -56,6 +57,31 @@ def worker_once(
             "concurrency": 4,
             "queues": [],
         }
+        atomic_private(output / "worker-status.json", json_bytes(status))
+        # pylint: disable=import-outside-toplevel
+        from .policy_activation import require_active_cohort
+        from .policy_transport import synchronize_policy  # pylint: disable=import-outside-toplevel
+
+        policy_state = Path(
+            os.environ.get(
+                "HTML_TO_MARKDOWN_POLICY_STATE",
+                str(Path.home() / ".local/share/html-to-markdown/policy"),
+            )
+        )
+        status["policy_activation"] = synchronize_policy(
+            transport,
+            host,
+            remote_executable,
+            os.environ.get(
+                "HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown"
+            ),
+            os.environ.get(
+                "HTML_TO_MARKDOWN_REMOTE_POLICY_STATE", str(Path(remote_queue).parent / "policy")
+            ),
+            policy_state,
+            remote_queue,
+        )
+        require_active_cohort(policy_state)
         atomic_private(output / "worker-status.json", json_bytes(status))
         args = [
             str(transport),
@@ -173,6 +199,24 @@ def worker_once(
             report = run_reviews(
                 capture, review, phase="all", journal=output / "journal", limit=batch_size
             )
+            try:
+                status["curation"] = advance_renewals(
+                    capture,
+                    review,
+                    directory / "curation-renewal",
+                    output / "journal",
+                    transport,
+                    host,
+                    remote_executable,
+                    remote_queue,
+                )
+            except (ValueError, OSError, subprocess.CalledProcessError) as failure:
+                # Curation jobs cannot prevent passing source articles or other
+                # queues from advancing. Full diagnostics remain private.
+                atomic_private(
+                    directory / "curation-renewal-error.json", json_bytes({"error": str(failure)})
+                )
+                status["curation"] = {"state": "queued", "error_class": type(failure).__name__}
             completed = not report["exceptions"] and not report["pending"]
             # Passing articles progress while exceptions stay visible.
             sealed = directory / "sealed" / (entry["fingerprint"] + "-" + sha(json_bytes(report)))
