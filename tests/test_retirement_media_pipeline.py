@@ -4,7 +4,7 @@ import io
 from copy import deepcopy
 
 import pytest
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from html_to_markdown.curation import (
     CurationPolicy,
@@ -14,6 +14,7 @@ from html_to_markdown.curation import (
     load_curation_policy,
     validate_curation,
 )
+from html_to_markdown.curation_media import prepare_mask, replay_mask
 from html_to_markdown.curation_renewal import (
     TOPICS,
     compile_proposal,
@@ -25,7 +26,7 @@ from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document, split_document
 
 
-def prepared():
+def prepared(mask_topic="appstack-retired"):
     out = io.BytesIO()
     Image.new("RGB", (30, 20), (90, 120, 160)).save(out, format="PNG")
     raw = out.getvalue()
@@ -69,7 +70,7 @@ def prepared():
                                 "reason": "Remove the separately retired banner",
                             }
                         ]
-                        if topic == "appstack-retired"
+                        if topic == mask_topic
                         else [],
                     }
                 ],
@@ -180,3 +181,68 @@ def test_wrong_document_or_unapproved_mask_never_mutates_assets(tmp_path):
     with pytest.raises(ValueError, match="independent placement"):
         curate_topics(tmp_path, policy=policy)
     assert corpus_digest(tmp_path) == before
+
+
+def test_legacy_navigation_mask_preserves_current_controls_and_replays(tmp_path):
+    context, proposal, raw, digest = prepared("legacy-retired")
+    candidate = compile_proposal(context, proposal, {digest: raw})
+    assert candidate["media_transforms"][digest]["topic"] == "legacy-retired"
+    assert "Wait for Provisioned status. Retain Kubernetes 1.23." in candidate["body"]
+    policy = policy_for(context, candidate)
+    path = tmp_path / "content/docs-cloud-f5-com/how-to/current-dashboard/index.md"
+    path.parent.mkdir(parents=True)
+    asset = path.parent / "assets" / (digest + ".png")
+    asset.parent.mkdir()
+    asset.write_bytes(raw)
+    path.write_text(
+        serialize_document(PageMetadata.model_validate(context["metadata"]), context["body"])
+    )
+    before = corpus_digest(tmp_path)
+    assert curate_topics(tmp_path, policy=policy, apply=False)["counts"]["keep"] == 1
+    assert corpus_digest(tmp_path) == before
+    curate_topics(tmp_path, policy=policy)
+    validate_curation(tmp_path, policy=policy)
+    assert split_document(path.read_text())[1] == candidate["body"]
+    stable = corpus_digest(tmp_path)
+    curate_topics(tmp_path, policy=policy)
+    assert corpus_digest(tmp_path) == stable
+
+
+@pytest.mark.parametrize("topic", ["smsv2-current", "vesctl-retired", "terraform-provider-current"])
+def test_new_legacy_capability_never_authorizes_other_topic_masks(topic):
+    context, proposal, raw, digest = prepared(topic)
+    with pytest.raises(ValueError, match="retirement masks"):
+        compile_proposal(context, proposal, {digest: raw})
+
+
+@pytest.mark.parametrize("transparent", [False, True])
+def test_lossless_palette_mask_preserves_current_controls_and_alpha(transparent):
+    image = Image.new("P", (120, 80), 0)
+    image.putpalette([255, 255, 255, 0, 0, 0, 0, 100, 200] + [0] * 759)
+    draw = ImageDraw.Draw(image)
+    draw.text((2, 2), "Retired", fill=1)
+    draw.text((55, 10), "Geo", fill=1)
+    draw.text((55, 45), "100", fill=1)
+    draw.rectangle((55, 30, 62, 37), fill=2)
+    stream = io.BytesIO()
+    if transparent:
+        image.info["transparency"] = 0
+    image.save(stream, format="PNG")
+    raw = stream.getvalue()
+    masks = [
+        {
+            "frame": 0,
+            "rectangle": [0, 0, 45, 25],
+            "color": [255, 255, 255],
+            "reason": "Neutral removal of retired navigation only",
+        }
+    ]
+    output, specification = prepare_mask(raw, masks)
+    assert replay_mask(raw, specification) == output
+    expected_mode = "RGBA" if transparent else "RGB"
+    with Image.open(io.BytesIO(raw)) as original, Image.open(io.BytesIO(output)) as final:
+        assert final.mode == expected_mode
+        assert (
+            original.convert(expected_mode).crop((50, 0, 120, 80)).tobytes()
+            == final.crop((50, 0, 120, 80)).tobytes()
+        )

@@ -182,7 +182,8 @@ correcting them. A retained source limitation alone is not an unresolved retirem
 unresolved privacy, source extraction, preservation or policy scope still requires rejection.
 Review every policy topic in the supplied order and every media digest in its document placement.
 A necessary screenshot may contain a separate positive retired capability claim. Keep all
-useful states, controls, commands, versions and sanitized examples. For appstack-retired only,
+useful states, controls, commands, versions and sanitized examples. For appstack-retired and
+legacy-retired only,
 propose masks for minimal retired regions with exact source-pixel rectangle coordinates and
 solid RGB fill colors; never erase necessary image information or waive a retired occurrence
 as generic branding. Mask proposals are private, unapproved transformations. Independent review

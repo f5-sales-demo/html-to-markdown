@@ -80,6 +80,12 @@ def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPol
     current = load_curation_policy()
     raw = copy.deepcopy(current.raw)
     for context in contexts:
+        # pylint: disable-next=import-outside-toplevel
+        from .baseline_source_review import (
+            verify_baseline_prerequisite,
+        )
+
+        verify_baseline_prerequisite(output, context)
         if context["policy_sha256"] != current.sha256:
             raise ValueError("superseded curation renewal policy input")
         directory = output / context["binding_sha256"]

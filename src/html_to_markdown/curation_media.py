@@ -21,9 +21,14 @@ def sha(value: bytes | str) -> str:
 
 
 def _image(raw: bytes) -> Image.Image:
-    with Image.open(io.BytesIO(raw)) as image:
-        if getattr(image, "n_frames", 1) != 1:
+    with Image.open(io.BytesIO(raw)) as source:
+        if getattr(source, "n_frames", 1) != 1:
             raise ValueError("retirement masks require a qualified frame-preserving animated codec")
+        source.load()
+        image: Image.Image = source.copy()
+        if image.mode == "P":
+            # Expand the lossless palette to its exact visible colors and alpha.
+            image = image.convert("RGBA" if "transparency" in image.info else "RGB")
         if image.mode not in {"RGB", "RGBA"}:
             raise ValueError("retirement masks require lossless RGB or RGBA media")
         image.load()
@@ -197,7 +202,7 @@ def plan_masks(topics: list[dict[str, Any]], originals: list[Any]) -> dict[Path,
                 if specification is None or metadata["url"] not in review.get("documents", []):
                     continue
                 if (
-                    topic["id"] != "appstack-retired"
+                    topic["id"] not in {"appstack-retired", "legacy-retired"}
                     or review["disposition"] != "keep"
                     or any(
                         not re.fullmatch(r"[0-9a-f]{64}", str(review.get(field, "")))

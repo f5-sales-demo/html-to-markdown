@@ -56,11 +56,13 @@ def stage_media(
         }
         if choice.masks:
             if (
-                topic.topic != "appstack-retired"
+                topic.topic not in {"appstack-retired", "legacy-retired"}
                 or choice.disposition != "keep"
                 or source in transforms
             ):
-                raise ValueError("retirement masks need one current AppStack keep placement")
+                raise ValueError(
+                    "retirement masks need one current AppStack or Legacy keep placement"
+                )
             raw = originals.get(source)
             if raw is None or sha(raw) != source:
                 raise ValueError("retirement mask requires exact preserved source media bytes")

@@ -38,36 +38,29 @@ def files():
     return article, {article: serialize_document(metadata, body).encode(), asset: pixels.getvalue()}
 
 
-def test_baseline_dependencies_bind_complete_article_media_receipt_and_policy(
+def test_baseline_dependencies_bind_complete_inputs_but_require_privacy_before_curation(
     tmp_path, monkeypatch
 ):
     article, baseline = files()
     monkeypatch.setattr(
-        "html_to_markdown.curation_renewal_dependencies._verified_baseline", lambda *a: baseline
+        "html_to_markdown.baseline_source_review._verified_baseline", lambda *a: baseline
     )
-    monkeypatch.setattr(
-        "html_to_markdown.curation_renewal_dependencies._media_context",
-        lambda source, output, item: ([], {}, {item["media"][0]["sha256"]: item["media"][0]}),
-    )
+    (tmp_path / "publication.json").write_text(json.dumps({"published_at": "2026-11-10T19:49:38Z"}))
     out = tmp_path / "review"
     inv = prepare_dependencies(tmp_path, "a" * 64, [article], out)
     item = inv["documents"][0]
-    context = json.loads((out / item["context_path"]).read_bytes())
-    assert context["evidence"]["input_kind"] == "retained_verified_baseline"
-    assert context["evidence"]["baseline_receipt_sha256"] == "a" * 64
-    assert "Use port 8443" in context["body"] and len(context["media"]) == 1
-    preserved = {
-        p.relative_to(out / item["binding_sha256"] / "inputs").as_posix(): sha(p.read_bytes())
-        for p in (out / item["binding_sha256"] / "inputs").rglob("*")
-        if p.is_file()
-    }
-    assert sha(json_bytes(preserved)) == context["source_files_sha256"]
+    assert "context_path" not in item and inv["source_privacy_required"]
+    record = json.loads((out / item["source_privacy_path"]).read_bytes())
+    assert record["binding"]["input_kind"] == "retained_verified_baseline"
+    assert record["binding"]["baseline_receipt_sha256"] == "a" * 64
+    inputs = out / "dependency-privacy" / record["source"]
+    body = (inputs / record["item"]["article_path"]).read_text()
+    assert "Use port 8443" in body and len(record["item"]["media"]) == 1
+    assert not record["fresh_capture"]
     assert inv == prepare_dependencies(tmp_path, "a" * 64, [article], out)
     other = prepare_dependencies(tmp_path, "b" * 64, [article], out)
-    assert other["documents"][0]["binding_sha256"] != item["binding_sha256"]
-    baseline[article] = baseline[article].replace(b"8443", b"9443")
-    changed = prepare_dependencies(tmp_path, "a" * 64, [article], out)
-    assert changed["documents"][0]["binding_sha256"] != item["binding_sha256"]
+    record2 = json.loads((out / other["documents"][0]["source_privacy_path"]).read_bytes())
+    assert record2["binding_sha256"] != record["binding_sha256"]
 
 
 @pytest.mark.parametrize(
@@ -78,7 +71,7 @@ def test_dependencies_cannot_use_unverified_or_unsafe_baseline_paths(
 ):
     _, baseline = files()
     monkeypatch.setattr(
-        "html_to_markdown.curation_renewal_dependencies._verified_baseline", lambda *a: baseline
+        "html_to_markdown.baseline_source_review._verified_baseline", lambda *a: baseline
     )
     with pytest.raises(ValueError, match="verified baseline"):
         prepare_dependencies(tmp_path, "a" * 64, [article], tmp_path / "out")
@@ -86,9 +79,10 @@ def test_dependencies_cannot_use_unverified_or_unsafe_baseline_paths(
 
 def test_dependencies_reject_unavailable_media(tmp_path, monkeypatch):
     article, baseline = files()
+    (tmp_path / "publication.json").write_text(json.dumps({"published_at": "2026-11-10T19:49:38Z"}))
     baseline = {article: baseline[article]}
     monkeypatch.setattr(
-        "html_to_markdown.curation_renewal_dependencies._verified_baseline", lambda *a: baseline
+        "html_to_markdown.baseline_source_review._verified_baseline", lambda *a: baseline
     )
     with pytest.raises(ValueError, match="unavailable"):
         prepare_dependencies(tmp_path, "a" * 64, [article], tmp_path / "out")
