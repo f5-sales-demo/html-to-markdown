@@ -108,8 +108,29 @@ def verify_observations(
     return list(payload["values"])
 
 
+def _native_crop(
+    image_url: str, region: dict[str, Any], context_margin: int
+) -> tuple[dict[str, Any], Any]:
+    raw = base64.b64decode(image_url.split(",", 1)[1], validate=True)
+    with Image.open(io.BytesIO(raw)) as original:
+        left, top, right, bottom = region["rectangle"]
+        if not (0 <= left < right <= original.width and 0 <= top < bottom <= original.height):
+            raise ValueError("observation crop is outside its native frame")
+        inspection = [
+            max(0, left - context_margin),
+            max(0, top - context_margin),
+            min(original.width, right + context_margin),
+            min(original.height, bottom + context_margin),
+        ]
+        crop = original.crop(tuple(inspection)).resize(
+            ((inspection[2] - inspection[0]) * 4, (inspection[3] - inspection[1]) * 4),
+            Image.Resampling.NEAREST,
+        )
+    return ({**region, "inspection_rectangle": inspection} if context_margin else region), crop
+
+
 def observation_views(
-    regions: list[dict[str, Any]], visual: list[dict[str, Any]]
+    regions: list[dict[str, Any]], visual: list[dict[str, Any]], *, context_margin: int = 0
 ) -> list[dict[str, Any]]:
     """Supplement complete frames with enlarged exact pixels of confirmed regions."""
     sources = {
@@ -120,19 +141,13 @@ def observation_views(
         and visual[index + 1]["type"] == "input_image"
     }
     crops = []
+    if context_margin < 0:
+        raise ValueError("observation context margin cannot be negative")
     for region in regions:
         address = f"media/{region['media_sha256']}/{region['frame']}"
         if address not in sources:
             raise ValueError("observation crop addresses an absent native frame")
-        raw = base64.b64decode(sources[address].split(",", 1)[1], validate=True)
-        with Image.open(io.BytesIO(raw)) as original:
-            left, top, right, bottom = region["rectangle"]
-            if not (0 <= left < right <= original.width and 0 <= top < bottom <= original.height):
-                raise ValueError("observation crop is outside its native frame")
-            crop = original.crop((left, top, right, bottom)).resize(
-                ((right - left) * 4, (bottom - top) * 4), Image.Resampling.NEAREST
-            )
-        crops.append((region, crop))
+        crops.append(_native_crop(sources[address], region, context_margin))
     available = 50 - sum(item["type"] == "input_image" for item in visual)
     if crops and available < 1:
         raise ValueError("complete native frames leave no room for source-region review views")
@@ -160,13 +175,56 @@ def observation_views(
     return result
 
 
+def boundary_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Expose native edge pixels for feedback-named frames before regions exist."""
+    if sum(item["type"] == "input_image" for item in visual) >= 50:
+        return []
+    hints = " ".join(context.get("observation_feedback", []))
+    regions = []
+    for digest, media in sorted(context["media"].items()):
+        if digest not in hints:
+            continue
+        for index, frame in enumerate(media["frames"]):
+            width, height = frame["width"], frame["height"]
+            if any(
+                not isinstance(value, int) or isinstance(value, bool) or value < 1
+                for value in (width, height)
+            ):
+                raise ValueError("native boundary view requires valid frame dimensions")
+            for top in sorted({0, max(0, height - 128)}):
+                for left in range(0, width, 448):
+                    regions.append(
+                        {
+                            "media_sha256": digest,
+                            "frame": index,
+                            "rectangle": [
+                                left,
+                                top,
+                                min(width, left + 512),
+                                min(height, top + 128),
+                            ],
+                        }
+                    )
+    views = observation_views(regions, visual)
+    for view in views:
+        if view["type"] == "input_text":
+            view["text"] = (
+                "Geometry-only native boundary inspection tiles: rectangles describe tiles, "
+                "not identifying fields or redaction authorization. Feedback selects candidate "
+                "frames only; derive any field rectangle from source pixels and require "
+                "independent confirmation. " + view["text"]
+            )
+    return views
+
+
 def _region_sheet(group: list[tuple[dict[str, Any], Any]]) -> tuple[Any, str]:
     if len(group) == 1:
         region, pixels = group[0]
         description = (
-            "Exact native-region pixels enlarged four times without added detail. "
-            + json_bytes(region).decode()
-        )
+            "Source context around the candidate rectangle, enlarged four times without added detail. The inspection rectangle is not redaction authorization. "
+            if "inspection_rectangle" in region
+            else "Exact native-region pixels enlarged four times without added detail. "
+        ) + json_bytes(region).decode()
     else:
         pixels = Image.new(
             "RGB",
@@ -200,6 +258,11 @@ def _region_sheet(group: list[tuple[dict[str, Any], Any]]) -> tuple[Any, str]:
             position += crop.height + 28
         description = (
             "Labeled source-region contact sheet. Every panel preserves exact source pixels enlarged four times; labels are inspection annotations. "
+            + (
+                "Inspection context does not authorize wider redactions. "
+                if any("inspection_rectangle" in region for region, _ in group)
+                else ""
+            )
             + json_bytes(panels).decode()
         )
     return pixels, description
