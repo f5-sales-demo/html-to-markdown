@@ -24,7 +24,6 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.requests import request
 from .media_encoding import png_bytes
-from .source_phase_bindings import privacy_context
 
 VERSION = "source-admission/1"
 CREDENTIALS = {"credential", "private-key", "authorization-header", "session-cookie"}
@@ -435,6 +434,9 @@ def admission_request(
     model: str, phase: str, payload: dict[str, Any], schema: type[StrictModel]
 ) -> dict[str, Any]:
     if phase == "validation" and "binding" in payload:
+        # pylint: disable-next=import-outside-toplevel
+        from .source_phase_bindings import privacy_context
+
         private = privacy_context(payload)
         proposal_binding = payload["privacy_decision"]["binding_sha256"]
         relevance_binding = payload["relevance_decision"]["binding_sha256"]
