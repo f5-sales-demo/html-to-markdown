@@ -129,6 +129,9 @@ def test_full_private_publication_chain_replays_and_packages_identically(
     first = {name: (job / "combined" / name).read_bytes() for name in RELEASE_ASSET_NAMES}
     receive_enrichment(queues, ".publication/job-test", sha(raw), io.BytesIO(raw))
     assert first == {name: (job / "combined" / name).read_bytes() for name in RELEASE_ASSET_NAMES}
+    monkeypatch.setattr(
+        "html_to_markdown.publication_queue.require_current_policy", lambda _: "a" * 40
+    )
     staged = stage_publication(job, source_commit="a" * 40)
     assert staged["baseline_receipt_sha256"] == receipt
     verify = tmp_path / "downloaded-release"
