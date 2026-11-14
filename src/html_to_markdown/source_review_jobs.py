@@ -342,6 +342,10 @@ def _request(
         else:
             properties["media_changes"]["maxItems"] = 0
     elif schema is AdmissionValidation:
+        properties["output_sha256"].update(
+            enum=[context["candidate"]["output_sha256"]],
+            description="Exact source-admission candidate.output_sha256; the later curation_candidate has a separate digest.",
+        )
         identifiers = [finding["id"] for finding in context["candidate"]["findings"]]
         if identifiers:
             properties["approved_safe_findings"]["items"]["enum"] = identifiers
