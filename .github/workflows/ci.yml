@@ -35,7 +35,7 @@ jobs:
           --include='src/html_to_markdown/adapters/*,src/html_to_markdown/pipeline.py'
           --fail-under=95
       - run: uv run bandit -q -r src
-      - run: uv run pip-audit
+      - run: uv run python scripts/audit_dependencies.py
 
   workflow-lint:
     name: Workflow lint
