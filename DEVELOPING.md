@@ -31,8 +31,14 @@ uv run ruff format --check .
 uv run mypy src
 uv run pytest --cov=html_to_markdown --cov-fail-under=80
 uv run bandit -q -r src
-uv run pip-audit
+uv run python scripts/audit_dependencies.py
 ```
+
+The dependency audit exports all runtime and development dependencies from `uv.lock`
+with exact versions and distribution hashes, applies platform markers, and requires
+one complete audit result per active dependency. Skipped, missing or vulnerable
+dependencies fail the check. The local project is checked by the source security
+tools above; it is not queried as a third-party PyPI package.
 
 Verify downloaded release artifacts before inspecting or extracting them:
 
