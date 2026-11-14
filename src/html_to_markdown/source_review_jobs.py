@@ -57,22 +57,13 @@ from .source_review import (
     text_fields,
     validate_admission,
 )
+from .source_review_outputs import retire_output as _retire_output
 from .source_review_reconciliation import (
     guard_label_quotes,
     invalidate_classification,
     replay_classification,
     review_final_findings,
 )
-
-
-def _retire_output(output: Path, saved: dict[str, Any]) -> None:
-    """Preserve previously emitted bytes privately when admission becomes stale."""
-    for relative in saved.get("file_hashes", {}):
-        path = output / "reviewed" / Path(relative).relative_to("articles")
-        if path.is_file():
-            data = path.read_bytes()
-            atomic_private(output / "history" / "published" / sha(data), data)
-            path.unlink()
 
 
 def _article_html(capture: Path, item: dict[str, Any]) -> str:
