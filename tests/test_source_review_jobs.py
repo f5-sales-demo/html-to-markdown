@@ -4,6 +4,7 @@ import base64
 import io
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -272,6 +273,16 @@ class LocalClient:
                 complete_media_reviewed=True,
                 approved_safe_findings=[],
                 failures=["protected fact lost"] if self.reject else [],
+                unresolved=[],
+            )
+        elif phase == "mediaobservations":
+            output.update(observations=[], complete_media_reviewed=True, unresolved=[])
+        elif phase == "observationvalidation":
+            output.update(
+                observations_sha256=payload["observations"]["observations_sha256"],
+                approved_indices=[],
+                complete_media_reviewed=True,
+                failures=[],
                 unresolved=[],
             )
         else:
@@ -876,3 +887,69 @@ def test_changed_source_has_its_own_privacy_budget(field):
     binding = {"identity": "article", "article_sha256": "original", "metadata": {}, "media": {}}
     previous = {"binding": binding, "privacy_feedback": ["first", "second"]}
     assert not _privacy_budget(previous, {**binding, field: "changed"})
+
+
+@pytest.mark.parametrize("confirmed", [True, False])
+def test_privacy_proposal_waits_for_confirmed_native_guards(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, confirmed: bool
+) -> None:
+    output = tmp_path / "review"
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    item = inventory["documents"][0]
+    raw = io.BytesIO()
+    Image.new("RGB", (80, 40), "white").save(raw, format="PNG")
+    image = raw.getvalue()
+    media_path = "articles/content/my-f5-com/K000123456/assets/" + sha(image) + ".png"
+    atomic_private(capture / media_path, image)
+    item["media"] = [
+        {
+            "path": media_path,
+            "sha256": sha(image),
+            "url": "https://my.f5.com/example.png",
+            "media_type": "image/png",
+        }
+    ]
+    atomic_private(capture / "inventory.json", json_bytes(inventory))
+    prepare_reviews(capture, output)
+    record = next((output / "documents").glob("*.json"))
+    client: Any = LocalClient()
+    jobs.review_one(capture, output, record, "relevance", client)
+    calls = []
+
+    def prepare(*args, **kwargs):
+        calls.append("observations")
+        if not confirmed:
+            raise ValueError("native media values are not independently confirmed")
+        saved = json.loads(record.read_bytes())
+        saved["phases"]["media_observation_validation"] = {"confirmed": True}
+        atomic_private(record, json_bytes(saved))
+
+    def guards(saved, context, visual):
+        assert saved["phases"]["media_observation_validation"]["confirmed"]
+        return [
+            {"value_sha256": sha("192.0.2.11"), "value": "192.0.2.11", "rectangle": [1, 1, 40, 20]}
+        ]
+
+    class GuardedClient(LocalClient):
+        def execute(self, body):
+            if body["text"]["format"]["name"] == "privacydecision":
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                assert payload["confirmed_media_values"][0]["value_sha256"] == sha("192.0.2.11")
+                calls.append("privacy")
+            return super().execute(body)
+
+    monkeypatch.setattr(jobs, "_prepare_media_observations", prepare)
+    monkeypatch.setattr(jobs, "_confirmed_media_values", guards)
+    guarded: Any = GuardedClient()
+    if confirmed:
+        jobs.review_one(capture, output, record, "privacy", guarded)
+        assert calls == ["observations", "privacy"]
+        jobs.review_one(capture, output, record, "privacy", guarded)
+        assert calls == ["observations", "privacy"]
+    else:
+        with pytest.raises(ValueError, match="not independently confirmed"):
+            jobs.review_one(capture, output, record, "privacy", guarded)
+        assert calls == ["observations"]
+        saved = json.loads(record.read_bytes())
+        assert "privacy" not in saved["phases"]
+        assert not saved.get("privacy_feedback")

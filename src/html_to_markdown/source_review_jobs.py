@@ -621,6 +621,17 @@ def review_one(
         ):
             raise ValueError("source relevance or extraction requires exception review")
         context["relevance_decision"] = relevance.model_dump()
+        if (
+            phase == "privacy"
+            and saved["item"]["media"]
+            and "media_observation_validation" not in saved["phases"]
+        ):
+            if client is None:
+                raise ValueError(
+                    "complete confirmed native media guards are required before privacy inference"
+                )
+            _prepare_media_observations(capture, output, record, client)
+            saved = json.loads(record.read_bytes())
         if "media_observation_validation" in saved["phases"]:
             context["confirmed_media_values"] = _confirmed_media_values(
                 saved, privacy_context(original_context), visual
