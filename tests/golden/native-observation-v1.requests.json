@@ -57,9 +57,7 @@
                   "type": "integer"
                 },
                 "media_sha256": {
-                  "enum": [
-                    "47c0b232b83e0aaf92d46f39b9066c67528fc4c31fc88bc50d7d8e2291137145"
-                  ],
+                  "enum": ["47c0b232b83e0aaf92d46f39b9066c67528fc4c31fc88bc50d7d8e2291137145"],
                   "title": "Media Sha256",
                   "type": "string"
                 },
@@ -86,13 +84,7 @@
                   "title": "Value"
                 }
               },
-              "required": [
-                "media_sha256",
-                "frame",
-                "rectangle",
-                "value",
-                "reason"
-              ],
+              "required": ["media_sha256", "frame", "rectangle", "value", "reason"],
               "title": "VisibleValue",
               "type": "object"
             }
@@ -100,9 +92,7 @@
           "additionalProperties": false,
           "properties": {
             "binding_sha256": {
-              "enum": [
-                "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-              ],
+              "enum": ["bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"],
               "title": "Binding Sha256",
               "type": "string"
             },
@@ -111,9 +101,7 @@
               "type": "boolean"
             },
             "identity": {
-              "enum": [
-                "documentation-example"
-              ],
+              "enum": ["documentation-example"],
               "title": "Identity",
               "type": "string"
             },
@@ -132,13 +120,7 @@
               "type": "array"
             }
           },
-          "required": [
-            "identity",
-            "binding_sha256",
-            "observations",
-            "complete_media_reviewed",
-            "unresolved"
-          ],
+          "required": ["identity", "binding_sha256", "observations", "complete_media_reviewed", "unresolved"],
           "title": "MediaObservations",
           "type": "object"
         },
@@ -155,12 +137,7 @@
         "guard_kind": "identifying_region",
         "media_sha256": "47c0b232b83e0aaf92d46f39b9066c67528fc4c31fc88bc50d7d8e2291137145",
         "reason": "Synthetic geometry fixture",
-        "rectangle": [
-          1,
-          1,
-          4,
-          4
-        ],
+        "rectangle": [1, 1, 4, 4],
         "value": null,
         "value_sha256": "7c65c37a6ee9ba3f15161d8122b69a18c3cccda391111305aa8de4cbf5c665c4"
       }
@@ -205,18 +182,14 @@
           "properties": {
             "approved_indices": {
               "items": {
-                "enum": [
-                  0
-                ],
+                "enum": [0],
                 "type": "integer"
               },
               "title": "Approved Indices",
               "type": "array"
             },
             "binding_sha256": {
-              "enum": [
-                "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-              ],
+              "enum": ["bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"],
               "title": "Binding Sha256",
               "type": "string"
             },
@@ -232,16 +205,12 @@
               "type": "array"
             },
             "identity": {
-              "enum": [
-                "documentation-example"
-              ],
+              "enum": ["documentation-example"],
               "title": "Identity",
               "type": "string"
             },
             "observations_sha256": {
-              "enum": [
-                "544ac6a2eccc226a0be1ca1fad0af688378e63b61c40a41e0cebb44e8d1e73f2"
-              ],
+              "enum": ["544ac6a2eccc226a0be1ca1fad0af688378e63b61c40a41e0cebb44e8d1e73f2"],
               "title": "Observations Sha256",
               "type": "string"
             },
