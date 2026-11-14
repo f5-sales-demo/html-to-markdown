@@ -19,6 +19,7 @@ from html_to_markdown.enrichment.model_policy import (
     validation_model,
 )
 from html_to_markdown.enrichment.requests import request
+from html_to_markdown.source_phase_bindings import privacy_ledger
 
 
 class ExampleValidation(StrictModel):
@@ -78,6 +79,29 @@ def test_sol_high_default_has_explicit_independent_validator_role():
     assert body["metadata"][POLICY_KEY] == "2"
     assert body["instructions"].endswith("Prompt version: article-enrichment/1")
     assert validation_model(body) == "gpt-6.1-sol"
+
+
+def test_model_policy_change_preserves_exhausted_privacy_corrections():
+    binding = {
+        "identity": "source",
+        "article_sha256": "unchanged",
+        "validator_model": ASTRA_MODEL,
+        "request_context_sha256": "old",
+    }
+    previous = {
+        "binding": binding,
+        "phases": {"privacy": {"prompt_version": "source-privacy/2", "error": None}},
+        "privacy_feedback": ["first correction", "second correction"],
+    }
+    current = {
+        **binding,
+        "validator_model": "gpt-6.1-sol",
+        "request_context_sha256": "new",
+        "model_policy_version": 2,
+    }
+    ledger = privacy_ledger(previous, current)
+    assert ledger["privacy_feedback"] == previous["privacy_feedback"]
+    assert ledger["privacy_exhausted"] is True
 
 
 def test_same_model_proposal_and_validator_have_different_cache_keys():

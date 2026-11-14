@@ -187,7 +187,6 @@ def test_reviewed_label_preserves_diagram_relationships():
         [None],
         [{}],
         [{"rectangle": [0, 0, 10, 10], "text": 3, "size": 8}],
-        [{"rectangle": [0, 0, 10, 10], "text": "", "size": 8}],
         [{"rectangle": [0, 0, 10, 10], "text": "é", "size": 8}],
         [{"rectangle": [0, 0, 10, 10], "text": "\n", "size": 8}],
         [{"rectangle": [0, 0, 10, 10], "text": "x", "size": True}],
@@ -495,3 +494,29 @@ def test_opt_in_label_fit_preserves_guarded_region_and_historical_fixed_font():
     transform["labels"][0].update(fit=True, rectangle=[5, 5, 7, 7])
     with pytest.raises(ValueError, match="does not fit"):
         apply_labels_and_rectangles(Image.new("RGB", (120, 40), "blue"), transform)
+
+
+def test_empty_redaction_stays_blocked_and_can_receive_bounded_correction():
+    content = image_bytes()
+    review = {
+        "assets": {URL: hashlib.sha256(content).hexdigest()},
+        "asset_redactions": {URL: {"rectangles": [], "labels": []}},
+    }
+    with pytest.raises(PublicationBlockedError) as failure:
+        reviewed_media(content, URL, review)
+    assert isinstance(failure.value, ValueError)
+
+
+def test_empty_label_is_exactly_the_existing_rectangle_only_transform():
+    original = Image.new("RGB", (40, 30), "blue")
+    candidate, expected = original.copy(), original.copy()
+    apply_labels_and_rectangles(
+        candidate, {"labels": [{"rectangle": [3, 4, 9, 10], "text": "", "size": 6}]}
+    )
+    apply_labels_and_rectangles(expected, {"rectangles": [[3, 4, 9, 10]]})
+    assert candidate.tobytes() == expected.tobytes()
+    assert candidate.getpixel((2, 4)) == original.getpixel((2, 4))
+    with pytest.raises(ValueError, match="outside image"):
+        apply_labels_and_rectangles(
+            candidate, {"labels": [{"rectangle": [0, 0, 41, 10], "text": "", "size": 6}]}
+        )
