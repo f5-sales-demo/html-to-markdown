@@ -53,14 +53,21 @@ def observation_payload(
         raise ValueError("native-media observation is incomplete or stale")
     values = []
     placements = set()
-    for item in observations.observations:
+    for index, item in enumerate(observations.observations):
         frames = media.get(item.media_sha256, {}).get("frames", [])
         if not 0 <= item.frame < len(frames) or len(item.rectangle) != 4:
             raise ValueError("native-media observation addresses an absent frame")
         frame = frames[item.frame]
         left, top, right, bottom = item.rectangle
         if not (0 <= left < right <= frame["width"] and 0 <= top < bottom <= frame["height"]):
-            raise ValueError("native-media observation rectangle is outside its frame")
+            raise ValueError(
+                f"native-media observation {index} rectangle is outside its frame or has invalid "
+                f"endpoints: rectangle={item.rectangle}; frame dimensions="
+                f"{frame['width']}x{frame['height']}. Use [left, top, right, bottom] absolute "
+                "original-frame pixels with exclusive right/bottom endpoints; "
+                "not [x, y, width, height]. Reinspect every original placement; "
+                "do not clamp or infer a converted rectangle."
+            )
         if (item.value is not None and not item.value.strip()) or not item.reason.strip():
             raise ValueError("native-media observation requires visible text and a reason")
         placement = (item.media_sha256, item.frame, tuple(item.rectangle))
