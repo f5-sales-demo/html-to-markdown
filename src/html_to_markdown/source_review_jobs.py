@@ -31,6 +31,7 @@ from .media_observation_jobs import (
 from .models import PageMetadata
 from .render import serialize_document, split_document
 from .source_curation import CurationRequired, preview_curation, record_exception
+from .source_media_references import media_destination_map, rewrite_media_references
 from .source_review import (
     VERSION,
     AdmissionValidation,
@@ -399,6 +400,7 @@ def _compile(
     transforms = {}
     media = []
     media_locations = {}
+    media_references: list[tuple[str, str]] = []
     item = saved["item"]
     for original in item["media"]:
         raw = (capture / original["path"]).read_bytes()
@@ -422,9 +424,16 @@ def _compile(
             / (digest + extension)
         )
         files[relative] = raw
-        body = body.replace("assets/" + Path(original["path"]).name, "assets/" + digest + extension)
+        before = "assets/" + Path(original["path"]).name
+        after = "assets/" + digest + extension
+        media_references.append((before, after))
         media_locations[digest] = original["sha256"]
         media.append({**original, "path": relative, "sha256": digest})
+    body = rewrite_media_references(
+        body,
+        media_destination_map(media_references),
+        {"assets/" + Path(entry["path"]).name for entry in media},
+    )
     article = serialize_document(PageMetadata.model_validate(metadata), body).encode()
     files[item.get("published_path", item["article_path"])] = article
     # Build the exact candidate derivative/OCR privately; keep original media too.
