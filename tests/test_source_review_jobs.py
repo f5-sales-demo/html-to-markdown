@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 from PIL import Image
 
 import html_to_markdown.source_review_jobs as jobs
@@ -41,7 +42,7 @@ def test_observation_requests_bind_native_media_and_final_finding_ids() -> None:
         "identity": "article",
         "binding_sha256": "b" * 64,
         "media": {"a" * 64: {"frames": [{"width": 100, "height": 50}]}},
-        "candidate": {"findings": [{"id": "final-finding"}]},
+        "candidate": {"findings": [{"id": "final-finding"}], "output_sha256": "c" * 64},
     }
     request = _observation_request(context, [])
     assert request["text"]["format"]["schema"]["$defs"]["VisibleValue"]["properties"][
@@ -70,6 +71,20 @@ def test_privacy_text_edits_cannot_target_source_identity_dates_or_ocr_evidence(
     body = _request("gpt-6.1-sol", "privacy", context, [], PrivacyDecision)
     fields = body["text"]["format"]["schema"]["$defs"]["TextChange"]["properties"]["field"]["enum"]
     assert fields == ["body", "metadata/title"]
+
+
+def test_source_admission_hash_cannot_be_replaced_by_later_curation_hash():
+    context = {
+        "identity": "article",
+        "binding_sha256": "b" * 64,
+        "candidate": {"output_sha256": "a" * 64, "findings": []},
+        "curation_candidate": {"output_sha256": "c" * 64},
+    }
+    body = _request("gpt-6.1-sol", "validation", context, [], AdmissionValidation)
+    shape = body["text"]["format"]["schema"]["properties"]["output_sha256"]
+    validator = Draft202012Validator(shape)
+    assert validator.is_valid(context["candidate"]["output_sha256"])
+    assert not validator.is_valid(context["curation_candidate"]["output_sha256"])
 
 
 def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
