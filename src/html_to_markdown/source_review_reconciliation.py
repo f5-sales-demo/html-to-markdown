@@ -12,6 +12,7 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence, StrictModel
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.requests import request
+from .errors import TransportFailure
 from .media_observation_jobs import RequestExecutor
 from .source_replacements import replacement_provenance
 from .source_review import CREDENTIALS, PrivacyDecision
@@ -186,6 +187,8 @@ def review_final_findings(
     evidence = client.execute(body)
     saved["phases"]["privacy_reconciliation"] = evidence.model_dump()
     atomic_private(record, json_bytes(saved))
+    if evidence.error:
+        raise TransportFailure("final privacy finding transport failed; private evidence preserved")
     try:
         classification = parse_response(
             evidence, FinalClassification, EDITOR_MODEL, request_hash(body)

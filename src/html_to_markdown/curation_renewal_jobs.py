@@ -22,11 +22,10 @@ from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .errors import TransportFailure
 from .media_observation_jobs import RequestExecutor
 
-
-class TransportFailure(ValueError):
-    """Failed transports remain resumable without spending semantic corrections."""
+__all__ = ["TransportFailure", "review_batch", "run_renewal", "replay_renewal"]
 
 
 def review_batch(

@@ -21,6 +21,7 @@ from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.media import all_frame_inputs
+from .errors import TransportFailure
 from .media_observation_jobs import (
     RequestExecutor,
     prepare_media_observations,
@@ -545,7 +546,9 @@ def _compiled_findings(
     visual: list[dict[str, Any]],
     proposal: PrivacyDecision,
 ) -> tuple[dict[str, Any], list[FindingDecision]]:
-    if "privacy_reconciliation" in saved.get("phases", {}):
+    if "privacy_reconciliation" in saved.get("phases", {}) and not saved["phases"][
+        "privacy_reconciliation"
+    ].get("error"):
         original_visual, _, _ = _media_context(capture, output, item)
         candidate = replay_classification(
             saved, privacy_context(context), candidate, original_visual + visual, proposal
@@ -754,6 +757,8 @@ def _run_record(
             try:
                 review_one(capture, output, record, current, client)
                 break
+            except TransportFailure:
+                raise
             except ValueError as failure:
                 saved = json.loads(record.read_bytes())
                 invalidate_classification(saved, client)

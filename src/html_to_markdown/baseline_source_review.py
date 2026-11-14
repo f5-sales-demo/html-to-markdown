@@ -15,6 +15,7 @@ from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.requests import request
+from .errors import TransportFailure
 from .media_observation_jobs import confirmed_media_values, prepare_media_observations
 from .refresh import _verified_baseline
 from .render import split_document
@@ -333,7 +334,7 @@ Return only the specified structured schema."""
 # pylint: disable-next=too-many-locals,too-many-statements
 def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> dict[str, Any]:
     """Bound corrections and exact replay precede any retirement proposal."""
-    from .curation_renewal_jobs import _execute  # pylint: disable=import-outside-toplevel
+    from .curation_renewal_jobs import _execute, _save  # pylint: disable=import-outside-toplevel
     from .source_review_jobs import _compile_admission  # pylint: disable=import-outside-toplevel
 
     saved: dict[str, Any] = json.loads(record.read_bytes())
@@ -379,8 +380,9 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         validator = None
         attempt = output / "attempts" / record.stem / f"attempt-{len(feedback):03d}"
         editor_body = _request(EDITOR_MODEL, "privacy", context, visual, PrivacyDecision, feedback)
-        editor = _execute(attempt / "editor.json", editor_body, client)
+        editor = None
         try:
+            editor = _execute(attempt / "editor.json", editor_body, client)
             proposal = parse_response(
                 editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor_body)
             )
@@ -435,26 +437,41 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
                 privacy_decision=proposal.model_dump(),
                 enforcement_findings=0,
                 retirement_review_required=True,
+                privacy_retryable=False,
             )
             for name, data in files.items():
                 atomic_private(output / "reviewed" / record.stem / name, data)
             atomic_private(record, json_bytes(saved))
             return saved
+        except TransportFailure as failure:
+            _save(attempt / "transport.private.json", {"error": str(failure), "retryable": True})
+            saved = json.loads(record.read_bytes())
+            saved.update(
+                status="privacy_review_required", privacy_feedback=feedback, privacy_retryable=True
+            )
+            atomic_private(record, json_bytes(saved))
+            raise
         except ValueError as failure:
             atomic_private(attempt / "failure.private.json", json_bytes({"error": str(failure)}))
             if client is None:
                 raise
-            invalidate = getattr(client, "invalidate", None)
-            if invalidate is not None:
-                invalidate(editor)
-                if validator is not None:
-                    invalidate(validator)
+            _invalidate_attempt(client, editor, validator)
             feedback = [*feedback, str(failure)]
-            saved.update(status="privacy_review_required", privacy_feedback=feedback)
+            saved.update(
+                status="privacy_review_required", privacy_feedback=feedback, privacy_retryable=False
+            )
             atomic_private(record, json_bytes(saved))
     raise ValueError(
         "baseline source privacy exhausted two corrections; prerequisite remains queued"
     )
+
+
+def _invalidate_attempt(client: Any, *responses: Any) -> None:
+    invalidate = getattr(client, "invalidate", None)
+    if invalidate is not None:
+        for response in responses:
+            if response is not None:
+                invalidate(response)
 
 
 def verify_baseline_prerequisite(output: Path, context: dict[str, Any]) -> None:

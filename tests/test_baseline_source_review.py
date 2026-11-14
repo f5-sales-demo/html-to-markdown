@@ -367,3 +367,149 @@ def test_native_media_prerequisite_covers_full_frame_and_replays(tmp_path, monke
     assert result["candidate"]["media"][digest]["frame_count"] == 1
     assert len(client.calls) == 5
     assert source.review_baseline_privacy(output, record) == result
+
+
+@pytest.mark.parametrize("kind", ["privacydecision", "admissionvalidation", "finalclassification"])
+def test_transport_resume_preserves_semantic_budget_and_exact_completed_proposal(
+    prepared, monkeypatch, kind
+):
+    from html_to_markdown import source_review_jobs, source_review_reconciliation
+    from html_to_markdown.curation_renewal_jobs import TransportFailure
+    from html_to_markdown.source_phase_bindings import privacy_context
+
+    _, output, record, _ = prepared
+    saved = json.loads(record.read_bytes())
+    saved["privacy_feedback"] = ["first semantic correction", "second semantic correction"]
+    record.write_bytes(json_bytes(saved))
+    original_compile = source_review_jobs._compile_admission
+    if kind == "finalclassification":
+
+        def compile_with_reconciliation(capture, root, entry, context, visual, proposal, client):
+            result = original_compile(capture, root, entry, context, visual, proposal, client)
+            checkpoint = json.loads(entry.read_bytes())
+            source_review_reconciliation.review_final_findings(
+                checkpoint,
+                entry,
+                root,
+                privacy_context(context),
+                result[0],
+                visual,
+                client,
+                proposal,
+            )
+            return result
+
+        monkeypatch.setattr(source_review_jobs, "_compile_admission", compile_with_reconciliation)
+
+    class InterruptedClient(Client):
+        def __init__(self):
+            super().__init__()
+            self.failed = []
+            self.invalidated = []
+
+        def invalidate(self, response):
+            self.invalidated.append(response)
+
+        def execute(self, body):
+            name = body["text"]["format"]["name"]
+            if name == kind and len(self.failed) < 3:
+                self.calls.append(body)
+                evidence = ResponseEvidence(
+                    request_sha256=request_hash(body),
+                    response_sha256=sha(json_bytes({})),
+                    model=body["model"],
+                    reasoning="high",
+                    prompt_version=body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
+                    request=body,
+                    response={},
+                    error="transient failure " + str(len(self.failed)),
+                    transport="codex_litellm",
+                    runtime_version="test",
+                )
+                self.failed.append(evidence)
+                return evidence
+            if name == "finalclassification":
+                self.calls.append(body)
+                payload = json.loads(body["input"][0]["content"][0]["text"])
+                value = {
+                    "identity": payload["source"]["identity"],
+                    "binding_sha256": payload["source"]["binding_sha256"],
+                    "candidate_sha256": payload["candidate_sha256"],
+                    "findings": [],
+                }
+                response = {
+                    "status": "completed",
+                    "model": body["model"],
+                    "output": [{"content": [{"type": "output_text", "text": json.dumps(value)}]}],
+                }
+                return ResponseEvidence(
+                    request_sha256=request_hash(body),
+                    response_sha256=sha(
+                        json.dumps(response, sort_keys=True, separators=(",", ":"))
+                    ),
+                    model=body["model"],
+                    reasoning="high",
+                    prompt_version=body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
+                    request=body,
+                    response=response,
+                    error=None,
+                    transport="codex_litellm",
+                    runtime_version="test",
+                )
+            return super().execute(body)
+
+    client = InterruptedClient()
+    for _ in range(3):
+        with pytest.raises(TransportFailure):
+            source.review_baseline_privacy(output, record, client)
+        checkpoint = json.loads(record.read_bytes())
+        assert checkpoint["privacy_feedback"] == saved["privacy_feedback"]
+        assert checkpoint["status"] == "privacy_review_required"
+        assert checkpoint["privacy_retryable"] is True
+        assert not (output / "reviewed").exists()
+    assert len({item.request_sha256 for item in client.failed}) == 1
+    assert client.invalidated == []
+    assert not list((output / "attempts").rglob("failure.private.json"))
+    result = source.review_baseline_privacy(output, record, client)
+    assert result["status"] == "privacy_only_validated"
+    assert result["privacy_feedback"] == saved["privacy_feedback"]
+    assert result["privacy_retryable"] is False
+    attempts = list((output / "attempts" / record.stem).glob("attempt-*"))
+    assert [p.name for p in attempts] == ["attempt-002"]
+    for evidence in client.failed:
+        assert any(
+            (
+                json.loads(p.read_bytes()) == evidence.model_dump()
+                or evidence.model_dump() in json.loads(p.read_bytes()).get("phases", {}).values()
+            )
+            for p in output.rglob("*.json")
+        ), "Every failed raw transport must remain preserved after resume"
+    if kind != "privacydecision":
+        assert sum(b["text"]["format"]["name"] == "privacydecision" for b in client.calls) == 1
+
+
+def test_source_transport_does_not_invalidate_or_repropose(prepared, monkeypatch):
+    from html_to_markdown import source_review_jobs as jobs
+    from html_to_markdown.errors import TransportFailure
+
+    _, output, record, _ = prepared
+    original = record.read_bytes()
+    calls = []
+
+    def interrupted(*args):
+        calls.append(args[3])
+        if args[3] == "validation":
+            raise TransportFailure(
+                "final privacy finding transport failed; private evidence preserved"
+            )
+
+    def forbidden(*args):
+        pytest.fail("Transport failure cannot invalidate a completed semantic proposal")
+
+    monkeypatch.setattr(jobs, "review_one", interrupted)
+    monkeypatch.setattr(jobs, "invalidate_classification", forbidden)
+    monkeypatch.setattr(jobs, "invalidate_failed_review", forbidden)
+    with pytest.raises(TransportFailure):
+        jobs._run_record(output, output, record, "all", Client())
+    assert calls == ["relevance", "privacy", "validation"]
+    assert record.read_bytes() == original
