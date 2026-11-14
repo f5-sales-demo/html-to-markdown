@@ -46,3 +46,9 @@ def capture(tmp_path: Path) -> Path:
         json_bytes({"binding": {}, "completeness": {"enumeration": True}, "documents": [item]}),
     )
     return root
+
+
+@pytest.fixture(autouse=True)
+def isolate_installed_policy_state(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Tests must never inherit an operator's active policy installation."""
+    monkeypatch.setenv("HTML_TO_MARKDOWN_POLICY_STATE", str(tmp_path / "installed-policy"))
