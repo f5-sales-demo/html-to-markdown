@@ -152,7 +152,7 @@ def test_missing_ocr_values_are_confirmed_before_privacy_editing_and_replayed(
                 response_sha256=sha(json.dumps(response, sort_keys=True, separators=(",", ":"))),
                 model=body["model"],
                 reasoning="high",
-                prompt_version="native-media-observation/1",
+                prompt_version=body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
                 request=body,
                 response=response,
                 error=None,
