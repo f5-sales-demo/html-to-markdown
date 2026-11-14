@@ -16,7 +16,7 @@ def test_adapters_match_pinned_prototype_capture_goldens() -> None:
         (
             DocsCloudAdapter(),
             "docs_page.html",
-            "docs-cloud-prototype.md",
+            "docs-cloud-prototype.md.expected",
             "https://docs.cloud.f5.com/docs-v2/platform/how-to/configure",
         ),
         (

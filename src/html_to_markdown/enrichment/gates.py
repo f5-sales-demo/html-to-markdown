@@ -30,7 +30,11 @@ def parse_response(
             PROMPT_VERSION,
             "article-enrichment/2",
             "source-admission/1",
+            "source-privacy/2",
             "native-media-observation/1",
+            "curation-renewal/1",
+            "final-privacy-findings/1",
+            "final-privacy-findings/2",
         }
         or evidence.reasoning != "high"
     ):

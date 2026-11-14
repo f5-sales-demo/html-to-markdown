@@ -8,7 +8,7 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .errors import PublicationBlockedError
+from .errors import InvalidMediaTransformError, PublicationBlockedError
 from .media_encoding import png_bytes
 
 
@@ -150,7 +150,7 @@ def _fitted_label(
 def draw_label(draw: Any, label: dict[str, Any]) -> None:
     """Draw a reviewed synthetic label only when it fits its cleared area."""
     text, size = label["text"], label["size"]
-    if not isinstance(text, str) or not text or not text.isascii():
+    if not isinstance(text, str) or not text.isascii():
         raise ValueError("invalid synthetic label text")
     if any(ord(character) < 32 for character in text):
         raise ValueError("invalid synthetic label control character")
@@ -164,6 +164,9 @@ def draw_label(draw: Any, label: dict[str, Any]) -> None:
         raise ValueError("invalid synthetic label layout")
     left, top, right, bottom = label["rectangle"]
     foreground, _, underline = label_style(label)
+    if not text:
+        # The caller already validated and cleared this exact rectangle.
+        return
     for selected_size in range(size, 5 if fit else size - 1, -1):
         font = ImageFont.load_default(size=selected_size)
         if fit:
@@ -373,7 +376,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
         transform.get("strip_metadata") is True or transform.get("strip_gif_metadata") is True
     )
     if not (pixel_edits or frame_edits or metadata_edits):
-        raise PublicationBlockedError("community image redaction has no reviewed rectangles")
+        raise InvalidMediaTransformError("community image redaction has no reviewed rectangles")
     if transform.get("animation") is True:
         if transform.get("strip_gif_metadata"):
             raise PublicationBlockedError("animation policy mixes output formats")

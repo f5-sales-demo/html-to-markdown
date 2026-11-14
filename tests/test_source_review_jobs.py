@@ -286,7 +286,7 @@ class LocalClient:
             response_sha256=sha(json.dumps(response, sort_keys=True, separators=(",", ":"))),
             model=body["model"],
             reasoning="high",
-            prompt_version="source-admission/1",
+            prompt_version=body["instructions"].rsplit("Prompt version: ", 1)[-1].strip(),
             request=body,
             response=response,
             error=None,

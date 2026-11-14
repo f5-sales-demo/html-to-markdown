@@ -143,6 +143,11 @@ class LegacyFilter:
                         retained = retained.replace(
                             replacement["source"], replacement["destination"]
                         )
+                    from .curation_media import (  # pylint: disable=import-outside-toplevel
+                        relocate_references,
+                    )
+
+                    retained = relocate_references(retained, decision.get("media_references", []))
                     retained = normalize_body(retained)
                     if hashlib.sha256(retained.encode()).hexdigest() != decision[
                         "output_sha256"
