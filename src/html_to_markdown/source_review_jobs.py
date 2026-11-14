@@ -399,6 +399,35 @@ def _privacy_observation_context(
     return privacy_context(context), visual
 
 
+def _privacy_media_intake(
+    capture: Path,
+    output: Path,
+    record: Path,
+    phase: str,
+    client: CodexClient | None,
+    context: dict[str, Any],
+    visual: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Confirm native guards before proposals and replay the exact privacy context."""
+    saved: dict[str, Any] = json.loads(record.read_bytes())
+    if (
+        phase == "privacy"
+        and saved["item"]["media"]
+        and "media_observation_validation" not in saved["phases"]
+    ):
+        if client is None:
+            raise ValueError(
+                "complete confirmed native media guards are required before privacy inference"
+            )
+        _prepare_media_observations(capture, output, record, client)
+        saved = json.loads(record.read_bytes())
+    if "media_observation_validation" in saved["phases"]:
+        context["confirmed_media_values"] = _confirmed_media_values(
+            saved, privacy_context(context), visual
+        )
+    return saved
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-locals,too-many-statements
 def _compile(
@@ -594,7 +623,6 @@ def review_one(
 ) -> dict[str, Any]:
     saved = json.loads(record.read_bytes())
     context, visual = _context(capture, output, saved)
-    original_context = dict(context)
     if phase == "relevance":
         body = _request(EDITOR_MODEL, phase, context, visual, RelevanceDecision)
     else:
@@ -621,21 +649,7 @@ def review_one(
         ):
             raise ValueError("source relevance or extraction requires exception review")
         context["relevance_decision"] = relevance.model_dump()
-        if (
-            phase == "privacy"
-            and saved["item"]["media"]
-            and "media_observation_validation" not in saved["phases"]
-        ):
-            if client is None:
-                raise ValueError(
-                    "complete confirmed native media guards are required before privacy inference"
-                )
-            _prepare_media_observations(capture, output, record, client)
-            saved = json.loads(record.read_bytes())
-        if "media_observation_validation" in saved["phases"]:
-            context["confirmed_media_values"] = _confirmed_media_values(
-                saved, privacy_context(original_context), visual
-            )
+        saved = _privacy_media_intake(capture, output, record, phase, client, context, visual)
         if phase == "privacy":
             body = _request(
                 EDITOR_MODEL, phase, context, visual, PrivacyDecision, saved.get("privacy_feedback")

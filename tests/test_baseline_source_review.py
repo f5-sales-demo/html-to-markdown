@@ -7,13 +7,18 @@ import pytest
 from PIL import Image
 
 from html_to_markdown import baseline_source_review as source
+from html_to_markdown import source_review_jobs as jobs
+from html_to_markdown import source_review_reconciliation
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.curation_renewal_dependencies import prepare_dependencies
+from html_to_markdown.curation_renewal_jobs import TransportFailure
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.contracts import ResponseEvidence
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document
+from html_to_markdown.source_phase_bindings import privacy_context
+from html_to_markdown.source_review_jobs import _compile_admission, _run_record
 
 
 @pytest.fixture
@@ -373,15 +378,12 @@ def test_native_media_prerequisite_covers_full_frame_and_replays(tmp_path, monke
 def test_transport_resume_preserves_semantic_budget_and_exact_completed_proposal(
     prepared, monkeypatch, kind
 ):
-    from html_to_markdown import source_review_jobs, source_review_reconciliation
-    from html_to_markdown.curation_renewal_jobs import TransportFailure
-    from html_to_markdown.source_phase_bindings import privacy_context
 
     _, output, record, _ = prepared
     saved = json.loads(record.read_bytes())
     saved["privacy_feedback"] = ["first semantic correction", "second semantic correction"]
     record.write_bytes(json_bytes(saved))
-    original_compile = source_review_jobs._compile_admission
+    original_compile = _compile_admission
     if kind == "finalclassification":
 
         def compile_with_reconciliation(capture, root, entry, context, visual, proposal, client):
@@ -399,7 +401,7 @@ def test_transport_resume_preserves_semantic_budget_and_exact_completed_proposal
             )
             return result
 
-        monkeypatch.setattr(source_review_jobs, "_compile_admission", compile_with_reconciliation)
+        monkeypatch.setattr(jobs, "_compile_admission", compile_with_reconciliation)
 
     class InterruptedClient(Client):
         def __init__(self):
@@ -468,7 +470,7 @@ def test_transport_resume_preserves_semantic_budget_and_exact_completed_proposal
         assert checkpoint["privacy_retryable"] is True
         assert not (output / "reviewed").exists()
     assert len({item.request_sha256 for item in client.failed}) == 1
-    assert client.invalidated == []
+    assert not client.invalidated
     assert not list((output / "attempts").rglob("failure.private.json"))
     result = source.review_baseline_privacy(output, record, client)
     assert result["status"] == "privacy_only_validated"
@@ -489,8 +491,6 @@ def test_transport_resume_preserves_semantic_budget_and_exact_completed_proposal
 
 
 def test_source_transport_does_not_invalidate_or_repropose(prepared, monkeypatch):
-    from html_to_markdown import source_review_jobs as jobs
-    from html_to_markdown.errors import TransportFailure
 
     _, output, record, _ = prepared
     original = record.read_bytes()
@@ -510,6 +510,6 @@ def test_source_transport_does_not_invalidate_or_repropose(prepared, monkeypatch
     monkeypatch.setattr(jobs, "invalidate_classification", forbidden)
     monkeypatch.setattr(jobs, "invalidate_failed_review", forbidden)
     with pytest.raises(TransportFailure):
-        jobs._run_record(output, output, record, "all", Client())
+        _run_record(output, output, record, "all", Client())
     assert calls == ["relevance", "privacy", "validation"]
     assert record.read_bytes() == original

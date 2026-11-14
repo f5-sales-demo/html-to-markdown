@@ -7,11 +7,13 @@ from copy import deepcopy
 import pytest
 from PIL import Image
 
+from html_to_markdown.enrichment import native_visuals
 from html_to_markdown.enrichment.native_visuals import (
     NativeVisualCapacityRequired,
     native_visual_view,
     validate_visual_manifest,
 )
+from html_to_markdown.enrichment.visual_capacity import decoded_image_bytes
 
 
 def image(index=0):
@@ -83,8 +85,6 @@ def test_more_than_50_distinct_images_require_complete_image_boundary_review():
 
 
 def test_decoded_capacity_indexes_repeated_images_below_50_placements(monkeypatch):
-    from html_to_markdown.enrichment import native_visuals
-    from html_to_markdown.enrichment.visual_capacity import decoded_image_bytes
 
     pictures = [image(i) for i in range(11)]
     request = body(pictures + pictures[:9])
@@ -105,7 +105,6 @@ def test_decoded_capacity_indexes_repeated_images_below_50_placements(monkeypatc
 
 
 def test_distinct_images_over_decoded_capacity_require_complete_boundary_review(monkeypatch):
-    from html_to_markdown.enrichment import native_visuals
 
     request = body([image(1), image(2), image(3)])
     before = deepcopy(request)
