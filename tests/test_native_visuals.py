@@ -80,3 +80,36 @@ def test_more_than_50_distinct_images_require_complete_image_boundary_review():
     request = body([image(i) for i in range(51)])
     with pytest.raises(NativeVisualCapacityRequired, match="image-boundary"):
         native_visual_view(request)
+
+
+def test_decoded_capacity_indexes_repeated_images_below_50_placements(monkeypatch):
+    from html_to_markdown.enrichment import native_visuals
+    from html_to_markdown.enrichment.visual_capacity import decoded_image_bytes
+
+    pictures = [image(i) for i in range(11)]
+    request = body(pictures + pictures[:9])
+    request["input"].append(
+        {"role": "user", "content": [{"type": "input_text", "text": "candidate placements"}]}
+    )
+    before = deepcopy(request)
+    monkeypatch.setattr(native_visuals, "MAX_DECODED_BYTES", 280)
+    images, manifest = native_visual_view(request)
+    assert len(images) == 11 and decoded_image_bytes(images) == 176
+    assert len(manifest["references"]) == 20
+    assert validate_visual_manifest(request, manifest) == request["input"][0]["content"][1:]
+    assert request == before
+    changed = deepcopy(manifest)
+    changed["references"].pop()
+    with pytest.raises(ValueError):
+        validate_visual_manifest(request, changed)
+
+
+def test_distinct_images_over_decoded_capacity_require_complete_boundary_review(monkeypatch):
+    from html_to_markdown.enrichment import native_visuals
+
+    request = body([image(1), image(2), image(3)])
+    before = deepcopy(request)
+    monkeypatch.setattr(native_visuals, "MAX_DECODED_BYTES", 32)
+    with pytest.raises(NativeVisualCapacityRequired, match="decoded image capacity"):
+        native_visual_view(request)
+    assert request == before

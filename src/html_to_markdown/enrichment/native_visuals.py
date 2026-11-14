@@ -8,6 +8,7 @@ from typing import Any
 
 from .analysis import sha
 from .gates import request_hash
+from .visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 
 LIMIT = 50
 
@@ -32,10 +33,11 @@ def _content_digest(content: dict[str, Any]) -> str:
 def native_visual_view(
     body: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
-    """Keep normal requests exact; index repeated captured bytes only above capacity."""
+    """Keep normal requests exact; index repeated bytes above count or decoded capacity."""
     originals = _images(body)
-    if len(originals) <= LIMIT:
-        return [content for _, _, content in originals], None
+    logical_images = [content for _, _, content in originals]
+    if len(originals) <= LIMIT and decoded_image_bytes(logical_images) <= MAX_DECODED_BYTES:
+        return logical_images, None
     images: list[dict[str, Any]] = []
     indices: dict[str, int] = {}
     references = []
@@ -67,6 +69,10 @@ def native_visual_view(
     if len(images) > LIMIT:
         raise NativeVisualCapacityRequired(
             "complete native visuals exceed 50 distinct images; image-boundary review required"
+        )
+    if decoded_image_bytes(images) > MAX_DECODED_BYTES:
+        raise NativeVisualCapacityRequired(
+            "complete native visuals exceed decoded image capacity; image-boundary review required"
         )
     manifest = {
         "schema_version": 1,
