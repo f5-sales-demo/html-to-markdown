@@ -4,6 +4,7 @@ import base64
 import io
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -911,7 +912,7 @@ def test_privacy_proposal_waits_for_confirmed_native_guards(
     atomic_private(capture / "inventory.json", json_bytes(inventory))
     prepare_reviews(capture, output)
     record = next((output / "documents").glob("*.json"))
-    client = LocalClient()
+    client: Any = LocalClient()
     jobs.review_one(capture, output, record, "relevance", client)
     calls = []
 
@@ -939,14 +940,15 @@ def test_privacy_proposal_waits_for_confirmed_native_guards(
 
     monkeypatch.setattr(jobs, "_prepare_media_observations", prepare)
     monkeypatch.setattr(jobs, "_confirmed_media_values", guards)
+    guarded: Any = GuardedClient()
     if confirmed:
-        jobs.review_one(capture, output, record, "privacy", GuardedClient())
+        jobs.review_one(capture, output, record, "privacy", guarded)
         assert calls == ["observations", "privacy"]
-        jobs.review_one(capture, output, record, "privacy", GuardedClient())
+        jobs.review_one(capture, output, record, "privacy", guarded)
         assert calls == ["observations", "privacy"]
     else:
         with pytest.raises(ValueError, match="not independently confirmed"):
-            jobs.review_one(capture, output, record, "privacy", GuardedClient())
+            jobs.review_one(capture, output, record, "privacy", guarded)
         assert calls == ["observations"]
         saved = json.loads(record.read_bytes())
         assert "privacy" not in saved["phases"]
