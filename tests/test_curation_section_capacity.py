@@ -10,17 +10,23 @@ import html_to_markdown.curation_section_validation as controller
 from html_to_markdown.content_inventory import atomic_private
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.curation_fact_ledger import restore_ledger
+from html_to_markdown.curation_section_validation import (
+    _execution_digest,
+    _request_characters,
+    _scope_request,
+    _source,
+)
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.gates import request_hash
 
 
 def historical_sections(body, directory):
-    context, candidate = controller._source(body)
+    context, candidate = _source(body)
     groups = controller.assignments(context)
     selection = {
         "version": controller.VERSION,
         "original_request_sha256": request_hash(body),
-        "execution_sha256": controller._execution_digest(legacy=True),
+        "execution_sha256": _execution_digest(legacy=True),
         "candidate_sha256": candidate["output_sha256"],
         "assignments_sha256": sha(json_bytes(groups)),
         "new_editor_proposals": 0,
@@ -29,7 +35,7 @@ def historical_sections(body, directory):
     atomic_private(target / "selection.json", json_bytes(selection))
     client = fixtures.Client()
     for index, addresses in enumerate(groups):
-        request = controller._scope_request(body, addresses, {**selection, "section": index})
+        request = _scope_request(body, addresses, {**selection, "section": index})
         evidence = client.execute(request)
         atomic_private(
             target / f"section-{index:04d}.json", json_bytes(evidence.model_dump(mode="json"))
@@ -49,12 +55,10 @@ def test_preserved_historical_sections_require_only_a_new_pinned_final_review(tm
     assert final["independent_review_selection"]["final_document_review"]
     assert final["independent_review_selection"]["final_controller_sha256"]
     assert restore_ledger(final) == result["validation"]["facts"]
-    assert final["independent_review_selection"][
-        "execution_sha256"
-    ] == controller._execution_digest(legacy=True)
-    assert (
-        final["independent_review_selection"]["execution_sha256"] != controller._execution_digest()
+    assert final["independent_review_selection"]["execution_sha256"] == _execution_digest(
+        legacy=True
     )
+    assert final["independent_review_selection"]["execution_sha256"] != _execution_digest()
     assert all(path.read_bytes() == data for path, data in preserved.items())
     assert body == original
     assert controller.validate_sections(body, tmp_path) == result
@@ -80,7 +84,7 @@ def test_historical_request_body_cannot_be_rebound(tmp_path):
     client = fixtures.Client()
     with pytest.raises(ValueError, match="stale section review request"):
         controller.validate_sections(body, tmp_path, client)
-    assert client.calls == []
+    assert not client.calls
 
 
 def test_changed_historical_selection_guard_is_rejected(tmp_path):
@@ -105,7 +109,7 @@ def test_other_execution_files_cannot_be_selected_under_a_legacy_digest(tmp_path
 
 def test_final_capacity_is_preflighted_before_any_section_inference(tmp_path, monkeypatch):
     _, body = fixtures.inputs()
-    measure = controller._request_characters
+    measure = _request_characters
     measurements = []
 
     def full_final_only(request):
@@ -119,7 +123,7 @@ def test_final_capacity_is_preflighted_before_any_section_inference(tmp_path, mo
     client = fixtures.Client()
     with pytest.raises(ValueError, match="native input capacity"):
         controller.validate_sections(body, tmp_path, client)
-    assert client.calls == []
+    assert not client.calls
     assert len(measurements) == 1
     assert measurements[0]["preflight_only"]
     assert not list(tmp_path.rglob("section-*.json"))
