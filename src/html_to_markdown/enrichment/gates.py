@@ -33,6 +33,7 @@ def parse_response(
             "source-privacy/2",
             "native-media-observation/1",
             "curation-renewal/1",
+            "curation-section-validation/1",
             "final-privacy-findings/1",
             "final-privacy-findings/2",
             "native-media-observation/2",

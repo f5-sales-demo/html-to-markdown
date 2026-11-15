@@ -10,6 +10,7 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .curation import json_bytes
+from .curation_existing_validation import validate_existing_curation
 from .curation_renewal import Proposal, compile_proposal, proposal_context
 from .curation_renewal_media import candidate_visuals, source_media
 from .curation_renewal_review import (
@@ -18,6 +19,7 @@ from .curation_renewal_review import (
     review_request,
     verify_validation,
 )
+from .curation_section_validation import IncompleteValidation, validate_sections
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
@@ -142,6 +144,15 @@ def replay_renewal(
     state = json.loads((directory / "state.json").read_bytes())
     if state["status"] != "independently_validated":
         raise ValueError("curation renewal has no complete independent validation")
+    if origin := state.get("selected_existing_proposal"):
+        selected = validate_existing_curation(
+            output, origin["original_binding_sha256"], origin["original_attempt"]
+        )
+        if selected["binding_sha256"] != context["binding_sha256"] or (
+            (directory / "validated.json").read_bytes() != json_bytes(selected)
+        ):
+            raise ValueError("selected existing curation replay changed")
+        return selected
     attempt = directory / f"attempt-{state['attempt']:03d}"
     editor_body = review_request(context, visual, feedback=state["feedback"])
     proposal = parse_response(
@@ -159,12 +170,17 @@ def replay_renewal(
     validation_body = review_request(
         context, visual + candidate_visuals(candidate, raw_media), candidate, state["feedback"]
     )
-    validation = parse_response(
-        ResponseEvidence.model_validate_json((attempt / "validator.json").read_bytes()),
-        RenewalValidation,
-        VALIDATOR_MODEL,
-        request_hash(validation_body),
-    )
+    sectioned = None
+    if (attempt / "section-validation").is_dir():
+        sectioned = validate_sections(validation_body, attempt / "section-validation")
+        validation = RenewalValidation.model_validate(sectioned["validation"])
+    else:
+        validation = parse_response(
+            ResponseEvidence.model_validate_json((attempt / "validator.json").read_bytes()),
+            RenewalValidation,
+            VALIDATOR_MODEL,
+            request_hash(validation_body),
+        )
     verify_validation(context, candidate, validation.model_dump())
     result = {
         "identity": context["identity"],
@@ -176,9 +192,23 @@ def replay_renewal(
         "editor_request_sha256": request_hash(editor_body),
         "validator_request_sha256": request_hash(validation_body),
     }
+    if sectioned is not None:
+        result["section_validation"] = sectioned
     if (directory / "validated.json").read_bytes() != json_bytes(result):
         raise ValueError("curation renewal replay result changed")
     return result
+
+
+def _candidate_validation(
+    body: dict[str, Any], attempt: Path, client: RequestExecutor
+) -> tuple[RenewalValidation, dict[str, Any] | None, list[ResponseEvidence]]:
+    payload = json.loads(body["input"][0]["content"][0]["text"])
+    if sum(b["kind"] not in {"section", "heading", "hr"} for b in payload["blocks"]) > 96:
+        sectioned = validate_sections(body, attempt / "section-validation", client)
+        return RenewalValidation.model_validate(sectioned["validation"]), sectioned, []
+    evidence = _execute(attempt / "validator.json", body, client)
+    value = parse_response(evidence, RenewalValidation, VALIDATOR_MODEL, request_hash(body))
+    return value, None, [evidence]
 
 
 # A bounded attempt preserves complete editor and independent validator evidence.
@@ -204,6 +234,7 @@ def run_renewal(
         evidence = []
         proposal = None
         validation = None
+        sectioned = None
         try:
             editor_body = review_request(context, visual, feedback=state["feedback"])
             editor = _execute(attempt / "editor.json", editor_body, client)
@@ -224,12 +255,14 @@ def run_renewal(
                 candidate,
                 state["feedback"],
             )
-            validator = _execute(attempt / "validator.json", validator_body, client)
-            evidence.append(validator)
-            validation = parse_response(
-                validator, RenewalValidation, VALIDATOR_MODEL, request_hash(validator_body)
-            )
+            validation, sectioned, checked = _candidate_validation(validator_body, attempt, client)
+            evidence.extend(checked)
             verify_validation(context, candidate, validation.model_dump())
+        except IncompleteValidation as failure:
+            _save(attempt / "failure.json", {"error": str(failure)})
+            state.update(status="queued", retryable=True)
+            _save(state_path, state)
+            raise
         except ReviewCapacityRequired as failure:
             _save(attempt / "failure.json", {"error": str(failure)})
             state.update(status="queued", retryable=False)
@@ -262,6 +295,8 @@ def run_renewal(
             "editor_request_sha256": request_hash(editor_body),
             "validator_request_sha256": request_hash(validator_body),
         }
+        if sectioned is not None:
+            result["section_validation"] = sectioned
         _save(directory / "validated.json", result)
         state.update(status="independently_validated", retryable=False)
         _save(state_path, state)
