@@ -15,6 +15,7 @@ from .adapters.community import validate_community_publication
 from .combined_sources import combine_sources
 from .content_inventory import collect_content, repair_captured_extraction
 from .content_policy import load_content_policy, migrate_content
+from .curation_existing_validation import validate_existing_curation
 from .curation_renewal_inputs import prepare_renewals
 from .curation_renewal_jobs import review_batch
 from .curation_renewal_publication import stage_policy, validate_planner
@@ -387,6 +388,34 @@ def review_curation(
         typer.echo(
             json.dumps({"post_planner_validated": True, "policy_sha256": evidence["policy_sha256"]})
         )
+
+
+@app.command("validate-existing-curation")
+def validate_existing_curation_command(
+    output: Output,
+    original_binding: Annotated[str, typer.Option()],
+    attempt: Annotated[int, typer.Option(min=0)],
+    replay: Annotated[bool, typer.Option()] = False,
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
+) -> None:
+    """Independently validate a completed proposal without another editor correction."""
+    client = None if replay else CodexClient(journal, concurrency=4)
+    try:
+        result = validate_existing_curation(output, original_binding, attempt, client)
+    finally:
+        if client is not None:
+            client.close()
+    typer.echo(
+        json.dumps(
+            {
+                "binding_sha256": result["binding_sha256"],
+                "facts_checked": len(result["preservation"]["facts"]),
+                "new_editor_proposals": 0,
+                "planner_validation_required": True,
+                "publication_approved": False,
+            }
+        )
+    )
 
 
 @app.command("receive-curation-renewal")
