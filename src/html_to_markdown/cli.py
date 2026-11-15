@@ -15,8 +15,12 @@ from .adapters.community import validate_community_publication
 from .combined_sources import combine_sources
 from .content_inventory import collect_content, repair_captured_extraction
 from .content_policy import load_content_policy, migrate_content
+from .curation_renewal_inputs import prepare_renewals
+from .curation_renewal_jobs import review_batch
+from .curation_renewal_publication import stage_policy, validate_planner
 from .docs_inventory import collect_docs
 from .enrichment.analysis import write_analysis
+from .enrichment.codex_client import CodexClient
 from .enrichment.engine import prepare, replay, verify_enrichment
 from .enrichment.evaluation import evaluate
 from .enrichment.generate import generate
@@ -329,6 +333,76 @@ def inventory_content(
 def repair_captured_extraction_command(output: Output) -> None:
     """Apply corrected extraction to preserved captures without repeating collection."""
     typer.echo(json.dumps(repair_captured_extraction(output), sort_keys=True))
+
+
+@app.command("review-curation")
+# The CLI exposes separate paths for preserved inputs and public staging.
+# pylint: disable-next=too-many-arguments
+def review_curation(
+    capture: Annotated[Path, typer.Option(file_okay=False)],
+    source_review: Annotated[Path, typer.Option(file_okay=False)],
+    output: Output = Path("curation-review"),
+    phase: Annotated[str, typer.Option(help="prepare, all, replay, qualify or stage")] = "prepare",
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
+    baseline: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+    publication_sha256: Annotated[str | None, typer.Option()] = None,
+    staging_dir: Annotated[Path | None, typer.Option(file_okay=False)] = None,
+) -> None:
+    """Prepare private catalog proposals; source admission remains mandatory."""
+    if phase not in {"prepare", "all", "replay", "qualify", "stage"}:
+        raise typer.BadParameter("phase must be prepare, all, replay, qualify or stage")
+    if phase in {"qualify", "stage"} and (baseline is None or publication_sha256 is None):
+        raise typer.BadParameter("planner phases require the verified baseline and receipt digest")
+    if phase == "stage" and staging_dir is None:
+        raise typer.BadParameter("stage requires --staging-dir")
+    inventory = prepare_renewals(capture, source_review, output)
+    if phase == "prepare":
+        typer.echo(json.dumps({"documents": len(inventory["documents"]), "phase": phase}))
+        return
+    result = review_batch(
+        output, inventory, phase if phase in {"all", "replay"} else "replay", journal
+    )
+    typer.echo(json.dumps({key: value for key, value in result.items() if key != "documents"}))
+    if result["exceptions"]:
+        raise typer.Exit(1)
+    if phase in {"qualify", "stage"}:
+        contexts = [
+            json.loads((output / item["context_path"]).read_bytes())
+            for item in inventory["documents"]
+        ]
+        if baseline is None or publication_sha256 is None:
+            raise typer.BadParameter(
+                "planner phases require the verified baseline and receipt digest"
+            )
+        if phase == "stage":
+            if staging_dir is None:
+                raise typer.BadParameter("stage requires --staging-dir")
+            evidence = stage_policy(output, contexts, baseline, publication_sha256, staging_dir)
+        else:
+            client = CodexClient(journal, concurrency=4)
+            try:
+                evidence = validate_planner(output, contexts, baseline, publication_sha256, client)
+            finally:
+                client.close()
+        typer.echo(
+            json.dumps({"post_planner_validated": True, "policy_sha256": evidence["policy_sha256"]})
+        )
+
+
+@app.command("receive-curation-renewal")
+def receive_curation_renewal(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    package_sha256: Annotated[str, typer.Option()],
+    repository: Annotated[Path, typer.Option(file_okay=False)] = Path(
+        "/data/robin-GIT/html-to-markdown"
+    ),
+) -> None:
+    """Replay private Mac evidence and prepare a governed catalog PR on Ubuntu."""
+    from .curation_renewal_worker import receive_renewals  # pylint: disable=import-outside-toplevel
+
+    typer.echo(
+        json.dumps(receive_renewals(queue_root, package_sha256, sys.stdin.buffer, repository))
+    )
 
 
 @app.command("review-content")
@@ -732,6 +806,56 @@ def evaluate_enrichment_command(
     """Compare corpus retrieval correctness, evidence, relevance and context size."""
     result = evaluate(baseline, output, questions, journal, report)
     typer.echo(json.dumps({"passed": result["passed"], "failures": result["failures"]}))
+
+
+@app.command("export-policy-runtime")
+def export_policy_runtime(
+    repository: Annotated[Path, typer.Option(file_okay=False)],
+    state_root: Annotated[Path, typer.Option(file_okay=False)],
+) -> None:
+    """Export only current protected-main qualified public policy inputs on Ubuntu."""
+    from .policy_transport import export_policy  # pylint: disable=import-outside-toplevel
+
+    typer.echo(json.dumps(export_policy(repository, state_root)))
+
+
+@app.command("activate-policy-runtime")
+def activate_policy_runtime(
+    repository: Annotated[Path, typer.Option(file_okay=False)],
+    state_root: Annotated[Path, typer.Option(file_okay=False)],
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+) -> None:
+    """Activate a verified candidate under the existing Ubuntu publication lock."""
+    import fcntl  # pylint: disable=import-outside-toplevel
+
+    from .policy_transport import remote_activate  # pylint: disable=import-outside-toplevel
+
+    candidate = json.load(sys.stdin)
+    directory = queue_root / ".publication"
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / "coordinator.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        result = remote_activate(repository, state_root, candidate)
+    typer.echo(json.dumps(result))
+
+
+@app.command("confirm-policy-runtime")
+def confirm_policy_runtime(
+    repository: Annotated[Path, typer.Option(file_okay=False)],
+    state_root: Annotated[Path, typer.Option(file_okay=False)],
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+) -> None:
+    """Confirm matching active policy pins before Ubuntu can publish again."""
+    import fcntl  # pylint: disable=import-outside-toplevel
+
+    from .policy_transport import remote_confirm  # pylint: disable=import-outside-toplevel
+
+    directory = queue_root / ".publication"
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / "coordinator.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        result = remote_confirm(repository, state_root, json.load(sys.stdin))
+    typer.echo(json.dumps(result))
 
 
 if __name__ == "__main__":

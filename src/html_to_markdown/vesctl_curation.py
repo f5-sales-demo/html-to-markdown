@@ -136,7 +136,11 @@ class VesctlFilter:
         key = self.canonical(url)
         decision = self.decisions.get(self.aliases.get(key, key))
         current = hashlib.sha256(body.encode()).hexdigest()
-        if decision and current == decision["output_sha256"] and not dependent:
+        if (
+            decision
+            and current in decision.get("accepted_output_sha256", [decision["output_sha256"]])
+            and not dependent
+        ):
             return VesctlResult(body, [{"reason": "reviewed_current_output"}])
         if decision and current == decision["input_sha256"]:
             if decision.get("source_sha256") and (

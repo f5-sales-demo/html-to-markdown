@@ -27,3 +27,11 @@ class ValidationError(ScrapeError):
 
 class PublicationBlockedError(ScrapeError):
     """A release snapshot failed its publication gates."""
+
+
+class InvalidMediaTransformError(PublicationBlockedError, ValueError):
+    """An invalid proposed edit stays blocked and can receive bounded correction."""
+
+
+class TransportFailure(ValueError):
+    """Failed transports remain resumable without spending semantic corrections."""
