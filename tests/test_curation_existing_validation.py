@@ -3,9 +3,9 @@
 import json
 
 import pytest
-from typer.testing import CliRunner
 import test_curation_renewal as fixtures
 from test_curation_section_validation import Client
+from typer.testing import CliRunner
 
 from html_to_markdown.cli import app
 from html_to_markdown.curation import json_bytes, load_curation_policy
