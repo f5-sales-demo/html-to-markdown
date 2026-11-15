@@ -8,6 +8,19 @@ The controller checks exact complete coverage and source/candidate digest witnes
 accepting the combined result. Section approval cannot bypass the final review or upstream
 source admission and downstream actual-planner/publication gates.
 
+The controller preflights the complete final request before starting section inference. Its final
+ledger references exact source and candidate block indices, and reconstructs the entire ordered
+fact ledger against its original digest. Complete article text, candidate stages and media remain
+in the request; indexing removes repeated addresses and digests without changing decisions.
+Unknown representations, malformed indices, duplicate witnesses and changed digests fail closed.
+The native input limit remains 1 MiB.
+
+Completed version-1 section requests can be reused only under the exact immutable section
+controller profile with every other execution file, source request, candidate and assignment
+unchanged. Every captured section body must still match its reconstructed request. The separately
+required final request pins the current validation and ledger controllers; historical sections alone
+cannot approve a document.
+
 Incomplete independent validation preserves the completed editor proposal and its correction
 ledger. Interrupted transport resumes completed sections. Every failed response remains private;
 rejected cache entries cannot confer approval. Both ordinary single-request and sectioned results

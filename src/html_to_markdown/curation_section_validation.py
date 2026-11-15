@@ -9,6 +9,7 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .curation import json_bytes
+from .curation_fact_ledger import index_ledger, sizing_ledger
 from .curation_renewal_evidence import restore_candidate_stages
 from .curation_renewal_review import (
     RenewalValidation,
@@ -23,6 +24,8 @@ from .errors import TransportFailure
 
 VERSION = "curation-section-validation/1"
 FACT_LIMIT = 48
+# Immutable deployed section protocol; only its final ledger representation changes.
+LEGACY_SECTION_SHA256 = "b5cdd24b02e6feff6df7630a7c7d96fcd02e3a9028794b754e76b7251b16506b"
 
 
 class IncompleteValidation(ValueError):
@@ -72,7 +75,7 @@ def _scope_request(
     ]
     payload["independent_review_selection"] = selection
     if ledger is not None:
-        payload["independent_fact_review_ledger"] = ledger
+        index_ledger(payload, ledger)
     shape = body["text"]["format"]["schema"]
     shape["properties"]["facts"].update(minItems=len(addresses), maxItems=len(addresses))
     if addresses:
@@ -97,6 +100,14 @@ def _scope_request(
         "once. Reject any actual missing fact, contradictory section decision, credential or "
         "unreviewed media. Do not infer a current defect solely from historical feedback."
     )
+    if ledger is not None:
+        scope += (
+            " Final ledger representation 1 uses source_block_index into the complete blocks "
+            "array and candidate_block_indices into candidate_blocks, both supplied in this "
+            "same request. Recover exact addresses/digests from those blocks and preserve every "
+            "necessary/preserved/kind decision. The reconstruction digest guards the entire "
+            "original ledger. Indices never establish semantic approval."
+        )
     body["instructions"] += "\n" + scope + "\nPrompt version: " + VERSION
     body["instructions"] = body["instructions"].replace(
         "Supply one fact decision for every non-section, non-heading, non-separator source\n"
@@ -194,7 +205,25 @@ def _final_review(
     client: Any,
 ) -> dict[str, Any]:
     context, candidate = _source(original)
-    body = _scope_request(original, [], {**selection, "final_document_review": True}, facts)
+    body = _scope_request(
+        original,
+        [],
+        {
+            **selection,
+            "final_document_review": True,
+            "final_controller_sha256": sha(
+                json_bytes(
+                    {
+                        "validation": sha(Path(__file__).read_bytes()),
+                        "ledger": sha(
+                            Path(__file__).with_name("curation_fact_ledger.py").read_bytes()
+                        ),
+                    }
+                )
+            ),
+        },
+        facts,
+    )
     checked, final = _verify(
         directory / "final.json", body, {**context, "blocks": []}, candidate, client
     )
@@ -216,6 +245,41 @@ def _final_review(
     return receipt
 
 
+def _execution_digest(*, legacy: bool = False) -> str:
+    root = Path(__file__).parent
+    return sha(
+        json_bytes(
+            {
+                name: LEGACY_SECTION_SHA256
+                if legacy and name == "curation_section_validation.py"
+                else sha((root / name).read_bytes())
+                for name in (
+                    "curation_section_validation.py",
+                    "curation_renewal_review.py",
+                    "curation_renewal.py",
+                    "curation_renewal_evidence.py",
+                    "enrichment/gates.py",
+                    "enrichment/model_policy.py",
+                    "enrichment/contracts.py",
+                    "content_policy.json",
+                    "curation_policy.json",
+                )
+            }
+        )
+    )
+
+
+def _compatible_selection(selection: dict[str, Any], directory: Path) -> dict[str, Any]:
+    legacy_selection = {**selection, "execution_sha256": _execution_digest(legacy=True)}
+    legacy_directory = directory / sha(json_bytes(legacy_selection))
+    legacy_guard = legacy_directory / "selection.json"
+    if legacy_guard.is_file() and not legacy_guard.is_symlink():
+        if legacy_guard.read_bytes() != json_bytes(legacy_selection):
+            raise ValueError("changed historical section selection")
+        selection = legacy_selection
+    return selection
+
+
 def validate_sections(
     original: dict[str, Any], directory: Path, client: Any = None
 ) -> dict[str, Any]:
@@ -227,33 +291,38 @@ def validate_sections(
     selection = {
         "version": VERSION,
         "original_request_sha256": request_hash(original),
-        "execution_sha256": sha(
-            json_bytes(
-                {
-                    name: sha((Path(__file__).parent / name).read_bytes())
-                    for name in (
-                        "curation_section_validation.py",
-                        "curation_renewal_review.py",
-                        "curation_renewal.py",
-                        "curation_renewal_evidence.py",
-                        "enrichment/gates.py",
-                        "enrichment/model_policy.py",
-                        "enrichment/contracts.py",
-                        "content_policy.json",
-                        "curation_policy.json",
-                    )
-                }
-            )
-        ),
+        "execution_sha256": _execution_digest(),
         "candidate_sha256": candidate["output_sha256"],
         "assignments_sha256": sha(json_bytes(ordered)),
         "new_editor_proposals": 0,
     }
+    selection = _compatible_selection(selection, directory)
     directory = directory / sha(json_bytes(selection))
     guard = directory / "selection.json"
     if guard.exists() and guard.read_bytes() != json_bytes(selection):
         raise ValueError("changed section review selection")
     atomic_private(guard, json_bytes(selection))
+    # Conservative schema-valid sizing only; never an inferred judgment or response.
+    _scope_request(
+        original,
+        [],
+        {
+            **selection,
+            "final_document_review": True,
+            "preflight_only": True,
+            "final_controller_sha256": sha(
+                json_bytes(
+                    {
+                        "validation": sha(Path(__file__).read_bytes()),
+                        "ledger": sha(
+                            Path(__file__).with_name("curation_fact_ledger.py").read_bytes()
+                        ),
+                    }
+                )
+            ),
+        },
+        sizing_ledger(context, candidate),
+    )
     lookup = {block["address"]: block for block in fact_blocks(context["blocks"])}
     facts: list[dict[str, Any]] = []
     custody = []
