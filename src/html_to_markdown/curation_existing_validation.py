@@ -14,6 +14,7 @@ from .curation_renewal import Proposal, compile_proposal, proposal_context
 from .curation_renewal_media import candidate_visuals, source_media
 from .curation_renewal_review import review_request
 from .curation_section_validation import validate_sections
+from .curation_source_proof import current_source_evidence
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
@@ -99,7 +100,7 @@ def validate_existing_curation(
         context["media"],
         context["source_files_sha256"],
         context["policy_sha256"],
-        {**context["evidence"], "selected_existing_proposal": origin},
+        {**current_source_evidence(output, context), "selected_existing_proposal": origin},
     )
     directory = output / current["binding_sha256"]
     _write_once(directory / "context.json", json_bytes(current))
