@@ -16,6 +16,8 @@ from .baseline_late_validation import (
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy, media_inventory
+from .curation_model_evidence import execute as _execute
+from .curation_model_evidence import save as _save
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
@@ -245,7 +247,6 @@ def baseline_context(
 # pylint: disable-next=too-many-locals,too-many-statements
 def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> dict[str, Any]:
     """Bound corrections and exact replay precede any retirement proposal."""
-    from .curation_renewal_jobs import _execute, _save  # pylint: disable=import-outside-toplevel
     from .source_review_jobs import _compile_admission  # pylint: disable=import-outside-toplevel
 
     saved: dict[str, Any] = json.loads(record.read_bytes())

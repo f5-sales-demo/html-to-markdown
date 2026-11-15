@@ -11,6 +11,8 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_existing_validation import validate_existing_curation
+from .curation_model_evidence import execute as _execute
+from .curation_model_evidence import save as _save
 from .curation_renewal import Proposal, compile_proposal, proposal_context
 from .curation_renewal_media import candidate_visuals, source_media
 from .curation_renewal_review import (
@@ -20,14 +22,13 @@ from .curation_renewal_review import (
     verify_validation,
 )
 from .curation_section_validation import IncompleteValidation, validate_sections
-from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
 from .errors import TransportFailure
 from .media_observation_jobs import RequestExecutor
 
-__all__ = ["TransportFailure", "review_batch", "run_renewal", "replay_renewal"]
+__all__ = ["TransportFailure", "review_batch", "run_renewal", "replay_renewal", "_execute", "_save"]
 
 
 def review_batch(
@@ -89,26 +90,6 @@ def review_batch(
     }
     atomic_private(output / "renewal-report.json", json_bytes(result))
     return result
-
-
-def _save(path: Path, value: dict[str, Any]) -> None:
-    data = json_bytes(value)
-    if path.exists() and path.read_bytes() != data:
-        previous = path.read_bytes()
-        atomic_private(path.parent / "history" / (sha(previous) + ".json"), previous)
-    atomic_private(path, data)
-
-
-def _execute(path: Path, body: dict[str, Any], client: RequestExecutor) -> ResponseEvidence:
-    if path.exists():
-        saved = ResponseEvidence.model_validate_json(path.read_bytes())
-        if not saved.error and saved.request_sha256 == request_hash(body):
-            return saved
-    evidence = client.execute(body)
-    _save(path, evidence.model_dump())
-    if evidence.error:
-        raise TransportFailure("curation renewal transport failed; private evidence preserved")
-    return evidence
 
 
 def _directory(context: dict[str, Any], output: Path, *, create: bool = True) -> Path:

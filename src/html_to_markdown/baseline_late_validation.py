@@ -9,7 +9,7 @@ from typing import Any
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy
-from .curation_renewal_jobs import _execute
+from .curation_model_evidence import execute as _execute
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
@@ -36,6 +36,9 @@ def _execution_digest() -> str:
             {
                 "module": sha(Path(__file__).read_bytes()),
                 "baseline": sha(Path(__file__).with_name("baseline_source_review.py").read_bytes()),
+                "model_evidence": sha(
+                    Path(__file__).with_name("curation_model_evidence.py").read_bytes()
+                ),
                 "privacy": review_context_digest(),
                 "validation_request": sha(
                     Path(__file__).with_name("baseline_validation_requests.py").read_bytes()
