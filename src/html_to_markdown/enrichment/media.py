@@ -13,6 +13,7 @@ from typing import Any
 from defusedxml import ElementTree
 from PIL import Image
 
+from ..media_encoding import png_bytes
 from .analysis import sha
 
 
@@ -66,14 +67,13 @@ def image_input(path: Path, *, perform_ocr: bool = True) -> tuple[str, dict[str,
     with Image.open(io.BytesIO(visual)) as original:
         image = original.convert("RGBA").convert("RGB")
         image.thumbnail((2048, 2048))
-        buffer = io.BytesIO()
-        image.save(buffer, format="PNG")
+        encoded = png_bytes(image)
     executable = shutil.which("tesseract")
     if executable and perform_ocr:
         try:
             result = subprocess.run(  # nosec B603
                 [executable, "stdin", "stdout"],
-                input=buffer.getvalue(),
+                input=encoded,
                 capture_output=True,
                 timeout=90,
                 check=False,
@@ -85,8 +85,8 @@ def image_input(path: Path, *, perform_ocr: bool = True) -> tuple[str, dict[str,
             )
         except subprocess.TimeoutExpired:
             ocr["error"] = "ocr_timeout"
-    ocr["visual_input_sha256"] = sha(buffer.getvalue())
-    return "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode(), ocr
+    ocr["visual_input_sha256"] = sha(encoded)
+    return "data:image/png;base64," + base64.b64encode(encoded).decode(), ocr
 
 
 def all_frame_inputs(path: Path, *, perform_ocr: bool = True) -> list[tuple[str, dict[str, Any]]]:
@@ -112,9 +112,7 @@ def all_frame_inputs(path: Path, *, perform_ocr: bool = True) -> list[tuple[str,
             image = source.convert("RGBA").convert("RGB")
             # OCR sees the complete native-resolution frame. The model receives
             # the same full frame rather than a lossy thumbnail.
-            stream = io.BytesIO()
-            image.save(stream, format="PNG", optimize=False)
-            visual = stream.getvalue()
+            visual = png_bytes(image)
             ocr: dict[str, Any] = {
                 "sha256": sha(raw),
                 "frame": index,
