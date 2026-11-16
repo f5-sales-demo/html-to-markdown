@@ -6,6 +6,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from test_codex_worker import body, client
+from test_native_pixel_views import equivalent_pair
 from test_native_visuals import image
 
 from html_to_markdown.curation import json_bytes
@@ -73,3 +74,40 @@ def test_normal_media_retains_previous_prompt_arguments_and_response_format(tmp_
     monkeypatch.setattr("html_to_markdown.enrichment.codex_client.subprocess.run", run)
     evidence = client(tmp_path).execute(request)
     assert not evidence.error and "native_visual_manifest" not in evidence.response
+
+
+def test_encoding_equivalent_native_transport_preserves_failed_attempts_and_validates_cache(
+    tmp_path, monkeypatch
+):
+    request = body()
+    request["input"][0]["content"] += list(equivalent_pair())
+    before = deepcopy(request)
+    calls = []
+    monkeypatch.setattr("html_to_markdown.enrichment.native_visuals.MAX_DECODED_BYTES", 64)
+
+    def run(args, **kwargs):
+        calls.append(args)
+        assert args.count("--image") == 1
+        assert "COMPLETE decoded pixels" in kwargs["input"]
+        assert "Review EACH source" in kwargs["input"]
+        Path(args[args.index("--output-last-message") + 1]).write_text('{"ok":true}')
+        return SimpleNamespace(returncode=0, stdout='{"type":"turn.completed"}\n', stderr="")
+
+    monkeypatch.setattr("html_to_markdown.enrichment.codex_client.subprocess.run", run)
+    worker = client(tmp_path)
+    evidence = worker.execute(request)
+    assert not evidence.error and evidence.request == request == before
+    manifest = evidence.response["native_visual_manifest"]
+    assert manifest["schema_version"] == 2 and len(validate_visual_manifest(request, manifest)) == 2
+    assert worker.execute(request) == evidence and len(calls) == 1
+    tampered = evidence.model_copy(deep=True)
+    tampered.response["native_visual_manifest"]["references"][1]["image_bytes_sha256"] = "0" * 64
+    tampered.response_sha256 = sha(
+        json.dumps(tampered.response, sort_keys=True, separators=(",", ":"))
+    )
+    (tmp_path / (request_hash(request) + ".codex.json")).write_bytes(
+        json_bytes(tampered.model_dump())
+    )
+    assert not worker.execute(request).error and len(calls) == 2
+    rejected = next(tmp_path.glob("*.rejected-*.json"))
+    assert json.loads(rejected.read_bytes())["response"] == tampered.response

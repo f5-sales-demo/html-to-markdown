@@ -35,3 +35,20 @@ replay also reconstructs the source repair and both reviews before the governed
 planner can use the result. The original attempt count and feedback remain
 unchanged. Raw captures, OCR, responses and transformation evidence stay private;
 CLI summaries report only digests, counts and pending publication status.
+
+## Complete native image inputs
+
+Source and candidate screenshots can have identical complete pixels with different
+PNG encodings. Requests that fit native capacity retain their original attachment
+order. Larger requests first share identical encoded images using manifest version
+1. Only if those attachments still exceed capacity does version 2 share images
+whose complete RGBA pixels, original-mode pixel bytes, dimensions, mode, palette
+and all metadata match exactly. Neither the image count nor decoded capacity limit
+changes. Distinct oversized inputs still require complete image-boundary review.
+
+Version 2 binds every original encoded-image digest and logical placement to its
+native attachment. Replay reconstructs and verifies this mapping from the unchanged
+logical request; each placement still needs contextual source, privacy and curation
+review. Changed pixels, alpha, palettes or metadata cannot share an attachment.
+Animations require separate complete frames. Both manifest versions remain valid
+for their original inputs; failed attempts and stale cache evidence remain private.
