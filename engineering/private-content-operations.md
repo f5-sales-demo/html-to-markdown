@@ -85,6 +85,19 @@ html-to-markdown review-worker --install --host VERIFIED_SSH_ROUTE \
   --source-commit QUALIFIED_PROTECTED_MAIN_COMMIT
 ```
 
+When resuming a previously disabled review agent, inspect its launchd state and
+enable the exact content-review service before running the installer:
+
+```sh
+launchctl print-disabled "gui/$(id -u)"
+launchctl enable "gui/$(id -u)/com.f5-sales-demo.content-review"
+```
+
+An already loaded service can also make bootstrap return exit 5. Inspect
+`launchctl print "gui/$(id -u)/com.f5-sales-demo.content-review"` to distinguish
+that state. Preserve an active worker and its inference jobs; reload its
+definition after the current jobs finish. The private journals remain resumable.
+
 Each sweep reviews at most eight articles per source, prioritizing previously published articles, and at most eight
 enrichment documents per prepared job. Partial admission returns preserve the complete queue and independently verified
 passing articles. A new batch does not alter earlier sealed inputs. Interrupted transfers resume before the return
