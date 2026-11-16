@@ -2,6 +2,8 @@
 
 import io
 import json
+import subprocess
+import sys
 
 import pytest
 from PIL import Image
@@ -283,6 +285,24 @@ def test_source_repair_cannot_read_traversal_or_symlink(tmp_path):
     for name in ["../target", "alias", str(target)]:
         with pytest.raises(ValueError, match="unsafe"):
             safe_file(tmp_path, name)
+
+
+@pytest.mark.parametrize(
+    "module",
+    [
+        "html_to_markdown.cli",
+        "html_to_markdown.curation_renewal_jobs",
+        "html_to_markdown.reference_repair_review",
+    ],
+)
+def test_reference_repair_cold_imports_have_no_cycle(module):
+    result = subprocess.run(
+        [sys.executable, "-c", "import importlib; importlib.import_module(" + repr(module) + ")"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
 
 
 @pytest.mark.parametrize("field", ["source_html_path", "article_path", "media"])

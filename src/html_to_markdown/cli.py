@@ -38,6 +38,8 @@ from .package import (
 )
 from .pipeline import Pipeline, run_pipeline
 from .quality import write_quality_reports
+from .reference_repair_inputs import prepare_reference_repair
+from .reference_repair_review import validate_reference_repair
 from .refresh import combine_docs, verify_refresh
 from .render import split_document
 from .safe_reports import sanitize_inventory
@@ -427,10 +429,6 @@ def prepare_reference_repair_command(
     source_record: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
 ) -> None:
     """Prepare an exact source repair; no source or curation approval is implied."""
-    from .reference_repair_inputs import (
-        prepare_reference_repair,  # pylint: disable=import-outside-toplevel
-    )
-
     result = prepare_reference_repair(output, original_binding, attempt, capture, source_record)
     typer.echo(
         json.dumps(
@@ -452,10 +450,6 @@ def review_reference_repair_command(
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
 ) -> None:
     """Independently validate source and curation without resetting editorial corrections."""
-    from .reference_repair_review import (
-        validate_reference_repair,  # pylint: disable=import-outside-toplevel
-    )
-
     client = None if replay else CodexClient(journal, concurrency=4)
     try:
         result = validate_reference_repair(output, repair_binding, client)
