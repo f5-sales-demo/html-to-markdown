@@ -15,6 +15,7 @@ import httpx
 
 from .content_inventory import atomic_private, collect_content
 from .curation import json_bytes
+from .known_candidates import snapshot_known_candidates
 from .models import utc_now
 from .refresh import _verified_baseline
 from .urls import SOURCE_ROOTS
@@ -75,8 +76,14 @@ async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[s
             except BlockingIOError:
                 reports[name] = {"state": "deferred_active_collector"}
                 return
+            known = run / (name + "-known-candidates.json")
+            atomic_private(known, json_bytes(snapshot_known_candidates(root, name)))
             reports[name] = await collect_content(
-                run / name, source=name, previous_manifest=previous, full=full
+                run / name,
+                source=name,
+                previous_manifest=previous,
+                known_candidates=known,
+                full=full,
             )
 
     await asyncio.gather(*(collect(name) for name in selected))

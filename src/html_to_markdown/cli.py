@@ -304,18 +304,22 @@ def inventory_content(
     source: Source = "all",
     output: Output = Path("content-inventory"),
     previous_manifest: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    known_candidates: Annotated[
+        Path | None, typer.Option(dir_okay=False, help="Pinned prior discovery inventory")
+    ] = None,
     resume: Annotated[bool, typer.Option(help="Continue the exact interrupted capture")] = False,
     full: Annotated[bool, typer.Option(help="Record a full reconciliation pass")] = False,
     concurrency: Annotated[int, typer.Option(min=1, max=20)] = 4,
     retries: Annotated[int, typer.Option(min=1, max=10)] = 3,
     timeout: Annotated[float, typer.Option(min=1)] = 30,
 ) -> None:
-    """Capture all discovered and published candidates into a private review queue."""
+    """Capture current, historical and published candidates into a private review queue."""
     report = asyncio.run(
         collect_content(
             output,
             source=_check_source(source),
             previous_manifest=previous_manifest,
+            known_candidates=known_candidates,
             resume=resume,
             full=full,
             concurrency=concurrency,

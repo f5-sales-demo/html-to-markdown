@@ -13,6 +13,7 @@ from typing import Any, BinaryIO
 from .content_inventory import verify_capture
 from .curation import json_bytes
 from .enrichment.analysis import sha
+from .known_candidates import preserved_known_candidates
 from .urls import SOURCE_ROOTS
 
 
@@ -40,27 +41,28 @@ def list_queues(root: Path) -> list[dict[str, Any]]:
         finally:
             connection.close()
         captured = [item for item in items if item.get("capture_complete")]
-        fingerprint = sha(
-            json_bytes(
+        fingerprint_inputs = {
+            "phases": phases,
+            "documents": [
                 {
-                    "phases": phases,
-                    "documents": [
-                        {
-                            key: item.get(key)
-                            for key in (
-                                "identity",
-                                "article_sha256",
-                                "source_html_sha256",
-                                "media",
-                                "disposition",
-                                "capture_complete",
-                            )
-                        }
-                        for item in items
-                    ],
+                    key: item.get(key)
+                    for key in (
+                        "identity",
+                        "article_sha256",
+                        "source_html_sha256",
+                        "media",
+                        "disposition",
+                        "capture_complete",
+                    )
                 }
-            )
-        )
+                for item in items
+            ],
+        }
+        known_pin = json.loads(binding.read_bytes())["request"].get("known_candidates_sha256")
+        if known_pin:
+            preserved_known_candidates(directory, directory.name, known_pin)
+            fingerprint_inputs["known_candidates_sha256"] = known_pin
+        fingerprint = sha(json_bytes(fingerprint_inputs))
         records.append(
             {
                 "queue": directory.relative_to(root).as_posix(),
@@ -173,6 +175,10 @@ def export_queue(root: Path, relative: str, stream: BinaryIO) -> None:
         "inventory.json": json_bytes(inventory),
         "capture-binding.json": (directory / "capture-binding.json").read_bytes(),
     }
+    known_pin = binding["request"].get("known_candidates_sha256")
+    if known_pin:
+        raw, _ = preserved_known_candidates(directory, binding["request"]["source"], known_pin)
+        files["known-candidates/" + known_pin + ".json"] = raw
     for item in items:
         verify_capture(directory, item)
         for field in ("source_html_path", "article_path"):

@@ -31,6 +31,7 @@ from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .errors import AuthenticationWallError
 from .fetcher import Fetcher
+from .known_candidates import discovery_time, prepare_known_candidates
 from .models import DiscoveredPage, FetchResult, utc_now
 from .private_storage import atomic_write
 from .render import render_html, serialize_document
@@ -371,6 +372,33 @@ def _report(
     return report
 
 
+def _seed_known_candidates(
+    fetcher: InventoryFetcher, source: str, documents: list[dict[str, Any]], pin: str | None
+) -> None:
+    retained = [item for item in documents if item["sourceId"] == source]
+    if not retained:
+        return
+    fetcher.record_discovery(
+        source=source,
+        origin="previous_inventory",
+        urls=[item["url"] for item in retained],
+        complete=True,
+        known_candidates_sha256=pin,
+    )
+    database = fetcher.database
+    for prior in retained:
+        row = database.execute("SELECT data FROM documents WHERE url=?", (prior["url"],)).fetchone()
+        item = json.loads(row[0])
+        discovered = discovery_time(prior["discovered_at"])
+        current = discovery_time(item.get("discovered_at"))
+        if discovered and (current is None or discovered < current):
+            item["discovered_at"] = prior["discovered_at"]
+            with database:
+                database.execute(
+                    "UPDATE documents SET data=? WHERE url=?", (json.dumps(item), prior["url"])
+                )
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-arguments,too-many-locals
 async def collect_content(
@@ -378,6 +406,7 @@ async def collect_content(
     *,
     source: str = "all",
     previous_manifest: Path | None = None,
+    known_candidates: Path | None = None,
     resume: bool = False,
     full: bool = False,
     concurrency: int = 4,
@@ -390,18 +419,29 @@ async def collect_content(
         raise ValueError("concurrency must be between 1 and 20")
     previous_bytes = previous_manifest.read_bytes() if previous_manifest else b"{}"
     previous = json.loads(previous_bytes)
-    binding = {"source": source, "full": full, "previous_manifest_sha256": sha(previous_bytes)}
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
     binding_path = output / "capture-binding.json"
+    saved = None
     if binding_path.exists():
         if not resume:
             raise ValueError("existing capture requires --resume or a fresh output directory")
         saved = json.loads(binding_path.read_bytes())
+    elif resume:
+        raise ValueError("resume requires an existing capture binding")
+    known_pin, known_documents = prepare_known_candidates(
+        output,
+        source,
+        known_candidates,
+        resume=resume,
+        expected=saved["request"].get("known_candidates_sha256") if saved else None,
+    )
+    binding = {"source": source, "full": full, "previous_manifest_sha256": sha(previous_bytes)}
+    if known_pin:
+        binding["known_candidates_sha256"] = known_pin
+    if saved:
         if saved["request"] != binding:
             raise ValueError("resume binding does not match captured source/baseline/full mode")
     else:
-        if resume:
-            raise ValueError("resume requires an existing capture binding")
         atomic_private(binding_path, json_bytes({"request": binding, "started_at": utc_now()}))
     database = sqlite3.connect(output / "inventory.sqlite")
     database.executescript(
@@ -421,6 +461,7 @@ async def collect_content(
                 verify_capture(output, item)
             _reconcile_capture_dispositions(output, database)
             for name in sources:
+                _seed_known_candidates(fetcher, name, known_documents, known_pin)
                 urls = [
                     item["url"]
                     for item in previous.get("documents", [])
