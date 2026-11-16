@@ -178,3 +178,24 @@ The cache lives in `~/.local/share/html-to-markdown/baseline-cache`;
 downloads and imports. Complete cache and job snapshots receive their final names atomically. Failed
 download or copy attempts remain private and cannot be reused as completed cache entries. Invalid
 inputs remain visible failures. Cache files and raw evidence never enter consumer archives or Pages.
+
+## Immutable capture storage
+
+Scheduled Ubuntu collection stores each captured HTML, extraction, raw HTTP/browser body and
+original media payload once under the private queue `.capture-store`. Mac transfers reuse a
+private store under the worker directory. Digest checks and per-object locks precede atomic
+hardlinks; cross-filesystem destinations receive verified atomic copies. Every logical capture
+path, source date and source/media digest remains intact. Mutable inventories, response headers,
+reviews, journals and checkpoints retain independent files. Storage reuse grants no admission
+or privacy approval, and store objects remain outside consumer content and release assets.
+
+Reconcile existing captures with resumable maintenance:
+
+```bash
+html-to-markdown share-capture-storage --queue-root PRIVATE_QUEUE --source all --output PRIVATE_REPORTS
+```
+
+Active source collectors are deferred. A changed file inventory starts a new checkpoint while
+preserving its predecessor; repeated complete maintenance performs no payload rewrite. Unsafe
+paths, mismatched digests and corrupt objects fail visibly. Interrupted checkpoints preserve
+completed work and source records; raw diagnostics and per-source reports stay private.

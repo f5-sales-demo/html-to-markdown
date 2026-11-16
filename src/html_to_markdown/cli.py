@@ -76,6 +76,21 @@ def _check_source(source: str) -> str:
     return source
 
 
+@app.command("share-capture-storage")
+def share_capture_storage_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    output: Output,
+    source: Source = "all",
+) -> None:
+    """Share verified immutable captures privately without changing source records."""
+    from .capture_store_maintenance import (
+        share_capture_storage,  # pylint: disable=import-outside-toplevel
+    )
+
+    result = share_capture_storage(queue_root, output, source=_check_source(source))
+    typer.echo(json.dumps({"sources": result["sources"], "model_inference_run": False}))
+
+
 @app.command("list-review-queues")
 def list_review_queues(queue_root: Annotated[Path, typer.Option(file_okay=False)]) -> None:
     """List private captured queues for the MacBook worker."""

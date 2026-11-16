@@ -296,7 +296,9 @@ def _receive_capture(
                 identity,
             ]
             subprocess.run(args, stdout=stream, stderr=subprocess.PIPE, check=True, timeout=600)  # nosec B603
-        unpack_queue(archive, capture)
+        # Validated queue identities have exactly two parts; captures live under
+        # output/<queue>/<source>/capture, so the store is shared across sweeps.
+        unpack_queue(archive, capture, capture_store=capture.parents[2] / ".capture-store")
 
 
 def _return_enrichment(

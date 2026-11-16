@@ -84,6 +84,7 @@ async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[s
                 previous_manifest=previous,
                 known_candidates=known,
                 full=full,
+                capture_store=root / ".capture-store",
             )
 
     await asyncio.gather(*(collect(name) for name in selected))

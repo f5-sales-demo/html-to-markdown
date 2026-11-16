@@ -10,6 +10,7 @@ import tarfile
 from pathlib import Path
 from typing import Any, BinaryIO
 
+from .capture_store import capture_digest, store_bytes
 from .content_inventory import verify_capture
 from .curation import json_bytes
 from .enrichment.analysis import sha
@@ -193,7 +194,7 @@ def export_queue(root: Path, relative: str, stream: BinaryIO) -> None:
             archive.addfile(entry, io.BytesIO(data))
 
 
-def unpack_queue(archive: Path, destination: Path) -> None:
+def unpack_queue(archive: Path, destination: Path, *, capture_store: Path | None = None) -> None:
     """Validate every member before writing any received private capture bytes."""
     with tarfile.open(archive) as data:
         members = data.getmembers()
@@ -227,7 +228,14 @@ def unpack_queue(archive: Path, destination: Path) -> None:
             if stream is None:
                 raise ValueError("private queue member data missing")
             with stream:
-                atomic_private(destination / path, stream.read())
+                payload = stream.read()
+                expected = capture_digest(path) if capture_store is not None else None
+                if expected is not None and capture_store is not None:
+                    if sha(payload) != expected:
+                        raise ValueError("captured transfer digest mismatch")
+                    store_bytes(capture_store, destination / path, payload)
+                else:
+                    atomic_private(destination / path, payload)
 
 
 def pack_private_tree(directory: Path, stream: BinaryIO) -> None:
