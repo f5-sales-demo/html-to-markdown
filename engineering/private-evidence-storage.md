@@ -38,3 +38,8 @@ bytes with unverified durability. A retry verifies the committed checkpoint.
 Source, privacy, retirement, preservation and packaging checks remain separate.
 Raw storage and transformation evidence are private. Snapshot archives and Pages
 contain reviewed content and safe provenance.
+
+Mocked transport tests use deterministic available capacity so unrelated host
+storage changes cannot reject a synthetic request. Dedicated exhaustion tests
+override that fixture and continue to exercise the real refusal path. Actual
+production qualification uses the real filesystem and complete preserved bytes.
