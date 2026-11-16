@@ -11,7 +11,8 @@ import subprocess  # nosec B404
 import tempfile
 import threading
 import uuid
-from contextlib import suppress
+from collections.abc import Iterator
+from contextlib import contextmanager, suppress
 from pathlib import Path
 from typing import Any
 
@@ -23,7 +24,11 @@ _RESERVED: dict[int, int] = {}
 
 
 class StorageUnavailable(OSError):
-    """Completed evidence remains private and source/editor budgets are unchanged."""
+    """A persistence failure with an explicit atomic-commit status."""
+
+    def __init__(self, message: str, *, committed: bool = False) -> None:
+        super().__init__(message)
+        self.committed = committed
 
 
 class StorageLease:
@@ -49,6 +54,26 @@ class StorageLease:
     def __exit__(self, *_args: Any) -> None:
         with _CAPACITY_LOCK:
             _RESERVED[self.device] -= self.needed
+
+
+@contextmanager
+def private_scratch(path: Path) -> Iterator[Path]:
+    """Keep transport output and native bytes when checkpointing is interrupted."""
+    root = Path(tempfile.mkdtemp(prefix="markdown-codex-", dir=path))
+    try:
+        yield root
+    except BaseException:
+        with suppress(OSError):
+            _event(
+                path,
+                {
+                    "operation": "interrupted_scratch",
+                    "scratch_directory": root.name,
+                    "source_or_review_approval": False,
+                },
+            )
+        raise
+    shutil.rmtree(root)
 
 
 def _digest(path: Path) -> str:
@@ -101,7 +126,8 @@ def _compress(path: Path, expected: str) -> dict[str, Any] | None:
     executable = shutil.which("afsctool")
     if executable is None:
         return None
-    process = subprocess.run([executable, "-c", str(path)], capture_output=True, check=False)  # nosec B603
+    args = [executable, "-c", str(path)]
+    process = subprocess.run(args, capture_output=True, check=False)  # nosec B603
     os.utime(path, ns=(before.st_atime_ns, before.st_mtime_ns))
     after = path.stat()
     metadata = (after.st_size, after.st_mode, after.st_uid, after.st_gid, after.st_mtime_ns)
@@ -124,6 +150,7 @@ def atomic_write(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     expected = hashlib.sha256(data).hexdigest()
     temporary: Path | None = None
+    committed = False
     try:
         with tempfile.NamedTemporaryFile(
             prefix=path.name + ".", dir=path.parent, delete=False
@@ -134,11 +161,15 @@ def atomic_write(path: Path, data: bytes) -> None:
             os.fsync(stream.fileno())
         temporary.chmod(0o600)
         event = _compress(temporary, expected)
+        if event is not None:
+            with temporary.open("rb") as stream:
+                os.fsync(stream.fileno())
         if _digest(temporary) != expected:
             raise StorageUnavailable("private evidence checkpoint bytes changed")
         if event is not None:
             _event(path.parent, event)
         os.replace(temporary, path)
+        committed = True
         _sync_directory(path.parent)
     except (OSError, ValueError) as failure:
         if temporary is not None and temporary.exists():
@@ -169,8 +200,13 @@ def atomic_write(path: Path, data: bytes) -> None:
                     "error_type": type(failure).__name__,
                     "errno": getattr(failure, "errno", None),
                     "source_or_review_approval": False,
+                    "destination_committed": committed,
+                    "directory_sync_verified": False,
                 },
             )
         raise StorageUnavailable(
-            "private evidence storage failed; pending bytes preserved"
+            "private evidence committed; directory durability unverified"
+            if committed
+            else "private evidence storage failed; pending bytes preserved",
+            committed=committed,
         ) from failure

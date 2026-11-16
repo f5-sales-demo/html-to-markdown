@@ -164,3 +164,38 @@ def test_storage_operations_do_not_enter_captured_input_file_inventory(tmp_path,
     assert [
         p.relative_to(path.parent).as_posix() for p in path.parent.rglob("*") if p.is_file()
     ] == ["article.json"]
+
+
+def test_directory_sync_failure_reports_committed_complete_bytes(tmp_path, monkeypatch):
+    path = tmp_path / "evidence.json"
+    path.write_bytes(b"previous verified evidence")
+    # The fault is injected at the directory synchronization boundary.
+    # pylint: disable-next=protected-access
+    original = private_storage._sync_directory
+
+    def sync(directory):
+        if directory == tmp_path:
+            raise OSError(errno.EIO, "directory sync failed after rename")
+        original(directory)
+
+    monkeypatch.setattr(private_storage, "_sync_directory", sync)
+    with pytest.raises(StorageUnavailable, match="committed") as failure:
+        atomic_write(path, b"complete replacement evidence")
+    assert failure.value.committed
+    assert path.read_bytes() == b"complete replacement evidence"
+    assert not list((tmp_path / "storage-events").glob("incomplete-evidence/*"))
+    reports = [json.loads(p.read_bytes()) for p in (tmp_path / "storage-events").glob("*.json")]
+    assert len(reports) == 1
+    assert reports[0]["destination_committed"]
+    assert not reports[0]["directory_sync_verified"]
+
+
+def test_interrupted_native_scratch_remains_private_and_resumable(tmp_path, monkeypatch):
+    seen = []
+    with pytest.raises(KeyboardInterrupt), private_storage.private_scratch(tmp_path) as root:
+        seen.append(root)
+        (root / "output.json").write_bytes(b"complete model output")
+        raise KeyboardInterrupt
+    assert seen[0].stat().st_mode & 0o077 == 0
+    assert (seen[0] / "output.json").read_bytes() == b"complete model output"
+    assert list((tmp_path / "storage-events").glob("*.json"))

@@ -7,7 +7,6 @@ import platform
 import re
 import shutil
 import subprocess  # nosec B404
-import tempfile
 import time
 import tomllib
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -18,7 +17,7 @@ from jsonschema import Draft202012Validator
 from jsonschema import ValidationError as SchemaValidationError
 
 from ..curation import json_bytes
-from ..private_storage import StorageLease, StorageUnavailable, atomic_write
+from ..private_storage import StorageLease, StorageUnavailable, atomic_write, private_scratch
 from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
@@ -158,6 +157,10 @@ class CodexClient:
                 evidence = ResponseEvidence.model_validate_json(cache.read_bytes())
                 if evidence.request_sha256 != digest or request_hash(evidence.request) != digest:
                     raise ValueError("stale cached Codex decision")
+                if (
+                    self.journal / (digest + ".rejected-" + evidence.response_sha256 + ".json")
+                ).exists():
+                    raise ValueError("cached Codex decision was semantically rejected")
                 if evidence.error is None:
                     self._validate_cached(evidence, body)
                     return evidence
@@ -196,8 +199,9 @@ class CodexClient:
                 raise ValueError("private persisted request digest changed")
         else:
             atomic_write(request_path, json_bytes(body))
-        with tempfile.TemporaryDirectory(prefix="markdown-codex-") as directory:
-            root = Path(directory)
+        attempt = self._start_attempt(digest)
+        # Native files use the filesystem covered by the inference lease.
+        with private_scratch(self.journal) as root:
             instructions = root / "instructions.txt"
             instructions.write_text(body["instructions"])
             schema = root / "schema.json"
@@ -376,7 +380,6 @@ class CodexClient:
                 transport="codex_litellm",
                 runtime_version=self.version,
             )
-            attempt = 1 + len(list(self.journal.glob(f"{digest}.attempt-*.json")))
             attempt_path = self.journal / f"{digest}.attempt-{attempt:03d}.json"
             # Commit the complete transport output before duplicating the large
             # original request into attempt and cache files. It can only recover
@@ -397,6 +400,24 @@ class CodexClient:
                 return evidence
             atomic_write(cache, json_bytes(evidence.model_dump()))
             return evidence
+
+    def _start_attempt(self, digest: str) -> int:
+        numbers = [
+            int(match.group(1))
+            for path in self.journal.glob(digest + ".*")
+            if (
+                match := re.fullmatch(
+                    re.escape(digest) + r"\.(?:started|attempt|completed)-(\d+)\.json",
+                    path.name,
+                )
+            )
+        ]
+        number = max(numbers, default=0) + 1
+        atomic_write(
+            self.journal / f"{digest}.started-{number:03d}.json",
+            json_bytes({"request_sha256": digest, "attempt": number, "approval": False}),
+        )
+        return number
 
     def _completed_checkpoint(self, body: dict[str, Any], digest: str) -> ResponseEvidence | None:
         request_path = self.journal / (digest + ".request.json")
@@ -426,11 +447,11 @@ class CodexClient:
                     raise ValueError("completed checkpoint request changed")
                 self._validate_cached(evidence, body)
                 return evidence
-            except (ValueError, KeyError, SchemaValidationError):
+            except (ValueError, KeyError, TypeError, SchemaValidationError):
                 rejected = self.journal / (
                     digest + ".rejected-completion-" + sha(path.read_bytes()) + ".json"
                 )
-                path.rename(rejected)
+                atomic_write(rejected, path.read_bytes())
         return None
 
     @staticmethod
@@ -481,8 +502,20 @@ class CodexClient:
     def invalidate(self, evidence: ResponseEvidence) -> None:
         """Preserve a semantically rejected receipt without reusing it as a cache hit."""
         cache = self.journal / (evidence.request_sha256 + ".codex.json")
+        rejected = self.journal / (
+            evidence.request_sha256 + ".rejected-" + evidence.response_sha256 + ".json"
+        )
         if cache.exists():
-            cache.replace(
-                self.journal
-                / (evidence.request_sha256 + ".rejected-" + evidence.response_sha256 + ".json")
+            cache.replace(rejected)
+        elif not rejected.exists():
+            atomic_write(
+                rejected,
+                json_bytes(
+                    {
+                        "request_sha256": evidence.request_sha256,
+                        "response_sha256": evidence.response_sha256,
+                        "approval": False,
+                        "reason": "semantic_validation_failed",
+                    }
+                ),
             )
