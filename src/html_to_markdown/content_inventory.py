@@ -8,9 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-import os
 import sqlite3
-import tempfile
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -34,24 +32,13 @@ from .enrichment.analysis import sha
 from .errors import AuthenticationWallError
 from .fetcher import Fetcher
 from .models import DiscoveredPage, FetchResult, utc_now
+from .private_storage import atomic_write
 from .render import render_html, serialize_document
 from .urls import stable_path, validate_source_url
 
 
 def atomic_private(path: Path, data: bytes) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-    with tempfile.NamedTemporaryFile(
-        prefix=path.name + ".", dir=path.parent, delete=False
-    ) as stream:
-        temporary = Path(stream.name)
-        try:
-            stream.write(data)
-            stream.flush()
-            os.fsync(stream.fileno())
-            temporary.chmod(0o600)
-            temporary.replace(path)
-        finally:
-            temporary.unlink(missing_ok=True)
+    atomic_write(path, data)
 
 
 class InventoryFetcher(Fetcher):

@@ -57,7 +57,7 @@ def test_oversized_repeated_media_uses_complete_native_view_and_validated_cache(
     (tmp_path / (request_hash(request) + ".codex.json")).write_bytes(
         json_bytes(tampered.model_dump())
     )
-    assert not worker.execute(request).error and len(calls) == 2
+    assert worker.execute(request) == evidence and len(calls) == 1
     assert len(list(tmp_path.glob("*.rejected-*.json"))) == 1
 
 
@@ -108,6 +108,6 @@ def test_encoding_equivalent_native_transport_preserves_failed_attempts_and_vali
     (tmp_path / (request_hash(request) + ".codex.json")).write_bytes(
         json_bytes(tampered.model_dump())
     )
-    assert not worker.execute(request).error and len(calls) == 2
+    assert worker.execute(request) == evidence and len(calls) == 1
     rejected = next(tmp_path.glob("*.rejected-*.json"))
     assert json.loads(rejected.read_bytes())["response"] == tampered.response

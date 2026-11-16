@@ -18,6 +18,7 @@ from jsonschema import Draft202012Validator
 from jsonschema import ValidationError as SchemaValidationError
 
 from ..curation import json_bytes
+from ..private_storage import StorageLease, StorageUnavailable, atomic_write
 from .analysis import sha
 from .contracts import PROMPT_VERSION, REASONING, ResponseEvidence
 from .gates import request_hash
@@ -164,6 +165,37 @@ class CodexClient:
                 pass
             rejected = self.journal / (digest + ".rejected-" + sha(cache.read_bytes()) + ".json")
             cache.rename(rejected)
+        restored = self._completed_checkpoint(body, digest)
+        if restored is not None:
+            atomic_write(cache, json_bytes(restored.model_dump()))
+            return restored
+        try:
+            lease = StorageLease(self.journal, len(json_bytes(body)) * 4)
+        except StorageUnavailable:
+            atomic_write(
+                self.journal / (digest + ".storage-pending.json"),
+                json_bytes(
+                    {
+                        "request_sha256": digest,
+                        "reason": "insufficient_private_storage",
+                        "inference_invoked": False,
+                        "source_or_review_approval": False,
+                    }
+                ),
+            )
+            raise
+        with lease:
+            return self._new_evidence(body, digest, cache)
+
+    # The storage lease is held through transport and both complete checkpoints.
+    # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
+    def _new_evidence(self, body: dict[str, Any], digest: str, cache: Path) -> ResponseEvidence:
+        request_path = self.journal / (digest + ".request.json")
+        if request_path.exists():
+            if request_hash(json.loads(request_path.read_bytes())) != digest:
+                raise ValueError("private persisted request digest changed")
+        else:
+            atomic_write(request_path, json_bytes(body))
         with tempfile.TemporaryDirectory(prefix="markdown-codex-") as directory:
             root = Path(directory)
             instructions = root / "instructions.txt"
@@ -346,15 +378,60 @@ class CodexClient:
             )
             attempt = 1 + len(list(self.journal.glob(f"{digest}.attempt-*.json")))
             attempt_path = self.journal / f"{digest}.attempt-{attempt:03d}.json"
-            attempt_path.write_bytes(json_bytes({"evidence": evidence.model_dump(), "raw": raw}))
-            attempt_path.chmod(0o600)
+            # Commit the complete transport output before duplicating the large
+            # original request into attempt and cache files. It can only recover
+            # with the exact separately persisted original request.
+            completed_path = self.journal / f"{digest}.completed-{attempt:03d}.json"
+            atomic_write(
+                completed_path,
+                json_bytes(
+                    {
+                        "evidence": evidence.model_dump(exclude={"request"}),
+                        "raw": raw,
+                        "request_file_sha256": sha(request_path.read_bytes()),
+                    }
+                ),
+            )
+            atomic_write(attempt_path, json_bytes({"evidence": evidence.model_dump(), "raw": raw}))
             if error is not None:
                 return evidence
-            temporary = cache.with_suffix(".tmp")
-            temporary.write_bytes(json_bytes(evidence.model_dump()))
-            temporary.chmod(0o600)
-            temporary.replace(cache)
+            atomic_write(cache, json_bytes(evidence.model_dump()))
             return evidence
+
+    def _completed_checkpoint(self, body: dict[str, Any], digest: str) -> ResponseEvidence | None:
+        request_path = self.journal / (digest + ".request.json")
+        if not request_path.is_file():
+            return None
+        request_bytes = request_path.read_bytes()
+        original = json.loads(request_bytes)
+        if request_hash(original) != digest or request_hash(body) != digest:
+            raise ValueError("recovery original request digest changed")
+        for path in sorted(self.journal.glob(digest + ".completed-*.json"), reverse=True):
+            try:
+                checkpoint = json.loads(path.read_bytes())
+                if checkpoint["request_file_sha256"] != sha(request_bytes):
+                    raise ValueError("completed checkpoint original bytes changed")
+                evidence = ResponseEvidence.model_validate(
+                    {**checkpoint["evidence"], "request": original}
+                )
+                if evidence.error is not None:
+                    continue
+                if (
+                    self.journal / (digest + ".rejected-" + evidence.response_sha256 + ".json")
+                ).exists():
+                    # A complete transport response can still fail independent
+                    # semantic validation. Recovery never restores that approval.
+                    continue
+                if evidence.request_sha256 != digest:
+                    raise ValueError("completed checkpoint request changed")
+                self._validate_cached(evidence, body)
+                return evidence
+            except (ValueError, KeyError, SchemaValidationError):
+                rejected = self.journal / (
+                    digest + ".rejected-completion-" + sha(path.read_bytes()) + ".json"
+                )
+                path.rename(rejected)
+        return None
 
     @staticmethod
     def _validate_cached(evidence: ResponseEvidence, body: dict[str, Any]) -> None:
