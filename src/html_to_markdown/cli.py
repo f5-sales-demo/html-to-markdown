@@ -418,6 +418,63 @@ def validate_existing_curation_command(
     )
 
 
+@app.command("prepare-reference-repair")
+def prepare_reference_repair_command(
+    output: Output,
+    original_binding: Annotated[str, typer.Option()],
+    attempt: Annotated[int, typer.Option(min=0)],
+    capture: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    source_record: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+) -> None:
+    """Prepare an exact source repair; no source or curation approval is implied."""
+    from .reference_repair_inputs import (
+        prepare_reference_repair,  # pylint: disable=import-outside-toplevel
+    )
+
+    result = prepare_reference_repair(output, original_binding, attempt, capture, source_record)
+    typer.echo(
+        json.dumps(
+            {
+                "binding_sha256": result["binding_sha256"],
+                "reference_repairs": len(result["changes"]),
+                "new_editor_proposals": 0,
+                "publication_approved": False,
+            }
+        )
+    )
+
+
+@app.command("review-reference-repair")
+def review_reference_repair_command(
+    output: Output,
+    repair_binding: Annotated[str, typer.Option()],
+    replay: Annotated[bool, typer.Option()] = False,
+    journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
+) -> None:
+    """Independently validate source and curation without resetting editorial corrections."""
+    from .reference_repair_review import (
+        validate_reference_repair,  # pylint: disable=import-outside-toplevel
+    )
+
+    client = None if replay else CodexClient(journal, concurrency=4)
+    try:
+        result = validate_reference_repair(output, repair_binding, client)
+    finally:
+        if client is not None:
+            client.close()
+    typer.echo(
+        json.dumps(
+            {
+                "binding_sha256": result["binding_sha256"],
+                "facts_checked": len(result["preservation"]["facts"]),
+                "new_editor_proposals": 0,
+                "planner_validation_required": True,
+                "publication_approved": False,
+            }
+        )
+    )
+
+
 @app.command("receive-curation-renewal")
 def receive_curation_renewal(
     queue_root: Annotated[Path, typer.Option(file_okay=False)],
