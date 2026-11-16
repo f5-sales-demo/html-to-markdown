@@ -1,6 +1,7 @@
 """Shared complete-source fixtures for admission and publication tests."""
 
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -52,3 +53,10 @@ def capture(tmp_path: Path) -> Path:
 def isolate_installed_policy_state(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Tests must never inherit an operator's active policy installation."""
     monkeypatch.setenv("HTML_TO_MARKDOWN_POLICY_STATE", str(tmp_path / "installed-policy"))
+
+
+@pytest.fixture(autouse=True)
+def isolate_mock_transport_capacity(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Mock transport tests use deterministic capacity; exhaustion tests override it."""
+    capacity = SimpleNamespace(total=16 * 1024**3, used=0, free=16 * 1024**3)
+    monkeypatch.setattr("html_to_markdown.private_storage.shutil.disk_usage", lambda path: capacity)
