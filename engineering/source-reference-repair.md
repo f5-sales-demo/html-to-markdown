@@ -35,6 +35,10 @@ replay also reconstructs the source repair and both reviews before the governed
 planner can use the result. The original attempt count and feedback remain
 unchanged. Raw captures, OCR, responses and transformation evidence stay private;
 CLI summaries report only digests, counts and pending publication status.
+Captured OCR is part of the source-repair digest. Offline replay preserves that
+evidence and regenerates complete native images from the preserved asset bytes,
+checking every frame, pixel derivative, timing and metadata guard. It does not
+replace reviewed OCR with results from a different host's OCR installation.
 
 ## Complete native image inputs
 

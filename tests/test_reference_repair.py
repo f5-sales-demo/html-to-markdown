@@ -29,7 +29,7 @@ from html_to_markdown.reference_repair_inputs import (
 from html_to_markdown.reference_repair_review import project_range, validate_reference_repair
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_curation import CurationRequired
-from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews
+from html_to_markdown.source_review_jobs import all_frame_inputs, prepare_reviews, run_reviews
 
 
 def evidence(body, value):
@@ -231,6 +231,26 @@ def test_exact_source_repair_preserves_exhausted_ledger_and_replays(capture, tmp
     assert (
         json.loads((output / result["binding_sha256"] / "state.json").read_bytes())["attempt"] == 3
     )
+
+
+def test_complete_repair_replay_uses_bound_ocr_even_when_host_ocr_changes(
+    capture, tmp_path, monkeypatch
+):
+    output, old, _, record = prepared(capture, tmp_path, monkeypatch)
+    repair = prepare_reference_repair(output, old["binding_sha256"], 2, capture, record)
+
+    def replay_native(path, **kwargs):
+        assert kwargs == {"perform_ocr": False}, (
+            "offline source replay must not replace captured OCR"
+        )
+        return all_frame_inputs(path, **kwargs)
+
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.all_frame_inputs", replay_native)
+    result = validate_reference_repair(output, repair["binding_sha256"], RepairClient())
+    current = json.loads((output / result["binding_sha256"] / "context.json").read_bytes())
+    visual = json.loads((output / result["binding_sha256"] / "visual.json").read_bytes())
+    assert replay_renewal(current, visual, output) == result
+    assert len(current["media"]) == 1
 
 
 @pytest.mark.parametrize(

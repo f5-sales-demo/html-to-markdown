@@ -79,6 +79,12 @@ only when independently established by the complete source and current candidate
     shape["identity"]["enum"] = [source["identity"]]
     shape["binding_sha256"]["enum"] = [data["binding_sha256"]]
     shape["output_sha256"]["enum"] = [data["current_candidate"]["output_sha256"]]
+    shape["unresolved"]["description"] = (
+        "Only actual unresolved source, extraction, relevance, privacy or media prerequisites. "
+        "Return [] when those prerequisites are resolved. Required downstream curation, "
+        "actual-planner review and pending publication are workflow stages, not unresolved "
+        "source conditions; they remain mandatory regardless of this field."
+    )
     shape["resolved_original_condition_indices"]["items"]["enum"] = list(
         range(len(proposal.unresolved))
     )

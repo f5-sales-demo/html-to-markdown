@@ -17,6 +17,7 @@ from .curation_renewal_review import review_request
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .reference_repair_media import seed_candidate_media
 from .render import split_document
 from .source_media_references import media_reference_spans
 from .source_review import PrivacyDecision, RelevanceDecision, review_context_digest
@@ -35,6 +36,7 @@ def controller_digest() -> str:
                 for name in (
                     "reference_repair_inputs.py",
                     "reference_repair_review.py",
+                    "reference_repair_media.py",
                     "source_media_references.py",
                     "curation_existing_validation.py",
                     "curation_renewal.py",
@@ -339,6 +341,13 @@ def replay_reference_inputs(
             raise ValueError("source-reference repair capture changed")
     with tempfile.TemporaryDirectory(prefix="reference-repair-replay-") as temporary:
         record = json.loads(record_path.read_bytes())
+        candidate = data["current_candidate"]
+        blobs = {
+            digest: safe_file(directory / "repaired", name)
+            for name, digest in candidate["file_hashes"].items()
+            if digest in candidate["media"]
+        }
+        seed_candidate_media(candidate, blobs, Path(temporary))
         candidate, visual, projected, files, source = compile_source(
             directory / "capture", record, Path(temporary)
         )
