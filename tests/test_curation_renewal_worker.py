@@ -10,12 +10,18 @@ from types import SimpleNamespace
 import pytest
 from test_curation_renewal_publication import prepared
 
+from html_to_markdown.baseline_cache import ASSETS
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.curation_renewal_delivery import submit_policy
 from html_to_markdown.curation_renewal_publication import stage_policy, validate_planner
 from html_to_markdown.curation_renewal_worker import advance_renewals, receive_renewals
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.work_queue import pack_private_tree
+
+
+@pytest.fixture(autouse=True)
+def isolated_baseline_cache(tmp_path, monkeypatch):
+    monkeypatch.setenv("HTML_TO_MARKDOWN_BASELINE_CACHE", str(tmp_path / "baseline-cache"))
 
 
 def test_private_return_replays_actual_planner_before_submission(tmp_path, monkeypatch):
@@ -49,12 +55,18 @@ def test_private_return_replays_actual_planner_before_submission(tmp_path, monke
     assert receive_renewals(*args)["issue"] == 123
     args[2] = io.BytesIO(archive.getvalue())
     assert receive_renewals(*args)["issue"] == 123
-    assert len(calls) == 2
+    other_args = [tmp_path / "ubuntu-other", args[1], io.BytesIO(archive.getvalue()), args[3]]
+    assert receive_renewals(*other_args)["issue"] == 123
+    cached = tmp_path / "baseline-cache" / pin / "html-to-markdown-content.tar.gz"
+    for queue in (args[0], other_args[0]):
+        uploaded = queue / ".curation" / args[1] / "baseline" / pin / cached.name
+        assert uploaded.stat().st_ino == cached.stat().st_ino
+    assert len(calls) == 3
     args[1] = "f" * 64
     args[2] = io.BytesIO(archive.getvalue())
     with pytest.raises(ValueError, match="digest mismatch"):
         receive_renewals(*args)
-    assert len(calls) == 2
+    assert len(calls) == 3
 
 
 def test_worker_catalog_transport_uses_verified_baseline_and_sanitized_status(
@@ -95,7 +107,8 @@ def test_worker_catalog_transport_uses_verified_baseline_and_sanitized_status(
         calls.append(args)
         if Path(args[0]).name == "gh":
             destination = Path(args[args.index("--dir") + 1])
-            shutil.copytree(baseline, destination, dirs_exist_ok=True)
+            for name in ASSETS:
+                shutil.copy2(baseline / name, destination / name)
             return SimpleNamespace(stdout=b"")
         archive = kwargs["stdin"].read()
         assert b"curl --fail" not in json.dumps(args).encode()
