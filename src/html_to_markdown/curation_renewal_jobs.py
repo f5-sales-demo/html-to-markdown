@@ -27,6 +27,7 @@ from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidenc
 from .enrichment.gates import parse_response, request_hash
 from .errors import TransportFailure
 from .media_observation_jobs import RequestExecutor
+from .reference_repair_review import validate_reference_repair
 
 __all__ = ["TransportFailure", "review_batch", "run_renewal", "replay_renewal", "_execute", "_save"]
 
@@ -125,6 +126,13 @@ def replay_renewal(
     state = json.loads((directory / "state.json").read_bytes())
     if state["status"] != "independently_validated":
         raise ValueError("curation renewal has no complete independent validation")
+    if repair := state.get("source_reference_repair"):
+        selected = validate_reference_repair(output, repair["binding_sha256"])
+        if selected["binding_sha256"] != context["binding_sha256"] or (
+            (directory / "validated.json").read_bytes() != json_bytes(selected)
+        ):
+            raise ValueError("source-reference repair curation replay changed")
+        return selected
     if origin := state.get("selected_existing_proposal"):
         selected = validate_existing_curation(
             output, origin["original_binding_sha256"], origin["original_attempt"]
