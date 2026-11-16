@@ -163,6 +163,14 @@ retirement or publication approval.
 
 ## Shared verified baseline assets
 
-Curation jobs and Ubuntu reception share a private baseline cache keyed by the publication receipt SHA-256. Every import and reuse verifies the receipt, snapshot tag, closed release asset set, archive and corpus. Each job retains its existing six-file baseline layout through hardlinks, with a byte-preserving copy fallback across filesystems. Model evidence, correction ledgers and source/privacy decisions retain their original bindings.
+Curation jobs and Ubuntu reception share a private baseline cache keyed by the publication receipt
+SHA-256. Every import and reuse verifies the receipt, snapshot tag, closed release asset set,
+archive and corpus. Each job retains its existing six-file baseline layout through hardlinks, with a
+byte-preserving copy fallback across filesystems. Model evidence, correction ledgers and
+source/privacy decisions retain their original bindings.
 
-The cache lives in `~/.local/share/html-to-markdown/baseline-cache`; `HTML_TO_MARKDOWN_BASELINE_CACHE` can select a private filesystem. Per-receipt locks serialize downloads and imports. Complete cache and job snapshots receive their final names atomically. Failed download or copy attempts remain private and cannot be reused as completed cache entries. Invalid inputs remain visible failures. Cache files and raw evidence never enter consumer archives or Pages.
+The cache lives in `~/.local/share/html-to-markdown/baseline-cache`;
+`HTML_TO_MARKDOWN_BASELINE_CACHE` can select a private filesystem. Per-receipt locks serialize
+downloads and imports. Complete cache and job snapshots receive their final names atomically. Failed
+download or copy attempts remain private and cannot be reused as completed cache entries. Invalid
+inputs remain visible failures. Cache files and raw evidence never enter consumer archives or Pages.

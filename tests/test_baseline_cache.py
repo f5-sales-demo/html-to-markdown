@@ -12,7 +12,7 @@ import pytest
 from test_source_refresh import prepare
 
 from html_to_markdown import baseline_cache
-from html_to_markdown.baseline_cache import ASSETS, baseline_snapshot
+from html_to_markdown.baseline_cache import ASSETS, _link_file, baseline_snapshot
 from html_to_markdown.enrichment.analysis import sha
 
 TAG = "content-20261002T000100Z"
@@ -199,7 +199,7 @@ def test_cross_filesystem_copy_fallback_preserves_complete_inputs(tmp_path, monk
 
 def test_interrupted_snapshot_is_not_published_or_reused(tmp_path, monkeypatch):
     source, _, pin = prepare(tmp_path)
-    original = baseline_cache._link_file
+    original = _link_file
     count = 0
 
     def interrupted(src, dst):
