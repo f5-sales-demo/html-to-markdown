@@ -35,7 +35,7 @@ def _candidate(item: Any, selected: str) -> dict[str, Any]:
     if not isinstance(item, dict) or item.get("sourceId") not in SOURCE_ROOTS:
         raise ValueError("known candidate source is invalid")
     source = item["sourceId"]
-    if selected != "all" and source != selected:
+    if selected not in {"all", source}:
         raise ValueError("known candidate source binding differs")
     if not isinstance(item.get("url"), str):
         raise ValueError("known candidate URL is invalid")

@@ -372,6 +372,33 @@ def _report(
     return report
 
 
+def _seed_known_candidates(
+    fetcher: InventoryFetcher, source: str, documents: list[dict[str, Any]], pin: str | None
+) -> None:
+    retained = [item for item in documents if item["sourceId"] == source]
+    if not retained:
+        return
+    fetcher.record_discovery(
+        source=source,
+        origin="previous_inventory",
+        urls=[item["url"] for item in retained],
+        complete=True,
+        known_candidates_sha256=pin,
+    )
+    database = fetcher.database
+    for prior in retained:
+        row = database.execute("SELECT data FROM documents WHERE url=?", (prior["url"],)).fetchone()
+        item = json.loads(row[0])
+        discovered = discovery_time(prior["discovered_at"])
+        current = discovery_time(item.get("discovered_at"))
+        if discovered and (current is None or discovered < current):
+            item["discovered_at"] = prior["discovered_at"]
+            with database:
+                database.execute(
+                    "UPDATE documents SET data=? WHERE url=?", (json.dumps(item), prior["url"])
+                )
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-arguments,too-many-locals
 async def collect_content(
@@ -434,29 +461,7 @@ async def collect_content(
                 verify_capture(output, item)
             _reconcile_capture_dispositions(output, database)
             for name in sources:
-                retained = [item for item in known_documents if item["sourceId"] == name]
-                if retained:
-                    fetcher.record_discovery(
-                        source=name,
-                        origin="previous_inventory",
-                        urls=[item["url"] for item in retained],
-                        complete=True,
-                        known_candidates_sha256=known_pin,
-                    )
-                    for prior in retained:
-                        row = database.execute(
-                            "SELECT data FROM documents WHERE url=?", (prior["url"],)
-                        ).fetchone()
-                        item = json.loads(row[0])
-                        discovered = discovery_time(prior["discovered_at"])
-                        current = discovery_time(item.get("discovered_at"))
-                        if discovered and (current is None or discovered < current):
-                            item["discovered_at"] = prior["discovered_at"]
-                            with database:
-                                database.execute(
-                                    "UPDATE documents SET data=? WHERE url=?",
-                                    (json.dumps(item), prior["url"]),
-                                )
+                _seed_known_candidates(fetcher, name, known_documents, known_pin)
                 urls = [
                     item["url"]
                     for item in previous.get("documents", [])

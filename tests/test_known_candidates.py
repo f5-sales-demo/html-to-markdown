@@ -5,10 +5,11 @@ import json
 import sqlite3
 import tarfile
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
-from html_to_markdown import content_inventory
+from html_to_markdown import collection_service, content_inventory
 from html_to_markdown.adapters.docs_cloud import DocsCloudAdapter
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.fetcher import Fetcher
@@ -225,10 +226,6 @@ async def test_missing_discovery_still_keeps_known_candidate_and_incomplete_evid
 async def test_scheduler_seals_historical_candidates_separately_from_publication(
     tmp_path, monkeypatch
 ):
-    from types import SimpleNamespace
-
-    from html_to_markdown import collection_service
-
     source = "my-f5-com"
     url = "https://my.f5.com/manage/s/article/K000000001"
     directory = tmp_path / "prior" / source
