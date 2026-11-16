@@ -11,6 +11,7 @@ import tempfile
 from pathlib import Path
 from typing import Any, BinaryIO
 
+from .baseline_cache import baseline_snapshot
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_renewal_delivery import submit_policy
@@ -21,7 +22,6 @@ from .curation_renewal_publication import stage_policy, validate_planner
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .publication_queue import deployed_revision
-from .refresh import _verified_baseline
 from .work_queue import pack_private_tree, unpack_queue
 
 
@@ -53,30 +53,7 @@ def advance_renewals(
         return {"state": "queued", "exceptions": report["exceptions"]}
     revision = deployed_revision()
     pin = revision["publication_sha256"]
-    baseline = output / "baseline" / pin
-    if not baseline.exists():
-        baseline.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-        gh = shutil.which("gh")
-        if gh is None:
-            raise ValueError("existing GitHub CLI is unavailable for verified baseline capture")
-        with tempfile.TemporaryDirectory(prefix="baseline-", dir=baseline.parent) as temporary:
-            subprocess.run(
-                [
-                    gh,
-                    "release",
-                    "download",
-                    revision["snapshot_tag"],
-                    "--repo",
-                    "f5-sales-demo/html-to-markdown",
-                    "--dir",
-                    temporary,
-                ],
-                capture_output=True,
-                check=True,
-            )  # nosec B603
-            _verified_baseline(Path(temporary), pin)
-            Path(temporary).rename(baseline)
-    _verified_baseline(baseline, pin)
+    baseline = baseline_snapshot(output / "baseline" / pin, pin, revision["snapshot_tag"])
     contexts = review_dependencies(output, contexts, baseline, pin, journal)
     client = CodexClient(journal, concurrency=4)
     try:
@@ -155,6 +132,9 @@ def receive_renewals(
     pin = package["baseline"]
     if len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin):
         raise ValueError("unsafe received curation baseline identity")
+    baseline = root / "baseline" / pin
+    baseline_receipt = json.loads((baseline / "publication.json").read_bytes())
+    baseline_snapshot(baseline, pin, baseline_receipt["release_tag"])
     (queue / ".publication").mkdir(mode=0o700, parents=True, exist_ok=True)
     with (queue / ".publication/coordinator.lock").open("a+b") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
