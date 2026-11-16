@@ -146,3 +146,17 @@ Source curation catalog changes still require linked governed pull requests. A p
 retirement catalog guards or resolve an ambiguous policy decision. Full delivery requires reconciliation of every
 candidate, full-corpus enrichment and independent validation, immutable release/deployment, and
 canonical/search/alias/anchor/media/removed-route acceptance.
+
+## Historical discovery reconciliation
+
+Scheduled collections seal the minimal URL and first-discovery inventory from prior
+per-source captures before fetching current discovery. This includes interrupted,
+excluded and unpublished candidates. A source disappearing from current search or
+navigation still receives a fresh capture and an explicit disposition; previous
+publication priority remains reserved for published articles.
+
+The optional inventory-content --known-candidates input is digest-bound, preserved
+privately and exported with capture evidence. Resume uses the exact sealed input
+when no external seed is supplied. Changed input pins and invalid source URLs fail
+before fetching. Historical capture metadata grants no relevance, privacy,
+retirement or publication approval.
