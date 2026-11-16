@@ -98,6 +98,10 @@ An already loaded service can also make bootstrap return exit 5. Inspect
 that state. Preserve an active worker and its inference jobs; reload its
 definition after the current jobs finish. The private journals remain resumable.
 
+Curation HTTP transport and status failures stay queued with private diagnostics and a safe
+per-queue error class. The worker still seals and returns passing admission results and advances
+to later sources. Failed curation never supplies a policy or publication approval.
+
 Each sweep reviews at most eight articles per source, prioritizing previously published articles, and at most eight
 enrichment documents per prepared job. Partial admission returns preserve the complete queue and independently verified
 passing articles. A new batch does not alter earlier sealed inputs. Interrupted transfers resume before the return

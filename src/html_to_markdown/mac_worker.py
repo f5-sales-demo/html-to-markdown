@@ -16,6 +16,8 @@ from concurrent.futures import TimeoutError as FutureTimeout
 from pathlib import Path
 from typing import Any
 
+import httpx
+
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy
 from .curation import json_bytes, load_curation_policy
@@ -210,13 +212,15 @@ def worker_once(
                     remote_executable,
                     remote_queue,
                 )
-            except (ValueError, OSError, subprocess.CalledProcessError) as failure:
+            except (ValueError, OSError, subprocess.CalledProcessError, httpx.HTTPError) as failure:
                 # Curation jobs cannot prevent passing source articles or other
                 # queues from advancing. Full diagnostics remain private.
                 atomic_private(
                     directory / "curation-renewal-error.json", json_bytes({"error": str(failure)})
                 )
                 status["curation"] = {"state": "queued", "error_class": type(failure).__name__}
+            status["queues"][-1]["curation"] = status["curation"]
+            atomic_private(output / "worker-status.json", json_bytes(status))
             completed = not report["exceptions"] and not report["pending"]
             # Passing articles progress while exceptions stay visible.
             sealed = directory / "sealed" / (entry["fingerprint"] + "-" + sha(json_bytes(report)))

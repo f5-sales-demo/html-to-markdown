@@ -7,6 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
+import httpx
 import pytest
 from test_source_review_jobs import LocalClient
 
@@ -147,3 +148,120 @@ def test_snapshot_rejects_symlinked_directory_before_creating_output(
     with pytest.raises(ValueError, match="symlinks"):
         seal_source(capture, review, output)
     assert not output.exists()
+
+
+def _source_capture(capture: Path, root: Path, source: str) -> Path:
+    """Build complete source-specific fixture bytes for the real admission replay."""
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    item = inventory["documents"][0]
+    metadata, body = split_document((capture / item["article_path"]).read_text())
+    metadata.update(sourceId=source, url="https://" + source.replace("-", ".") + "/article")
+    article = serialize_document(PageMetadata.model_validate(metadata), body).encode()
+    item.update(
+        identity=source + ":article",
+        sourceId=source,
+        url=metadata["url"],
+        article_path="articles/content/" + source + "/article/index.md",
+        article_sha256=sha(article),
+        metadata=metadata,
+    )
+    inventory.update(binding={"source": source}, ended_at="2026-11-10T00:03:00Z")
+    inventory["completeness"]["capture"] = True
+    atomic_private(
+        root / item["source_html_path"], (capture / item["source_html_path"]).read_bytes()
+    )
+    atomic_private(root / item["article_path"], article)
+    atomic_private(root / "inventory.json", json_bytes(inventory))
+    return root
+
+
+@pytest.mark.parametrize("failure_kind", ["connect", "timeout", "status-503", "status-401"])
+def test_curation_http_failure_returns_admissions_and_advances_other_source(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure_kind: str
+) -> None:
+    """A real HTTP exception cannot prevent independently verified source returns."""
+    sources = ["my-f5-com", "www-f5-com"]
+    captures = {
+        source: _source_capture(capture, tmp_path / ("source-" + source), source)
+        for source in sources
+    }
+    monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
+    monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
+    returned = []
+    attempted = []
+    diagnostic = "private curation diagnostic"
+    request = httpx.Request("GET", "https://example.invalid/revision.json")
+    if failure_kind == "connect":
+        failure = httpx.ConnectError(diagnostic, request=request)
+    elif failure_kind == "timeout":
+        failure = httpx.ReadTimeout(diagnostic, request=request)
+    else:
+        response = httpx.Response(int(failure_kind.split("-")[1]), request=request)
+        failure = httpx.HTTPStatusError(diagnostic, request=request, response=response)
+
+    def renew(source_capture: Path, *args: Any) -> dict:
+        source = json.loads((source_capture / "inventory.json").read_bytes())["binding"]["source"]
+        attempted.append(source)
+        if source == sources[0]:
+            raise failure
+        return {"state": "no_curation_exceptions"}
+
+    def run(args: list[str], **kwargs: Any):
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
+        if "list-review-queues" in args:
+            return SimpleNamespace(
+                stdout=json_bytes(
+                    [
+                        {
+                            "queue": "run/" + source,
+                            "source": source,
+                            "fingerprint": sha(source),
+                            "captured": 1,
+                            "discovered": 1,
+                        }
+                        for source in sources
+                    ]
+                )
+            )
+        if "export-review-queue" in args:
+            source = args[args.index("--queue") + 1].split("/")[1]
+            pack_private_tree(captures[source], kwargs["stdout"])
+        elif "receive-review-input" in args:
+            queue = args[args.index("--queue") + 1]
+            pin = args[args.index("--review-sha256") + 1]
+            received = receive_source(
+                tmp_path / "ubuntu", queue, pin, io.BytesIO(kwargs["stdin"].read())
+            )
+            receipt = verify_source(received, pin)
+            assert receipt["review_complete"] and len(receipt["accepted_files"]) == 1
+            returned.append(queue)
+        else:
+            return SimpleNamespace(stdout=b'{"state":"waiting_for_software"}')
+        return SimpleNamespace(stdout=b"{}")
+
+    monkeypatch.setattr("html_to_markdown.mac_worker.advance_renewals", renew)
+    monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", run)
+    output = tmp_path / "worker"
+    status = worker_once(
+        host="worker.example.invalid",
+        remote_executable="/private/cli",
+        remote_queue="/private/queue",
+        output=output,
+        transport=Path("/private/transport"),
+    )
+    assert status["state"] == "idle" and attempted == sources
+    assert returned == ["run/" + source for source in sources]
+    assert status["queues"][0]["curation"] == {
+        "state": "queued",
+        "error_class": type(failure).__name__,
+    }
+    assert status["queues"][1]["curation"] == {"state": "no_curation_exceptions"}
+    error = json.loads((output / "run/my-f5-com/curation-renewal-error.json").read_bytes())
+    assert error["error"] == diagnostic
+    assert diagnostic not in json.dumps(status)
+    for source in sources:
+        checkpoint = json.loads((output / "run" / source / "checkpoint.json").read_bytes())
+        assert checkpoint["completed"] and checkpoint["returned_admission_sha256"]
