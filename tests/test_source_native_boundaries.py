@@ -8,6 +8,7 @@ import json
 import shutil
 from copy import deepcopy
 from pathlib import Path
+from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -53,7 +54,7 @@ def image_content(index: int, size=(8, 8)) -> dict:
 
 
 def body(count=4, *, paired=False) -> dict:
-    source = {
+    source: dict[str, Any] = {
         "identity": "article",
         "body": "Prerequisite: retain TLS. Run `curl --retry 3` within 30 seconds.",
         "source_article_html": "<article>All source instructions before and after images.</article>",
@@ -117,7 +118,8 @@ class Client(LocalClient):
     def invalidate(self, item):
         self.invalidated.append(item)
 
-    def execute(self, current):
+    def execute(self, body):
+        current = body
         self.calls.append(current)
         payload = json.loads(current["input"][0]["content"][0]["text"])
         name = current["text"]["format"]["name"]
@@ -270,6 +272,49 @@ def test_mismatched_candidate_frame_count_is_rejected(small_limit):
         requests.boundary_plan(original)
 
 
+def _mutate_leaf(proof, mutation):
+    kind = (
+        "validation"
+        if mutation
+        in {
+            "independent_failure",
+            "missing_independent_position",
+            "unchecked_phase",
+            "missing_phase",
+            "unknown_phase",
+        }
+        else "analysis"
+    )
+    leaf = proof["parts"][0][kind]
+    parsed = json.loads(leaf["response"]["output"][0]["content"][0]["text"])
+    if mutation == "wrong_position":
+        parsed["visuals"][0]["position"] = "0:999"
+    elif mutation == "wrong_hash":
+        parsed["visuals"][0]["content_sha256"] = "0" * 64
+    elif mutation == "missing_visual":
+        parsed["visuals"].pop()
+    elif mutation == "unchecked_text":
+        parsed["complete_text_reviewed"] = False
+    elif mutation == "unchecked_visual":
+        parsed["visuals"][0]["complete_visual_reviewed"] = False
+    elif mutation == "uncertain_visual":
+        parsed["visuals"][0]["uncertain"] = True
+    elif mutation == "independent_failure":
+        parsed["approved"] = False
+    elif mutation == "missing_independent_position":
+        parsed["covered_positions"].pop()
+    elif mutation == "unchecked_phase":
+        parsed["assigned_phase_checks"][0]["passed"] = False
+    elif mutation == "missing_phase":
+        parsed["assigned_phase_checks"].pop()
+    elif mutation == "unknown_phase":
+        parsed["assigned_phase_checks"][0]["name"] = "unreviewed"
+    leaf["response"]["output"][0]["content"][0]["text"] = json.dumps(parsed)
+    leaf["response_sha256"] = sha(
+        json.dumps(leaf["response"], sort_keys=True, separators=(",", ":"))
+    )
+
+
 @pytest.mark.parametrize(
     "mutation",
     [
@@ -316,46 +361,7 @@ def test_offline_replay_rejects_incomplete_stale_or_failed_evidence(
     elif mutation == "nested_aggregate":
         proof["parts"][0]["analysis"]["source_boundary"] = deepcopy(proof)
     else:
-        kind = (
-            "validation"
-            if mutation
-            in {
-                "independent_failure",
-                "missing_independent_position",
-                "unchecked_phase",
-                "missing_phase",
-                "unknown_phase",
-            }
-            else "analysis"
-        )
-        leaf = proof["parts"][0][kind]
-        parsed = json.loads(leaf["response"]["output"][0]["content"][0]["text"])
-        if mutation == "wrong_position":
-            parsed["visuals"][0]["position"] = "0:999"
-        elif mutation == "wrong_hash":
-            parsed["visuals"][0]["content_sha256"] = "0" * 64
-        elif mutation == "missing_visual":
-            parsed["visuals"].pop()
-        elif mutation == "unchecked_text":
-            parsed["complete_text_reviewed"] = False
-        elif mutation == "unchecked_visual":
-            parsed["visuals"][0]["complete_visual_reviewed"] = False
-        elif mutation == "uncertain_visual":
-            parsed["visuals"][0]["uncertain"] = True
-        elif mutation == "independent_failure":
-            parsed["approved"] = False
-        elif mutation == "missing_independent_position":
-            parsed["covered_positions"].pop()
-        elif mutation == "unchecked_phase":
-            parsed["assigned_phase_checks"][0]["passed"] = False
-        elif mutation == "missing_phase":
-            parsed["assigned_phase_checks"].pop()
-        elif mutation == "unknown_phase":
-            parsed["assigned_phase_checks"][0]["name"] = "unreviewed"
-        leaf["response"]["output"][0]["content"][0]["text"] = json.dumps(parsed)
-        leaf["response_sha256"] = sha(
-            json.dumps(leaf["response"], sort_keys=True, separators=(",", ":"))
-        )
+        _mutate_leaf(proof, mutation)
     with pytest.raises(ValueError):
         parse_source_response(
             ResponseEvidence.model_validate(changed), Probe, EDITOR_MODEL, request_hash(original)
@@ -432,27 +438,7 @@ def test_cached_complete_boundary_source_replays_with_no_client(small_limit, tmp
 def test_full_source_admission_roundtrip_preserves_complete_text_media_and_budget(
     capture, small_limit, tmp_path, monkeypatch
 ):
-    inventory = json.loads((capture / "inventory.json").read_bytes())
-    item = inventory["documents"][0]
-    article = (capture / item["article_path"]).read_text()
-    for index in range(4):
-        raw = base64.b64decode(image_content(index)["image_url"].split(",", 1)[1])
-        digest = sha(raw)
-        relative = str(Path(item["article_path"]).parent / "assets" / digest)
-        (capture / relative).parent.mkdir(parents=True, exist_ok=True)
-        (capture / relative).write_bytes(raw)
-        item["media"].append(
-            {
-                "url": f"https://my.f5.com/images/{index}.png",
-                "sha256": digest,
-                "path": relative,
-                "media_type": "image/png",
-            }
-        )
-        article += f"\n![Useful procedure image {index}](assets/{digest})\n"
-    (capture / item["article_path"]).write_text(article)
-    item["article_sha256"] = sha(article)
-    (capture / "inventory.json").write_bytes(json_bytes(inventory))
+    item = _capture_with_images(capture)
     output = tmp_path / "review"
     jobs.prepare_reviews(capture, output)
     record = next((output / "documents").glob("*.json"))
