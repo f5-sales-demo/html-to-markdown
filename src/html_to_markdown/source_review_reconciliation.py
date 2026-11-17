@@ -10,10 +10,16 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence, StrictModel
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .enrichment.requests import request
 from .errors import TransportFailure
 from .media_observation_jobs import RequestExecutor
+from .source_boundary_review import (
+    execute_source_phase,
+)
+from .source_boundary_review import (
+    parse_source_response as parse_response,
+)
 from .source_replacements import replacement_provenance
 from .source_review import CREDENTIALS, PrivacyDecision
 
@@ -184,7 +190,14 @@ def review_final_findings(
         version=VERSION_TWO if proposal is not None else VERSION,
     )
     atomic_private(output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes())
-    evidence = client.execute(body)
+    evidence = execute_source_phase(
+        body,
+        client,
+        output / "native-boundaries" / request_hash(body),
+        record,
+        "privacy_reconciliation",
+        saved,
+    )
     saved["phases"]["privacy_reconciliation"] = evidence.model_dump()
     atomic_private(record, json_bytes(saved))
     if evidence.error:

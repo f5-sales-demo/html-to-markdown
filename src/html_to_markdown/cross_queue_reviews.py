@@ -79,7 +79,7 @@ def _prior(
             **_privacy_budget(previous, current["binding"]),
             **privacy_ledger(previous, current["binding"]),
         }
-        if not previous.get("phases") and not budget:
+        if not previous.get("phases") and not budget and not previous.get("boundary_pending"):
             continue
         exact = previous["binding"] == current["binding"]
         if (
@@ -104,6 +104,41 @@ def _prior(
     return best_path, best_record
 
 
+def _snapshot_boundaries(
+    worker: Path,
+    output: Path,
+    prior_path: Path,
+    previous: dict[str, Any],
+) -> None:
+    # Complete part checkpoints are private, digest-pinned source evidence.
+    # A pending first relevance part may have no completed phase yet.
+    boundary_digests = {
+        value["logical_request_sha256"] for value in previous.get("boundary_pending", {}).values()
+    }
+    for phase in previous.get("phases", {}).values():
+        if proof := phase.get("source_boundary"):
+            boundary_digests.add(proof["coverage_plan"]["logical_request_sha256"])
+    for boundary_digest in sorted(boundary_digests):
+        if len(boundary_digest) != 64 or any(
+            value not in "0123456789abcdef" for value in boundary_digest
+        ):
+            raise ValueError("unsafe cross-queue native boundary digest")
+        relative_root = Path("native-boundaries") / boundary_digest
+        prior_root = prior_path.parent.parent / relative_root
+        if prior_root.is_symlink():
+            raise ValueError("unsafe cross-queue native boundary link")
+        for cache_path in sorted(prior_root.rglob("*")):
+            if cache_path.is_symlink():
+                raise ValueError("unsafe cross-queue native boundary link")
+            if cache_path.is_file():
+                cache = safe_file(worker, cache_path.relative_to(worker).as_posix())
+                _snapshot(
+                    cache,
+                    output / relative_root / cache_path.relative_to(prior_root),
+                    output,
+                )
+
+
 def seed_review_batch(capture: Path, output: Path, worker: Path, *, limit: int) -> dict[str, Any]:
     """Run under the worker lock; atomically preserve inputs before restarting phases."""
     if limit < 1:
@@ -122,6 +157,7 @@ def seed_review_batch(capture: Path, output: Path, worker: Path, *, limit: int) 
         # An existing transaction, pending proposal or exhausted ledger is authoritative.
         if (
             current.get("phases")
+            or current.get("boundary_pending")
             or current.get("privacy_feedback")
             or current.get("cross_queue_seed")
         ):
@@ -146,6 +182,7 @@ def seed_review_batch(capture: Path, output: Path, worker: Path, *, limit: int) 
                     if destination.is_symlink():
                         raise ValueError("unsafe cross-queue native evidence link")
                     _snapshot(cache, destination, output)
+            _snapshot_boundaries(worker, output, path, previous)
             seeded = dict(previous)
             if seeded["disposition"] in {"accepted", "policy_excluded"}:
                 seeded.update(disposition="queued", reason="cross_queue_current_replay_required")

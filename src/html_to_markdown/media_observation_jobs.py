@@ -11,9 +11,10 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .enrichment.requests import request
 from .enrichment.visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
+from .errors import TransportFailure
 from .media_observations import (
     MediaObservations,
     ObservationValidation,
@@ -21,6 +22,13 @@ from .media_observations import (
     observation_payload,
     observation_views,
     verify_observations,
+)
+from .source_boundary_review import (
+    execute_source_phase,
+    source_logical_request,
+)
+from .source_boundary_review import (
+    parse_source_response as parse_response,
 )
 
 
@@ -200,13 +208,25 @@ def _observe_once(
     if (
         "media_observation" not in saved["phases"]
         or saved["phases"]["media_observation"].get("error") is not None
-        or saved["phases"]["media_observation"]["request_sha256"] != request_hash(body)
+        or request_hash(
+            source_logical_request(
+                ResponseEvidence.model_validate(saved["phases"]["media_observation"])
+            )
+        )
+        != request_hash(body)
     ):
         if "media_observation" in saved["phases"]:
             atomic_private(
                 output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
             )
-        saved["phases"]["media_observation"] = client.execute(body).model_dump()
+        saved["phases"]["media_observation"] = execute_source_phase(
+            body,
+            client,
+            output / "native-boundaries" / request_hash(body),
+            record,
+            "media_observation",
+            saved,
+        ).model_dump()
         atomic_private(record, json_bytes(saved))
     proposal = parse_response(
         ResponseEvidence.model_validate(saved["phases"]["media_observation"]),
@@ -221,13 +241,25 @@ def _observe_once(
     if (
         "media_observation_validation" not in saved["phases"]
         or saved["phases"]["media_observation_validation"].get("error") is not None
-        or saved["phases"]["media_observation_validation"]["request_sha256"] != request_hash(body)
+        or request_hash(
+            source_logical_request(
+                ResponseEvidence.model_validate(saved["phases"]["media_observation_validation"])
+            )
+        )
+        != request_hash(body)
     ):
         if "media_observation_validation" in saved["phases"]:
             atomic_private(
                 output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
             )
-        saved["phases"]["media_observation_validation"] = client.execute(body).model_dump()
+        saved["phases"]["media_observation_validation"] = execute_source_phase(
+            body,
+            client,
+            output / "native-boundaries" / request_hash(body),
+            record,
+            "media_observation_validation",
+            saved,
+        ).model_dump()
         atomic_private(record, json_bytes(saved))
     confirmed_media_values(saved, context, visual)
 
@@ -285,6 +317,8 @@ def prepare_media_observations(
         try:
             _observe_once(capture, output, record, client, context_builder)
             return
+        except TransportFailure:
+            raise
         except ValueError as failure:
             if correction == 2:
                 raise
@@ -325,7 +359,13 @@ def prepare_media_observations(
                         )
                     )
                     if (
-                        saved["phases"]["media_observation_validation"]["request_sha256"]
+                        request_hash(
+                            source_logical_request(
+                                ResponseEvidence.model_validate(
+                                    saved["phases"]["media_observation_validation"]
+                                )
+                            )
+                        )
                         == expected
                     ):
                         validation = parse_response(

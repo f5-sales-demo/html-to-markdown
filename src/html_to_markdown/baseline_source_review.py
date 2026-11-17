@@ -16,16 +16,21 @@ from .baseline_late_validation import (
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy, media_inventory
-from .curation_model_evidence import execute as _execute
 from .curation_model_evidence import save as _save
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .errors import TransportFailure
 from .media_observation_jobs import confirmed_media_values, prepare_media_observations
 from .refresh import _verified_baseline
 from .render import split_document
+from .source_boundary_review import (
+    execute_cached_source as _execute,
+)
+from .source_boundary_review import (
+    parse_source_response as parse_response,
+)
 from .source_phase_bindings import independently_validated_privacy, privacy_context
 from .source_review import (
     AdmissionValidation,
@@ -358,10 +363,15 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
             atomic_private(record, json_bytes(saved))
             return saved
         except TransportFailure as failure:
-            _save(attempt / "transport.private.json", {"error": str(failure), "retryable": True})
+            retryable = getattr(failure, "retryable", True)
+            _save(
+                attempt / "transport.private.json", {"error": str(failure), "retryable": retryable}
+            )
             saved = json.loads(record.read_bytes())
             saved.update(
-                status="privacy_review_required", privacy_feedback=feedback, privacy_retryable=True
+                status="privacy_review_required",
+                privacy_feedback=feedback,
+                privacy_retryable=retryable,
             )
             atomic_private(record, json_bytes(saved))
             raise

@@ -9,12 +9,20 @@ from typing import Any
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy
-from .curation_model_evidence import execute as _execute
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .media_observation_jobs import confirmed_media_values
 from .render import split_document
+from .source_boundary_review import (
+    execute_cached_source as _execute,
+)
+from .source_boundary_review import (
+    parse_source_response as parse_response,
+)
+from .source_boundary_review import (
+    source_logical_request,
+)
 from .source_phase_bindings import privacy_context
 from .source_review import (
     AdmissionValidation,
@@ -82,7 +90,7 @@ def _context(
         relevance_evidence,
         RelevanceDecision,
         EDITOR_MODEL,
-        request_hash(relevance_evidence.request),
+        request_hash(source_logical_request(relevance_evidence)),
     )
     context = json.loads(relevance_evidence.request["input"][0]["content"][0]["text"])
     metadata, body = split_document((source / saved["item"]["article_path"]).read_text())
@@ -129,7 +137,9 @@ def _context(
         raise ValueError("historical source structural coverage changed")
     context["relevance_decision"] = relevance.model_dump()
     editor = ResponseEvidence.model_validate(saved["phases"]["privacy"])
-    proposal = parse_response(editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor.request))
+    proposal = parse_response(
+        editor, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(editor))
+    )
     original_payload = json.loads(editor.request["input"][0]["content"][0]["text"])
     original_feedback = original_payload.get(
         "validation_feedback", original_payload.get("feedback", [])
@@ -138,7 +148,7 @@ def _context(
         EDITOR_MODEL, "privacy", context, visual, PrivacyDecision, original_feedback
     )
     if (
-        editor.request != expected
+        source_logical_request(editor) != expected
         or proposal.identity != context["identity"]
         or proposal.binding_sha256 != privacy_context(context)["binding_sha256"]
         or proposal.unresolved

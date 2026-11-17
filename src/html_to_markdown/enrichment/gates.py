@@ -18,6 +18,8 @@ from .model_policy import POLICY_KEY, POLICY_VERSION
 def parse_response(
     evidence: ResponseEvidence, schema: type[BaseModel], model: str, expected_request_hash: str
 ) -> Any:
+    if evidence.source_boundary is not None:
+        raise ValueError("source boundary response requires complete independent scoped replay")
     if (
         evidence.error
         or evidence.model != model
@@ -37,6 +39,7 @@ def parse_response(
             "final-privacy-findings/1",
             "final-privacy-findings/2",
             "native-media-observation/2",
+            "source-native-boundaries/1",
         }
         or evidence.reasoning != "high"
     ):
@@ -56,7 +59,8 @@ def parse_response(
         raise ValueError("current review model policy requires MacBook Codex through LiteLLM")
     response = evidence.response
     if evidence.transport == "codex_litellm" and any(
-        event.get("type") in {"context.compacted", "thread.compacted", "turn.failed"}
+        "compact" in event.get("type", "").lower()
+        or event.get("type") == "turn.failed"
         or event.get("item", {}).get("type")
         in {"command_execution", "file_change", "mcp_tool_call", "web_search", "tool_call"}
         for event in response.get("events", [])

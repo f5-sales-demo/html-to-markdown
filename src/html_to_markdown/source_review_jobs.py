@@ -19,7 +19,7 @@ from .curation import blocks, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .enrichment.media import all_frame_inputs
 from .errors import TransportFailure
 from .media_observation_jobs import (
@@ -31,6 +31,14 @@ from .media_observation_jobs import (
 )
 from .models import PageMetadata
 from .render import serialize_document, split_document
+from .source_boundary_review import (
+    execute_source_phase,
+    has_retryable_boundary,
+    source_logical_request,
+)
+from .source_boundary_review import (
+    parse_source_response as parse_response,
+)
 from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_media_references import media_destination_map, rewrite_media_references
 from .source_phase_bindings import (
@@ -720,7 +728,8 @@ def review_one(
     if (
         existing
         and existing.get("error") is None
-        and existing["request_sha256"] == request_hash(body)
+        and request_hash(source_logical_request(ResponseEvidence.model_validate(existing)))
+        == request_hash(body)
     ):
         try:
             schemas: dict[str, type[BaseModel]] = {
@@ -750,7 +759,9 @@ def review_one(
             output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
         )
         saved["phases"].pop("privacy_reconciliation")
-    saved["phases"][phase] = client.execute(body).model_dump()
+    saved["phases"][phase] = execute_source_phase(
+        body, client, output / "native-boundaries" / request_hash(body), record, phase, saved
+    ).model_dump()
     atomic_private(record, json_bytes(saved))
     return dict(saved)
 
@@ -907,7 +918,7 @@ def run_reviews(
             saved["attempted_binding_sha256"] = saved["binding_sha256"]
             saved["retryable"] = any(
                 is_transient_error(response.get("error")) for response in saved["phases"].values()
-            )
+            ) or has_retryable_boundary(saved)
             if record.name in failures:
                 _retire_output(output, saved)
                 saved.update(

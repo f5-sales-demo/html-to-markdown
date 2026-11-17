@@ -8,10 +8,16 @@ from typing import Any
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .enrichment.model_policy import validation_model
 from .enrichment.requests import request
 from .source_binding_context import PRIVACY_VERSION, privacy_context, source_core
+from .source_boundary_review import (
+    parse_source_response as parse_response,
+)
+from .source_boundary_review import (
+    source_logical_request,
+)
 
 __all__ = [
     "PRIVATE_PHASES",
@@ -141,7 +147,7 @@ def pending_privacy_proposal(
         if evidence.prompt_version != PRIVACY_VERSION:
             return {}
         proposal = parse_response(
-            evidence, PrivacyDecision, EDITOR_MODEL, request_hash(evidence.request)
+            evidence, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(evidence))
         )
         binding = {**source_core(current_binding), "privacy_version": PRIVACY_VERSION}
         if proposal.binding_sha256 != sha(json_bytes(binding)) or proposal.unresolved:
@@ -185,13 +191,13 @@ def independently_validated_privacy(previous: dict[str, Any]) -> bool:
         )
         validator = ResponseEvidence.model_validate(proof)
         proposal = parse_response(
-            editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor.request)
+            editor, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(editor))
         )
         result = parse_response(
             validator,
             AdmissionValidation,
             validation_model(validator.request),
-            request_hash(validator.request),
+            request_hash(source_logical_request(validator)),
         )
         context = json.loads(validator.request["input"][0]["content"][0]["text"])
         core = {**source_core(previous["binding"]), "privacy_version": PRIVACY_VERSION}
