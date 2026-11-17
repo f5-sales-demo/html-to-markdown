@@ -12,6 +12,7 @@ import typer
 
 from .adapters import ADAPTERS
 from .adapters.community import validate_community_publication
+from .capture_store_maintenance import share_capture_storage
 from .combined_sources import combine_sources
 from .content_inventory import collect_content, repair_captured_extraction
 from .content_policy import load_content_policy, migrate_content
@@ -83,10 +84,6 @@ def share_capture_storage_command(
     source: Source = "all",
 ) -> None:
     """Share verified immutable captures privately without changing source records."""
-    from .capture_store_maintenance import (
-        share_capture_storage,  # pylint: disable=import-outside-toplevel
-    )
-
     result = share_capture_storage(queue_root, output, source=_check_source(source))
     typer.echo(json.dumps({"sources": result["sources"], "model_inference_run": False}))
 
