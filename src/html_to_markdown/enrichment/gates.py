@@ -39,6 +39,7 @@ def parse_response(
             "final-privacy-findings/1",
             "final-privacy-findings/2",
             "native-media-observation/2",
+            "native-media-observation/3",
             "source-native-boundaries/1",
         }
         or evidence.reasoning != "high"

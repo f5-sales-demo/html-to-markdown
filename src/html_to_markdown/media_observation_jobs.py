@@ -40,7 +40,8 @@ ContextBuilder = Callable[[Path, Path, dict[str, Any]], tuple[dict[str, Any], li
 
 
 LEGACY_VERSION = "native-media-observation/1"
-VERSION = "native-media-observation/2"
+COORDINATE_VERSION = "native-media-observation/2"
+VERSION = "native-media-observation/3"
 COORDINATES = (
     "rectangle is [left, top, right, bottom] in absolute original native-frame pixels, "
     "with a top-left origin and exclusive right and bottom endpoints. "
@@ -58,7 +59,7 @@ def observation_request(
     *,
     version: str = VERSION,
 ) -> dict[str, Any]:
-    if version not in {LEGACY_VERSION, VERSION}:
+    if version not in {LEGACY_VERSION, COORDINATE_VERSION, VERSION}:
         raise ValueError("unsupported native observation request version")
     validation = payload is not None
     prompt = (
@@ -106,7 +107,7 @@ def observation_request(
             start = prompt.index("null/clipped rectangles")
             end = prompt.index("misread observations", start)
             prompt = prompt[:start] + prompt[end:]
-    if version == VERSION:
+    if version in {COORDINATE_VERSION, VERSION}:
         prompt += " Coordinate contract: " + COORDINATES
     body = request(
         VALIDATOR_MODEL if validation else EDITOR_MODEL,
@@ -116,9 +117,13 @@ def observation_request(
     )
     body["instructions"] = body["instructions"].replace("article-enrichment/1", version)
     body["input"][0]["content"].extend(visual)
-    body["input"][0]["content"].extend(_bounded_views(context, visual))
+    body["input"][0]["content"].extend(
+        _partitionable_views(context, visual)
+        if version == VERSION
+        else _bounded_views(context, visual)
+    )
     properties = body["text"]["format"]["schema"]["properties"]
-    if version == VERSION and not validation:
+    if version in {COORDINATE_VERSION, VERSION} and not validation:
         rectangle = body["text"]["format"]["schema"]["$defs"]["VisibleValue"]["properties"][
             "rectangle"
         ]
@@ -154,6 +159,41 @@ def _bounded_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> lis
         if decoded_image_bytes(visual + regions + edges) <= MAX_DECODED_BYTES:
             return regions + edges
     raise ValueError("complete native frames and every source region exceed decoded image capacity")
+
+
+def _partitionable_views(
+    context: dict[str, Any], visual: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Keep ordinary views exact; overflowing logical input requires complete native partitions."""
+    private = context.get("binding", {}).get("privacy_version") == "source-privacy/2"
+    hints = " ".join(context.get("observation_feedback", []))
+    pending_edges = private and any(digest in hints for digest in context["media"])
+    full = sum(item["type"] == "input_image" for item in visual) >= 50
+    if not (pending_edges and full):
+        try:
+            return _bounded_views(context, visual)
+        except ValueError as failure:
+            if not any(
+                term in str(failure)
+                for term in ("exceed decoded image capacity", "no room for source-region")
+            ):
+                raise
+    for margin in (128, 96, 64, 48, 32, 16, 0) if private else (0,):
+        regions = observation_views(
+            context.get("observation_regions", []),
+            visual,
+            context_margin=margin,
+            partitionable=True,
+        )
+        edges = boundary_views(context, visual + regions, partitionable=True) if private else []
+        views = regions + edges
+        if all(
+            decoded_image_bytes([image]) <= MAX_DECODED_BYTES
+            for image in views
+            if image["type"] == "input_image"
+        ):
+            return views
+    raise ValueError("individual native source-region view exceeds decoded image capacity")
 
 
 def _observation_context(saved: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
@@ -323,6 +363,10 @@ def prepare_media_observations(
             if correction == 2:
                 raise
             saved = json.loads(record.read_bytes())
+            if "media_observation" not in saved["phases"]:
+                # A rejected/missing boundary proposal supplies no complete decision
+                # to correct. Preserve its original failure and part evidence.
+                raise
             context, visual = context_builder(capture, output, saved)
             augmented = _observation_context(saved, context)
             # Refusals, malformed responses, tool use and transport failures

@@ -58,7 +58,12 @@ all earlier privacy attempts remain preserved; unresolved regions stay queued.
 Native requests check the decoded size of their actual attachments before inference. Supplemental inspection views use
 the largest configured context margin that fits the 450 MiB RGBA budget beneath the observed 512 MB provider limit.
 Every complete original frame and selected region remains supplied with exact native coordinates and pixels enlarged
-four times. A source that cannot fit without losing complete input stays queued. Permanent request, capacity and schema
+four times. A source that cannot fit without losing complete input stays queued. Native-observation request version three preserves every original frame and requested
+inspection region when their aggregate exceeds transport capacity. Complete logical requests
+use independently checked native partitions before final value/coordinate confirmation.
+Individual regions that cannot fit remain explicit exceptions. Version-one and version-two
+requests replay under their exact historical contracts. Observation cannot approve a privacy
+transformation or add correction rounds. Permanent request, capacity and schema
 failures are recorded once; actual transient HTTP or transport failures retain at most three attempts. Timeout and
 malformed-response evidence preserves partial output privately, and failed results never become reusable approvals.
 
