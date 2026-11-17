@@ -213,6 +213,7 @@ def test_complete_distinct_images_require_bounded_independent_review(small_limit
     client = Client()
     result = execute_source_request(original, client, tmp_path / "journal")
     assert json_bytes(original) == before
+    assert result.source_boundary is not None
     assert len(result.source_boundary["parts"]) == 2
     assert len(client.calls) == 5  # two independently validated parts, one actual final decision
     for leaf in client.calls[:-1]:
@@ -246,6 +247,7 @@ def test_normal_request_keeps_historical_response_and_native_input(tmp_path):
 def test_original_candidate_frame_pairs_are_never_split(small_limit):
     original = body(8, paired=True)
     plan = requests.boundary_plan(original)
+    assert plan is not None
     assert len(plan["partitions"]) == 4
     all_positions = []
     for index, part in enumerate(plan["partitions"]):
@@ -593,6 +595,7 @@ def test_count_limit_partitions_all_distinct_images_and_preserves_shared_appeara
     original = body(51)
     result = execute_source_request(original, Client(), tmp_path / "distinct")
     proof = result.source_boundary
+    assert proof is not None
     assert [len(part["positions"]) for part in proof["coverage_plan"]["partitions"]] == [50, 1]
     assert len(proof["coverage_plan"]["positions"]) == 51
     repeated = body(51)
@@ -633,6 +636,7 @@ def test_complete_animation_frames_timing_and_native_pixels_are_preserved(small_
     preserved = source_logical_request(result)
     metadata = json.loads(preserved["input"][0]["content"][0]["text"])["media"][sha(raw)]["frames"]
     assert [info["duration"] for info in metadata] == [100, 200, 300]
+    assert result.source_boundary is not None
     assert len(result.source_boundary["coverage_plan"]["positions"]) == 3
     assert [
         content for content in original["input"][0]["content"] if content["type"] == "input_image"
