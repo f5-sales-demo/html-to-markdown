@@ -20,6 +20,7 @@ from html_to_markdown.policy_transport import installed_policy_pins
 from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_inputs import seal_source, verify_source
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews
+from html_to_markdown.urls import SOURCE_ROOTS, stable_path
 from html_to_markdown.work_queue import pack_private_tree, receive_source
 
 
@@ -155,13 +156,14 @@ def _source_capture(capture: Path, root: Path, source: str) -> Path:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     item = inventory["documents"][0]
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    metadata.update(sourceId=source, url="https://" + source.replace("-", ".") + "/article")
+    metadata.update(sourceId=source, url=SOURCE_ROOTS[source] + "/article")
+    route = stable_path(source, metadata["url"]).as_posix()
     article = serialize_document(PageMetadata.model_validate(metadata), body).encode()
     item.update(
-        identity=source + ":article",
+        identity=source + ":" + route,
         sourceId=source,
         url=metadata["url"],
-        article_path="articles/content/" + source + "/article/index.md",
+        article_path="articles/content/" + source + "/" + route + "/index.md",
         article_sha256=sha(article),
         metadata=metadata,
     )

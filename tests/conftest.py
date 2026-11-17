@@ -33,7 +33,7 @@ def capture(tmp_path: Path) -> Path:
         "capture_complete": True,
         "disposition": "queued",
         "reason": "admission_review_required",
-        "source_html_path": "captures/source.html",
+        "source_html_path": "captures/" + sha(b"captured") + ".html",
         "source_html_sha256": sha(b"captured"),
         "article_path": "articles/content/my-f5-com/K000123456/index.md",
         "article_sha256": sha(article),
