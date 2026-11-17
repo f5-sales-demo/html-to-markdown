@@ -15,6 +15,8 @@ from .curation import json_bytes
 from .enrichment.analysis import sha
 from .urls import SOURCE_ROOTS
 
+ORDERING = "relative-posix-v1"
+
 
 def _files(root: Path, source: str) -> dict[Path, str]:
     files: dict[Path, str] = {}
@@ -39,6 +41,24 @@ def _files(root: Path, source: str) -> dict[Path, str]:
                 if named_digest is not None:
                     files[path] = named_digest
     return files
+
+
+def _checkpoint_matches(
+    previous: dict[str, Any], inventory_pin: str, ordered_files: list[tuple[Path, str]], root: Path
+) -> bool:
+    processed = previous.get("processed_files", 0)
+    if (
+        not isinstance(processed, int)
+        or isinstance(processed, bool)
+        or not 0 <= processed <= len(ordered_files)
+    ):
+        return False
+    if previous.get("inventory_sha256") != inventory_pin or previous.get("ordering") != ORDERING:
+        return False
+    if previous.get("state") == "complete" and processed != len(ordered_files):
+        return False
+    last_file = ordered_files[processed - 1][0].relative_to(root).as_posix() if processed else ""
+    return bool(previous.get("last_file", "") == last_file)
 
 
 def _share_source(root: Path, output: Path, source: str) -> dict[str, Any]:
@@ -70,19 +90,19 @@ def _share_source(root: Path, output: Path, source: str) -> dict[str, Any]:
             ),
         )
         raise
+    ordered_files = sorted(files.items(), key=lambda item: item[0].relative_to(root).as_posix())
     inventory_pin = sha(
-        json_bytes(
-            {path.relative_to(root).as_posix(): value for path, value in sorted(files.items())}
-        )
+        json_bytes({path.relative_to(root).as_posix(): value for path, value in ordered_files})
     )
     previous = json.loads(checkpoint.read_bytes()) if checkpoint.exists() else {}
-    if previous and previous.get("inventory_sha256") != inventory_pin:
+    if previous and not _checkpoint_matches(previous, inventory_pin, ordered_files, root):
         atomic_private(
             output / "history" / (sha(checkpoint.read_bytes()) + ".json"), checkpoint.read_bytes()
         )
         previous = {}
     state = {
         "schema_version": 1,
+        "ordering": ORDERING,
         "source": source,
         "inventory_sha256": inventory_pin,
         "available_files": len(files),
@@ -96,10 +116,8 @@ def _share_source(root: Path, output: Path, source: str) -> dict[str, Any]:
     }
     store = root / ".capture-store"
     try:
-        for path, expected in sorted(files.items()):
+        for path, expected in ordered_files[state["processed_files"] :]:
             relative = path.relative_to(root).as_posix()
-            if relative <= state["last_file"]:
-                continue
             before = path.stat()
             share_file(store, path, expected)
             after = path.stat()
@@ -115,6 +133,8 @@ def _share_source(root: Path, output: Path, source: str) -> dict[str, Any]:
             state["last_file"] = relative
             if state["processed_files"] % 128 == 0:
                 atomic_private(checkpoint, json_bytes(state))
+        if state["processed_files"] != state["available_files"]:
+            raise ValueError("capture storage maintenance coverage is incomplete")
         state["state"] = "complete"
     except (OSError, ValueError) as failure:
         state.update(state="interrupted", error_class=type(failure).__name__)
