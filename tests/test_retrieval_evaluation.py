@@ -54,7 +54,7 @@ def paired_corpus(tmp_path):
 
 
 class LocalEvaluator:
-    instances = []
+    instances: list["LocalEvaluator"] = []
     failure = None
 
     def __init__(self, journal):
