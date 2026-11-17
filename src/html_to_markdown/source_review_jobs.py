@@ -72,6 +72,9 @@ def _article_html(capture: Path, item: dict[str, Any]) -> str:
     source_html = (capture / item["source_html_path"]).read_text()
     if item["sourceId"] == "community-f5-com":
         source_html = json.loads(source_html)["post_stream"]["posts"][0]["cooked"]
+        # Discourse cooked is already the complete first post. Nested article
+        # elements are resource cards, not the enclosing authored source.
+        return str(BeautifulSoup(source_html, "html.parser"))
     soup = BeautifulSoup(source_html, "html.parser")
     return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
 
