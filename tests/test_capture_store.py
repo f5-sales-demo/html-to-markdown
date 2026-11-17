@@ -148,7 +148,7 @@ def test_mac_capture_transfers_share_only_digest_bound_raw_payloads(tmp_path):
         "captures/" + digest + ".html": raw,
         "responses/" + digest + ".body": raw,
         "articles/content/my-f5-com/K000123456/assets/" + digest: raw,
-        "inventory.json": b"original inventory",
+        "inventory.json": b'{"documents":[]}',
     }
     archive = tmp_path / "capture.tar"
     with tarfile.open(archive, "w") as stream:
@@ -165,7 +165,7 @@ def test_mac_capture_transfers_share_only_digest_bound_raw_payloads(tmp_path):
             name != "inventory.json"
         )
     atomic_private(second / "inventory.json", b"updated inventory")
-    assert (first / "inventory.json").read_bytes() == b"original inventory"
+    assert (first / "inventory.json").read_bytes() == b'{"documents":[]}'
 
 
 def test_bad_raw_digest_cannot_enter_the_shared_store(tmp_path):
