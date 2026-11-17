@@ -15,6 +15,7 @@ import html_to_markdown.source_boundary_requests as boundaries
 import html_to_markdown.source_review_jobs as jobs
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.media_observation_jobs import confirmed_media_values, observation_request
+from html_to_markdown.source_review_jobs import _privacy_media_intake
 
 
 def inputs(count=3, size=(8, 8)):
@@ -61,16 +62,15 @@ def test_actual_privacy_intake_observes_and_replays_all_over_limit_frames(
     )
     monkeypatch.setattr(jobs, "_privacy_observation_context", lambda *args: (context, visual))
     client = Client()
-    saved = jobs._privacy_media_intake(
-        tmp_path, tmp_path, record, "privacy", client, context, visual
-    )
+    saved = _privacy_media_intake(tmp_path, tmp_path, record, "privacy", client, context, visual)
     assert saved["privacy_feedback"] == feedback
     for phase in ["media_observation", "media_observation_validation"]:
         proof = saved["phases"][phase]["source_boundary"]
         assert len(proof["parts"]) == 2
         assert len(proof["coverage_plan"]["positions"]) == 3
     assert context["confirmed_media_values"] == []
-    assert confirmed_media_values(saved, original_context, visual) == []
+    values = confirmed_media_values(saved, original_context, visual)
+    assert isinstance(values, list) and not values
     assert "privacy" not in saved["phases"]  # Observation alone authorizes no edit.
     for call in client.calls:
         native.native_visual_view(call)
@@ -114,7 +114,7 @@ def test_unapproved_native_part_never_supplies_confirmed_media_values(limit, tmp
     client = Client()
     client.reject_partition = True
     with pytest.raises(ValueError, match="independent native source boundary"):
-        jobs._privacy_media_intake(tmp_path, tmp_path, record, "privacy", client, context, visual)
+        _privacy_media_intake(tmp_path, tmp_path, record, "privacy", client, context, visual)
     assert "media_observation_validation" not in json.loads(record.read_bytes())["phases"]
     assert "confirmed_media_values" not in context
 
@@ -155,9 +155,7 @@ def test_stale_complete_observation_parts_cannot_be_rebound(limit, tmp_path, mon
     record.write_bytes(json_bytes({"phases": {}, "item": {"media": [{}]}}))
     original_context = json.loads(json_bytes(context))
     monkeypatch.setattr(jobs, "_privacy_observation_context", lambda *args: (context, visual))
-    saved = jobs._privacy_media_intake(
-        tmp_path, tmp_path, record, "privacy", Client(), context, visual
-    )
+    saved = _privacy_media_intake(tmp_path, tmp_path, record, "privacy", Client(), context, visual)
     original_context["body"] += " Changed action order."
     with pytest.raises(ValueError, match="stale complete logical source"):
         confirmed_media_values(saved, original_context, visual)
@@ -185,7 +183,7 @@ def test_independent_value_validation_rejection_cannot_confirm_an_observation(
 
     client = RejectValueClient()
     with pytest.raises(ValueError, match="independent native source boundary"):
-        jobs._privacy_media_intake(tmp_path, tmp_path, record, "privacy", client, context, visual)
+        _privacy_media_intake(tmp_path, tmp_path, record, "privacy", client, context, visual)
     saved = json.loads(record.read_bytes())
     assert "media_observation" in saved["phases"]
     assert "media_observation_validation" not in saved["phases"]
