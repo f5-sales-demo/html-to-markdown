@@ -137,7 +137,11 @@ def _native_crop(
 
 
 def observation_views(
-    regions: list[dict[str, Any]], visual: list[dict[str, Any]], *, context_margin: int = 0
+    regions: list[dict[str, Any]],
+    visual: list[dict[str, Any]],
+    *,
+    context_margin: int = 0,
+    partitionable: bool = False,
 ) -> list[dict[str, Any]]:
     """Supplement complete frames with enlarged exact pixels of confirmed regions."""
     sources = {
@@ -156,10 +160,10 @@ def observation_views(
             raise ValueError("observation crop addresses an absent native frame")
         crops.append(_native_crop(sources[address], region, context_margin))
     available = 50 - sum(item["type"] == "input_image" for item in visual)
-    if crops and available < 1:
+    if crops and available < 1 and not partitionable:
         raise ValueError("complete native frames leave no room for source-region review views")
     result = []
-    size = max(1, math.ceil(len(crops) / available)) if crops else 1
+    size = max(1, math.ceil(len(crops) / available)) if crops and not partitionable else 1
     for start in range(0, len(crops), size):
         pixels, description = _region_sheet(crops[start : start + size])
         data = io.BytesIO()
@@ -182,9 +186,11 @@ def observation_views(
     return result
 
 
-def boundary_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def boundary_views(
+    context: dict[str, Any], visual: list[dict[str, Any]], *, partitionable: bool = False
+) -> list[dict[str, Any]]:
     """Expose native edge pixels for feedback-named frames before regions exist."""
-    if sum(item["type"] == "input_image" for item in visual) >= 50:
+    if not partitionable and sum(item["type"] == "input_image" for item in visual) >= 50:
         return []
     hints = " ".join(context.get("observation_feedback", []))
     regions = []
@@ -212,7 +218,7 @@ def boundary_views(context: dict[str, Any], visual: list[dict[str, Any]]) -> lis
                             ],
                         }
                     )
-    views = observation_views(regions, visual)
+    views = observation_views(regions, visual, partitionable=partitionable)
     for view in views:
         if view["type"] == "input_text":
             view["text"] = (

@@ -19,7 +19,7 @@ LEGACY = json.loads(
 def test_new_requests_declare_original_frame_endpoint_coordinates():
     """Model schema and instructions must agree on the exact coordinate convention."""
     body = observation_request(LEGACY["context"], LEGACY["visual"])
-    assert body["instructions"].endswith("native-media-observation/2")
+    assert body["instructions"].endswith("native-media-observation/3")
     rectangle = body["text"]["format"]["schema"]["$defs"]["VisibleValue"]["properties"]["rectangle"]
     assert rectangle["minItems"] == rectangle["maxItems"] == 4
     assert rectangle["items"]["minimum"] == 0

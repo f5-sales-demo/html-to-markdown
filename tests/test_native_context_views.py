@@ -158,11 +158,18 @@ def test_boundary_sheets_keep_original_frames_and_respect_the_image_cap():
         },
         "observation_feedback": ["Inspect " + f"{index:064x}" for index in range(2)],
     }
-    content = observation_request(context, visual)["input"][0]["content"]
+    content = observation_request(context, visual, version="native-media-observation/2")["input"][
+        0
+    ]["content"]
     assert content[1:99] == visual
     assert sum(item["type"] == "input_image" for item in content) == 50
     description = content[-2]["text"]
     panels, _ = json.JSONDecoder().raw_decode(description[description.index("[") :])
     assert len(panels) == 2
     full = visual + [{**pair[0], "text": "media/" + "f" * 64 + "/0"}, pair[1]]
-    assert observation_request(context, full)["input"][0]["content"][1:] == full
+    assert (
+        observation_request(context, full, version="native-media-observation/2")["input"][0][
+            "content"
+        ][1:]
+        == full
+    )
