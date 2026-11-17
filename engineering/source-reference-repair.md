@@ -44,8 +44,8 @@ replace reviewed OCR with results from a different host's OCR installation.
 
 Source and candidate screenshots can have identical complete pixels with different
 PNG encodings. Requests that fit native capacity retain their original attachment
-order. Larger requests first share identical encoded images using manifest version
-1. Only if those attachments still exceed capacity does version 2 share images
+order. Larger requests first share identical encoded images using manifest version 1.
+Only if those attachments still exceed capacity does version 2 share images
 whose complete RGBA pixels, original-mode pixel bytes, dimensions, mode, palette
 and all metadata match exactly. Neither the image count nor decoded capacity limit
 changes. Distinct oversized inputs still require complete image-boundary review.

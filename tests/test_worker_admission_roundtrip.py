@@ -151,12 +151,12 @@ def test_snapshot_rejects_symlinked_directory_before_creating_output(
     assert not output.exists()
 
 
-def _source_capture(capture: Path, root: Path, source: str) -> Path:
+def _source_capture(capture: Path, root: Path, source: str, url: str | None = None) -> Path:
     """Build complete source-specific fixture bytes for the real admission replay."""
     inventory = json.loads((capture / "inventory.json").read_bytes())
     item = inventory["documents"][0]
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    url = SOURCE_ROOTS[source] + "/article"
+    url = url or SOURCE_ROOTS[source] + "/article"
     metadata.update(sourceId=source, url=url)
     route = stable_path(source, url).as_posix()
     article = serialize_document(PageMetadata.model_validate(metadata), body).encode()

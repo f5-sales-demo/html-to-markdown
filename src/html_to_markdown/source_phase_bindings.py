@@ -34,6 +34,33 @@ PRIVATE_PHASES = {
 }
 
 
+def _privacy_budget(previous: dict[str, Any], binding: dict[str, Any]) -> dict[str, Any]:
+    """Model and controller changes cannot grant new corrections on identical source data."""
+    ignored = {
+        "curation_policy_sha256",
+        "api_policy_sha256",
+        "request_context_sha256",
+        "editor_model",
+        "validator_model",
+        "model_policy_version",
+    }
+    old = {key: value for key, value in previous.get("binding", {}).items() if key not in ignored}
+    current = {key: value for key, value in binding.items() if key not in ignored}
+    feedback = previous.get("privacy_feedback", [])
+    if old != current:
+        return {}
+    blocked = (
+        {"cross_queue_evidence_blocked": True}
+        if previous.get("cross_queue_evidence_blocked")
+        else {}
+    )
+    if blocked and previous.get("cross_queue_storage_retryable"):
+        blocked["cross_queue_storage_retryable"] = True
+    if not feedback:
+        return blocked
+    return {**blocked, "privacy_feedback": list(feedback), "privacy_exhausted": len(feedback) >= 2}
+
+
 def reusable_privacy(previous: dict[str, Any], current_binding: dict[str, Any]) -> dict[str, Any]:
     if source_core(previous.get("binding", {})) != source_core(current_binding):
         return {}
