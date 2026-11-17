@@ -156,8 +156,9 @@ def _source_capture(capture: Path, root: Path, source: str) -> Path:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     item = inventory["documents"][0]
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    metadata.update(sourceId=source, url=SOURCE_ROOTS[source] + "/article")
-    route = stable_path(source, metadata["url"]).as_posix()
+    url = SOURCE_ROOTS[source] + "/article"
+    metadata.update(sourceId=source, url=url)
+    route = stable_path(source, url).as_posix()
     article = serialize_document(PageMetadata.model_validate(metadata), body).encode()
     item.update(
         identity=source + ":" + route,
