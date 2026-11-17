@@ -41,6 +41,8 @@ def review_context_digest() -> str:
                     "source_review.py",
                     "community_media.py",
                     "source_review_jobs.py",
+                    "source_boundary_requests.py",
+                    "source_boundary_review.py",
                     "source_review_reconciliation.py",
                     "source_phase_bindings.py",
                     "source_binding_context.py",

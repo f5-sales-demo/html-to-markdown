@@ -137,6 +137,14 @@ class ResponseEvidence(StrictModel):
     transport: Literal["openai_batch", "codex_litellm"] = "openai_batch"
     runtime_version: str | None = None
     output_selector: str | None = None
+    source_boundary: dict[str, Any] | None = None
+
+    @model_serializer(mode="wrap")
+    def serialize_source_boundary(self, handler: SerializerFunctionWrapHandler) -> dict[str, Any]:
+        result: dict[str, Any] = handler(self)
+        if self.source_boundary is None:
+            result.pop("source_boundary", None)
+        return result
 
 
 class DocumentEvidence(StrictModel):
