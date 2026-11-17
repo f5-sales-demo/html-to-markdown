@@ -26,6 +26,7 @@ from .adapters.community import (
     topic_id,
     validate_topic,
 )
+from .capture_store import store_bytes
 from .content_policy import _canonical, load_content_policy
 from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
@@ -43,17 +44,25 @@ def atomic_private(path: Path, data: bytes) -> None:
 
 
 class InventoryFetcher(Fetcher):
-    def __init__(self, output: Path, database: sqlite3.Connection, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        output: Path,
+        database: sqlite3.Connection,
+        *,
+        capture_store: Path | None = None,
+        **kwargs: Any,
+    ) -> None:
         super().__init__(**kwargs)
         self.output = output
         self.database = database
+        self.capture_store = capture_store or output / ".capture-store"
         self.community_client.discovery_recorder = self.record_discovery
         self._http.event_hooks["response"].append(self.preserve_response)
 
     async def preserve_response(self, response: httpx.Response) -> None:
         await response.aread()
         body = response.content
-        atomic_private(self.output / "responses" / (sha(body) + ".body"), body)
+        store_bytes(self.capture_store, self.output / "responses" / (sha(body) + ".body"), body)
         receipt = {
             "url": str(response.url),
             "status": response.status_code,
@@ -73,7 +82,11 @@ class InventoryFetcher(Fetcher):
             finally:
                 try:
                     html = (await page.content()).encode()
-                    atomic_private(self.output / "browser-evidence" / (sha(html) + ".html"), html)
+                    store_bytes(
+                        self.capture_store,
+                        self.output / "browser-evidence" / (sha(html) + ".html"),
+                        html,
+                    )
                     receipt = {"url": page.url, "html_sha256": sha(html), "captured_at": utc_now()}
                     atomic_private(
                         self.output / "browser-evidence" / (sha(json_bytes(receipt)) + ".json"),
@@ -253,7 +266,7 @@ async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str,
         fetched = await fetcher.fetch(adapter, item["url"])
         data = fetched.html.encode()
         relative = "captures/" + sha(data) + ".html"
-        atomic_private(fetcher.output / relative, data)
+        store_bytes(fetcher.capture_store, fetcher.output / relative, data)
         result.update(
             source_html_path=relative,
             source_html_sha256=sha(data),
@@ -284,7 +297,7 @@ async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str,
             data, media_type = await fetcher.fetch_asset(asset.url)
             digest = sha(data)
             asset_path = article.parent / "assets" / digest
-            atomic_private(fetcher.output / asset_path, data)
+            store_bytes(fetcher.capture_store, fetcher.output / asset_path, data)
             rendered.body = rendered.body.replace(asset.placeholder, "assets/" + digest)
             media.append(
                 {
@@ -296,7 +309,7 @@ async def _capture(fetcher: InventoryFetcher, item: dict[str, Any]) -> dict[str,
             )
         data = serialize_document(metadata, rendered.body).encode()
         extracted_path = Path("extractions") / sha(data) / "index.md"
-        atomic_private(fetcher.output / extracted_path, data)
+        store_bytes(fetcher.capture_store, fetcher.output / extracted_path, data)
         excluded = _immutable_route_excluded(item["url"]) or _immutable_route_excluded(
             fetched.final_url
         )
@@ -412,6 +425,7 @@ async def collect_content(
     concurrency: int = 4,
     retries: int = 3,
     timeout: float = 30,
+    capture_store: Path | None = None,
 ) -> dict[str, Any]:
     if source != "all" and source not in ADAPTERS:
         raise ValueError("unknown source")
@@ -456,7 +470,9 @@ async def collect_content(
     for name in sources:
         phases.setdefault(name, {"enumeration_complete": False, "full": full})
     try:
-        async with InventoryFetcher(output, database, timeout=timeout, retries=retries) as fetcher:
+        async with InventoryFetcher(
+            output, database, timeout=timeout, retries=retries, capture_store=capture_store
+        ) as fetcher:
             for item in _documents(database):
                 verify_capture(output, item)
             _reconcile_capture_dispositions(output, database)
