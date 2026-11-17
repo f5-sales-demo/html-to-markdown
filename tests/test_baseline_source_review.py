@@ -247,11 +247,15 @@ def test_baseline_validator_rejects_stale_phase_data_before_inference(prepared, 
     _, output, record, _ = prepared
     client = Client(require_phase_link=True)
     client.tamper_phase = field
-    with pytest.raises(ValueError, match="exhausted"):
+    expected = "relevance" if field.startswith("relevance") else "exhausted"
+    with pytest.raises(ValueError, match=expected):
         source.review_baseline_privacy(output, record, client)
     saved = json.loads(record.read_bytes())
     assert saved["status"] == "privacy_review_required"
     assert all("stale" in feedback for feedback in saved["privacy_feedback"])
+    if field.startswith("relevance"):
+        assert not saved["privacy_feedback"]
+        assert all(c["text"]["format"]["name"] != "privacydecision" for c in client.calls)
     assert not (output / "reviewed").exists()
     assert all(c["text"]["format"]["name"] != "admissionvalidation" for c in client.calls)
 

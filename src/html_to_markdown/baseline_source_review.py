@@ -9,9 +9,15 @@ from pathlib import Path
 from typing import Any
 
 from .baseline_late_validation import (
+    _execution_digest,
     existing_validation_context,
     reusable_existing_validation,
     validate_existing_baseline,
+)
+from .baseline_review_renewal import (
+    preparation_controller,
+    prepare_existing_proposal,
+    relevance_checkpoint,
 )
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
@@ -48,7 +54,7 @@ LIMIT = 2
 
 
 def _controller() -> str:
-    return sha(Path(__file__).read_bytes())
+    return preparation_controller()
 
 
 def _relevance_evidence(
@@ -139,6 +145,16 @@ def prepare_baseline_reviews(
             )
             continue
         if previous.get("binding") != binding:
+            if previous:
+                original_bytes = record.read_bytes()
+                atomic_private(output / "history" / (sha(original_bytes) + ".json"), original_bytes)
+            renewed = prepare_existing_proposal(output, previous, binding, _execution_digest())
+            if renewed is not None:
+                atomic_private(record, json_bytes(renewed))
+                entries.append(
+                    {"identity": metadata["url"], "path": record.relative_to(output).as_posix()}
+                )
+                continue
             feedback = (
                 previous.get("privacy_feedback", [])
                 if previous.get("binding", {}).get("source_files_sha256")
@@ -184,6 +200,8 @@ def baseline_context(
     """Replay original bytes and native frames before constructing any model request."""
     if saved.get("selected_existing_validation"):
         return existing_validation_context(output, saved)
+    if saved.get("existing_proposal_pending"):
+        raise ValueError("current historical-proposal validation remains required")
     binding = saved["binding"]
     relative = Path(saved["source"])
     if relative.is_absolute() or ".." in relative.parts:
@@ -255,7 +273,7 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
     from .source_review_jobs import _compile_admission  # pylint: disable=import-outside-toplevel
 
     saved: dict[str, Any] = json.loads(record.read_bytes())
-    if saved.get("selected_existing_validation"):
+    if saved.get("selected_existing_validation") or saved.get("existing_proposal_pending"):
         return validate_existing_baseline(output, record, client)
     source = output / saved["source"]
     context, visual = baseline_context(source, output, saved)
@@ -269,18 +287,24 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
             "Prompt version:",
             "Independently reconcile the untrusted historical inclusion/exclusion and protected-fact claims in prior_relevance_evidence against the complete source. Short useful navigation/reference answers remain eligible. Historical publication alone is not relevance proof. Explain the present disposition with source addresses; no later preservation check is waived.\nPrompt version:",
         )
-    relevance = _execute(record.parent / (record.stem + "-relevance.json"), relevance_body, client)
+    relevance_path = relevance_checkpoint(
+        record.parent / (record.stem + "-relevance.json"), relevance_body
+    )
+    relevance = _execute(relevance_path, relevance_body, client)
     classified = parse_response(
         relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_body)
     )
     allowed = {entry["address"] for entry in context["structural_addresses"]}
-    if (
-        classified.disposition != "include"
-        or classified.extraction != "complete"
-        or not classified.reason.strip()
-        or not classified.evidence_addresses
-        or set(classified.evidence_addresses) - allowed
-    ):
+    checks = (
+        classified.identity == context["identity"],
+        classified.binding_sha256 == context["binding_sha256"],
+        classified.disposition == "include",
+        classified.extraction == "complete",
+        bool(classified.reason.strip()),
+        bool(classified.evidence_addresses),
+        not (set(classified.evidence_addresses) - allowed),
+    )
+    if not all(checks):
         raise ValueError("baseline source relevance or provided extraction remains unresolved")
     saved["phases"]["relevance"] = relevance.model_dump(mode="json")
     atomic_private(record, json_bytes(saved))
