@@ -20,6 +20,7 @@ import httpx
 
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy
+from .cross_queue_reviews import seed_review_batch
 from .curation import json_bytes, load_curation_policy
 from .curation_renewal_worker import advance_renewals
 from .enrichment.analysis import sha
@@ -198,6 +199,7 @@ def worker_once(
                 continue
             review = directory / "review"
             run_reviews(capture, review, phase="prepare", journal=output / "journal")
+            seed_review_batch(capture, review, output, limit=batch_size)
             report = run_reviews(
                 capture, review, phase="all", journal=output / "journal", limit=batch_size
             )

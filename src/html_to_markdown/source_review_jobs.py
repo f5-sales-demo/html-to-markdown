@@ -34,6 +34,7 @@ from .render import serialize_document, split_document
 from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_media_references import media_destination_map, rewrite_media_references
 from .source_phase_bindings import (
+    _privacy_budget,
     invalidate_failed_review,
     pending_privacy_proposal,
     privacy_context,
@@ -73,24 +74,6 @@ def _article_html(capture: Path, item: dict[str, Any]) -> str:
         source_html = json.loads(source_html)["post_stream"]["posts"][0]["cooked"]
     soup = BeautifulSoup(source_html, "html.parser")
     return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
-
-
-def _privacy_budget(previous: dict[str, Any], binding: dict[str, Any]) -> dict[str, Any]:
-    """Model and controller changes cannot grant new corrections on identical source data."""
-    ignored = {
-        "curation_policy_sha256",
-        "api_policy_sha256",
-        "request_context_sha256",
-        "editor_model",
-        "validator_model",
-        "model_policy_version",
-    }
-    old = {key: value for key, value in previous.get("binding", {}).items() if key not in ignored}
-    current = {key: value for key, value in binding.items() if key not in ignored}
-    feedback = previous.get("privacy_feedback", [])
-    if old != current or not feedback:
-        return {}
-    return {"privacy_feedback": list(feedback), "privacy_exhausted": len(feedback) >= 2}
 
 
 def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
@@ -772,6 +755,8 @@ def review_one(
 def _run_record(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> None:
+    if json.loads(record.read_bytes()).get("cross_queue_evidence_blocked"):
+        raise ValueError("prior source-review evidence requires repair before new privacy attempts")
     if json.loads(record.read_bytes()).get("privacy_exhausted"):
         raise ValueError(
             "privacy proposal exhausted two corrections; unchanged privacy context remains queued"

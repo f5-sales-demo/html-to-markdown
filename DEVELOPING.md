@@ -54,6 +54,17 @@ uv run html-to-markdown verify-publication \
 The production docs-control verifier additionally binds the receipt's source
 commit to the exact release tag before mounting the extracted tree read-only.
 
+## Daily review evidence
+
+The Mac worker seeds eligible source batches from prior private capture queues.
+Unchanged bound article, metadata, media and policy/request inputs reuse exact
+model evidence, then replay against the fresh raw capture receipt before gaining
+an accepted or excluded disposition. Changed inputs follow normal review. Prior
+records and native-media caches remain immutable; exhausted and pending privacy
+ledgers carry across queues. Unsafe or unreadable prior evidence remains queued
+for repair. Interrupted storage copies resume before any new privacy attempt.
+`cross-queue-reuse.json` and its evidence/errors are private operational artifacts.
+
 ## Documentation build
 
 Mount the one-page `docs/` directory and a verified extracted corpus
