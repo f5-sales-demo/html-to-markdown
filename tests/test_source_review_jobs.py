@@ -484,7 +484,8 @@ def test_mutated_capture_is_rejected_before_any_model_request(
     capture: Path, tmp_path: Path
 ) -> None:
     prepare_reviews(capture, tmp_path / "review")
-    (capture / "captures/source.html").write_text("changed")
+    inventory = json.loads((capture / "inventory.json").read_bytes())
+    (capture / inventory["documents"][0]["source_html_path"]).write_text("changed")
     with pytest.raises(ValueError, match="digest"):
         prepare_reviews(capture, tmp_path / "review")
 

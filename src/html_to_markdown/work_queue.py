@@ -10,6 +10,7 @@ import tarfile
 from pathlib import Path
 from typing import Any, BinaryIO
 
+from .capture_payloads import capture_payloads
 from .capture_store import capture_digest, store_bytes
 from .content_inventory import verify_capture
 from .curation import json_bytes
@@ -194,6 +195,44 @@ def export_queue(root: Path, relative: str, stream: BinaryIO) -> None:
             archive.addfile(entry, io.BytesIO(data))
 
 
+def _declared_payloads(data: tarfile.TarFile, names: set[str]) -> dict[str, str]:
+    declared: dict[str, str] = {}
+    if "inventory.json" not in names:
+        return declared
+    stream = data.extractfile("inventory.json")
+    if stream is None:
+        raise ValueError("private capture inventory missing")
+    with stream:
+        inventory = json.load(stream)
+    if not isinstance(inventory, dict) or not isinstance(inventory.get("documents"), list):
+        raise ValueError("invalid private capture inventory")
+    for item in inventory["documents"]:
+        if not isinstance(item, dict):
+            raise ValueError("invalid private capture record")
+        for name, expected in capture_payloads(item).items():
+            if name not in names:
+                raise ValueError("declared capture payload missing from private archive")
+            if name in declared and declared[name] != expected:
+                raise ValueError("conflicting private capture inventory digests")
+            declared[name] = expected
+    return declared
+
+
+def _verify_transfer_payloads(
+    data: tarfile.TarFile, members: list[tarfile.TarInfo], declared: dict[str, str]
+) -> None:
+    for member in members:
+        expected = declared.get(member.name, capture_digest(Path(member.name)))
+        if expected is None:
+            continue
+        stream = data.extractfile(member)
+        if stream is None:
+            raise ValueError("private queue member data missing")
+        with stream:
+            if sha(stream.read()) != expected:
+                raise ValueError("captured transfer digest mismatch")
+
+
 def unpack_queue(archive: Path, destination: Path, *, capture_store: Path | None = None) -> None:
     """Validate every member before writing any received private capture bytes."""
     with tarfile.open(archive) as data:
@@ -216,6 +255,10 @@ def unpack_queue(archive: Path, destination: Path, *, capture_store: Path | None
             names.add(name)
         if any(parent.as_posix() in names for name in names for parent in Path(name).parents):
             raise ValueError("conflicting private queue archive paths")
+        declared = _declared_payloads(data, names) if capture_store is not None else {}
+        # Verify every shared payload before writing any member, including mutable metadata.
+        if capture_store is not None:
+            _verify_transfer_payloads(data, members, declared)
         destination.mkdir(parents=True, exist_ok=True, mode=0o700)
         from .content_inventory import atomic_private  # pylint: disable=import-outside-toplevel
 
@@ -229,7 +272,11 @@ def unpack_queue(archive: Path, destination: Path, *, capture_store: Path | None
                 raise ValueError("private queue member data missing")
             with stream:
                 payload = stream.read()
-                expected = capture_digest(path) if capture_store is not None else None
+                expected = (
+                    declared.get(member.name, capture_digest(path))
+                    if capture_store is not None
+                    else None
+                )
                 if expected is not None and capture_store is not None:
                     if sha(payload) != expected:
                         raise ValueError("captured transfer digest mismatch")

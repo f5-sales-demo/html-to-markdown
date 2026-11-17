@@ -8,6 +8,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from .capture_payloads import capture_payloads
 from .capture_store import capture_digest, share_file
 from .content_inventory import atomic_private
 from .curation import json_bytes
@@ -25,30 +26,8 @@ def _files(root: Path, source: str) -> dict[Path, str]:
             connection.execute("BEGIN")
             for row in connection.execute("SELECT data FROM documents"):
                 item = json.loads(row[0])
-                candidates = [
-                    (item[field + "_path"], item[field + "_sha256"])
-                    for field in ("source_html", "article")
-                    if item.get(field + "_path") and item.get(field + "_sha256")
-                ]
-                candidates.extend(
-                    (media["path"], media["sha256"]) for media in item.get("media", [])
-                )
-                for name, expected in candidates:
-                    relative = Path(name)
-                    if relative.is_absolute() or ".." in relative.parts or "\\" in name:
-                        raise ValueError("unsafe capture storage payload path")
-                    named_digest = capture_digest(relative)
-                    legacy_article = (
-                        len(relative.parts) >= 5
-                        and relative.parts[:2] == ("articles", "content")
-                        and relative.parts[2] in SOURCE_ROOTS
-                        and relative.name == "index.md"
-                    )
-                    if named_digest != expected and not legacy_article:
-                        raise ValueError(
-                            "capture record does not address an immutable payload path"
-                        )
-                    path = database.parent / relative
+                for name, expected in capture_payloads(item).items():
+                    path = database.parent / name
                     if path in files and files[path] != expected:
                         raise ValueError("conflicting capture payload digests")
                     files[path] = expected
@@ -56,15 +35,41 @@ def _files(root: Path, source: str) -> dict[Path, str]:
             connection.close()
         for family, pattern in (("responses", "*.body"), ("browser-evidence", "*.html")):
             for path in (database.parent / family).glob(pattern):
-                expected = capture_digest(path.relative_to(database.parent))
-                if expected is not None:
-                    files[path] = expected
+                named_digest = capture_digest(path.relative_to(database.parent))
+                if named_digest is not None:
+                    files[path] = named_digest
     return files
 
 
 def _share_source(root: Path, output: Path, source: str) -> dict[str, Any]:
     checkpoint = output / (source + ".private.json")
-    files = _files(root, source)
+    try:
+        files = _files(root, source)
+    except (OSError, ValueError, sqlite3.Error) as failure:
+        if checkpoint.exists():
+            atomic_private(
+                output / "history" / (sha(checkpoint.read_bytes()) + ".json"),
+                checkpoint.read_bytes(),
+            )
+        atomic_private(
+            output / "errors" / (source + ".private.json"),
+            json_bytes({"error": str(failure), "stage": "enumeration"}),
+        )
+        atomic_private(
+            checkpoint,
+            json_bytes(
+                {
+                    "schema_version": 1,
+                    "source": source,
+                    "state": "interrupted",
+                    "stage": "enumeration",
+                    "error_class": type(failure).__name__,
+                    "source_records_changed": False,
+                    "model_inference_run": False,
+                }
+            ),
+        )
+        raise
     inventory_pin = sha(
         json_bytes(
             {path.relative_to(root).as_posix(): value for path, value in sorted(files.items())}
