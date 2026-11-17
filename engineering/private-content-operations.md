@@ -204,3 +204,11 @@ Active source collectors are deferred. A changed file inventory starts a new che
 preserving its predecessor; repeated complete maintenance performs no payload rewrite. Unsafe
 paths, mismatched digests and corrupt objects fail visibly. Interrupted checkpoints preserve
 completed work and source records; raw diagnostics and per-source reports stay private.
+
+
+Retained-baseline renewal keeps exact historical proposal envelopes separate from current
+execution and policy guards. A complete original proposal on unchanged article, metadata and
+media bytes receives current independent validation with zero new editor proposals. Missing or
+changed history, stale preparation/execution guards and failed privacy/preservation checks remain
+queued. Original correction ledgers, including exhausted ledgers, never gain another editor round.
+New baseline relevance contexts use request-digest checkpoints; strict legacy replay remains exact.

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .baseline_review_renewal import preparation_controller, verify_pending
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy
@@ -43,6 +44,7 @@ def _execution_digest() -> str:
         json_bytes(
             {
                 "module": sha(Path(__file__).read_bytes()),
+                "renewal": sha(Path(__file__).with_name("baseline_review_renewal.py").read_bytes()),
                 "baseline": sha(Path(__file__).with_name("baseline_source_review.py").read_bytes()),
                 "model_evidence": sha(
                     Path(__file__).with_name("curation_model_evidence.py").read_bytes()
@@ -249,6 +251,17 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
     original = record.read_bytes()
     saved: dict[str, Any] = json.loads(original)
     selection = saved.get("selected_existing_validation", {})
+    verify_pending(
+        output,
+        saved,
+        _execution_digest(),
+        {
+            "preparation_controller_sha256": preparation_controller(),
+            "source_privacy_controller_sha256": review_context_digest(),
+            "curation_policy_sha256": load_curation_policy().sha256,
+            "version": "baseline-source-privacy/3",
+        },
+    )
     if selection and selection["execution_sha256"] != _execution_digest():
         raise ValueError("stale existing-proposal validation controller or policy")
     _verify_origin(output, saved, selection)
@@ -262,7 +275,10 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
         proposal,
         visual + candidate_visual,
         saved,
-        selection.get("original_record_sha256", sha(original)),
+        selection.get(
+            "original_record_sha256",
+            saved.get("existing_proposal_pending", {}).get("source_record_sha256", sha(original)),
+        ),
     )
     path = output / "existing-validation" / record.stem / (request_hash(body) + ".json")
     if client is None and not path.is_file():
@@ -277,7 +293,10 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
         raise
     selected = {
         "version": VERSION,
-        "original_record_sha256": selection.get("original_record_sha256", sha(original)),
+        "original_record_sha256": selection.get(
+            "original_record_sha256",
+            saved.get("existing_proposal_pending", {}).get("source_record_sha256", sha(original)),
+        ),
         "execution_sha256": _execution_digest(),
         "request_sha256": request_hash(body),
         "response_sha256": evidence.response_sha256,
@@ -290,6 +309,7 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
     atomic_private(output / "history" / (sha(original) + ".json"), original)
     for name, content in files.items():
         atomic_private(output / "reviewed" / record.stem / name, content)
+    saved.pop("existing_proposal_pending", None)
     saved.update(
         status="privacy_only_validated",
         candidate=candidate,
