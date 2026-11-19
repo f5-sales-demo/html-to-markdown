@@ -14,7 +14,7 @@ import subprocess  # nosec B404
 import time
 import uuid
 from collections.abc import Callable
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from concurrent.futures import TimeoutError as FutureTimeout
 from pathlib import Path
 from typing import Any
@@ -322,37 +322,76 @@ def inference_once(
         return status
 
 
+DRAIN_IDLE_GRACE_SECONDS = 30
+DRAIN_POLL_SECONDS = 10
+
+
+def _queue_heartbeat(kwargs: dict[str, Any]) -> None:
+    owner = _read(kwargs["output"] / "owner.json")["owner"]
+    args = [
+        str(kwargs["transport"]),
+        "--host",
+        kwargs["host"],
+        "--",
+        kwargs["remote_executable"],
+        "inference-queue-status",
+        "--queue-root",
+        kwargs["remote_queue"],
+        "--owner",
+        owner,
+    ]
+    status: dict[str, Any] = {"checked_at": utc_now(), "state": "checking"}
+    try:
+        response = subprocess.run(args, capture_output=True, check=True, timeout=60)  # nosec B603
+        status.update(state="inference_active", queue=json.loads(response.stdout))
+    except Exception as failure:  # pylint: disable=broad-exception-caught
+        status.update(state="queue_check_failed", error_class=type(failure).__name__)
+    atomic_private(kwargs["output"] / "queue-heartbeat.json", json_bytes(status))
+
+
+def _await_batch(
+    future: Future[dict[str, Any]], deadline: float, kwargs: dict[str, Any]
+) -> tuple[dict[str, Any], float]:
+    while True:
+        try:
+            result = future.result(timeout=max(0.01, min(30, deadline - time.monotonic())))
+        except FutureTimeout:
+            if not future.done():
+                if time.monotonic() >= deadline:
+                    _queue_heartbeat(kwargs)
+                    deadline = time.monotonic() + 900
+                continue
+            # A completed worker can itself raise TimeoutError. Propagate it
+            # rather than confusing it with a live Future's polling timeout.
+            result = future.result()
+        if time.monotonic() >= deadline:
+            _queue_heartbeat(kwargs)
+            deadline = time.monotonic() + 900
+        return result, deadline
+
+
 def monitored_inference(**kwargs: Any) -> dict[str, Any]:
-    """Poll the private queue every fifteen awake minutes during a long model job."""
+    """Drain ready four-job batches, preserving the fifteen-minute idle clock."""
+    completed, batches = 0, 0
+    quiet_deadline: float | None = None
+    heartbeat_deadline = time.monotonic() + 900
     with ThreadPoolExecutor(max_workers=1) as pool:
-        future = pool.submit(inference_once, **kwargs)
-        deadline = time.monotonic() + 900
         while True:
-            try:
-                return future.result(timeout=max(0.01, min(30, deadline - time.monotonic())))
-            except FutureTimeout:
-                if future.done():
-                    return future.result()
-                if time.monotonic() < deadline:
-                    continue
-                owner = _read(kwargs["output"] / "owner.json")["owner"]
-                args = [
-                    str(kwargs["transport"]),
-                    "--host",
-                    kwargs["host"],
-                    "--",
-                    kwargs["remote_executable"],
-                    "inference-queue-status",
-                    "--queue-root",
-                    kwargs["remote_queue"],
-                    "--owner",
-                    owner,
-                ]
-                status: dict[str, Any] = {"checked_at": utc_now(), "state": "checking"}
-                try:
-                    response = subprocess.run(args, capture_output=True, check=True, timeout=60)  # nosec B603
-                    status.update(state="inference_active", queue=json.loads(response.stdout))
-                except Exception as failure:  # pylint: disable=broad-exception-caught
-                    status.update(state="queue_check_failed", error_class=type(failure).__name__)
-                atomic_private(kwargs["output"] / "queue-heartbeat.json", json_bytes(status))
-                deadline = time.monotonic() + 900
+            future = pool.submit(inference_once, **kwargs)
+            batch, heartbeat_deadline = _await_batch(future, heartbeat_deadline, kwargs)
+            completed += batch.get("completed", 0)
+            batches += 1
+            report = {
+                **batch,
+                "completed": completed,
+                "batches": batches,
+                "article_approved": False,
+            }
+            atomic_private(kwargs["output"] / "monitor-status.json", json_bytes(report))
+            if batch.get("state") != "idle":
+                return report
+            if batch.get("completed", 0):
+                quiet_deadline = time.monotonic() + DRAIN_IDLE_GRACE_SECONDS
+            elif quiet_deadline is None or time.monotonic() >= quiet_deadline:
+                return report
+            time.sleep(min(DRAIN_POLL_SECONDS, max(0, quiet_deadline - time.monotonic())))

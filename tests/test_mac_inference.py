@@ -1,11 +1,13 @@
 """Mac keeps bounded current spools until independently verified Ubuntu acknowledgment."""
 
+import fcntl
 import json
 import subprocess
 from pathlib import Path
 from threading import Event
 from types import SimpleNamespace
 
+import pytest
 from test_codex_worker import body, client
 
 from html_to_markdown import mac_inference
@@ -181,3 +183,172 @@ def test_inference_queue_is_polled_while_a_model_job_remains_live(tmp_path, monk
     )
     assert report["state"] == "idle"
     assert json.loads((tmp_path / "queue-heartbeat.json").read_bytes())["queue"]["queued"] == 3
+
+
+class Clock:
+    def __init__(self):
+        self.now = 0.0
+        self.sleeps = []
+
+    def sleep(self, seconds):
+        self.sleeps.append(seconds)
+        self.now += seconds
+
+
+def monitor(output):
+    return monitored_inference(
+        host="ubuntu",
+        remote_executable="/runtime/tool",
+        remote_queue="/queue",
+        output=output,
+        transport=Path("/transport"),
+        client_factory=client,
+    )
+
+
+def test_one_launch_drains_more_than_four_jobs_in_verified_bounded_batches(tmp_path, monkeypatch):
+    queue, output, _, _, counts = harness(tmp_path, monkeypatch)
+    identities = []
+    for i in range(5):
+        request = body()
+        request["input"][0]["content"][0]["text"] += str(i)
+        identities.append((submit(queue, request, executor_context()), request))
+    clock = Clock()
+    monkeypatch.setattr(mac_inference.time, "monotonic", lambda: clock.now)
+    monkeypatch.setattr(mac_inference.time, "sleep", clock.sleep)
+    original = mac_inference.subprocess.run
+    claim_sizes = []
+
+    def bounded(args, **kwargs):
+        response = original(args, check=kwargs.pop("check", False), **kwargs)
+        if "claim-inference-jobs" in args:
+            claim_sizes.append(len(json.loads(response.stdout)))
+        return response
+
+    monkeypatch.setattr(mac_inference.subprocess, "run", bounded)
+    report = monitor(output)
+    assert claim_sizes[:2] == [4, 2] and max(claim_sizes) == 4
+    assert report["completed"] == 6 and report["pending"] == 0
+    assert not report["article_approved"]
+    assert counts == {"inference": 6, "transfers": 6}
+    assert not list((output / "jobs").glob("*/*/claim.json"))
+    assert not list((output / "transfers").glob("*.tar.gz"))
+    assert len(list((output / "receipts").glob("*.json"))) == 6
+    for identity, request in identities:
+        assert result(queue, identity).request == request
+    assert json.loads((output / "monitor-status.json").read_bytes())["completed"] == 6
+    assert clock.now == 40
+
+
+def test_followup_queued_during_grace_progresses_without_the_next_launch_tick(
+    tmp_path, monkeypatch
+):
+    queue, output, first, _, counts = harness(tmp_path, monkeypatch)
+    clock = Clock()
+    submitted = []
+
+    def sleep(seconds):
+        clock.sleep(seconds)
+        if not submitted:
+            assert result(queue, first) is not None
+            assert not list((output / "jobs").glob("*/*/claim.json"))
+            request = body()
+            request["input"][0]["content"][0]["text"] += " dependent phase"
+            submitted.append(submit(queue, request, executor_context()))
+
+    monkeypatch.setattr(mac_inference.time, "monotonic", lambda: clock.now)
+    monkeypatch.setattr(mac_inference.time, "sleep", sleep)
+    report = monitor(output)
+    assert report["completed"] == 2 and counts == {"inference": 2, "transfers": 2}
+    assert result(queue, submitted[0]) is not None
+    assert clock.now < 900
+
+
+def test_initial_empty_queue_exits_without_an_idle_grace_wait(tmp_path, monkeypatch):
+    calls = []
+
+    def empty(**_kwargs):
+        calls.append(True)
+        return {"state": "idle", "completed": 0, "pending": 0}
+
+    monkeypatch.setattr(mac_inference, "inference_once", empty)
+    monkeypatch.setattr(mac_inference.time, "sleep", lambda _: pytest.fail("unexpected idle wait"))
+    assert monitor(tmp_path)["completed"] == 0
+    assert len(calls) == 1
+
+
+def test_monitor_stops_on_lost_ack_and_preserves_the_same_resumable_archive(tmp_path, monkeypatch):
+    _, output, _, _, counts = harness(tmp_path, monkeypatch, lose_ack=True)
+    report = monitor(output)
+    assert report["state"] == "pending_return" and report["batches"] == 1
+    assert counts == {"inference": 1, "transfers": 1}
+    archive = next((output / "transfers").glob("*.tar.gz"))
+    preserved = archive.read_bytes()
+    assert list((output / "jobs").glob("*/*/claim.json"))
+    assert invoke(output)["completed"] == 1
+    assert counts == {"inference": 1, "transfers": 2}
+    assert preserved and not archive.exists()
+
+
+def test_completed_worker_timeout_propagates_instead_of_spinning(tmp_path, monkeypatch):
+    calls = []
+
+    def failed(**_kwargs):
+        calls.append(True)
+        raise TimeoutError("worker timeout")
+
+    monkeypatch.setattr(mac_inference, "inference_once", failed)
+    with pytest.raises(TimeoutError, match="worker timeout"):
+        monitor(tmp_path)
+    assert len(calls) == 1
+
+
+def test_monitor_does_not_claim_or_infer_when_another_worker_holds_the_lock(tmp_path, monkeypatch):
+    queue, output, _, _, counts = harness(tmp_path, monkeypatch)
+    output.mkdir()
+    with (output / "worker.lock").open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        report = monitor(output)
+    assert report["state"] == "already_running" and report["batches"] == 1
+    assert counts == {"inference": 0, "transfers": 0}
+    state = json.loads(next(queue.glob("*/*/state.json")).read_bytes())
+    assert state["state"] == "queued"
+
+
+def test_monitor_stops_on_corrupt_ack_without_claiming_the_next_batch(tmp_path, monkeypatch):
+    queue, output, _, _, counts = harness(tmp_path, monkeypatch, corrupt_ack=True)
+    for i in range(4):
+        request = body()
+        request["input"][0]["content"][0]["text"] += str(i)
+        submit(queue, request, executor_context())
+    report = monitor(output)
+    assert report["state"] == "pending_return" and report["batches"] == 1
+    assert report["pending"] == 4 and counts["inference"] == 4
+    assert len(list((output / "jobs").glob("*/*/claim.json"))) == 4
+    states = [json.loads(p.read_bytes()) for p in queue.glob("*/*/state.json")]
+    assert sum(s["state"] == "queued" for s in states) == 1
+
+
+def test_heartbeat_deadline_survives_successive_short_batches(tmp_path, monkeypatch):
+    clock = Clock()
+    batches, polls = [], []
+    (tmp_path / "owner.json").write_bytes(json_bytes({"owner": "a" * 32}))
+
+    def batch(**_kwargs):
+        batches.append(True)
+        clock.now += 400
+        return {"state": "idle", "completed": int(len(batches) <= 3), "pending": 0}
+
+    def poll(args, **_kwargs):
+        assert "inference-queue-status" in args
+        polls.append(clock.now)
+        return SimpleNamespace(stdout=b'{"queued":3,"owned":4}')
+
+    monkeypatch.setattr(mac_inference, "inference_once", batch)
+    monkeypatch.setattr(mac_inference.time, "monotonic", lambda: clock.now)
+    monkeypatch.setattr(mac_inference.time, "sleep", clock.sleep)
+    monkeypatch.setattr(mac_inference.subprocess, "run", poll)
+    report = monitor(tmp_path)
+    assert report["completed"] == 3 and len(batches) == 4
+    assert polls == [1220]
+    assert json.loads((tmp_path / "queue-heartbeat.json").read_bytes())["queue"]["owned"] == 4
