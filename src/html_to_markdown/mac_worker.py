@@ -32,6 +32,51 @@ from .source_review_jobs import run_reviews
 from .work_queue import pack_private_tree, unpack_queue
 
 
+def _worker_policy(
+    ubuntu: bool,
+    transport: Path,
+    host: str,
+    remote_executable: str,
+    remote_queue: str,
+    policy_state: Path,
+) -> dict[str, Any]:
+    from .policy_transport import synchronize_policy  # pylint: disable=import-outside-toplevel
+
+    if ubuntu:
+        args = [
+            str(transport),
+            "--host",
+            "local",
+            "--",
+            remote_executable,
+            "export-policy-runtime",
+            "--repository",
+            os.environ.get(
+                "HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown"
+            ),
+            "--state-root",
+            str(policy_state),
+        ]
+        exported: dict[str, Any] = json.loads(
+            subprocess.run(args, capture_output=True, check=True, timeout=120).stdout  # nosec B603
+        )
+        if exported["state"] != "policy_current":
+            raise ValueError("Ubuntu processing awaits Mac policy synchronization")
+        return exported
+    return synchronize_policy(
+        transport,
+        host,
+        remote_executable,
+        os.environ.get("HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown"),
+        os.environ.get(
+            "HTML_TO_MARKDOWN_REMOTE_POLICY_STATE",
+            str(Path(remote_queue).parent / "policy"),
+        ),
+        policy_state,
+        remote_queue,
+    )
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-locals,too-many-statements
 def worker_once(
@@ -44,8 +89,13 @@ def worker_once(
     source_commit: str | None = None,
     batch_size: int = 8,
 ) -> dict[str, Any]:
-    if platform.system() != "Darwin":
-        raise ValueError("the review worker runs exclusively on the MacBook")
+    ubuntu = (
+        platform.system() == "Linux"
+        and host == "local"
+        and bool(os.environ.get("HTML_TO_MARKDOWN_INFERENCE_QUEUE"))
+    )
+    if platform.system() != "Darwin" and not ubuntu:
+        raise ValueError("review requires MacBook inference or explicit Ubuntu queue orchestration")
     if batch_size < 1:
         raise ValueError("review batch size must be positive")
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -63,7 +113,6 @@ def worker_once(
         atomic_private(output / "worker-status.json", json_bytes(status))
         # pylint: disable=import-outside-toplevel
         from .policy_activation import require_active_cohort
-        from .policy_transport import synchronize_policy  # pylint: disable=import-outside-toplevel
 
         policy_state = Path(
             os.environ.get(
@@ -71,18 +120,8 @@ def worker_once(
                 str(Path.home() / ".local/share/html-to-markdown/policy"),
             )
         )
-        status["policy_activation"] = synchronize_policy(
-            transport,
-            host,
-            remote_executable,
-            os.environ.get(
-                "HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown"
-            ),
-            os.environ.get(
-                "HTML_TO_MARKDOWN_REMOTE_POLICY_STATE", str(Path(remote_queue).parent / "policy")
-            ),
-            policy_state,
-            remote_queue,
+        status["policy_activation"] = _worker_policy(
+            ubuntu, transport, host, remote_executable, remote_queue, policy_state
         )
         require_active_cohort(policy_state)
         atomic_private(output / "worker-status.json", json_bytes(status))

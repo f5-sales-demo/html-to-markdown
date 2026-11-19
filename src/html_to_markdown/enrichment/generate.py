@@ -6,6 +6,7 @@ from typing import Any
 
 from ..curation import corpus_digest, json_bytes
 from .analysis import analyze, sha
+from .clients import client_for_host
 from .codex_client import CodexClient
 from .contracts import EDITOR_MODEL, Decision, ImageCollection, ResponseEvidence
 from .engine import context_for, load_artifact
@@ -44,7 +45,7 @@ def generate(
         unique: dict[str, Path] = {}
         for path, digest in artifact.assets.items():
             unique.setdefault(digest, curated / path)
-        client = CodexClient(journal)
+        client = client_for_host(journal, local_client=CodexClient)
         for cached in sorted(journal.glob("*.codex.json")):
             evidence = ResponseEvidence.model_validate_json(cached.read_bytes())
             if evidence.error is None:
@@ -154,7 +155,7 @@ def generate(
                     )
     else:
         raise ValueError("phase must be media, editor, or validator")
-    client = CodexClient(journal)
+    client = client_for_host(journal, local_client=CodexClient)
     try:
         results = client.run(requests, wait=wait)
     finally:
