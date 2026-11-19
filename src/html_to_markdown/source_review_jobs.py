@@ -17,6 +17,7 @@ from pydantic import BaseModel
 from .content_inventory import atomic_private, verify_capture
 from .curation import blocks, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
+from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient, is_transient_error
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import request_hash
@@ -868,7 +869,9 @@ def run_reviews(
                 output / "errors" / (record.name + ".json"),
                 json_bytes({"phase": "media", "error": str(failure)}),
             )
-    client = None if phase == "replay" or not ready else CodexClient(journal, concurrency=4)
+    client = None
+    if phase != "replay" and ready:
+        client = client_for_host(journal, local_client=CodexClient)
     try:
         with ThreadPoolExecutor(max_workers=4) as pool:
             futures = {

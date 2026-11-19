@@ -22,6 +22,7 @@ from .curation_renewal_jobs import review_batch
 from .curation_renewal_publication import stage_policy, validate_planner
 from .docs_inventory import collect_docs
 from .enrichment.analysis import write_analysis
+from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient
 from .enrichment.engine import prepare, replay, verify_enrichment
 from .enrichment.evaluation import evaluate
@@ -398,7 +399,7 @@ def review_curation(
                 raise typer.BadParameter("stage requires --staging-dir")
             evidence = stage_policy(output, contexts, baseline, publication_sha256, staging_dir)
         else:
-            client = CodexClient(journal, concurrency=4)
+            client = client_for_host(journal, concurrency=4, local_client=CodexClient)
             try:
                 evidence = validate_planner(output, contexts, baseline, publication_sha256, client)
             finally:
@@ -417,7 +418,7 @@ def validate_existing_curation_command(
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
 ) -> None:
     """Independently validate a completed proposal without another editor correction."""
-    client = None if replay else CodexClient(journal, concurrency=4)
+    client = None if replay else client_for_host(journal, concurrency=4, local_client=CodexClient)
     try:
         result = validate_existing_curation(output, original_binding, attempt, client)
     finally:
@@ -466,7 +467,7 @@ def review_reference_repair_command(
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".curation-review-journal"),
 ) -> None:
     """Independently validate source and curation without resetting editorial corrections."""
-    client = None if replay else CodexClient(journal, concurrency=4)
+    client = None if replay else client_for_host(journal, concurrency=4, local_client=CodexClient)
     try:
         result = validate_reference_repair(output, repair_binding, client)
     finally:

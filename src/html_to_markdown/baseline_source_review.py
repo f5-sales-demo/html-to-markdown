@@ -24,6 +24,7 @@ from .content_inventory import atomic_private
 from .curation import blocks, json_bytes, load_curation_policy, media_inventory
 from .curation_model_evidence import save as _save
 from .enrichment.analysis import sha
+from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
 from .enrichment.gates import request_hash
@@ -458,7 +459,7 @@ def _privacy_observation_context(
 def review_baseline_batch(
     output: Path, inventory: dict[str, Any], journal: Path, *, replay: bool = False
 ) -> dict[str, Any]:
-    client = None if replay else CodexClient(journal, concurrency=4)
+    client = None if replay else client_for_host(journal, concurrency=4, local_client=CodexClient)
 
     def run(item: dict[str, Any]) -> dict[str, Any]:
         try:

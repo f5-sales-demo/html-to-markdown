@@ -20,6 +20,7 @@ from .curation_renewal_inputs import prepare_renewals
 from .curation_renewal_jobs import review_batch
 from .curation_renewal_publication import stage_policy, validate_planner
 from .enrichment.analysis import sha
+from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient
 from .publication_queue import deployed_revision
 from .work_queue import pack_private_tree, unpack_queue
@@ -55,7 +56,7 @@ def advance_renewals(
     pin = revision["publication_sha256"]
     baseline = baseline_snapshot(output / "baseline" / pin, pin, revision["snapshot_tag"])
     contexts = review_dependencies(output, contexts, baseline, pin, journal)
-    client = CodexClient(journal, concurrency=4)
+    client = client_for_host(journal, concurrency=4, local_client=CodexClient)
     try:
         qualification = validate_planner(output, contexts, baseline, pin, client)
     finally:

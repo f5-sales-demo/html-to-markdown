@@ -22,6 +22,7 @@ from .curation_renewal_review import (
     verify_validation,
 )
 from .curation_section_validation import IncompleteValidation, validate_sections
+from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
@@ -39,7 +40,11 @@ def review_batch(
     if phase not in {"all", "replay"}:
         raise ValueError("renewal batch phase must be all or replay")
     ready = any("context_path" in item for item in inventory["documents"])
-    client = CodexClient(journal, concurrency=4) if phase == "all" and ready else None
+    client = (
+        client_for_host(journal, concurrency=4, local_client=CodexClient)
+        if phase == "all" and ready
+        else None
+    )
 
     def review_item(item: dict[str, Any]) -> dict[str, Any]:
         result = {"identity": item["identity"], "disposition": "queued"}

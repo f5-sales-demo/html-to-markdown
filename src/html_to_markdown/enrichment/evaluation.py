@@ -12,6 +12,7 @@ from pydantic import Field
 from ..curation import json_bytes
 from ..urls import SOURCE_ROOTS
 from .analysis import analyze, sha
+from .clients import client_for_host
 from .codex_client import CodexClient
 from .contracts import VALIDATOR_MODEL, ResponseEvidence, StrictModel
 from .gates import parse_response, request_hash
@@ -127,7 +128,7 @@ def evaluate(
             requests[identity]["text"]["format"]["schema"]["properties"]["question_id"]["enum"] = [
                 question.question_id
             ]
-    client = CodexClient(journal)
+    client = client_for_host(journal, local_client=CodexClient)
     try:
         outputs = client.run(requests)
     finally:

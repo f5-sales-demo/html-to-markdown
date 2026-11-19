@@ -10,6 +10,7 @@ from typing import Any
 from ..content_inventory import atomic_private
 from ..curation import corpus_digest, json_bytes
 from .analysis import analyze, sha
+from .clients import client_for_host
 from .codex_client import CodexClient, is_transient_error
 from .contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .contracts_v2 import ClassifiedSection, DocumentDecisionV2, EditedSection, ValidationV2
@@ -75,7 +76,7 @@ def generate_v2(
                 for record in records.values()
             ),
         }
-    client = CodexClient(journal, concurrency=4)
+    client = client_for_host(journal, concurrency=4, local_client=CodexClient)
     checkpoint_lock = Lock()
 
     def checkpoint() -> None:

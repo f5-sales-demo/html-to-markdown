@@ -493,6 +493,11 @@ class CodexClient:
             raise ValueError("cached response has ambiguous output")
         Draft202012Validator(body["text"]["format"]["schema"]).validate(json.loads(text[0]))
 
+    @staticmethod
+    def validate_transport_response(evidence: ResponseEvidence, body: dict[str, Any]) -> None:
+        """Replay the complete preserved transport checks without invoking a model."""
+        CodexClient._validate_cached(evidence, body)
+
     def close(self) -> None:
         lock = getattr(self, "lock", None)
         if lock is not None and not lock.closed:
