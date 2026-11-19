@@ -13,6 +13,7 @@ from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.native_visuals import validate_visual_manifest
+from html_to_markdown.source_review import review_context_digest
 
 
 def test_oversized_repeated_media_uses_complete_native_view_and_validated_cache(
@@ -117,8 +118,6 @@ def test_encoding_equivalent_native_transport_preserves_failed_attempts_and_vali
 
 
 def test_cli_transport_changes_invalidate_source_review_context(monkeypatch):
-    from html_to_markdown.source_review import review_context_digest
-
     before = review_context_digest()
     original = Path.read_bytes
 
