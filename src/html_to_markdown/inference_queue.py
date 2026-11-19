@@ -91,10 +91,12 @@ def submit(root: Path, request: dict[str, Any], executor_sha256: str) -> str:
             raise ValueError("Private inference attempt counter exhausted")
         identity = digest + "/" + f"{number:06d}"
         job = _job(root, identity)
-        job.mkdir(parents=True, mode=0o700)
-        _write(job / "request.json", request)
+        parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        staging = parent / (".submission-" + uuid.uuid4().hex)
+        staging.mkdir(mode=0o700)
+        _write(staging / "request.json", request)
         _write(
-            job / "state.json",
+            staging / "state.json",
             {
                 "job": identity,
                 "state": "queued",
@@ -103,6 +105,7 @@ def submit(root: Path, request: dict[str, Any], executor_sha256: str) -> str:
                 "queued_at": utc_now(),
             },
         )
+        staging.rename(job)
         return identity
 
 
@@ -114,7 +117,12 @@ def claim(root: Path, owner: str, executor_sha256: str, limit: int = 4) -> list[
         raise ValueError("At most four inference jobs may be claimed")
     with _lock(root):
         records = [(p.parent, _read(p)) for p in sorted(root.glob("*/*/state.json"))]
-        active = [(p, s) for p, s in records if s["state"] == "claimed"]
+        active = [
+            (p, s)
+            for p, s in records
+            if s["state"] == "claimed"
+            or (s["state"] == "received" and not (p / "receipt.json").exists())
+        ]
         owned = [(p, s) for p, s in active if s["owner"] == owner]
         queued = [(p, s) for p, s in records if s["state"] == "queued"]
         if len(active) >= 4 and queued and not owned:
@@ -283,3 +291,15 @@ def invalidate(root: Path, identity: str, response_sha256: str) -> None:
                 "reason": "independent_semantic_validation_failed",
             },
         )
+
+
+def queue_status(root: Path, owner: str) -> dict[str, Any]:
+    """Expose queue and claim ages without article bodies, media or raw diagnostics."""
+    _hex(owner, 32)
+    states = [_read(path) for path in sorted(root.glob("*/*/state.json"))]
+    return {
+        "queued": sum(s["state"] == "queued" for s in states),
+        "claimed": sum(s["state"] == "claimed" for s in states),
+        "owned": sum(s["state"] == "claimed" and s.get("owner") == owner for s in states),
+        "checked_at": utc_now(),
+    }

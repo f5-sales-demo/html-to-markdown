@@ -27,6 +27,7 @@ from .enrichment.codex_client import CodexClient
 from .enrichment.engine import prepare, replay, verify_enrichment
 from .enrichment.evaluation import evaluate
 from .enrichment.generate import generate
+from .inference_cli import register_inference_commands, register_service_commands
 from .logging import configure_logging
 from .metadata import enrich_snapshot
 from .models import DiscoveredPage, PageStatus
@@ -52,6 +53,8 @@ from .validation import validate_snapshot
 from .work_queue import export_queue, list_queues, receive_enrichment, receive_source
 
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
+register_inference_commands(app)
+register_service_commands(app)
 
 
 @app.command("sanitize-inventory")

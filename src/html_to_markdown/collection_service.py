@@ -5,9 +5,11 @@ from __future__ import annotations
 import asyncio
 import fcntl
 import platform
+import re
 import shutil
 import subprocess  # nosec B404
 import sys
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -35,6 +37,43 @@ def allocate_collection_run(root: Path) -> Path:
     raise ValueError("Capture run allocation exhausted; existing evidence is preserved")
 
 
+def verified_baseline_files(root: Path, tag: str, pin: str) -> dict[str, bytes]:
+    """Serialize initial downloads and expose only independently verified baseline bytes."""
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,128}", tag):
+        raise ValueError("Unsafe baseline release tag")
+    cache = root / ".baselines"
+    if cache.is_symlink():
+        raise ValueError("Baseline cache cannot be a symlink")
+    cache.mkdir(parents=True, exist_ok=True, mode=0o700)
+    baseline = cache / tag
+    with (cache / (tag + ".lock")).open("a+b") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if baseline.exists():
+            return _verified_baseline(baseline, pin)
+        gh = shutil.which("gh")
+        if gh is None:
+            raise ValueError("Existing Ubuntu GitHub credential CLI is unavailable")
+        staging = cache / (".download-" + uuid.uuid4().hex)
+        staging.mkdir(mode=0o700)
+        subprocess.run(
+            [
+                gh,
+                "release",
+                "download",
+                tag,
+                "--repo",
+                "f5-sales-demo/html-to-markdown",
+                "--dir",
+                str(staging),
+            ],
+            check=True,
+            capture_output=True,
+        )  # nosec B603
+        files = _verified_baseline(staging, pin)
+        staging.rename(baseline)
+        return files
+
+
 async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[str, Any]:
     if platform.system() != "Linux":
         raise ValueError("private collectors run independently on Ubuntu")
@@ -46,27 +85,7 @@ async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[s
         response.raise_for_status()
         revision = response.json()
     tag, pin = revision["snapshot_tag"], revision["publication_sha256"]
-    baseline = root / ".baselines" / tag
-    if not baseline.exists():
-        baseline.mkdir(parents=True, mode=0o700)
-        gh = shutil.which("gh")
-        if gh is None:
-            raise ValueError("existing Ubuntu GitHub credential CLI is unavailable")
-        subprocess.run(
-            [
-                gh,
-                "release",
-                "download",
-                tag,
-                "--repo",
-                "f5-sales-demo/html-to-markdown",
-                "--dir",
-                str(baseline),
-            ],
-            check=True,
-            capture_output=True,
-        )  # nosec B603
-    files = _verified_baseline(baseline, pin)
+    files = verified_baseline_files(root, tag, pin)
     run = allocate_collection_run(root)
     previous = run / "previous-manifest.json"
     atomic_private(previous, files["manifest.json"])

@@ -199,3 +199,31 @@ def test_linux_cannot_run_content_inference_worker(
             output=tmp_path,
             transport=Path("unused"),
         )
+
+
+def test_ubuntu_orchestration_uses_local_transport_and_explicit_mac_queue(tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Linux")
+    monkeypatch.setenv("HTML_TO_MARKDOWN_INFERENCE_QUEUE", str(tmp_path / "inference"))
+    calls = []
+
+    def run(args, **_kwargs):
+        calls.append(args)
+        assert args[:3] == ["/transport", "--host", "local"]
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(stdout=b'{"state":"policy_current"}')
+        return SimpleNamespace(
+            stdout=b"[]"
+            if "list-review-queues" in args
+            else b'{"state":"waiting_for_source_reviews"}'
+        )
+
+    monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", run)
+    report = worker_once(
+        host="local",
+        remote_executable="/runtime/tool",
+        remote_queue="/private/captures",
+        output=tmp_path / "worker",
+        transport=Path("/transport"),
+    )
+    assert report["state"] == "idle"
+    assert len(calls) == 3

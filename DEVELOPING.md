@@ -193,3 +193,28 @@ index links without JavaScript and progressively narrower cards with JavaScript.
 Captured Markdown and assets remain unchanged; display summaries omit capture
 dates and invisible text. Curation is an extensible collection feature, not a
 showcase for any individual policy.
+
+## Ubuntu processing and bounded Mac inference
+
+Keep development, source captures, media processing, review journals, curation,
+enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
+queue for Ubuntu's `processing-worker` or install its user service with
+`install-processing-service`. Ubuntu never invokes a local model.
+
+On the Mac, `stage-inference-agent` prepares the 15-minute `mac-inference-worker`
+launch definition. `activate-inference-agent` waits for real worker and inference
+quiescence before replacing the legacy full-source worker. The login shell retains
+the existing configured Codex/LiteLLM Responses credential route; no credentials
+or provider overrides belong in the launch definition.
+
+The Mac claims at most four current requests and their media. It preserves each
+original request, raw attempt and completion, returns an immutable transfer
+archive, and removes local spools only after Ubuntu independently verifies all
+evidence bytes. A lost acknowledgment resumes the same archive and job without
+another model call. A failed source or preservation check remains queued.
+
+Historical evidence migration must verify the complete restored Ubuntu tree and
+the unchanged Mac source before removing a local duplicate. Keep restoration
+receipts and original-path mappings private. Do not remove files used by live
+workers, infer quiescence from a lock file alone, or restart a job just because
+observation timed out.

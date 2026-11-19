@@ -153,3 +153,22 @@ def test_interrupted_receipt_commit_cannot_create_new_inference_attempt(tmp_path
     monkeypatch.setattr(queue, "atomic_private", original)
     assert receive(root, job, OWNER, sha(data), io.BytesIO(data))["all_evidence_files_verified"]
     assert result(root, job).error is None
+
+
+def test_interrupted_submission_never_exposes_an_incomplete_job(tmp_path, monkeypatch):
+    root = tmp_path / "queue"
+    original = queue.atomic_private
+
+    def fail_state(path, value):
+        if path.name == "state.json":
+            raise OSError("simulated submission interruption")
+        original(path, value)
+
+    monkeypatch.setattr(queue, "atomic_private", fail_state)
+    with pytest.raises(OSError):
+        submit(root, body(), EXECUTOR)
+    assert not list(root.glob("*/*/state.json"))
+    assert list(root.glob("*/.submission-*/request.json"))
+    monkeypatch.setattr(queue, "atomic_private", original)
+    job = submit(root, body(), EXECUTOR)
+    assert claim(root, OWNER, EXECUTOR)[0]["job"] == job
