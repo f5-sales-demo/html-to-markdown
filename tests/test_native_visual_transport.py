@@ -13,6 +13,7 @@ from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.native_visuals import validate_visual_manifest
+from html_to_markdown.source_review import review_context_digest
 
 
 def test_oversized_repeated_media_uses_complete_native_view_and_validated_cache(
@@ -27,6 +28,7 @@ def test_oversized_repeated_media_uses_complete_native_view_and_validated_cache(
     def run(args, **kwargs):
         calls.append({"args": args, "text": kwargs["input"]})
         assert args.count("--image") == 24
+        assert args[-2:] == ["--", "-"]
         assert "--model" in args and args[args.index("--model") + 1] == request["model"]
         assert 'model_provider="litellm"' in args
         assert 'model_reasoning_effort="high"' in args
@@ -67,6 +69,7 @@ def test_normal_media_retains_previous_prompt_arguments_and_response_format(tmp_
 
     def run(args, **kwargs):
         assert args.count("--image") == 3
+        assert args[-2:] == ["--", "-"]
         assert kwargs["input"] == "untrusted article"
         Path(args[args.index("--output-last-message") + 1]).write_text('{"ok":true}')
         return SimpleNamespace(returncode=0, stdout='{"type":"turn.completed"}\n', stderr="")
@@ -88,6 +91,7 @@ def test_encoding_equivalent_native_transport_preserves_failed_attempts_and_vali
     def run(args, **kwargs):
         calls.append(args)
         assert args.count("--image") == 1
+        assert args[-2:] == ["--", "-"]
         assert "COMPLETE decoded pixels" in kwargs["input"]
         assert "Review EACH source" in kwargs["input"]
         Path(args[args.index("--output-last-message") + 1]).write_text('{"ok":true}')
@@ -111,3 +115,17 @@ def test_encoding_equivalent_native_transport_preserves_failed_attempts_and_vali
     assert worker.execute(request) == evidence and len(calls) == 1
     rejected = next(tmp_path.glob("*.rejected-*.json"))
     assert json.loads(rejected.read_bytes())["response"] == tampered.response
+
+
+def test_cli_transport_changes_invalidate_source_review_context(monkeypatch):
+    before = review_context_digest()
+    original = Path.read_bytes
+
+    def read_bytes(path):
+        contents = original(path)
+        if path.name == "codex_client.py":
+            return contents + b"\n# changed CLI image and stdin transport\n"
+        return contents
+
+    monkeypatch.setattr(Path, "read_bytes", read_bytes)
+    assert review_context_digest() != before

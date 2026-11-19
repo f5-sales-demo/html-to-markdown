@@ -290,6 +290,7 @@ async def test_scheduler_seals_historical_candidates_separately_from_publication
         lambda *_args: {"manifest.json": b'{"documents":[]}'},
     )
     monkeypatch.setattr(collection_service, "collect_content", collect)
+    monkeypatch.setattr(collection_service.platform, "system", lambda: "Linux")
     result = await collection_service.scheduled_collection(tmp_path, source=source, full=False)
     assert len(calls) == 1
     assert not result["sources"][source]["completeness"]["publication"]

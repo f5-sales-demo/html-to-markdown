@@ -264,7 +264,8 @@ class CodexClient:
                     image = root / f"image-{sha(data)}.png"
                     image.write_bytes(base64.b64decode(data, validate=True))
                     args += ["--image", str(image)]
-                args += ["-"]
+                # End options so variadic --image cannot consume the stdin prompt marker.
+                args += ["--", "-"]
                 raw["invoked"] = True
                 process = subprocess.run(
                     args,

@@ -169,6 +169,8 @@ def test_cross_host_activation_agrees_before_publication_and_recovers_sleep_resu
     if already_active:
         activate_bundle(remote, candidate, expected_parent=None)
     monkeypatch.setattr("html_to_markdown.policy_transport.platform.system", lambda: "Darwin")
+    # Compression has separate coverage; this mock intercepts policy transport only.
+    monkeypatch.setattr("html_to_markdown.private_storage._compress", lambda *_: None)
     calls = []
 
     def run(args, **kwargs):

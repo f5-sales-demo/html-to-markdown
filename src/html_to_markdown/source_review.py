@@ -55,6 +55,7 @@ def review_context_digest() -> str:
                     "enrichment/requests.py",
                     "enrichment/model_policy.py",
                     "enrichment/contracts.py",
+                    "enrichment/codex_client.py",
                     "enrichment/clients.py",
                     "enrichment/queued_client.py",
                     "inference_queue.py",

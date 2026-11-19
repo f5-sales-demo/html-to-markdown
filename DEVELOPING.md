@@ -26,6 +26,7 @@ it never resolves a floating release or content branch.
 
 ```bash
 uv sync --all-groups --locked
+uv run playwright install --only-shell chromium
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy src
