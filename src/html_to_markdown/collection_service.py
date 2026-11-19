@@ -21,6 +21,20 @@ from .refresh import _verified_baseline
 from .urls import SOURCE_ROOTS
 
 
+def allocate_collection_run(root: Path) -> Path:
+    """Create a private run atomically while preserving every concurrent capture."""
+    base = "capture-" + utc_now().replace(":", "").replace("-", "")
+    for index in range(10000):
+        suffix = "" if index == 0 else f"-{index:04d}"
+        run = root / (base + suffix)
+        try:
+            run.mkdir(mode=0o700)
+        except FileExistsError:
+            continue
+        return run
+    raise ValueError("Capture run allocation exhausted; existing evidence is preserved")
+
+
 async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[str, Any]:
     if platform.system() != "Linux":
         raise ValueError("private collectors run independently on Ubuntu")
@@ -53,8 +67,7 @@ async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[s
             capture_output=True,
         )  # nosec B603
     files = _verified_baseline(baseline, pin)
-    run = root / ("capture-" + utc_now().replace(":", "").replace("-", ""))
-    run.mkdir(mode=0o700)
+    run = allocate_collection_run(root)
     previous = run / "previous-manifest.json"
     atomic_private(previous, files["manifest.json"])
     selected = (

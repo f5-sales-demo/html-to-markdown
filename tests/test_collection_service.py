@@ -1,10 +1,11 @@
 """Collection clocks run on Ubuntu while MacBook inference is unavailable."""
 
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
 
-from html_to_markdown.collection_service import install_collectors
+from html_to_markdown.collection_service import allocate_collection_run, install_collectors
 
 
 def test_daily_and_weekly_timers_keep_existing_clocks_and_private_umask(
@@ -34,3 +35,28 @@ def test_collection_timer_installation_cannot_move_inference_to_ubuntu(
     monkeypatch.setattr("html_to_markdown.collection_service.platform.system", lambda: "Darwin")
     with pytest.raises(ValueError, match="Ubuntu"):
         install_collectors(tmp_path)
+
+
+def test_concurrent_collectors_allocate_distinct_runs_without_overwriting_evidence(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setattr(
+        "html_to_markdown.collection_service.utc_now", lambda: "2026-11-19T17:49:08Z"
+    )
+    existing = tmp_path / "capture-20261119T174908Z"
+    existing.mkdir()
+    marker = existing / "preserved.json"
+    marker.write_bytes(b'{"original_capture":true}')
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        runs = list(pool.map(lambda _: allocate_collection_run(tmp_path), range(16)))
+    assert len(set(runs)) == 16
+    assert all(run.is_dir() and run.stat().st_mode & 0o077 == 0 for run in runs)
+    assert existing not in runs
+    assert marker.read_bytes() == b'{"original_capture":true}'
+
+
+def test_normal_collection_run_name_stays_compatible(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "html_to_markdown.collection_service.utc_now", lambda: "2026-11-19T17:49:08Z"
+    )
+    assert allocate_collection_run(tmp_path).name == "capture-20261119T174908Z"
