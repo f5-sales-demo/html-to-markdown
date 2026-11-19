@@ -212,6 +212,11 @@ original request, raw attempt and completion, returns an immutable transfer
 archive, and removes local spools only after Ubuntu independently verifies all
 evidence bytes. A lost acknowledgment resumes the same archive and job without
 another model call. A failed source or preservation check remains queued.
+After each verified batch, the monitor drains ready follow-up work with the
+same four-job bound, allowing a short grace period for Ubuntu's dependent phases.
+An empty queue returns to the existing 15-minute launch clock. Queue heartbeats
+continue across batches; pending returns stop draining and retain their exact
+archives for the next recovery attempt.
 
 Historical evidence migration must verify the complete restored Ubuntu tree and
 the unchanged Mac source before removing a local duplicate. Keep restoration
