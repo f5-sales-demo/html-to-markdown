@@ -186,6 +186,10 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
     from .source_review_jobs import _compile_admission  # pylint: disable=import-outside-toplevel
 
     saved: dict[str, Any] = json.loads(record.read_bytes())
+    # pylint: disable-next=import-outside-toplevel
+    from .baseline_global_ledgers import verify_record_ledger
+
+    verify_record_ledger(output, saved)
     if saved.get("selected_existing_validation") or saved.get("existing_proposal_pending"):
         return validate_existing_baseline(output, record, client)
     source = output / saved["source"]
@@ -334,6 +338,13 @@ def verify_baseline_prerequisite(output: Path, context: dict[str, Any]) -> None:
     record = privacy / "documents" / (sha(article) + ".json")
     if record.is_symlink() or sha(record.read_bytes()) != pin:
         raise ValueError("baseline source privacy evidence changed")
+    import os  # pylint: disable=import-outside-toplevel
+
+    # pylint: disable-next=import-outside-toplevel
+    from .baseline_global_ledgers import verify_strongest_ledger
+
+    history = Path(os.environ.get("HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT", str(output)))
+    verify_strongest_ledger(privacy, record, history)
     saved = review_baseline_privacy(privacy, record)
     candidate = saved["candidate"]
     if not all(
@@ -363,7 +374,26 @@ def review_baseline_batch(
 
     def run(item: dict[str, Any]) -> dict[str, Any]:
         try:
-            reviewed = review_baseline_privacy(output, output / item["path"], client)
+            if replay:
+                from .baseline_global_ledgers import (  # pylint: disable=import-outside-toplevel
+                    history_root,
+                    verify_strongest_ledger,
+                )
+
+                verify_strongest_ledger(output, output / item["path"], history_root(journal))
+                reviewed = review_baseline_privacy(output, output / item["path"], client)
+            else:
+                from .baseline_global_ledgers import (  # pylint: disable=import-outside-toplevel
+                    history_root,
+                    reconcile_record,
+                    source_lock,
+                )
+
+                root = history_root(journal)
+                record = output / item["path"]
+                with source_lock(record, root):
+                    reconcile_record(output, record, root, _execution_digest())
+                    reviewed = review_baseline_privacy(output, record, client)
             return {**item, "disposition": reviewed["status"]}
         except (ValueError, KeyError, OSError) as error:
             return {**item, "disposition": "queued", "error_class": type(error).__name__}

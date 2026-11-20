@@ -32,7 +32,6 @@ def same_source(before: dict[str, Any], after: dict[str, Any]) -> bool:
         "baseline_article",
         "baseline_article_sha256",
         "source_files_sha256",
-        "relevance_evidence_sha256",
     )
     return all(before.get(key) == after.get(key) for key in keys)
 

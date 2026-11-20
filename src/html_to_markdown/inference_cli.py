@@ -81,7 +81,9 @@ def register_inference_commands(app: typer.Typer) -> None:
         if not inference_queue.is_absolute():
             raise typer.BadParameter("inference queue must be absolute")
         previous = os.environ.get("HTML_TO_MARKDOWN_INFERENCE_QUEUE")
+        previous_history = os.environ.get("HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT")
         os.environ["HTML_TO_MARKDOWN_INFERENCE_QUEUE"] = str(inference_queue)
+        os.environ["HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT"] = str(output)
         try:
             report = worker_once(
                 host="local",
@@ -97,6 +99,10 @@ def register_inference_commands(app: typer.Typer) -> None:
                 os.environ.pop("HTML_TO_MARKDOWN_INFERENCE_QUEUE", None)
             else:
                 os.environ["HTML_TO_MARKDOWN_INFERENCE_QUEUE"] = previous
+            if previous_history is None:
+                os.environ.pop("HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT", None)
+            else:
+                os.environ["HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT"] = previous_history
         typer.echo(json.dumps(report, sort_keys=True))
 
 
