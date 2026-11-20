@@ -17,6 +17,7 @@ from .curation_renewal_review import review_request
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .media_encoding import review_media_encoding, source_review_encoding
 from .reference_repair_media import seed_candidate_media
 from .render import split_document
 from .source_media_references import media_reference_spans
@@ -347,7 +348,8 @@ def replay_reference_inputs(
             for name, digest in candidate["file_hashes"].items()
             if digest in candidate["media"]
         }
-        seed_candidate_media(candidate, blobs, Path(temporary))
+        with review_media_encoding(source_review_encoding(record)):
+            seed_candidate_media(candidate, blobs, Path(temporary))
         candidate, visual, projected, files, source = compile_source(
             directory / "capture", record, Path(temporary)
         )

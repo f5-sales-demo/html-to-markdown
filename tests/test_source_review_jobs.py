@@ -536,8 +536,9 @@ def test_failed_replay_revokes_accepted_status_without_losing_emitted_bytes(
     assert list((output / "history/published").iterdir())
 
 
+@pytest.mark.parametrize("encoding_version", [1, 2])
 def test_admission_and_replay_cover_complete_media_and_immutable_extraction(
-    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, encoding_version: int
 ) -> None:
 
     output = tmp_path / "review"
@@ -572,10 +573,22 @@ def test_admission_and_replay_cover_complete_media_and_immutable_extraction(
         "html_to_markdown.source_review_jobs.all_frame_inputs",
         lambda path, **kwargs: all_frame_inputs(path, perform_ocr=False),
     )
-    prepare_reviews(capture, output)
+    prepared = prepare_reviews(capture, output)
+    record = output / prepared["documents"][0]["path"]
+    saved = json.loads(record.read_bytes())
+    saved["media_encoding_version"] = encoding_version
+    atomic_private(record, json_bytes(saved))
     report = run_reviews(capture, output, phase="all", journal=tmp_path / "journal")
+    if encoding_version == 1:
+        # v33 decisions have no encoding marker. Their exact bound requests,
+        # complete original media and privacy outputs must still replay.
+        saved = json.loads(record.read_bytes())
+        saved.pop("media_encoding_version")
+        atomic_private(record, json_bytes(saved))
+    before = record.read_bytes()
     assert not report["exceptions"]
     assert len(verify_reviews(capture, output)["accepted_files"]) == 2
+    assert record.read_bytes() == before
     published = output / "reviewed/content/my-f5-com/K000123456/index.md"
     assert (
         output / "reviewed/content/my-f5-com/K000123456/assets" / (sha(raw) + ".png")
