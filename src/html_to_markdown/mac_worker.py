@@ -432,6 +432,11 @@ def _return_source(
     sealed: Path,
     admission_pin: str,
 ) -> None:
+    if host == "local" and platform.system() == "Linux":
+        from .source_delivery import receive_source_tree  # pylint: disable=import-outside-toplevel
+
+        receive_source_tree(Path(remote_queue), identity, admission_pin, sealed)
+        return
     with tempfile.TemporaryDirectory(prefix="reviewed-source-transfer-") as temporary:
         archive = Path(temporary) / "source.tar.gz"
         with archive.open("wb") as stream:

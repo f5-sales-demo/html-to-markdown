@@ -74,6 +74,14 @@ diagnostic while the prerequisite reviews continue. Settled source checkpoints s
 participate in the curation pass, so interrupted dependencies resume without repeating
 acknowledged source returns or changing request hashes or privacy ledgers.
 
+Ubuntu source returns share the sealed snapshot's immutable file inodes rather than
+packing and extracting another full capture archive. Original, staged and promoted
+inputs independently replay the same receipt. A guarded private transaction resumes
+interrupted filesystem work, rejects conflicting or unsafe members, and serializes
+promotion with archive receivers and publication. Payload sharing preserves capture
+ages and model/decision hashes; original source files and failed attempts remain
+private. Remote source returns keep the complete archive verification protocol.
+
 ## Documentation build
 
 Mount the one-page `docs/` directory and a verified extracted corpus
