@@ -16,11 +16,13 @@ from .content_inventory import verify_capture
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .known_candidates import preserved_known_candidates
+from .review_frontier import review_frontier as select_review_frontier
 from .urls import SOURCE_ROOTS
 
 
-def list_queues(root: Path) -> list[dict[str, Any]]:
+def list_queues(root: Path, *, review_frontier: bool = False) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    inventories: dict[str, dict[str, Any]] = {}
     if not root.exists():
         return records
     for binding in sorted(root.glob("*/*/capture-binding.json")):
@@ -60,7 +62,12 @@ def list_queues(root: Path) -> list[dict[str, Any]]:
                 for item in items
             ],
         }
-        known_pin = json.loads(binding.read_bytes())["request"].get("known_candidates_sha256")
+        binding_data = json.loads(binding.read_bytes())
+        inventories[directory.relative_to(root).as_posix()] = {
+            "started_at": binding_data.get("started_at"),
+            "identities": {item["identity"] for item in items},
+        }
+        known_pin = binding_data["request"].get("known_candidates_sha256")
         if known_pin:
             preserved_known_candidates(directory, directory.name, known_pin)
             fingerprint_inputs["known_candidates_sha256"] = known_pin
@@ -90,7 +97,7 @@ def list_queues(root: Path) -> list[dict[str, Any]]:
                     "discovered": 0,
                 }
             )
-    return records
+    return select_review_frontier(root, records, inventories) if review_frontier else records
 
 
 # Preserve all stage evidence and checks in one transaction.

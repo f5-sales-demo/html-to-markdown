@@ -77,6 +77,16 @@ editor allowance. Final replay rejects weaker or altered ledgers. Standalone
 qualification can set `HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT` to the same private
 worker root; normal processing sets it from its output directory.
 
+Source workers select a current review frontier before each sweep. The default
+`list-review-queues` still enumerates all captured queues; `--review-frontier`
+prioritizes capture epochs and defers an older queue only when strictly newer
+selected inventories cover every identity in that source. Missing identities,
+unknown epochs and tied epochs retain their source queues. Interrupted captures
+and enrichment work remain visible. Private `review-frontier.private.json`
+records the selection and coverage; deferral does not grant a policy exclusion.
+All original inventories, decisions and strongest privacy histories remain
+available for cross-queue reuse and final replay.
+
 Source review and curation run in separate scheduling passes. Each bounded source
 batch is sealed, independently returned and checkpointed before the next source
 queue advances. Governed publication preparation follows the source sweep, before

@@ -42,7 +42,12 @@ def test_idle_worker_checks_private_route_and_preserves_safe_status(
     )
     assert status["state"] == "idle" and status["concurrency"] == 4
     assert "export-policy-runtime" in calls[0]
-    assert calls[1][-3:] == ["list-review-queues", "--queue-root", "/private/queue"]
+    assert calls[1][-4:] == [
+        "list-review-queues",
+        "--review-frontier",
+        "--queue-root",
+        "/private/queue",
+    ]
     assert json.loads((tmp_path / "worker/worker-status.json").read_bytes())["state"] == "idle"
 
 
