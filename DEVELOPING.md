@@ -239,3 +239,23 @@ the unchanged Mac source before removing a local duplicate. Keep restoration
 receipts and original-path mappings private. Do not remove files used by live
 workers, infer quiescence from a lock file alone, or restart a job just because
 observation timed out.
+
+
+## Retained dependency dispositions
+
+Retained baseline review separates source relevance/extraction from privacy eligibility.
+A complete irrelevant article needs independent complete-span and native-frame validation
+before `source_exclusion_validated` can enter the governed catalog. Its guarded decision
+uses `review_kind=source_relevance_exclusion` and a fixed safe reason; it does not classify
+that article as retired or expose original content. The actual planner receives a separate
+independent exclusion check before the policy can be staged. Changed original text, authored
+metadata, media, policy or request evidence keeps the decision queued.
+
+Relevant malformed retained articles stay in the source/extraction queue. Only an exact,
+independently admitted current source can replace their prerequisite. Dependency selection
+uses acknowledged source checkpoint pins, preserves the complete admission chain and the
+original baseline custody, and never grants another historical privacy edit. The combiner
+selects verified replacements and exclusions before validating the remaining baseline, then
+replays selection and whole-corpus curation independently. All kept articles retain privacy,
+retirement/API and preservation checks. Reviewable dependencies progress while unresolved
+ones remain in the dependency inventory and exception report.

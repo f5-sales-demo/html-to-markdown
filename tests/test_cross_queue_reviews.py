@@ -389,9 +389,14 @@ def test_worker_reuses_daily_evidence_and_returns_fresh_verified_source(
             return super().execute(body)
 
     monkeypatch.setattr(jobs, "CodexClient", Counting)
-    monkeypatch.setattr(
-        "html_to_markdown.mac_worker.advance_renewals", lambda *args: {"state": "not_needed"}
-    )
+    renewal_inputs = []
+
+    def renewals(*args, **kwargs):
+        selected, pin = kwargs["source_inputs"][source]
+        renewal_inputs.append(verify_source(selected, pin))
+        return {"state": "not_needed"}
+
+    monkeypatch.setattr("html_to_markdown.mac_worker.advance_renewals", renewals)
 
     def route(args, **kwargs):
         identity = "day-" + str(day[0]) + "/" + source
@@ -445,6 +450,8 @@ def test_worker_reuses_daily_evidence_and_returns_fresh_verified_source(
     assert returned[0]["accepted_files"] == returned[1]["accepted_files"]
     assert returned[0]["inventory_sha256"] != returned[1]["inventory_sha256"]
     assert returned[1]["documents"][0]["captured_at"] == "2026-11-17T00:00:00Z"
+    assert len(renewal_inputs) == 2
+    assert renewal_inputs[0] == returned[0] and renewal_inputs[1] == returned[1]
 
 
 def test_empty_newer_inventory_does_not_hide_complete_prior_evidence(

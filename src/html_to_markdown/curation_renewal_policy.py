@@ -91,6 +91,20 @@ def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPol
         directory = output / context["binding_sha256"]
         visual = json.loads((directory / "visual.json").read_bytes())
         result = replay_renewal(context, visual, output)
+        if (
+            context.get("evidence", {}).get("source_disposition_kind")
+            == "source_relevance_exclusion"
+        ):
+            from .source_relevance_curation import (
+                policy_decision,  # pylint: disable=import-outside-toplevel
+            )
+
+            topic = next(t for t in raw["topics"] if t["id"] == "legacy-retired")
+            decision = policy_decision(context, result)
+            topic["documents"] = [
+                d for d in topic["documents"] if canonical(d["url"]) != canonical(decision["url"])
+            ] + [decision]
+            continue
         for stage in result["candidate"]["stages"]:
             topic = next(t for t in raw["topics"] if t["id"] == stage["topic"])
             decision = {

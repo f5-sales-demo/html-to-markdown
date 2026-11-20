@@ -154,6 +154,9 @@ def preparation_controller() -> str:
             {
                 "baseline": sha(Path(__file__).with_name("baseline_source_review.py").read_bytes()),
                 "renewal": sha(Path(__file__).read_bytes()),
+                "dispositions": sha(
+                    Path(__file__).with_name("baseline_dispositions.py").read_bytes()
+                ),
             }
         )
     )

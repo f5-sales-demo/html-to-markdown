@@ -20,7 +20,11 @@ from .source_review_jobs import _media_context
 # Complete source, private privacy proof and renewal inputs are bound together.
 # pylint: disable-next=too-many-locals
 def prepare_dependencies(
-    baseline: Path, publication_sha256: str, documents: list[str], output: Path
+    baseline: Path,
+    publication_sha256: str,
+    documents: list[str],
+    output: Path,
+    source_inputs: dict[str, tuple[Path, str]] | None = None,
 ) -> dict[str, Any]:
     from .baseline_source_review import (  # pylint: disable=import-outside-toplevel
         baseline_context,
@@ -39,6 +43,66 @@ def prepare_dependencies(
             "source_privacy_path": record.relative_to(output).as_posix(),
             "reason": "baseline_source_privacy_review_required",
         }
+        if source_inputs:
+            from .admitted_baseline_sources import (
+                prepare_replacement,  # pylint: disable=import-outside-toplevel
+            )
+
+            replacement = prepare_replacement(
+                baseline,
+                publication_sha256,
+                saved["binding"]["baseline_article"],
+                output,
+                source_inputs,
+            )
+            if replacement is not None:
+                pin = replacement["binding_sha256"]
+                entry.update(
+                    binding_sha256=pin,
+                    context_path=pin + "/context.json",
+                    visual_path=pin + "/visual.json",
+                    reason="independently_admitted_current_source_dependency",
+                )
+                records.append(entry)
+                continue
+        if saved["status"] == "source_exclusion_validated":
+            from .baseline_dispositions import (
+                replay_exclusion,  # pylint: disable=import-outside-toplevel
+            )
+
+            original, visual = baseline_context(privacy, privacy, saved)
+            evidence = {
+                "input_kind": "retained_verified_baseline",
+                "baseline_receipt_sha256": publication_sha256,
+                "baseline_article": saved["binding"]["baseline_article"],
+                "baseline_source_disposition_record_sha256": sha(record.read_bytes()),
+                "source_disposition_kind": "source_relevance_exclusion",
+            }
+            context = proposal_context(
+                original["metadata"],
+                original["body"],
+                original["media"],
+                saved["binding"]["source_files_sha256"],
+                load_curation_policy().sha256,
+                evidence,
+            )
+            destination = output / context["binding_sha256"]
+            for name, digest in saved["input_file_hashes"].items():
+                source = privacy / saved["source"] / name
+                if source.is_symlink() or sha(source.read_bytes()) != digest:
+                    raise ValueError("retained exclusion original bytes changed")
+                atomic_private(destination / "inputs" / name, source.read_bytes())
+            atomic_private(destination / "context.json", json_bytes(context))
+            atomic_private(destination / "visual.json", json_bytes(visual))
+            replay_exclusion(context, output)
+            entry.update(
+                binding_sha256=context["binding_sha256"],
+                context_path=context["binding_sha256"] + "/context.json",
+                visual_path=context["binding_sha256"] + "/visual.json",
+                reason="independently_validated_source_exclusion",
+            )
+            records.append(entry)
+            continue
         if saved["status"] != "privacy_only_validated":
             records.append(entry)
             continue
@@ -127,6 +191,7 @@ def review_dependencies(
     baseline: Path,
     publication_sha256: str,
     journal: Path,
+    source_inputs: dict[str, tuple[Path, str]] | None = None,
 ) -> list[dict[str, Any]]:
     """Close complete planner dependencies; any unresolved review stops promotion."""
     selected = list(contexts)
@@ -162,24 +227,44 @@ def review_dependencies(
             )
 
             inventory = prepare_dependencies(
-                baseline, publication_sha256, failure.documents, output
+                baseline,
+                publication_sha256,
+                failure.documents,
+                output,
+                **({"source_inputs": source_inputs} if source_inputs else {}),
             )
             if any("context_path" not in item for item in inventory["documents"]):
                 privacy = output / "dependency-privacy"
                 privacy_inventory = json.loads((privacy / "inventory.json").read_bytes())
-                privacy_report = review_baseline_batch(privacy, privacy_inventory, journal)
-                if privacy_report["exceptions"]:
-                    raise ValueError(
-                        "baseline source privacy prerequisites remain queued"
-                    ) from failure
+                review_baseline_batch(privacy, privacy_inventory, journal)
                 inventory = prepare_dependencies(
-                    baseline, publication_sha256, failure.documents, output
+                    baseline,
+                    publication_sha256,
+                    failure.documents,
+                    output,
+                    **({"source_inputs": source_inputs} if source_inputs else {}),
                 )
             report = review_batch(output, inventory, "all", journal)
-            if report["exceptions"]:
-                raise ValueError("independent baseline dependencies remain queued") from failure
+            approved = {
+                d["identity"]
+                for d in report.get("documents", [])
+                if d["disposition"] == "independently_validated"
+            }
             selected.extend(
                 json.loads((output / item["context_path"]).read_bytes())
                 for item in inventory["documents"]
+                if item["identity"] in approved
             )
+            atomic_private(
+                output / "dependency-selection.json",
+                json_bytes(
+                    {
+                        "baseline_receipt_sha256": publication_sha256,
+                        "contexts": [c["binding_sha256"] for c in selected],
+                        "exceptions": report["exceptions"],
+                    }
+                ),
+            )
+            if report["exceptions"]:
+                raise ValueError("independent baseline dependencies remain queued") from failure
     raise ValueError("whole-corpus dependency reconciliation remains incomplete")

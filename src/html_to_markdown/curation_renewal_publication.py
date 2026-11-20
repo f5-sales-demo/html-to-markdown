@@ -265,6 +265,25 @@ def validate_planner(
         candidate = next(
             c for c in qualification["candidates"].values() if c["identity"] == context["identity"]
         )
+        if (
+            context.get("evidence", {}).get("source_disposition_kind")
+            == "source_relevance_exclusion"
+        ):
+            from .baseline_dispositions import (
+                replay_exclusion,  # pylint: disable=import-outside-toplevel
+            )
+
+            if candidate["disposition"] != "remove":
+                raise ValueError("actual planner retained independently excluded source")
+            checked = replay_exclusion(context, output, client, qualification)["source_disposition"]
+            records.append(
+                {
+                    "binding_sha256": context["binding_sha256"],
+                    "request_sha256": checked["request_sha256"],
+                    "response_sha256": checked["response_sha256"],
+                }
+            )
+            continue
         visual_path = output / "planner-visual" / (context["binding_sha256"] + ".json")
         visual = original_visual + (
             json.loads(visual_path.read_bytes()) if candidate["disposition"] == "keep" else []

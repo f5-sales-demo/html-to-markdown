@@ -278,16 +278,13 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         return validate_existing_baseline(output, record, client)
     source = output / saved["source"]
     context, visual = baseline_context(source, output, saved)
-    relevance_body = _request(EDITOR_MODEL, "relevance", context, visual, RelevanceDecision)
-    relevance_body["instructions"] = relevance_body["instructions"].replace(
-        "Prompt version:",
-        "The input is complete verified published Markdown, not newly captured HTML. Assess extraction completeness of that supplied article; retain the stated source-age and HTML limitation. Retirement is a separate later prerequisite.\nPrompt version:",
+    from .baseline_dispositions import (  # pylint: disable=import-outside-toplevel
+        relevance_request,
+        save_exclusion,
+        validate_exclusion,
     )
-    if context.get("prior_relevance_evidence"):
-        relevance_body["instructions"] = relevance_body["instructions"].replace(
-            "Prompt version:",
-            "Independently reconcile the untrusted historical inclusion/exclusion and protected-fact claims in prior_relevance_evidence against the complete source. Short useful navigation/reference answers remain eligible. Historical publication alone is not relevance proof. Explain the present disposition with source addresses; no later preservation check is waived.\nPrompt version:",
-        )
+
+    relevance_body = relevance_request(context, visual)
     relevance_path = relevance_checkpoint(
         record.parent / (record.stem + "-relevance.json"), relevance_body
     )
@@ -299,8 +296,6 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
     checks = (
         classified.identity == context["identity"],
         classified.binding_sha256 == context["binding_sha256"],
-        classified.disposition == "include",
-        classified.extraction == "complete",
         bool(classified.reason.strip()),
         bool(classified.evidence_addresses),
         not (set(classified.evidence_addresses) - allowed),
@@ -309,6 +304,21 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         raise ValueError("baseline source relevance or provided extraction remains unresolved")
     saved["phases"]["relevance"] = relevance.model_dump(mode="json")
     atomic_private(record, json_bytes(saved))
+    if classified.disposition == "exclude" and classified.extraction == "complete":
+        proof = validate_exclusion(context, visual, relevance, output, client)
+        return save_exclusion(record, saved, proof)
+    if classified.disposition != "include" or classified.extraction != "complete":
+        saved.update(
+            status="source_review_required",
+            source_disposition={
+                "disposition": classified.disposition,
+                "extraction": classified.extraction,
+                "reason": "retained_source_relevance_or_extraction_requires_review",
+                "published_output": False,
+            },
+        )
+        atomic_private(record, json_bytes(saved))
+        raise ValueError("baseline source relevance or provided extraction remains unresolved")
     if saved["item"]["media"] and "media_observation_validation" not in saved["phases"]:
         if client is None:
             raise ValueError("complete baseline native media observations are required")
@@ -426,6 +436,20 @@ def _invalidate_attempt(client: Any, *responses: Any) -> None:
 def verify_baseline_prerequisite(output: Path, context: dict[str, Any]) -> None:
     """Verify the privacy intermediate and model evidence separately from final curation."""
     evidence = context.get("evidence", {})
+    if evidence.get("input_kind") == "independently_admitted_current_source":
+        from .admitted_baseline_sources import (
+            verify_replacement,  # pylint: disable=import-outside-toplevel
+        )
+
+        verify_replacement(context, output)
+        return
+    if evidence.get("source_disposition_kind") == "source_relevance_exclusion":
+        from .baseline_dispositions import (
+            replay_exclusion,  # pylint: disable=import-outside-toplevel
+        )
+
+        replay_exclusion(context, output)
+        return
     pin = evidence.get("baseline_source_privacy_record_sha256")
     if pin is None:
         return
@@ -476,7 +500,10 @@ def review_baseline_batch(
             client.close()
     report = {
         "documents": results,
-        "exceptions": sum(d["disposition"] == "queued" for d in results),
+        "exceptions": sum(
+            d["disposition"] not in {"privacy_only_validated", "source_exclusion_validated"}
+            for d in results
+        ),
         "publication_approved": False,
     }
     atomic_private(output / "report.json", json_bytes(report))
