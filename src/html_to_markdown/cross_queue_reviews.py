@@ -11,6 +11,7 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .reference_repair_inputs import safe_file
+from .review_priorities import ReviewPriorities, select_records
 from .source_phase_bindings import _privacy_budget, privacy_ledger, source_core
 from .source_review_jobs import prepare_reviews
 
@@ -33,27 +34,10 @@ def _snapshot(source: Path, destination: Path, root: Path) -> None:
         atomic_private(destination, source.read_bytes())
 
 
-def _eligible(output: Path, limit: int) -> list[Path]:
-    inventory = json.loads(safe_file(output, "review-inventory.json").read_bytes())
-    candidates = []
-    for entry in inventory["documents"]:
-        if "path" not in entry:
-            continue
-        path = safe_file(output, entry["path"])
-        saved = json.loads(path.read_bytes())
-        if saved["disposition"] not in {"accepted", "policy_excluded"} and (
-            saved.get("attempted_binding_sha256") != saved["binding_sha256"]
-            or saved.get("retryable")
-            or saved.get("cross_queue_storage_retryable")
-        ):
-            candidates.append(
-                (
-                    "previous_publication" not in saved["item"].get("origins", []),
-                    saved["item"]["url"],
-                    path,
-                )
-            )
-    return [entry[2] for entry in sorted(candidates)[:limit]]
+def _eligible(
+    output: Path, limit: int, *, priorities: ReviewPriorities | None = None
+) -> list[Path]:
+    return select_records(output, limit, priorities)
 
 
 def _prior(
@@ -139,7 +123,14 @@ def _snapshot_boundaries(
                 )
 
 
-def seed_review_batch(capture: Path, output: Path, worker: Path, *, limit: int) -> dict[str, Any]:
+def seed_review_batch(
+    capture: Path,
+    output: Path,
+    worker: Path,
+    *,
+    limit: int,
+    priorities: ReviewPriorities | None = None,
+) -> dict[str, Any]:
     """Run under the worker lock; atomically preserve inputs before restarting phases."""
     if limit < 1:
         raise ValueError("cross-queue reuse requires a positive batch limit")
@@ -152,7 +143,7 @@ def seed_review_batch(capture: Path, output: Path, worker: Path, *, limit: int) 
         "exceptions": {},
         "publication_approved": False,
     }
-    for record in _eligible(output, limit):
+    for record in _eligible(output, limit, priorities=priorities):
         current = json.loads(record.read_bytes())
         # An existing transaction, pending proposal or exhausted ledger is authoritative.
         if (

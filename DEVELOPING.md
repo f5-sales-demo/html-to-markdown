@@ -87,6 +87,17 @@ records the selection and coverage; deferral does not grant a policy exclusion.
 All original inventories, decisions and strongest privacy histories remain
 available for cross-queue reuse and final replay.
 
+Known publication prerequisites can use a private `review-priorities.private.json`
+in the Ubuntu queue root. Its strict schema is `{"schema_version":1,"identities":[],"urls":[]}`;
+values are stable source identities or canonical public F5 source URLs. A worker
+reads and records one priority-file digest per sweep. Evidence reuse and bounded
+source review use the same selector: explicit prerequisites, previous publication,
+then URL order. Unselected candidates remain queued. Priority never changes
+discovery origins, capture bytes, admission checks, model inputs or privacy budgets.
+Changing this scheduling file alone does not invalidate bound approvals.
+Standalone bounded `review-content` can use `--priority-input PATH` together with
+`--priority-sha256 DIGEST`. Missing worker configuration preserves default ordering.
+
 Source review and curation run in separate scheduling passes. Each bounded source
 batch is sealed, independently returned and checkpointed before the next source
 queue advances. Governed publication preparation follows the source sweep, before

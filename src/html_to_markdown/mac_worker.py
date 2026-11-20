@@ -26,6 +26,7 @@ from .curation_renewal_worker import advance_renewals
 from .enrichment.analysis import sha
 from .enrichment.generate_v2 import generate_v2
 from .models import utc_now
+from .review_priorities import FILENAME, load_priorities
 from .source_inputs import seal_source
 from .source_review import review_context_digest
 from .source_review_jobs import run_reviews
@@ -75,6 +76,20 @@ def _worker_policy(
         policy_state,
         remote_queue,
     )
+
+
+def _review_priority_options(
+    output: Path, remote_queue: str, ubuntu: bool, status: dict[str, Any]
+) -> dict[str, Any]:
+    priorities = load_priorities((Path(remote_queue) if ubuntu else output) / FILENAME)
+    if priorities.sha256 is not None:
+        status["review_priorities"] = {
+            "sha256": priorities.sha256,
+            "identities": len(priorities.identities),
+            "urls": len(priorities.urls),
+        }
+        atomic_private(output / "worker-status.json", json_bytes(status))
+    return {"priorities": priorities} if priorities.identities or priorities.urls else {}
 
 
 # Preserve all stage evidence and checks in one transaction.
@@ -140,6 +155,7 @@ def worker_once(
         queues = json.loads(result.stdout)
         if not isinstance(queues, list):
             raise ValueError("private queue list is not an array")
+        review_options = _review_priority_options(output, remote_queue, ubuntu, status)
         renewals: list[tuple[Path, dict[str, Any]]] = []
         for entry in queues:
             identity = entry["queue"]
@@ -249,9 +265,14 @@ def worker_once(
                 continue
             review = directory / "review"
             run_reviews(capture, review, phase="prepare", journal=output / "journal")
-            seed_review_batch(capture, review, output, limit=batch_size)
+            seed_review_batch(capture, review, output, limit=batch_size, **review_options)
             report = run_reviews(
-                capture, review, phase="all", journal=output / "journal", limit=batch_size
+                capture,
+                review,
+                phase="all",
+                journal=output / "journal",
+                limit=batch_size,
+                **review_options,
             )
             completed = not report["exceptions"] and not report["pending"]
             # Passing articles progress while exceptions stay visible.

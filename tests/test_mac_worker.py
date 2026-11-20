@@ -10,8 +10,10 @@ from types import SimpleNamespace
 import pytest
 
 from html_to_markdown.curation import json_bytes
+from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.mac_worker import install_launch_agent, monitored_worker, worker_once
 from html_to_markdown.policy_transport import installed_policy_pins
+from html_to_markdown.review_priorities import FILENAME
 
 
 def test_idle_worker_checks_private_route_and_preserves_safe_status(
@@ -204,6 +206,70 @@ def test_linux_cannot_run_content_inference_worker(
             output=tmp_path,
             transport=Path("unused"),
         )
+
+
+def test_worker_passes_one_pinned_priority_snapshot_to_reuse_and_review(tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
+    priority_bytes = json_bytes(
+        {"schema_version": 1, "identities": ["my-f5-com:K000200"], "urls": []}
+    )
+    (tmp_path / FILENAME).write_bytes(priority_bytes)
+    choices = []
+
+    def command(args, **_kwargs):
+        if "export-policy-runtime" in args:
+            return SimpleNamespace(
+                stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
+            )
+        if "list-review-queues" in args:
+            return SimpleNamespace(
+                stdout=json_bytes(
+                    [
+                        {
+                            "queue": "run/my-f5-com",
+                            "fingerprint": "a" * 64,
+                            "captured": 1,
+                            "discovered": 1,
+                        }
+                    ]
+                )
+            )
+        return SimpleNamespace(stdout=b'{"state":"waiting_for_source_reviews"}')
+
+    def receive(*args):
+        path = args[-1]
+        path.mkdir(parents=True)
+        (path / "inventory.json").write_text("{}")
+
+    def review(*_args, **kwargs):
+        if kwargs["phase"] == "all":
+            choices.append(kwargs["priorities"])
+        return {"exceptions": [], "pending": 0}
+
+    def seal(_capture, _review, path):
+        path.mkdir(parents=True)
+        (path / "source-review-receipt.json").write_text("{}")
+
+    monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", command)
+    monkeypatch.setattr("html_to_markdown.mac_worker._receive_capture", receive)
+    monkeypatch.setattr("html_to_markdown.mac_worker.run_reviews", review)
+    monkeypatch.setattr(
+        "html_to_markdown.mac_worker.seed_review_batch",
+        lambda *_args, **kwargs: choices.append(kwargs["priorities"]),
+    )
+    monkeypatch.setattr("html_to_markdown.mac_worker.seal_source", seal)
+    monkeypatch.setattr("html_to_markdown.mac_worker._return_source", lambda *_args: None)
+    monkeypatch.setattr("html_to_markdown.mac_worker._advance_renewal_pass", lambda *_args: None)
+    status = worker_once(
+        host="test.invalid",
+        remote_executable="/runtime",
+        remote_queue="/queue",
+        output=tmp_path,
+        transport=Path("/transport"),
+    )
+    assert len(choices) == 2 and choices[0] is choices[1]
+    assert choices[0].identities == frozenset({"my-f5-com:K000200"})
+    assert status["review_priorities"]["sha256"] == sha(priority_bytes)
 
 
 def test_ubuntu_orchestration_uses_local_transport_and_explicit_mac_queue(tmp_path, monkeypatch):
