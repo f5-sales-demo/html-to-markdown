@@ -2,11 +2,22 @@
 
 import io
 import struct
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 
 import pytest
 from PIL import Image
 
-from html_to_markdown.media_encoding import png_bytes
+from html_to_markdown.content_inventory import atomic_private
+from html_to_markdown.curation import json_bytes
+from html_to_markdown.enrichment.analysis import sha
+from html_to_markdown.enrichment.media import all_frame_inputs
+from html_to_markdown.media_encoding import (
+    current_review_encoding,
+    png_bytes,
+    review_media_encoding,
+)
+from html_to_markdown.source_review_jobs import _media_context
 
 
 def chunks(raw):
@@ -68,11 +79,6 @@ def test_default_retains_the_exact_historical_encoding():
 def test_historical_source_context_keeps_exact_uncompressed_request_and_cache(
     tmp_path, monkeypatch
 ):
-    import html_to_markdown.source_review_jobs as jobs
-    from html_to_markdown.content_inventory import atomic_private
-    from html_to_markdown.curation import json_bytes
-    from html_to_markdown.enrichment.analysis import sha
-    from html_to_markdown.enrichment.media import all_frame_inputs
 
     capture = tmp_path / "capture"
     capture.mkdir()
@@ -85,10 +91,9 @@ def test_historical_source_context_keeps_exact_uncompressed_request_and_cache(
     cache = output / "media" / (digest + "-native-2.json")
     atomic_private(cache, json_bytes(old_frames))
     item = {"media": [{"path": path.name, "sha256": digest}]}
-    from html_to_markdown.media_encoding import review_media_encoding
 
     with review_media_encoding(1):
-        visual, _, receipts = jobs._media_context(capture, output, item)
+        visual, _, receipts = _media_context(capture, output, item)
     assert visual[1]["image_url"] == old_frames[0][0]
     assert receipts[digest]["frames"] == [old_frames[0][1]]
     assert cache.read_bytes() == json_bytes(old_frames)
@@ -96,10 +101,6 @@ def test_historical_source_context_keeps_exact_uncompressed_request_and_cache(
 
 
 def test_source_encoding_scopes_are_independent_between_concurrent_reviews():
-    from concurrent.futures import ThreadPoolExecutor
-    from threading import Barrier
-
-    from html_to_markdown.media_encoding import current_review_encoding, review_media_encoding
 
     gate = Barrier(2)
 

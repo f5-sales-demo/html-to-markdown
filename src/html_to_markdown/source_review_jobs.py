@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import base64
-import io
 import json
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -11,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from PIL import Image
 from pydantic import BaseModel
 
 from .content_inventory import atomic_private, verify_capture
@@ -24,6 +22,7 @@ from .enrichment.gates import request_hash
 from .enrichment.media import all_frame_inputs
 from .errors import TransportFailure
 from .media_encoding import current_review_encoding, review_media_encoding, source_review_encoding
+from .media_encoding import verify_native_frame as _verify_native_frame
 from .media_observation_jobs import (
     RequestExecutor,
     prepare_media_observations,
@@ -171,38 +170,6 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     }
     atomic_private(output / "review-inventory.json", json_bytes(result))
     return result
-
-
-def _verify_native_frame(
-    captured_url: str,
-    captured_info: dict[str, Any],
-    expected_url: str,
-    expected_info: dict[str, Any],
-) -> None:
-    for key in (
-        "sha256",
-        "frame",
-        "frame_count",
-        "duration",
-        "width",
-        "height",
-        "loop",
-        "metadata",
-    ):
-        if captured_info.get(key) != expected_info.get(key):
-            raise ValueError("cached native frame metadata changed")
-    captured_bytes = base64.b64decode(captured_url.split(",", 1)[1], validate=True)
-    expected_bytes = base64.b64decode(expected_url.split(",", 1)[1], validate=True)
-    with (
-        Image.open(io.BytesIO(captured_bytes)) as a,
-        Image.open(io.BytesIO(expected_bytes)) as b,
-    ):
-        if (
-            a.mode != b.mode
-            or a.size != b.size
-            or a.convert("RGB").tobytes() != b.convert("RGB").tobytes()
-        ):
-            raise ValueError("cached media does not cover complete native frames")
 
 
 def _media_context(

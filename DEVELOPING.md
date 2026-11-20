@@ -35,6 +35,13 @@ uv run bandit -q -r src
 uv run python scripts/audit_dependencies.py
 ```
 
+CI additionally runs Pylint 4.0.6 on each changed Python file. Use the same
+version and repository configuration when checking those files locally:
+
+```bash
+uv run --with pylint==4.0.6 pylint --rcfile=.python-lint src/html_to_markdown/media_encoding.py
+```
+
 The dependency audit exports all runtime and development dependencies from `uv.lock`
 with exact versions and distribution hashes, applies platform markers, and requires
 one complete audit result per active dependency. Skipped, missing or vulnerable

@@ -164,8 +164,10 @@ def seed_review_batch(
             caches = {media["sha256"] for media in previous["item"]["media"]}
             caches.update(previous.get("file_hashes", {}).values())
             for cache_digest in sorted(caches):
-                for version in (2, 3):
-                    relative = f"media/{cache_digest}-native-{version}.json"
+                for relative in (
+                    f"media/{cache_digest}-native-2.json",
+                    f"media/{cache_digest}-native-3.json",
+                ):
                     if (path.parent.parent / relative).exists():
                         cache = safe_file(
                             worker, (path.parent.parent / relative).relative_to(worker).as_posix()

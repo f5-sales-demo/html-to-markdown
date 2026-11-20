@@ -1,5 +1,6 @@
 """Portable lossless PNG derivatives without platform-dependent compression."""
 
+import base64
 import binascii
 import io
 import struct
@@ -84,3 +85,35 @@ def _compressed_png(original: bytes) -> bytes:
     chunk = struct.pack(">I", len(compressed)) + b"IDAT" + compressed + struct.pack(">I", checksum)
     chunks.insert(position, chunk)
     return original[:8] + b"".join(chunks)
+
+
+def verify_native_frame(
+    captured_url: str,
+    captured_info: dict[str, Any],
+    expected_url: str,
+    expected_info: dict[str, Any],
+) -> None:
+    for key in (
+        "sha256",
+        "frame",
+        "frame_count",
+        "duration",
+        "width",
+        "height",
+        "loop",
+        "metadata",
+    ):
+        if captured_info.get(key) != expected_info.get(key):
+            raise ValueError("cached native frame metadata changed")
+    captured_bytes = base64.b64decode(captured_url.split(",", 1)[1], validate=True)
+    expected_bytes = base64.b64decode(expected_url.split(",", 1)[1], validate=True)
+    with (
+        Image.open(io.BytesIO(captured_bytes)) as a,
+        Image.open(io.BytesIO(expected_bytes)) as b,
+    ):
+        if (
+            a.mode != b.mode
+            or a.size != b.size
+            or a.convert("RGB").tobytes() != b.convert("RGB").tobytes()
+        ):
+            raise ValueError("cached media does not cover complete native frames")

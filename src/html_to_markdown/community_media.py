@@ -364,6 +364,19 @@ def privacy_png(image: Image.Image, transform: dict[str, Any]) -> bytes:
     return output.getvalue()
 
 
+def _reviewed_source_pixels(content: bytes, transform: dict[str, Any]) -> bytes:
+    if transform.get("svg_rendering") is None:
+        return content
+    if transform["svg_rendering"] != "rsvg-2048/1" or b"<svg" not in content[:4096]:
+        raise ValueError("unsupported SVG privacy rendering")
+    from .enrichment.media import svg_privacy_pixels  # pylint: disable=import-outside-toplevel
+
+    decoded = svg_privacy_pixels(content)
+    if hashlib.sha256(decoded).hexdigest() != transform.get("svg_rendering_sha256"):
+        raise ValueError("SVG privacy source rendering changed")
+    return decoded
+
+
 def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[bytes, str | None]:
     """Approve original bytes or apply the explicitly reviewed opaque rectangles."""
     digest = hashlib.sha256(content).hexdigest()
@@ -402,17 +415,7 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
             raise PublicationBlockedError("community GIF differs from reviewed output")
         return result, "image/gif"
     try:
-        decoded = content
-        if transform.get("svg_rendering") is not None:
-            if transform["svg_rendering"] != "rsvg-2048/1" or b"<svg" not in content[:4096]:
-                raise ValueError("unsupported SVG privacy rendering")
-            from .enrichment.media import (  # pylint: disable=import-outside-toplevel
-                svg_privacy_pixels,
-            )
-
-            decoded = svg_privacy_pixels(content)
-            if hashlib.sha256(decoded).hexdigest() != transform.get("svg_rendering_sha256"):
-                raise ValueError("SVG privacy source rendering changed")
+        decoded = _reviewed_source_pixels(content, transform)
         with Image.open(io.BytesIO(decoded)) as source:
             if getattr(source, "n_frames", 1) != 1:
                 raise PublicationBlockedError(
