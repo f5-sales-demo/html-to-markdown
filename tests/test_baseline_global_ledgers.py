@@ -237,3 +237,56 @@ def test_batch_replay_keeps_a_weaker_source_queued_without_mutation(prepared, tm
     result = source.review_baseline_batch(second, inventory, root / "journal", replay=True)
     assert result["exceptions"] == 1 and result["documents"][0]["disposition"] == "queued"
     assert record.read_bytes() == original
+
+
+def test_archive_only_donor_keeps_exhausted_budget(prepared, tmp_path):
+    root = tmp_path / "worker"
+    first, old_record = cloned(prepared, root, "first")
+    second, record = cloned(prepared, root, "second")
+    previous = exhaust(first, old_record)
+    data = old_record.read_bytes()
+    history = first / "history" / (sha(data) + ".json")
+    history.parent.mkdir(exist_ok=True)
+    history.write_bytes(data)
+    old_record.unlink()
+    before = record.read_bytes()
+    with pytest.raises(ValueError, match="stronger prior"):
+        ledger.verify_strongest_ledger(second, record, root)
+    assert record.read_bytes() == before
+    result = ledger.reconcile_record(second, record, root, execution_digest())
+    assert result["strongest_feedback_entries"] == 3
+    assert json.loads(record.read_bytes())["privacy_feedback"] == previous["privacy_feedback"]
+    assert history.read_bytes() == data
+
+
+def test_equal_exhausted_divergent_proposals_are_not_selected_by_hash(prepared, tmp_path):
+    root = tmp_path / "worker"
+    first, old_record = cloned(prepared, root, "first")
+    second, record = cloned(prepared, root, "second")
+    previous = exhaust(first, old_record)
+    record.write_bytes(old_record.read_bytes())
+    later = json.loads(old_record.read_bytes())
+    later["phases"]["privacy"]["request_sha256"] = "b" * 64
+    old_record.write_bytes(json_bytes(later))
+    before = record.read_bytes()
+    client = Client()
+    with pytest.raises(ValueError, match="conflicting strongest"):
+        ledger.reconcile_record(second, record, root, execution_digest())
+    with pytest.raises(ValueError, match="conflicting strongest"):
+        ledger.verify_strongest_ledger(second, record, root)
+    assert record.read_bytes() == before
+    assert json.loads(before)["privacy_feedback"] == previous["privacy_feedback"]
+    assert not client.calls
+
+
+def test_equal_exhausted_same_proposal_keeps_original(prepared, tmp_path):
+    root = tmp_path / "worker"
+    first, old_record = cloned(prepared, root, "first")
+    second, record = cloned(prepared, root, "second")
+    exhaust(first, old_record)
+    record.write_bytes(old_record.read_bytes())
+    before = record.read_bytes()
+    result = ledger.reconcile_record(second, record, root, execution_digest())
+    assert not result["changed"]
+    ledger.verify_strongest_ledger(second, record, root)
+    assert record.read_bytes() == before

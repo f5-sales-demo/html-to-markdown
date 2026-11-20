@@ -107,11 +107,12 @@ def _candidates(
     output: Path, record: Path, worker_root: Path, wanted: dict[str, Any]
 ) -> Iterator[tuple[Path, dict[str, Any], bytes]]:
     roots = {output}
-    for path in worker_root.glob(
-        "*/*/curation-renewal/dependency-privacy/documents/" + record.name
-    ):
-        _safe(path)
-        roots.add(path.parent.parent)
+    # A queue can retain immutable history after its current record is retired.
+    # Discover custody roots independently of the current document filename.
+    for root in worker_root.glob("*/*/curation-renewal/dependency-privacy"):
+        _safe(root)
+        if root.is_dir():
+            roots.add(root)
     for root in sorted(roots):
         target = root / "documents" / record.name
         if target.is_file():
@@ -137,6 +138,17 @@ def _candidates(
             yield path, original, original_bytes
 
 
+def _ledger_digest(saved: dict[str, Any]) -> str:
+    return sha(
+        json_bytes(
+            {
+                "privacy_feedback": saved.get("privacy_feedback", []),
+                "privacy": saved.get("phases", {}).get("privacy"),
+            }
+        )
+    )
+
+
 def reconcile_record(
     output: Path, record: Path, worker_root: Path, execution_sha256: str
 ) -> dict[str, Any]:
@@ -150,8 +162,9 @@ def reconcile_record(
         "prepared_binding", current["binding"]
     )
     _verify_source(output, current)
-    original, data = _original(output, current)
-    strongest = (len(original.get("privacy_feedback", [])), original, data, str(record))
+    original, previous_bytes = _original(output, current)
+    strongest = (len(original.get("privacy_feedback", [])), original, previous_bytes, str(record))
+    strongest_ledgers = {_ledger_digest(original)}
     evidence: list[dict[str, Any]] = []
     seen = set()
     for candidate, previous, previous_bytes in _candidates(output, record, worker_root, wanted):
@@ -161,12 +174,18 @@ def reconcile_record(
         seen.add(previous_digest)
         count = len(previous.get("privacy_feedback", []))
         evidence.append({"record_sha256": previous_digest, "feedback_entries": count})
+        if count > strongest[0]:
+            strongest_ledgers = {_ledger_digest(previous)}
+        elif count == strongest[0]:
+            strongest_ledgers.add(_ledger_digest(previous))
         if (count, bool(previous.get("phases", {}).get("privacy")), previous_digest) > (
             strongest[0],
             bool(strongest[1].get("phases", {}).get("privacy")),
             sha(strongest[2]),
         ):
             strongest = (count, previous, previous_bytes, str(candidate))
+    if strongest[0] and len(strongest_ledgers) > 1:
+        raise ValueError("conflicting strongest retained privacy ledgers require review")
     changed = False
     if strongest[0] > len(original.get("privacy_feedback", [])) or (
         not original.get("phases", {}).get("privacy")
@@ -246,6 +265,12 @@ def verify_strongest_ledger(output: Path, record: Path, worker_root: Path) -> No
     for _, original, _ in _candidates(output, record, worker_root, saved["binding"]):
         if len(original.get("privacy_feedback", [])) > count:
             raise ValueError("retained source has a stronger prior privacy ledger")
+        if (
+            count
+            and len(original.get("privacy_feedback", [])) == count
+            and _ledger_digest(original) != _ledger_digest(saved)
+        ):
+            raise ValueError("conflicting strongest retained privacy ledgers require review")
 
 
 def reconcile_batch(
