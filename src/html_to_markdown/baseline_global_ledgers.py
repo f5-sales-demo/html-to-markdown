@@ -115,8 +115,9 @@ def _candidates(
             roots.add(root)
     for root in sorted(roots):
         target = root / "documents" / record.name
+        _safe(target)
+        _safe(root / "history")
         if target.is_file():
-            _safe(target)
             data = target.read_bytes()
             saved = json.loads(data)
             if _same_source(saved.get("binding", {}), wanted):

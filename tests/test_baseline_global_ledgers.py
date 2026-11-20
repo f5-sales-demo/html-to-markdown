@@ -290,3 +290,21 @@ def test_equal_exhausted_same_proposal_keeps_original(prepared, tmp_path):
     assert not result["changed"]
     ledger.verify_strongest_ledger(second, record, root)
     assert record.read_bytes() == before
+
+
+@pytest.mark.parametrize("member", ["record", "history"])
+def test_broken_ledger_links_cannot_hide_prior_evidence(prepared, tmp_path, member):
+    root = tmp_path / "worker"
+    first, old_record = cloned(prepared, root, "first")
+    second, record = cloned(prepared, root, "second")
+    exhaust(first, old_record)
+    path = old_record if member == "record" else first / "history"
+    if path.exists():
+        path.rename(path.with_name(path.name + ".preserved"))
+    path.symlink_to(first / "unavailable")
+    before = record.read_bytes()
+    with pytest.raises(ValueError, match="unsafe"):
+        ledger.reconcile_record(second, record, root, execution_digest())
+    with pytest.raises(ValueError, match="unsafe"):
+        ledger.verify_strongest_ledger(second, record, root)
+    assert record.read_bytes() == before
