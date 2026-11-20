@@ -25,9 +25,7 @@
       "question_id": "my-f5-com",
       "document": "content/my-f5-com/K000146630/index.md",
       "source_article_sha256": "df615c2d78126d079dd4240513bedc902756a2b724b84f70d361f6de377291e6",
-      "evidence_sha256": [
-        "0ed74a2cfc31112d5c910f522d5b0ce16cc5b516fcb51e4afdb00abdc592ee38"
-      ]
+      "evidence_sha256": ["0ed74a2cfc31112d5c910f522d5b0ce16cc5b516fcb51e4afdb00abdc592ee38"]
     },
     {
       "question_id": "www-f5-com",
