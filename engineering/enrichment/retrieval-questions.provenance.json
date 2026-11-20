@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "source_snapshot": "content-20261110T194938Z",
+  "source_publication_sha256": "dca6e335548b715089f11d5a84bfcfbb077a55900a43a04514ec95ee75c02386",
+  "questions": [
+    {
+      "question_id": "community-f5-com",
+      "document": "content/community-f5-com/t/65170/index.md",
+      "source_article_sha256": "bf7c42a5b0888c69f6380ee21751f7a670ba8b331c1acbb231445e636069370c",
+      "evidence_sha256": [
+        "f0226343ba6bca6d01c0a3a4ff20584aac264c1624eca098a0663c38fe5b47e8",
+        "a6cc0fb1bd6641ec74de4ca09ece539c40031c61b560a7466d1323a0423f1b13"
+      ]
+    },
+    {
+      "question_id": "docs-cloud-f5-com",
+      "document": "content/docs-cloud-f5-com/administration/how-tos/managed-services/config-tenant-msp-service/index.md",
+      "source_article_sha256": "37556e141ffbb71b9253f4d5f5a9a2588a65c3d0b1991237ffb90c6bb857a1af",
+      "evidence_sha256": [
+        "066bb4509ab2c3342f56be0153d1e2d895d75c97ba106a45b2ecbcb9085e37fb",
+        "23d68ee8ec0eec5379d0e122dd3ac8a9f7f1b3b8af8f47167391b092f7da422b"
+      ]
+    },
+    {
+      "question_id": "my-f5-com",
+      "document": "content/my-f5-com/K000146630/index.md",
+      "source_article_sha256": "df615c2d78126d079dd4240513bedc902756a2b724b84f70d361f6de377291e6",
+      "evidence_sha256": [
+        "0ed74a2cfc31112d5c910f522d5b0ce16cc5b516fcb51e4afdb00abdc592ee38"
+      ]
+    },
+    {
+      "question_id": "www-f5-com",
+      "document": "content/www-f5-com/products/distributed-cloud-services/api-security/index.md",
+      "source_article_sha256": "143e5da631d2c8c5adc75dcac62e3e9b0df589c6abcde2a58ece04636bb41c24",
+      "evidence_sha256": [
+        "3dcbacce39d0233dde6253de57142e71ce8be4b0bb1e1cf3e039514794fc1597",
+        "a357d0a41c2c575cd8568a9be9b1bfef10a229c870d3265cc831699d282c77e3"
+      ]
+    },
+    {
+      "question_id": "76933",
+      "document": "content/community-f5-com/t/76933/index.md",
+      "source_article_sha256": "c6b362b8f8a4d393ae910abba34246120f722d4fdea853508887a47e803be4e2",
+      "evidence_sha256": [
+        "cb2edcceb98b8c55bb64a99c33d7f83a345b38cc9c4644debc7aeeae84df06d9",
+        "b5a7b20acfd9de5541d40beb98a83207ff05cf7e9ea8ad7158b8eadc82fb0278"
+      ]
+    },
+    {
+      "question_id": "adv-dns-syn-mon",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-dns-syn-mon/index.md",
+      "source_article_sha256": "a30dd63c845d317788a84656121d4b508808015e76400490f96f66d9e2629375",
+      "evidence_sha256": [
+        "251faa8db908f26a7491711ce5eefaef2a3a2ea1b2903a6645ed53d478ecb37b",
+        "6755e40e449581caad4fd325b4e09f3784123724a4248d00c38a55fd15abea43",
+        "af10d9389f7d214259cf8c8db75c38c5e1cb6d68db7e14f71b25b72ce6088d8c"
+      ]
+    },
+    {
+      "question_id": "adv-http-syn-mon",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
+      "source_article_sha256": "64076d79ed2196b7722364c16d343f257eae51995cfe493228aa00107632d2da",
+      "evidence_sha256": [
+        "c2ef5d2b67850f9e23e85cc9041ccca9114a8a80b4ed7d94c8d612d6214cb654",
+        "56a45ee6be187396ef365ec0a551089ce04f7ebfb120461c3f590116111cf63b",
+        "a7de385e4fbd2abea6bbf0dd5b3e58194ba542f2a76b758a56938402f41d51c5"
+      ]
+    },
+    {
+      "question_id": "tls-report",
+      "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/tls-report/index.md",
+      "source_article_sha256": "b7fcd327fcfb11f6d5df5c6563366081dc40f5b26ef0cd0689b8265c3a9ee225",
+      "evidence_sha256": [
+        "f9454d547ba48c99004f648f44f2c5eb98964fa5a2972b7de70c14be73f58149",
+        "9f6540e4f5aff147d49bbc405c137c0fae7d8a5f81f433222f3df89a34c29a46"
+      ]
+    },
+    {
+      "question_id": "http-syn-mon",
+      "document": "content/docs-cloud-f5-com/observability/quick-start/http-syn-mon/index.md",
+      "source_article_sha256": "91c47e6fc86aaa5eebf0e045c5bd2f8347762f20e622ab15ae5944b92f4807cd",
+      "evidence_sha256": [
+        "dc09e1b933390b0489ffee7f14e5f93421d6bd79e8570e60b88d92251a0c5a9f",
+        "72d2ad472e79ed6510106722b1bcb0f11d713c291808e50d9a3e08c0d5fdb156",
+        "739d31350718139e86f4424ab68a8e8ff54d89091ba6e67c88f2539f6a0391a1"
+      ]
+    },
+    {
+      "question_id": "wingman-api-reference",
+      "document": "content/docs-cloud-f5-com/platform/reference/wingman-api-reference/index.md",
+      "source_article_sha256": "5ff8f0c44a18c2936b845cea8b27e32d9af284aac6e7438e5a2a94c2c6bd25e4",
+      "evidence_sha256": [
+        "de1f64ef71cb904bf952536d95c0366e539f3be636625a53742069b84b53d942",
+        "4eb619a9e1c5afb43e5ed869f3e70633f2f428aa306d0c6010681b185447f045"
+      ]
+    },
+    {
+      "question_id": "console-blindfold-registry-secret",
+      "document": "content/docs-cloud-f5-com/distributed-apps/how-to/app-mgnt/container-registry/index.md",
+      "source_article_sha256": "47d11816fac195d20a9ecb26d951317755e419a357211737ce06a67e1faa4838",
+      "evidence_sha256": [
+        "c1b44dd029e78f6f8df67335af563c97f7b13b1b15a82d586248de5afec90262",
+        "e74430ebaa2047b229a8a9412f082bdde8448870e70f473a2ea6a78001dc7cae"
+      ]
+    }
+  ]
+}
