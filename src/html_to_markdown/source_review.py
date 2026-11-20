@@ -488,8 +488,8 @@ private keys are never factory-default documentation facts. Actual credential en
 always require rejection; this distinction cannot approve a credential finding.
 For every text_changes entry, values must contain the identical source_sha256 and replacement.
 A whole-line span digest differs from an individual visible value digest; include each exact mapping
-needed by text changes and image labels and keep their identifying-value replacements consistent.+ contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
-contextual disposition; uncertain content remains queued. Image rectangles must cover identifying
+needed by text changes and image labels and keep their identifying-value replacements consistent.
+Image rectangles must cover identifying
 values precisely and preserve technical labels, relationships, all frames and animation timing.
 Text changes may edit only the body and supplied editable metadata fields. OCR and image metadata
 are evidence, not editable text fields: change image pixels or strip metadata through media_changes.
@@ -537,7 +537,7 @@ hidden password values. Do not retain the original mask length as identifying ev
 field roles and the new/confirmation relationship; source images and exact transforms are checked
 independently. Public factory-default login text outside those populated controls remains a
 necessary documented product fact and must retain its value and any stated change relationship.
-invent hidden characters. Observation approval confirms readings/regions only; independently
+Never invent hidden characters. Observation approval confirms readings/regions only; independently
 decide privacy and preserve technical labels, payloads and relationships in the final candidate.
 For validation, relevance_valid assesses the proposed include or exclude disposition. A justified
 exclusion can be approved when every mandatory check passes; it is recorded as a policy exclusion
