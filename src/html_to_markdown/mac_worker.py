@@ -139,6 +139,7 @@ def worker_once(
         queues = json.loads(result.stdout)
         if not isinstance(queues, list):
             raise ValueError("private queue list is not an array")
+        renewals: list[tuple[Path, dict[str, Any]]] = []
         for entry in queues:
             identity = entry["queue"]
             path = Path(identity)
@@ -165,6 +166,15 @@ def worker_once(
                 and previous.get("request_context_sha256") == context_pin
                 and (previous.get("completed") or previous.get("settled"))
             ):
+                if entry.get("kind") != "enrichment":
+                    source_status = {
+                        "queue": identity,
+                        "captured": entry["captured"],
+                        "discovered": entry["discovered"],
+                        "source_review": "settled",
+                    }
+                    status["queues"].append(source_status)
+                    renewals.append((directory, source_status))
                 continue
             directory.mkdir(parents=True, exist_ok=True, mode=0o700)
             status["state"] = "reviewing"
@@ -242,26 +252,6 @@ def worker_once(
             report = run_reviews(
                 capture, review, phase="all", journal=output / "journal", limit=batch_size
             )
-            try:
-                status["curation"] = advance_renewals(
-                    capture,
-                    review,
-                    directory / "curation-renewal",
-                    output / "journal",
-                    transport,
-                    host,
-                    remote_executable,
-                    remote_queue,
-                )
-            except (ValueError, OSError, subprocess.CalledProcessError, httpx.HTTPError) as failure:
-                # Curation jobs cannot prevent passing source articles or other
-                # queues from advancing. Full diagnostics remain private.
-                atomic_private(
-                    directory / "curation-renewal-error.json", json_bytes({"error": str(failure)})
-                )
-                status["curation"] = {"state": "queued", "error_class": type(failure).__name__}
-            status["queues"][-1]["curation"] = status["curation"]
-            atomic_private(output / "worker-status.json", json_bytes(status))
             completed = not report["exceptions"] and not report["pending"]
             # Passing articles progress while exceptions stay visible.
             sealed = directory / "sealed" / (entry["fingerprint"] + "-" + sha(json_bytes(report)))
@@ -293,7 +283,11 @@ def worker_once(
                     }
                 ),
             )
-        status["state"] = "idle"
+            renewals.append((directory, status["queues"][-1]))
+        # A long-running dependency review must not hold acknowledged source
+        # batches, other source queues, or governed publication preparation.
+        status["state"] = "preparing_publication"
+        atomic_private(output / "worker-status.json", json_bytes(status))
         args = [
             str(transport),
             "--host",
@@ -306,11 +300,70 @@ def worker_once(
         ]
         if source_commit is not None:
             args.extend(["--source-commit", source_commit])
-        publication = subprocess.run(args, capture_output=True, check=True, timeout=1800)  # nosec B603
-        status["publication"] = json.loads(publication.stdout)
+        try:
+            publication = subprocess.run(args, capture_output=True, check=True, timeout=1800)  # nosec B603
+            status["publication"] = json.loads(publication.stdout)
+        except (ValueError, OSError, subprocess.CalledProcessError, httpx.HTTPError) as failure:
+            # Baseline curation prerequisites may legitimately block assembly;
+            # preserve that gate while allowing its dependency reviews to advance.
+            _preserve_stage_failure(output / "publication-error.json", failure)
+            status["publication"] = {"state": "queued", "error_class": type(failure).__name__}
+        _advance_renewal_pass(
+            renewals, status, output, transport, host, remote_executable, remote_queue
+        )
+        status["state"] = "idle"
         status["ended_at"] = utc_now()
         atomic_private(output / "worker-status.json", json_bytes(status))
         return status
+
+
+def _preserve_stage_failure(path: Path, failure: Exception) -> None:
+    """Keep subprocess diagnostics private and byte-exact while reporting only its class."""
+    detail: dict[str, Any] = {"error": str(failure)}
+    if isinstance(failure, subprocess.CalledProcessError):
+        for name in ("stdout", "stderr"):
+            payload = getattr(failure, name)
+            if payload is not None:
+                data = payload.encode() if isinstance(payload, str) else payload
+                artifact = path.with_suffix("." + name + ".private.bin")
+                atomic_private(artifact, data)
+                detail[name + "_sha256"] = sha(data)
+    atomic_private(path, json_bytes(detail))
+
+
+def _advance_renewal_pass(
+    renewals: list[tuple[Path, dict[str, Any]]],
+    status: dict[str, Any],
+    output: Path,
+    transport: Path,
+    host: str,
+    remote_executable: str,
+    remote_queue: str,
+) -> None:
+    """Resume dependencies only after source acknowledgments and assembly gates."""
+    # Include settled source checkpoints so interruption during this pass
+    # resumes curation without repeating source reviews or admission returns.
+    for directory, source_status in renewals:
+        status["state"] = "curation"
+        atomic_private(output / "worker-status.json", json_bytes(status))
+        try:
+            status["curation"] = advance_renewals(
+                directory / "capture",
+                directory / "review",
+                directory / "curation-renewal",
+                output / "journal",
+                transport,
+                host,
+                remote_executable,
+                remote_queue,
+            )
+        except (ValueError, OSError, subprocess.CalledProcessError, httpx.HTTPError) as failure:
+            # Curation jobs cannot prevent passing source articles or other
+            # queues from advancing. Full diagnostics remain private.
+            _preserve_stage_failure(directory / "curation-renewal-error.json", failure)
+            status["curation"] = {"state": "queued", "error_class": type(failure).__name__}
+        source_status["curation"] = status["curation"]
+        atomic_private(output / "worker-status.json", json_bytes(status))
 
 
 def _receive_capture(
