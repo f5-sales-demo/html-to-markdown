@@ -66,6 +66,17 @@ ledgers carry across queues. Unsafe or unreadable prior evidence remains queued
 for repair. Interrupted storage copies resume before any new privacy attempt.
 `cross-queue-reuse.json` and its evidence/errors are private operational artifacts.
 
+Retained baseline privacy prerequisites share their strongest exact-source editorial
+history across curation queues. Before inference, the worker verifies original
+article/media custody and reconciles current records plus immutable histories, including
+queues whose current record was retired, under the existing orchestrator and per-source
+locks. Conflicting strongest proposal histories stay queued; hash order cannot select
+between divergent exhausted ledgers. Reconciliation preserves the original
+proposal and all failed feedback; another queue or controller change grants no new
+editor allowance. Final replay rejects weaker or altered ledgers. Standalone
+qualification can set `HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT` to the same private
+worker root; normal processing sets it from its output directory.
+
 Source review and curation run in separate scheduling passes. Each bounded source
 batch is sealed, independently returned and checkpointed before the next source
 queue advances. Governed publication preparation follows the source sweep, before
