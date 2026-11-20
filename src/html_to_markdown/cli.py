@@ -93,9 +93,12 @@ def share_capture_storage_command(
 
 
 @app.command("list-review-queues")
-def list_review_queues(queue_root: Annotated[Path, typer.Option(file_okay=False)]) -> None:
-    """List private captured queues for the MacBook worker."""
-    typer.echo(json.dumps(list_queues(queue_root), sort_keys=True))
+def list_review_queues(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    review_frontier: Annotated[bool, typer.Option()] = False,
+) -> None:
+    """List private captured queues, optionally prioritizing current identity coverage."""
+    typer.echo(json.dumps(list_queues(queue_root, review_frontier=review_frontier), sort_keys=True))
 
 
 @app.command("scheduled-collection")

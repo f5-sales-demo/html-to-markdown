@@ -132,6 +132,7 @@ def worker_once(
             "--",
             remote_executable,
             "list-review-queues",
+            "--review-frontier",
             "--queue-root",
             remote_queue,
         ]
