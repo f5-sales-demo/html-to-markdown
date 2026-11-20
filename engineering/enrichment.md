@@ -88,3 +88,15 @@ retrieval evaluations, and immutable receipt and deployed route verification.
 The four observability procedural articles and independent Blindfold and Wingman
 material remain regression requirements. Fresh inference is not assumed to be
 byte-deterministic.
+
+
+Retrieval acceptance uses technical questions with digest-pinned source provenance,
+including all four sources, synthetic-monitor behavior and independent Console
+Blindfold/Wingman material. Paired regression and candidate acceptance are separate:
+shared baseline/candidate misses remain visible and fail candidate acceptance.
+A candidate must retrieve the expected source document (or its authoritative
+canonical alias), preserve its required evidence, and provide independently judged
+correctness, coverage, positive relevance and supported quotes without reported
+failures. Decorative images and ornamental introductions are not acceptance facts.
+Unknown source changes require renewed question evidence; model assertions cannot
+waive missing source facts. Reports retain baseline misses alongside both verdicts.

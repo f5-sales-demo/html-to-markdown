@@ -1,10 +1,11 @@
 [
   {
     "question_id": "community-f5-com",
-    "question": "What does API Discovery and Auto Generation of Swagger Schema explain?",
-    "expected_answer": "API discovery helps in\u00a0learning, searching,\u00a0and identifying loopholes when app communicates\u00a0via APIs\u00a0especially in a large micro-services ecosystem.\u00a0After discovery, the system\u00a0analyzes\u00a0the APIs, then will know how to secure the APIs from malicious requests.",
+    "question": "How is API discovery enabled and where is the generated Swagger schema downloaded?",
+    "expected_answer": "Here, while creating a new app type, we need to enable the API discovery feature and markup setting to learn from direct traffic. Save and exit.\n\nHere you will see all the API endpoints that are discovered on the HTTP LB and you can download the swagger right from the HTTP LB dashboard page.",
     "required_evidence": [
-      "API discovery helps in\u00a0learning, searching,\u00a0and identifying loopholes when app communicates\u00a0via APIs\u00a0especially in a large micro-services ecosystem.\u00a0After discovery, the system\u00a0analyzes\u00a0the APIs, then will know how to secure the APIs from malicious requests."
+      "Here, while creating a new app type, we need to enable the API discovery feature and markup setting to learn from direct traffic. Save and exit.",
+      "Here you will see all the API endpoints that are discovered on the HTTP LB and you can download the swagger right from the HTTP LB dashboard page."
     ],
     "source": "community-f5-com",
     "document": "content/community-f5-com/t/65170/index.md",
@@ -12,10 +13,11 @@
   },
   {
     "question_id": "docs-cloud-f5-com",
-    "question": "What does Configure Tenants Using MSP Service explain?",
-    "expected_answer": "In a cloud environment, tenants are used to create isolated and secure environments for customers. These tenants can be managed by a Managed Service Provider (MSP), who provides tenant-specific services, such as load balancing, firewalls, and VPNs. In a distributed cloud environment, like F5, the MSP can configure tenants using the MSP service.",
+    "question": "Which root, parent and child tenant permissions apply when configuring the MSP service?",
+    "expected_answer": "Typically, the root tenant has the most permissions and can create and manage a certain number of parent and child tenants. The parent tenant can create and manage any number of child tenants, but it cannot create or manage other parent tenants. The child tenant can only be managed by its parent tenant.\n\n> **Note:** You can use API Token and API Certificate service credentials for managed service providers where one set of credentials is used to authenticate access and permissions in a secondary tenant.",
     "required_evidence": [
-      "In a cloud environment, tenants are used to create isolated and secure environments for customers. These tenants can be managed by a Managed Service Provider (MSP), who provides tenant-specific services, such as load balancing, firewalls, and VPNs. In a distributed cloud environment, like F5, the MSP can configure tenants using the MSP service."
+      "Typically, the root tenant has the most permissions and can create and manage a certain number of parent and child tenants. The parent tenant can create and manage any number of child tenants, but it cannot create or manage other parent tenants. The child tenant can only be managed by its parent tenant.",
+      "> **Note:** You can use API Token and API Certificate service credentials for managed service providers where one set of credentials is used to authenticate access and permissions in a secondary tenant."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/administration/how-tos/managed-services/config-tenant-msp-service/index.md",
@@ -23,28 +25,37 @@
   },
   {
     "question_id": "my-f5-com",
-    "question": "What must be configured on the network firewall for Distributed Cloud Load Balancers?",
-    "expected_answer": "Allow the public IPv4 subnet ranges listed for Distributed Cloud devices.",
-    "required_evidence": ["public IPv4 Subnet Ranges"],
+    "question": "What firewall source-address configuration is required for Distributed Cloud load balancers?",
+    "expected_answer": "Configure your network firewall to allow connections from F5 Distributed Cloud devices using the public IPv4 subnet ranges in [Firewall or Proxy Reference for Network Cloud | F5 Distributed Cloud Tech Docs](https://docs.cloud.f5.com/docs-v2/platform/reference/network-cloud-ref).\n",
+    "required_evidence": [
+      "network firewall",
+      "allow connections",
+      "public IPv4",
+      "https://docs.cloud.f5.com/docs-v2/platform/reference/network-cloud-ref"
+    ],
     "source": "my-f5-com",
     "document": "content/my-f5-com/K000146630/index.md",
     "category": "source_stratified"
   },
   {
     "question_id": "www-f5-com",
-    "question": "What does F5 Distributed Cloud API Security explain?",
-    "expected_answer": "![](assets/8f0fad8bcc077ef0153a85d2337ad6f214a6dfecfe54ea893cc1a95852d17461.svg)",
-    "required_evidence": ["![](assets/8f0fad8bcc077ef0153a85d2337ad6f214a6dfecfe54ea893cc1a95852d17461.svg)"],
+    "question": "How does F5 Distributed Cloud API Security discover APIs and protect exposed sensitive data?",
+    "expected_answer": "APIs change frequently. With F5, easily and continuously identify all API endpoints mapped to your applications, test them and continuously monitor for anomalous activities or shadow APIs including blocking of suspicious requests and endpoints. Our solution automatically generates OpenAPI spec files to minimize manual tracking of API endpoints. Reducing time spent configuring and deploying API security policies.\n\nBetter understand and monitor the data being exposed by your APIs. Streamline the discovery, tagging and reporting on data being exposed including common PII, compliance related data types (e.g. PCI-DSS, HIPAA, GDPR etc.) and custom patterns — with capabilities to limit, mask or block APIs from exposing this data.",
+    "required_evidence": [
+      "APIs change frequently. With F5, easily and continuously identify all API endpoints mapped to your applications, test them and continuously monitor for anomalous activities or shadow APIs including blocking of suspicious requests and endpoints. Our solution automatically generates OpenAPI spec files to minimize manual tracking of API endpoints. Reducing time spent configuring and deploying API security policies.",
+      "Better understand and monitor the data being exposed by your APIs. Streamline the discovery, tagging and reporting on data being exposed including common PII, compliance related data types (e.g. PCI-DSS, HIPAA, GDPR etc.) and custom patterns — with capabilities to limit, mask or block APIs from exposing this data."
+    ],
     "source": "www-f5-com",
     "document": "content/www-f5-com/products/distributed-cloud-services/api-security/index.md",
     "category": "source_stratified"
   },
   {
     "question_id": "76933",
-    "question": "What are the essential behavior and requirements for Moving HTTP Load Balancers Between F5 Distributed Cloud Namespaces \u2014 Why It's Harder Than You Think?",
-    "expected_answer": "If you have been working with F5 Distributed Cloud (XC) for a while, you have probably run into this: your namespace structure no longer reflects how your teams or applications are organized. Maybe the initial layout was a quick decision during onboarding. Maybe teams have merged, projects have grown, or your naming convention has evolved. Either way, you now want to move a handful of HTTP load balancers from one namespace to another.",
+    "question": "Which operation order and shared-origin-pool constraints apply to moving HTTP load balancers between namespaces?",
+    "expected_answer": "F5 XC enforces strict referential integrity. You cannot delete an origin pool that is still referenced by a load balancer. You cannot create a load balancer that references an origin pool that does not exist yet. This means the order of operations matters: delete top-down (LBs first, then dependencies), create bottom-up (dependencies first, then LBs).\n\nIt also means that if two load balancers share an origin pool, you cannot move them independently. Delete the first LB, try to delete the shared pool, and the API returns a 409 Conflict because the second LB still references it. Both LBs - and all of their shared dependencies - have to be moved together as a single atomic unit.",
     "required_evidence": [
-      "If you have been working with F5 Distributed Cloud (XC) for a while, you have probably run into this: your namespace structure no longer reflects how your teams or applications are organized. Maybe the initial layout was a quick decision during onboarding. Maybe teams have merged, projects have grown, or your naming convention has evolved. Either way, you now want to move a handful of HTTP load balancers from one namespace to another."
+      "F5 XC enforces strict referential integrity. You cannot delete an origin pool that is still referenced by a load balancer. You cannot create a load balancer that references an origin pool that does not exist yet. This means the order of operations matters: delete top-down (LBs first, then dependencies), create bottom-up (dependencies first, then LBs).",
+      "It also means that if two load balancers share an origin pool, you cannot move them independently. Delete the first LB, try to delete the shared pool, and the API returns a 409 Conflict because the second LB still references it. Both LBs - and all of their shared dependencies - have to be moved together as a single atomic unit."
     ],
     "source": "community-f5-com",
     "document": "content/community-f5-com/t/76933/index.md",
@@ -52,10 +63,18 @@
   },
   {
     "question_id": "adv-dns-syn-mon",
-    "question": "What are the essential behavior and requirements for Create Advanced DNS Synthetic Monitor?",
-    "expected_answer": "This guide provides instructions on how to create a DNS Synthetic Monitor leveraging many of the more advanced features. These parameters will help you to fine tune your monitors to get the most out of them.",
+    "question": "How do DNS monitor nameservers, ANY/ALL health and dynamic thresholds affect monitor health?",
+    "expected_answer": "**Step 5:** Configure how to monitor.\n> **Note**: Custom nameservers are optional, and the monitor will use its default nameservers for validation by default. Each configured `Region` will monitor each nameserver configured here.\n\n- Update the `Query Timeout (ms)` to control how long the monitor waits for a response before becoming critical.\n- Update the `Number of consecutive test failures` to control how many failed monitors must happen in a row before becoming Critical.\n- Update the `Number of Nameservers` to control if `ANY` or `ALL` nameservers tested must pass to be considered Healthy.\n- Update the `Number of Failed Locations` to control how many regions must fail before the global monitor becomes Critical.\n\n  - When a dynamic threshold is enabled, a rolling average of the last 7 days of response time data will be analyzed to dynamically set a response time threshold. If that threshold is exceeded for a period greater than the defined evaluation period, the monitor health will turn critical. A higher standard deviation value will generate fewer alerts, while a lower standard deviation value will generate more alerts.\n  - When a static maximum threshold is enabled, monitor health will turn critical if the defined max response time is exceeded for a period greater than the defined evaluation period.\n  - When a static minimum threshold is enabled, monitor health will turn critical if the response time is lower than the defined min response time for a period greater than the defined evaluation period.",
     "required_evidence": [
-      "This guide provides instructions on how to create a DNS Synthetic Monitor leveraging many of the more advanced features. These parameters will help you to fine tune your monitors to get the most out of them."
+      "**Step 5:** Configure how to monitor.",
+      "> **Note**: Custom nameservers are optional, and the monitor will use its default nameservers for validation by default. Each configured `Region` will monitor each nameserver configured here.",
+      "- Update the `Query Timeout (ms)` to control how long the monitor waits for a response before becoming critical.",
+      "- Update the `Number of consecutive test failures` to control how many failed monitors must happen in a row before becoming Critical.",
+      "- Update the `Number of Nameservers` to control if `ANY` or `ALL` nameservers tested must pass to be considered Healthy.",
+      "- Update the `Number of Failed Locations` to control how many regions must fail before the global monitor becomes Critical.",
+      "  - When a dynamic threshold is enabled, a rolling average of the last 7 days of response time data will be analyzed to dynamically set a response time threshold. If that threshold is exceeded for a period greater than the defined evaluation period, the monitor health will turn critical. A higher standard deviation value will generate fewer alerts, while a lower standard deviation value will generate more alerts.",
+      "  - When a static maximum threshold is enabled, monitor health will turn critical if the defined max response time is exceeded for a period greater than the defined evaluation period.",
+      "  - When a static minimum threshold is enabled, monitor health will turn critical if the response time is lower than the defined min response time for a period greater than the defined evaluation period."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-dns-syn-mon/index.md",
@@ -63,10 +82,16 @@
   },
   {
     "question_id": "adv-http-syn-mon",
-    "question": "What are the essential behavior and requirements for Create Advanced HTTP(s) Synthetic Monitor?",
-    "expected_answer": "This guide provides instructions on how to create an HTTP(s) Synthetic Monitor leveraging many of the more advanced features. These parameters will help you to fine tune your monitors in order to get the most out of them.",
+    "question": "Which HTTP response codes are healthy by default and how do receive strings and dynamic thresholds affect critical health?",
+    "expected_answer": "**Step 3.3:** Optionally, update the Valid Response Codes.\n> **Note:** A monitor will be considered healthy by default if the response code is within the 200 or 300 response code range. **Valid Response Codes** allows for the use of wildcards(\\*) so that the user does not need to manually input every allowed response. For example, **2**\\*\\* covers any 200 response code. If **202** was explicitly set with no other codes then all response codes other than **202** would be considered **Critical**.\n\n- Modify the **Receive String** field to a value that is required to be within the response body of the monitored endpoint. If the response does not include the **string** then it will be marked **Critical**. The example below would match **up** or **healthy**.\n**Step 4:** Configure where to monitor from.\n> **Note:** Each source **provider** and **region** added will monitor the endpoint configured for the monitor. The combined health from all regions will generate the overall monitors **global** health.\n\n- Optionally, enable **Health Policy** to set a dynamic and/or static threshold when determining the health.\n  - When a dynamic threshold is enabled, a rolling average of the last 7 days of response time data will be analyzed to dynamically set a response time threshold. If that threshold is exceeded for a period greater than the defined evaluation period, the monitor health will turn critical. A higher standard deviation value will generate fewer alerts, while a lower standard deviation value will increase alerts.\n  - When a static max threshold is enabled, monitor health will turn critical if the defined max response time is exceeded for a period greater than the defined evaluation period.\n  - When a static min threshold is enabled, monitor health will turn critical if the response time is lower than the defined min response time for a period greater than the defined evaluation period.",
     "required_evidence": [
-      "This guide provides instructions on how to create an HTTP(s) Synthetic Monitor leveraging many of the more advanced features. These parameters will help you to fine tune your monitors in order to get the most out of them."
+      "> **Note:** A monitor will be considered healthy by default if the response code is within the 200 or 300 response code range.",
+      "**Valid Response Codes** allows for the use of wildcards",
+      "If **202** was explicitly set with no other codes then all response codes other than **202** would be considered **Critical**.",
+      "- Modify the **Receive String** field to a value that is required to be within the response body of the monitored endpoint. If the response does not include the **string** then it will be marked **Critical**. The example below would match **up** or **healthy**.",
+      "**Step 4:** Configure where to monitor from.",
+      "> **Note:** Each source **provider** and **region** added will monitor the endpoint configured for the monitor. The combined health from all regions will generate the overall monitors **global** health.",
+      "- Optionally, enable **Health Policy** to set a dynamic and/or static threshold when determining the health.\n  - When a dynamic threshold is enabled, a rolling average of the last 7 days of response time data will be analyzed to dynamically set a response time threshold. If that threshold is exceeded for a period greater than the defined evaluation period, the monitor health will turn critical. A higher standard deviation value will generate fewer alerts, while a lower standard deviation value will increase alerts.\n  - When a static max threshold is enabled, monitor health will turn critical if the defined max response time is exceeded for a period greater than the defined evaluation period.\n  - When a static min threshold is enabled, monitor health will turn critical if the response time is lower than the defined min response time for a period greater than the defined evaluation period."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/adv-http-syn-mon/index.md",
@@ -74,10 +99,11 @@
   },
   {
     "question_id": "tls-report",
-    "question": "What are the essential behavior and requirements for View Synthetic Monitor TLS Report?",
-    "expected_answer": "This guide provides instructions on how to review the `TLS Report` that is generated for `HTTP(s) Synthetic Monitors`. Endpoints with TLS enabled will automatically generate a TLS score along with a full report to help you quantify its current state of security.",
+    "question": "What monitor prerequisite is required to view its TLS report and where is the full report opened?",
+    "expected_answer": "- A [Distributed Cloud Services Account](https://console.ves.volterra.io). If you do not have an account, see [Getting Started with Console](https://docs.cloud.f5.com/docs-v2/platform/quickstart/get-started-on-console).\n- A previously configured `HTTP(s) Synthetic Monitor` with TLS enabled on the monitored endpoint. If you do not have a monitor set up, see the how-to for [Advanced HTTP(s) Synthetic Monitor](https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon).\n\n- Within the `TLS Summary` you can open the full report in a PDF or copy it to clipboard to stick in an email or chat with your team.\n- Click on `Open as PDF` to view the full report.",
     "required_evidence": [
-      "This guide provides instructions on how to review the `TLS Report` that is generated for `HTTP(s) Synthetic Monitors`. Endpoints with TLS enabled will automatically generate a TLS score along with a full report to help you quantify its current state of security."
+      "- A [Distributed Cloud Services Account](https://console.ves.volterra.io). If you do not have an account, see [Getting Started with Console](https://docs.cloud.f5.com/docs-v2/platform/quickstart/get-started-on-console).\n- A previously configured `HTTP(s) Synthetic Monitor` with TLS enabled on the monitored endpoint. If you do not have a monitor set up, see the how-to for [Advanced HTTP(s) Synthetic Monitor](https://docs.cloud.f5.com/docs-v2/observability/how-tos/synthetic-monitoring/adv-http-syn-mon).",
+      "- Within the `TLS Summary` you can open the full report in a PDF or copy it to clipboard to stick in an email or chat with your team.\n- Click on `Open as PDF` to view the full report."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/observability/how-tos/synthetic-monitoring/tls-report/index.md",
@@ -85,10 +111,16 @@
   },
   {
     "question_id": "http-syn-mon",
-    "question": "What are the essential behavior and requirements for HTTP(s) Synthetic Monitor?",
-    "expected_answer": "This quickstart guide provides instructions on how to create an HTTP(s) Synthetic Monitor leveraging the minimum required settings.",
+    "question": "How are synthetic HTTP monitor provider regions selected and why are multiple locations recommended?",
+    "expected_answer": "- Select the desired **Provider** for which you would like to source the monitor from.\n- With the **Provider** selected, click the **Regions** dropdown and select which **Region** you would like the monitor to run from.\n- Select additional regions from the dropdown if you would like to add more **Regions** for the current **Provider**.\n\n> **Note:** As a general practice, the F5 team suggests you always configure synthetic monitoring from multiple geographic locations (regions, availability zones). This provides redundancy and reduces the risk of false positives due to localized issues.\n>\n> The F5 team suggests that customers pick more than one region. In addition to Regional Edge (RE) sites, use other probing locations, such as cloud provider edge locations (for example, AWS CEs), to decouple monitoring from RE infrastructure and improve resilience.\n\n- Select **Add HTTP Monitor** to save the new HTTP Synthetic Monitor.\n**Step 5:** Setup Alerting.",
     "required_evidence": [
-      "This quickstart guide provides instructions on how to create an HTTP(s) Synthetic Monitor leveraging the minimum required settings."
+      "- Select the desired **Provider** for which you would like to source the monitor from.",
+      "- With the **Provider** selected, click the **Regions** dropdown and select which **Region** you would like the monitor to run from.",
+      "- Select additional regions from the dropdown if you would like to add more **Regions** for the current **Provider**.",
+      "> **Note:** As a general practice, the F5 team suggests you always configure synthetic monitoring from multiple geographic locations (regions, availability zones). This provides redundancy and reduces the risk of false positives due to localized issues.",
+      "> The F5 team suggests that customers pick more than one region. In addition to Regional Edge (RE) sites, use other probing locations, such as cloud provider edge locations (for example, AWS CEs), to decouple monitoring from RE infrastructure and improve resilience.",
+      "- Select **Add HTTP Monitor** to save the new HTTP Synthetic Monitor.",
+      "**Step 5:** Setup Alerting."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/observability/quick-start/http-syn-mon/index.md",
@@ -96,13 +128,31 @@
   },
   {
     "question_id": "wingman-api-reference",
-    "question": "What are the essential behavior and requirements for Wingman API Reference?",
-    "expected_answer": "The sidecar runs in the same pod as the workload. Only the workload can reach it, so it adds no security risk. It prevents applications from handling sensitive material on their own.",
+    "question": "Which Wingman status states distinguish readiness and renewal failure, and does HTTP 200 prove readiness?",
+    "expected_answer": "- `INITIALIZING`: Wingman is still initializing and does not have identity certificates.\n- `READY`: Wingman has the identity and is ready to serve.\n- `DEGRADED`: Wingman identity certs are about to expire but the last attempt to renew failed.\n- `HALTED`: Wingman was not able to fetch identity certs and is not able to serve anymore.\n\n```\n$ curl http://localhost:8070/status\nREADY\n```\n> **Note:** `/status` API always returns response code **200** and only fails if Wingman is not up or reachable.",
     "required_evidence": [
-      "The sidecar runs in the same pod as the workload. Only the workload can reach it, so it adds no security risk. It prevents applications from handling sensitive material on their own."
+      "- `INITIALIZING`: Wingman is still initializing and does not have identity certificates.\n- `READY`: Wingman has the identity and is ready to serve.\n- `DEGRADED`: Wingman identity certs are about to expire but the last attempt to renew failed.\n- `HALTED`: Wingman was not able to fetch identity certs and is not able to serve anymore.",
+      "$ curl http://localhost:8070/status",
+      "> **Note:** `/status` API always returns response code **200** and only fails if Wingman is not up or reachable."
     ],
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/platform/reference/wingman-api-reference/index.md",
+    "category": "required_procedure"
+  },
+  {
+    "question_id": "console-blindfold-registry-secret",
+    "question": "How are registry passwords encrypted through Console Blindfold and what must finish before applying the secret?",
+    "expected_answer": "  - `Blindfold Secret`: This option is used for secrets managed by Distributed Cloud Services.\n  - `Clear Secret`: This option is used for secrets that are not encrypted.\n- Ensure that the `Text` option is selected.\n- Enter your password in the secret page and then click `Blindfold`.\n\n- Wait for the encryption to complete and then click `Apply`.\n**Step 4:** Optionally, enter an email address for the secret.",
+    "required_evidence": [
+      "  - `Blindfold Secret`: This option is used for secrets managed by Distributed Cloud Services.",
+      "  - `Clear Secret`: This option is used for secrets that are not encrypted.",
+      "- Ensure that the `Text` option is selected.",
+      "- Enter your password in the secret page and then click `Blindfold`.",
+      "- Wait for the encryption to complete and then click `Apply`.",
+      "**Step 4:** Optionally, enter an email address for the secret."
+    ],
+    "source": "docs-cloud-f5-com",
+    "document": "content/docs-cloud-f5-com/distributed-apps/how-to/app-mgnt/container-registry/index.md",
     "category": "required_procedure"
   }
 ]

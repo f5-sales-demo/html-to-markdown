@@ -60,6 +60,35 @@ def retrieval(
     return [doc for _, _, doc in sorted(ranked, key=lambda item: (-item[0], item[1]))[:limit]]
 
 
+def _question_document(root: Path, question: Question) -> str:
+    """Resolve only the authoritative final alias mapping for the named source."""
+    path = root / "manifest.json"
+    if not path.is_file():
+        return question.document
+    manifest = json.loads(path.read_bytes())
+    aliases = manifest.get("aliases", manifest.get("enrichment", {}).get("aliases", []))
+    if not isinstance(aliases, list):
+        raise ValueError("invalid retrieval alias mapping")
+    matches = [a for a in aliases if a.get("path") == question.document]
+    if not matches:
+        return question.document
+    if len(matches) != 1:
+        raise ValueError("ambiguous retrieval alias mapping")
+    target = matches[0].get("target")
+    if not isinstance(target, str):
+        raise ValueError("unsafe retrieval canonical target")
+    relative = Path(target)
+    if (
+        relative.is_absolute()
+        or ".." in relative.parts
+        or relative.parts[:2] != ("content", question.source)
+        or relative.name != "index.md"
+        or any(a.get("path") == target for a in aliases)
+    ):
+        raise ValueError("unsafe retrieval canonical target")
+    return target
+
+
 def _validated_answer(
     evidence: ResponseEvidence,
     body: dict[str, Any],
@@ -71,7 +100,11 @@ def _validated_answer(
         result: Answer = parse_response(evidence, Answer, VALIDATOR_MODEL, request_hash(body))
         if result.question_id != question_id:
             raise ValueError("retrieval evaluator returned the wrong question identity")
-        if any(not quote or quote not in context for quote in result.evidence_quotes):
+        if (
+            not result.answer.strip()
+            or not result.evidence_quotes
+            or any(not quote or quote not in context for quote in result.evidence_quotes)
+        ):
             raise ValueError("retrieval evaluator returned unsupported evidence")
         return result
     except ValueError:
@@ -101,14 +134,27 @@ def evaluate(
         for q in questions
     ):
         raise ValueError("evaluation question has a mismatched source document identity")
+    if any(
+        not q.question.strip()
+        or not re.sub(r"!\[[^\]]*\]\([^)]*\)", "", q.expected_answer).strip()
+        or not q.required_evidence
+        or any(
+            not evidence.strip() or not re.sub(r"!\[[^\]]*\]\([^)]*\)", "", evidence).strip()
+            for evidence in q.required_evidence
+        )
+        for q in questions
+    ):
+        raise ValueError("retrieval acceptance requires substantive question expectations")
     requests = {}
     contexts = {}
+    targets = {}
     corpora = {"baseline": analyze(before)["documents"], "enriched": analyze(after)["documents"]}
     for question in questions:
         for name, root in (("baseline", before), ("enriched", after)):
             docs = retrieval(root, question.question, documents=corpora[name])
             identity = question.question_id + ":" + name
             contexts[identity] = docs
+            targets[identity] = _question_document(root, question)
             requests[identity] = request(
                 VALIDATOR_MODEL,
                 "Answer and independently evaluate this retrieval question using ONLY supplied document data. "
@@ -117,6 +163,7 @@ def evaluate(
                 "Report correctness, necessary evidence coverage, relevance 0 to 5, and concrete failures.",
                 {
                     "question": question.model_dump(),
+                    "canonical_document": targets[identity],
                     "retrieved_documents": [
                         {"document": d["document"], "metadata": d["metadata"], "body": d["body"]}
                         for d in docs
@@ -147,11 +194,23 @@ def evaluate(
             answer = _validated_answer(
                 outputs[identity], requests[identity], question.question_id, combined, client
             )
+            expected = next(
+                (
+                    d
+                    for d in docs
+                    if d["document"] == targets[identity]
+                    and d["metadata"]["sourceId"] == question.source
+                ),
+                None,
+            )
             row[name] = {
                 "answer": answer.model_dump(),
                 "estimated_context_tokens": (len(combined) + 3) // 4,
-                "document_found": question.document in {d["document"] for d in docs},
-                "required_quotes_found": all(e in combined for e in question.required_evidence),
+                "document_found": expected is not None,
+                "answer_evidence_grounded": expected is not None
+                and all(quote in expected["body"] for quote in answer.evidence_quotes),
+                "required_quotes_found": expected is not None
+                and all(e in expected["body"] for e in question.required_evidence),
             }
         rows.append(row)
     failures = [
@@ -165,15 +224,32 @@ def evaluate(
         or (r["baseline"]["required_quotes_found"] and not r["enriched"]["required_quotes_found"])
         or r["enriched"]["answer"]["relevance"] < r["baseline"]["answer"]["relevance"]
     ]
+    acceptance_failures = [
+        r["question_id"]
+        for r in rows
+        if not all(
+            (
+                r["enriched"]["answer"]["correct"],
+                r["enriched"]["answer"]["necessary_evidence_covered"],
+                r["enriched"]["answer"]["relevance"] > 0,
+                not r["enriched"]["answer"]["failures"],
+                r["enriched"]["document_found"],
+                r["enriched"]["answer_evidence_grounded"],
+                r["enriched"]["required_quotes_found"],
+            )
+        )
+    ]
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "questions_sha256": sha(questions_path.read_bytes()),
         "rows": rows,
         "failures": failures,
         "baseline_misses": [
             r["question_id"] for r in rows if not r["baseline"]["answer"]["correct"]
         ],
-        "passed": not failures,
+        "regression_passed": not failures,
+        "acceptance_failures": acceptance_failures,
+        "passed": not failures and not acceptance_failures,
     }
     report.write_bytes(json_bytes(result))
     return result

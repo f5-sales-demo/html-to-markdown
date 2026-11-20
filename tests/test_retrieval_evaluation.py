@@ -83,13 +83,28 @@ class LocalEvaluator:
             output = {
                 "question_id": question["question_id"],
                 "answer": question["expected_answer"],
-                "evidence_quotes": [],
+                "evidence_quotes": [
+                    next(
+                        (
+                            doc["body"]
+                            for doc in payload["retrieved_documents"]
+                            if doc["document"] == payload["canonical_document"]
+                        ),
+                        payload["retrieved_documents"][0]["body"],
+                    )
+                ],
                 "correct": True,
                 "necessary_evidence_covered": True,
                 "relevance": 5,
                 "failures": [],
             }
-            if self.failure == "wrong_question":
+            if self.failure == "both_incorrect":
+                output.update(correct=False, necessary_evidence_covered=False)
+            elif self.failure == "failures":
+                output["failures"] = ["required behavior unsupported"]
+            elif self.failure == "no_quotes":
+                output["evidence_quotes"] = []
+            elif self.failure == "wrong_question":
                 output["question_id"] = "another-question"
             elif self.failure == "empty_quote":
                 output["evidence_quotes"] = [""]
@@ -178,6 +193,7 @@ def test_model_assertions_cannot_hide_lost_required_evidence(paired_corpus, tmp_
     [
         "wrong_question",
         "empty_quote",
+        "no_quotes",
         "unsupported_quote",
         "invalid_relevance",
         "stale_request",
@@ -222,5 +238,102 @@ def test_source_stratification_requires_actual_source_document_identities(
     with pytest.raises(ValueError):
         evaluation.evaluate(
             before, after, questions_path, tmp_path / "journal", tmp_path / "report.json"
+        )
+    assert not LocalEvaluator.instances
+
+
+@pytest.mark.parametrize("failure", ["both_incorrect", "failures"])
+def test_candidate_acceptance_cannot_pass_shared_misses_or_reported_failures(
+    paired_corpus, tmp_path, failure
+):
+    before, after, questions = paired_corpus
+    LocalEvaluator.failure = failure
+    report = evaluation.evaluate(
+        before, after, questions, tmp_path / "journal", tmp_path / "report.json"
+    )
+    assert report["regression_passed"]
+    assert not report["passed"] and len(report["acceptance_failures"]) == 4
+    if failure == "both_incorrect":
+        assert len(report["baseline_misses"]) == 4
+
+
+def test_other_article_quotes_cannot_hide_required_document_fact_loss(paired_corpus, tmp_path):
+    before, after, questions = paired_corpus
+    question = json.loads(questions.read_bytes())[0]
+    path = after / question["document"]
+    raw = path.read_text()
+    duplicate = path.with_name("near-duplicate.md")
+    duplicate.write_text(raw)
+    path.write_text(raw.replace(question["required_evidence"][0], "Generic introduction."))
+    result = evaluation.evaluate(
+        before, after, questions, tmp_path / "journal", tmp_path / "report.json"
+    )
+    assert question["question_id"] in result["acceptance_failures"]
+
+
+def test_decorative_only_expectation_is_rejected_before_inference(paired_corpus, tmp_path):
+    before, after, questions = paired_corpus
+    data = json.loads(questions.read_bytes())
+    data[0]["required_evidence"] = ["![](assets/logo.svg)"]
+    data[0]["expected_answer"] = "![](assets/logo.svg)"
+    questions.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="substantive question expectations"):
+        evaluation.evaluate(
+            before, after, questions, tmp_path / "journal", tmp_path / "report.json"
+        )
+    assert not LocalEvaluator.instances
+
+
+def test_authoritative_canonical_alias_preserves_question_target(paired_corpus, tmp_path):
+    before, after, questions = paired_corpus
+    question = json.loads(questions.read_bytes())[0]
+    original = after / question["document"]
+    target = original.parent.parent / "canonical/index.md"
+    target.parent.mkdir()
+    original.rename(target)
+    (after / "manifest.json").write_text(
+        json.dumps(
+            {
+                "aliases": [
+                    {"path": question["document"], "target": target.relative_to(after).as_posix()}
+                ]
+            }
+        )
+    )
+    report = evaluation.evaluate(
+        before, after, questions, tmp_path / "journal", tmp_path / "report.json"
+    )
+    assert report["passed"] and report["rows"][0]["enriched"]["document_found"]
+
+
+def test_wrong_source_canonical_alias_cannot_pass(paired_corpus, tmp_path):
+    before, after, questions = paired_corpus
+    question = json.loads(questions.read_bytes())[0]
+    (after / "manifest.json").write_text(
+        json.dumps(
+            {
+                "aliases": [
+                    {
+                        "path": question["document"],
+                        "target": "content/another-source/current/index.md",
+                    }
+                ]
+            }
+        )
+    )
+    with pytest.raises(ValueError, match="canonical target"):
+        evaluation.evaluate(
+            before, after, questions, tmp_path / "journal", tmp_path / "report.json"
+        )
+
+
+def test_decorative_expected_answer_with_text_evidence_cannot_pass(paired_corpus, tmp_path):
+    before, after, questions = paired_corpus
+    data = json.loads(questions.read_bytes())
+    data[0]["expected_answer"] = "![](assets/logo.svg)"
+    questions.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="substantive question expectations"):
+        evaluation.evaluate(
+            before, after, questions, tmp_path / "journal", tmp_path / "report.json"
         )
     assert not LocalEvaluator.instances
