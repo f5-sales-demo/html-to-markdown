@@ -325,6 +325,10 @@ class CurationPolicy:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
             raise ValueError("unsupported curation registry")
         self.raw, self.sha256 = raw, sha256
+        # pylint: disable-next=import-outside-toplevel
+        from .source_relevance_curation import decisions  # pylint: disable=import-outside-toplevel
+
+        decisions(raw)
         ids = [topic["id"] for topic in self.topics]
         if len(ids) != len(set(ids)):
             raise ValueError("duplicate topic identity")
@@ -373,7 +377,9 @@ class CurationPolicy:
                 topic_decisions[url] = decision
                 if decision["disposition"] not in {"keep", "remove", "omit"}:
                     raise ValueError("invalid reviewed disposition")
-                if decision["disposition"] in {"remove", "omit"}:
+                if decision["disposition"] in {"remove", "omit"} and not decision.get(
+                    "review_kind"
+                ):
                     self.excluded.add(url)
             topic_media: dict[str, dict[str, Any]] = {}
             for media in topic["media"]:
@@ -788,6 +794,42 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    # pylint: disable-next=import-outside-toplevel
+    from .source_relevance_curation import (
+        excluded as source_excluded,  # pylint: disable=import-outside-toplevel
+    )
+
+    retained_originals = []
+    for path, metadata, body in originals:
+        if not source_excluded(active.raw, path, metadata, body):
+            retained_originals.append((path, metadata, body))
+            continue
+        url = canonical(str(metadata["url"]))
+        excluded.add(url)
+        plans[str(metadata["url"])] = {
+            "path": path,
+            "metadata": metadata,
+            "body": body,
+            "finding": {
+                "document": path.relative_to(output).as_posix(),
+                "url": url,
+                "input_sha256": digest(body.encode()),
+                "output_sha256": None,
+                "candidate": False,
+                "disposition": "remove",
+                "media": media_inventory(path, body),
+                "findings": ["independently_validated_source_relevance_exclusion"],
+                "removed_relationships": [],
+                "stages": [
+                    {
+                        "topic": "source-relevance",
+                        "input_sha256": digest(body.encode()),
+                        "output_sha256": None,
+                    }
+                ],
+            },
+        }
+    originals = retained_originals
     # Re-evaluate retirement on the preserved prior stage, then replay API migration.
     from .curation_api_chain import api_source  # pylint: disable=import-outside-toplevel
 
@@ -1382,6 +1424,13 @@ def _validate_curated_article(
     path: Path, policy: CurationPolicy, inherited: bool = False, *, api_policy: Any = None
 ) -> None:
     metadata, body = split_document(path.read_text())
+    # pylint: disable-next=import-outside-toplevel
+    from .source_relevance_curation import (
+        excluded as source_excluded,  # pylint: disable=import-outside-toplevel
+    )
+
+    if source_excluded(policy.raw, path, metadata, body):
+        raise ValueError("independently excluded source remains in published corpus")
     if not inherited:
         validate_whole_document_retirement(policy, path, metadata, body, api_policy=api_policy)
     from .curation_api_chain import (  # pylint: disable=import-outside-toplevel

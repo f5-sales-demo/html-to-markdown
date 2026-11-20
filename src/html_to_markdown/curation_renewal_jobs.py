@@ -128,6 +128,13 @@ def replay_renewal(
     context: dict[str, Any], visual: list[dict[str, Any]], output: Path
 ) -> dict[str, Any]:
     directory = _directory(context, output, create=False)
+    if context.get("evidence", {}).get("source_disposition_kind") == "source_relevance_exclusion":
+        # pylint: disable-next=import-outside-toplevel
+        from .baseline_dispositions import (
+            replay_exclusion,  # pylint: disable=import-outside-toplevel
+        )
+
+        return replay_exclusion(context, output)
     state = json.loads((directory / "state.json").read_bytes())
     if state["status"] != "independently_validated":
         raise ValueError("curation renewal has no complete independent validation")
@@ -214,6 +221,8 @@ def run_renewal(
     client: RequestExecutor,
 ) -> dict[str, Any]:
     directory = _directory(context, output)
+    if context.get("evidence", {}).get("source_disposition_kind") == "source_relevance_exclusion":
+        return replay_renewal(context, visual, output)
     state_path = directory / "state.json"
     state: dict[str, Any] = (
         json.loads(state_path.read_bytes())

@@ -341,6 +341,12 @@ def _advance_renewal_pass(
     remote_queue: str,
 ) -> None:
     """Resume dependencies only after source acknowledgments and assembly gates."""
+    # pylint: disable-next=import-outside-toplevel
+    from .dependency_source_selection import (
+        selected_inputs,  # pylint: disable=import-outside-toplevel
+    )
+
+    source_inputs = selected_inputs(output)
     # Include settled source checkpoints so interruption during this pass
     # resumes curation without repeating source reviews or admission returns.
     for directory, source_status in renewals:
@@ -356,6 +362,7 @@ def _advance_renewal_pass(
                 host,
                 remote_executable,
                 remote_queue,
+                **({"source_inputs": source_inputs} if source_inputs else {}),
             )
         except (ValueError, OSError, subprocess.CalledProcessError, httpx.HTTPError) as failure:
             # Curation jobs cannot prevent passing source articles or other

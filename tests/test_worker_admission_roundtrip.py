@@ -218,7 +218,7 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
         response = httpx.Response(int(failure_kind.split("-")[1]), request=request)
         failure = httpx.HTTPStatusError(diagnostic, request=request, response=response)
 
-    def renew(source_capture: Path, *args: Any) -> dict[str, Any]:
+    def renew(source_capture: Path, *args: Any, **kwargs: Any) -> dict[str, Any]:
         source = json.loads((source_capture / "inventory.json").read_bytes())["binding"]["source"]
         # At the first dependency call both source inputs have already passed
         # real offline replay and returned, and publication has been attempted.
@@ -227,6 +227,9 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
         for item in sources:
             checkpoint = json.loads((output / "run" / item / "checkpoint.json").read_bytes())
             assert checkpoint["completed"] and checkpoint["returned_admission_sha256"]
+            directory, pin = kwargs["source_inputs"][item]
+            assert pin == checkpoint["returned_admission_sha256"]
+            assert verify_source(directory, pin)["source"] == item
         attempted.append(source)
         if source == sources[0]:
             if failure_kind in {"pending", "publication-blocked"} or (

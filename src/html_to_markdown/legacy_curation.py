@@ -26,8 +26,9 @@ class LegacyFilter:
     def __init__(self, topic: dict[str, Any], *, remove_blocks: Any) -> None:
         self.topic = topic
         self.remove_blocks = remove_blocks
-        self.decisions = {self.canonical(item["url"]): item for item in topic["documents"]}
-        if len(self.decisions) != len(topic["documents"]):
+        retirement_decisions = [item for item in topic["documents"] if not item.get("review_kind")]
+        self.decisions = {self.canonical(item["url"]): item for item in retirement_decisions}
+        if len(self.decisions) != len(retirement_decisions):
             raise ValueError("duplicate legacy review URL")
         self.excluded = {self.canonical(url) for url in topic["retired_urls"]}
         self.excluded.update(

@@ -37,6 +37,8 @@ def advance_renewals(
     host: str,
     remote_executable: str,
     remote_queue: str,
+    *,
+    source_inputs: dict[str, tuple[Path, str]] | None = None,
 ) -> dict[str, Any]:
     inventory = prepare_renewals(capture, review, output)
     if not inventory["documents"]:
@@ -55,7 +57,14 @@ def advance_renewals(
     revision = deployed_revision()
     pin = revision["publication_sha256"]
     baseline = baseline_snapshot(output / "baseline" / pin, pin, revision["snapshot_tag"])
-    contexts = review_dependencies(output, contexts, baseline, pin, journal)
+    contexts = review_dependencies(
+        output,
+        contexts,
+        baseline,
+        pin,
+        journal,
+        **({"source_inputs": source_inputs} if source_inputs else {}),
+    )
     client = client_for_host(journal, concurrency=4, local_client=CodexClient)
     try:
         qualification = validate_planner(output, contexts, baseline, pin, client)

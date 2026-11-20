@@ -8,12 +8,21 @@ import pytest
 from test_source_refresh import prepare
 from test_source_review_jobs import LocalClient
 
+from html_to_markdown import combined_sources as combined
 from html_to_markdown.combined_sources import combine_sources, verify_combined
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.engine import prepare as prepare_enrichment
 from html_to_markdown.enrichment.engine import replay, verify_enrichment
-from html_to_markdown.package import RELEASE_ASSET_NAMES, build_manifest, write_release
-from html_to_markdown.refresh import verify_refresh
+from html_to_markdown.metadata import enrich_snapshot
+from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
+from html_to_markdown.package import (
+    RELEASE_ASSET_NAMES,
+    build_manifest,
+    write_publication_receipt,
+    write_release,
+)
+from html_to_markdown.refresh import _copy_article, verify_refresh
+from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_inputs import seal_source, verify_source
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews
 from html_to_markdown.state import StateStore
@@ -102,3 +111,91 @@ def test_refresh_and_enrichment_verify_preserved_source_chain_separately(
     source.write_text("changed")
     with pytest.raises(ValueError, match="digest"):
         verify_enrichment(output)
+
+
+def replacement_baseline(capture, tmp_path, monkeypatch):
+
+    inventory_path = capture / "inventory.json"
+    inventory = json.loads(inventory_path.read_bytes())
+    for item in inventory["documents"]:
+        item["captured_at"] = "2026-11-10T00:00:00Z"
+    inventory_path.write_text(json.dumps(inventory))
+    bundle, pin = admitted(capture, tmp_path, monkeypatch)
+    baseline, _, _ = prepare(tmp_path / "retained-fixture")
+    relative = "content/my-f5-com/K000123456/index.md"
+    _copy_article(bundle, baseline, relative)
+    path = baseline / relative
+    meta, body = split_document(path.read_text())
+    old_body = body + "\n```yaml\napiVersion: v1 spec: collapsed: true\n```\n"
+    path.write_text(serialize_document(PageMetadata.model_validate(meta), old_body))
+    store = StateStore(baseline / "state.sqlite")
+    try:
+        store.discover([DiscoveredPage(source_id="my-f5-com", url=meta["url"])])
+        store.mark(meta["url"], PageStatus.SUCCESS, output_path=relative, digest=sha(old_body))
+        with store.connection:
+            store.connection.execute(
+                "UPDATE pages SET last_success_at=?", ("2026-11-01T00:00:00Z",)
+            )
+        enrich_snapshot(baseline, store)
+        write_release(
+            baseline,
+            build_manifest(baseline, store, "2026-10-02T00:00:00Z", "2026-11-01T00:01:00Z"),
+        )
+        write_publication_receipt(
+            baseline,
+            tag="content-20261101T000100Z",
+            source_commit="a" * 40,
+            created_at="2026-11-01T00:00:00Z",
+            published_at="2026-11-01T00:01:00Z",
+        )
+    finally:
+        store.close()
+    return baseline, sha((baseline / "publication.json").read_bytes()), bundle, pin, relative
+
+
+def test_verified_replacement_resolves_bad_old_baseline_before_policy_validation(
+    capture, tmp_path, monkeypatch
+):
+
+    baseline, receipt, bundle, pin, relative = replacement_baseline(capture, tmp_path, monkeypatch)
+    original_validation = combined.validate_content_policy
+
+    def reject_old_extraction(root, *args, **kwargs):
+        path = root / relative
+        if path.exists() and "collapsed: true" in path.read_text():
+            raise ValueError("retained extraction defect remains")
+        return original_validation(root, *args, **kwargs)
+
+    monkeypatch.setattr(combined, "validate_content_policy", reject_old_extraction)
+    output = tmp_path / "resolved"
+    state = combine_sources(baseline, {"my-f5-com": (bundle, pin)}, output, receipt)
+    assert relative in state["superseded_baseline"]
+    assert state["documents"][relative]["kind"] == "admitted"
+    assert not (output / ".refresh/baseline-curated" / relative).exists()
+    assert "collapsed: true" not in (output / relative).read_text()
+    verify_combined(output)
+    state["superseded_baseline"] = {}
+    (output / "refresh-state.json").write_text(json.dumps(state))
+    with pytest.raises(ValueError, match="superseded baseline source decisions changed"):
+        verify_combined(output)
+
+
+def test_replacement_builds_are_identical_across_metadata_media_aliases_and_archive(
+    capture, tmp_path, monkeypatch
+):
+    baseline, receipt, bundle, pin, _ = replacement_baseline(capture, tmp_path, monkeypatch)
+    first, second = tmp_path / "first", tmp_path / "second"
+    combine_sources(baseline, {"my-f5-com": (bundle, pin)}, first, receipt)
+    combine_sources(baseline, {"my-f5-com": (bundle, pin)}, second, receipt)
+    names = [
+        "manifest.json",
+        "refresh-state.json",
+        "curation-audit.json",
+        "SHA256SUMS",
+        "html-to-markdown-content.tar.gz",
+    ]
+    names += [
+        p.relative_to(first).as_posix() for p in (first / "content").rglob("*") if p.is_file()
+    ]
+    for name in names:
+        assert (first / name).read_bytes() == (second / name).read_bytes(), name

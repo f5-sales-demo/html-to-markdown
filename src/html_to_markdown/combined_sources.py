@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .content_policy import load_content_policy, migrate_content, validate_content_policy
-from .curation import corpus_digest, json_bytes, load_curation_policy
+from .curation import canonical, corpus_digest, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.engine import import_state
 from .metadata import enrich_snapshot
@@ -38,6 +38,65 @@ def _write_files(root: Path, files: dict[str, bytes]) -> None:
         path.write_bytes(data)
 
 
+def _superseded_baseline(
+    published: dict[str, bytes], inputs: dict[str, tuple[Path, dict[str, Any]]]
+) -> dict[str, dict[str, str]]:
+    """Fresh accepted or excluded sources resolve old copies before baseline validation."""
+    prior = json.loads(published["manifest.json"])
+    by_path = {d["path"]: d for d in prior["documents"]}
+    superseded = {}
+    for source, (directory, receipt) in sorted(inputs.items()):
+        if receipt["source"] not in {source, "all"}:
+            raise ValueError("source admission receipt selects another source")
+        for item in receipt["documents"]:
+            relative = item.get("published_path")
+            if item.get("sourceId") != source or relative not in published:
+                continue
+            if item["disposition"] not in {"accepted", "policy_excluded"}:
+                continue
+            path = Path(relative)
+            if path.is_absolute() or ".." in path.parts or path.parts[:2] != ("content", source):
+                raise ValueError("unsafe superseded baseline source path")
+            metadata, _ = split_document(published[relative].decode())
+            if metadata["sourceId"] != source or canonical(str(metadata["url"])) != canonical(
+                item["url"]
+            ):
+                raise ValueError("admitted input addresses a different baseline identity")
+            success = by_path.get(relative, {}).get("provenance", {}).get("last_success_at")
+            captured_at = item.get("captured_at")
+            if not captured_at or success and captured_at < success:
+                continue
+            if item["disposition"] == "accepted":
+                with tempfile.TemporaryDirectory(
+                    prefix="baseline-replacement-policy-"
+                ) as temporary:
+                    candidate = Path(temporary)
+                    _copy_article(directory, candidate, relative)
+                    try:
+                        migrate_content(candidate)
+                        if not (candidate / relative).is_file():
+                            continue
+                        validate_content_policy(candidate)
+                    except (ValueError, OSError):
+                        continue
+            superseded[relative] = {
+                "source": source,
+                "record_sha256": item["record_sha256"],
+                "disposition": item["disposition"],
+                "captured_at": captured_at,
+            }
+    return superseded
+
+
+def _retained_baseline(published: dict[str, bytes], superseded: dict[str, Any]) -> dict[str, bytes]:
+    parents = [str(Path(article).parent) + "/" for article in superseded]
+    return {
+        path: data
+        for path, data in published.items()
+        if path.startswith("content/") and not any(path.startswith(parent) for parent in parents)
+    }
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-locals,too-many-branches,too-many-statements
 def combine_sources(
@@ -49,6 +108,11 @@ def combine_sources(
         raise ValueError("source inputs must select known sources")
     published = _verified_baseline(baseline, receipt_sha256)
     prior = json.loads(published["manifest.json"])
+    verified_inputs = {
+        source: (directory, verify_source(directory, digest))
+        for source, (directory, digest) in inputs.items()
+    }
+    superseded = _superseded_baseline(published, verified_inputs)
     output.mkdir(parents=True, exist_ok=True)
     root = output / ".refresh"
     (root / "baseline").mkdir(parents=True)
@@ -57,7 +121,7 @@ def combine_sources(
     baseline_current = root / "baseline-curated"
     _write_files(
         baseline_current,
-        {path: data for path, data in published.items() if path.startswith("content/")},
+        _retained_baseline(published, superseded),
     )
     migrate_content(baseline_current)
     validate_content_policy(baseline_current)
@@ -80,7 +144,7 @@ def combine_sources(
     findings = []
     ended_at = prior["ended_at"]
     for source, (directory, digest) in sorted(inputs.items()):
-        admission = verify_source(directory, digest)
+        admission = verified_inputs[source][1]
         if admission["source"] not in {source, "all"}:
             raise ValueError("source admission receipt selects another source")
         saved = root / "sources" / source
@@ -214,6 +278,7 @@ def combine_sources(
             "baseline_receipt_sha256": receipt_sha256,
             "baseline_tag": json.loads((baseline / "publication.json").read_bytes())["release_tag"],
             "baseline_curated_sha256": corpus_digest(baseline_current),
+            "superseded_baseline": superseded,
             "selected_sha256": corpus_digest(selected),
             "curation_policy_sha256": load_curation_policy().sha256,
             "api_policy_sha256": load_content_policy().policy_digest,
@@ -244,13 +309,21 @@ def verify_combined(output: Path) -> dict[str, Any]:
         or load_content_policy().policy_digest != state["api_policy_sha256"]
     ):
         raise ValueError("combined source policy changed")
-    for source, evidence in state["sources"].items():
-        verify_source(root / "sources" / source, evidence["admission_sha256"])
+    verified_inputs = {
+        source: (
+            root / "sources" / source,
+            verify_source(root / "sources" / source, evidence["admission_sha256"]),
+        )
+        for source, evidence in state["sources"].items()
+    }
+    superseded = (
+        _superseded_baseline(published, verified_inputs) if "superseded_baseline" in state else {}
+    )
+    if "superseded_baseline" in state and superseded != state["superseded_baseline"]:
+        raise ValueError("superseded baseline source decisions changed")
     with tempfile.TemporaryDirectory(prefix="combined-replay-") as directory:
         replay = Path(directory)
-        _write_files(
-            replay, {path: data for path, data in published.items() if path.startswith("content/")}
-        )
+        _write_files(replay, _retained_baseline(published, superseded))
         migrate_content(replay)
         if (
             corpus_digest(replay) != state["baseline_curated_sha256"]
