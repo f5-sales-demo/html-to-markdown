@@ -301,40 +301,31 @@ def pack_private_tree(directory: Path, stream: BinaryIO) -> None:
 def receive_source(root: Path, relative: str, digest: str, stream: BinaryIO) -> Path:
     import tempfile  # pylint: disable=import-outside-toplevel
 
-    from .source_inputs import verify_source  # pylint: disable=import-outside-toplevel
+    from .source_delivery import (  # pylint: disable=import-outside-toplevel
+        private_lock,
+        promote_source,
+        source_destination,
+        verify_bound_source,
+    )
 
-    path = Path(relative)
-    if (
-        path.is_absolute()
-        or ".." in path.parts
-        or len(path.parts) != 2
-        or path.parts[-1] not in SOURCE_ROOTS
-    ):
-        raise ValueError("invalid received queue identity")
-    if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
-        raise ValueError("invalid received admission pin")
-    destination = root / ".reviewed" / path / digest
-    if destination.exists():
-        verify_source(destination, digest)
-        while stream.read(1024 * 1024):
-            pass
-        return destination
-    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-    with tempfile.TemporaryDirectory(
-        prefix="received-source-", dir=destination.parent
-    ) as temporary:
-        staging = Path(temporary)
-        archive = staging / "input.tar.gz"
-        with archive.open("wb") as target:
-            import shutil  # pylint: disable=import-outside-toplevel
+    destination = source_destination(root, relative, digest)
+    with private_lock(destination.parent / ".receive.lock"):
+        if destination.exists():
+            verify_bound_source(destination, digest, Path(relative).name)
+            while stream.read(1024 * 1024):
+                pass
+            return destination
+        with tempfile.TemporaryDirectory(
+            prefix="received-source-", dir=destination.parent
+        ) as temporary:
+            staging = Path(temporary)
+            archive = staging / "input.tar.gz"
+            with archive.open("wb") as target:
+                import shutil  # pylint: disable=import-outside-toplevel
 
-            shutil.copyfileobj(stream, target)
-        unpack_queue(archive, staging / "source")
-        receipt = verify_source(staging / "source", digest)
-        if receipt["source"] != path.parts[-1]:
-            raise ValueError("received admission source differs from queue identity")
-        (staging / "source").rename(destination)
-    return destination
+                shutil.copyfileobj(stream, target)
+            unpack_queue(archive, staging / "source")
+            return promote_source(root, staging / "source", destination, digest)
 
 
 def receive_enrichment(root: Path, relative: str, digest: str, stream: BinaryIO) -> Path:
