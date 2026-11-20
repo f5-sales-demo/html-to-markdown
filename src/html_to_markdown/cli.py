@@ -6,7 +6,7 @@ import asyncio
 import json
 import sys
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 import typer
 
@@ -45,6 +45,7 @@ from .reference_repair_inputs import prepare_reference_repair
 from .reference_repair_review import validate_reference_repair
 from .refresh import combine_docs, verify_refresh
 from .render import split_document
+from .review_priorities import load_priorities
 from .safe_reports import sanitize_inventory
 from .source_inputs import seal_source, verify_source
 from .source_review_jobs import run_reviews, verify_reviews
@@ -517,15 +518,26 @@ def review_content(
     ] = "all",
     journal: Annotated[Path, typer.Option(file_okay=False)] = Path(".source-review-journal"),
     limit: Annotated[int | None, typer.Option(min=1)] = None,
+    priority_input: Annotated[Path | None, typer.Option(dir_okay=False)] = None,
+    priority_sha256: Annotated[str, typer.Option()] = "",
 ) -> None:
     """Review complete captured sources through isolated Codex or offline replay."""
+    if bool(priority_input) != bool(priority_sha256):
+        raise typer.BadParameter("priority input requires its exact digest")
+    if priority_input is not None and (phase != "all" or limit is None):
+        raise typer.BadParameter("priority input requires a bounded all-phase review")
+    options: dict[str, Any] = (
+        {"priorities": load_priorities(priority_input, expected_sha256=priority_sha256)}
+        if priority_input
+        else {}
+    )
     if phase == "verify":
         result = verify_reviews(capture, output)
         typer.echo(json.dumps({"accepted_files": len(result["accepted_files"])}))
         return
     if phase == "all":
         run_reviews(capture, output, phase="prepare", journal=journal)
-    result = run_reviews(capture, output, phase=phase, journal=journal, limit=limit)
+    result = run_reviews(capture, output, phase=phase, journal=journal, limit=limit, **options)
     typer.echo(
         json.dumps(
             {

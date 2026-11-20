@@ -32,6 +32,7 @@ from .media_observation_jobs import (
 )
 from .models import PageMetadata
 from .render import serialize_document, split_document
+from .review_priorities import ReviewPriorities, select_records
 from .source_boundary_review import (
     execute_source_phase,
     has_retryable_boundary,
@@ -827,7 +828,13 @@ def _run_record(
 # The batch receipt includes every existing admission and exception disposition.
 # pylint: disable-next=too-many-locals,too-many-branches
 def run_reviews(
-    capture: Path, output: Path, *, phase: str, journal: Path, limit: int | None = None
+    capture: Path,
+    output: Path,
+    *,
+    phase: str,
+    journal: Path,
+    limit: int | None = None,
+    priorities: ReviewPriorities | None = None,
 ) -> dict[str, Any]:
     if phase == "prepare":
         return prepare_reviews(capture, output)
@@ -841,21 +848,7 @@ def run_reviews(
     records = [output / record["path"] for record in inventory["documents"] if "path" in record]
     selected = records
     if limit is not None:
-        eligible = []
-        for record in records:
-            saved = json.loads(record.read_bytes())
-            attempted = saved.get("attempted_binding_sha256") == saved["binding_sha256"]
-            if saved["disposition"] not in {"accepted", "policy_excluded"} and (
-                not attempted or saved.get("retryable")
-            ):
-                eligible.append(
-                    (
-                        "previous_publication" not in saved["item"].get("origins", []),
-                        saved["item"]["url"],
-                        record,
-                    )
-                )
-        selected = [entry[2] for entry in sorted(eligible)[:limit]]
+        selected = select_records(output, limit, priorities)
     ready = []
     failures: dict[str, str] = {}
     for record in selected:
