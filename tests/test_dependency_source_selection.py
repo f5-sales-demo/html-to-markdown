@@ -25,6 +25,6 @@ def test_selection_uses_checkpoint_pin_and_ignores_unacknowledged_larger_receipt
     (old / "source-review-receipt.json").write_bytes(json_bytes(receipt))
     assert selected_inputs(output) == {"my-f5-com": (selected, pin)}
     (queue / "checkpoint.json").write_bytes(json_bytes({"returned_admission_sha256": "f" * 64}))
-    assert selected_inputs(output) == {}
+    assert not selected_inputs(output)
     report = json.loads((output / "dependency-source-inputs.json").read_bytes())
     assert len(report["errors"]) == 1 and not report["sources"]

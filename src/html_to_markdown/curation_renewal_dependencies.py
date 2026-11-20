@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .baseline_source_context import baseline_context
 from .content_inventory import atomic_private
 from .curation import json_bytes, load_curation_policy, media_inventory
 from .curation_renewal import proposal_context
@@ -44,6 +45,7 @@ def prepare_dependencies(
             "reason": "baseline_source_privacy_review_required",
         }
         if source_inputs:
+            # pylint: disable-next=import-outside-toplevel
             from .admitted_baseline_sources import (
                 prepare_replacement,  # pylint: disable=import-outside-toplevel
             )
@@ -66,44 +68,22 @@ def prepare_dependencies(
                 records.append(entry)
                 continue
         if saved["status"] == "source_exclusion_validated":
-            from .baseline_dispositions import (
-                replay_exclusion,  # pylint: disable=import-outside-toplevel
-            )
-
-            original, visual = baseline_context(privacy, privacy, saved)
-            evidence = {
-                "input_kind": "retained_verified_baseline",
-                "baseline_receipt_sha256": publication_sha256,
-                "baseline_article": saved["binding"]["baseline_article"],
-                "baseline_source_disposition_record_sha256": sha(record.read_bytes()),
-                "source_disposition_kind": "source_relevance_exclusion",
-            }
-            context = proposal_context(
-                original["metadata"],
-                original["body"],
-                original["media"],
-                saved["binding"]["source_files_sha256"],
-                load_curation_policy().sha256,
-                evidence,
-            )
-            destination = output / context["binding_sha256"]
-            for name, digest in saved["input_file_hashes"].items():
-                source = privacy / saved["source"] / name
-                if source.is_symlink() or sha(source.read_bytes()) != digest:
-                    raise ValueError("retained exclusion original bytes changed")
-                atomic_private(destination / "inputs" / name, source.read_bytes())
-            atomic_private(destination / "context.json", json_bytes(context))
-            atomic_private(destination / "visual.json", json_bytes(visual))
-            replay_exclusion(context, output)
             entry.update(
-                binding_sha256=context["binding_sha256"],
-                context_path=context["binding_sha256"] + "/context.json",
-                visual_path=context["binding_sha256"] + "/visual.json",
-                reason="independently_validated_source_exclusion",
+                _prepare_source_exclusion(output, privacy, record, saved, publication_sha256)
             )
             records.append(entry)
             continue
         if saved["status"] != "privacy_only_validated":
+            if saved["status"] == "source_review_required":
+                disposition = saved["source_disposition"]
+                entry.update(
+                    reason="baseline_source_extraction_review_required"
+                    if disposition["extraction"] != "complete"
+                    else "baseline_source_relevance_review_required",
+                    source_disposition={
+                        key: disposition[key] for key in ("disposition", "extraction")
+                    },
+                )
             records.append(entry)
             continue
         saved = review_baseline_privacy(privacy, record)
@@ -268,3 +248,44 @@ def review_dependencies(
             if report["exceptions"]:
                 raise ValueError("independent baseline dependencies remain queued") from failure
     raise ValueError("whole-corpus dependency reconciliation remains incomplete")
+
+
+def _prepare_source_exclusion(
+    output: Path, privacy: Path, record: Path, saved: dict[str, Any], publication_sha256: str
+) -> dict[str, Any]:
+    # pylint: disable-next=import-outside-toplevel
+    from .baseline_dispositions import (
+        replay_exclusion,  # pylint: disable=import-outside-toplevel
+    )
+
+    original, visual = baseline_context(privacy, privacy, saved)
+    evidence = {
+        "input_kind": "retained_verified_baseline",
+        "baseline_receipt_sha256": publication_sha256,
+        "baseline_article": saved["binding"]["baseline_article"],
+        "baseline_source_disposition_record_sha256": sha(record.read_bytes()),
+        "source_disposition_kind": "source_relevance_exclusion",
+    }
+    context = proposal_context(
+        original["metadata"],
+        original["body"],
+        original["media"],
+        saved["binding"]["source_files_sha256"],
+        load_curation_policy().sha256,
+        evidence,
+    )
+    destination = output / context["binding_sha256"]
+    for name, digest in saved["input_file_hashes"].items():
+        source = privacy / saved["source"] / name
+        if source.is_symlink() or sha(source.read_bytes()) != digest:
+            raise ValueError("retained exclusion original bytes changed")
+        atomic_private(destination / "inputs" / name, source.read_bytes())
+    atomic_private(destination / "context.json", json_bytes(context))
+    atomic_private(destination / "visual.json", json_bytes(visual))
+    replay_exclusion(context, output)
+    return {
+        "binding_sha256": context["binding_sha256"],
+        "context_path": context["binding_sha256"] + "/context.json",
+        "visual_path": context["binding_sha256"] + "/visual.json",
+        "reason": "independently_validated_source_exclusion",
+    }

@@ -341,6 +341,7 @@ def _advance_renewal_pass(
     remote_queue: str,
 ) -> None:
     """Resume dependencies only after source acknowledgments and assembly gates."""
+    # pylint: disable-next=import-outside-toplevel
     from .dependency_source_selection import (
         selected_inputs,  # pylint: disable=import-outside-toplevel
     )

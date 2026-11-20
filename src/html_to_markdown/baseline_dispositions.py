@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .baseline_review_renewal import relevance_checkpoint
+from .baseline_source_context import baseline_context
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
@@ -171,7 +173,6 @@ def replay_exclusion(
     client: Any = None,
     qualification: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    from .baseline_source_review import baseline_context  # pylint: disable=import-outside-toplevel
     from .enrichment.contracts import ResponseEvidence  # pylint: disable=import-outside-toplevel
 
     evidence = context["evidence"]
@@ -247,3 +248,49 @@ def save_exclusion(record: Path, saved: dict[str, Any], proof: dict[str, Any]) -
     )
     atomic_private(record, json_bytes(saved))
     return saved
+
+
+def review_relevance(
+    context: dict[str, Any],
+    visual: list[dict[str, Any]],
+    output: Path,
+    record: Path,
+    client: Any = None,
+) -> tuple[RelevanceDecision, dict[str, Any]]:
+    saved = json.loads(record.read_bytes())
+    relevance_body = relevance_request(context, visual)
+    relevance_path = relevance_checkpoint(
+        record.parent / (record.stem + "-relevance.json"), relevance_body
+    )
+    relevance = execute_cached_source(relevance_path, relevance_body, client)
+    classified = parse_source_response(
+        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_body)
+    )
+    allowed = {entry["address"] for entry in context["structural_addresses"]}
+    checks = (
+        classified.identity == context["identity"],
+        classified.binding_sha256 == context["binding_sha256"],
+        bool(classified.reason.strip()),
+        bool(classified.evidence_addresses),
+        not (set(classified.evidence_addresses) - allowed),
+    )
+    if not all(checks):
+        raise ValueError("baseline source relevance or provided extraction remains unresolved")
+    saved["phases"]["relevance"] = relevance.model_dump(mode="json")
+    atomic_private(record, json_bytes(saved))
+    if classified.disposition == "exclude" and classified.extraction == "complete":
+        proof = validate_exclusion(context, visual, relevance, output, client)
+        return classified, save_exclusion(record, saved, proof)
+    if classified.disposition != "include" or classified.extraction != "complete":
+        saved.update(
+            status="source_review_required",
+            source_disposition={
+                "disposition": classified.disposition,
+                "extraction": classified.extraction,
+                "reason": "retained_source_relevance_or_extraction_requires_review",
+                "published_output": False,
+            },
+        )
+        atomic_private(record, json_bytes(saved))
+        raise ValueError("baseline source relevance or provided extraction remains unresolved")
+    return classified, saved

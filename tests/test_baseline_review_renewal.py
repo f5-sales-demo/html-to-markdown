@@ -6,6 +6,7 @@ import pytest
 from test_baseline_source_review import Client
 
 from html_to_markdown import baseline_late_validation as late
+from html_to_markdown import baseline_source_context as context
 from html_to_markdown import baseline_source_review as source
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
@@ -18,6 +19,7 @@ def test_context_upgrade_revalidates_original_proposal_without_new_editor(prepar
     first = source.review_baseline_privacy(output, record, Client())
     original = record.read_bytes()
     monkeypatch.setattr(source, "review_context_digest", lambda: "e" * 64)
+    monkeypatch.setattr(context, "review_context_digest", lambda: "e" * 64)
     monkeypatch.setattr(late, "review_context_digest", lambda: "e" * 64)
     source.prepare_baseline_reviews(baseline, "a" * 64, [article], output)
     current = json.loads(record.read_bytes())
@@ -44,6 +46,7 @@ def test_current_context_cannot_use_older_fixed_relevance_checkpoint(prepared, m
     with pytest.raises(ValueError):
         source.review_baseline_privacy(output, record, first)
     monkeypatch.setattr(source, "review_context_digest", lambda: "e" * 64)
+    monkeypatch.setattr(context, "review_context_digest", lambda: "e" * 64)
     monkeypatch.setattr(late, "review_context_digest", lambda: "e" * 64)
     source.prepare_baseline_reviews(baseline, "a" * 64, [article], output)
     client = Client()
@@ -57,6 +60,7 @@ def test_rejected_current_validation_does_not_grant_editor_corrections(prepared,
     baseline, output, record, article = prepared
     first = source.review_baseline_privacy(output, record, Client())
     monkeypatch.setattr(source, "review_context_digest", lambda: "e" * 64)
+    monkeypatch.setattr(context, "review_context_digest", lambda: "e" * 64)
     monkeypatch.setattr(late, "review_context_digest", lambda: "e" * 64)
     source.prepare_baseline_reviews(baseline, "a" * 64, [article], output)
     client = Client(reject=True)
@@ -71,6 +75,7 @@ def test_rejected_current_validation_does_not_grant_editor_corrections(prepared,
 
 def upgrade(monkeypatch):
     monkeypatch.setattr(source, "review_context_digest", lambda: "e" * 64)
+    monkeypatch.setattr(context, "review_context_digest", lambda: "e" * 64)
     monkeypatch.setattr(late, "review_context_digest", lambda: "e" * 64)
 
 

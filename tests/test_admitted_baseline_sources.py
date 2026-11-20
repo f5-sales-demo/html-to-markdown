@@ -54,11 +54,11 @@ def dependency(capture, tmp_path, monkeypatch):
     saved = json.loads(record.read_bytes())
     saved["privacy_feedback"] = ["first rejection", "second rejection", "third rejection"]
     record.write_bytes(json_bytes(saved))
-    return baseline, output, article, bundle, pin, record
+    return baseline, output, article, bundle, pin, record, original
 
 
 def test_only_full_admitted_fresh_article_and_media_resolve_retained_dependency(dependency):
-    baseline, output, article, bundle, pin, record = dependency
+    baseline, output, article, bundle, pin, record, _ = dependency
     before = record.read_bytes()
     inventory = prepare_dependencies(
         baseline, "a" * 64, [article], output, {"my-f5-com": (bundle, pin)}
@@ -80,7 +80,7 @@ def test_only_full_admitted_fresh_article_and_media_resolve_retained_dependency(
 
 @pytest.mark.parametrize("change", ["receipt", "intermediate", "original"])
 def test_replacement_rejects_tampered_source_intermediate_and_old_custody(dependency, change):
-    baseline, output, article, bundle, pin, record = dependency
+    baseline, output, article, bundle, pin, record, _ = dependency
     inventory = prepare_dependencies(
         baseline, "a" * 64, [article], output, {"my-f5-com": (bundle, pin)}
     )
@@ -103,14 +103,13 @@ def test_replacement_rejects_tampered_source_intermediate_and_old_custody(depend
 def test_missing_or_superseded_current_admission_keeps_source_prerequisite_queued(
     dependency, monkeypatch
 ):
-    baseline, output, article, bundle, pin, _ = dependency
+    baseline, output, article, bundle, pin, _, prior = dependency
     inventory = prepare_dependencies(baseline, "a" * 64, [article], output, {})
     assert "context_path" not in inventory["documents"][0]
     with pytest.raises(ValueError, match="receipt digest"):
         prepare_dependencies(
             baseline, "a" * 64, [article], output, {"my-f5-com": (bundle, "0" * 64)}
         )
-    prior = fresh._verified_baseline(baseline, "a" * 64)
     prior["manifest.json"] = json_bytes(
         {
             "documents": [

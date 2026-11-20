@@ -8,12 +8,21 @@ import pytest
 from test_source_refresh import prepare
 from test_source_review_jobs import LocalClient
 
+from html_to_markdown import combined_sources as combined
 from html_to_markdown.combined_sources import combine_sources, verify_combined
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.engine import prepare as prepare_enrichment
 from html_to_markdown.enrichment.engine import replay, verify_enrichment
-from html_to_markdown.package import RELEASE_ASSET_NAMES, build_manifest, write_release
-from html_to_markdown.refresh import verify_refresh
+from html_to_markdown.metadata import enrich_snapshot
+from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
+from html_to_markdown.package import (
+    RELEASE_ASSET_NAMES,
+    build_manifest,
+    write_publication_receipt,
+    write_release,
+)
+from html_to_markdown.refresh import _copy_article, verify_refresh
+from html_to_markdown.render import serialize_document, split_document
 from html_to_markdown.source_inputs import seal_source, verify_source
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews
 from html_to_markdown.state import StateStore
@@ -105,11 +114,6 @@ def test_refresh_and_enrichment_verify_preserved_source_chain_separately(
 
 
 def replacement_baseline(capture, tmp_path, monkeypatch):
-    from html_to_markdown.metadata import enrich_snapshot
-    from html_to_markdown.models import DiscoveredPage, PageMetadata, PageStatus
-    from html_to_markdown.package import write_publication_receipt
-    from html_to_markdown.refresh import _copy_article
-    from html_to_markdown.render import serialize_document, split_document
 
     inventory_path = capture / "inventory.json"
     inventory = json.loads(inventory_path.read_bytes())
@@ -152,7 +156,6 @@ def replacement_baseline(capture, tmp_path, monkeypatch):
 def test_verified_replacement_resolves_bad_old_baseline_before_policy_validation(
     capture, tmp_path, monkeypatch
 ):
-    from html_to_markdown import combined_sources as combined
 
     baseline, receipt, bundle, pin, relative = replacement_baseline(capture, tmp_path, monkeypatch)
     original_validation = combined.validate_content_policy

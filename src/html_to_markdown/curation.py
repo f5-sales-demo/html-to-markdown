@@ -325,6 +325,7 @@ class CurationPolicy:
         if raw.get("schema_version") != 1 or not isinstance(raw.get("topics"), list):
             raise ValueError("unsupported curation registry")
         self.raw, self.sha256 = raw, sha256
+        # pylint: disable-next=import-outside-toplevel
         from .source_relevance_curation import decisions  # pylint: disable=import-outside-toplevel
 
         decisions(raw)
@@ -793,6 +794,7 @@ def curate_topics(
         (path, *split_document(path.read_text()))
         for path in sorted(output.glob("content/*/**/index.md"))
     ]
+    # pylint: disable-next=import-outside-toplevel
     from .source_relevance_curation import (
         excluded as source_excluded,  # pylint: disable=import-outside-toplevel
     )
@@ -1422,6 +1424,7 @@ def _validate_curated_article(
     path: Path, policy: CurationPolicy, inherited: bool = False, *, api_policy: Any = None
 ) -> None:
     metadata, body = split_document(path.read_text())
+    # pylint: disable-next=import-outside-toplevel
     from .source_relevance_curation import (
         excluded as source_excluded,  # pylint: disable=import-outside-toplevel
     )

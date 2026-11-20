@@ -269,6 +269,7 @@ def validate_planner(
             context.get("evidence", {}).get("source_disposition_kind")
             == "source_relevance_exclusion"
         ):
+            # pylint: disable-next=import-outside-toplevel
             from .baseline_dispositions import (
                 replay_exclusion,  # pylint: disable=import-outside-toplevel
             )

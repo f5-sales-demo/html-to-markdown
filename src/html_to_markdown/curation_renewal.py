@@ -126,6 +126,7 @@ def proposal_context(
                         "curation_renewal_dependencies.py",
                         "baseline_source_review.py",
                         "baseline_dispositions.py",
+                        "baseline_source_context.py",
                         "source_relevance_curation.py",
                         "admitted_baseline_sources.py",
                         "curation_renewal_policy.py",

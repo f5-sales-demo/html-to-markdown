@@ -8,20 +8,20 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
+from .baseline_dispositions import review_relevance
 from .baseline_late_validation import (
     _execution_digest,
-    existing_validation_context,
     reusable_existing_validation,
     validate_existing_baseline,
 )
 from .baseline_review_renewal import (
     preparation_controller,
     prepare_existing_proposal,
-    relevance_checkpoint,
 )
+from .baseline_source_context import _relevance_evidence, baseline_context
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
-from .curation import blocks, json_bytes, load_curation_policy, media_inventory
+from .curation import json_bytes, load_curation_policy, media_inventory
 from .curation_model_evidence import save as _save
 from .enrichment.analysis import sha
 from .enrichment.clients import client_for_host
@@ -42,13 +42,18 @@ from .source_phase_bindings import independently_validated_privacy, privacy_cont
 from .source_review import (
     AdmissionValidation,
     PrivacyDecision,
-    RelevanceDecision,
     enforce,
     review_context_digest,
-    scan,
-    text_fields,
 )
-from .source_review_jobs import _media_context, _request
+from .source_review_jobs import _request
+
+__all__ = [
+    "baseline_context",
+    "prepare_baseline_reviews",
+    "review_baseline_privacy",
+    "review_baseline_batch",
+    "verify_baseline_prerequisite",
+]
 
 VERSION = "baseline-source-privacy/3"
 LIMIT = 2
@@ -56,27 +61,6 @@ LIMIT = 2
 
 def _controller() -> str:
     return preparation_controller()
-
-
-def _relevance_evidence(
-    output: Path, article: str, source_sha: str, receipt: str
-) -> dict[str, Any]:
-    """Bind prior claims as untrusted context; they never confer a relevance approval."""
-    path = output / "relevance-evidence" / (sha(article) + ".json")
-    if path.is_symlink() or path.parent.is_symlink():
-        raise ValueError("unsafe baseline relevance evidence")
-    if not path.exists():
-        return {}
-    evidence: dict[str, Any] = json.loads(path.read_bytes())
-    if not isinstance(evidence, dict):
-        raise ValueError("baseline relevance evidence must be an object")
-    if (
-        evidence.get("baseline_article") != article
-        or evidence.get("baseline_article_sha256") != source_sha
-        or evidence.get("baseline_receipt_sha256") != receipt
-    ):
-        raise ValueError("baseline relevance evidence addresses a different source")
-    return evidence
 
 
 # Preserve source custody, frame enumeration and checkpoint binding in one transaction.
@@ -195,78 +179,6 @@ def prepare_baseline_reviews(
     return result
 
 
-def baseline_context(
-    _capture: Path, output: Path, saved: dict[str, Any]
-) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Replay original bytes and native frames before constructing any model request."""
-    if saved.get("selected_existing_validation"):
-        return existing_validation_context(output, saved)
-    if saved.get("existing_proposal_pending"):
-        raise ValueError("current historical-proposal validation remains required")
-    binding = saved["binding"]
-    relative = Path(saved["source"])
-    if relative.is_absolute() or ".." in relative.parts:
-        raise ValueError("unsafe baseline privacy source path")
-    source = output / relative
-    files = {
-        p.relative_to(source).as_posix(): sha(p.read_bytes())
-        for p in sorted(source.rglob("*"))
-        if p.is_file()
-    }
-    if not all(
-        (
-            not source.is_symlink(),
-            not any(p.is_symlink() for p in source.rglob("*")),
-            files == saved["input_file_hashes"],
-            sha(json_bytes(files)) == binding["source_files_sha256"],
-            binding["preparation_controller_sha256"] == _controller(),
-            binding["source_privacy_controller_sha256"] == review_context_digest(),
-            sha(json_bytes(binding)) == saved["binding_sha256"],
-        )
-    ):
-        raise ValueError("stale or unsafe baseline source privacy inputs")
-    metadata, body = split_document((source / saved["item"]["article_path"]).read_text())
-    visual, fields, media = _media_context(source, output, saved["item"])
-    fields = {**text_fields(metadata, body), **fields}
-    context = {
-        "identity": saved["identity"],
-        "binding": binding,
-        "binding_sha256": saved["binding_sha256"],
-        "metadata": metadata,
-        "body": body,
-        "source_article_html": "",
-        "source_limitation": "Complete previously verified published Markdown and every associated media frame are supplied. Original HTML is unavailable. This is retained-source review, never a fresh capture or proof of current source availability.",
-        "fields": fields,
-        "findings": scan(fields),
-        "media": media,
-        "structural_addresses": [
-            {"address": f"b:{i}", "source_address": b.location, "sha256": b.sha256, "text": b.text}
-            for i, b in enumerate(blocks(body))
-        ],
-    }
-    prior_relevance = _relevance_evidence(
-        output,
-        binding["baseline_article"],
-        binding["baseline_article_sha256"],
-        binding["baseline_receipt_sha256"],
-    )
-    if binding.get("relevance_evidence_sha256") != (
-        sha(json_bytes(prior_relevance)) if prior_relevance else None
-    ):
-        raise ValueError("baseline relevance evidence changed after preparation")
-    if prior_relevance:
-        context["prior_relevance_evidence"] = prior_relevance
-        context["relevance_reconciliation_scope"] = (
-            "Prior inclusion, exclusion and necessary-fact classifications are untrusted historical "
-            "claims. Independently reconcile them against the complete supplied article. Do not "
-            "discard useful navigation or reference facts merely because the article is short; "
-            "do not retain an irrelevant shell merely because it was previously published. "
-            "Explain the disposition using current source evidence. Later preservation guards "
-            "remain mandatory and this context cannot waive them."
-        )
-    return context, visual
-
-
 # Privacy proposal, independent validation and source output commit share one transaction.
 # pylint: disable-next=too-many-locals,too-many-statements
 def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> dict[str, Any]:
@@ -278,47 +190,9 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         return validate_existing_baseline(output, record, client)
     source = output / saved["source"]
     context, visual = baseline_context(source, output, saved)
-    from .baseline_dispositions import (  # pylint: disable=import-outside-toplevel
-        relevance_request,
-        save_exclusion,
-        validate_exclusion,
-    )
-
-    relevance_body = relevance_request(context, visual)
-    relevance_path = relevance_checkpoint(
-        record.parent / (record.stem + "-relevance.json"), relevance_body
-    )
-    relevance = _execute(relevance_path, relevance_body, client)
-    classified = parse_response(
-        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_body)
-    )
-    allowed = {entry["address"] for entry in context["structural_addresses"]}
-    checks = (
-        classified.identity == context["identity"],
-        classified.binding_sha256 == context["binding_sha256"],
-        bool(classified.reason.strip()),
-        bool(classified.evidence_addresses),
-        not (set(classified.evidence_addresses) - allowed),
-    )
-    if not all(checks):
-        raise ValueError("baseline source relevance or provided extraction remains unresolved")
-    saved["phases"]["relevance"] = relevance.model_dump(mode="json")
-    atomic_private(record, json_bytes(saved))
-    if classified.disposition == "exclude" and classified.extraction == "complete":
-        proof = validate_exclusion(context, visual, relevance, output, client)
-        return save_exclusion(record, saved, proof)
-    if classified.disposition != "include" or classified.extraction != "complete":
-        saved.update(
-            status="source_review_required",
-            source_disposition={
-                "disposition": classified.disposition,
-                "extraction": classified.extraction,
-                "reason": "retained_source_relevance_or_extraction_requires_review",
-                "published_output": False,
-            },
-        )
-        atomic_private(record, json_bytes(saved))
-        raise ValueError("baseline source relevance or provided extraction remains unresolved")
+    classified, saved = review_relevance(context, visual, output, record, client)
+    if saved["status"] == "source_exclusion_validated":
+        return saved
     if saved["item"]["media"] and "media_observation_validation" not in saved["phases"]:
         if client is None:
             raise ValueError("complete baseline native media observations are required")
@@ -437,6 +311,7 @@ def verify_baseline_prerequisite(output: Path, context: dict[str, Any]) -> None:
     """Verify the privacy intermediate and model evidence separately from final curation."""
     evidence = context.get("evidence", {})
     if evidence.get("input_kind") == "independently_admitted_current_source":
+        # pylint: disable-next=import-outside-toplevel
         from .admitted_baseline_sources import (
             verify_replacement,  # pylint: disable=import-outside-toplevel
         )
@@ -444,6 +319,7 @@ def verify_baseline_prerequisite(output: Path, context: dict[str, Any]) -> None:
         verify_replacement(context, output)
         return
     if evidence.get("source_disposition_kind") == "source_relevance_exclusion":
+        # pylint: disable-next=import-outside-toplevel
         from .baseline_dispositions import (
             replay_exclusion,  # pylint: disable=import-outside-toplevel
         )

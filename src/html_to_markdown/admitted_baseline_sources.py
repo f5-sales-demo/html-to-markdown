@@ -52,15 +52,9 @@ def _candidate(
     return candidate, visual, files
 
 
-def prepare_replacement(
-    baseline: Path,
-    publication_sha256: str,
-    article: str,
-    output: Path,
-    source_inputs: dict[str, tuple[Path, str]],
-) -> dict[str, Any] | None:
-    """Only independently admitted current bytes may satisfy a source dependency."""
-    verified = _verified_baseline(baseline, publication_sha256)
+def _admitted_choice(
+    verified: dict[str, bytes], article: str, source_inputs: dict[str, tuple[Path, str]]
+) -> tuple[dict[str, Any], Path, str, dict[str, Any]] | None:
     metadata, _ = split_document(verified[article].decode())
     selected = source_inputs.get(str(metadata["sourceId"]))
     if selected is None:
@@ -87,38 +81,40 @@ def prepare_replacement(
     )
     if not entry.get("captured_at") or previous_date and entry["captured_at"] < previous_date:
         raise ValueError("admitted baseline replacement is superseded")
+    return metadata, directory, digest, entry
+
+
+def prepare_replacement(
+    baseline: Path,
+    publication_sha256: str,
+    article: str,
+    output: Path,
+    source_inputs: dict[str, tuple[Path, str]],
+) -> dict[str, Any] | None:
+    """Only independently admitted current bytes may satisfy a source dependency."""
+    verified = _verified_baseline(baseline, publication_sha256)
+    selected = _admitted_choice(verified, article, source_inputs)
+    if selected is None:
+        return None
+    metadata, directory, digest, entry = selected
     relative = Path("dependency-sources") / str(metadata["sourceId"]) / digest
     saved = output / relative
     if not saved.exists():
         saved.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         shutil.copytree(directory, saved, copy_function=os.link)
     verify_source(saved, digest)
-    record = json.loads((saved / ".admission/review" / entry["record"]).read_bytes())
-    original, original_visual = _context(
-        saved / ".admission/capture", saved / ".admission/review", record
-    )
     candidate, visual, files = _candidate(saved, article, output)
-    privacy_evidence = ResponseEvidence.model_validate(record["phases"]["privacy"])
-    privacy = parse_source_response(
-        privacy_evidence,
-        PrivacyDecision,
-        EDITOR_MODEL,
-        request_hash(source_logical_request(privacy_evidence)),
-    )
-    baseline_record = output / "dependency-privacy/documents" / (sha(article) + ".json")
+    source_evidence, original_visual = _source_evidence(saved, entry, candidate)
     evidence = {
         "input_kind": "independently_admitted_current_source",
-        "baseline_source_record_sha256": sha(baseline_record.read_bytes()),
+        "baseline_source_record_sha256": sha(
+            (output / "dependency-privacy/documents" / (sha(article) + ".json")).read_bytes()
+        ),
         "baseline_receipt_sha256": publication_sha256,
         "baseline_article": article,
         "baseline_article_sha256": sha(verified[article]),
         "admitted_source": {"path": relative.as_posix(), "sha256": digest, "document": entry},
-        "original": {key: original[key] for key in ("metadata", "body", "media", "findings")},
-        "source_article_html": original["source_article_html"],
-        "privacy_candidate": candidate,
-        "privacy_decision": privacy.model_dump(),
-        "policy_topics": _topic_rules(original, candidate),
-        "source_admission_binding_sha256": original["binding_sha256"],
+        **source_evidence,
     }
     context = proposal_context(
         candidate["metadata"],
@@ -128,11 +124,7 @@ def prepare_replacement(
         load_curation_policy().sha256,
         evidence,
     )
-    destination = output / context["binding_sha256"]
-    for name, data in files.items():
-        atomic_private(destination / "inputs" / name, data)
-    atomic_private(destination / "context.json", json_bytes(context))
-    atomic_private(destination / "visual.json", json_bytes(original_visual + visual))
+    _persist_context(output, context, files, original_visual + visual)
     verify_replacement(context, output)
     return context
 
@@ -157,53 +149,11 @@ def verify_replacement(context: dict[str, Any], output: Path) -> None:
     ):
         raise ValueError("admitted baseline source decision changed")
     article = evidence["baseline_article"]
-    record = output / "dependency-privacy/documents" / (sha(article) + ".json")
-    if record.is_symlink() or sha(record.read_bytes()) != evidence["baseline_source_record_sha256"]:
-        raise ValueError("replacement original baseline source evidence changed")
-    original = json.loads(record.read_bytes())
-    relative_source = Path(original["source"])
-    if relative_source.is_absolute() or ".." in relative_source.parts:
-        raise ValueError("unsafe replacement original baseline source path")
-    source = output / "dependency-privacy" / relative_source
-    hashes = {
-        p.relative_to(source).as_posix(): sha(p.read_bytes())
-        for p in sorted(source.rglob("*"))
-        if p.is_file()
-    }
-    if (
-        source.is_symlink()
-        or any(p.is_symlink() for p in source.rglob("*"))
-        or hashes != original["input_file_hashes"]
-        or sha(json_bytes(hashes)) != original["binding"]["source_files_sha256"]
-        or original["binding"]["baseline_receipt_sha256"] != evidence["baseline_receipt_sha256"]
-        or original["binding"]["baseline_article_sha256"] != evidence["baseline_article_sha256"]
-        or original["binding"]["baseline_article"] != article
-    ):
-        raise ValueError("replacement original baseline custody changed")
+    _verify_baseline_custody(output, article, evidence)
     if selected["document"]["published_path"] != article:
         raise ValueError("admitted baseline source article changed")
     candidate, visual, _ = _candidate(directory, article, output)
-    source_record = json.loads(
-        (directory / ".admission/review" / selected["document"]["record"]).read_bytes()
-    )
-    captured, source_visual = _context(
-        directory / ".admission/capture", directory / ".admission/review", source_record
-    )
-    privacy_evidence = ResponseEvidence.model_validate(source_record["phases"]["privacy"])
-    privacy = parse_source_response(
-        privacy_evidence,
-        PrivacyDecision,
-        EDITOR_MODEL,
-        request_hash(source_logical_request(privacy_evidence)),
-    )
-    checks = {
-        "source_article_html": captured["source_article_html"],
-        "source_admission_binding_sha256": captured["binding_sha256"],
-        "original": {key: captured[key] for key in ("metadata", "body", "media", "findings")},
-        "privacy_candidate": candidate,
-        "privacy_decision": privacy.model_dump(),
-        "policy_topics": _topic_rules(captured, candidate),
-    }
+    checks, source_visual = _source_evidence(directory, selected["document"], candidate)
     supplied_visual = output / context["binding_sha256"] / "visual.json"
     if any(evidence.get(key) != value for key, value in checks.items()) or (
         supplied_visual.is_symlink()
@@ -219,3 +169,62 @@ def verify_replacement(context: dict[str, Any], output: Path) -> None:
         or context["metadata"]["url"] != selected["document"]["url"]
     ):
         raise ValueError("admitted dependency source proof changed")
+
+
+def _source_evidence(
+    directory: Path, entry: dict[str, Any], candidate: dict[str, Any]
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    record = json.loads((directory / ".admission/review" / entry["record"]).read_bytes())
+    original, visual = _context(
+        directory / ".admission/capture", directory / ".admission/review", record
+    )
+    response = ResponseEvidence.model_validate(record["phases"]["privacy"])
+    privacy = parse_source_response(
+        response, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(response))
+    )
+    return {
+        "original": {key: original[key] for key in ("metadata", "body", "media", "findings")},
+        "source_article_html": original["source_article_html"],
+        "privacy_candidate": candidate,
+        "privacy_decision": privacy.model_dump(),
+        "policy_topics": _topic_rules(original, candidate),
+        "source_admission_binding_sha256": original["binding_sha256"],
+    }, visual
+
+
+def _verify_baseline_custody(output: Path, article: str, evidence: dict[str, Any]) -> None:
+    record = output / "dependency-privacy/documents" / (sha(article) + ".json")
+    if record.is_symlink() or sha(record.read_bytes()) != evidence["baseline_source_record_sha256"]:
+        raise ValueError("replacement original baseline source evidence changed")
+    original = json.loads(record.read_bytes())
+    relative_source = Path(original["source"])
+    if relative_source.is_absolute() or ".." in relative_source.parts:
+        raise ValueError("unsafe replacement original baseline source path")
+    source = output / "dependency-privacy" / relative_source
+    hashes = {
+        p.relative_to(source).as_posix(): sha(p.read_bytes())
+        for p in sorted(source.rglob("*"))
+        if p.is_file()
+    }
+    if not all(
+        (
+            not source.is_symlink(),
+            not any(p.is_symlink() for p in source.rglob("*")),
+            hashes == original["input_file_hashes"],
+            sha(json_bytes(hashes)) == original["binding"]["source_files_sha256"],
+            original["binding"]["baseline_receipt_sha256"] == evidence["baseline_receipt_sha256"],
+            original["binding"]["baseline_article_sha256"] == evidence["baseline_article_sha256"],
+            original["binding"]["baseline_article"] == article,
+        )
+    ):
+        raise ValueError("replacement original baseline custody changed")
+
+
+def _persist_context(
+    output: Path, context: dict[str, Any], files: dict[str, bytes], visual: list[dict[str, Any]]
+) -> None:
+    destination = output / context["binding_sha256"]
+    for name, data in files.items():
+        atomic_private(destination / "inputs" / name, data)
+    atomic_private(destination / "context.json", json_bytes(context))
+    atomic_private(destination / "visual.json", json_bytes(visual))

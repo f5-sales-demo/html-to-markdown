@@ -123,18 +123,18 @@ def retained(tmp_path, monkeypatch):
     output = tmp_path / "renewal"
     inv = prepare_dependencies(baseline, "a" * 64, [article], output)
     record = output / inv["documents"][0]["source_privacy_path"]
-    return baseline, output, record, article
+    return baseline, output, record, article, files
 
 
 def ready(retained, client):
-    baseline, output, record, article = retained
+    baseline, output, record, article, _ = retained
     source.review_baseline_privacy(output / "dependency-privacy", record, client)
     inventory = prepare_dependencies(baseline, "a" * 64, [article], output)
     return json.loads((output / inventory["documents"][0]["context_path"]).read_bytes())
 
 
 def test_complete_exclusion_replays_through_governed_planner_without_retirement_claim(retained):
-    baseline, output, record, article = retained
+    baseline, output, record, article, _ = retained
     client = Client()
     before = json.loads(record.read_bytes())
     before["privacy_feedback"] = [
@@ -182,7 +182,7 @@ def test_complete_exclusion_replays_through_governed_planner_without_retirement_
     ],
 )
 def test_failed_or_incomplete_independent_exclusion_stays_queued(retained, defect):
-    _, output, record, _ = retained
+    _, output, record, _, _ = retained
     with pytest.raises(ValueError):
         source.review_baseline_privacy(output / "dependency-privacy", record, Client(defect))
     assert json.loads(record.read_bytes())["status"] != "source_exclusion_validated"
@@ -190,16 +190,22 @@ def test_failed_or_incomplete_independent_exclusion_stays_queued(retained, defec
 
 
 def test_malformed_retained_extraction_cannot_be_excluded_or_invented_complete(retained):
-    _, output, record, _ = retained
+    _, output, record, _, _ = retained
     client = Client(extraction="defect")
     with pytest.raises(ValueError, match="extraction remains unresolved"):
         source.review_baseline_privacy(output / "dependency-privacy", record, client)
     assert len(client.calls) == 1
     assert json.loads(record.read_bytes())["status"] == "source_review_required"
+    baseline, _, _, article, _ = retained
+    inventory = prepare_dependencies(baseline, "a" * 64, [article], output)
+    item = inventory["documents"][0]
+    assert item["reason"] == "baseline_source_extraction_review_required"
+    assert item["source_disposition"]["extraction"] == "defect"
+    assert "context_path" not in item
 
 
 def test_exclusion_rejects_original_and_validation_tampering(retained):
-    _, output, record, _ = retained
+    _, output, record, _, _ = retained
     context = ready(retained, Client())
     saved = json.loads(record.read_bytes())
     original = output / "dependency-privacy" / saved["source"] / saved["item"]["article_path"]
@@ -210,8 +216,7 @@ def test_exclusion_rejects_original_and_validation_tampering(retained):
 
 @pytest.mark.parametrize("defect", [None, "missing_frame", "missing_media"])
 def test_whole_source_exclusion_requires_every_animated_media_frame(retained, defect):
-    baseline, output, record, article = retained
-    files = source._verified_baseline(baseline, "a" * 64)
+    baseline, output, record, article, files = retained
     stream = io.BytesIO()
     Image.new("RGB", (16, 16), "red").save(
         stream,

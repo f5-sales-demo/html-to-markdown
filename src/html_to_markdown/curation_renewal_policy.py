@@ -95,6 +95,7 @@ def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPol
             context.get("evidence", {}).get("source_disposition_kind")
             == "source_relevance_exclusion"
         ):
+            # pylint: disable-next=import-outside-toplevel
             from .source_relevance_curation import (
                 policy_decision,  # pylint: disable=import-outside-toplevel
             )
