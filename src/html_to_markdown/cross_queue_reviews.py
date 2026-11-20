@@ -164,15 +164,18 @@ def seed_review_batch(
             caches = {media["sha256"] for media in previous["item"]["media"]}
             caches.update(previous.get("file_hashes", {}).values())
             for cache_digest in sorted(caches):
-                relative = "media/" + cache_digest + "-native-2.json"
-                if (path.parent.parent / relative).exists():
-                    cache = safe_file(
-                        worker, (path.parent.parent / relative).relative_to(worker).as_posix()
-                    )
-                    destination = output / relative
-                    if destination.is_symlink():
-                        raise ValueError("unsafe cross-queue native evidence link")
-                    _snapshot(cache, destination, output)
+                for relative in (
+                    f"media/{cache_digest}-native-2.json",
+                    f"media/{cache_digest}-native-3.json",
+                ):
+                    if (path.parent.parent / relative).exists():
+                        cache = safe_file(
+                            worker, (path.parent.parent / relative).relative_to(worker).as_posix()
+                        )
+                        destination = output / relative
+                        if destination.is_symlink():
+                            raise ValueError("unsafe cross-queue native evidence link")
+                        _snapshot(cache, destination, output)
             _snapshot_boundaries(worker, output, path, previous)
             seeded = dict(previous)
             if seeded["disposition"] in {"accepted", "policy_excluded"}:

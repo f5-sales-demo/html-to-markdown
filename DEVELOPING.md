@@ -35,6 +35,13 @@ uv run bandit -q -r src
 uv run python scripts/audit_dependencies.py
 ```
 
+CI additionally runs Pylint 4.0.6 on each changed Python file. Use the same
+version and repository configuration when checking those files locally:
+
+```bash
+uv run --with pylint==4.0.6 pylint --rcfile=.python-lint src/html_to_markdown/media_encoding.py
+```
+
 The dependency audit exports all runtime and development dependencies from `uv.lock`
 with exact versions and distribution hashes, applies platform markers, and requires
 one complete audit result per active dependency. Skipped, missing or vulnerable
@@ -56,6 +63,32 @@ The production docs-control verifier additionally binds the receipt's source
 commit to the exact release tag before mounting the extracted tree read-only.
 
 ## Daily review evidence
+
+Fresh complete native frames and source-region inspection views use portable PNG
+encoding version 2. The encoder retains the byte-stable version-1 PNG structure,
+recompresses only its IDAT scanlines through standard zlib, and preserves every
+other chunk. Actual Mac/Ubuntu qualification checks both exact reconstructed
+legacy bytes and identical version-2 bytes for the complete supplied fixtures.
+The default `png_bytes` API retains version 1 for historical callers; reviewed
+privacy transforms explicitly declare `portable-1` or `portable-2` for replay.
+Unknown encoding markers fail closed. Captured source media is never rewritten.
+
+Complete SVG observations include verified frame geometry and the original XML
+as untrusted metadata. Native review retains the whole rendered frame rather
+than thumbnailing it. Safe unchanged vectors retain their original bytes;
+reviewed pixel transforms bind the exact source raster and replay its digest
+before producing a versioned PNG. External resources and active SVG elements
+remain forbidden.
+
+Fresh source records pin media encoding version 2. Historical records without
+that marker retain version 1; complete review and replay transactions scope the
+encoding separately for each concurrent job. Controller and policy digest checks
+continue to reject stale decisions before replay. Native media cache generation 3
+carries complete SVG geometry and compressed views. Generation-2 files retain
+exact historical views. Cross-queue reuse and isolated replay preserve both
+generations, and source-reference repair seeds the matching generation from exact
+captured OCR and full frame guards. Cache or encoding
+changes grant no new editorial allowance and cannot rebind a model response.
 
 The Mac worker seeds eligible source batches from prior private capture queues.
 Unchanged bound article, metadata, media and policy/request inputs reuse exact

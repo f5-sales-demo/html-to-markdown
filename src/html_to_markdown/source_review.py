@@ -23,7 +23,7 @@ from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
 from .enrichment.requests import request
-from .media_encoding import png_bytes
+from .media_encoding import current_review_encoding, png_bytes
 from .source_binding_context import privacy_context
 
 VERSION = "source-admission/1"
@@ -315,7 +315,20 @@ def preview_media(
     }
     if sha(raw) != change.source_sha256 or not change.reason.strip():
         raise ValueError("changed media bytes or absent privacy rationale")
-    with Image.open(io.BytesIO(raw)) as source:
+    decoded = raw
+    if b"<svg" in raw[:4096]:
+        from .enrichment.media import (  # pylint: disable=import-outside-toplevel
+            svg_privacy_pixels,
+            validate_svg,
+        )
+
+        validate_svg(raw)
+        if not (change.rectangles or change.labels or change.frames or change.strip_metadata):
+            checked, _ = reviewed_media(raw, "captured", {"assets": {"captured": sha(raw)}})
+            return checked, {"output_sha256": sha(raw)}
+        decoded = svg_privacy_pixels(raw)
+        transform.update(svg_rendering="rsvg-2048/1", svg_rendering_sha256=sha(decoded))
+    with Image.open(io.BytesIO(decoded)) as source:
         frames = getattr(source, "n_frames", 1)
         if not (change.rectangles or change.labels or change.frames or change.strip_metadata):
             for frame in range(frames):
@@ -360,8 +373,9 @@ def preview_media(
             clean = Image.new(converted.mode, converted.size)
             clean.paste(converted)
             apply_labels_and_rectangles(clean, transform)
-            transform["png_encoding"] = "portable-1"
-            output = png_bytes(clean)
+            version = current_review_encoding()
+            transform["png_encoding"] = f"portable-{version}"
+            output = png_bytes(clean, encoding_version=version)
     transform["output_sha256"] = sha(output)
     # Replay through the independent existing hash/pixel/playback gate as well.
     checked, _ = reviewed_media(

@@ -48,7 +48,7 @@ def test_replay_preserves_captured_ocr_without_rerunning_host_ocr(tmp_path, monk
     monkeypatch.setattr("html_to_markdown.reference_repair_media.all_frame_inputs", native)
     seed_candidate_media(candidate, blobs, tmp_path / "output")
     digest = next(iter(blobs))
-    frames = json.loads((tmp_path / "output/media" / (digest + "-native-2.json")).read_bytes())
+    frames = json.loads((tmp_path / "output/media" / (digest + "-native-3.json")).read_bytes())
     assert frames[0][1] == before["media"][digest]["frames"][0]
     assert candidate == before
 
@@ -95,6 +95,6 @@ def test_animation_replay_preserves_every_frame_and_timing(tmp_path):
     candidate, blobs = candidate_media(tmp_path, animated=True)
     seed_candidate_media(candidate, blobs, tmp_path / "output")
     digest = next(iter(blobs))
-    frames = json.loads((tmp_path / "output/media" / (digest + "-native-2.json")).read_bytes())
+    frames = json.loads((tmp_path / "output/media" / (digest + "-native-3.json")).read_bytes())
     assert len(frames) == 2 and [v[1]["duration"] for v in frames] == [100, 200]
     assert [v[1] for v in frames] == candidate["media"][digest]["frames"]

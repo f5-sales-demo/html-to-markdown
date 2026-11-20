@@ -262,7 +262,7 @@ def test_complete_native_cache_replays_without_new_inference(
     old = tmp_path / "worker/day-1/my-f5-com/review"
     assert not _review(capture, old, monkeypatch, Counting)["exceptions"]
     calls = len(requests)
-    cache = next((old / "media").glob("*-native-2.json"))
+    cache = next((old / "media").glob("*-native-3.json"))
     original_cache = cache.read_bytes()
     current = tmp_path / "worker/day-2/my-f5-com/review"
     prepare_reviews(capture, current)

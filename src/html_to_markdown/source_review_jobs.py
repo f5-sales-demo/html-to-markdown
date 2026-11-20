@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import base64
-import io
 import json
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -11,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from PIL import Image
 from pydantic import BaseModel
 
 from .content_inventory import atomic_private, verify_capture
@@ -23,6 +21,8 @@ from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidenc
 from .enrichment.gates import request_hash
 from .enrichment.media import all_frame_inputs
 from .errors import TransportFailure
+from .media_encoding import current_review_encoding, review_media_encoding, source_review_encoding
+from .media_encoding import verify_native_frame as _verify_native_frame
 from .media_observation_jobs import (
     RequestExecutor,
     prepare_media_observations,
@@ -134,6 +134,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
                 "binding": binding,
                 "binding_sha256": digest,
                 "phases": {},
+                "media_encoding_version": source_review_encoding(saved),
                 "disposition": "queued",
                 "reason": "admission_review_required",
                 **retained,
@@ -171,38 +172,6 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
     return result
 
 
-def _verify_native_frame(
-    captured_url: str,
-    captured_info: dict[str, Any],
-    expected_url: str,
-    expected_info: dict[str, Any],
-) -> None:
-    for key in (
-        "sha256",
-        "frame",
-        "frame_count",
-        "duration",
-        "width",
-        "height",
-        "loop",
-        "metadata",
-    ):
-        if captured_info.get(key) != expected_info.get(key):
-            raise ValueError("cached native frame metadata changed")
-    captured_bytes = base64.b64decode(captured_url.split(",", 1)[1], validate=True)
-    expected_bytes = base64.b64decode(expected_url.split(",", 1)[1], validate=True)
-    with (
-        Image.open(io.BytesIO(captured_bytes)) as a,
-        Image.open(io.BytesIO(expected_bytes)) as b,
-    ):
-        if (
-            a.mode != b.mode
-            or a.size != b.size
-            or a.convert("RGB").tobytes() != b.convert("RGB").tobytes()
-        ):
-            raise ValueError("cached media does not cover complete native frames")
-
-
 def _media_context(
     capture: Path, output: Path, item: dict[str, Any]
 ) -> tuple[list[dict[str, Any]], dict[str, str], dict[str, Any]]:
@@ -213,7 +182,11 @@ def _media_context(
         path = capture / media["path"]
         if sha(path.read_bytes()) != media["sha256"]:
             raise ValueError("source media digest changed")
-        cache = output / "media" / (media["sha256"] + "-native-2.json")
+        # Keep old observations and their exact encoded bytes as immutable
+        # history. The complete SVG geometry and compressed views use a new
+        # cache namespace; a representation change grants no editor allowance.
+        cache_generation = 2 if current_review_encoding() == 1 else 3
+        cache = output / "media" / f"{media['sha256']}-native-{cache_generation}.json"
         if cache.exists():
             frames = json.loads(cache.read_bytes())
         else:
@@ -416,9 +389,20 @@ def _privacy_media_intake(
     return saved
 
 
+def _compile(
+    capture: Path,
+    output: Path,
+    saved: dict[str, Any],
+    context: dict[str, Any],
+    proposal: PrivacyDecision,
+) -> tuple[dict[str, Any], list[dict[str, Any]], PrivacyDecision, dict[str, bytes]]:
+    with review_media_encoding(source_review_encoding(saved)):
+        return _compile_encoded(capture, output, saved, context, proposal)
+
+
 # Preserve all stage evidence and checks in one transaction.
 # pylint: disable-next=too-many-locals,too-many-statements
-def _compile(
+def _compile_encoded(
     capture: Path,
     output: Path,
     saved: dict[str, Any],
@@ -613,8 +597,17 @@ def _compile_admission(
 
 
 # Preserve all stage evidence and checks in one transaction.
-# pylint: disable-next=too-many-locals,too-many-branches
+
+
 def review_one(
+    capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
+) -> dict[str, Any]:
+    with review_media_encoding(source_review_encoding(json.loads(record.read_bytes()))):
+        return _review_one(capture, output, record, phase, client)
+
+
+# pylint: disable-next=too-many-locals,too-many-branches
+def _review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:
     saved = json.loads(record.read_bytes())
@@ -771,6 +764,13 @@ def review_one(
 def _run_record(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> None:
+    with review_media_encoding(source_review_encoding(json.loads(record.read_bytes()))):
+        _run_record_encoded(capture, output, record, phase, client)
+
+
+def _run_record_encoded(
+    capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
+) -> None:
     if json.loads(record.read_bytes()).get("cross_queue_evidence_blocked"):
         raise ValueError("prior source-review evidence requires repair before new privacy attempts")
     if json.loads(record.read_bytes()).get("privacy_exhausted"):
@@ -854,7 +854,8 @@ def run_reviews(
     for record in selected:
         saved = json.loads(record.read_bytes())
         try:
-            _media_context(capture, output, saved["item"])
+            with review_media_encoding(source_review_encoding(saved)):
+                _media_context(capture, output, saved["item"])
             ready.append(record)
         except Exception as failure:  # pylint: disable=broad-exception-caught
             failures[record.name] = "MediaPreparationError"
@@ -965,9 +966,10 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
                 digests = {media["sha256"] for media in saved["item"]["media"]}
                 digests.update(saved.get("file_hashes", {}).values())
                 for digest in sorted(digests):
-                    cache = output / "media" / (digest + "-native-2.json")
-                    if cache.is_file():
-                        atomic_private(scratch / "media" / cache.name, cache.read_bytes())
+                    for version in (2, 3):
+                        cache = output / "media" / f"{digest}-native-{version}.json"
+                        if cache.is_file():
+                            atomic_private(scratch / "media" / cache.name, cache.read_bytes())
             copy = scratch / "document.json"
             atomic_private(copy, path.read_bytes())
             actual = review_one(capture, scratch, copy, "replay", None)

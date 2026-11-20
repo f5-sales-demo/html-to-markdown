@@ -9,6 +9,7 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.media import all_frame_inputs
+from .media_encoding import current_review_encoding
 
 OCR_FIELDS = {"text", "engine", "uncertain", "error"}
 
@@ -37,4 +38,5 @@ def seed_candidate_media(candidate: dict[str, Any], blobs: dict[str, Path], outp
             ):
                 raise ValueError("source-reference replay native frame or metadata guard changed")
             frames.append((url, captured))
-        atomic_private(output / "media" / (digest + "-native-2.json"), json_bytes(frames))
+        generation = 2 if current_review_encoding() == 1 else 3
+        atomic_private(output / "media" / f"{digest}-native-{generation}.json", json_bytes(frames))

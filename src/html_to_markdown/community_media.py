@@ -354,10 +354,27 @@ def transform_animation(content: bytes, transform: dict[str, Any]) -> bytes:
 def privacy_png(image: Image.Image, transform: dict[str, Any]) -> bytes:
     """Retain historical encodings and version new portable privacy outputs."""
     if transform.get("png_encoding") == "portable-1":
-        return png_bytes(image)
+        return png_bytes(image, encoding_version=1)
+    if transform.get("png_encoding") == "portable-2":
+        return png_bytes(image, encoding_version=2)
+    if transform.get("png_encoding") is not None:
+        raise ValueError("unsupported privacy PNG encoding version")
     output = io.BytesIO()
     image.save(output, format="PNG", optimize=False)
     return output.getvalue()
+
+
+def _reviewed_source_pixels(content: bytes, transform: dict[str, Any]) -> bytes:
+    if transform.get("svg_rendering") is None:
+        return content
+    if transform["svg_rendering"] != "rsvg-2048/1" or b"<svg" not in content[:4096]:
+        raise ValueError("unsupported SVG privacy rendering")
+    from .enrichment.media import svg_privacy_pixels  # pylint: disable=import-outside-toplevel
+
+    decoded = svg_privacy_pixels(content)
+    if hashlib.sha256(decoded).hexdigest() != transform.get("svg_rendering_sha256"):
+        raise ValueError("SVG privacy source rendering changed")
+    return decoded
 
 
 def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[bytes, str | None]:
@@ -398,7 +415,8 @@ def reviewed_media(content: bytes, url: str, review: dict[str, Any]) -> tuple[by
             raise PublicationBlockedError("community GIF differs from reviewed output")
         return result, "image/gif"
     try:
-        with Image.open(io.BytesIO(content)) as source:
+        decoded = _reviewed_source_pixels(content, transform)
+        with Image.open(io.BytesIO(decoded)) as source:
             if getattr(source, "n_frames", 1) != 1:
                 raise PublicationBlockedError(
                     "community animated media needs a frame-preserving reviewed transform"

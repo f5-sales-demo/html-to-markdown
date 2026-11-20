@@ -13,7 +13,7 @@ from typing import Any
 from defusedxml import ElementTree
 from PIL import Image
 
-from ..media_encoding import png_bytes
+from ..media_encoding import current_review_encoding, png_bytes
 from .analysis import sha
 
 
@@ -44,30 +44,39 @@ def validate_svg(raw: bytes) -> None:
             raise ValueError("SVG includes an external stylesheet resource")
 
 
-def image_input(path: Path, *, perform_ocr: bool = True) -> tuple[str, dict[str, Any]]:
+def image_input(
+    path: Path,
+    *,
+    perform_ocr: bool = True,
+    encoding_version: int = 1,
+    native_frame_metadata: bool = False,
+) -> tuple[str, dict[str, Any]]:
     raw = path.read_bytes()
     digest = sha(raw)
     ocr: dict[str, Any] = {"sha256": digest, "engine": None, "text": "", "uncertain": True}
     # Captured media may carry a different encoding from its filename. Give
     # OCR the same decoded, normalized PNG derivative supplied to the model.
     visual = raw
+    source_metadata: dict[str, Any] = {}
     if b"<svg" in raw[:4096]:
         validate_svg(raw)
-        rasterizer = shutil.which("rsvg-convert")
-        if rasterizer is None:
-            raise ValueError("SVG visual review requires rsvg-convert")
-        rendered = subprocess.run(
-            [rasterizer, "--format", "png", "--width", "2048"],
-            input=raw,
-            capture_output=True,
-            timeout=60,
-            check=True,
-        )  # nosec B603
-        visual = rendered.stdout
+        source_metadata = {"format": "SVG", "source_xml": raw.decode("utf-8")}
+        visual = render_svg(raw)
     with Image.open(io.BytesIO(visual)) as original:
         image = original.convert("RGBA").convert("RGB")
-        image.thumbnail((2048, 2048))
-        encoded = png_bytes(image)
+        if not native_frame_metadata:
+            image.thumbnail((2048, 2048))
+        encoded = png_bytes(image, encoding_version=encoding_version)
+        if native_frame_metadata:
+            ocr.update(
+                frame=0,
+                frame_count=1,
+                duration=0,
+                width=image.width,
+                height=image.height,
+                loop=None,
+                metadata=source_metadata,
+            )
     executable = shutil.which("tesseract")
     if executable and perform_ocr:
         try:
@@ -89,11 +98,47 @@ def image_input(path: Path, *, perform_ocr: bool = True) -> tuple[str, dict[str,
     return "data:image/png;base64," + base64.b64encode(encoded).decode(), ocr
 
 
-def all_frame_inputs(path: Path, *, perform_ocr: bool = True) -> list[tuple[str, dict[str, Any]]]:
+def render_svg(raw: bytes) -> bytes:
+    """Render the complete validated vector input through the fixed native route."""
+    validate_svg(raw)
+    rasterizer = shutil.which("rsvg-convert")
+    if rasterizer is None:
+        raise ValueError("SVG visual review requires rsvg-convert")
+    rendered = subprocess.run(
+        [rasterizer, "--format", "png", "--width", "2048"],
+        input=raw,
+        capture_output=True,
+        timeout=60,
+        check=True,
+    )  # nosec B603
+    with Image.open(io.BytesIO(rendered.stdout)) as pixels:
+        pixels.load()
+    return rendered.stdout
+
+
+def svg_privacy_pixels(raw: bytes) -> bytes:
+    """Bind the exact complete RGB source raster used by native privacy geometry."""
+    with Image.open(io.BytesIO(render_svg(raw))) as source:
+        image = source.convert("RGBA").convert("RGB")
+        return png_bytes(image, encoding_version=1)
+
+
+def all_frame_inputs(
+    path: Path, *, perform_ocr: bool = True, encoding_version: int | None = None
+) -> list[tuple[str, dict[str, Any]]]:
     """Supply every animation frame, with its original timing and media digest."""
+    if encoding_version is None:
+        encoding_version = current_review_encoding()
     raw = path.read_bytes()
     if b"<svg" in raw[:4096]:
-        return [image_input(path, perform_ocr=perform_ocr)]
+        return [
+            image_input(
+                path,
+                perform_ocr=perform_ocr,
+                encoding_version=encoding_version,
+                native_frame_metadata=True,
+            )
+        ]
     results = []
     executable = shutil.which("tesseract")
     with Image.open(io.BytesIO(raw)) as source:
@@ -112,7 +157,7 @@ def all_frame_inputs(path: Path, *, perform_ocr: bool = True) -> list[tuple[str,
             image = source.convert("RGBA").convert("RGB")
             # OCR sees the complete native-resolution frame. The model receives
             # the same full frame rather than a lossy thumbnail.
-            visual = png_bytes(image)
+            visual = png_bytes(image, encoding_version=encoding_version)
             ocr: dict[str, Any] = {
                 "sha256": sha(raw),
                 "frame": index,
