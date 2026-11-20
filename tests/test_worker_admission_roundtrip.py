@@ -36,7 +36,7 @@ def test_return_interruption_retries_then_context_change_revalidates(
     returns = []
     fail = True
 
-    def run(args: list[str], **kwargs: Any):
+    def run(args: list[str], **kwargs: Any) -> SimpleNamespace:
         nonlocal fail
         if "export-policy-runtime" in args:
             return SimpleNamespace(
@@ -178,11 +178,24 @@ def _source_capture(capture: Path, root: Path, source: str, url: str | None = No
     return root
 
 
-@pytest.mark.parametrize("failure_kind", ["connect", "timeout", "status-503", "status-401"])
-def test_curation_http_failure_returns_admissions_and_advances_other_source(
+@pytest.mark.parametrize(
+    "failure_kind",
+    [
+        "connect",
+        "timeout",
+        "status-503",
+        "status-401",
+        "pending",
+        "interrupt",
+        "publication-blocked",
+    ],
+)
+# This integration case verifies real source capture, replay, return, and resumption together.
+# pylint: disable-next=too-many-locals,too-many-statements
+def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
     capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure_kind: str
 ) -> None:
-    """A real HTTP exception cannot prevent independently verified source returns."""
+    """Dependency waits begin only after real admission returns and persisted progress."""
     sources = ["my-f5-com", "www-f5-com"]
     captures = {
         source: _source_capture(capture, tmp_path / ("source-" + source), source)
@@ -190,26 +203,40 @@ def test_curation_http_failure_returns_admissions_and_advances_other_source(
     }
     monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
     monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
-    returned = []
-    attempted = []
+    returned: list[str] = []
+    attempted: list[str] = []
     diagnostic = "private curation diagnostic"
     request = httpx.Request("GET", "https://example.invalid/revision.json")
+    failure: Exception
     if failure_kind == "connect":
         failure = httpx.ConnectError(diagnostic, request=request)
     elif failure_kind == "timeout":
         failure = httpx.ReadTimeout(diagnostic, request=request)
+    elif failure_kind in {"pending", "interrupt", "publication-blocked"}:
+        failure = RuntimeError("interrupted curation")
     else:
         response = httpx.Response(int(failure_kind.split("-")[1]), request=request)
         failure = httpx.HTTPStatusError(diagnostic, request=request, response=response)
 
-    def renew(source_capture: Path, *args: Any) -> dict:
+    def renew(source_capture: Path, *args: Any) -> dict[str, Any]:
         source = json.loads((source_capture / "inventory.json").read_bytes())["binding"]["source"]
+        # At the first dependency call both source inputs have already passed
+        # real offline replay and returned, and publication has been attempted.
+        assert returned == ["run/" + item for item in sources]
+        assert publication_calls
+        for item in sources:
+            checkpoint = json.loads((output / "run" / item / "checkpoint.json").read_bytes())
+            assert checkpoint["completed"] and checkpoint["returned_admission_sha256"]
         attempted.append(source)
         if source == sources[0]:
+            if failure_kind in {"pending", "publication-blocked"} or (
+                failure_kind == "interrupt" and len(attempted) > 1
+            ):
+                return {"state": "queued", "reason": "dependencies_pending"}
             raise failure
         return {"state": "no_curation_exceptions"}
 
-    def run(args: list[str], **kwargs: Any):
+    def run(args: list[str], **kwargs: Any) -> SimpleNamespace:
         if "export-policy-runtime" in args:
             return SimpleNamespace(
                 stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
@@ -245,25 +272,71 @@ def test_curation_http_failure_returns_admissions_and_advances_other_source(
             return SimpleNamespace(stdout=b'{"state":"waiting_for_software"}')
         return SimpleNamespace(stdout=b"{}")
 
+    publication_calls: list[list[str]] = []
+    original_run = run
+
+    def record_publication(args: list[str], **kwargs: Any) -> SimpleNamespace:
+        if "advance-publication" in args:
+            publication_calls.append(args)
+            if failure_kind == "publication-blocked":
+                raise subprocess.CalledProcessError(
+                    1,
+                    args,
+                    output=b"private partial assembly",
+                    stderr=diagnostic.encode() + b"\x00",
+                )
+        return original_run(args, **kwargs)
+
     monkeypatch.setattr("html_to_markdown.mac_worker.advance_renewals", renew)
-    monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", run)
+    monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", record_publication)
     output = tmp_path / "worker"
-    status = worker_once(
+    worker_args: dict[str, Any] = dict(  # pylint: disable=use-dict-literal
         host="worker.example.invalid",
         remote_executable="/private/cli",
         remote_queue="/private/queue",
         output=output,
         transport=Path("/private/transport"),
     )
-    assert status["state"] == "idle" and attempted == sources
+    if failure_kind == "interrupt":
+        with pytest.raises(RuntimeError, match="interrupted curation"):
+            worker_once(**worker_args)
+        before = [
+            (output / "run" / source / "review/review-inventory.json").read_bytes()
+            for source in sources
+        ]
+    status = worker_once(**worker_args)
+    if failure_kind == "interrupt":
+        assert attempted == [sources[0], *sources]
+        assert before == [
+            (output / "run" / source / "review/review-inventory.json").read_bytes()
+            for source in sources
+        ]
+    else:
+        assert attempted == sources
+    assert status["state"] == "idle"
     assert returned == ["run/" + source for source in sources]
-    assert status["queues"][0]["curation"] == {
-        "state": "queued",
-        "error_class": type(failure).__name__,
-    }
+    if failure_kind in {"pending", "interrupt", "publication-blocked"}:
+        assert status["queues"][0]["curation"] == {
+            "state": "queued",
+            "reason": "dependencies_pending",
+        }
+    else:
+        assert status["queues"][0]["curation"] == {
+            "state": "queued",
+            "error_class": type(failure).__name__,
+        }
     assert status["queues"][1]["curation"] == {"state": "no_curation_exceptions"}
-    error = json.loads((output / "run/my-f5-com/curation-renewal-error.json").read_bytes())
-    assert error["error"] == diagnostic
+    if failure_kind not in {"pending", "interrupt", "publication-blocked"}:
+        error = json.loads((output / "run/my-f5-com/curation-renewal-error.json").read_bytes())
+        assert error["error"] == diagnostic
+    if failure_kind == "publication-blocked":
+        assert status["publication"] == {"state": "queued", "error_class": "CalledProcessError"}
+        assert (
+            output / "publication-error.stderr.private.bin"
+        ).read_bytes() == diagnostic.encode() + b"\x00"
+        assert (
+            output / "publication-error.stdout.private.bin"
+        ).read_bytes() == b"private partial assembly"
     assert diagnostic not in json.dumps(status)
     for source in sources:
         checkpoint = json.loads((output / "run" / source / "checkpoint.json").read_bytes())

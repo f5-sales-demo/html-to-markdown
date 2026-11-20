@@ -66,6 +66,14 @@ ledgers carry across queues. Unsafe or unreadable prior evidence remains queued
 for repair. Interrupted storage copies resume before any new privacy attempt.
 `cross-queue-reuse.json` and its evidence/errors are private operational artifacts.
 
+Source review and curation run in separate scheduling passes. Each bounded source
+batch is sealed, independently returned and checkpointed before the next source
+queue advances. Governed publication preparation follows the source sweep, before
+curation dependency reviews. A blocked publication keeps its policy gate and private
+diagnostic while the prerequisite reviews continue. Settled source checkpoints still
+participate in the curation pass, so interrupted dependencies resume without repeating
+acknowledged source returns or changing request hashes or privacy ledgers.
+
 ## Documentation build
 
 Mount the one-page `docs/` directory and a verified extracted corpus
