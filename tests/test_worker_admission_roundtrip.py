@@ -36,7 +36,7 @@ def test_return_interruption_retries_then_context_change_revalidates(
     returns = []
     fail = True
 
-    def run(args: list[str], **kwargs: Any):
+    def run(args: list[str], **kwargs: Any) -> SimpleNamespace:
         nonlocal fail
         if "export-policy-runtime" in args:
             return SimpleNamespace(
@@ -203,10 +203,11 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
     }
     monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
     monkeypatch.setattr("html_to_markdown.source_review_jobs.CodexClient", LocalClient)
-    returned = []
-    attempted = []
+    returned: list[str] = []
+    attempted: list[str] = []
     diagnostic = "private curation diagnostic"
     request = httpx.Request("GET", "https://example.invalid/revision.json")
+    failure: Exception
     if failure_kind == "connect":
         failure = httpx.ConnectError(diagnostic, request=request)
     elif failure_kind == "timeout":
@@ -217,7 +218,7 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
         response = httpx.Response(int(failure_kind.split("-")[1]), request=request)
         failure = httpx.HTTPStatusError(diagnostic, request=request, response=response)
 
-    def renew(source_capture: Path, *args: Any) -> dict:
+    def renew(source_capture: Path, *args: Any) -> dict[str, Any]:
         source = json.loads((source_capture / "inventory.json").read_bytes())["binding"]["source"]
         # At the first dependency call both source inputs have already passed
         # real offline replay and returned, and publication has been attempted.
@@ -235,7 +236,7 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
             raise failure
         return {"state": "no_curation_exceptions"}
 
-    def run(args: list[str], **kwargs: Any):
+    def run(args: list[str], **kwargs: Any) -> SimpleNamespace:
         if "export-policy-runtime" in args:
             return SimpleNamespace(
                 stdout=json_bytes({"state": "policy_current", **installed_policy_pins()})
@@ -271,10 +272,10 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
             return SimpleNamespace(stdout=b'{"state":"waiting_for_software"}')
         return SimpleNamespace(stdout=b"{}")
 
-    publication_calls = []
+    publication_calls: list[list[str]] = []
     original_run = run
 
-    def record_publication(args: list[str], **kwargs: Any):
+    def record_publication(args: list[str], **kwargs: Any) -> SimpleNamespace:
         if "advance-publication" in args:
             publication_calls.append(args)
             if failure_kind == "publication-blocked":
@@ -289,7 +290,7 @@ def test_curation_wait_or_failure_follows_all_source_returns_and_resumes(
     monkeypatch.setattr("html_to_markdown.mac_worker.advance_renewals", renew)
     monkeypatch.setattr("html_to_markdown.mac_worker.subprocess.run", record_publication)
     output = tmp_path / "worker"
-    worker_args = dict(  # pylint: disable=use-dict-literal
+    worker_args: dict[str, Any] = dict(  # pylint: disable=use-dict-literal
         host="worker.example.invalid",
         remote_executable="/private/cli",
         remote_queue="/private/queue",
