@@ -6,7 +6,6 @@ import copy
 import fcntl
 import hashlib
 import json
-import os
 import platform
 import re
 import shutil
@@ -24,9 +23,8 @@ from .curation import json_bytes
 from .enrichment.codex_client import CodexClient
 from .enrichment.gates import request_hash
 from .enrichment.queued_client import executor_context
+from .inference_executor_contract import synchronize as synchronize_executor
 from .models import utc_now
-from .policy_activation import require_active_cohort
-from .policy_transport import synchronize_policy
 from .work_queue import pack_private_tree
 
 
@@ -256,24 +254,7 @@ def inference_once(
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             return {"state": "already_running", "completed": 0, "pending": 0}
-        policy_state = Path(
-            os.environ.get(
-                "HTML_TO_MARKDOWN_POLICY_STATE",
-                str(Path.home() / ".local/share/html-to-markdown/policy"),
-            )
-        )
-        synchronize_policy(
-            transport,
-            host,
-            remote_executable,
-            os.environ.get(
-                "HTML_TO_MARKDOWN_POLICY_REPOSITORY", "/data/robin-GIT/html-to-markdown"
-            ),
-            str(Path(remote_queue).parent / "policy"),
-            policy_state,
-            str(Path(remote_queue).parent / "queue"),
-        )
-        require_active_cohort(policy_state)
+        synchronize_executor(transport, host, remote_executable)
         owner_file = output / "owner.json"
         if not owner_file.exists():
             atomic_private(owner_file, json_bytes({"owner": uuid.uuid4().hex}))

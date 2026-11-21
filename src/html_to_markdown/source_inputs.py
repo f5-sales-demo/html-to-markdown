@@ -90,6 +90,8 @@ def seal_source(capture: Path, review: Path, output: Path) -> dict[str, Any]:
         ),
         "ended_at": inventory["ended_at"],
     }
+    if "review_compatibility" in verified:
+        receipt["review_compatibility"] = verified["review_compatibility"]
     atomic_private(output / MARKER, json_bytes(receipt))
     verify_source(output, sha((output / MARKER).read_bytes()))
     return receipt
@@ -127,4 +129,15 @@ def verify_source(output: Path, digest: str) -> dict[str, Any]:
     }
     if actual != verified["accepted_files"] or corpus_digest(output) != receipt["content_sha256"]:
         raise ValueError("source admitted content or media changed")
-    return dict(receipt)
+    if "review_compatibility" in receipt and receipt["review_compatibility"] != verified.get(
+        "review_compatibility"
+    ):
+        raise ValueError("source controller compatibility provenance changed")
+    return {
+        **receipt,
+        **(
+            {"review_compatibility": verified["review_compatibility"]}
+            if "review_compatibility" in verified
+            else {}
+        ),
+    }

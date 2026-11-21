@@ -24,10 +24,7 @@ def harness(tmp_path, monkeypatch, *, lose_ack=False, corrupt_ack=False):
     request = body()
     identity = submit(queue, request, executor_context())
     monkeypatch.setattr("html_to_markdown.mac_inference.platform.system", lambda: "Darwin")
-    monkeypatch.setattr(
-        "html_to_markdown.mac_inference.synchronize_policy", lambda *_: {"state": "policy_current"}
-    )
-    monkeypatch.setattr("html_to_markdown.mac_inference.require_active_cohort", lambda *_: None)
+    monkeypatch.setattr("html_to_markdown.mac_inference.synchronize_executor", lambda *_: {})
     monkeypatch.setattr("html_to_markdown.private_storage._compress", lambda *_: None)
     monkeypatch.setattr("html_to_markdown.private_storage.STORAGE_EVENTS_ROOT", tmp_path / "events")
 

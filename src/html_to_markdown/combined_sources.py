@@ -157,6 +157,8 @@ def combine_sources(
             "capture_complete": admission["capture_complete"],
             "review_complete": admission["review_complete"],
         }
+        if "review_compatibility" in admission:
+            sources[source]["review_compatibility"] = admission["review_compatibility"]
         ended_at = max(ended_at, admission["ended_at"])
         for item in admission["documents"]:
             if item.get("sourceId") != source:
@@ -316,6 +318,11 @@ def verify_combined(output: Path) -> dict[str, Any]:
         )
         for source, evidence in state["sources"].items()
     }
+    for source in verified_inputs:
+        if state["sources"][source].get("review_compatibility") != verified_inputs[source][1].get(
+            "review_compatibility"
+        ):
+            raise ValueError("source review controller compatibility provenance changed")
     superseded = (
         _superseded_baseline(published, verified_inputs) if "superseded_baseline" in state else {}
     )

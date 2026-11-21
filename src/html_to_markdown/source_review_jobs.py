@@ -32,6 +32,7 @@ from .media_observation_jobs import (
 )
 from .models import PageMetadata
 from .render import serialize_document, split_document
+from .review_controller_compatibility import admission_binding, replay_provenance
 from .review_priorities import ReviewPriorities, select_records
 from .source_boundary_review import (
     execute_source_phase,
@@ -115,6 +116,7 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
             continue
         verify_capture(capture, item)
         binding = binding_for(item, source_article_sha256=sha(_article_html(capture, item)))
+        binding = admission_binding(saved, binding)
         digest = sha(json_bytes(binding))
         if saved.get("binding_sha256") != digest:
             retained = {
@@ -229,7 +231,8 @@ def _context(
     verify_capture(capture, item)
     source_article = _article_html(capture, item)
     if (
-        binding_for(item, source_article_sha256=sha(source_article)) != saved["binding"]
+        admission_binding(saved, binding_for(item, source_article_sha256=sha(source_article)))
+        != saved["binding"]
         or sha(json_bytes(saved["binding"])) != saved["binding_sha256"]
     ):
         raise ValueError("stale source policy or admission binding")
@@ -952,6 +955,7 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
     """Replay complete source admission without inference; inspect retained bytes."""
     inventory = json.loads((output / "review-inventory.json").read_bytes())
     expected = {}
+    contexts: set[str] = set()
     for record in inventory["documents"]:
         if "path" not in record:
             continue
@@ -975,6 +979,7 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
             actual = review_one(capture, scratch, copy, "replay", None)
             if actual != saved:
                 raise ValueError("source admission replay differs from receipt")
+        contexts.add(saved["binding"]["request_context_sha256"])
         if saved["disposition"] == "accepted":
             for relative, digest in saved["file_hashes"].items():
                 relative = Path(relative).relative_to("articles").as_posix()
@@ -991,4 +996,5 @@ def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
     return {
         "accepted_files": expected,
         "inventory_sha256": sha((output / "review-inventory.json").read_bytes()),
+        **replay_provenance(contexts),
     }
