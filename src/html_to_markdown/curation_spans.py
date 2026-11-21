@@ -7,6 +7,8 @@ import re
 from collections.abc import Callable
 from typing import Any
 
+from .curation_projection import SourceProjection
+
 
 def prose_guard(text: str, kind: str, span: dict[str, Any]) -> dict[str, Any]:
     """Retrieve the exact selected source text; permit no replacement or payload edit."""
@@ -33,11 +35,15 @@ def prose_guard(text: str, kind: str, span: dict[str, Any]) -> dict[str, Any]:
     return {"start": start, "end": end, "sha256": digest}
 
 
+# Guard resolution, exact edits and disjoint relocation form one atomic transaction.
+# pylint: disable-next=too-many-locals
 def apply_prose_removals(
     body: str,
     rules: list[dict[str, Any]],
     parsed: list[Any],
     parse_blocks: Callable[[str], list[Any]],
+    *,
+    projection: SourceProjection | None = None,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Remove guarded prose, then relocate disjoint unchanged blocks without guessing."""
     lines = body.splitlines(keepends=True)
@@ -70,6 +76,9 @@ def apply_prose_removals(
             raise ValueError("overlapping partial prose structural guards")
     original = body
     for _, start, end in sorted(selected, key=lambda item: item[1], reverse=True):
+        if projection is not None:
+            projection.check(body)
+            projection.edit(start, end)
         body = body[:start] + body[end:]
     current = parse_blocks(body)
     relocated = []

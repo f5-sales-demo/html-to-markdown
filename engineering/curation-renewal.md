@@ -112,6 +112,26 @@ checks the exact selected text alongside the full structural guard; a missing or
 digest cannot become an approved policy edit. Published catalog reasons remain fixed and
 contain no original source text or identifying transformation values.
 
+Staged removals and retired-link edits retain original source-coordinate provenance through
+exact prose deletions, block removals, heading cleanup, normalization and media-reference
+replacement. Identical paragraphs remain distinct selections even under repeated headings;
+changed or removed original spans cannot retarget another occurrence. Every stage still
+requires its exact source digest and independently validated preservation before publication.
+
+`validate-existing-curation` can select a preserved complete proposal that failed under the
+qualified historical duplicate-span compiler defect, even when no candidate was produced.
+The original failure, request, response, input inventory and exhausted attempt ledger remain
+immutable. The current compiler produces a separately bound candidate from the original
+selectors and requests independent validation only. Missing or unrelated compiler failures
+cannot enter this recovery path, and recovery grants no additional editor proposal or
+publication approval.
+
+The ordinary worker preserves matching prior attempts when the source, media and policy
+remain identical across a compiler upgrade. It queues the controller transition without
+opening a fresh editing allowance, adopts one complete current selected validation, and
+replays that validation before planner qualification. Multiple current selections require
+explicit resolution; stale selections and altered source or policy cannot receive approval.
+
 Actual-planner requests include the effective API policy, exact alias rules and selected
 source mappings, operation/schema records and captured destination qualification. Each
 retained governed target requires its qualified route and HTML digest. Cached policy and

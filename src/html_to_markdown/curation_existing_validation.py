@@ -79,21 +79,34 @@ def validate_existing_curation(
         or decision.unresolved
     ):
         raise ValueError("selected original proposal is incomplete or addresses different inputs")
-    old_candidate = json.loads((previous / "candidate.json").read_bytes())
-    if old_candidate["proposal"] != decision.model_dump(exclude_unset=True) or old_candidate[
-        "output_sha256"
-    ] != sha(json_bytes({k: v for k, v in old_candidate.items() if k != "output_sha256"})):
-        raise ValueError("selected original candidate or proposal changed")
+    old_candidate = None
+    failure_sha256 = None
+    candidate_path = previous / "candidate.json"
+    if candidate_path.exists():
+        old_candidate = json.loads(candidate_path.read_bytes())
+        if old_candidate["proposal"] != decision.model_dump(exclude_unset=True) or old_candidate[
+            "output_sha256"
+        ] != sha(json_bytes({k: v for k, v in old_candidate.items() if k != "output_sha256"})):
+            raise ValueError("selected original candidate or proposal changed")
+    else:
+        failure_path = previous / "failure.json"
+        if not failure_path.is_file() or json.loads(failure_path.read_bytes()) != {
+            "error": "ambiguous or changed renewal span after preceding topic"
+        }:
+            raise ValueError("missing original candidate or qualified compiler failure evidence")
+        failure_sha256 = sha(failure_path.read_bytes())
     origin = {
         "original_binding_sha256": original_pin,
         "original_attempt": attempt,
         "context_sha256": sha((original / "context.json").read_bytes()),
         "state_sha256": sha((original / "state.json").read_bytes()),
         "editor_request_sha256": editor.request_sha256,
-        "candidate_sha256": old_candidate["output_sha256"],
+        "candidate_sha256": old_candidate["output_sha256"] if old_candidate else None,
         "selection_controller_sha256": sha(Path(__file__).read_bytes()),
         "new_editor_proposals": 0,
     }
+    if failure_sha256 is not None:
+        origin["original_compilation_failure_sha256"] = failure_sha256
     current = proposal_context(
         context["metadata"],
         context["body"],
@@ -110,7 +123,7 @@ def validate_existing_curation(
             _write_once(
                 directory / "inputs" / path.relative_to(original / "inputs"), path.read_bytes()
             )
-    for name in ("editor.json", "candidate.json"):
+    for name in ("editor.json", "candidate.json" if old_candidate else "failure.json"):
         _write_once(directory / "original" / name, (previous / name).read_bytes())
     for name in ("context.json", "state.json"):
         _write_once(directory / "original" / name, (original / name).read_bytes())
@@ -125,7 +138,7 @@ def validate_existing_curation(
         "binding_sha256": current["binding_sha256"],
     }
     candidate = compile_proposal(current, projected, raw)
-    if _semantic(candidate) != _semantic(old_candidate):
+    if old_candidate is not None and _semantic(candidate) != _semantic(old_candidate):
         raise ValueError("current compiler changes the selected original transformation")
     body = review_request(
         current, visual + candidate_visuals(candidate, raw), candidate, state["feedback"]

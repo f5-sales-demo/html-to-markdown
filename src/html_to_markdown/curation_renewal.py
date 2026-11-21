@@ -16,6 +16,7 @@ from .curation import (
     remove_blocks,
     unlink_references,
 )
+from .curation_projection import SourceProjection
 from .curation_renewal_media import projected_media_fact, reviewed_output_media, stage_media
 from .curation_spans import prose_guard
 from .enrichment.analysis import sha
@@ -117,12 +118,14 @@ def proposal_context(
                         "curation_renewal_media.py",
                         "curation_media.py",
                         "curation_spans.py",
+                        "curation_projection.py",
                         "curation_api_evidence.py",
                         "curation_api_chain.py",
                         "curation_renewal_review.py",
                         "curation_renewal_evidence.py",
                         "curation_renewal_jobs.py",
                         "curation_renewal_inputs.py",
+                        "curation_renewal_selection.py",
                         "curation_renewal_dependencies.py",
                         "baseline_source_review.py",
                         "baseline_dispositions.py",
@@ -246,16 +249,18 @@ def _reference_choices(
     return result
 
 
-def _stage_references(body: str, selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _stage_references(
+    body: str, selected: list[dict[str, Any]], projection: SourceProjection
+) -> list[dict[str, Any]]:
+    projection.check(body)
     available = reference_spans(body)
     grouped: dict[str, dict[str, Any]] = {}
     for original in selected:
-        prefix = original["block_address"].rsplit(":", 1)[0]
         matches = [
             item
             for item in available
             if item["source_sha256"] == original["source_sha256"]
-            and item["block_address"].rsplit(":", 1)[0] == prefix
+            and projection.origins[item["start"]] == original["start"]
         ]
         if len(matches) != 1:
             raise ValueError("retired reference changed after preceding topic")
@@ -296,7 +301,10 @@ def projected_fact(
     return projected_media_fact(unlink_references(text, selected), candidate)
 
 
-def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _stage_rules(
+    body: str, removals: list[dict[str, Any]], projection: SourceProjection
+) -> list[dict[str, Any]]:
+    projection.check(body)
     parsed = blocks(body)
     result = []
     for original in removals:
@@ -304,11 +312,12 @@ def _stage_rules(body: str, removals: list[dict[str, Any]]) -> list[dict[str, An
             block
             for block in parsed
             if block.kind == original["kind"]
+            and projection.starts_at(block.start, original["start"])
             and block.text == original["text"]
             and block.sha256 == original["sha256"]
         ]
         if len(matches) != 1:
-            raise ValueError("ambiguous or changed renewal span after preceding topic")
+            raise ValueError("original renewal structural span changed after preceding topic")
         rule: dict[str, Any] = {"location": matches[0].location, "sha256": matches[0].sha256}
         if "prose_span" in original:
             rule["prose_span"] = original["prose_span"]
@@ -367,6 +376,7 @@ def compile_proposal(
     guarded = _guarded_removals(context, proposal)
     references = _reference_choices(context, proposal)
     current = context["body"]
+    projection = SourceProjection(current)
     current_media = {digest: digest for digest in context["media"]}
     media_transforms: dict[str, Any] = {}
     stages = []
@@ -386,12 +396,12 @@ def compile_proposal(
                 f"renewal must review every exact media placement for each topic: topic={topic.topic}; expected={len(context['media'])}; actual={len(media_ids)}; missing={missing}; unexpected={unexpected}"
             )
         rules = [
-            *_stage_rules(current, guarded[topic.topic]),
-            *_stage_references(current, references[topic.topic]),
+            *_stage_rules(current, guarded[topic.topic], projection),
+            *_stage_references(current, references[topic.topic], projection),
         ]
-        retained = remove_blocks(current, rules)
+        retained = remove_blocks(current, rules, projection=projection)
         retained, media_reviews, media_references = stage_media(
-            context, topic, retained, media_bytes or {}, current_media, media_transforms
+            context, topic, retained, media_bytes or {}, current_media, media_transforms, projection
         )
         document = {
             "url": context["identity"],

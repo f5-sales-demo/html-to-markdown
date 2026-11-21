@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .curation_media import prepare_mask, reference_updates, relocate_references, replay_mask
+from .curation_projection import SourceProjection
 from .enrichment.analysis import sha
 
 
@@ -42,6 +43,7 @@ def stage_media(
     originals: dict[str, bytes],
     current: dict[str, str],
     transforms: dict[str, Any],
+    projection: SourceProjection | None = None,
 ) -> tuple[str, list[dict[str, Any]], list[dict[str, Any]]]:
     reviews = []
     replacements = []
@@ -71,7 +73,7 @@ def stage_media(
             rules = reference_updates(body, digest, replacement)
             if not rules:
                 raise ValueError("retirement mask source image has no current document placement")
-            body = relocate_references(body, rules)
+            body = relocate_references(body, rules, projection=projection)
             replacements.extend(rules)
             transforms[source] = {
                 "topic": topic.topic,
