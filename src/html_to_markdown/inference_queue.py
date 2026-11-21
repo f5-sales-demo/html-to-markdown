@@ -109,12 +109,23 @@ def submit(root: Path, request: dict[str, Any], executor_sha256: str) -> str:
         return identity
 
 
-def claim(root: Path, owner: str, executor_sha256: str, limit: int = 4) -> list[dict[str, Any]]:
+def claim(
+    root: Path,
+    owner: str,
+    executor_sha256: str,
+    limit: int = 4,
+    *,
+    new_limit: int | None = None,
+) -> list[dict[str, Any]]:
     """A durable owner resumes its existing claims; sleep never expires a live job."""
     _hex(owner, 32)
     _hex(executor_sha256, 64)
     if not 1 <= limit <= 4:
         raise ValueError("At most four inference jobs may be claimed")
+    if new_limit is not None and (
+        not isinstance(new_limit, int) or isinstance(new_limit, bool) or not 0 <= new_limit <= 4
+    ):
+        raise ValueError("New inference claims require between zero and four available slots")
     with _lock(root):
         records = [(p.parent, _read(p)) for p in sorted(root.glob("*/*/state.json"))]
         active = [
@@ -127,7 +138,12 @@ def claim(root: Path, owner: str, executor_sha256: str, limit: int = 4) -> list[
         queued = [(p, s) for p, s in records if s["state"] == "queued"]
         if len(active) >= 4 and queued and not owned:
             raise ValueError("Another Mac worker holds all inference slots")
-        selected = owned[:limit] + queued[: max(0, min(limit - len(owned), 4 - len(active)))]
+        available = max(0, min(limit - len(owned), 4 - len(active)))
+        if new_limit is not None:
+            # Receipts can commit before a Mac future observes its acknowledgment.
+            # Its declared free local slots also bound newly claimed jobs.
+            available = min(available, new_limit)
+        selected = owned[:limit] + queued[:available]
         results = []
         for job, state in selected:
             if state["executor_sha256"] != executor_sha256:

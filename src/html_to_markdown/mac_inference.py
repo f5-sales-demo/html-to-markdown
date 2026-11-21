@@ -13,7 +13,7 @@ import subprocess  # nosec B404
 import time
 import uuid
 from collections.abc import Callable
-from concurrent.futures import Future, ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, as_completed, wait
 from concurrent.futures import TimeoutError as FutureTimeout
 from pathlib import Path
 from typing import Any
@@ -176,9 +176,20 @@ def _return(
 
 
 def _load_jobs(
-    output: Path, owner: str, *, host: str, executable: str, queue: str, transport: Path
+    output: Path,
+    owner: str,
+    *,
+    host: str,
+    executable: str,
+    queue: str,
+    transport: Path,
+    in_flight: frozenset[Path] = frozenset(),
 ) -> list[Path]:
-    jobs = [p.parent for p in sorted((output / "jobs").glob("*/*/claim.json"))]
+    jobs = [
+        p.parent
+        for p in sorted((output / "jobs").glob("*/*/claim.json"))
+        if p.parent not in in_flight
+    ]
     if not jobs:
         command = [
             str(transport),
@@ -194,20 +205,36 @@ def _load_jobs(
             "--executor-sha256",
             executor_context(),
         ]
+        if in_flight:
+            command += ["--new-limit", str(4 - len(in_flight))]
         response = subprocess.run(command, capture_output=True, check=True, timeout=600)  # nosec B603
         claims = json.loads(response.stdout)
         if not isinstance(claims, list) or len(claims) > 4:
             raise ValueError("Private inference queue returned an invalid job batch")
+        candidates: list[tuple[Path, dict[str, Any]]] = []
+        seen: set[Path] = set()
         for claim in claims:
-            if claim["owner"] != owner or claim["executor_sha256"] != executor_context():
+            if (
+                not isinstance(claim, dict)
+                or claim["owner"] != owner
+                or claim["executor_sha256"] != executor_context()
+            ):
                 raise ValueError("Claimed inference owner or executor changed")
             job = _job(output, claim["job"])
+            if job in seen:
+                raise ValueError("Private inference queue returned a duplicate job")
+            seen.add(job)
             if request_hash(claim["request"]) != claim["job"].split("/")[0]:
                 raise ValueError("Claimed inference request changed")
+            if job not in in_flight:
+                candidates.append((job, claim))
+        if len(candidates) + len(in_flight) > 4:
+            raise ValueError("Mac inference spool exceeds four active jobs")
+        for job, claim in candidates:
             job.mkdir(parents=True, exist_ok=True, mode=0o700)
             atomic_private(job / "claim.json", json_bytes(claim))
             jobs.append(job)
-    if len(jobs) > 4:
+    if len(jobs) + len(in_flight) > 4:
         raise ValueError("Mac inference spool exceeds four active jobs")
     return jobs
 
@@ -236,6 +263,81 @@ def _infer_jobs(
             client.close()
 
 
+def _complete_job(
+    job: Path, client: CodexClient | None, output: Path, connection: dict[str, Any]
+) -> None:
+    if not (job / "envelope.json").exists():
+        if client is None:
+            raise ValueError("New inference requires the exact installed dispatcher")
+        _execute(job, client)
+    _return(output, job, **connection)
+
+
+# Each future includes acknowledgment; a pending return stops further claims.
+# pylint: disable-next=too-many-locals,too-many-statements
+def _stream_jobs(
+    output: Path,
+    jobs: list[Path],
+    status: dict[str, Any],
+    client_factory: Callable[..., CodexClient],
+    connection: dict[str, Any],
+) -> int:
+    client: CodexClient | None = None
+    pending = list(jobs)
+    active: dict[Future[None], Path] = {}
+    failures: set[Path] = set()
+    total = len(jobs)
+    claim_failure: Exception | None = None
+    owner = _read(output / "owner.json")["owner"]
+    try:
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            while pending or active:
+                for job in pending:
+                    if client is None and not (job / "envelope.json").exists():
+                        client = client_factory(output / "dispatcher-journal")
+                    active[pool.submit(_complete_job, job, client, output, connection)] = job
+                pending.clear()
+                done, _ = wait(active, timeout=10, return_when=FIRST_COMPLETED)
+                for future in done:
+                    job = active.pop(future)
+                    try:
+                        future.result()
+                        status["completed"] += 1
+                    except Exception as failure:  # pylint: disable=broad-exception-caught
+                        failures.add(job)
+                        status["errors"][job.relative_to(output).as_posix()] = type(
+                            failure
+                        ).__name__
+                status["pending"] = len(active) + len(failures)
+                if done:
+                    atomic_private(output / "worker-status.json", json_bytes(status))
+                if not failures and claim_failure is None and len(active) < 4:
+                    try:
+                        pending = _load_jobs(
+                            output, owner, **connection, in_flight=frozenset(active.values())
+                        )
+                    except (
+                        ValueError,
+                        KeyError,
+                        TypeError,
+                        OSError,
+                        subprocess.SubprocessError,
+                    ) as failure:
+                        # Drain already owned futures before surfacing a bad claim.
+                        # Their completed evidence and acknowledgments remain intact.
+                        claim_failure = failure
+                        status["errors"]["claim"] = type(failure).__name__
+                        atomic_private(output / "worker-status.json", json_bytes(status))
+                    total += len(pending)
+                    status["pending"] += len(pending)
+        if claim_failure is not None:
+            raise claim_failure
+        return total
+    finally:
+        if client is not None:
+            client.close()
+
+
 def inference_once(
     *,
     host: str,
@@ -244,6 +346,7 @@ def inference_once(
     output: Path,
     transport: Path,
     client_factory: Callable[..., CodexClient] = CodexClient,
+    drain: bool = False,
 ) -> dict[str, Any]:
     """Run at most four isolated current jobs; never mirror a source corpus."""
     if platform.system() != "Darwin":
@@ -278,25 +381,40 @@ def inference_once(
             "errors": {},
         }
         atomic_private(output / "worker-status.json", json_bytes(status))
-        _infer_jobs(output, jobs, status, client_factory)
-        for job in jobs:
-            if not (job / "envelope.json").exists():
-                continue
-            try:
-                _return(
-                    output,
-                    job,
-                    host=host,
-                    executable=remote_executable,
-                    queue=remote_queue,
-                    transport=transport,
-                )
-                status["completed"] += 1
-            except Exception as failure:  # pylint: disable=broad-exception-caught
-                status["errors"][job.relative_to(output).as_posix()] = type(failure).__name__
+        total = len(jobs)
+        if drain:
+            total = _stream_jobs(
+                output,
+                jobs,
+                status,
+                client_factory,
+                {
+                    "host": host,
+                    "executable": remote_executable,
+                    "queue": remote_queue,
+                    "transport": transport,
+                },
+            )
+        else:
+            _infer_jobs(output, jobs, status, client_factory)
+            for job in jobs:
+                if not (job / "envelope.json").exists():
+                    continue
+                try:
+                    _return(
+                        output,
+                        job,
+                        host=host,
+                        executable=remote_executable,
+                        queue=remote_queue,
+                        transport=transport,
+                    )
+                    status["completed"] += 1
+                except Exception as failure:  # pylint: disable=broad-exception-caught
+                    status["errors"][job.relative_to(output).as_posix()] = type(failure).__name__
         status.update(
-            state="pending_return" if status["completed"] != len(jobs) else "idle",
-            pending=len(jobs) - status["completed"],
+            state="pending_return" if status["completed"] != total else "idle",
+            pending=total - status["completed"],
             ended_at=utc_now(),
         )
         atomic_private(output / "worker-status.json", json_bytes(status))
@@ -358,7 +476,7 @@ def monitored_inference(**kwargs: Any) -> dict[str, Any]:
     heartbeat_deadline = time.monotonic() + 900
     with ThreadPoolExecutor(max_workers=1) as pool:
         while True:
-            future = pool.submit(inference_once, **kwargs)
+            future = pool.submit(inference_once, **{**kwargs, "drain": True})
             batch, heartbeat_deadline = _await_batch(future, heartbeat_deadline, kwargs)
             completed += batch.get("completed", 0)
             batches += 1

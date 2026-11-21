@@ -83,7 +83,6 @@ an otherwise compatible Mac from draining already bound inference jobs. Ubuntu
 source review, policy activation and publication retain their protected-main code
 and policy checks. Native or model-permission changes fail the inference handshake.
 
-
 Fresh complete native frames and source-region inspection views use portable PNG
 encoding version 2. The encoder retains the byte-stable version-1 PNG structure,
 recompresses only its IDAT scanlines through standard zlib, and preserves every
@@ -313,8 +312,12 @@ original request, raw attempt and completion, returns an immutable transfer
 archive, and removes local spools only after Ubuntu independently verifies all
 evidence bytes. A lost acknowledgment resumes the same archive and job without
 another model call. A failed source or preservation check remains queued.
-After each verified batch, the monitor drains ready follow-up work with the
-same four-job bound, allowing a short grace period for Ubuntu's dependent phases.
+The monitor returns each completed job through independent Ubuntu verification
+while slower peers continue. It refills freed slots from ready follow-up work
+with the same four-job bound. A declared new-claim limit accounts for receipts
+that commit before a local future observes its acknowledgment. Owned jobs resume
+under their original owner and executor. The monitor allows a short grace period
+for Ubuntu's dependent phases.
 An empty queue returns to the existing 15-minute launch clock. Queue heartbeats
 continue across batches; pending returns stop draining and retain their exact
 archives for the next recovery attempt.
@@ -324,7 +327,6 @@ the unchanged Mac source before removing a local duplicate. Keep restoration
 receipts and original-path mappings private. Do not remove files used by live
 workers, infer quiescence from a lock file alone, or restart a job just because
 observation timed out.
-
 
 ## Retained dependency dispositions
 

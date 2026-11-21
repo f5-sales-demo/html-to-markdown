@@ -172,3 +172,27 @@ def test_interrupted_submission_never_exposes_an_incomplete_job(tmp_path, monkey
     monkeypatch.setattr(queue, "atomic_private", original)
     job = submit(root, body(), EXECUTOR)
     assert claim(root, OWNER, EXECUTOR)[0]["job"] == job
+
+
+def test_refill_returns_owned_jobs_and_only_the_declared_new_slots(tmp_path):
+    root = tmp_path / "queue"
+    for index in range(6):
+        request = body()
+        request["input"][0]["content"][0]["text"] += str(index)
+        submit(root, request, EXECUTOR)
+    original = {item["job"] for item in claim(root, OWNER, EXECUTOR, limit=3)}
+    assert len(original) == 3
+    resumed = claim(root, OWNER, EXECUTOR, new_limit=0)
+    assert {item["job"] for item in resumed} == original
+    refilled = claim(root, OWNER, EXECUTOR, new_limit=1)
+    assert len(refilled) == 4 and original < {item["job"] for item in refilled}
+    assert claim(root, OWNER, EXECUTOR, new_limit=4) == refilled
+
+
+@pytest.mark.parametrize("new_limit", [-1, 5, True, "1"])
+def test_invalid_declared_new_slot_count_cannot_claim_work(tmp_path, new_limit):
+    root = tmp_path / "queue"
+    job = submit(root, body(), EXECUTOR)
+    with pytest.raises(ValueError, match="available slots"):
+        claim(root, OWNER, EXECUTOR, new_limit=new_limit)
+    assert queue._read(root / job / "state.json")["state"] == "queued"

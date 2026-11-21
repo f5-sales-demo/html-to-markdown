@@ -33,8 +33,13 @@ def register_inference_commands(app: typer.Typer) -> None:
         queue_root: Annotated[Path, typer.Option(file_okay=False)],
         owner: Annotated[str, typer.Option()],
         executor_sha256: Annotated[str, typer.Option()],
+        new_limit: Annotated[int | None, typer.Option(min=0, max=4)] = None,
     ) -> None:
-        typer.echo(json.dumps(claim(queue_root, owner, executor_sha256), sort_keys=True))
+        typer.echo(
+            json.dumps(
+                claim(queue_root, owner, executor_sha256, new_limit=new_limit), sort_keys=True
+            )
+        )
 
     @app.command("inference-queue-status")
     def inference_status(
