@@ -43,6 +43,9 @@ from .source_boundary_review import (
     parse_source_response as parse_response,
 )
 from .source_curation import CurationRequired, preview_curation, record_exception
+from .source_exclusion import MARKER as EXCLUSION_MARKER
+from .source_exclusion import eligible as exclusion_eligible
+from .source_exclusion import read_relevance, review_exclusion
 from .source_media_references import media_destination_map, rewrite_media_references
 from .source_phase_bindings import (
     _privacy_budget,
@@ -615,31 +618,17 @@ def _review_one(
 ) -> dict[str, Any]:
     saved = json.loads(record.read_bytes())
     context, visual = _context(capture, output, saved)
-    if phase == "relevance":
+    if phase == "relevance" and not saved.get(EXCLUSION_MARKER):
         body = _request(EDITOR_MODEL, phase, context, visual, RelevanceDecision)
     else:
         relevance_body = _request(EDITOR_MODEL, "relevance", context, visual, RelevanceDecision)
-        relevance = parse_response(
-            ResponseEvidence.model_validate(saved["phases"]["relevance"]),
-            RelevanceDecision,
-            EDITOR_MODEL,
-            request_hash(relevance_body),
-        )
-        addresses = {block["address"] for block in context["structural_addresses"]}
-        if (
-            relevance.identity != context["identity"]
-            or relevance.binding_sha256 != context["binding_sha256"]
-            or not relevance.reason.strip()
-            or not relevance.evidence_addresses
-            or set(relevance.evidence_addresses) - addresses
-        ):
-            raise ValueError("relevance decision lacks grounded complete-source evidence")
-        if (
-            relevance.disposition == "review"
-            or relevance.extraction != "complete"
-            or relevance.retirement == "uncertain"
-        ):
-            raise ValueError("source relevance or extraction requires exception review")
+        relevance = read_relevance(saved, relevance_body, context)
+        if saved.get(EXCLUSION_MARKER) or (phase == "privacy" and exclusion_eligible(relevance)):
+            return review_exclusion(saved, context, visual, relevance, output, record, client)
+        if saved.get("privacy_exhausted") and phase in {"privacy", "validation"}:
+            raise ValueError(
+                "privacy proposal exhausted two corrections; unchanged privacy context remains queued"
+            )
         context["relevance_decision"] = relevance.model_dump()
         saved = _privacy_media_intake(capture, output, record, phase, client, context, visual)
         if phase == "privacy":
@@ -776,10 +765,15 @@ def _run_record_encoded(
 ) -> None:
     if json.loads(record.read_bytes()).get("cross_queue_evidence_blocked"):
         raise ValueError("prior source-review evidence requires repair before new privacy attempts")
-    if json.loads(record.read_bytes()).get("privacy_exhausted"):
-        raise ValueError(
-            "privacy proposal exhausted two corrections; unchanged privacy context remains queued"
-        )
+    saved = json.loads(record.read_bytes())
+    if saved.get("privacy_exhausted") and not saved.get(EXCLUSION_MARKER):
+        if not saved.get("phases", {}).get("relevance"):
+            raise ValueError(
+                "privacy proposal exhausted two corrections; unchanged privacy context remains queued"
+            )
+        # An existing exact exclusion can be independently checked without a
+        # new privacy proposal. Missing/stale classifications cannot buy inference.
+        review_one(capture, output, record, "relevance", None)
     phases = ["relevance", "privacy", "validation", "replay"] if phase == "all" else [phase]
     for current in phases:
         while True:

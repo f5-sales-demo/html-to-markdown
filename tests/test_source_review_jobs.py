@@ -250,6 +250,22 @@ class LocalClient:
                 extraction="complete",
                 retirement="independent",
             )
+        elif phase == "irrelevancevalidation":
+            output.update(
+                relevance_sha256=payload["relevance_sha256"],
+                privacy_history_sha256=payload["privacy_history_sha256"],
+                exclusion_basis="unrelated_content",
+                approved=True,
+                complete_document_reviewed=True,
+                complete_media_reviewed=True,
+                extraction_valid=True,
+                policy_versions_checked=True,
+                reason="Complete source is unrelated to Distributed Cloud",
+                evidence_addresses=[block["address"] for block in payload["structural_addresses"]],
+                media_coverage=payload["required_media_coverage"],
+                failures=[],
+                unresolved=[],
+            )
         elif phase == "privacydecision":
             output.update(findings=[], values=[], text_changes=[], media_changes=[], unresolved=[])
         elif phase == "admissionvalidation":
@@ -333,7 +349,11 @@ def test_independent_exclusion_remains_unpublished_and_requires_every_check(
             raw = response.response
             output = json.loads(raw["output"][0]["content"][0]["text"])
             if body["text"]["format"]["name"] == "relevancedecision":
-                output.update(disposition="exclude", reason="complete source is a lifecycle notice")
+                output.update(
+                    disposition="exclude",
+                    retirement="excluded",
+                    reason="complete source is a lifecycle notice",
+                )
             elif body["text"]["format"]["name"] == "admissionvalidation":
                 payload = json.loads(body["input"][0]["content"][0]["text"])
                 assert payload["relevance_decision"]["disposition"] == "exclude"

@@ -64,6 +64,15 @@ commit to the exact release tag before mounting the extracted tree read-only.
 
 ## Daily review evidence
 
+Complete unrelated candidates can use source-irrelevance/1. The original relevance
+proposal and an independent Sol High validator each receive the complete article,
+metadata and every original media frame. The validator must confirm irrelevance,
+complete extraction, current policies and exact frame coverage. Missing evidence
+or disagreement stays queued. The resulting policy exclusion publishes no files
+and grants no privacy approval; its request pins all prior privacy attempts and
+correction history. Relevant, lifecycle and retirement cases keep full admission,
+and historical full-admission exclusions replay under their original contract.
+
 Completed source decisions can replay across explicitly qualified controller changes.
 The packaged source_review_compatibility.json binds the current complete Python
 controller digest and each qualified prior controller to its released source commit,
