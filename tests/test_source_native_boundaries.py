@@ -35,6 +35,7 @@ from html_to_markdown.source_boundary_review import (
     parse_source_response,
     source_logical_request,
 )
+from html_to_markdown.source_input_projection import VERSION as PROJECTION_VERSION
 from html_to_markdown.source_phase_bindings import independently_validated_privacy
 
 
@@ -739,3 +740,32 @@ def test_final_finding_classification_composes_with_boundary_replay(small_limit,
     assert not has_retryable_boundary(completed)
     checked = reconciliation.replay_classification(completed, context, candidate, visual)
     assert checked["finding_decisions"] == [] and checked["body"] == candidate["body"]
+
+
+def test_projected_text_and_complete_native_partitions_compose(small_limit, tmp_path):
+    original = body(4)
+    payload = json.loads(original["input"][0]["content"][0]["text"])
+    metadata = {"format": "SVG", "source_xml": "M 0 0 L 1 1 " * 2000}
+    payload["fields"] = {}
+    payload["media"] = {
+        str(index): {"frame_count": 1, "frames": [{"frame": 0}]} for index in range(4)
+    }
+    for digest, media in payload["media"].items():
+        media["frames"][0]["metadata"] = metadata
+        payload["fields"]["media/" + digest + "/0/metadata"] = json.dumps(metadata, sort_keys=True)
+    original["input"][0]["content"][0]["text"] = json.dumps(payload)
+    client = Client()
+    result = execute_source_request(original, client, tmp_path / "projection")
+    assert result.source_boundary["version"] == PROJECTION_VERSION
+    nested = result.source_boundary["boundary"]
+    assert len(nested["parts"]) == 2
+    assert len(client.calls) == 5
+    assert source_logical_request(result) == original
+    assert (
+        parse_source_response(result, Probe, EDITOR_MODEL, request_hash(original)).identity
+        == "article"
+    )
+    changed = result.model_copy(deep=True)
+    changed.source_boundary["boundary"]["parts"].pop()
+    with pytest.raises(ValueError):
+        parse_source_response(changed, Probe, EDITOR_MODEL, request_hash(original))

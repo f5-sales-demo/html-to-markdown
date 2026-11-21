@@ -199,7 +199,7 @@ def independently_validated_privacy(previous: dict[str, Any]) -> bool:
             validation_model(validator.request),
             request_hash(source_logical_request(validator)),
         )
-        context = json.loads(validator.request["input"][0]["content"][0]["text"])
+        context = json.loads(source_logical_request(validator)["input"][0]["content"][0]["text"])
         core = {**source_core(previous["binding"]), "privacy_version": PRIVACY_VERSION}
         return (
             proposal.binding_sha256 == sha(json_bytes(core))
