@@ -11,6 +11,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import corpus_digest, json_bytes
 from .enrichment.analysis import sha
+from .source_provenance_chain import verify_provenance_transition
 from .source_review_jobs import verify_reviews
 
 MARKER = "source-review-receipt.json"
@@ -105,6 +106,7 @@ def verify_source(output: Path, digest: str) -> dict[str, Any]:
     if sha((root / "capture" / "inventory.json").read_bytes()) != receipt["inventory_sha256"]:
         raise ValueError("source capture inventory changed")
     verified = verify_reviews(root / "capture", root / "review")
+    contexts: set[str] = set()
     if (
         verified["inventory_sha256"] != receipt["review_inventory_sha256"]
         or verified["accepted_files"] != receipt["accepted_files"]
@@ -117,6 +119,8 @@ def verify_source(output: Path, digest: str) -> dict[str, Any]:
         if sha(path.read_bytes()) != entry["record_sha256"]:
             raise ValueError("source admission decision changed")
         record = json.loads(path.read_bytes())
+        if record["disposition"] in {"accepted", "policy_excluded"}:
+            contexts.add(record["binding"]["request_context_sha256"])
         if (
             record["disposition"] != entry["disposition"]
             or record["item"]["identity"] != entry["identity"]
@@ -129,12 +133,14 @@ def verify_source(output: Path, digest: str) -> dict[str, Any]:
     }
     if actual != verified["accepted_files"] or corpus_digest(output) != receipt["content_sha256"]:
         raise ValueError("source admitted content or media changed")
-    if "review_compatibility" in receipt and receipt["review_compatibility"] != verified.get(
-        "review_compatibility"
-    ):
-        raise ValueError("source controller compatibility provenance changed")
+    transition = {}
+    if "review_compatibility" in receipt:
+        transition = verify_provenance_transition(
+            receipt["review_compatibility"], verified.get("review_compatibility"), contexts, digest
+        )
     return {
         **receipt,
+        **({"review_compatibility_transition": transition} if transition else {}),
         **(
             {"review_compatibility": verified["review_compatibility"]}
             if "review_compatibility" in verified

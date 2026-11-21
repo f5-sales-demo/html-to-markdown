@@ -23,13 +23,13 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@8765ea04866322837722019417082fdf15512246
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@9e920631fbb331d9c09da97d478859d022075bb5
     with:
       content-ref: ${{ github.sha }}
       builder-image: ghcr.io/f5-sales-demo/docs-builder@sha256:2bdf67acbe66849e854b5d7ba813a56c495029848dd3fc179bab88f3f8c52861
       snapshot-tag: ${{ inputs.snapshot-tag }}
       publication-sha256: ${{ inputs.publication-sha256 }}
-      snapshot-verifier-ref: 8765ea04866322837722019417082fdf15512246
+      snapshot-verifier-ref: 9e920631fbb331d9c09da97d478859d022075bb5
       socketless_runner_label: managed-socketless
       container_build_runner_label: managed-container-build
     permissions:

@@ -10,6 +10,7 @@ from test_source_review_jobs import LocalClient
 
 from html_to_markdown import combined_sources as combined
 from html_to_markdown.combined_sources import combine_sources, verify_combined
+from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.engine import prepare as prepare_enrichment
 from html_to_markdown.enrichment.engine import replay, verify_enrichment
@@ -215,4 +216,20 @@ def test_changed_controller_provenance_cannot_bypass_combined_upstream_replay(
     }
     (output / "refresh-state.json").write_text(json.dumps(state))
     with pytest.raises(ValueError, match="controller compatibility provenance"):
+        verify_combined(output)
+
+
+def test_invented_source_transition_cannot_bypass_combined_upstream_replay(
+    capture, tmp_path, monkeypatch
+):
+    bundle, pin = admitted(capture, tmp_path, monkeypatch)
+    baseline, _, receipt = prepare(tmp_path / "baseline-fixture")
+    output = tmp_path / "combined"
+    state = combine_sources(baseline, {"my-f5-com": (bundle, pin)}, output, receipt)
+    state["sources"]["my-f5-com"]["review_compatibility_transition"] = {
+        "source_receipt_sha256": pin,
+        "source_and_decisions_unchanged": True,
+    }
+    (output / "refresh-state.json").write_bytes(json_bytes(state))
+    with pytest.raises(ValueError, match="provenance transition"):
         verify_combined(output)
