@@ -32,7 +32,7 @@ from .media_observation_jobs import (
 )
 from .models import PageMetadata
 from .render import serialize_document, split_document
-from .review_controller_compatibility import admission_binding, replay_provenance
+from .review_controller_compatibility import admission_binding
 from .review_priorities import ReviewPriorities, select_records
 from .source_boundary_review import (
     execute_source_phase,
@@ -79,6 +79,7 @@ from .source_review_reconciliation import (
     replay_classification,
     review_final_findings,
 )
+from .source_review_replay import verify_source_reviews
 
 
 def _article_html(capture: Path, item: dict[str, Any]) -> str:
@@ -946,49 +947,5 @@ def run_reviews(
 
 
 def verify_reviews(capture: Path, output: Path) -> dict[str, Any]:
-    """Replay complete source admission without inference; inspect retained bytes."""
-    inventory = json.loads((output / "review-inventory.json").read_bytes())
-    expected = {}
-    contexts: set[str] = set()
-    for record in inventory["documents"]:
-        if "path" not in record:
-            continue
-        path = output / record["path"]
-        saved = json.loads(path.read_bytes())
-        if saved["disposition"] not in {"accepted", "policy_excluded"}:
-            continue
-        # Replay into an isolated copy so verification never repairs its target.
-        with tempfile.TemporaryDirectory(prefix="source-review-replay-") as directory:
-            scratch = Path(directory)
-            if (output / "media").exists():
-                digests = {media["sha256"] for media in saved["item"]["media"]}
-                digests.update(saved.get("file_hashes", {}).values())
-                for digest in sorted(digests):
-                    for version in (2, 3):
-                        cache = output / "media" / f"{digest}-native-{version}.json"
-                        if cache.is_file():
-                            atomic_private(scratch / "media" / cache.name, cache.read_bytes())
-            copy = scratch / "document.json"
-            atomic_private(copy, path.read_bytes())
-            actual = review_one(capture, scratch, copy, "replay", None)
-            if actual != saved:
-                raise ValueError("source admission replay differs from receipt")
-        contexts.add(saved["binding"]["request_context_sha256"])
-        if saved["disposition"] == "accepted":
-            for relative, digest in saved["file_hashes"].items():
-                relative = Path(relative).relative_to("articles").as_posix()
-                if sha((output / "reviewed" / relative).read_bytes()) != digest:
-                    raise ValueError("reviewed article or media bytes changed")
-                expected[relative] = digest
-    actual = {
-        path.relative_to(output / "reviewed").as_posix(): sha(path.read_bytes())
-        for path in (output / "reviewed").rglob("*")
-        if path.is_file()
-    }
-    if expected != actual:
-        raise ValueError("source reviewed inventory differs from accepted admissions")
-    return {
-        "accepted_files": expected,
-        "inventory_sha256": sha((output / "review-inventory.json").read_bytes()),
-        **replay_provenance(contexts),
-    }
+    """Replay every complete admission through the bounded independent verifier."""
+    return verify_source_reviews(capture, output, review_one)
