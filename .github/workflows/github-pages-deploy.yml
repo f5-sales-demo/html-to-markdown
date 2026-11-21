@@ -29,7 +29,7 @@ jobs:
       builder-image: ghcr.io/f5-sales-demo/docs-builder@sha256:2bdf67acbe66849e854b5d7ba813a56c495029848dd3fc179bab88f3f8c52861
       snapshot-tag: ${{ inputs.snapshot-tag }}
       publication-sha256: ${{ inputs.publication-sha256 }}
-      snapshot-verifier-ref: af3a97612d697b02e315dad66c8b3d8146eee3c7
+      snapshot-verifier-ref: 8765ea04866322837722019417082fdf15512246
       socketless_runner_label: managed-socketless
       container_build_runner_label: managed-container-build
     permissions:
