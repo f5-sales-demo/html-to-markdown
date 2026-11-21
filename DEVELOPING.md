@@ -64,6 +64,26 @@ commit to the exact release tag before mounting the extracted tree read-only.
 
 ## Daily review evidence
 
+Completed source decisions can replay across explicitly qualified controller changes.
+The packaged source_review_compatibility.json binds the current complete Python
+controller digest and each qualified prior controller to its released source commit,
+wheel digest and original request context. Every captured source, article, authored
+metadata, media, policy and model guard must still match. Replay reconstructs the
+complete original logical requests and checks their exact hashes against preserved
+responses; native coverage, privacy enforcement, current retirement/API planning and
+output digests remain mandatory. Unknown controller pairs and changed core inputs
+stay queued. Compatibility never grants an exhausted or pending proposal another
+editorial allowance. Preserved source receipts remain immutable; refresh evidence
+records the compatibility registry and controller pins when historical inputs are used.
+
+Mac inference synchronizes the actual installed native executor and model-policy
+contract through export-inference-executor. Every queued job still requires its exact
+executor and request digest. A protected-main processing-code update cannot prevent
+an otherwise compatible Mac from draining already bound inference jobs. Ubuntu
+source review, policy activation and publication retain their protected-main code
+and policy checks. Native or model-permission changes fail the inference handshake.
+
+
 Fresh complete native frames and source-region inspection views use portable PNG
 encoding version 2. The encoder retains the byte-stable version-1 PNG structure,
 recompresses only its IDAT scanlines through standard zlib, and preserves every

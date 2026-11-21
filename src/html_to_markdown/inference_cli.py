@@ -10,6 +10,7 @@ from typing import Annotated
 
 import typer
 
+from .inference_executor_contract import contract
 from .inference_queue import claim, queue_status, receive
 from .inference_services import (
     activate_inference_agent,
@@ -22,6 +23,10 @@ from .mac_worker import worker_once
 
 def register_inference_commands(app: typer.Typer) -> None:
     """Keep inference transport separate from consumer and publication commands."""
+
+    @app.command("export-inference-executor")
+    def executor_contract() -> None:
+        typer.echo(json.dumps(contract(), sort_keys=True))
 
     @app.command("claim-inference-jobs")
     def claim_jobs(

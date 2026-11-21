@@ -199,3 +199,20 @@ def test_replacement_builds_are_identical_across_metadata_media_aliases_and_arch
     ]
     for name in names:
         assert (first / name).read_bytes() == (second / name).read_bytes(), name
+
+
+def test_changed_controller_provenance_cannot_bypass_combined_upstream_replay(
+    capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    bundle, pin = admitted(capture, tmp_path, monkeypatch)
+    baseline, _, receipt = prepare(tmp_path / "baseline-fixture")
+    output = tmp_path / "combined"
+    state = combine_sources(baseline, {"my-f5-com": (bundle, pin)}, output, receipt)
+    state["sources"]["my-f5-com"]["review_compatibility"] = {
+        "registry_sha256": "0" * 64,
+        "controller_sha256": "1" * 64,
+        "prior_request_context_sha256": ["2" * 64],
+    }
+    (output / "refresh-state.json").write_text(json.dumps(state))
+    with pytest.raises(ValueError, match="controller compatibility provenance"):
+        verify_combined(output)
