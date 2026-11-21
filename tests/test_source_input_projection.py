@@ -1,6 +1,7 @@
 import copy
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -21,7 +22,7 @@ from html_to_markdown.source_input_projection import (
 from html_to_markdown.source_review import PrivacyDecision, addressed_spans
 
 
-def logical_request() -> dict:
+def logical_request() -> dict[str, Any]:
     xml = '<svg><path d="' + "M 0 0 L 1 1 " * 2000 + '"/></svg>'
     metadata = {"format": "SVG", "source_xml": xml}
     encoded = json.dumps(metadata, sort_keys=True)
@@ -116,9 +117,9 @@ def test_changed_original_guard_table_is_rejected() -> None:
 
 class Client:
     def __init__(self) -> None:
-        self.requests = []
+        self.requests: list[dict[str, Any]] = []
 
-    def execute(self, body: dict) -> ResponseEvidence:
+    def execute(self, body: dict[str, Any]) -> ResponseEvidence:
         self.requests.append(body)
         result = {
             "identity": "www-f5-com:example",
