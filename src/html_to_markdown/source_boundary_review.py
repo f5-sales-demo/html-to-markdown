@@ -27,6 +27,15 @@ from .source_boundary_requests import (
     partition_request,
     phase_checks,
 )
+from .source_input_projection import MARKER as INPUT_MARKER
+from .source_input_projection import VERSION as INPUT_VERSION
+from .source_input_projection import project_source_request
+
+
+class InputProjectionProof(StrictModel):
+    version: str
+    logical_request: dict[str, Any]
+    boundary: dict[str, Any] | None = None
 
 
 class BoundaryPartEvidence(StrictModel):
@@ -75,6 +84,8 @@ def has_retryable_boundary(saved: dict[str, Any]) -> bool:
 
 def source_logical_request(evidence: ResponseEvidence) -> dict[str, Any]:
     if evidence.source_boundary is not None:
+        if evidence.source_boundary.get("version") == INPUT_VERSION:
+            return InputProjectionProof.model_validate(evidence.source_boundary).logical_request
         return BoundaryProof.model_validate(evidence.source_boundary).logical_request
     return evidence.request
 
@@ -169,6 +180,19 @@ def _summary(
 
 def validate_boundary_evidence(evidence: ResponseEvidence) -> dict[str, Any]:
     """Reconstruct every leaf request and final actual request; no response is rebound."""
+    if evidence.source_boundary and evidence.source_boundary.get("version") == INPUT_VERSION:
+        projected = InputProjectionProof.model_validate(evidence.source_boundary)
+        actual = project_source_request(projected.logical_request)
+        if actual is None:
+            raise ValueError("source projection proof does not contain a projectable request")
+        if projected.boundary is None:
+            if evidence.request != actual or evidence.request_sha256 != request_hash(actual):
+                raise ValueError("actual projected source request changed or is rebound")
+        else:
+            nested = evidence.model_copy(update={"source_boundary": projected.boundary})
+            if validate_boundary_evidence(nested) != actual:
+                raise ValueError("projected source boundary does not cover the complete request")
+        return projected.logical_request
     proof = BoundaryProof.model_validate(evidence.source_boundary)
     if proof.version != VERSION:
         raise ValueError("unsupported source native boundary proof version")
@@ -206,7 +230,7 @@ def parse_source_response(
     if evidence.source_boundary is None:
         content = evidence.request.get("input", [{}])[0].get("content", [{}])[0]
         payload = json.loads(content["text"]) if "text" in content else None
-        if isinstance(payload, dict) and MARKER in payload:
+        if isinstance(payload, dict) and (MARKER in payload or INPUT_MARKER in payload):
             raise ValueError("final source response is missing its complete boundary evidence")
         return parse_response(evidence, schema, model, expected_request_hash)
     logical = validate_boundary_evidence(evidence)
@@ -249,6 +273,7 @@ def _part_response(
             _retire(path, client, previous)
     if client is None:
         raise ValueError("complete native source part evidence is unavailable")
+    _check_input_size(body, path.parent)
     evidence = ResponseEvidence.model_validate(client.execute(body))
     atomic_write(path, json_bytes(evidence.model_dump(mode="json")))
     if evidence.error:
@@ -290,7 +315,67 @@ def _review_partition(
     return evidence, _summary(evidence, analysis, validation)
 
 
+def _check_input_size(body: dict[str, Any], checkpoint: Path) -> None:
+    texts = [
+        content["text"]
+        for message in body.get("input", [])
+        for content in message.get("content", [])
+        if content.get("type") == "input_text"
+    ]
+    characters = len("\n\n".join(texts))
+    if characters <= 1048576:
+        return
+    if checkpoint.is_symlink() or any(parent.is_symlink() for parent in checkpoint.parents):
+        raise ValueError("unsafe source input limit checkpoint")
+    checkpoint.mkdir(mode=0o700, parents=True, exist_ok=True)
+    raw = json_bytes(body)
+    original = checkpoint / "input-limit-request.json"
+    if original.exists() and original.read_bytes() != raw:
+        raise ValueError("preserved oversized source request changed")
+    if not original.exists():
+        atomic_write(original, raw)
+    atomic_write(
+        checkpoint / "input-limit.json",
+        json_bytes(
+            {
+                "request_sha256": request_hash(body),
+                "characters": characters,
+                "maximum_characters": 1048576,
+                "inference_invoked": False,
+            }
+        ),
+    )
+    raise ValueError("complete source input exceeds native character limit; full input preserved")
+
+
 def execute_source_request(body: dict[str, Any], client: Any, checkpoint: Path) -> ResponseEvidence:
+    projected = project_source_request(body)
+    if projected is None:
+        return _execute_native_source_request(body, client, checkpoint)
+    directory = checkpoint / INPUT_VERSION.replace("/", "-")
+    if directory.is_symlink() or any(parent.is_symlink() for parent in directory.parents):
+        raise ValueError("unsafe projected source checkpoint path")
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    for name, data in (("logical-request.json", body), ("projected-request.json", projected)):
+        path = directory / name
+        raw = json_bytes(data)
+        if path.exists() and path.read_bytes() != raw:
+            raise ValueError("preserved projected source request changed")
+        if not path.exists():
+            atomic_write(path, raw)
+    actual = _execute_native_source_request(projected, client, directory / "native")
+    proof = InputProjectionProof(
+        version=INPUT_VERSION, logical_request=body, boundary=actual.source_boundary
+    )
+    result = actual.model_copy(update={"source_boundary": proof.model_dump(mode="json")})
+    atomic_write(directory / "final-response.json", json_bytes(result.model_dump(mode="json")))
+    return result
+
+
+def _execute_native_source_request(
+    body: dict[str, Any], client: Any, checkpoint: Path
+) -> ResponseEvidence:
+    _check_input_size(body, checkpoint)
     plan = boundary_plan(body)
     if plan is None:
         return ResponseEvidence.model_validate(client.execute(body))
@@ -311,6 +396,7 @@ def execute_source_request(body: dict[str, Any], client: Any, checkpoint: Path) 
         parts.append(evidence)
         summaries.append(summary)
     final_body = final_request(body, plan, summaries)
+    _check_input_size(final_body, checkpoint)
     final = ResponseEvidence.model_validate(client.execute(final_body))
     proof = BoundaryProof(version=VERSION, logical_request=body, coverage_plan=plan, parts=parts)
     result = final.model_copy(update={"source_boundary": proof.model_dump(mode="json")})

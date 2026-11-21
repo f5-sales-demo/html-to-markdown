@@ -28,7 +28,15 @@ def source_batches(
 ) -> list[tuple[Path, str]]:
     inventory = json.loads((capture / "inventory.json").read_bytes())
     first = inventory["documents"][0]
-    payload = b"large captured evidence " * (1024 * 128)
+    authored = (capture / first["source_html_path"]).read_bytes()
+    # Delivery keeps large raw evidence; admission reviews its complete authored article.
+    payload = (
+        b"<html><body><article>"
+        + authored
+        + b"</article><aside>"
+        + b"large captured evidence " * (1024 * 128)
+        + b"</aside></body></html>"
+    )
     html_path = "captures/" + sha(payload) + ".html"
     atomic_private(capture / html_path, payload)
     first.update(source_html_path=html_path, source_html_sha256=sha(payload))
