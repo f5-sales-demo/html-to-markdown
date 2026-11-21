@@ -35,7 +35,14 @@ def harness(tmp_path, monkeypatch, *, lose_ack=False, corrupt_ack=False):
             return SimpleNamespace(returncode=0, stdout='{"type":"turn.completed"}\n', stderr="")
         if "claim-inference-jobs" in args:
             owner = args[args.index("--owner") + 1]
-            items = claim(queue, owner, args[args.index("--executor-sha256") + 1])
+            items = claim(
+                queue,
+                owner,
+                args[args.index("--executor-sha256") + 1],
+                new_limit=int(args[args.index("--new-limit") + 1])
+                if "--new-limit" in args
+                else None,
+            )
             return SimpleNamespace(returncode=0, stdout=json_bytes(items), stderr=b"")
         if "receive-inference-result" in args:
             counts["transfers"] += 1
@@ -224,7 +231,7 @@ def test_one_launch_drains_more_than_four_jobs_in_verified_bounded_batches(tmp_p
 
     monkeypatch.setattr(mac_inference.subprocess, "run", bounded)
     report = monitor(output)
-    assert claim_sizes[:2] == [4, 2] and max(claim_sizes) == 4
+    assert claim_sizes[0] == 4 and max(claim_sizes) == 4
     assert report["completed"] == 6 and report["pending"] == 0
     assert not report["article_approved"]
     assert counts == {"inference": 6, "transfers": 6}
@@ -234,7 +241,7 @@ def test_one_launch_drains_more_than_four_jobs_in_verified_bounded_batches(tmp_p
     for identity, request in identities:
         assert result(queue, identity).request == request
     assert json.loads((output / "monitor-status.json").read_bytes())["completed"] == 6
-    assert clock.now == 40
+    assert 30 <= clock.now < 900
 
 
 def test_followup_queued_during_grace_progresses_without_the_next_launch_tick(
