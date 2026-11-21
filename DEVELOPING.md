@@ -138,6 +138,17 @@ editor allowance. Final replay rejects weaker or altered ledgers. Standalone
 qualification can set `HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT` to the same private
 worker root; normal processing sets it from its output directory.
 
+Baseline review batches share a bounded in-memory history lookup. It parses each
+unique digest-verified history once, retaining only five source identity strings.
+Every duplicate copy is still independently hashed before lookup reuse. Every
+lookup enumerates custody again, discovers newly added histories, and fully checks
+matching records against original source/proposal/budget evidence. Before returning
+a batch, the controller streams and hashes every indexed history again and rejects
+unobserved additions, removals, symlinks or changed bytes. Filesystem timestamps
+never grant approval. Failed final integrity verification queues the whole batch;
+saved responses and exhausted allowances remain intact. The private batch report
+records parsing and hashing byte counts separately from article eligibility.
+
 Source workers select a current review frontier before each sweep. The default
 `list-review-queues` still enumerates all captured queues; `--review-frontier`
 prioritizes capture epochs and defers an older queue only when strictly newer
