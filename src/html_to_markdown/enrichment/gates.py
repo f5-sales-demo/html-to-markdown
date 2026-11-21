@@ -32,6 +32,7 @@ def parse_response(
             PROMPT_VERSION,
             "article-enrichment/2",
             "source-admission/1",
+            "source-irrelevance/1",
             "source-privacy/2",
             "native-media-observation/1",
             "curation-renewal/1",
