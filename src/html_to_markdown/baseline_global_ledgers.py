@@ -10,18 +10,11 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
+from .baseline_history_lookup import SOURCE_KEYS, HistoryLookup, history_roots
 from .baseline_review_renewal import ORIGINAL_FIELDS, prepare_existing_proposal
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
-
-SOURCE_KEYS = (
-    "input_kind",
-    "baseline_receipt_sha256",
-    "baseline_article",
-    "baseline_article_sha256",
-    "source_files_sha256",
-)
 
 
 def _same_source(left: dict[str, Any], right: dict[str, Any]) -> bool:
@@ -104,28 +97,38 @@ def source_lock(record: Path, worker_root: Path) -> Iterator[None]:
 
 
 def _candidates(
-    output: Path, record: Path, worker_root: Path, wanted: dict[str, Any]
+    output: Path,
+    record: Path,
+    worker_root: Path,
+    wanted: dict[str, Any],
+    *,
+    lookup: HistoryLookup | None = None,
 ) -> Iterator[tuple[Path, dict[str, Any], bytes]]:
-    roots = {output}
-    # A queue can retain immutable history after its current record is retired.
-    # Discover custody roots independently of the current document filename.
-    for root in worker_root.glob("*/*/curation-renewal/dependency-privacy"):
-        _safe(root)
-        if root.is_dir():
-            roots.add(root)
-    for root in sorted(roots):
+    if lookup is not None and (lookup.output != output or lookup.worker_root != worker_root):
+        raise ValueError("retained privacy history lookup custody mismatch")
+    indexed = lookup.paths(wanted) if lookup is not None else None
+    for root in history_roots(output, worker_root):
         target = root / "documents" / record.name
         _safe(target)
         _safe(root / "history")
         if target.is_file():
             data = target.read_bytes()
+            if lookup is not None:
+                lookup.watch_current(target, sha(data))
             saved = json.loads(data)
             if _same_source(saved.get("binding", {}), wanted):
                 _verify_source(root, saved)
                 original, original_bytes = _original(root, saved)
                 _verify_source(root, original)
                 yield target, original, original_bytes
-        for path in sorted((root / "history").glob("*.json")):
+        elif lookup is not None:
+            lookup.watch_current(target, None)
+        paths = (
+            [path for path in indexed if path.parent.parent == root]
+            if indexed is not None
+            else sorted((root / "history").glob("*.json"))
+        )
+        for path in paths:
             _safe(path)
             data = path.read_bytes()
             if sha(data) != path.stem:
@@ -151,7 +154,12 @@ def _ledger_digest(saved: dict[str, Any]) -> str:
 
 
 def reconcile_record(
-    output: Path, record: Path, worker_root: Path, execution_sha256: str
+    output: Path,
+    record: Path,
+    worker_root: Path,
+    execution_sha256: str,
+    *,
+    lookup: HistoryLookup | None = None,
 ) -> dict[str, Any]:
     """Carry the strongest exact-source ledger without granting an approval."""
     _safe(output)
@@ -166,15 +174,15 @@ def reconcile_record(
     original, previous_bytes = _original(output, current)
     strongest = (len(original.get("privacy_feedback", [])), original, previous_bytes, str(record))
     strongest_ledgers = {_ledger_digest(original)}
-    evidence: list[dict[str, Any]] = []
-    seen = set()
-    for candidate, previous, previous_bytes in _candidates(output, record, worker_root, wanted):
+    evidence: dict[str, dict[str, Any]] = {}
+    for candidate, previous, previous_bytes in _candidates(
+        output, record, worker_root, wanted, lookup=lookup
+    ):
         previous_digest = sha(previous_bytes)
-        if previous_digest in seen:
+        if previous_digest in evidence:
             continue
-        seen.add(previous_digest)
         count = len(previous.get("privacy_feedback", []))
-        evidence.append({"record_sha256": previous_digest, "feedback_entries": count})
+        evidence[previous_digest] = {"record_sha256": previous_digest, "feedback_entries": count}
         if count > strongest[0]:
             strongest_ledgers = {_ledger_digest(previous)}
         elif count == strongest[0]:
@@ -192,15 +200,17 @@ def reconcile_record(
         not original.get("phases", {}).get("privacy")
         and strongest[1].get("phases", {}).get("privacy")
     ):
-        previous = strongest[1]
-        if not previous.get("phases", {}).get("privacy"):
+        if not strongest[1].get("phases", {}).get("privacy"):
             raise ValueError("stronger retained privacy ledger lacks its original proposal")
         # Exact source custody is rechecked at the destination. Only immutable
         # original evidence is copied; response contexts and budgets are intact.
-        _verify_source(output, previous)
+        _verify_source(output, strongest[1])
         atomic_private(output / "history" / (sha(current_bytes) + ".json"), current_bytes)
         atomic_private(output / "history" / (sha(strongest[2]) + ".json"), strongest[2])
-        renewed = prepare_existing_proposal(output, previous, wanted, execution_sha256)
+        if lookup is not None:
+            lookup.remember(output / "history" / (sha(current_bytes) + ".json"))
+            lookup.remember(output / "history" / (sha(strongest[2]) + ".json"))
+        renewed = prepare_existing_proposal(output, strongest[1], wanted, execution_sha256)
         if renewed is None or renewed["existing_proposal_pending"]["new_editor_proposals"] != 0:
             raise ValueError("retained privacy reconciliation would change an editorial allowance")
         if len(renewed["privacy_feedback"]) != strongest[0]:
@@ -212,13 +222,15 @@ def reconcile_record(
             "new_editor_proposals": 0,
         }
         atomic_private(record, json_bytes(renewed))
+        if lookup is not None:
+            lookup.update_current(record)
         changed = True
     result = {
         "identity": current["identity"],
         "source_files_sha256": wanted["source_files_sha256"],
         "strongest_feedback_entries": strongest[0],
         "strongest_record_sha256": sha(strongest[2]),
-        "matching_evidence": sorted(evidence, key=lambda item: item["record_sha256"]),
+        "matching_evidence": sorted(evidence.values(), key=lambda item: item["record_sha256"]),
         "changed": changed,
         "new_editor_proposals": 0 if changed else None,
         "article_approved": False,
@@ -257,13 +269,15 @@ def verify_record_ledger(output: Path, saved: dict[str, Any]) -> None:
         raise ValueError("retained privacy ledger or original proposal was superseded")
 
 
-def verify_strongest_ledger(output: Path, record: Path, worker_root: Path) -> None:
+def verify_strongest_ledger(
+    output: Path, record: Path, worker_root: Path, *, lookup: HistoryLookup | None = None
+) -> None:
     """Read-only final replay rejects a weaker source ledger without repairing it."""
     saved = json.loads(record.read_bytes())
     _verify_source(output, saved)
     verify_record_ledger(output, saved)
     count = len(saved.get("privacy_feedback", []))
-    for _, original, _ in _candidates(output, record, worker_root, saved["binding"]):
+    for _, original, _ in _candidates(output, record, worker_root, saved["binding"], lookup=lookup):
         if len(original.get("privacy_feedback", [])) > count:
             raise ValueError("retained source has a stronger prior privacy ledger")
         if (
@@ -277,7 +291,12 @@ def verify_strongest_ledger(output: Path, record: Path, worker_root: Path) -> No
 def reconcile_batch(
     output: Path, inventory: dict[str, Any], worker_root: Path, execution_sha256: str
 ) -> list[dict[str, Any]]:
-    return [
-        reconcile_record(output, output / item["path"], worker_root, execution_sha256)
+    lookup = HistoryLookup(output, worker_root)
+    results = [
+        reconcile_record(
+            output, output / item["path"], worker_root, execution_sha256, lookup=lookup
+        )
         for item in inventory["documents"]
     ]
+    lookup.verify()
+    return results
