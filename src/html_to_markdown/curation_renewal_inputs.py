@@ -11,8 +11,9 @@ from .curation import canonical, json_bytes, load_curation_policy
 from .curation_renewal import proposal_context
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
-from .enrichment.gates import parse_response, request_hash
+from .enrichment.gates import request_hash
 from .media_observation_jobs import confirmed_media_values as _confirmed_media_values
+from .source_boundary_review import parse_source_response as parse_response
 from .source_phase_bindings import privacy_context
 from .source_review import PrivacyDecision, RelevanceDecision
 from .source_review_jobs import _compile, _context, _request
