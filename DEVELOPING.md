@@ -325,9 +325,10 @@ The monitor returns each completed job through independent Ubuntu verification
 while slower peers continue. It refills freed slots from ready follow-up work
 with the same four-job bound. A declared new-claim limit accounts for receipts
 that commit before a local future observes its acknowledgment. Owned jobs resume
-under their original owner and executor. The monitor allows a short grace period
-for Ubuntu's dependent phases.
-An empty queue returns to the existing 15-minute launch clock. Queue heartbeats
+under their original owner and executor. After completed work, the monitor remains
+available for up to 15 quiet minutes for Ubuntu's dependent phases, reporting
+`waiting_for_followup`. Empty polls run no inference. An initially empty queue
+returns immediately to the existing 15-minute launch clock. Queue heartbeats
 continue across batches; pending returns stop draining and retain their exact
 archives for the next recovery attempt.
 

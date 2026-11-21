@@ -1,3 +1,3 @@
 """F5 HTML-to-Markdown snapshot pipeline."""
 
-__version__ = "1.14.39"
+__version__ = "1.14.40"

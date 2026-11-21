@@ -241,7 +241,7 @@ def test_one_launch_drains_more_than_four_jobs_in_verified_bounded_batches(tmp_p
     for identity, request in identities:
         assert result(queue, identity).request == request
     assert json.loads((output / "monitor-status.json").read_bytes())["completed"] == 6
-    assert 30 <= clock.now < 900
+    assert 900 <= clock.now < 1800
 
 
 def test_followup_queued_during_grace_progresses_without_the_next_launch_tick(
@@ -265,7 +265,7 @@ def test_followup_queued_during_grace_progresses_without_the_next_launch_tick(
     report = monitor(output)
     assert report["completed"] == 2 and counts == {"inference": 2, "transfers": 2}
     assert result(queue, submitted[0]) is not None
-    assert clock.now < 900
+    assert 900 <= clock.now < 1800
 
 
 def test_initial_empty_queue_exits_without_an_idle_grace_wait(tmp_path, monkeypatch):
@@ -279,6 +279,36 @@ def test_initial_empty_queue_exits_without_an_idle_grace_wait(tmp_path, monkeypa
     monkeypatch.setattr(mac_inference.time, "sleep", lambda _: pytest.fail("unexpected idle wait"))
     assert monitor(tmp_path)["completed"] == 0
     assert len(calls) == 1
+
+
+@pytest.mark.parametrize("preparation_seconds", [45, 266, 600])
+def test_delayed_ubuntu_followup_runs_in_the_same_monitor(
+    tmp_path, monkeypatch, preparation_seconds
+):
+    queue, output, first, _, counts = harness(tmp_path, monkeypatch)
+    clock = Clock()
+    submitted = []
+    observed = []
+
+    def sleep(seconds):
+        clock.sleep(seconds)
+        observed.append(json.loads((output / "monitor-status.json").read_bytes())["state"])
+        if clock.now >= preparation_seconds and not submitted:
+            assert result(queue, first) is not None
+            assert not list((output / "jobs").glob("*/*/claim.json"))
+            request = body()
+            request["input"][0]["content"][0]["text"] += " delayed dependent phase"
+            submitted.append(submit(queue, request, executor_context()))
+
+    monkeypatch.setattr(mac_inference.time, "monotonic", lambda: clock.now)
+    monkeypatch.setattr(mac_inference.time, "sleep", sleep)
+    report = monitor(output)
+    assert submitted, "ready follow-up must not require another launch tick"
+    assert report["completed"] == 2 and counts == {"inference": 2, "transfers": 2}
+    assert result(queue, submitted[0]) is not None
+    assert "waiting_for_followup" in observed
+    assert report["state"] == "idle" and report["pending"] == 0
+    assert preparation_seconds <= clock.now < preparation_seconds + 1800
 
 
 def test_monitor_stops_on_lost_ack_and_preserves_the_same_resumable_archive(tmp_path, monkeypatch):
@@ -353,6 +383,9 @@ def test_heartbeat_deadline_survives_successive_short_batches(tmp_path, monkeypa
     monkeypatch.setattr(mac_inference.time, "sleep", clock.sleep)
     monkeypatch.setattr(mac_inference.subprocess, "run", poll)
     report = monitor(tmp_path)
-    assert report["completed"] == 3 and len(batches) == 4
-    assert polls == [1220]
+    assert report["completed"] == 3 and len(batches) >= 4
+    assert polls[0] == 1220
+    assert all(
+        900 <= later - earlier < 1320 for earlier, later in zip(polls, polls[1:], strict=False)
+    )
     assert json.loads((tmp_path / "queue-heartbeat.json").read_bytes())["queue"]["owned"] == 4
