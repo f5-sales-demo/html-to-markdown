@@ -2,22 +2,34 @@
 
 import json
 from threading import Event, Lock
+from types import SimpleNamespace
 
+import pytest
 from test_codex_worker import body
 from test_mac_inference import Clock, harness, monitor
 
 from html_to_markdown import mac_inference
+from html_to_markdown.curation import json_bytes
+from html_to_markdown.enrichment.gates import request_hash
 from html_to_markdown.enrichment.queued_client import executor_context
 from html_to_markdown.inference_queue import result, submit
 
+# These regressions exercise private spool and dispatch invariants directly.
+# pylint: disable=protected-access
 
-def test_fast_receipt_and_followup_advance_before_slow_peer_finishes(tmp_path, monkeypatch):
-    queue, output, fast, _, counts = harness(tmp_path, monkeypatch)
+
+def _peers(queue):
     roles = {}
     for role in ["slow", "peer-a", "peer-b"]:
         request = body()
         request["input"][0]["content"][0]["text"] += " " + role
         roles[role] = submit(queue, request, executor_context())
+    return roles
+
+
+def test_fast_receipt_and_followup_advance_before_slow_peer_finishes(tmp_path, monkeypatch):
+    queue, output, fast, _, counts = harness(tmp_path, monkeypatch)
+    roles = _peers(queue)
     slow_started, fast_received, followup_started = Event(), Event(), Event()
     timed_out = Event()
     guard = Lock()
@@ -47,7 +59,7 @@ def test_fast_receipt_and_followup_advance_before_slow_peer_finishes(tmp_path, m
                 activity["live"] -= 1
 
     def transport(args, **kwargs):
-        response = original_run(args, **kwargs)
+        response = original_run(args, check=kwargs.pop("check", False), **kwargs)
         if "receive-inference-result" in args and args[args.index("--job") + 1] == fast:
             assert result(queue, fast) is not None
             request = body()
@@ -80,13 +92,6 @@ def test_fast_receipt_and_followup_advance_before_slow_peer_finishes(tmp_path, m
 
 
 def test_duplicate_claims_are_rejected_before_spool_mutation(tmp_path, monkeypatch):
-    from types import SimpleNamespace
-
-    import pytest
-
-    from html_to_markdown.curation import json_bytes
-    from html_to_markdown.enrichment.gates import request_hash
-
     owner = "a" * 32
     request = body()
     claim = {
@@ -113,13 +118,6 @@ def test_duplicate_claims_are_rejected_before_spool_mutation(tmp_path, monkeypat
 
 
 def test_oversized_refill_is_rejected_before_any_new_spool_is_written(tmp_path, monkeypatch):
-    from types import SimpleNamespace
-
-    import pytest
-
-    from html_to_markdown.curation import json_bytes
-    from html_to_markdown.enrichment.gates import request_hash
-
     owner = "a" * 32
     claims = []
     for index in range(4):

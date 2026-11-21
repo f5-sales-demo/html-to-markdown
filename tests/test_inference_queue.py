@@ -1,6 +1,7 @@
 """Ubuntu owns durable inference evidence; Mac cleanup requires a complete receipt."""
 
 import io
+import json
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -195,4 +196,4 @@ def test_invalid_declared_new_slot_count_cannot_claim_work(tmp_path, new_limit):
     job = submit(root, body(), EXECUTOR)
     with pytest.raises(ValueError, match="available slots"):
         claim(root, OWNER, EXECUTOR, new_limit=new_limit)
-    assert queue._read(root / job / "state.json")["state"] == "queued"
+    assert json.loads((root / job / "state.json").read_bytes())["state"] == "queued"
