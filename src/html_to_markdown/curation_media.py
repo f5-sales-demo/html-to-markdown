@@ -11,6 +11,7 @@ from typing import Any
 from markdown_it import MarkdownIt
 from PIL import Image, ImageChops, ImageDraw
 
+from .curation_projection import SourceProjection
 from .media_encoding import png_bytes
 
 VERSION = "retirement-mask/1"
@@ -172,7 +173,11 @@ def reference_updates(body: str, source: str, output: str) -> list[dict[str, Any
 
 
 def relocate_references(
-    body: str, replacements: list[dict[str, Any]], *, guarded: bool = True
+    body: str,
+    replacements: list[dict[str, Any]],
+    *,
+    guarded: bool = True,
+    projection: SourceProjection | None = None,
 ) -> str:
     indexed = {rule["source"]: rule for rule in replacements}
     if len(indexed) != len(replacements):
@@ -188,6 +193,9 @@ def relocate_references(
     ):
         raise ValueError("retirement media reference guard changed")
     for start, end, destination in reversed(selected):
+        if projection is not None:
+            projection.check(body)
+            projection.edit(start, end, destination)
         body = body[:start] + destination + body[end:]
     return body
 

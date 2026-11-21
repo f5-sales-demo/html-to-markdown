@@ -26,6 +26,7 @@ from markdown_it import MarkdownIt
 from .appstack_curation import AppStackFilter
 from .curation_api_chain import legacy_result as replay_legacy_stage
 from .curation_media import plan_masks, relocate_references
+from .curation_projection import SourceProjection
 from .legacy_curation import LegacyFilter
 from .models import PageMetadata
 from .render import normalize_body, serialize_document, split_document
@@ -186,12 +187,19 @@ def reference_spans(body: str) -> list[dict[str, Any]]:
     return found
 
 
-def unlink_references(body: str, selected: list[dict[str, Any]]) -> str:
+def unlink_references(
+    body: str, selected: list[dict[str, Any]], *, projection: SourceProjection | None = None
+) -> str:
     """Source markup guards preserve every label and all surrounding bytes."""
     for item in sorted(selected, key=lambda value: value["start"], reverse=True):
         source = body[item["start"] : item["end"]]
         if digest(source.encode()) != item["source_sha256"]:
             raise ValueError("retired reference source guard changed")
+        if projection is not None:
+            projection.check(body)
+            projection.edit(
+                item["start"], item["end"], item["label"], source_start=item["start"] + 1
+            )
         body = body[: item["start"]] + item["label"] + body[item["end"] :]
     return body
 
@@ -239,12 +247,24 @@ def _empty_heading_spans(parsed: list[Block], line_count: int) -> list[tuple[int
     return empty
 
 
-def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
+def _normalize_projected(body: str, projection: SourceProjection | None) -> str:
+    normalized_body = normalize_body(body)
+    if projection is not None:
+        projection.normalize()
+        projection.check(normalized_body)
+    return normalized_body
+
+
+def remove_blocks(
+    body: str, rules: list[dict[str, Any]], *, projection: SourceProjection | None = None
+) -> str:
+    if projection is not None:
+        projection.check(body)
     parsed = blocks(body)
     if any("prose_span" in rule for rule in rules):
         from .curation_spans import apply_prose_removals  # pylint: disable=import-outside-toplevel
 
-        body, rules = apply_prose_removals(body, rules, parsed, blocks)
+        body, rules = apply_prose_removals(body, rules, parsed, blocks, projection=projection)
         parsed = blocks(body)
     spans: list[Block] = []
     reference_edits = []
@@ -270,14 +290,16 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
         raise ValueError("overlapping block removal and retired reference edit")
     if len({item["address"] for item in reference_edits}) != len(reference_edits):
         raise ValueError("overlapping retired reference edits")
-    body = unlink_references(body, reference_edits)
+    body = unlink_references(body, reference_edits, projection=projection)
     if not spans:
-        return normalize_body(body)
+        return _normalize_projected(body, projection)
     spans.sort(key=lambda b: (b.start, b.end))
     if any(a.end > b.start for a, b in zip(spans, spans[1:], strict=False)):
         raise ValueError("overlapping structural guards")
     lines = body.splitlines(keepends=True)
     discarded = {line for b in spans for line in range(b.start, b.end)}
+    if projection is not None:
+        projection.discard_lines(discarded)
     body = "".join(line for i, line in enumerate(lines) if i not in discarded)
     protected = {start for start, _ in _empty_heading_spans(parsed, len(lines))}
     origins = [i for i in range(len(lines)) if i not in discarded]
@@ -293,9 +315,11 @@ def remove_blocks(body: str, rules: list[dict[str, Any]]) -> str:
         }
         if not empty:
             break
+        if projection is not None:
+            projection.discard_lines(empty)
         body = "".join(line for i, line in enumerate(lines) if i not in empty)
         origins = [origin for i, origin in enumerate(origins) if i not in empty]
-    return normalize_body(body)
+    return _normalize_projected(body, projection)
 
 
 @dataclass(frozen=True)

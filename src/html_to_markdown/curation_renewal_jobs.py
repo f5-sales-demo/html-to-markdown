@@ -49,7 +49,7 @@ def review_batch(
     def review_item(item: dict[str, Any]) -> dict[str, Any]:
         result = {"identity": item["identity"], "disposition": "queued"}
         if "context_path" not in item:
-            return {**result, "reason": "source_review_prerequisite_failed"}
+            return {**result, "reason": item.get("reason", "source_review_prerequisite_failed")}
         try:
             pin = item["binding_sha256"]
             if not re.fullmatch(r"[0-9a-f]{64}", pin):
@@ -63,7 +63,7 @@ def review_batch(
                     raise ValueError("unsafe renewal input path")
             context = json.loads((output / item["context_path"]).read_bytes())
             visual = json.loads((output / item["visual_path"]).read_bytes())
-            if client is None:
+            if client is None or context.get("evidence", {}).get("selected_existing_proposal"):
                 replay_renewal(context, visual, output)
             else:
                 run_renewal(context, visual, output, client)

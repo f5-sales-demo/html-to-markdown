@@ -9,6 +9,7 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import canonical, json_bytes, load_curation_policy
 from .curation_renewal import proposal_context
+from .curation_renewal_selection import ExistingRenewalRequired, select_renewal_context
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import request_hash
@@ -113,6 +114,7 @@ def prepare_renewals(capture: Path, review: Path, output: Path) -> dict[str, Any
                 load_curation_policy().sha256,
                 evidence,
             )
+            context = select_renewal_context(context, output)
             directory = output / context["binding_sha256"]
             for relative, data in files.items():
                 path = Path(relative)
@@ -133,6 +135,8 @@ def prepare_renewals(capture: Path, review: Path, output: Path) -> dict[str, Any
                 visual_path=context["binding_sha256"] + "/visual.json",
                 reason="independent_catalog_review_required",
             )
+        except ExistingRenewalRequired:
+            entry.update(reason="previous_curation_attempts_require_validation")
         except (ValueError, KeyError) as failure:
             atomic_private(
                 output / "prerequisite-errors" / (sha(record.read_bytes()) + ".json"),
