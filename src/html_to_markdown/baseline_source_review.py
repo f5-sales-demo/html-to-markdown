@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .baseline_dispositions import review_relevance
+from .baseline_history_lookup import HistoryLookup
 from .baseline_late_validation import (
     _execution_digest,
     reusable_existing_validation,
@@ -370,7 +371,23 @@ def _privacy_observation_context(
 def review_baseline_batch(
     output: Path, inventory: dict[str, Any], journal: Path, *, replay: bool = False
 ) -> dict[str, Any]:
+    from .baseline_global_ledgers import history_root  # pylint: disable=import-outside-toplevel
+
+    lookup = HistoryLookup(output, history_root(journal))
     client = None if replay else client_for_host(journal, concurrency=4, local_client=CodexClient)
+
+    def review(record: Path) -> dict[str, Any]:
+        original_digest = sha(record.read_bytes())
+        try:
+            return review_baseline_privacy(output, record, client)
+        finally:
+            # Validation-only renewal preserves precisely this pre-review record.
+            # Register only that expected history, so unrelated concurrent additions
+            # still invalidate the final batch rather than escaping discovery.
+            preserved = output / "history" / (original_digest + ".json")
+            if preserved.exists() or preserved.is_symlink():
+                lookup.remember(preserved)
+            lookup.update_current(record)
 
     def run(item: dict[str, Any]) -> dict[str, Any]:
         try:
@@ -380,8 +397,10 @@ def review_baseline_batch(
                     verify_strongest_ledger,
                 )
 
-                verify_strongest_ledger(output, output / item["path"], history_root(journal))
-                reviewed = review_baseline_privacy(output, output / item["path"], client)
+                verify_strongest_ledger(
+                    output, output / item["path"], history_root(journal), lookup=lookup
+                )
+                reviewed = review(output / item["path"])
             else:
                 from .baseline_global_ledgers import (  # pylint: disable=import-outside-toplevel
                     history_root,
@@ -392,8 +411,8 @@ def review_baseline_batch(
                 root = history_root(journal)
                 record = output / item["path"]
                 with source_lock(record, root):
-                    reconcile_record(output, record, root, _execution_digest())
-                    reviewed = review_baseline_privacy(output, record, client)
+                    reconcile_record(output, record, root, _execution_digest(), lookup=lookup)
+                    reviewed = review(record)
             return {**item, "disposition": reviewed["status"]}
         except (ValueError, KeyError, OSError) as error:
             return {**item, "disposition": "queued", "error_class": type(error).__name__}
@@ -404,7 +423,18 @@ def review_baseline_batch(
     finally:
         if client is not None:
             client.close()
+    integrity_verified = False
+    try:
+        lookup.verify()
+        integrity_verified = True
+    except (ValueError, KeyError, OSError) as error:
+        results = [
+            {**item, "disposition": "queued", "error_class": type(error).__name__}
+            for item in inventory["documents"]
+        ]
     report = {
+        "history_integrity_verified": integrity_verified,
+        "history_lookup": lookup.metrics,
         "documents": results,
         "exceptions": sum(
             d["disposition"] not in {"privacy_only_validated", "source_exclusion_validated"}
