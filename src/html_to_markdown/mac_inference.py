@@ -421,7 +421,7 @@ def inference_once(
         return status
 
 
-DRAIN_IDLE_GRACE_SECONDS = 30
+DRAIN_IDLE_GRACE_SECONDS = 900
 DRAIN_POLL_SECONDS = 10
 
 
@@ -493,4 +493,8 @@ def monitored_inference(**kwargs: Any) -> dict[str, Any]:
                 quiet_deadline = time.monotonic() + DRAIN_IDLE_GRACE_SECONDS
             elif quiet_deadline is None or time.monotonic() >= quiet_deadline:
                 return report
+            atomic_private(
+                kwargs["output"] / "monitor-status.json",
+                json_bytes({**report, "state": "waiting_for_followup"}),
+            )
             time.sleep(min(DRAIN_POLL_SECONDS, max(0, quiet_deadline - time.monotonic())))
