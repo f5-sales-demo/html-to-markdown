@@ -10,9 +10,12 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
+from .enrichment.contracts import ResponseEvidence
+from .enrichment.gates import request_hash
 from .reference_repair_inputs import safe_file
 from .review_controller_compatibility import admission_binding
 from .review_priorities import ReviewPriorities, select_records
+from .source_boundary_review import source_logical_request
 from .source_phase_bindings import _privacy_budget, privacy_ledger, source_core
 from .source_review_jobs import prepare_reviews
 
@@ -104,8 +107,9 @@ def _snapshot_boundaries(
         value["logical_request_sha256"] for value in previous.get("boundary_pending", {}).values()
     }
     for phase in previous.get("phases", {}).values():
-        if proof := phase.get("source_boundary"):
-            boundary_digests.add(proof["coverage_plan"]["logical_request_sha256"])
+        if phase.get("source_boundary"):
+            evidence = ResponseEvidence.model_validate(phase)
+            boundary_digests.add(request_hash(source_logical_request(evidence)))
     for boundary_digest in sorted(boundary_digests):
         if len(boundary_digest) != 64 or any(
             value not in "0123456789abcdef" for value in boundary_digest

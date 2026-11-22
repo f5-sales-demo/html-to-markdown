@@ -123,6 +123,11 @@ contract before comparing bindings. This stages original requests and evidence f
 current complete capture replay; it grants no admission by itself. Unknown controller
 pairs and changed source, media, metadata, model or policy guards remain ineligible.
 Strongest failed or exhausted privacy histories retain their consumed allowances.
+The checkpoint copier resolves the original logical request through the supported
+proof schema, including source-input-projection/1 wrappers with nested native
+boundaries. It preserves the complete original root and nested checkpoints.
+Unknown or malformed proofs remain visible exceptions; copying cannot grant
+admission or replace independent replay.
 
 The Mac worker seeds eligible source batches from prior private capture queues.
 Unchanged bound article, metadata, media and policy/request inputs reuse exact

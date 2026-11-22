@@ -86,7 +86,10 @@ def source_logical_request(evidence: ResponseEvidence) -> dict[str, Any]:
     if evidence.source_boundary is not None:
         if evidence.source_boundary.get("version") == INPUT_VERSION:
             return InputProjectionProof.model_validate(evidence.source_boundary).logical_request
-        return BoundaryProof.model_validate(evidence.source_boundary).logical_request
+        proof = BoundaryProof.model_validate(evidence.source_boundary)
+        if proof.version != VERSION:
+            raise ValueError("unsupported source native boundary proof version")
+        return proof.logical_request
     return evidence.request
 
 
