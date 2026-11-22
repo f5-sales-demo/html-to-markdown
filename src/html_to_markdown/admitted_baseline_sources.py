@@ -60,14 +60,26 @@ def _admitted_choice(
     if selected is None:
         return None
     directory, digest = selected
-    if directory.is_symlink() or any(p.is_symlink() for p in directory.rglob("*")):
+    marker = directory / MARKER
+    if directory.is_symlink() or marker.is_symlink():
         raise ValueError("unsafe admitted baseline replacement source")
-    receipt = verify_source(directory, digest)
+    receipt_bytes = marker.read_bytes()
+    if sha(receipt_bytes) != digest:
+        raise ValueError("source admission receipt digest mismatch")
+    receipt = json.loads(receipt_bytes)
     if receipt["source"] not in {metadata["sourceId"], "all"}:
         raise ValueError("admitted baseline replacement selects another source")
     entry = next((d for d in receipt["documents"] if d.get("published_path") == article), None)
+    # A pinned negative lookup grants no disposition or approval. Only a possible
+    # replacement needs complete capture, review and native-media replay here.
     if entry is None or entry["disposition"] != "accepted":
         return None
+    if any(p.is_symlink() for p in directory.rglob("*")):
+        raise ValueError("unsafe admitted baseline replacement source")
+    receipt = verify_source(directory, digest)
+    entry = next(d for d in receipt["documents"] if d.get("published_path") == article)
+    if entry["disposition"] != "accepted":
+        raise ValueError("admitted baseline replacement decision changed")
     if entry["url"] != metadata["url"]:
         raise ValueError("admitted baseline replacement addresses a different article")
     prior = json.loads(verified.get("manifest.json", b'{"documents": []}'))

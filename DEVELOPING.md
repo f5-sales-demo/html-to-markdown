@@ -219,6 +219,14 @@ Unresolved prerequisites report `dependency_review_pending` and stop planner val
 policy transfer and publication. Exhaustive standalone review and offline replay retain
 their existing behavior; final policy qualification still checks every dependency.
 
+Retained dependency replacement lookups first inspect the exact digest-pinned source
+receipt. A missing or non-accepted matching entry returns no replacement without
+replaying the complete source bundle; it grants no exclusion, privacy or publication
+approval. Receipt digest, source identity and receipt-path safety checks still apply
+to negative lookups. Every possible accepted replacement retains complete source
+replay, URL and capture freshness checks, original baseline custody and native-media
+verification. Standalone source and final publication verification remain exhaustive.
+
 ## Documentation build
 
 Mount the one-page `docs/` directory and a verified extracted corpus
