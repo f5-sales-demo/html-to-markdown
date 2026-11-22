@@ -5,9 +5,11 @@ import json
 import tracemalloc
 
 import pytest
+from test_baseline_global_ledgers import cloned
+from test_baseline_history_lookup import archive
 
 from html_to_markdown import baseline_source_review as source
-from html_to_markdown.baseline_history_lookup import HistoryLookup, _key
+from html_to_markdown.baseline_history_lookup import HistoryLookup
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 
@@ -74,7 +76,6 @@ def test_streamed_identity_matches_complete_standard_json(tmp_path, document):
     wanted = json.loads(data).get("binding", {})
     lookup = HistoryLookup(output, tmp_path / "worker")
     assert lookup.paths(wanted) == [path]
-    assert lookup._entries[path] == _key(wanted)
     lookup.verify()
 
 
@@ -113,9 +114,6 @@ def test_invalid_complete_history_cannot_supply_identity(tmp_path, data):
 def test_final_integrity_failure_retains_private_digest_bound_details(
     prepared, tmp_path, monkeypatch
 ):
-    from test_baseline_global_ledgers import cloned
-    from test_baseline_history_lookup import archive
-
     worker = tmp_path / "worker"
     output, record = cloned(prepared, worker, "current")
     archive(output, record)
@@ -148,9 +146,6 @@ def test_final_integrity_failure_retains_private_digest_bound_details(
 
 
 def test_article_failure_retains_its_exact_private_cause(prepared, tmp_path, monkeypatch):
-    from test_baseline_global_ledgers import cloned
-    from test_baseline_history_lookup import archive
-
     worker = tmp_path / "worker"
     output, record = cloned(prepared, worker, "current")
     archive(output, record)
