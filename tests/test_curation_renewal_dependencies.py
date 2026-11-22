@@ -14,7 +14,11 @@ from html_to_markdown.curation import (
     load_curation_policy,
     validate_curation,
 )
-from html_to_markdown.curation_renewal_dependencies import prepare_dependencies, review_dependencies
+from html_to_markdown.curation_renewal_dependencies import (
+    DependencyReviewPending,
+    prepare_dependencies,
+    review_dependencies,
+)
 from html_to_markdown.curation_renewal_policy import DependencyReviewRequired
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.models import PageMetadata
@@ -132,3 +136,45 @@ def test_unresolved_dependency_stops_promotion_and_preserves_queue(tmp_path, mon
     )
     with pytest.raises(ValueError, match="remain queued"):
         review_dependencies(tmp_path, [], tmp_path, "a" * 64, tmp_path / "journal")
+
+
+def test_bounded_dependencies_wait_for_complete_privacy_closure(tmp_path, monkeypatch):
+    state = {"ready": False}
+    monkeypatch.setattr(
+        "html_to_markdown.curation_renewal_dependencies.qualify_policy",
+        lambda *args: (
+            {"qualification_sha256": "q" * 64} if state["ready"] else _missing_dependency()
+        ),
+    )
+    quantum_calls = []
+
+    def quantum(_output, _inventory, _journal, limit):
+        quantum_calls.append(limit)
+        return {"reviewed": limit, "deferred": 192}
+
+    monkeypatch.setattr("html_to_markdown.baseline_review_schedule.review_quantum", quantum)
+    monkeypatch.setattr(
+        "html_to_markdown.curation_renewal_dependencies.prepare_dependencies",
+        lambda *args: {"documents": [{"identity": "pending", "reason": "privacy_required"}]},
+    )
+    monkeypatch.setattr(
+        "html_to_markdown.curation_renewal_dependencies.review_batch",
+        lambda *args: pytest.fail("curation inference before complete privacy closure"),
+    )
+    private = tmp_path / "dependency-privacy"
+    private.mkdir()
+    (private / "inventory.json").write_text(json.dumps({"documents": []}))
+    with pytest.raises(DependencyReviewPending) as failure:
+        review_dependencies(tmp_path, [], tmp_path, "a" * 64, tmp_path / "journal", limit=8)
+    assert quantum_calls == [8]
+    assert failure.value.remaining == 1
+    receipt = json.loads((tmp_path / "dependency-resolution.json").read_bytes())
+    assert receipt["state"] == "pending" and receipt["pending"] == 1
+    assert not receipt["publication_approved"]
+    state["ready"] = True
+    assert not review_dependencies(tmp_path, [], tmp_path, "a" * 64, tmp_path / "journal", limit=8)
+    assert json.loads((tmp_path / "dependency-resolution.json").read_bytes())["state"] == "closed"
+
+
+def _missing_dependency():
+    raise DependencyReviewRequired(["content/my-f5-com/K000123456/index.md"])

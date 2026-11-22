@@ -209,6 +209,16 @@ promotion with archive receivers and publication. Payload sharing preserves capt
 ages and model/decision hashes; original source files and failed attempts remain
 private. Remote source returns keep the complete archive verification protocol.
 
+Baseline privacy dependencies in the production curation pass advance in cohorts of
+at most eight complete articles. Each cohort closes its inference client and verifies
+the complete indexed history before atomically advancing a private scheduling cursor.
+Interrupted cohorts resume from the same cursor; failed article reviews cannot starve
+later identities. Scheduling changes never grant approval or reset editorial allowances.
+Changed inventories preserve the prior scheduling checkpoint and begin a fresh traversal.
+Unresolved prerequisites report `dependency_review_pending` and stop planner validation,
+policy transfer and publication. Exhaustive standalone review and offline replay retain
+their existing behavior; final policy qualification still checks every dependency.
+
 ## Documentation build
 
 Mount the one-page `docs/` directory and a verified extracted corpus

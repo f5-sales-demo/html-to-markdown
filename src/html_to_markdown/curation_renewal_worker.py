@@ -15,7 +15,7 @@ from .baseline_cache import baseline_snapshot
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .curation_renewal_delivery import submit_policy
-from .curation_renewal_dependencies import review_dependencies
+from .curation_renewal_dependencies import DependencyReviewPending, review_dependencies
 from .curation_renewal_inputs import prepare_renewals
 from .curation_renewal_jobs import review_batch
 from .curation_renewal_publication import stage_policy, validate_planner
@@ -57,14 +57,23 @@ def advance_renewals(
     revision = deployed_revision()
     pin = revision["publication_sha256"]
     baseline = baseline_snapshot(output / "baseline" / pin, pin, revision["snapshot_tag"])
-    contexts = review_dependencies(
-        output,
-        contexts,
-        baseline,
-        pin,
-        journal,
-        **({"source_inputs": source_inputs} if source_inputs else {}),
-    )
+    try:
+        contexts = review_dependencies(
+            output,
+            contexts,
+            baseline,
+            pin,
+            journal,
+            **({"source_inputs": source_inputs} if source_inputs else {}),
+            limit=8,
+        )
+    except DependencyReviewPending as pending:
+        return {
+            "state": "dependency_review_pending",
+            "pending": pending.remaining,
+            "reviewed": pending.reviewed,
+            "exceptions": report["exceptions"],
+        }
     client = client_for_host(journal, concurrency=4, local_client=CodexClient)
     try:
         qualification = validate_planner(output, contexts, baseline, pin, client)
