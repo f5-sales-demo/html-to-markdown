@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .baseline_native_context import native_context
 from .baseline_review_renewal import preparation_controller, verify_pending
 from .baseline_validation_requests import validation_request as _validation_request
 from .content_inventory import atomic_private
@@ -34,7 +35,7 @@ from .source_review import (
     scan,
     text_fields,
 )
-from .source_review_jobs import _compile, _media_context, _request
+from .source_review_jobs import _compile, _request
 
 VERSION = "baseline-existing-proposal-validation/1"
 
@@ -52,6 +53,9 @@ def _execution_digest() -> str:
                 "privacy": review_context_digest(),
                 "validation_request": sha(
                     Path(__file__).with_name("baseline_validation_requests.py").read_bytes()
+                ),
+                "original_native_context": sha(
+                    Path(__file__).with_name("baseline_native_context.py").read_bytes()
                 ),
                 "media_reference_compiler": sha(
                     Path(__file__).with_name("source_media_references.py").read_bytes()
@@ -96,7 +100,7 @@ def _context(
     )
     context = json.loads(relevance_evidence.request["input"][0]["content"][0]["text"])
     metadata, body = split_document((source / saved["item"]["article_path"]).read_text())
-    visual, media_fields, media = _media_context(source, output, saved["item"])
+    visual, media_fields, media = native_context(source, output, saved)
     fields = {**text_fields(metadata, body), **media_fields}
     if any(
         (

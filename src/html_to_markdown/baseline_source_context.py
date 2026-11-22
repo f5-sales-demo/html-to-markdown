@@ -7,12 +7,12 @@ from pathlib import Path
 from typing import Any
 
 from .baseline_late_validation import existing_validation_context
+from .baseline_native_context import native_context
 from .baseline_review_renewal import preparation_controller as _controller
 from .curation import blocks, json_bytes
 from .enrichment.analysis import sha
 from .render import split_document
 from .source_review import review_context_digest, scan, text_fields
-from .source_review_jobs import _media_context
 
 
 def _relevance_evidence(
@@ -67,7 +67,7 @@ def baseline_context(
     ):
         raise ValueError("stale or unsafe baseline source privacy inputs")
     metadata, body = split_document((source / saved["item"]["article_path"]).read_text())
-    visual, fields, media = _media_context(source, output, saved["item"])
+    visual, fields, media = native_context(source, output, saved)
     fields = {**text_fields(metadata, body), **fields}
     context = {
         "identity": saved["identity"],
