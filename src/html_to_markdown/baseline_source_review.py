@@ -411,7 +411,9 @@ def review_baseline_batch(
                 root = history_root(journal)
                 record = output / item["path"]
                 with source_lock(record, root):
-                    reconcile_record(output, record, root, _execution_digest(), lookup=lookup)
+                    reconcile_record(
+                        output, record, root, _execution_digest(), lookup=lookup, client=client
+                    )
                     reviewed = review(record)
             return {**item, "disposition": reviewed["status"]}
         except (ValueError, KeyError, OSError) as error:

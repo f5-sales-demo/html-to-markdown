@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from .baseline_ledger_scope import governed_scope
 from .content_inventory import atomic_private
 from .content_policy import load_content_policy, migrate_content, validate_content_policy
 from .curation import (
@@ -75,6 +76,12 @@ def _materialized_policy(raw: dict[str, Any]) -> CurationPolicy:
 
 
 def reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPolicy:
+    """Return policy only after every consulted original source ledger is verified."""
+    with governed_scope(output):
+        return _reviewed_policy(output, contexts)
+
+
+def _reviewed_policy(output: Path, contexts: list[dict[str, Any]]) -> CurationPolicy:
     if not contexts:
         raise ValueError("curation policy promotion requires independently reviewed inputs")
     current = load_curation_policy()
@@ -178,6 +185,17 @@ def _record_dependencies(
 # Qualification compares the complete baseline with all selected source inputs.
 # pylint: disable-next=too-many-locals
 def qualify_policy(
+    output: Path, contexts: list[dict[str, Any]], baseline: Path, publication_sha256: str
+) -> dict[str, Any]:
+    """Publish a planner receipt after final upstream source custody checks."""
+    with governed_scope(output):
+        result = _qualify_policy(output, contexts, baseline, publication_sha256)
+    atomic_private(output / "planner-qualification.json", json_bytes(result))
+    return result
+
+
+# pylint: disable-next=too-many-locals
+def _qualify_policy(
     output: Path, contexts: list[dict[str, Any]], baseline: Path, publication_sha256: str
 ) -> dict[str, Any]:
     """Unknown changed dependencies remain queued rather than implicitly approved."""
@@ -294,5 +312,4 @@ def qualify_policy(
             "post_planner_validation_required": True,
         }
         result["qualification_sha256"] = sha(json_bytes(result))
-        atomic_private(output / "planner-qualification.json", json_bytes(result))
         return result

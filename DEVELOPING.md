@@ -149,6 +149,29 @@ never grant approval. Failed final integrity verification queues the whole batch
 saved responses and exhausted allowances remain intact. The private batch report
 records parsing and hashing byte counts separately from article eligibility.
 
+Conflicting strongest baseline histories have a separate private resolution journal.
+Every original proposal, request and consumed correction remains unchanged. Only an
+already completed strongest proposal can undergo current complete source, native
+media, privacy, credential and preservation validation. An independent Sol High
+selection must disposition every strongest record; distinct validated outputs remain
+ambiguous. The selected source keeps its full original allowance and still requires
+retirement/API curation. Missing or changed source bytes, histories, policies,
+responses or controller context invalidate the selection. No qualifying existing
+proposal leaves an explicit exception for an independently admitted current source
+replacement; it does not grant another editor attempt.
+
+Retained native OCR replays from the complete digest-checked original relevance
+request. Every original image byte, source digest, full frame, geometry, duration,
+loop and metadata is independently verified against the archived media. Re-running
+OCR or changing a shared OCR cache cannot alter a saved model request. OCR remains
+untrusted context; exact transformations, current independent privacy validation and
+credential enforcement remain mandatory. Replay does not repair cached inputs.
+
+Grouped governed policy and planner replay share the bounded history lookup and
+verify all consulted custody before returning. Planner receipts are written only
+after that final verification succeeds. Standalone verification retains exhaustive
+discovery, and selected-conflict replay changes no preserved input files.
+
 Source workers select a current review frontier before each sweep. The default
 `list-review-queues` still enumerates all captured queues; `--review-frontier`
 prioritizes capture epochs and defers an older queue only when strictly newer
