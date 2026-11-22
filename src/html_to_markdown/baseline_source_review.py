@@ -417,7 +417,15 @@ def review_baseline_batch(
                     reviewed = review(record)
             return {**item, "disposition": reviewed["status"]}
         except (ValueError, KeyError, OSError) as error:
-            return {**item, "disposition": "queued", "error_class": type(error).__name__}
+            failure = json_bytes({**item, "error_class": type(error).__name__, "error": str(error)})
+            pin = sha(failure)
+            atomic_private(output / "review-failures" / (pin + ".private.json"), failure)
+            return {
+                **item,
+                "disposition": "queued",
+                "error_class": type(error).__name__,
+                "failure_sha256": pin,
+            }
 
     try:
         with ThreadPoolExecutor(max_workers=4) as pool:
@@ -426,15 +434,24 @@ def review_baseline_batch(
         if client is not None:
             client.close()
     integrity_verified = False
+    integrity_failure = {}
     try:
         lookup.verify()
         integrity_verified = True
     except (ValueError, KeyError, OSError) as error:
+        failure = json_bytes({"error_class": type(error).__name__, "error": str(error)})
+        pin = sha(failure)
+        atomic_private(output / "history-integrity-failures" / (pin + ".private.json"), failure)
+        integrity_failure = {
+            "history_integrity_failure_sha256": pin,
+            "history_integrity_error_class": type(error).__name__,
+        }
         results = [
             {**item, "disposition": "queued", "error_class": type(error).__name__}
-            for item in inventory["documents"]
+            for item in results
         ]
     report = {
+        **integrity_failure,
         "history_integrity_verified": integrity_verified,
         "history_lookup": lookup.metrics,
         "documents": results,

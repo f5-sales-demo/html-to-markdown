@@ -24,6 +24,7 @@ dependencies = [
   "structlog>=25.4.0",
   "typer>=0.16.1",
   "jsonschema>=4.25",
+  "ijson>=3.4.0",
 ]
 
 [project.scripts]

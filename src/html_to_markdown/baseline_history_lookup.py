@@ -3,18 +3,14 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import threading
 from pathlib import Path
 from typing import Any
 
-SOURCE_KEYS = (
-    "input_kind",
-    "baseline_receipt_sha256",
-    "baseline_article",
-    "baseline_article_sha256",
-    "source_files_sha256",
-)
+from .history_streaming import SOURCE_KEYS, HistoryStream, binding_from_stream
+
+__all__ = ["SOURCE_KEYS", "MAX_HISTORY_ENTRIES", "HistoryLookup", "history_roots", "safe"]
+
 MAX_HISTORY_ENTRIES = 16384
 
 
@@ -82,25 +78,32 @@ class HistoryLookup:
         return paths
 
     def _load(self, path: Path) -> None:
-        # Only one large JSON record is parsed at a time, including four-worker
-        # first access. Drop the complete response before moving to another file.
+        # Complete JSON syntax and original bytes are checked without retaining
+        # unrelated request/response payloads, including four-worker first access.
         safe(path)
         if path.stem in self._digests:
             if self._file_digest(path) != path.stem:
                 raise ValueError("retained privacy history digest changed")
             self._entries[path] = self._digests[path.stem]
             return
-        data = path.read_bytes()
-        if hashlib.sha256(data).hexdigest() != path.stem:
+        with path.open("rb") as source:
+            stream = HistoryStream(source)
+            binding = binding_from_stream(stream)
+        parsed = stream.bytes_read
+        if stream.digest.hexdigest() != path.stem:
             raise ValueError("retained privacy history digest changed")
-        saved = json.loads(data)
-        if not isinstance(saved, dict) or not isinstance(saved.get("binding", {}), dict):
-            raise ValueError("invalid retained privacy history")
-        self._entries[path] = _key(saved.get("binding", {}))
+        if stream.surrogate_escapes:
+            with path.open("rb") as source:
+                stream = HistoryStream(source)
+                binding = binding_from_stream(stream, standard_unicode=True)
+            parsed += stream.bytes_read
+            if stream.digest.hexdigest() != path.stem:
+                raise ValueError("retained privacy history digest changed")
+        self._entries[path] = _key(binding)
         self._digests[path.stem] = self._entries[path]
         self._metrics["files_parsed"] += 1
-        self._metrics["bytes_parsed"] += len(data)
-        self._metrics["bytes_hashed"] += len(data)
+        self._metrics["bytes_parsed"] += parsed
+        self._metrics["bytes_hashed"] += parsed
 
     def paths(self, wanted: dict[str, Any]) -> list[Path]:
         with self._lock:
