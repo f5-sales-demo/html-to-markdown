@@ -165,6 +165,15 @@ def prepare_dependencies(
     return inventory
 
 
+class DependencyReviewPending(ValueError):
+    """Complete privacy prerequisites remain queued after a bounded cohort."""
+
+    def __init__(self, remaining: int, reviewed: int) -> None:
+        super().__init__("baseline source privacy dependencies remain pending")
+        self.remaining = remaining
+        self.reviewed = reviewed
+
+
 def review_dependencies(
     output: Path,
     contexts: list[dict[str, Any]],
@@ -172,8 +181,13 @@ def review_dependencies(
     publication_sha256: str,
     journal: Path,
     source_inputs: dict[str, tuple[Path, str]] | None = None,
+    *,
+    limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """Close complete planner dependencies; any unresolved review stops promotion."""
+    if limit is not None and (isinstance(limit, bool) or not isinstance(limit, int) or limit < 1):
+        raise ValueError("dependency review limit must be a positive integer")
+    remaining = 0 if limit is None else limit
     selected = list(contexts)
     for _ in range(3):
         try:
@@ -215,8 +229,23 @@ def review_dependencies(
             )
             if any("context_path" not in item for item in inventory["documents"]):
                 privacy = output / "dependency-privacy"
-                privacy_inventory = json.loads((privacy / "inventory.json").read_bytes())
-                review_baseline_batch(privacy, privacy_inventory, journal)
+                inventory = json.loads((privacy / "inventory.json").read_bytes())
+                quantum: dict[str, Any] = {}
+                if limit is None:
+                    review_baseline_batch(privacy, inventory, journal)
+                else:
+                    # pylint: disable-next=import-outside-toplevel
+                    from .baseline_review_schedule import review_quantum
+
+                    if remaining:
+                        quantum = review_quantum(privacy, inventory, journal, remaining)
+                        remaining -= quantum["reviewed"]
+                    else:
+                        quantum = {
+                            "reviewed": 0,
+                            "deferred": len(inventory["documents"]),
+                            "publication_approved": False,
+                        }
                 inventory = prepare_dependencies(
                     baseline,
                     publication_sha256,
@@ -224,6 +253,21 @@ def review_dependencies(
                     output,
                     **({"source_inputs": source_inputs} if source_inputs else {}),
                 )
+                missing = sum("context_path" not in item for item in inventory["documents"])
+                if limit is not None and missing:
+                    atomic_private(
+                        output / "dependency-resolution.json",
+                        json_bytes(
+                            {
+                                "state": "pending",
+                                "baseline_receipt_sha256": publication_sha256,
+                                "pending": missing,
+                                "quantum": quantum,
+                                "publication_approved": False,
+                            }
+                        ),
+                    )
+                    raise DependencyReviewPending(missing, limit - remaining) from failure
             report = review_batch(output, inventory, "all", journal)
             approved = {
                 d["identity"]

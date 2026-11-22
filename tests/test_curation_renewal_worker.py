@@ -13,6 +13,7 @@ from test_curation_renewal_publication import prepared
 from html_to_markdown.baseline_cache import ASSETS
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.curation_renewal_delivery import submit_policy
+from html_to_markdown.curation_renewal_dependencies import DependencyReviewPending
 from html_to_markdown.curation_renewal_publication import stage_policy, validate_planner
 from html_to_markdown.curation_renewal_worker import advance_renewals, receive_renewals
 from html_to_markdown.enrichment.analysis import sha
@@ -235,3 +236,69 @@ def test_invalid_catalog_delivery_prerequisites_cannot_write_github(tmp_path, mo
     with pytest.raises(ValueError):
         submit_policy(tmp_path / "repo", staged, tmp_path / "delivery")
     assert all(args[0] != "gh" for args in calls)
+
+
+def test_pending_dependency_cohort_returns_before_planner_or_transfer(tmp_path, monkeypatch):
+    output, source, _, baseline, pin, _client = prepared(tmp_path)
+    module = "html_to_markdown.curation_renewal_worker"
+    monkeypatch.setattr(
+        module + ".prepare_renewals",
+        lambda *args: {
+            "documents": [
+                {
+                    "identity": source["identity"],
+                    "context_path": source["binding_sha256"] + "/context.json",
+                }
+            ]
+        },
+    )
+    monkeypatch.setattr(
+        module + ".review_batch",
+        lambda *args: {
+            "documents": [
+                {"identity": source["identity"], "disposition": "independently_validated"}
+            ],
+            "exceptions": 0,
+        },
+    )
+    monkeypatch.setattr(
+        module + ".deployed_revision",
+        lambda: {"publication_sha256": pin, "snapshot_tag": "content-test"},
+    )
+    monkeypatch.setattr(module + ".baseline_snapshot", lambda *args: baseline)
+    limits = []
+
+    def dependencies(*args, **kwargs):
+        limits.append(kwargs["limit"])
+        raise DependencyReviewPending(192, 8)
+
+    monkeypatch.setattr(module + ".review_dependencies", dependencies)
+    monkeypatch.setattr(
+        module + ".validate_planner", lambda *args: pytest.fail("planner ran before closure")
+    )
+    monkeypatch.setattr(
+        module + ".client_for_host",
+        lambda *args, **kwargs: pytest.fail("planner inference started"),
+    )
+    monkeypatch.setattr(
+        module + ".subprocess.run",
+        lambda *args, **kwargs: pytest.fail("policy transferred before closure"),
+    )
+    result = advance_renewals(
+        tmp_path / "capture",
+        tmp_path / "review",
+        output,
+        tmp_path / "journal",
+        Path("/private/transport"),
+        "local",
+        "/private/executable",
+        "/private/queue",
+    )
+    assert limits == [8]
+    assert result == {
+        "state": "dependency_review_pending",
+        "pending": 192,
+        "reviewed": 8,
+        "exceptions": 0,
+    }
+    assert not (output / "renewal-package.json").exists()
