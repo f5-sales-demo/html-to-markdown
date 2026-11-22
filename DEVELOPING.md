@@ -118,6 +118,12 @@ generations, and source-reference repair seeds the matching generation from exac
 captured OCR and full frame guards. Cache or encoding
 changes grant no new editorial allowance and cannot rebind a model response.
 
+Cross-queue prior selection also applies the exact qualified controller-compatibility
+contract before comparing bindings. This stages original requests and evidence for
+current complete capture replay; it grants no admission by itself. Unknown controller
+pairs and changed source, media, metadata, model or policy guards remain ineligible.
+Strongest failed or exhausted privacy histories retain their consumed allowances.
+
 The Mac worker seeds eligible source batches from prior private capture queues.
 Unchanged bound article, metadata, media and policy/request inputs reuse exact
 model evidence, then replay against the fresh raw capture receipt before gaining
