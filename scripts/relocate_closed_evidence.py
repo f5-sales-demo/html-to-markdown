@@ -23,6 +23,7 @@ import sys
 import traceback
 import uuid
 from collections import Counter
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -83,11 +84,11 @@ def checked_paths(source: Path, destination: Path, evidence: Path) -> None:
 
 def tree_manifest(root: Path) -> dict[str, dict[str, Any]]:
     """Enumerate and hash every member, including duplicate hardlink paths."""
-    result = {}
-    groups = {}
+    result: dict[str, dict[str, Any]] = {}
+    groups: dict[tuple[int, int], str] = {}
     for path in [root, *sorted(root.rglob("*"))]:
         info = path.lstat()
-        item = {
+        item: dict[str, int | str] = {
             "mode": info.st_mode,
             "uid": info.st_uid,
             "gid": info.st_gid,
@@ -168,7 +169,7 @@ def allocation_estimate(root: Path) -> dict[str, int]:
 
 
 @contextmanager
-def relocation_lock(coordinator: Path):
+def relocation_lock(coordinator: Path) -> Iterator[None]:
     """Serialize all transactions sharing the same storage coordinator."""
     if not coordinator.is_absolute() or any(
         p.is_symlink() for p in (coordinator, *coordinator.parents)

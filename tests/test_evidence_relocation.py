@@ -21,7 +21,7 @@ lock = relocation["relocation_lock"]
 retire = relocation["retire_backend"]
 
 
-def fixture_tree(root):
+def fixture_tree(root: Path) -> Path:
     """Include opaque bytes, a hardlink and nanosecond timestamps."""
     root.mkdir(mode=0o700)
     child = root / "opaque.bin"
@@ -33,7 +33,7 @@ def fixture_tree(root):
     return root
 
 
-def test_complete_manifest_and_namespace_guards(tmp_path):
+def test_complete_manifest_and_namespace_guards(tmp_path: Path) -> None:
     """Verify bytes, modes, exact timestamps and complete member coverage."""
     root = fixture_tree(tmp_path / "source")
     snapshot = manifest(root)
@@ -46,7 +46,7 @@ def test_complete_manifest_and_namespace_guards(tmp_path):
 
 
 @pytest.mark.parametrize("change", ["bytes", "mode", "mtime", "missing"])
-def test_changed_or_missing_members_fail(tmp_path, change):
+def test_changed_or_missing_members_fail(tmp_path: Path, change: str) -> None:
     """A copy cannot pass with changed payloads or incomplete metadata."""
     root = fixture_tree(tmp_path / "source")
     snapshot = manifest(root)
@@ -63,7 +63,7 @@ def test_changed_or_missing_members_fail(tmp_path, change):
         verify(root, snapshot)
 
 
-def test_symlink_and_unsafe_manifest_members_fail(tmp_path):
+def test_symlink_and_unsafe_manifest_members_fail(tmp_path: Path) -> None:
     """External files and traversal addresses never become retirement members."""
     root = fixture_tree(tmp_path / "source")
     snapshot = manifest(root)
@@ -74,7 +74,7 @@ def test_symlink_and_unsafe_manifest_members_fail(tmp_path):
         manifest(root)
 
 
-def test_hardlinks_do_not_overstate_reclaim(tmp_path):
+def test_hardlinks_do_not_overstate_reclaim(tmp_path: Path) -> None:
     """Cross-root ownership prevents counting shared bytes as reclaimed space."""
     root = fixture_tree(tmp_path / "source")
     before = allocation(root)
@@ -86,7 +86,7 @@ def test_hardlinks_do_not_overstate_reclaim(tmp_path):
 
 
 @pytest.mark.parametrize("kind", ["nested", "symlink", "relative"])
-def test_unsafe_or_overlapping_namespaces_fail(tmp_path, kind):
+def test_unsafe_or_overlapping_namespaces_fail(tmp_path: Path, kind: str) -> None:
     """Source, destination and journal cannot alias one another."""
     source = fixture_tree(tmp_path / "source")
     destination = tmp_path / "destination"
@@ -101,7 +101,7 @@ def test_unsafe_or_overlapping_namespaces_fail(tmp_path, kind):
         checked_paths(source, destination, evidence)
 
 
-def test_read_handles_allowed_writers_and_unknown_access_visible(tmp_path):
+def test_read_handles_allowed_writers_and_unknown_access_visible(tmp_path: Path) -> None:
     """Handle classification uses actual flags; an idle writer is still unsafe."""
     source = fixture_tree(tmp_path / "source")
     proc = tmp_path / "proc"
@@ -119,13 +119,13 @@ def test_read_handles_allowed_writers_and_unknown_access_visible(tmp_path):
     assert scan(source, proc)["denied"]
 
 
-def test_global_lock_serializes_different_transactions(tmp_path):
+def test_global_lock_serializes_different_transactions(tmp_path: Path) -> None:
     """Two cutovers sharing a coordinator cannot enter together."""
     with lock(tmp_path), pytest.raises(BlockingIOError), lock(tmp_path):
         pytest.fail("a second relocation entered the global lock")
 
 
-def test_retirement_resume_keeps_verified_copy_and_open_reader(tmp_path):
+def test_retirement_resume_keeps_verified_copy_and_open_reader(tmp_path: Path) -> None:
     """A committed retirement resumes missing members without losing read handles."""
     backend = fixture_tree(tmp_path / "backend")
     snapshot = manifest(backend)
@@ -144,7 +144,7 @@ def test_retirement_resume_keeps_verified_copy_and_open_reader(tmp_path):
     assert json.loads((journal / "retirement-complete.private.json").read_bytes())["complete"]
 
 
-def test_broken_hardlink_relationship_fails_copy_validation(tmp_path):
+def test_broken_hardlink_relationship_fails_copy_validation(tmp_path: Path) -> None:
     """Identical bytes cannot disguise lost sharing inside the selected namespace."""
     source = fixture_tree(tmp_path / "source")
     snapshot = manifest(source)
@@ -154,7 +154,7 @@ def test_broken_hardlink_relationship_fails_copy_validation(tmp_path):
         verify(destination, snapshot)
 
 
-def test_copy_directory_timestamp_completion_preserves_every_payload_guard(tmp_path):
+def test_copy_directory_timestamp_completion_preserves_every_payload_guard(tmp_path: Path) -> None:
     """Complete directory timestamps deterministically without hiding changed bytes."""
     source = fixture_tree(tmp_path / "source")
     destination = fixture_tree(tmp_path / "destination")
@@ -167,7 +167,9 @@ def test_copy_directory_timestamp_completion_preserves_every_payload_guard(tmp_p
 
 
 @pytest.mark.parametrize("code,expected", [(0, True), (32, False), (1, None)])
-def test_unknown_mount_state_fails_visibly(tmp_path, monkeypatch, code, expected):
+def test_unknown_mount_state_fails_visibly(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, code: int, expected: bool | None
+) -> None:
     """An observation failure cannot be interpreted as permission to replace a mount."""
     monkeypatch.setattr(
         relocation["subprocess"], "run", lambda *_args, **_kwargs: SimpleNamespace(returncode=code)

@@ -15,6 +15,8 @@ import runpy
 # Exact arguments target the newly created isolated filesystem fixture.
 import subprocess  # nosec B404
 from pathlib import Path
+from typing import Any
+from unittest.mock import patch
 
 
 def command(*args: str) -> None:
@@ -22,7 +24,9 @@ def command(*args: str) -> None:
     subprocess.run(args, check=True, capture_output=True)  # nosec B603
 
 
-def run_case(module, workspace, volume, number, interruption):
+def run_case(
+    module: dict[str, Any], workspace: Path, volume: Path, number: int, interruption: str | None
+) -> dict[str, object]:
     """Check one isolated transaction with its own interruption state."""
     globals_ = module["cutover"].__globals__
     private = module["private_json"]
@@ -41,14 +45,14 @@ def run_case(module, workspace, volume, number, interruption):
     interrupted = False
     original_unlink = Path.unlink
 
-    def fail_bound(path, value):
+    def fail_bound(path: Path, value: Any) -> None:
         nonlocal interrupted
         if interruption == "bound" and path.name == "bound.private.json" and not interrupted:
             interrupted = True
             raise OSError("simulated interruption after successful original-path bind")
-        return private(path, value)
+        private(path, value)
 
-    def fail_retirement(path, *args, **kwargs):
+    def fail_retirement(path: Path, missing_ok: bool = False) -> None:
         nonlocal interrupted
         if (
             interruption == "retirement"
@@ -56,24 +60,23 @@ def run_case(module, workspace, volume, number, interruption):
             and "original-parent" in path.parts
             and not interrupted
         ):
-            original_unlink(path, *args, **kwargs)
+            original_unlink(path, missing_ok=missing_ok)
             interrupted = True
             raise OSError("simulated interruption after retiring one verified redundant member")
-        return original_unlink(path, *args, **kwargs)
+        return original_unlink(path, missing_ok=missing_ok)
 
     with first.open("rb") as reader:
         globals_["private_json"] = fail_bound
-        Path.unlink = fail_retirement
         try:
-            try:
-                module["relocate"](
-                    source, destination, evidence, workspace / "coordinator", apply=True
-                )
-            except OSError:
-                if not interrupted:
-                    raise
+            with patch.object(Path, "unlink", fail_retirement):
+                try:
+                    module["relocate"](
+                        source, destination, evidence, workspace / "coordinator", apply=True
+                    )
+                except OSError:
+                    if not interrupted:
+                        raise
         finally:
-            Path.unlink = original_unlink
             globals_["private_json"] = private
         if interruption is not None:
             if not interrupted:
@@ -107,7 +110,7 @@ def qualify(workspace: Path) -> dict[str, object]:
     units = workspace / "units.fixture"
     units.mkdir(mode=0o700)
 
-    def isolated_mount(source, destination, evidence):
+    def isolated_mount(source: Path, destination: Path, evidence: Path) -> None:
         persist(source, destination, evidence, fstab_path=fstab, unit_directory=units)
 
     globals_["persist_mount"] = isolated_mount
