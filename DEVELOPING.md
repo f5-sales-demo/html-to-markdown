@@ -235,6 +235,53 @@ verification. Standalone source and final publication verification remain exhaus
 
 ## Documentation build
 
+### Closed private evidence relocation
+
+Linux operators can prepare an exact private copy with
+`scripts/relocate_closed_evidence.py`. Supply absolute, disjoint source,
+destination and evidence directories, plus the same `--coordination-root` for
+every transaction sharing storage. The global lock covers copying, complete
+byte and metadata verification, persistence and redundant-backend retirement.
+The tool rejects symlinks, unexpected members, writable handles, unknown process
+access, conflicting destinations and changed transaction inputs. It preserves
+hardlink groups inside the selected tree and reports cross-root exclusive inode
+allocation separately from actual recovered filesystem capacity.
+
+```bash
+python scripts/relocate_closed_evidence.py \
+  --source /data/private/closed-source \
+  --destination /storage/private/closed-copy \
+  --evidence /storage/private/relocation-receipts \
+  --coordination-root /storage/private/coordination
+```
+
+The default leaves the original namespace intact. Repeating the exact invocation
+resumes its owned copy; `--cutover` additionally binds the independently verified
+copy at the original path, persists the mount and installs a processor mountpoint
+prerequisite. Only then does it reverify and retire redundant backing files.
+Interrupted binding and retirement resume from durable intent and manifest pins.
+No source or inference worker is signaled, no provider or credential is configured,
+and no model response, editorial allowance or admission decision is changed.
+Detailed failures, manifests and subprocess output remain private; stdout contains
+aggregate operational results and grants no publication approval.
+
+Qualify actual filesystem behavior before production adoption:
+
+```bash
+python scripts/qualify_evidence_relocation.py \
+  --workspace /storage/private/new-relocation-fixture
+```
+
+This requires noninteractive sudo, Btrfs tools and a new private workspace.
+It exercises normal relocation, interruption after binding, interrupted retirement,
+complete bytes, ownership, private modes, nanosecond timestamps, hardlink groups
+and an original open read handle on an isolated compressed loop filesystem.
+Mount configuration uses fixture files; production fstab and processor units are
+untouched. Keep the closed image, receipts and any failed attempt as private evidence.
+Compressed filesystems can report logical `st_blocks`; use filesystem allocation
+and free-space measurements when reporting physical savings. Source retirement
+still requires complete independent byte verification and an available mounted copy.
+
 Mount the one-page `docs/` directory and a verified extracted corpus
 separately:
 
