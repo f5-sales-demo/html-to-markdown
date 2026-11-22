@@ -11,6 +11,7 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .reference_repair_inputs import safe_file
+from .review_controller_compatibility import admission_binding
 from .review_priorities import ReviewPriorities, select_records
 from .source_phase_bindings import _privacy_budget, privacy_ledger, source_core
 from .source_review_jobs import prepare_reviews
@@ -65,10 +66,13 @@ def _prior(
         }
         if not previous.get("phases") and not budget and not previous.get("boundary_pending"):
             continue
-        exact = previous["binding"] == current["binding"]
+        # Qualification preserves the original request context only when every
+        # captured/model/policy guard matches. Seeding never grants admission.
+        selected_binding = admission_binding(previous, current["binding"])
+        exact = previous["binding"] == selected_binding
         if (
             not exact
-            and source_core(previous["binding"]) != source_core(current["binding"])
+            and source_core(previous["binding"]) != source_core(selected_binding)
             and not budget
         ):
             continue

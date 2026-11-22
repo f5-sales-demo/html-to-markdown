@@ -13,12 +13,15 @@ from test_worker_admission_roundtrip import _source_capture
 
 import html_to_markdown.cross_queue_reviews as reuse
 import html_to_markdown.source_review_jobs as jobs
+from html_to_markdown import review_controller_compatibility as compatible
+from html_to_markdown import source_review
 from html_to_markdown.content_inventory import atomic_private
 from html_to_markdown.cross_queue_reviews import _snapshot, seed_review_batch
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.media import all_frame_inputs
 from html_to_markdown.mac_worker import worker_once
+from html_to_markdown.policy_activation import controller_digest
 from html_to_markdown.policy_transport import installed_policy_pins
 from html_to_markdown.source_inputs import verify_source
 from html_to_markdown.source_review_jobs import prepare_reviews, run_reviews, verify_reviews
@@ -530,3 +533,103 @@ def test_pending_third_privacy_proposal_crosses_queues_without_another_editor(
         == saved["privacy_feedback"]
     )
     assert path.read_bytes() == original
+
+
+@pytest.fixture
+def qualified_queue_transition(capture, tmp_path, monkeypatch):
+    old_context = "a" * 64
+    current_digest = source_review.review_context_digest
+    monkeypatch.setattr(source_review, "review_context_digest", lambda: old_context)
+    old = tmp_path / "worker/day-1/my-f5-com/review"
+    assert not _review(capture, old, monkeypatch)["exceptions"]
+    record = next((old / "documents").glob("*.json"))
+    original = record.read_bytes()
+    monkeypatch.setattr(source_review, "review_context_digest", current_digest)
+    registry = {
+        "schema_version": 1,
+        "controller_sha256": controller_digest(),
+        "previous": [
+            {
+                "source_commit": "b" * 40,
+                "software_tag": "v1.14.33",
+                "wheel_sha256": "c" * 64,
+                "controller_sha256": "d" * 64,
+                "request_context_sha256": old_context,
+            }
+        ],
+    }
+    monkeypatch.setattr(compatible, "read_registry", lambda: registry)
+    current = tmp_path / "worker/day-2/my-f5-com/review"
+    prepare_reviews(capture, current)
+    return old, record, original, current, registry
+
+
+def test_qualified_daily_transition_replays_without_new_inference(
+    capture, tmp_path, monkeypatch, qualified_queue_transition
+):
+    old, record, original, current, _ = qualified_queue_transition
+    before = json.loads(original)
+    result = seed_review_batch(capture, current, tmp_path / "worker", limit=8)
+    assert len(result["seeded"]) == 1
+    assert not verify_reviews(capture, current)["accepted_files"]
+
+    class NoInference(LocalClient):
+        def execute(self, body):
+            pytest.fail("qualified unchanged daily capture must replay original requests")
+
+    monkeypatch.setattr(jobs, "CodexClient", NoInference)
+    report = run_reviews(capture, current, phase="all", journal=tmp_path / "journal")
+    assert not report["exceptions"]
+    saved = json.loads(next((current / "documents").glob("*.json")).read_bytes())
+    assert saved["disposition"] == "accepted"
+    assert saved["binding"] == before["binding"]
+    assert {k: p["request_sha256"] for k, p in saved["phases"].items()} == {
+        k: p["request_sha256"] for k, p in before["phases"].items()
+    }
+    assert record.read_bytes() == original
+    assert (
+        verify_reviews(capture, current)["accepted_files"]
+        == verify_reviews(capture, old)["accepted_files"]
+    )
+
+
+@pytest.mark.parametrize("change", ["unknown_context", "unqualified_controller"])
+def test_unqualified_daily_transition_cannot_seed_accepted_evidence(
+    capture, tmp_path, qualified_queue_transition, change
+):
+    _, record, original, current, registry = qualified_queue_transition
+    if change == "unknown_context":
+        registry["previous"] = []
+    else:
+        registry["controller_sha256"] = "0" * 64
+    result = seed_review_batch(capture, current, tmp_path / "worker", limit=8)
+    assert not result["seeded"]
+    assert not verify_reviews(capture, current)["accepted_files"]
+    assert record.read_bytes() == original
+
+
+@pytest.mark.parametrize(
+    "guard",
+    [
+        "article_sha256",
+        "source_article_html_sha256",
+        "media",
+        "metadata",
+        "validator_model",
+        "model_policy_version",
+        "curation_policy_sha256",
+        "api_policy_sha256",
+    ],
+)
+def test_qualified_transition_does_not_ignore_changed_core_guards(
+    capture, tmp_path, qualified_queue_transition, guard
+):
+    _, record, original, current, _ = qualified_queue_transition
+    path = next((current / "documents").glob("*.json"))
+    saved = json.loads(path.read_bytes())
+    saved["binding"][guard] = "changed guard"
+    saved["binding_sha256"] = sha(json_bytes(saved["binding"]))
+    path.write_bytes(json_bytes(saved))
+    result = seed_review_batch(capture, current, tmp_path / "worker", limit=8)
+    assert not result["seeded"]
+    assert record.read_bytes() == original
