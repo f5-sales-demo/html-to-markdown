@@ -8,10 +8,48 @@ import hashlib
 import os
 import re
 import tempfile
+from collections.abc import Iterator
+from contextlib import contextmanager
+from contextvars import ContextVar
 from pathlib import Path
 
 from .private_storage import atomic_write
 from .urls import SOURCE_ROOTS
+
+_DIRECTORY_SYNCS: ContextVar[set[Path] | None] = ContextVar("capture_directory_syncs", default=None)
+
+
+def _flush_directory(path: Path) -> None:
+    _safe(path)
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
+@contextmanager
+def durable_links() -> Iterator[None]:
+    """Flush every affected namespace before a complete capture import can return."""
+    pending: set[Path] = set()
+    token = _DIRECTORY_SYNCS.set(pending)
+    try:
+        yield
+    finally:
+        _DIRECTORY_SYNCS.reset(token)
+        failures: list[OSError | ValueError] = []
+        for directory in sorted(pending):
+            try:
+                _flush_directory(directory)
+            except (OSError, ValueError) as failure:
+                failures.append(failure)
+        if failures:
+            first_failure = failures[0]
+            if len(failures) > 1:
+                first_failure.add_note(
+                    f"{len(failures) - 1} additional capture directories failed durability"
+                )
+            raise first_failure
 
 
 def _safe(path: Path) -> None:
@@ -36,11 +74,22 @@ def _verify(path: Path, expected: str) -> None:
 
 
 def _sync(path: Path) -> None:
-    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
-    try:
-        os.fsync(descriptor)
-    finally:
-        os.close(descriptor)
+    pending = _DIRECTORY_SYNCS.get()
+    if pending is None:
+        _flush_directory(path)
+    else:
+        _safe(path)
+        pending.add(path)
+
+
+def _write_payload(path: Path, data: bytes) -> None:
+    if _DIRECTORY_SYNCS.get() is None:
+        atomic_write(path, data)
+    else:
+        # File data and digest verification stay immediate. The owning import
+        # cannot report success before its complete directory durability pass.
+        atomic_write(path, data, sync_parent=False)
+        _sync(path.parent)
 
 
 def _link(source: Path, destination: Path, expected: str) -> None:
@@ -90,7 +139,7 @@ def _store(root: Path, destination: Path, expected: str, data: bytes | None) -> 
         elif destination.exists():
             _link(destination, cached, expected)
         elif data is not None:
-            atomic_write(cached, data)
+            _write_payload(cached, data)
             _verify(cached, expected)
         else:
             raise ValueError("missing immutable capture source")

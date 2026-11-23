@@ -145,7 +145,7 @@ def _compress(path: Path, expected: str) -> dict[str, Any] | None:
     }
 
 
-def atomic_write(path: Path, data: bytes) -> None:
+def atomic_write(path: Path, data: bytes, *, sync_parent: bool = True) -> None:
     """Publish only complete verified bytes; preserve interrupted evidence privately."""
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     expected = hashlib.sha256(data).hexdigest()
@@ -170,7 +170,8 @@ def atomic_write(path: Path, data: bytes) -> None:
             _event(path.parent, event)
         os.replace(temporary, path)
         committed = True
-        _sync_directory(path.parent)
+        if sync_parent:
+            _sync_directory(path.parent)
     except (OSError, ValueError) as failure:
         if temporary is not None and temporary.exists():
             try:
