@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "f5-html-to-markdown"
-version = "1.14.49"
+version = "1.14.50"
 description = "Deterministic F5 HTML-to-Markdown snapshot pipeline"
 readme = "README.md"
 requires-python = ">=3.12"
