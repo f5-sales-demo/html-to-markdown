@@ -16,6 +16,7 @@ from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.generate_v2 import generate_v2
 from html_to_markdown.package import RELEASE_ASSET_NAMES, verify_publication_receipt
 from html_to_markdown.publication_queue import prepare_publication, stage_publication
+from html_to_markdown.source_inputs import verify_source
 from html_to_markdown.source_review import review_context_digest
 from html_to_markdown.work_queue import export_queue, list_queues, receive_enrichment, unpack_queue
 
@@ -227,8 +228,6 @@ def test_superseded_source_stays_visible_while_fresh_verified_inputs_progress(
 def test_full_source_verification_rejects_forged_capture_metadata_before_replay(
     capture, tmp_path, monkeypatch, field
 ):
-    from html_to_markdown.source_inputs import verify_source
-
     source, _ = admitted(capture, tmp_path / "source", monkeypatch)
     receipt_path = source / "source-review-receipt.json"
     receipt = json.loads(receipt_path.read_bytes())

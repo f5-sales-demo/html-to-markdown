@@ -173,7 +173,8 @@ def test_missing_capture_and_duplicate_metadata_never_grant_selection(tmp_path, 
     (directory / ".admission/capture/inventory.json").unlink()
     calls = verifier(monkeypatch)
     selected, rejected, superseded = selection.select_source_inputs(tmp_path)
-    assert selected == {} and len(rejected) == 1 and superseded == [] and calls == []
+    assert isinstance(selected, dict) and not selected
+    assert len(rejected) == 1 and superseded == [] and not calls
     raw = b'{"schema_version":1,"schema_version":1}'
     (directory / MARKER).write_bytes(raw)
     with pytest.raises(ValueError, match="duplicate"):
@@ -223,6 +224,7 @@ def test_all_failed_inputs_stay_visible_without_selecting_unverified_content(tmp
     second = source_input(tmp_path, "second", "2026-11-23T00:00:00Z")
     calls = verifier(monkeypatch, rejected=[first[1], second[1]])
     selected, rejected, superseded = selection.select_source_inputs(tmp_path)
-    assert selected == {} and superseded == []
+    assert isinstance(selected, dict) and not selected
+    assert superseded == []
     assert {entry["input_sha256"] for entry in rejected} == {first[1], second[1]}
     assert calls == [second[1], first[1]]
