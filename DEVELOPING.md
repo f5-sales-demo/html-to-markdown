@@ -441,6 +441,16 @@ showcase for any individual policy.
 
 ## Ubuntu processing and bounded Mac inference
 
+Native executions use attachment representation 3 when encoded images exceed
+8 MiB. Physical PNG files retain every original scanline, pixel, native depth,
+palette and display metadata through lossless IDAT compression. The manifest
+binds each original logical placement and encoded digest to its physical
+derivative; logical requests and historical source decisions remain unchanged.
+Small requests retain their original attachments. Manifest versions 1 and 2
+continue to reconstruct exactly, including when current size thresholds differ.
+Compression grants no relevance, privacy, preservation or retirement approval.
+A native executor change must be verified on both hosts before natural adoption.
+
 Keep development, source captures, media processing, review journals, curation,
 enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
 queue for Ubuntu's `processing-worker` or install its user service with
