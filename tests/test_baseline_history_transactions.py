@@ -22,7 +22,6 @@ from html_to_markdown.history_preservation import history_transaction, preserve_
 from html_to_markdown.models import PageMetadata
 from html_to_markdown.render import serialize_document
 
-
 pytest_plugins = ["test_baseline_source_review"]
 
 
