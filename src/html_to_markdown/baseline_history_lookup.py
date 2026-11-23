@@ -169,6 +169,31 @@ class HistoryLookup:
                 result[path] = None
         return result
 
+    def custody_differences(self) -> dict[str, Any]:
+        """Private bounded diagnostics only; observing differences never registers them."""
+        with self._lock:
+            try:
+                roots = history_roots(self.output, self.worker_root)
+                paths = set()
+                for root in roots:
+                    safe(root / "history")
+                    for path in (root / "history").glob("*.json"):
+                        safe(path)
+                        paths.add(path)
+                        if len(paths) > MAX_HISTORY_ENTRIES:
+                            raise ValueError("retained privacy history lookup capacity exceeded")
+                expected_roots = set(self._roots or [])
+                return {
+                    "added_roots": sorted(str(root) for root in set(roots) - expected_roots),
+                    "removed_roots": sorted(str(root) for root in expected_roots - set(roots)),
+                    "unregistered_histories": sorted(
+                        str(path) for path in paths - self._entries.keys()
+                    ),
+                    "missing_histories": sorted(str(path) for path in self._entries.keys() - paths),
+                }
+            except (ValueError, OSError) as error:
+                return {"diagnostic_error_class": type(error).__name__}
+
     def verify(self) -> None:
         """Reject concurrent additions, removals, symlinks and changed exact bytes."""
         with self._lock:

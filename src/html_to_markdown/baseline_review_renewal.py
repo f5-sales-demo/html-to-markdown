@@ -6,11 +6,11 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import ResponseEvidence
 from .enrichment.gates import request_hash
+from .history_preservation import preserve_history
 from .source_boundary_review import source_logical_request
 
 VERSION = "baseline-proposal-renewal/1"
@@ -93,7 +93,7 @@ def prepare_existing_proposal(
         return None
     data = json_bytes(original)
     digest = sha(data)
-    atomic_private(output / "history" / (digest + ".json"), data)
+    preserve_history(output, data)
     saved = dict(original)
     saved.pop("selected_existing_validation", None)
     saved.pop("candidate", None)

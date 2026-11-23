@@ -9,12 +9,12 @@ from typing import Any, Protocol
 
 from .content_inventory import atomic_private
 from .curation import json_bytes
-from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import request_hash
 from .enrichment.requests import request
 from .enrichment.visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 from .errors import TransportFailure
+from .history_preservation import preserve_history
 from .media_observations import (
     MediaObservations,
     ObservationValidation,
@@ -256,9 +256,7 @@ def _observe_once(
         != request_hash(body)
     ):
         if "media_observation" in saved["phases"]:
-            atomic_private(
-                output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
-            )
+            preserve_history(output, record.read_bytes())
         saved["phases"]["media_observation"] = execute_source_phase(
             body,
             client,
@@ -289,9 +287,7 @@ def _observe_once(
         != request_hash(body)
     ):
         if "media_observation_validation" in saved["phases"]:
-            atomic_private(
-                output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
-            )
+            preserve_history(output, record.read_bytes())
         saved["phases"]["media_observation_validation"] = execute_source_phase(
             body,
             client,
@@ -348,9 +344,7 @@ def prepare_media_observations(
                 ),
             )
             saved["media_observation_regions"] = _observation_regions(proposal, context["media"])
-        atomic_private(
-            output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
-        )
+        preserve_history(output, record.read_bytes())
         saved["media_observation_feedback"] = feedback
         atomic_private(record, json_bytes(saved))
     for correction in range(3):
@@ -421,9 +415,7 @@ def prepare_media_observations(
                             expected,
                         )
                         details.extend([*validation.failures, *validation.unresolved])
-            atomic_private(
-                output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
-            )
+            preserve_history(output, record.read_bytes())
             saved["media_observation_feedback"] = [
                 *saved.get("media_observation_feedback", []),
                 str(failure),
