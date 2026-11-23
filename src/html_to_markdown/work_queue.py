@@ -66,6 +66,12 @@ def list_queues(root: Path, *, review_frontier: bool = False) -> list[dict[str, 
         inventories[directory.relative_to(root).as_posix()] = {
             "started_at": binding_data.get("started_at"),
             "identities": {item["identity"] for item in items},
+            "capture_outcomes": {
+                item["identity"]
+                for item in items
+                if item.get("capture_complete") is True
+                or item.get("disposition") in ("capture_error", "access_queue", "policy_excluded")
+            },
         }
         known_pin = binding_data["request"].get("known_candidates_sha256")
         if known_pin:
