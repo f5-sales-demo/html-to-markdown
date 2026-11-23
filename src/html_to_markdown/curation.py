@@ -24,6 +24,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 from markdown_it import MarkdownIt
 
 from .appstack_curation import AppStackFilter
+from .curation_api_chain import api_source as verify_api
 from .curation_api_chain import legacy_result as replay_legacy_stage
 from .curation_media import plan_masks, relocate_references
 from .curation_projection import SourceProjection
@@ -810,6 +811,16 @@ def curate_topics(
 ) -> dict[str, Any]:
     """Plan all pages before applying, then close dependencies to a fixed point."""
     active = policy or load_curation_policy()
+    from .curation_topic_chain import (  # pylint: disable=import-outside-toplevel
+        begin,
+        reapply,
+        seal,
+    )
+
+    repeated = reapply(output, active, api_policy, verify_api)
+    if repeated is not None:
+        return repeated
+    topic_inputs = None
     before = corpus_digest(output)
     plans: dict[str, dict[str, Any]] = {}
     retirement_excluded = set(active.vesctl.excluded) if active.vesctl is not None else set()
@@ -855,11 +866,10 @@ def curate_topics(
         }
     originals = retained_originals
     # Re-evaluate retirement on the preserved prior stage, then replay API migration.
-    from .curation_api_chain import api_source  # pylint: disable=import-outside-toplevel
 
     api_replayed: set[Path] = set()
     for index, (path, metadata, body) in enumerate(originals):
-        prior_stage = api_source(active, path, metadata, body, api_policy)
+        prior_stage = verify_api(active, path, metadata, body, api_policy)
         if prior_stage is not None:
             originals[index] = (path, metadata, prior_stage[1])
             api_replayed.add(path)
@@ -1302,6 +1312,17 @@ def curate_topics(
         if path.resolve() not in referenced_assets
     ]
     if apply:
+        if active.legacy is not None and any(
+            plan["finding"]["disposition"] == "keep"
+            and active.legacy.canonical(str(plan["metadata"]["url"])) in active.legacy.decisions
+            and any(
+                stage["topic"] == "legacy-retired"
+                and stage["output_sha256"] != plan["finding"]["output_sha256"]
+                for stage in plan["finding"]["stages"]
+            )
+            for plan in plans.values()
+        ):
+            topic_inputs = begin(output, active, api_policy, store)
         for asset_destination, data in virtual_media.items():
             if asset_destination in referenced_assets:
                 asset_destination.write_bytes(data)
@@ -1358,7 +1379,7 @@ def curate_topics(
             "body": planned_body,
             "metadata": plan["metadata"],
         }
-    return {
+    curation_result = {
         "schema_version": 1,
         "policy_sha256": active.sha256,
         "input_sha256": before,
@@ -1371,6 +1392,8 @@ def curate_topics(
         "removed_assets": removed_assets,
         "_planned": planned,
     }
+    seal(output, topic_inputs, curation_result)
+    return curation_result
 
 
 def prune_assets(output: Path) -> None:
@@ -1458,11 +1481,10 @@ def _validate_curated_article(
     if not inherited:
         validate_whole_document_retirement(policy, path, metadata, body, api_policy=api_policy)
     from .curation_api_chain import (  # pylint: disable=import-outside-toplevel
-        api_source,
         retirement_metadata,
     )
 
-    verified_input = api_source(policy, path, metadata, body, api_policy)
+    verified_input = verify_api(policy, path, metadata, body, api_policy)
     retirement_body = verified_input[1] if verified_input is not None else body
     if policy.appstack is not None:
         result = policy.appstack.transform(retirement_body, str(metadata["url"]))
@@ -1542,13 +1564,23 @@ def curation_validation_errors(
     output: Path, policy: CurationPolicy, *, api_policy: Any = None
 ) -> dict[str, str]:
     """Enumerate every article failure privately without weakening final validation."""
+    from .curation_topic_chain import validation_scope  # pylint: disable=import-outside-toplevel
+
     failures = {}
-    for path in sorted(output.glob("content/*/**/index.md")):
-        try:
-            _validate_curated_article(path, policy, api_policy=api_policy)
-        except ValueError as failure:
-            failures[path.relative_to(output).as_posix()] = str(failure).replace(
-                str(path), "article"
+    paths = sorted(output.glob("content/*/**/index.md"))
+    try:
+        with validation_scope(output, policy, api_policy, verify_api):
+            for path in paths:
+                try:
+                    _validate_curated_article(path, policy, api_policy=api_policy)
+                except ValueError as failure:
+                    failures[path.relative_to(output).as_posix()] = str(failure).replace(
+                        str(path), "article"
+                    )
+    except ValueError as failure:
+        for path in paths:
+            failures.setdefault(
+                path.relative_to(output).as_posix(), str(failure).replace(str(path), "article")
             )
     return failures
 
@@ -1574,27 +1606,35 @@ def validate_curation(
 
         verify_enrichment(output)
     policy = policy or load_curation_policy()
-    for path in sorted(output.glob("content/*/**/index.md")):
-        _validate_curated_article(
-            path, policy, path.relative_to(output).as_posix() in inherited, api_policy=api_policy
-        )
-    if artifacts and not enriched and not refreshed:
-        # Final validation uses the same planner as examination and application.
-        replay = curate_topics(output, policy=policy, apply=False, api_policy=api_policy)
-        planned = replay.pop("_planned")
-        actual = {
-            path.relative_to(output).as_posix(): split_document(path.read_text())[1]
-            for path in sorted(output.glob("content/*/**/index.md"))
-        }
-        if {key: value["body"] for key, value in planned.items()} != actual:
-            raise ValueError("curation planner finds changed or omitted consumer content")
-    for name in ("quality-report.json", "quality-report.md", "manifest.json") if artifacts else ():
-        path = output / name
-        if path.is_file() and (
-            policy.retired(path.read_text())
-            or re.search(
-                r'"(?:content_migration|exclusions|affected_documents|missing_benchmark_urls)"\s*:',
-                path.read_text(),
+    from .curation_topic_chain import validation_scope  # pylint: disable=import-outside-toplevel
+
+    with validation_scope(output, policy, api_policy, verify_api):
+        for path in sorted(output.glob("content/*/**/index.md")):
+            _validate_curated_article(
+                path,
+                policy,
+                path.relative_to(output).as_posix() in inherited,
+                api_policy=api_policy,
             )
+        if artifacts and not enriched and not refreshed:
+            # Final validation uses the same planner as examination and application.
+            replay = curate_topics(output, policy=policy, apply=False, api_policy=api_policy)
+            planned = replay.pop("_planned")
+            actual = {
+                path.relative_to(output).as_posix(): split_document(path.read_text())[1]
+                for path in sorted(output.glob("content/*/**/index.md"))
+            }
+            if {key: value["body"] for key, value in planned.items()} != actual:
+                raise ValueError("curation planner finds changed or omitted consumer content")
+        for name in (
+            ("quality-report.json", "quality-report.md", "manifest.json") if artifacts else ()
         ):
-            raise ValueError(f"curation audit leakage: {name}")
+            path = output / name
+            if path.is_file() and (
+                policy.retired(path.read_text())
+                or re.search(
+                    r'"(?:content_migration|exclusions|affected_documents|missing_benchmark_urls)"\s*:',
+                    path.read_text(),
+                )
+            ):
+                raise ValueError(f"curation audit leakage: {name}")

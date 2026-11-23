@@ -253,6 +253,17 @@ to negative lookups. Every possible accepted replacement retains complete source
 replay, URL and capture freshness checks, original baseline custody and native-media
 verification. Standalone source and final publication verification remain exhaustive.
 
+Curation also preserves the complete original content corpus in private
+`.curation-topic-inputs` evidence when later topics change a reviewed retirement output.
+The ledger binds original metadata, bodies, media, dependency state and exact
+policy pins. Verification independently replays all topic transformations before
+checking API projection and grounded final metadata. The audit registers the
+ledger digest; missing, altered or stale records remain exceptions. Historical
+API-only evidence retains its original replay contract. Original source and
+privacy approvals remain required, and these private inputs never enter consumer
+archives. Repeated verification shares one scoped replay and checks the inputs
+and final output again before the scope ends.
+
 ## Documentation build
 
 ### Closed private evidence relocation
