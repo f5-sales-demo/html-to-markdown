@@ -149,6 +149,14 @@ editor allowance. Final replay rejects weaker or altered ledgers. Standalone
 qualification can set `HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT` to the same private
 worker root; normal processing sets it from its output directory.
 
+Baseline and source-reference replay reconstruct the complete validated logical
+source request before checking text, metadata, original media, or privacy feedback.
+The physical source-input-projection/1 request is retained exactly as transport
+evidence. Independent reference validators receive a lossless projected source
+representation with explicit reference-resolution instructions when needed to fit
+the native character limit; all original source values and media remain available.
+Unresolved proposals and consumed correction allowances remain unchanged.
+
 Baseline review transactions register each exact history generation when its owning
 writer preserves it, including intermediate native-media corrections and canonical
 proposal renewal. Ownership is scoped to the current worker and destination; nested
