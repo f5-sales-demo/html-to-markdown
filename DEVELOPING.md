@@ -441,6 +441,19 @@ showcase for any individual policy.
 
 ## Ubuntu processing and bounded Mac inference
 
+Oversized source requests can use `source-metadata-boundaries/1` to review
+complete media metadata fields separately alongside the full article, source
+HTML, captions and source/candidate context. Every typed placement and original
+field digest remains bound. Observation and independent validation must finish
+before the original document-wide phase can use that evidence. Native images,
+ordinary article fields and the full finding inventory remain in the final
+review. This representation grants no privacy, relevance, edit or retirement
+approval and does not increase the existing input limit or editorial allowance.
+Offline replay reconstructs the original logical request, every actual part and
+any nested native-image proof; missing or changed evidence stays queued.
+Historical native-boundary and source-input-projection version-1 proofs retain
+their original reconstruction.
+
 Keep development, source captures, media processing, review journals, curation,
 enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
 queue for Ubuntu's `processing-worker` or install its user service with

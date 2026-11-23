@@ -50,6 +50,7 @@ def review_context_digest() -> str:
                     "source_boundary_requests.py",
                     "source_boundary_review.py",
                     "source_input_projection.py",
+                    "source_metadata_boundaries.py",
                     "source_review_reconciliation.py",
                     "source_phase_bindings.py",
                     "source_binding_context.py",
