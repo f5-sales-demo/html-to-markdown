@@ -19,6 +19,7 @@ from .enrichment.analysis import sha
 from .enrichment.contracts import VALIDATOR_MODEL, ResponseEvidence, StrictModel
 from .enrichment.gates import request_hash
 from .enrichment.requests import request
+from .history_preservation import preserve_history
 from .media_encoding import review_media_encoding, source_review_encoding
 from .source_boundary_review import execute_cached_source, parse_source_response
 from .source_review import review_context_digest
@@ -329,8 +330,8 @@ def _promote(
     _stage(root, output, original)
     candidate_record = directory / "candidates" / selected / "documents" / record.name
     saved = json.loads(candidate_record.read_bytes())
-    atomic_private(output / "history" / (sha(current_raw) + ".json"), current_raw)
-    atomic_private(output / "history" / (sha(raw) + ".json"), raw)
+    preserve_history(output, current_raw)
+    preserve_history(output, raw)
     if lookup is not None:
         lookup.remember(output / "history" / (sha(current_raw) + ".json"))
         lookup.remember(output / "history" / (sha(raw) + ".json"))

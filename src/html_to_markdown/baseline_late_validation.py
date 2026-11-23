@@ -14,6 +14,7 @@ from .curation import blocks, json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import request_hash
+from .history_preservation import preserve_history
 from .media_observation_jobs import confirmed_media_values
 from .render import split_document
 from .source_boundary_review import (
@@ -310,7 +311,7 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
         if selection != selected or saved["candidate"] != candidate:
             raise ValueError("existing-proposal validation replay changed")
         return saved
-    atomic_private(output / "history" / (sha(original) + ".json"), original)
+    preserve_history(output, original)
     for name, content in files.items():
         atomic_private(output / "reviewed" / record.stem / name, content)
     saved.pop("existing_proposal_pending", None)

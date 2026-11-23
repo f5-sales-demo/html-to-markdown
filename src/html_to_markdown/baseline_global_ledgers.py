@@ -23,6 +23,7 @@ from .baseline_review_renewal import prepare_existing_proposal
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
+from .history_preservation import preserve_history
 
 
 def history_root(journal: Path) -> Path:
@@ -129,8 +130,8 @@ def reconcile_record(
         # Exact source custody is rechecked at the destination. Only immutable
         # original evidence is copied; response contexts and budgets are intact.
         _verify_source(output, strongest[1])
-        atomic_private(output / "history" / (sha(current_bytes) + ".json"), current_bytes)
-        atomic_private(output / "history" / (sha(strongest[2]) + ".json"), strongest[2])
+        preserve_history(output, current_bytes)
+        preserve_history(output, strongest[2])
         if lookup is not None:
             lookup.remember(output / "history" / (sha(current_bytes) + ".json"))
             lookup.remember(output / "history" / (sha(strongest[2]) + ".json"))

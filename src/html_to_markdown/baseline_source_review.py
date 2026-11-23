@@ -30,6 +30,7 @@ from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
 from .enrichment.gates import request_hash
 from .errors import TransportFailure
+from .history_preservation import history_transaction
 from .media_observation_jobs import confirmed_media_values, prepare_media_observations
 from .refresh import _verified_baseline
 from .render import split_document
@@ -389,7 +390,7 @@ def review_baseline_batch(
                 lookup.remember(preserved)
             lookup.update_current(record)
 
-    def run(item: dict[str, Any]) -> dict[str, Any]:
+    def run_record(item: dict[str, Any]) -> dict[str, Any]:
         try:
             if replay:
                 from .baseline_global_ledgers import (  # pylint: disable=import-outside-toplevel
@@ -427,6 +428,10 @@ def review_baseline_batch(
                 "failure_sha256": pin,
             }
 
+    def run(item: dict[str, Any]) -> dict[str, Any]:
+        with history_transaction(lookup):
+            return run_record(item)
+
     try:
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(run, inventory["documents"]))
@@ -439,7 +444,13 @@ def review_baseline_batch(
         lookup.verify()
         integrity_verified = True
     except (ValueError, KeyError, OSError) as error:
-        failure = json_bytes({"error_class": type(error).__name__, "error": str(error)})
+        failure = json_bytes(
+            {
+                "error_class": type(error).__name__,
+                "error": str(error),
+                "custody_differences": lookup.custody_differences(),
+            }
+        )
         pin = sha(failure)
         atomic_private(output / "history-integrity-failures" / (pin + ".private.json"), failure)
         integrity_failure = {

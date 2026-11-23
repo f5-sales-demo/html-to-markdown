@@ -149,6 +149,13 @@ editor allowance. Final replay rejects weaker or altered ledgers. Standalone
 qualification can set `HTML_TO_MARKDOWN_BASELINE_HISTORY_ROOT` to the same private
 worker root; normal processing sets it from its output directory.
 
+Baseline review transactions register each exact history generation when its owning
+writer preserves it, including intermediate native-media corrections and canonical
+proposal renewal. Ownership is scoped to the current worker and destination; nested
+candidate outputs and other threads cannot authorize foreign additions. Registration
+does not grant relevance, privacy or publication approval. Private final failures
+record unexpected roots and history paths without changing the observed custody.
+
 Baseline review batches share a bounded in-memory history lookup. It parses each
 unique digest-verified history once, retaining only five source identity strings.
 Every duplicate copy is still independently hashed before lookup reuse. Every
