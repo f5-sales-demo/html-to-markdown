@@ -13,6 +13,7 @@ import pytest
 from html_to_markdown import mac_worker
 from html_to_markdown.capture_store import store_bytes
 from html_to_markdown.enrichment.analysis import sha
+from html_to_markdown.mac_worker import _receive_capture
 
 
 def _input(tmp_path: Path, monkeypatch):
@@ -45,7 +46,7 @@ def _input(tmp_path: Path, monkeypatch):
 
 
 def _receive(queue: Path, capture: Path) -> None:
-    mac_worker._receive_capture(
+    _receive_capture(
         Path("/synthetic-transport"),
         "local",
         "/synthetic-runtime",
