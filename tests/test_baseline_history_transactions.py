@@ -12,10 +12,10 @@ from PIL import Image
 from test_baseline_global_ledgers import cloned, exhaust
 from test_baseline_source_review import Client
 
-from html_to_markdown import baseline_global_ledgers as ledger
 from html_to_markdown import baseline_source_review as source
 from html_to_markdown.baseline_history_lookup import HistoryLookup
 from html_to_markdown.baseline_late_validation import _execution_digest
+from html_to_markdown.baseline_review_renewal import prepare_existing_proposal
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.history_preservation import history_transaction, preserve_history
@@ -108,13 +108,12 @@ def test_real_media_corrections_register_every_intermediate_generation(media_bat
 
 
 def test_canonical_original_generation_is_owned_without_changing_allowance(prepared, tmp_path):
-
     root = tmp_path / "worker"
     first, donor = cloned(prepared, root, "first")
     output, record = cloned(prepared, root, "second")
     original = exhaust(first, donor)
     raw = json.dumps(original, sort_keys=True, indent=4).encode() + b"\n"
-    history = first / "history" / (sha(raw) + ".json")
+    history = output / "history" / (sha(raw) + ".json")
     history.parent.mkdir(exist_ok=True)
     history.write_bytes(raw)
     wrapped = {
@@ -124,20 +123,18 @@ def test_canonical_original_generation_is_owned_without_changing_allowance(prepa
             "prepared_binding": original["binding"],
         },
     }
-    donor_bytes = json_bytes(wrapped)
-    donor.write_bytes(donor_bytes)
     lookup = HistoryLookup(output, root)
+    lookup.paths(original["binding"])
+    wanted = json.loads(record.read_bytes())["binding"]
     with history_transaction(lookup):
-        ledger.reconcile_record(output, record, root, _execution_digest(), lookup=lookup)
+        renewed = prepare_existing_proposal(output, wrapped, wanted, _execution_digest())
     canonical = json_bytes(original)
     assert canonical != raw
     assert (output / "history" / (sha(raw) + ".json")).read_bytes() == raw
     assert (output / "history" / (sha(canonical) + ".json")).read_bytes() == canonical
-    saved = json.loads(record.read_bytes())
-    assert saved["privacy_feedback"] == original["privacy_feedback"]
-    assert len(saved["privacy_feedback"]) == 3
-    assert saved["existing_proposal_pending"]["new_editor_proposals"] == 0
-    assert donor.read_bytes() == donor_bytes
+    assert renewed["privacy_feedback"] == original["privacy_feedback"]
+    assert len(renewed["privacy_feedback"]) == 3
+    assert renewed["existing_proposal_pending"]["new_editor_proposals"] == 0
     assert history.read_bytes() == raw
     lookup.verify()
 
