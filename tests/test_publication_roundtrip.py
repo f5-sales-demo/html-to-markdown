@@ -11,6 +11,7 @@ from test_combined_sources import admitted
 from test_generate_v2 import ModelClient
 from test_source_refresh import prepare
 
+from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 from html_to_markdown.enrichment.generate_v2 import generate_v2
 from html_to_markdown.package import RELEASE_ASSET_NAMES, verify_publication_receipt
@@ -166,7 +167,7 @@ def test_failed_preparation_preserves_evidence_without_blocking_retry(
     )
 
 
-def test_stale_source_decision_stays_visible_while_fresh_verified_inputs_progress(
+def test_superseded_source_stays_visible_while_fresh_verified_inputs_progress(
     capture: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     current_context = review_context_digest()
@@ -197,14 +198,19 @@ def test_stale_source_decision_stays_visible_while_fresh_verified_inputs_progres
             shutil.copy2(baseline / name, destination / name)
 
     monkeypatch.setattr("html_to_markdown.publication_queue.subprocess.run", download)
-    job = prepare_publication(queues, queues / ".publication/fresh-job")
+    state = queues / ".publication"
+    state.mkdir(exist_ok=True)
+    previous = json_bytes([{"input_sha256": old_pin, "error_class": "ValueError"}])
+    (state / "source-input-exceptions.json").write_bytes(previous)
+    job = prepare_publication(queues, state / "fresh-job")
     assert job["selected_sources"] == {"my-f5-com": fresh_pin}
-    assert job["rejected_source_inputs"] == [
+    assert job["rejected_source_inputs"] == []
+    assert job["superseded_source_inputs"] == [
         {
             "input_sha256": old_pin,
             "queue": "old/my-f5-com",
-            "reason": "source_input_verification_failed",
-            "error_class": "ValueError",
+            "reason": "source_input_superseded",
+            "superseding_input_sha256": fresh_pin,
         }
     ]
     assert (
@@ -212,3 +218,32 @@ def test_stale_source_decision_stays_visible_while_fresh_verified_inputs_progres
         == job["rejected_source_inputs"]
     )
     assert (stale / "source-review-receipt.json").exists()
+    assert (
+        state / "source-input-exception-history" / (sha(previous) + ".json")
+    ).read_bytes() == previous
+
+
+@pytest.mark.parametrize("field", ["source", "ended_at", "capture_binding", "capture_complete"])
+def test_full_source_verification_rejects_forged_capture_metadata_before_replay(
+    capture, tmp_path, monkeypatch, field
+):
+    from html_to_markdown.source_inputs import verify_source
+
+    source, _ = admitted(capture, tmp_path / "source", monkeypatch)
+    receipt_path = source / "source-review-receipt.json"
+    receipt = json.loads(receipt_path.read_bytes())
+    receipt[field] = {
+        "source": "docs-cloud-f5-com",
+        "ended_at": "2099-01-01T00:00:00Z",
+        "capture_binding": {"source": "docs-cloud-f5-com"},
+        "capture_complete": not receipt["capture_complete"],
+    }[field]
+    raw = json_bytes(receipt)
+    receipt_path.write_bytes(raw)
+    monkeypatch.setattr(
+        "html_to_markdown.source_inputs.verify_reviews",
+        lambda *args: pytest.fail("forged metadata cannot proceed to admission replay"),
+    )
+    with pytest.raises(ValueError, match="capture metadata changed"):
+        verify_source(source, sha(raw))
+    assert receipt_path.read_bytes() == raw
