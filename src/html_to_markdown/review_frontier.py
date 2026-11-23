@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,14 @@ from typing import Any
 from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.analysis import sha
+
+
+@dataclass
+class _Coverage:
+    """Strict newer discoveries and capture outcomes for one source."""
+
+    identities: dict[str, tuple[datetime, str]] = field(default_factory=dict)
+    outcomes: dict[str, tuple[datetime, str]] = field(default_factory=dict)
 
 
 def _epoch(value: Any) -> datetime | None:
@@ -24,7 +33,7 @@ def _epoch(value: Any) -> datetime | None:
 def review_frontier(
     root: Path, records: list[dict[str, Any]], inventories: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
-    """An older queue defers only to strict newer identity coverage in its source."""
+    """Retain older capture outcomes until strictly newer source outcomes cover them."""
     minimum = datetime.min.replace(tzinfo=UTC)
     sources = [record for record in records if record.get("kind") != "enrichment"]
     epochs = {
@@ -42,25 +51,38 @@ def review_frontier(
     selected: list[dict[str, Any]] = []
     deferred: list[dict[str, Any]] = []
     uncertain: list[str] = []
-    covered: dict[str, dict[str, tuple[datetime, str]]] = {}
+    covered: dict[str, _Coverage] = {}
     for record in ordered:
         name = record["queue"]
         epoch = epochs[name]
         identities = inventories[name]["identities"]
-        prior = covered.setdefault(record["source"], {})
+        outcomes = inventories[name]["capture_outcomes"]
+        prior = covered.setdefault(record["source"], _Coverage())
         proof = {
             "queue": name,
             "source": record["source"],
             "fingerprint": record["fingerprint"],
             "covered_identities": len(identities),
             "identity_inventory_sha256": sha(json_bytes(sorted(identities))),
+            "capture_outcomes": len(outcomes),
+            "capture_outcome_inventory_sha256": sha(json_bytes(sorted(outcomes))),
         }
         if (
             epoch is not None
-            and prior
-            and all(identity in prior and prior[identity][0] > epoch for identity in identities)
+            and prior.identities
+            and all(
+                identity in prior.identities and prior.identities[identity][0] > epoch
+                for identity in identities
+            )
+            and all(
+                identity in prior.outcomes and prior.outcomes[identity][0] > epoch
+                for identity in outcomes
+            )
         ):
-            proof["covering_queues"] = sorted({prior[identity][1] for identity in identities})
+            proof["covering_queues"] = sorted(
+                {prior.identities[identity][1] for identity in identities}
+                | {prior.outcomes[identity][1] for identity in outcomes}
+            )
             deferred.append(proof)
             continue
         selected.append(record)
@@ -68,8 +90,11 @@ def review_frontier(
             uncertain.append(name)
         else:
             for identity in identities:
-                if identity not in prior or epoch > prior[identity][0]:
-                    prior[identity] = (epoch, name)
+                if identity not in prior.identities or epoch > prior.identities[identity][0]:
+                    prior.identities[identity] = (epoch, name)
+            for identity in outcomes:
+                if identity not in prior.outcomes or epoch > prior.outcomes[identity][0]:
+                    prior.outcomes[identity] = (epoch, name)
     enrichment = [record for record in records if record.get("kind") == "enrichment"]
     selected.extend(enrichment)
     atomic_private(
