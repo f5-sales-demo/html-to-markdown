@@ -99,7 +99,9 @@ def _context(
         EDITOR_MODEL,
         request_hash(source_logical_request(relevance_evidence)),
     )
-    context = json.loads(relevance_evidence.request["input"][0]["content"][0]["text"])
+    context = json.loads(
+        source_logical_request(relevance_evidence)["input"][0]["content"][0]["text"]
+    )
     metadata, body = split_document((source / saved["item"]["article_path"]).read_text())
     visual, media_fields, media = native_context(source, output, saved)
     fields = {**text_fields(metadata, body), **media_fields}
@@ -147,7 +149,7 @@ def _context(
     proposal = parse_response(
         editor, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(editor))
     )
-    original_payload = json.loads(editor.request["input"][0]["content"][0]["text"])
+    original_payload = json.loads(source_logical_request(editor)["input"][0]["content"][0]["text"])
     original_feedback = original_payload.get(
         "validation_feedback", original_payload.get("feedback", [])
     )

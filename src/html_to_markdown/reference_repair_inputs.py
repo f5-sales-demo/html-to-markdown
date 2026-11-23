@@ -20,6 +20,7 @@ from .enrichment.gates import parse_response, request_hash
 from .media_encoding import review_media_encoding, source_review_encoding
 from .reference_repair_media import seed_candidate_media
 from .render import split_document
+from .source_boundary_review import parse_source_response, source_logical_request
 from .source_media_references import media_reference_spans
 from .source_review import PrivacyDecision, RelevanceDecision, review_context_digest
 from .source_review_jobs import _article_html, _compile
@@ -212,13 +213,18 @@ def compile_source(
         if sha(safe_file(capture, media["path"]).read_bytes()) != media["sha256"]:
             raise ValueError("source-reference repair captured media changed")
     privacy = ResponseEvidence.model_validate(record["phases"]["privacy"])
-    proposal = parse_response(privacy, PrivacyDecision, EDITOR_MODEL, request_hash(privacy.request))
-    source = json.loads(privacy.request["input"][0]["content"][0]["text"])
-    relevance = ResponseEvidence.model_validate(record["phases"]["relevance"])
-    classified = parse_response(
-        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance.request)
+    proposal = parse_source_response(
+        privacy, PrivacyDecision, EDITOR_MODEL, request_hash(source_logical_request(privacy))
     )
-    relevance_source = json.loads(relevance.request["input"][0]["content"][0]["text"])
+    privacy_body = source_logical_request(privacy)
+    source = json.loads(privacy_body["input"][0]["content"][0]["text"])
+    relevance = ResponseEvidence.model_validate(record["phases"]["relevance"])
+    classified = parse_source_response(
+        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(source_logical_request(relevance))
+    )
+    relevance_source = json.loads(
+        source_logical_request(relevance)["input"][0]["content"][0]["text"]
+    )
     if source["identity"] != item["identity"] or classified.identity != item["identity"]:
         raise ValueError("source-reference repair source identity changed")
     if (
@@ -231,7 +237,7 @@ def compile_source(
     candidate, visual, projected, files = _compile(capture, output, record, source, proposal)
     return (
         candidate,
-        list(privacy.request["input"][0]["content"][1:]) + visual,
+        list(privacy_body["input"][0]["content"][1:]) + visual,
         projected,
         files,
         source,
