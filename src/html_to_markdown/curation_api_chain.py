@@ -7,20 +7,13 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .curation_paths import corpus_location as _location
 from .legacy_curation import LegacyResult
 from .render import normalize_body
 
 
 def sha(data: bytes | str) -> str:
     return hashlib.sha256(data.encode() if isinstance(data, str) else data).hexdigest()
-
-
-def _location(path: Path) -> tuple[Path, str]:
-    for root in path.parents:
-        relative = path.relative_to(root)
-        if relative.parts[0] == "content" and (root / "content").is_dir():
-            return root, relative.as_posix()
-    raise ValueError("API intermediate lacks a corpus article identity")
 
 
 def preserve_api_input(
@@ -118,10 +111,7 @@ def api_source(
         or record["metadata"].get("canonical_url") != metadata.get("canonical_url")
     ):
         raise ValueError("stale or mismatched private API intermediate")
-    if policy.legacy is not None:
-        original = policy.legacy.transform(record["metadata"], record["body"])
-        if original.disposition != "keep" or original.body != record["body"]:
-            raise ValueError("API intermediate fails original retirement guards")
+    _validate_topic_input(policy, path, record["metadata"], record["body"], api)
     projected, mappings, related = project_api_body(
         record["body"], metadata.get("canonical_url") or metadata["url"], api, policy
     )
@@ -129,6 +119,18 @@ def api_source(
         raise ValueError("API output differs from its exact qualified transformation")
     _validate_api_additions(policy, api, mappings, related)
     return record["metadata"], record["body"]
+
+
+def _validate_topic_input(policy: Any, path: Path, metadata: Any, body: str, api: Any) -> None:
+    from .curation_topic_chain import topic_source  # pylint: disable=import-outside-toplevel
+
+    if policy.legacy is None:
+        return
+    original = policy.legacy.transform(metadata, body)
+    if (original.disposition != "keep" or original.body != body) and topic_source(
+        policy, path, metadata, body, api
+    ) is None:
+        raise ValueError("API intermediate fails original retirement guards")
 
 
 def _validate_authored_metadata(policy: Any, metadata: Any, body: str, record: Any) -> None:
@@ -200,6 +202,10 @@ def legacy_result(
         or any(policy.legacy.retired(str(v)) for v in policy.legacy.authored(metadata).values())
     ):
         return result
-    if api_source(policy, path, metadata, body, api_policy) is None:
-        return result
-    return LegacyResult(body, ["verified_retirement_and_api_stages"])
+    if api_source(policy, path, metadata, body, api_policy) is not None:
+        return LegacyResult(body, ["verified_retirement_and_api_stages"])
+    from .curation_topic_chain import topic_source  # pylint: disable=import-outside-toplevel
+
+    if topic_source(policy, path, metadata, body, api_policy) is not None:
+        return LegacyResult(body, ["verified_original_retirement_and_topic_stages"])
+    return result
