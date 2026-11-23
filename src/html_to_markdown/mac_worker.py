@@ -403,6 +403,14 @@ def _receive_capture(
     identity: str,
     capture: Path,
 ) -> None:
+    capture_store = capture.parents[2] / ".capture-store"
+    if host == "local" and platform.system() == "Linux":
+        collected_store = Path(remote_queue) / ".capture-store"
+        destination = capture if capture.exists() else capture.parent
+        if collected_store.exists() and collected_store.stat().st_dev == destination.stat().st_dev:
+            # Collection has already synced these immutable payloads. Reuse
+            # still checks every transferred and cached byte before linking.
+            capture_store = collected_store
     with tempfile.TemporaryDirectory(prefix="private-content-queue-") as temporary:
         archive = Path(temporary) / "queue.tar.gz"
         with archive.open("wb") as stream:
@@ -421,7 +429,7 @@ def _receive_capture(
             subprocess.run(args, stdout=stream, stderr=subprocess.PIPE, check=True, timeout=600)  # nosec B603
         # Validated queue identities have exactly two parts; captures live under
         # output/<queue>/<source>/capture, so the store is shared across sweeps.
-        unpack_queue(archive, capture, capture_store=capture.parents[2] / ".capture-store")
+        unpack_queue(archive, capture, capture_store=capture_store)
 
 
 def _return_enrichment(

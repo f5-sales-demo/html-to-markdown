@@ -446,6 +446,21 @@ enrichment, replay and packaging on Ubuntu. Configure a private absolute inferen
 queue for Ubuntu's `processing-worker` or install its user service with
 `install-processing-service`. Ubuntu never invokes a local model.
 
+A complete capture import verifies every declared transfer payload before writing
+its members. Local Ubuntu imports reuse the collector's immutable capture store
+when it shares the destination filesystem; other imports retain their separate
+worker store. Reuse verifies cached bytes, ownership, permissions and safe paths
+before linking the original capture filenames. Mutable inventory and review state
+keep their own files.
+
+The import groups capture-store directory syncs in an independent scope. New
+payload bytes are still synced and digest-checked individually; each affected
+directory is flushed before import success permits its capture checkpoint.
+Standalone writes retain immediate directory durability. A failed final directory
+sync rejects readiness, preserves completed input bytes and resumes through the
+ordinary transfer and cache checks. This changes persistence work, while source
+admission, privacy, retirement and publication continue through their own gates.
+
 On the Mac, `stage-inference-agent` prepares the 15-minute `mac-inference-worker`
 launch definition. `activate-inference-agent` waits for real worker and inference
 quiescence before replacing the legacy full-source worker. The login shell retains

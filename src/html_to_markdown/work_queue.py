@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, BinaryIO
 
 from .capture_payloads import capture_payloads
-from .capture_store import capture_digest, store_bytes
+from .capture_store import capture_digest, durable_links, store_bytes
 from .content_inventory import verify_capture
 from .curation import json_bytes
 from .enrichment.analysis import sha
@@ -242,7 +242,7 @@ def _verify_transfer_payloads(
 
 def unpack_queue(archive: Path, destination: Path, *, capture_store: Path | None = None) -> None:
     """Validate every member before writing any received private capture bytes."""
-    with tarfile.open(archive) as data:
+    with tarfile.open(archive) as data, durable_links():
         members = data.getmembers()
         names = set()
         for member in members:
