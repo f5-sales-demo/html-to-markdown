@@ -348,13 +348,39 @@ def _prose_removal_records(
     return prose_removals
 
 
+def _consolidate_retirement_masks(proposal: Proposal) -> None:
+    """Apply all proposed retired-menu masks once to the exact source image."""
+    owners: dict[str, MediaChoice] = {}
+    for topic in proposal.topics:
+        for choice in topic.media:
+            if not choice.masks:
+                continue
+            if (
+                topic.topic not in {"legacy-retired", "appstack-retired"}
+                or choice.disposition != "keep"
+            ):
+                raise ValueError("retirement masks require an AppStack or Legacy keep placement")
+            owner = owners.get(choice.sha256)
+            if owner is None:
+                owners[choice.sha256] = choice
+                continue
+            if any(
+                item.sha256 == choice.sha256 and item.disposition != "keep"
+                for decision in proposal.topics
+                for item in decision.media
+            ):
+                raise ValueError("shared retirement masks conflict with a media removal")
+            owner.masks.extend(choice.masks)
+            choice.masks = []
+
+
 # Full source, topic, reference and pixel guards remain one deterministic transaction.
 # pylint: disable-next=too-many-locals
 def compile_proposal(
     context: dict[str, Any], value: dict[str, Any], media_bytes: dict[str, bytes] | None = None
 ) -> dict[str, Any]:
     """Retrieve exact strings deterministically; compilation grants no approval."""
-    proposal = Proposal.model_validate(value)
+    proposal = Proposal.model_validate(value).model_copy(deep=True)
     expected_context = proposal_context(
         context["metadata"],
         context["body"],
@@ -373,6 +399,7 @@ def compile_proposal(
         raise ValueError("curation renewal proposal has unresolved source decisions")
     if [topic.topic for topic in proposal.topics] != list(TOPICS):
         raise ValueError("renewal must resolve every policy topic exactly once in order")
+    _consolidate_retirement_masks(proposal)
     guarded = _guarded_removals(context, proposal)
     references = _reference_choices(context, proposal)
     current = context["body"]
