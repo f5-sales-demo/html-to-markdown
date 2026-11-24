@@ -151,3 +151,99 @@ def test_deferred_source_still_supplies_strongest_retained_privacy_ledger(prepar
     assert renewed["existing_proposal_pending"]["new_editor_proposals"] == 0
     assert previous_record.read_bytes() == previous
     assert not result["article_approved"]
+
+
+def capture_state(path, identity, *, complete, disposition="queued"):
+    con = sqlite3.connect(path / "inventory.sqlite")
+    rows = con.execute("SELECT rowid,data FROM documents").fetchall()
+    for rowid, raw in rows:
+        item = json.loads(raw)
+        if item["identity"].endswith(":" + identity):
+            item.update(capture_complete=complete, disposition=disposition)
+            con.execute("UPDATE documents SET data=? WHERE rowid=?", (json.dumps(item), rowid))
+    con.commit()
+    con.close()
+
+
+def test_matching_pending_inventory_cannot_hide_completed_capture(tmp_path):
+    root = tmp_path / "queue"
+    older = queue(root, "old", "my-f5-com", ["same"], "2026-11-19T00:00:00Z")
+    queue(root, "new", "my-f5-com", ["same"], "2026-11-20T00:00:00Z", complete=False)
+    before = (older / "inventory.sqlite").read_bytes()
+    selected = list_queues(root, review_frontier=True)
+    assert [entry["queue"] for entry in selected] == ["new/my-f5-com", "old/my-f5-com"]
+    assert (older / "inventory.sqlite").read_bytes() == before
+    assert json.loads((root / "review-frontier.private.json").read_bytes())["deferred"] == []
+
+
+def test_partial_capture_completion_releases_older_queue(tmp_path):
+    root = tmp_path / "queue"
+    older = queue(root, "old", "my-f5-com", ["one", "two"], "2026-11-19T00:00:00Z")
+    latest = queue(root, "new", "my-f5-com", ["one", "two"], "2026-11-20T00:00:00Z", complete=False)
+    before = (older / "inventory.sqlite").read_bytes()
+    capture_state(latest, "one", complete=True)
+    partial = list_queues(root, review_frontier=True)
+    assert [entry["queue"] for entry in partial] == ["new/my-f5-com", "old/my-f5-com"]
+    capture_state(latest, "two", complete=True)
+    complete = list_queues(root, review_frontier=True)
+    assert [entry["queue"] for entry in complete] == ["new/my-f5-com"]
+    assert partial[0]["fingerprint"] != complete[0]["fingerprint"]
+    assert (older / "inventory.sqlite").read_bytes() == before
+
+
+@pytest.mark.parametrize("disposition", ["capture_error", "access_queue", "policy_excluded"])
+def test_explicit_new_capture_outcomes_keep_current_failure_or_policy_state(tmp_path, disposition):
+    root = tmp_path / "queue"
+    queue(root, "old", "my-f5-com", ["same"], "2026-11-19T00:00:00Z")
+    latest = queue(root, "new", "my-f5-com", ["same"], "2026-11-20T00:00:00Z", complete=False)
+    capture_state(latest, "same", complete=False, disposition=disposition)
+    assert [entry["queue"] for entry in list_queues(root, review_frontier=True)] == [
+        "new/my-f5-com"
+    ]
+
+
+@pytest.mark.parametrize("disposition", ["capture_error", "access_queue"])
+def test_pending_new_inventory_preserves_older_capture_failure(tmp_path, disposition):
+    root = tmp_path / "queue"
+    older = queue(root, "old", "my-f5-com", ["same"], "2026-11-19T00:00:00Z", complete=False)
+    capture_state(older, "same", complete=False, disposition=disposition)
+    queue(root, "new", "my-f5-com", ["same"], "2026-11-20T00:00:00Z", complete=False)
+    assert [entry["queue"] for entry in list_queues(root, review_frontier=True)] == [
+        "new/my-f5-com",
+        "old/my-f5-com",
+    ]
+
+
+def test_pending_only_old_inventory_can_defer_without_losing_capture(tmp_path):
+    root = tmp_path / "queue"
+    queue(root, "old", "my-f5-com", ["same"], "2026-11-19T00:00:00Z", complete=False)
+    queue(root, "new", "my-f5-com", ["same"], "2026-11-20T00:00:00Z", complete=False)
+    assert [entry["queue"] for entry in list_queues(root, review_frontier=True)] == [
+        "new/my-f5-com"
+    ]
+
+
+@pytest.mark.parametrize("flag", [1, "true", {"done": True}])
+def test_non_boolean_complete_claim_cannot_hide_old_capture(tmp_path, flag):
+    root = tmp_path / "queue"
+    queue(root, "old", "my-f5-com", ["same"], "2026-11-19T00:00:00Z")
+    latest = queue(root, "new", "my-f5-com", ["same"], "2026-11-20T00:00:00Z", complete=False)
+    capture_state(latest, "same", complete=flag)
+    assert [entry["queue"] for entry in list_queues(root, review_frontier=True)] == [
+        "new/my-f5-com",
+        "old/my-f5-com",
+    ]
+
+
+def test_capture_outcomes_can_compose_across_newer_selected_queues(tmp_path):
+    root = tmp_path / "queue"
+    queue(root, "old", "my-f5-com", ["one", "two"], "2026-11-19T00:00:00Z")
+    queue(root, "middle", "my-f5-com", ["two"], "2026-11-20T00:00:00Z")
+    latest = queue(root, "new", "my-f5-com", ["one", "two"], "2026-11-21T00:00:00Z", complete=False)
+    capture_state(latest, "one", complete=True)
+    selected = list_queues(root, review_frontier=True)
+    assert [entry["queue"] for entry in selected] == ["new/my-f5-com", "middle/my-f5-com"]
+    proof = json.loads((root / "review-frontier.private.json").read_bytes())["deferred"][0]
+    assert proof["queue"] == "old/my-f5-com"
+    assert proof["covering_queues"] == ["middle/my-f5-com", "new/my-f5-com"]
+    assert proof["capture_outcomes"] == 2

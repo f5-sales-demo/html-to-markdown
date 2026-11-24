@@ -201,10 +201,14 @@ discovery, and selected-conflict replay changes no preserved input files.
 Source workers select a current review frontier before each sweep. The default
 `list-review-queues` still enumerates all captured queues; `--review-frontier`
 prioritizes capture epochs and defers an older queue only when strictly newer
-selected inventories cover every identity in that source. Missing identities,
-unknown epochs and tied epochs retain their source queues. Interrupted captures
-and enrichment work remain visible. Private `review-frontier.private.json`
-records the selection and coverage; deferral does not grant a policy exclusion.
+selected inventories cover every identity and every completed or terminal capture
+outcome in that source. Merely discovering an identity whose capture is pending
+cannot hide a complete older capture. Current access and media failures remain
+terminal capture outcomes; they grant no admission. Older inventories with only pending
+captures can defer without losing captured material. Missing identities, unknown epochs,
+tied epochs and enrichment work remain visible. Private
+`review-frontier.private.json` pins both discovery and capture-outcome coverage;
+deferral does not grant a policy exclusion.
 All original inventories, decisions and strongest privacy histories remain
 available for cross-queue reuse and final replay.
 
