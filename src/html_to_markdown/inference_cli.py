@@ -24,6 +24,22 @@ from .mac_worker import worker_once
 def register_inference_commands(app: typer.Typer) -> None:
     """Keep inference transport separate from consumer and publication commands."""
 
+    @app.command("register-review-priorities")
+    def register_review_priorities_command(
+        queue_root: Annotated[Path, typer.Option(file_okay=False)],
+        dependency_report_sha256: Annotated[str, typer.Option()],
+        identity: Annotated[list[str], typer.Option()],
+    ) -> None:
+        """Merge actual planner prerequisites into private source scheduling on Ubuntu."""
+        # pylint: disable-next=import-outside-toplevel
+        from .planner_priorities import register_priorities
+
+        typer.echo(
+            json.dumps(
+                register_priorities(queue_root, identity, dependency_report_sha256), sort_keys=True
+            )
+        )
+
     @app.command("export-inference-executor")
     def executor_contract() -> None:
         typer.echo(json.dumps(contract(), sort_keys=True))
