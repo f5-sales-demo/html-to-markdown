@@ -445,6 +445,14 @@ showcase for any individual policy.
 
 ## Ubuntu processing and bounded Mac inference
 
+Publication ranks digest-pinned receipt metadata against its preserved capture
+inventory before complete source replay. Candidates retain the same capture-time,
+settled-document and stable-path order. Every selected input passes complete
+admission replay; failed newer candidates leave older verified fallbacks eligible.
+Older unselected receipts remain private with explicit superseded dispositions.
+Selection reports and historical verification failures are preserved separately;
+the combiner and packaging still independently verify selected source inputs.
+
 Keep development, source captures, media processing, review journals, curation,
 enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
 queue for Ubuntu's `processing-worker` or install its user service with
