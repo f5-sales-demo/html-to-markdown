@@ -220,6 +220,14 @@ source review use the same selector: explicit prerequisites, previous publicatio
 then URL order. Unselected candidates remain queued. Priority never changes
 discovery origins, capture bytes, admission checks, model inputs or privacy budgets.
 Changing this scheduling file alone does not invalidate bound approvals.
+After each curation pass, actual planner dependency paths are registered on the
+queue-owning Ubuntu host through `register-review-priorities`, including when
+the review remains pending. Registration accepts only the four supported source
+identities, preserves manual priorities and URLs under a shared lock, and
+records the exact dependency-report digest plus the prior and resulting input
+digests privately. Repeated hints reuse immutable evidence. Missing reports do
+nothing; transport or input failures remain private exceptions while other
+sources progress. The next source sweep reads the resulting priority digest.
 Standalone bounded `review-content` can use `--priority-input PATH` together with
 `--priority-sha256 DIGEST`. Missing worker configuration preserves default ordering.
 

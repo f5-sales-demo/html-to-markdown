@@ -93,6 +93,22 @@ def share_capture_storage_command(
     typer.echo(json.dumps({"sources": result["sources"], "model_inference_run": False}))
 
 
+@app.command("register-review-priorities")
+def register_review_priorities_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    dependency_report_sha256: Annotated[str, typer.Option()],
+    identity: Annotated[list[str], typer.Option()],
+) -> None:
+    """Merge actual planner prerequisites into private source scheduling on Ubuntu."""
+    from .planner_priorities import register_priorities  # pylint: disable=import-outside-toplevel
+
+    typer.echo(
+        json.dumps(
+            register_priorities(queue_root, identity, dependency_report_sha256), sort_keys=True
+        )
+    )
+
+
 @app.command("list-review-queues")
 def list_review_queues(
     queue_root: Annotated[Path, typer.Option(file_okay=False)],
