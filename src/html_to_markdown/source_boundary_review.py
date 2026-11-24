@@ -30,6 +30,18 @@ from .source_boundary_requests import (
 from .source_input_projection import MARKER as INPUT_MARKER
 from .source_input_projection import VERSION as INPUT_VERSION
 from .source_input_projection import project_source_request
+from .source_metadata_boundaries import (
+    MARKER as METADATA_MARKER,
+)
+from .source_metadata_boundaries import (
+    VERSION as METADATA_VERSION,
+)
+from .source_metadata_boundaries import (
+    MetadataProof,
+    execute_metadata_request,
+    metadata_plan,
+    validate_metadata_evidence,
+)
 
 
 class InputProjectionProof(StrictModel):
@@ -84,6 +96,8 @@ def has_retryable_boundary(saved: dict[str, Any]) -> bool:
 
 def source_logical_request(evidence: ResponseEvidence) -> dict[str, Any]:
     if evidence.source_boundary is not None:
+        if evidence.source_boundary.get("version") == METADATA_VERSION:
+            return MetadataProof.model_validate(evidence.source_boundary).logical_request
         if evidence.source_boundary.get("version") == INPUT_VERSION:
             return InputProjectionProof.model_validate(evidence.source_boundary).logical_request
         proof = BoundaryProof.model_validate(evidence.source_boundary)
@@ -183,6 +197,8 @@ def _summary(
 
 def validate_boundary_evidence(evidence: ResponseEvidence) -> dict[str, Any]:
     """Reconstruct every leaf request and final actual request; no response is rebound."""
+    if evidence.source_boundary and evidence.source_boundary.get("version") == METADATA_VERSION:
+        return validate_metadata_evidence(evidence, validate_boundary_evidence)
     if evidence.source_boundary and evidence.source_boundary.get("version") == INPUT_VERSION:
         projected = InputProjectionProof.model_validate(evidence.source_boundary)
         actual = project_source_request(projected.logical_request)
@@ -233,7 +249,9 @@ def parse_source_response(
     if evidence.source_boundary is None:
         content = evidence.request.get("input", [{}])[0].get("content", [{}])[0]
         payload = json.loads(content["text"]) if "text" in content else None
-        if isinstance(payload, dict) and (MARKER in payload or INPUT_MARKER in payload):
+        if isinstance(payload, dict) and (
+            MARKER in payload or INPUT_MARKER in payload or METADATA_MARKER in payload
+        ):
             raise ValueError("final source response is missing its complete boundary evidence")
         return parse_response(evidence, schema, model, expected_request_hash)
     logical = validate_boundary_evidence(evidence)
@@ -378,6 +396,11 @@ def execute_source_request(body: dict[str, Any], client: Any, checkpoint: Path) 
 def _execute_native_source_request(
     body: dict[str, Any], client: Any, checkpoint: Path
 ) -> ResponseEvidence:
+    metadata = metadata_plan(body)
+    if metadata is not None:
+        return execute_metadata_request(
+            body, metadata, client, checkpoint, _execute_native_source_request, _part_response
+        )
     _check_input_size(body, checkpoint)
     plan = boundary_plan(body)
     if plan is None:
