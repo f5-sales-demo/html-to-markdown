@@ -22,8 +22,8 @@ from .enrichment.engine import load_artifact, prepare, verify_enrichment
 from .models import utc_now
 from .package import RELEASE_ASSET_NAMES, verify_publication_receipt, write_publication_receipt
 from .policy_transport import policy_repository, require_current_policy
+from .publication_source_selection import select_source_inputs
 from .refresh import _verified_baseline
-from .source_inputs import verify_source
 
 
 def deployed_revision() -> dict[str, Any]:
@@ -73,37 +73,25 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
         capture_output=True,
     )  # nosec B603
     _verified_baseline(baseline, revision["publication_sha256"])
-    selected: dict[str, tuple[Path, str]] = {}
-    ranks: dict[str, tuple[str, int]] = {}
-    rejected = []
-    for receipt_path in sorted((queue_root / ".reviewed").glob("*/*/*/source-review-receipt.json")):
-        directory = receipt_path.parent
-        digest = sha(receipt_path.read_bytes())
-        if directory.name != digest:
-            raise ValueError("private reviewed input directory does not match its pin")
-        try:
-            receipt = verify_source(directory, digest)
-        except (ValueError, KeyError, TypeError, OSError) as failure:
-            rejected.append(
-                {
-                    "input_sha256": digest,
-                    "queue": directory.parent.parent.name + "/" + directory.parent.name,
-                    "reason": "source_input_verification_failed",
-                    "error_class": type(failure).__name__,
-                }
-            )
-            continue
-        source = receipt["source"]
-        rank = (
-            receipt["ended_at"],
-            sum(
-                item["disposition"] in {"accepted", "policy_excluded"}
-                for item in receipt["documents"]
-            ),
+    selected, rejected, superseded = select_source_inputs(queue_root)
+    previous = queue_root / ".publication/source-input-exceptions.json"
+    if previous.exists():
+        original = previous.read_bytes()
+        atomic_private(
+            previous.parent / "source-input-exception-history" / (sha(original) + ".json"),
+            original,
         )
-        if source not in selected or rank > ranks[source]:
-            selected[source], ranks[source] = (directory, digest), rank
-    atomic_private(queue_root / ".publication/source-input-exceptions.json", json_bytes(rejected))
+    atomic_private(previous, json_bytes(rejected))
+    atomic_private(
+        output / "source-input-selection.json",
+        json_bytes(
+            {
+                "selected_sources": {source: pin for source, (_, pin) in selected.items()},
+                "rejected_source_inputs": rejected,
+                "superseded_source_inputs": superseded,
+            }
+        ),
+    )
     if not selected:
         raise ValueError("no independently reviewed source input is ready")
     combined = output / "combined"
@@ -125,6 +113,7 @@ def _prepare_publication(queue_root: Path, output: Path) -> dict[str, Any]:
         "curated_sha256": corpus_digest(combined),
         "selected_sources": {source: pin for source, (_, pin) in selected.items()},
         "rejected_source_inputs": rejected,
+        "superseded_source_inputs": superseded,
         "prepared_at": utc_now(),
     }
     atomic_private(output / "publication-job.json", json_bytes(job))

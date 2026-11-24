@@ -32,6 +32,7 @@ def executor_context() -> str:
                     "native_visuals.py",
                     "native_pixel_views.py",
                     "visual_capacity.py",
+                    "../media_encoding.py",
                 ]
             }
         )

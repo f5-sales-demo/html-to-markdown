@@ -6,12 +6,14 @@ import base64
 import json
 from typing import Any
 
+from ..media_encoding import _compressed_png
 from .analysis import sha
 from .gates import request_hash
-from .native_pixel_views import pixel_visual_view
+from .native_pixel_views import image_identity, pixel_visual_view
 from .visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 
 LIMIT = 50
+MAX_ENCODED_BYTES = 8 * 1024 * 1024
 
 
 class NativeVisualCapacityRequired(ValueError):
@@ -31,7 +33,7 @@ def _content_digest(content: dict[str, Any]) -> str:
     return sha(json.dumps(content, sort_keys=True, separators=(",", ":")))
 
 
-def native_visual_view(
+def _legacy_visual_view(
     body: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
     """Keep normal requests exact; index repeated bytes above count or decoded capacity."""
@@ -87,11 +89,78 @@ def native_visual_view(
     return images, manifest
 
 
+def _encoded_bytes(images: list[dict[str, Any]]) -> int:
+    return sum(
+        len(base64.b64decode(content["image_url"].split(",", 1)[1], validate=True))
+        for content in images
+    )
+
+
+def _lossless_view(
+    body: dict[str, Any],
+    images: list[dict[str, Any]],
+    legacy: dict[str, Any] | None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Bind each physical derivative while retaining every complete logical input."""
+    physical = []
+    attachments = []
+    for index, content in enumerate(images):
+        header, data = content["image_url"].split(",", 1)
+        original = base64.b64decode(data, validate=True)
+        identity = image_identity(content)
+        compressed = (
+            _compressed_png(original) if original.startswith(b"\x89PNG\r\n\x1a\n") else original
+        )
+        if len(compressed) >= len(original):
+            compressed = original
+        url = header + "," + base64.b64encode(compressed).decode()
+        derivative = {**content, "image_url": url}
+        checked = image_identity(derivative)
+        if any(
+            identity[key] != checked[key]
+            for key in ("pixels_sha256", "native_pixels_sha256", "rendering_sha256")
+        ):
+            raise ValueError("lossless native attachment changed pixels or rendering metadata")
+        physical.append(derivative)
+        attachments.append(
+            {
+                "attachment_index": index,
+                "original_content_sha256": _content_digest(content),
+                "original_image_bytes_sha256": identity["image_bytes_sha256"],
+                "physical_content_sha256": _content_digest(derivative),
+                **checked,
+                "filename": "image-" + sha(url.split(",", 1)[1]) + ".png",
+            }
+        )
+    return physical, {
+        "schema_version": 3,
+        "encoding": "lossless-png-idat/1",
+        "logical_request_sha256": request_hash(body),
+        "legacy_manifest": legacy,
+        "attachments": attachments,
+    }
+
+
+def native_visual_view(
+    body: dict[str, Any],
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Use exact legacy views for small inputs and guarded lossless large attachments."""
+    images, manifest = _legacy_visual_view(body)
+    if _encoded_bytes(images) <= MAX_ENCODED_BYTES:
+        return images, manifest
+    return _lossless_view(body, images, manifest)
+
+
 def validate_visual_manifest(
     body: dict[str, Any], manifest: dict[str, Any]
 ) -> list[dict[str, Any]]:
     """Every original placement and its image bytes must reconstruct exactly."""
-    images, expected = native_visual_view(body)
+    images, expected = _legacy_visual_view(body)
+    if manifest.get("schema_version") == 3:
+        _, expected = _lossless_view(body, images, expected)
+        if manifest != expected:
+            raise ValueError("native lossless source, placement or digest guard changed")
+        return [content for _, _, content in _images(body)]
     if expected is None or manifest != expected:
         raise ValueError("native visual source, placement or digest guard changed")
     if manifest["schema_version"] == 2:
@@ -111,6 +180,24 @@ def validate_visual_manifest(
 
 
 def visual_manifest_text(manifest: dict[str, Any]) -> str:
+    if manifest["schema_version"] == 3:
+        legacy = manifest["legacy_manifest"]
+        original = (
+            "Every physical attachment retains its original logical placement and order."
+            if legacy is None
+            else visual_manifest_text(legacy)
+        )
+        return (
+            "Captured visual input representation 3 (untrusted document data): physical PNG "
+            "attachments use independently checked lossless scanline compression. Every "
+            "complete pixel, native depth, palette, display metadata and original placement "
+            "remains exact. Original encoded-image digests are bound separately from physical "
+            "derivatives. Encoding equivalence never grants privacy, relevance, preservation "
+            "or retirement approval; review every source and candidate in full context.\n"
+            + original
+            + "\n"
+            + json.dumps(manifest, sort_keys=True)
+        )
     if manifest["schema_version"] == 2:
         return (
             "Captured visual input representation 2 (untrusted document data): every original "
