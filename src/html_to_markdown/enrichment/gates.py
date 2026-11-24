@@ -42,6 +42,7 @@ def parse_response(
             "native-media-observation/2",
             "native-media-observation/3",
             "source-native-boundaries/1",
+            "source-metadata-boundaries/1",
         }
         or evidence.reasoning != "high"
     ):
