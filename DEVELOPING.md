@@ -201,10 +201,14 @@ discovery, and selected-conflict replay changes no preserved input files.
 Source workers select a current review frontier before each sweep. The default
 `list-review-queues` still enumerates all captured queues; `--review-frontier`
 prioritizes capture epochs and defers an older queue only when strictly newer
-selected inventories cover every identity in that source. Missing identities,
-unknown epochs and tied epochs retain their source queues. Interrupted captures
-and enrichment work remain visible. Private `review-frontier.private.json`
-records the selection and coverage; deferral does not grant a policy exclusion.
+selected inventories cover every identity and every completed or terminal capture
+outcome in that source. Merely discovering an identity whose capture is pending
+cannot hide a complete older capture. Current access and media failures remain
+terminal capture outcomes; they grant no admission. Older inventories with only pending
+captures can defer without losing captured material. Missing identities, unknown epochs,
+tied epochs and enrichment work remain visible. Private
+`review-frontier.private.json` pins both discovery and capture-outcome coverage;
+deferral does not grant a policy exclusion.
 All original inventories, decisions and strongest privacy histories remain
 available for cross-queue reuse and final replay.
 
@@ -453,6 +457,24 @@ Offline replay reconstructs the original logical request, every actual part and
 any nested native-image proof; missing or changed evidence stays queued.
 Historical native-boundary and source-input-projection version-1 proofs retain
 their original reconstruction.
+
+Native executions use attachment representation 3 when encoded images exceed
+8 MiB. Physical PNG files retain every original scanline, pixel, native depth,
+palette and display metadata through lossless IDAT compression. The manifest
+binds each original logical placement and encoded digest to its physical
+derivative; logical requests and historical source decisions remain unchanged.
+Small requests retain their original attachments. Manifest versions 1 and 2
+continue to reconstruct exactly, including when current size thresholds differ.
+Compression grants no relevance, privacy, preservation or retirement approval.
+A native executor change must be verified on both hosts before natural adoption.
+
+Publication ranks digest-pinned receipt metadata against its preserved capture
+inventory before complete source replay. Candidates retain the same capture-time,
+settled-document and stable-path order. Every selected input passes complete
+admission replay; failed newer candidates leave older verified fallbacks eligible.
+Older unselected receipts remain private with explicit superseded dispositions.
+Selection reports and historical verification failures are preserved separately;
+the combiner and packaging still independently verify selected source inputs.
 
 Keep development, source captures, media processing, review journals, curation,
 enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
