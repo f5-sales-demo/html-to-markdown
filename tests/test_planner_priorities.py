@@ -236,7 +236,8 @@ def test_pending_curation_registers_priorities_and_transport_failure_keeps_other
 
     monkeypatch.setattr(worker, "prioritize_dependencies", register)
     status = {}
-    worker._advance_renewal_pass(
+    # Exercise the internal cross-source boundary where pending curation registers hints.
+    worker._advance_renewal_pass(  # pylint: disable=protected-access
         queues, status, tmp_path, Path("/transport"), "ubuntu", "/runtime", "/queue"
     )
     assert len(calls) == 2
