@@ -450,6 +450,24 @@ enrichment, replay and packaging on Ubuntu. Configure a private absolute inferen
 queue for Ubuntu's `processing-worker` or install its user service with
 `install-processing-service`. Ubuntu never invokes a local model.
 
+Ubuntu collection and processing run manually by default. Service installation
+preserves `operation-mode.private.json` in the queue root and disables its timers
+in manual mode. Persistent timer guards also prevent legacy installers from
+dispatching automatic work. Upgrades preserve service definitions and existing
+manual work; switching mode stops owned timers without stopping services.
+
+Use `configure-operation-mode --queue-root /private/queue --mode manual` to stop
+existing collection and processing clocks. Run `collect-content --queue-root
+/private/queue --source all` when new documentation is available; add `--full` for
+a complete reconciliation. `scheduled-collection` remains a compatible alias.
+Start `html-to-markdown-processing.service` explicitly with `systemctl --user
+start` after collection, or invoke `processing-worker` with the configured
+queue, inference queue, output, executable and transport paths.
+
+Automatic clocks require explicit `--mode scheduled` configuration followed by
+service installation. Selecting scheduled mode alone starts no schedules.
+Malformed or unsafe mode inputs fail visibly before installation activates work.
+
 A complete capture import verifies every declared transfer payload before writing
 its members. Local Ubuntu imports reuse the collector's immutable capture store
 when it shares the destination filesystem; other imports retain their separate

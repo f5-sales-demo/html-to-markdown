@@ -103,6 +103,7 @@ def list_review_queues(
 
 
 @app.command("scheduled-collection")
+@app.command("collect-content")
 def scheduled_collection_command(
     queue_root: Annotated[Path, typer.Option(file_okay=False)],
     source: Annotated[str, typer.Option()] = "all",
@@ -124,6 +125,17 @@ def scheduled_collection_command(
                 sort_keys=True,
             )
         )
+
+
+@app.command("configure-operation-mode")
+def configure_operation_mode_command(
+    queue_root: Annotated[Path, typer.Option(file_okay=False)],
+    mode: Annotated[str, typer.Option()] = "manual",
+) -> None:
+    """Persist Ubuntu manual operation; automatic schedules require explicit opt-in."""
+    from .operation_mode import configure_operation_mode  # pylint: disable=import-outside-toplevel
+
+    typer.echo(json.dumps(configure_operation_mode(queue_root, mode), sort_keys=True))
 
 
 @app.command("export-review-queue")

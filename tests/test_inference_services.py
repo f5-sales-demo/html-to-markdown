@@ -66,3 +66,4 @@ def test_ubuntu_processing_install_preserves_existing_collector_clocks(tmp_path,
     assert "UMask=0077" in (units / result["service"]).read_text()
     assert "OnUnitInactiveSec=900" in (units / result["timer"]).read_text()
     assert calls[-1][-1] == result["timer"]
+    assert calls[-1][2:4] == ["disable", "--now"]
