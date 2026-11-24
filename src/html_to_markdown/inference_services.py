@@ -16,7 +16,12 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .curation import json_bytes
-from .operation_mode import apply_timer_mode, operation_mode
+from .operation_mode import (
+    apply_timer_mode,
+    mac_agent_schedule,
+    operation_mode,
+    validate_mac_agent_schedule,
+)
 
 
 def install_processing_service(
@@ -90,15 +95,13 @@ def stage_inference_agent(
     definition = {
         "Label": "com.f5-sales-demo.content-review",
         "ProgramArguments": ["/bin/zsh", "-l", "-c", "exec " + shlex.join(command)],
-        "StartInterval": 900,
-        "RunAtLoad": True,
         "ProcessType": "Background",
         "Umask": 0o077,
         "StandardOutPath": str(output / "worker.private.log"),
         "StandardErrorPath": str(output / "worker.private.err"),
     }
     path = output / "agent.pending.plist"
-    atomic_private(path, plistlib.dumps(definition, sort_keys=True))
+    atomic_private(path, plistlib.dumps(mac_agent_schedule(output, definition), sort_keys=True))
     return path
 
 
@@ -133,10 +136,8 @@ def activate_inference_agent(output: Path) -> dict[str, Any]:
         pending = output / "agent.pending.plist"
         data = pending.read_bytes()
         definition = plistlib.loads(data)
-        if (
-            definition.get("StartInterval") != 900
-            or "mac-inference-worker" not in definition["ProgramArguments"][-1]
-        ):
+        mode = validate_mac_agent_schedule(output, definition)
+        if "mac-inference-worker" not in definition["ProgramArguments"][-1]:
             raise ValueError("Pending launch agent is not the bounded inference worker")
         destination = Path.home() / "Library/LaunchAgents/com.f5-sales-demo.content-review.plist"
         if state.returncode == 0:
@@ -153,7 +154,8 @@ def activate_inference_agent(output: Path) -> dict[str, Any]:
         )  # nosec B603
     receipt = {
         "state": "inference_agent_activated",
-        "interval_seconds": 900,
+        "interval_seconds": 900 if mode == "scheduled" else None,
+        "operation_mode": mode,
         "active_inference_interrupted": False,
     }
     atomic_private(output / "agent-activation.private.json", json_bytes(receipt))

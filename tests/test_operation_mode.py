@@ -16,7 +16,9 @@ from html_to_markdown.operation_mode import (
     TIMERS,
     apply_timer_mode,
     configure_operation_mode,
+    mac_agent_schedule,
     operation_mode,
+    validate_mac_agent_schedule,
 )
 
 
@@ -187,3 +189,41 @@ def test_cli_sets_manual_mode_and_exposes_collection_alias(host):
     for command in ["collect-content", "scheduled-collection"]:
         result = runner.invoke(cli.app, [command, "--help"])
         assert result.exit_code == 0 and "--source" in result.output
+
+
+@pytest.mark.parametrize(
+    "key,value",
+    [
+        ("StartInterval", 900),
+        ("StartCalendarInterval", {"Hour": 2}),
+        ("KeepAlive", {"SuccessfulExit": False}),
+        ("WatchPaths", ["/tmp/source"]),
+        ("QueueDirectories", ["/tmp/queue"]),
+        ("StartOnMount", True),
+        ("LaunchEvents", {"example": {}}),
+        ("Sockets", {"example": {}}),
+        ("MachServices", {"example": True}),
+        ("RunAtLoad", True),
+    ],
+)
+def test_manual_mac_activation_rejects_every_automatic_trigger(tmp_path, key, value):
+    definition = {"RunAtLoad": False, key: value}
+    with pytest.raises(ValueError, match="manual"):
+        validate_mac_agent_schedule(tmp_path, definition)
+
+
+def test_explicit_mac_schedule_and_manual_transition_preserve_worker_command(tmp_path):
+    path = tmp_path / FILENAME
+    original = {"Label": "worker", "ProgramArguments": ["/existing/credential/route"]}
+    manual = mac_agent_schedule(tmp_path, original)
+    assert manual == {**original, "RunAtLoad": False}
+    assert validate_mac_agent_schedule(tmp_path, manual) == "manual"
+    path.write_text(json.dumps({"schema_version": 1, "mode": "scheduled"}))
+    scheduled = mac_agent_schedule(tmp_path, original)
+    assert scheduled == {**original, "RunAtLoad": True, "StartInterval": 900}
+    assert validate_mac_agent_schedule(tmp_path, scheduled) == "scheduled"
+    path.write_text(json.dumps({"schema_version": 1, "mode": "manual"}))
+    with pytest.raises(ValueError, match="manual"):
+        validate_mac_agent_schedule(tmp_path, scheduled)
+    assert mac_agent_schedule(tmp_path, scheduled) == manual
+    assert original == {"Label": "worker", "ProgramArguments": ["/existing/credential/route"]}

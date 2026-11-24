@@ -4,6 +4,8 @@ import plistlib
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from html_to_markdown.inference_services import (
     activate_inference_agent,
     install_processing_service,
@@ -11,9 +13,7 @@ from html_to_markdown.inference_services import (
 )
 
 
-def test_staged_mac_agent_polls_every_fifteen_minutes_and_stores_no_credentials(
-    tmp_path, monkeypatch
-):
+def test_staged_mac_agent_is_one_shot_and_stores_no_credentials(tmp_path, monkeypatch):
     monkeypatch.setattr("html_to_markdown.inference_services.platform.system", lambda: "Darwin")
     path = stage_inference_agent(
         host="ubuntu",
@@ -23,7 +23,8 @@ def test_staged_mac_agent_polls_every_fifteen_minutes_and_stores_no_credentials(
         transport=Path("/transport"),
     )
     definition = plistlib.loads(path.read_bytes())
-    assert definition["StartInterval"] == 900 and definition["Umask"] == 0o077
+    assert "StartInterval" not in definition and definition["RunAtLoad"] is False
+    assert definition["Umask"] == 0o077
     assert "mac-inference-worker" in definition["ProgramArguments"][-1]
     assert "EnvironmentVariables" not in definition
     assert path.stat().st_mode & 0o077 == 0
@@ -67,3 +68,56 @@ def test_ubuntu_processing_install_preserves_existing_collector_clocks(tmp_path,
     assert "OnUnitInactiveSec=900" in (units / result["timer"]).read_text()
     assert calls[-1][-1] == result["timer"]
     assert calls[-1][2:4] == ["disable", "--now"]
+
+
+def test_manual_activation_rejects_legacy_periodic_definition(tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.inference_services.platform.system", lambda: "Darwin")
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    path = stage_inference_agent(
+        host="ubuntu",
+        remote_executable="/installed/tool",
+        remote_queue="/private/inference",
+        output=tmp_path,
+        transport=Path("/transport"),
+    )
+    definition = plistlib.loads(path.read_bytes())
+    definition["StartInterval"] = 900
+    definition["RunAtLoad"] = True
+    path.write_bytes(plistlib.dumps(definition))
+    calls = []
+
+    def run(args, **_kwargs):
+        calls.append(args)
+        return SimpleNamespace(returncode=1 if args[1] == "print" else 0, stdout="")
+
+    monkeypatch.setattr("html_to_markdown.inference_services.subprocess.run", run)
+    with pytest.raises(ValueError, match="manual"):
+        activate_inference_agent(tmp_path)
+    assert all(args[1] == "print" for args in calls)
+
+
+def test_manual_activation_registers_idle_worker_without_starting_a_job(tmp_path, monkeypatch):
+    monkeypatch.setattr("html_to_markdown.inference_services.platform.system", lambda: "Darwin")
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    path = stage_inference_agent(
+        host="ubuntu",
+        remote_executable="/installed/tool",
+        remote_queue="/private/inference",
+        output=tmp_path,
+        transport=Path("/transport"),
+    )
+    calls = []
+
+    def run(args, **_kwargs):
+        calls.append(args)
+        return SimpleNamespace(returncode=1 if args[1] == "print" else 0, stdout="")
+
+    monkeypatch.setattr("html_to_markdown.inference_services.subprocess.run", run)
+    receipt = activate_inference_agent(tmp_path)
+    installed = tmp_path / "Library/LaunchAgents/com.f5-sales-demo.content-review.plist"
+    assert installed.read_bytes() == path.read_bytes()
+    assert receipt["operation_mode"] == "manual" and receipt["interval_seconds"] is None
+    assert receipt["active_inference_interrupted"] is False
+    assert all(args[1] != "kickstart" for args in calls)
+    definition = plistlib.loads(installed.read_bytes())
+    assert "StartInterval" not in definition and definition["RunAtLoad"] is False

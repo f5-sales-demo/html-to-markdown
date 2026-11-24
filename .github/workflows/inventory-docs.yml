@@ -1,8 +1,6 @@
 name: Inventory official documentation
 
 on:
-  schedule:
-    - cron: "23 4 * * *"
   workflow_dispatch:
     inputs:
       snapshot-tag:
@@ -22,7 +20,7 @@ concurrency:
 
 jobs:
   inventory:
-    # Activate only after the private Ubuntu clocks and Mac worker are qualified.
+    # Legacy manual entry point is gated while the private one-time queue owns publication.
     if: vars.PRIVATE_CONTENT_QUEUE_ENABLED != 'true'
     name: Refresh official documentation
     runs-on: managed-socketless

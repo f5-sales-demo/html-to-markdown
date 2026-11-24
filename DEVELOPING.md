@@ -560,3 +560,21 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
+
+## One-time refresh execution
+
+The current publication effort is one manually initiated start-to-finish refresh.
+Ubuntu collection and processing timers remain disabled in manual mode. Mac native
+and legacy review agents also default to manual mode: their definitions have no
+interval, calendar, watch, keepalive, or run-at-load trigger. Agent activation only
+registers an idle worker; an explicit invocation starts the current job.
+
+Persist manual mode in the Mac worker output directory with the same version-1
+operation-mode schema used by Ubuntu. A stale periodic pending definition is
+rejected during activation; stage it again using compatible software. Retire a
+loaded legacy schedule only after its actual worker and inference locks are idle,
+preserving all current source transactions, attempts, and credential routing.
+
+Complete the current job with resumable one-shot workers. At completion, retire
+job-owned registrations and controllers. Keep CI, required review, immutable
+release, and receipt-bound deployment workflows available.

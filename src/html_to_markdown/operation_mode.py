@@ -156,3 +156,43 @@ def configure_operation_mode(root: Path, mode: str) -> dict[str, Any]:
                     capture_output=True,
                 )  # nosec B603
     return {"mode": mode, "schedules_started": False, "services_stopped": False}
+
+
+_MAC_TRIGGERS = (
+    "StartInterval",
+    "StartCalendarInterval",
+    "KeepAlive",
+    "WatchPaths",
+    "QueueDirectories",
+    "StartOnMount",
+    "LaunchEvents",
+    "Sockets",
+    "MachServices",
+)
+
+
+def mac_agent_schedule(root: Path, definition: dict[str, Any]) -> dict[str, Any]:
+    """A fresh or explicitly manual worker is registered for one-shot invocation."""
+    mode = operation_mode(root)
+    result = {k: v for k, v in definition.items() if k not in _MAC_TRIGGERS}
+    result["RunAtLoad"] = mode == "scheduled"
+    if mode == "scheduled":
+        result["StartInterval"] = 900
+    return result
+
+
+def validate_mac_agent_schedule(root: Path, definition: dict[str, Any]) -> str:
+    """A stale periodic pending file cannot override persisted manual intent."""
+    mode = operation_mode(root)
+    triggers = set(definition).intersection(_MAC_TRIGGERS)
+    if mode == "manual":
+        if triggers or definition.get("RunAtLoad", False) is not False:
+            raise ValueError("manual inference cannot activate a scheduled definition")
+    elif (
+        triggers != {"StartInterval"}
+        or isinstance(definition.get("StartInterval"), bool)
+        or definition.get("StartInterval") != 900
+        or definition.get("RunAtLoad") is not True
+    ):
+        raise ValueError("scheduled inference requires the explicit bounded interval")
+    return mode
