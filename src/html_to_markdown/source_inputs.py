@@ -5,9 +5,11 @@ from __future__ import annotations
 import json
 import os
 import shutil
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from .adapters import ADAPTERS
 from .content_inventory import atomic_private
 from .curation import corpus_digest, json_bytes
 from .enrichment.analysis import sha
@@ -15,6 +17,73 @@ from .source_provenance_chain import verify_provenance_transition
 from .source_review_jobs import verify_reviews
 
 MARKER = "source-review-receipt.json"
+MAX_METADATA_BYTES = 64 * 1024 * 1024
+
+
+def _metadata_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate source admission metadata key")
+        result[key] = value
+    return result
+
+
+def _metadata_bytes(root: Path, name: str) -> bytes:
+    # Resolve the same private relative paths as source-reference replay.
+    from .reference_repair_inputs import safe_file  # pylint: disable=import-outside-toplevel
+
+    path = safe_file(root, name)
+    if path.stat().st_size > MAX_METADATA_BYTES:
+        raise ValueError("source admission metadata exceeds size bound")
+    with path.open("rb") as stream:
+        data = stream.read(MAX_METADATA_BYTES + 1)
+    if len(data) > MAX_METADATA_BYTES:
+        raise ValueError("source admission metadata exceeds size bound")
+    return data
+
+
+def read_source_metadata(output: Path, digest: str) -> dict[str, Any]:
+    """Ground selection metadata in captured inputs; this never grants admission."""
+    raw = _metadata_bytes(output, MARKER)
+    if sha(raw) != digest:
+        raise ValueError("source admission receipt digest mismatch")
+    receipt = json.loads(raw, object_pairs_hook=_metadata_object)
+    if not isinstance(receipt, dict):
+        raise ValueError("invalid source admission selection metadata")
+    schema = receipt.get("schema_version")
+    if not isinstance(schema, int) or isinstance(schema, bool) or schema != 1:
+        raise ValueError("invalid source admission selection metadata")
+    source = receipt.get("source")
+    if (
+        not isinstance(source, str)
+        or source not in ADAPTERS
+        or not isinstance(receipt.get("documents"), list)
+        or any(
+            not isinstance(entry, dict) or not isinstance(entry.get("disposition"), str)
+            for entry in receipt["documents"]
+        )
+    ):
+        raise ValueError("invalid source admission selection metadata")
+    ended_at = receipt.get("ended_at")
+    if (
+        not isinstance(ended_at, str)
+        or datetime.fromisoformat(ended_at.replace("Z", "+00:00")).tzinfo is None
+    ):
+        raise ValueError("invalid source admission capture time")
+    captured = _metadata_bytes(output, ".admission/capture/inventory.json")
+    if sha(captured) != receipt["inventory_sha256"]:
+        raise ValueError("source capture inventory changed")
+    inventory = json.loads(captured, object_pairs_hook=_metadata_object)
+    if (
+        receipt["source"] != inventory["binding"]["source"]
+        or receipt["capture_binding"] != inventory["binding"]
+        or receipt["ended_at"] != inventory["ended_at"]
+        or receipt["enumeration_complete"] != inventory["completeness"]["enumeration"]
+        or receipt["capture_complete"] != inventory["completeness"]["capture"]
+    ):
+        raise ValueError("source admission capture metadata changed")
+    return dict(receipt)
 
 
 def _snapshot_file(source: str, destination: str) -> str:
@@ -99,12 +168,8 @@ def seal_source(capture: Path, review: Path, output: Path) -> dict[str, Any]:
 
 
 def verify_source(output: Path, digest: str) -> dict[str, Any]:
-    if sha((output / MARKER).read_bytes()) != digest:
-        raise ValueError("source admission receipt digest mismatch")
-    receipt = json.loads((output / MARKER).read_bytes())
+    receipt = read_source_metadata(output, digest)
     root = output / ".admission"
-    if sha((root / "capture" / "inventory.json").read_bytes()) != receipt["inventory_sha256"]:
-        raise ValueError("source capture inventory changed")
     verified = verify_reviews(root / "capture", root / "review")
     contexts: set[str] = set()
     if (
