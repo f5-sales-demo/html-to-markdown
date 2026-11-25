@@ -101,6 +101,16 @@ The default `png_bytes` API retains version 1 for historical callers; reviewed
 privacy transforms explicitly declare `portable-1` or `portable-2` for replay.
 Unknown encoding markers fail closed. Captured source media is never rewritten.
 
+Complete raster replay reuses successful expected-frame representations in a
+process-local LRU, bounded to 256 MiB of serialized results and 512 entries.
+Every call reads and hashes the current original media bytes; the exact digest
+and validated encoding version select reuse. Results contain every native frame,
+pixel, duration, loop and metadata field, and return fresh mutable metadata.
+Fixed generation locks avoid simultaneous duplicate encoding. Oversized results
+bypass retention; failures, OCR and SVG rendering remain uncached. Independent
+source, frame metadata, pixel and visual-digest verification runs on every replay.
+There is no disk cache, changed admission decision or new editorial allowance.
+
 Complete SVG observations include verified frame geometry and the original XML
 as untrusted metadata. Native review retains the whole rendered frame rather
 than thumbnailing it. Safe unchanged vectors retain their original bytes;
