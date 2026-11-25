@@ -117,6 +117,7 @@ def compatible_request(expected: dict[str, Any], recorded: dict[str, Any]) -> di
     version = recorded.get("metadata", {}).get(POLICY_KEY)
     if version is None:
         body["instructions"] = body["instructions"].replace(ANNOTATION + str(role), "", 1)
+        body["instructions"] = body["instructions"].replace(LEGACY_ANNOTATION + str(role), "", 1)
         body["metadata"].pop(POLICY_KEY, None)
         body["metadata"].pop(ROLE_KEY, None)
         if not body["metadata"]:

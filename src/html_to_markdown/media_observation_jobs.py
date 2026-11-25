@@ -11,6 +11,13 @@ from .content_inventory import atomic_private
 from .curation import json_bytes
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidence
 from .enrichment.gates import request_hash
+from .enrichment.model_policy import (
+    ANNOTATION,
+    LEGACY_ANNOTATION,
+    POLICY_KEY,
+    compatible_request,
+    validation_model,
+)
 from .enrichment.requests import request
 from .enrichment.visual_capacity import MAX_DECODED_BYTES, decoded_image_bytes
 from .errors import TransportFailure
@@ -129,6 +136,10 @@ def observation_request(
         ]
         rectangle.update(description=COORDINATES, minItems=4, maxItems=4)
         rectangle["items"]["minimum"] = 0
+    if version in {LEGACY_VERSION, COORDINATE_VERSION}:
+        # These historical prompt contracts shipped under model policy 2.
+        body["metadata"][POLICY_KEY] = "2"
+        body["instructions"] = body["instructions"].replace(ANNOTATION, LEGACY_ANNOTATION, 1)
     properties["identity"]["enum"] = [context["identity"]]
     properties["binding_sha256"]["enum"] = [context["binding_sha256"]]
     if payload is not None:
@@ -210,6 +221,7 @@ def confirmed_media_values(
     context = _observation_context(saved, context)
     proposal_evidence = ResponseEvidence.model_validate(saved["phases"]["media_observation"])
     proposal_body = observation_request(context, visual, version=proposal_evidence.prompt_version)
+    proposal_body = compatible_request(proposal_body, source_logical_request(proposal_evidence))
     proposal = parse_response(
         proposal_evidence,
         MediaObservations,
@@ -225,10 +237,12 @@ def confirmed_media_values(
     validation_body = observation_request(
         context, visual, payload, version=validation_evidence.prompt_version
     )
+    recorded_validation = source_logical_request(validation_evidence)
+    validation_body = compatible_request(validation_body, recorded_validation)
     validation = parse_response(
         validation_evidence,
         ObservationValidation,
-        VALIDATOR_MODEL,
+        validation_model(recorded_validation),
         request_hash(validation_body),
     )
     return verify_observations(context["identity"], context["binding_sha256"], payload, validation)
