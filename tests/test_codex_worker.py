@@ -27,6 +27,7 @@ def client(tmp_path: Path) -> CodexClient:
 def body() -> dict:
     return {
         "model": "gpt-6.1-sol",
+        "reasoning": {"effort": "high"},
         "instructions": "Safe reviewer\nPrompt version: article-enrichment/1",
         "input": [{"content": [{"type": "input_text", "text": "untrusted article"}]}],
         "text": {

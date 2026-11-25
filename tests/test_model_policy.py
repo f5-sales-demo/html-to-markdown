@@ -37,6 +37,15 @@ def routine():
     )
 
 
+def historical_routine():
+    value = routine()
+    value["instructions"] = value["instructions"].replace(
+        "Content review model policy 3", "Content review model policy 2"
+    )
+    value["metadata"][POLICY_KEY] = "2"
+    return value
+
+
 def failed_evidence(body):
     response = {
         "status": "completed",
@@ -76,7 +85,7 @@ def test_sol_high_default_has_explicit_independent_validator_role():
     body = routine()
     assert body["model"] == "gpt-6.1-sol" and body["reasoning"] == {"effort": "high"}
     assert body["metadata"][ROLE_KEY] == "validator"
-    assert body["metadata"][POLICY_KEY] == "2"
+    assert body["metadata"][POLICY_KEY] == "3"
     assert body["instructions"].endswith("Prompt version: article-enrichment/1")
     assert validation_model(body) == "gpt-6.1-sol"
 
@@ -133,7 +142,7 @@ def test_legacy_expected_request_is_reconstructed_without_rebinding_evidence():
 
 
 def test_astra_requires_completed_failed_sol_evidence_and_keeps_original_unchanged():
-    body = routine()
+    body = historical_routine()
     prior = failed_evidence(body)
     original = deepcopy(prior)
     escalated = escalate_validation(
@@ -141,10 +150,11 @@ def test_astra_requires_completed_failed_sol_evidence_and_keeps_original_unchang
     )
     assert escalated["model"] == ASTRA_MODEL and prior == original
     assert validation_model(escalated) == ASTRA_MODEL
-    validate_new_request(escalated)
+    with pytest.raises(ValueError, match="Sol High"):
+        validate_new_request(escalated)
     assert compatible_request(body, escalated) == escalated
     assert json.loads(escalated["input"][0]["content"][0]["text"])["source"] == "complete article"
-    with pytest.raises(ValueError, match="exception"):
+    with pytest.raises(ValueError, match="Sol High"):
         validate_new_request({**body, "model": ASTRA_MODEL})
 
 
@@ -156,6 +166,10 @@ def test_escalation_preserves_exact_unicode_request_hash():
         ExampleValidation,
         role="validator",
     )
+    body["metadata"][POLICY_KEY] = "2"
+    body["instructions"] = body["instructions"].replace(
+        "Content review model policy 3", "Content review model policy 2"
+    )
     prior = failed_evidence(body)
     escalated = escalate_validation(body, "Resolve the demonstrated relationship failure", prior)
     assert validation_model(escalated) == ASTRA_MODEL
@@ -163,7 +177,7 @@ def test_escalation_preserves_exact_unicode_request_hash():
 
 
 def test_passing_validation_with_findings_does_not_authorize_astra():
-    body = routine()
+    body = historical_routine()
     prior = failed_evidence(body)
     result = json.loads(prior["response"]["output"][0]["content"][0]["text"])
     result["passed"] = True
@@ -179,7 +193,7 @@ def test_passing_validation_with_findings_does_not_authorize_astra():
     "change", ["transport_failure", "wrong_source", "complete_success", "tool_use"]
 )
 def test_ungrounded_escalation_cannot_spend_astra(change):
-    body = routine()
+    body = historical_routine()
     prior = failed_evidence(body)
     if change == "transport_failure":
         prior["error"] = "HTTP 503"
@@ -199,3 +213,9 @@ def test_ungrounded_escalation_cannot_spend_astra(change):
         )
     with pytest.raises(ValueError):
         escalate_validation(body, "Claimed difficult exception", prior)
+
+
+def test_current_policy_cannot_propose_astra_even_with_completed_failed_sol_evidence():
+    body = routine()
+    with pytest.raises(ValueError, match="retired"):
+        escalate_validation(body, "Difficult exception", failed_evidence(body))
