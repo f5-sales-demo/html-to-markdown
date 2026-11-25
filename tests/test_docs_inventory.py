@@ -85,7 +85,7 @@ def test_inventory_reports_new_changed_fallback_and_policy_excluded(tmp_path: Pa
     store.close()
 
 
-def test_daily_inventory_is_separate_and_keeps_failure_evidence() -> None:
+def test_manual_inventory_is_separate_and_keeps_failure_evidence() -> None:
     text = (Path(__file__).parents[1] / ".github/workflows/inventory-docs.yml").read_text()
     assert "inventory-docs --output capture" in text
     assert "combine-content --baseline previous" in text
@@ -95,7 +95,8 @@ def test_daily_inventory_is_separate_and_keeps_failure_evidence() -> None:
     assert "verify-publication" in text
     assert "previous/revision.json" not in text
     assert "deployed-revision.json" in text
-    assert 'cron: "23 4 * * *"' in text
+    assert "schedule:" not in text
+    assert "workflow_dispatch:" in text
     assert "releases/latest" not in text
     assert "run --source all" not in text
 

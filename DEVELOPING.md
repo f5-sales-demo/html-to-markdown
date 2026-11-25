@@ -489,6 +489,24 @@ enrichment, replay and packaging on Ubuntu. Configure a private absolute inferen
 queue for Ubuntu's `processing-worker` or install its user service with
 `install-processing-service`. Ubuntu never invokes a local model.
 
+Ubuntu collection and processing run manually by default. Service installation
+preserves `operation-mode.private.json` in the queue root and disables its timers
+in manual mode. Persistent timer guards also prevent legacy installers from
+dispatching automatic work. Upgrades preserve service definitions and existing
+manual work; switching mode stops owned timers without stopping services.
+
+Use `configure-operation-mode --queue-root /private/queue --mode manual` to stop
+existing collection and processing clocks. Run `collect-content --queue-root
+/private/queue --source all` when new documentation is available; add `--full` for
+a complete reconciliation. `scheduled-collection` remains a compatible alias.
+Start `html-to-markdown-processing.service` explicitly with `systemctl --user
+start` after collection, or invoke `processing-worker` with the configured
+queue, inference queue, output, executable and transport paths.
+
+Automatic clocks require explicit `--mode scheduled` configuration followed by
+service installation. Selecting scheduled mode alone starts no schedules.
+Malformed or unsafe mode inputs fail visibly before installation activates work.
+
 A complete capture import verifies every declared transfer payload before writing
 its members. Local Ubuntu imports reuse the collector's immutable capture store
 when it shares the destination filesystem; other imports retain their separate
@@ -550,3 +568,21 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
+
+## One-time refresh execution
+
+The current publication effort is one manually initiated start-to-finish refresh.
+Ubuntu collection and processing timers remain disabled in manual mode. Mac native
+and legacy review agents also default to manual mode: their definitions have no
+interval, calendar, watch, keepalive, or run-at-load trigger. Agent activation only
+registers an idle worker; an explicit invocation starts the current job.
+
+Persist manual mode in the Mac worker output directory with the same version-1
+operation-mode schema used by Ubuntu. A stale periodic pending definition is
+rejected during activation; stage it again using compatible software. Retire a
+loaded legacy schedule only after its actual worker and inference locks are idle,
+preserving all current source transactions, attempts, and credential routing.
+
+Complete the current job with resumable one-shot workers. At completion, retire
+job-owned registrations and controllers. Keep CI, required review, immutable
+release, and receipt-bound deployment workflows available.

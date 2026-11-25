@@ -30,7 +30,7 @@ def test_daily_and_weekly_timers_keep_existing_clocks_and_private_umask(
     service = (units / "html-to-markdown-full-sunday.service").read_text()
     assert "--full" in service and "UMask=0077" in service
     assert "review-content" not in service
-    assert calls[-1][:4] == ["/usr/bin/systemctl", "--user", "enable", "--now"]
+    assert calls[-1][:4] == ["/usr/bin/systemctl", "--user", "disable", "--now"]
 
 
 def test_collection_timer_installation_cannot_move_inference_to_ubuntu(

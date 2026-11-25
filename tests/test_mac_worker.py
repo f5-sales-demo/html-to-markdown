@@ -137,7 +137,7 @@ def test_enrichment_batches_preserve_progress_and_return_only_after_completion(
     assert len(batches) == 2 and len(returned) == 1
 
 
-def test_launch_agent_checks_every_fifteen_minutes_without_persisting_credentials(
+def test_launch_agent_registers_one_shot_worker_without_persisting_credentials(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setattr("html_to_markdown.mac_worker.platform.system", lambda: "Darwin")
@@ -154,7 +154,7 @@ def test_launch_agent_checks_every_fifteen_minutes_without_persisting_credential
         transport=Path("/private/safe-ssh-exec"),
     )
     definition = plistlib.loads(path.read_bytes())
-    assert definition["StartInterval"] == 900 and definition["RunAtLoad"]
+    assert "StartInterval" not in definition and definition["RunAtLoad"] is False
     assert definition["Umask"] == 0o077
     assert "EnvironmentVariables" not in definition
     assert definition["ProgramArguments"][:3] == ["/bin/zsh", "-l", "-c"]

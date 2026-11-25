@@ -177,3 +177,14 @@ def register_service_commands(app: typer.Typer) -> None:
                 sort_keys=True,
             )
         )
+
+    @app.command("configure-operation-mode")
+    def configure_operation_mode_command(
+        queue_root: Annotated[Path, typer.Option(file_okay=False)],
+        mode: Annotated[str, typer.Option()] = "manual",
+    ) -> None:
+        """Persist Ubuntu manual operation; automatic schedules require explicit opt-in."""
+        # pylint: disable-next=import-outside-toplevel
+        from .operation_mode import configure_operation_mode
+
+        typer.echo(json.dumps(configure_operation_mode(queue_root, mode), sort_keys=True))
