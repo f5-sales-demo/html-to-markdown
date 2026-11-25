@@ -60,6 +60,7 @@ def review_context_digest() -> str:
                     "source_curation.py",
                     "media_observations.py",
                     "media_encoding.py",
+                    "expected_frame_cache.py",
                     "media_observation_jobs.py",
                     "enrichment/media.py",
                     "enrichment/requests.py",
