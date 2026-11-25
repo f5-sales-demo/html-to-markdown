@@ -63,7 +63,7 @@ def validate_exclusion(
 ) -> dict[str, Any]:
     """Replay exact complete input and an independent finding-specific exclusion review."""
     classified = parse_source_response(
-        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_request(context, visual))
+        relevance, RelevanceDecision, EDITOR_MODEL, relevance_request(context, visual)
     )
     addresses = [b["address"] for b in context["structural_addresses"]]
     if not all(
@@ -128,7 +128,7 @@ def validate_exclusion(
     path = output / "source-exclusion-validation" / (pin + ".json")
     evidence = execute_cached_source(path, body, client)
     try:
-        checked = parse_source_response(evidence, ExclusionValidation, VALIDATOR_MODEL, pin)
+        checked = parse_source_response(evidence, ExclusionValidation, VALIDATOR_MODEL, body)
         if not all(
             (
                 checked.identity == context["identity"],
@@ -263,9 +263,7 @@ def review_relevance(
         record.parent / (record.stem + "-relevance.json"), relevance_body
     )
     relevance = execute_cached_source(relevance_path, relevance_body, client)
-    classified = parse_source_response(
-        relevance, RelevanceDecision, EDITOR_MODEL, request_hash(relevance_body)
-    )
+    classified = parse_source_response(relevance, RelevanceDecision, EDITOR_MODEL, relevance_body)
     allowed = {entry["address"] for entry in context["structural_addresses"]}
     checks = (
         classified.identity == context["identity"],

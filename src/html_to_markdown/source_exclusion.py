@@ -20,6 +20,7 @@ from .source_boundary_review import (
     parse_source_response,
     source_logical_request,
 )
+from .source_model_policy_replay import replay_request
 from .source_phase_bindings import PRIVATE_PHASES as SOURCE_PRIVATE_PHASES
 from .source_review import RelevanceDecision
 
@@ -76,7 +77,7 @@ def read_relevance(
         ResponseEvidence.model_validate(saved["phases"]["relevance"]),
         RelevanceDecision,
         EDITOR_MODEL,
-        request_hash(body),
+        body,
     )
     addresses = {block["address"] for block in context["structural_addresses"]}
     if (
@@ -179,9 +180,7 @@ pending proposals and exhausted correction budgets remain immutable. Return only
 def validate_exclusion(
     evidence: ResponseEvidence, body: dict[str, Any], context: dict[str, Any]
 ) -> None:
-    value = parse_source_response(
-        evidence, IrrelevanceValidation, VALIDATOR_MODEL, request_hash(body)
-    )
+    value = parse_source_response(evidence, IrrelevanceValidation, VALIDATOR_MODEL, body)
     payload = json.loads(body["input"][0]["content"][0]["text"])
     coverage = [item.model_dump() for item in value.media_coverage]
     expected = frames(context)
@@ -225,10 +224,8 @@ def review_exclusion(
     body = exclusion_request(context, visual, relevance, saved)
     raw = saved["phases"].get(PHASE)
     evidence = ResponseEvidence.model_validate(raw) if raw else None
-    if evidence is not None and request_hash(source_logical_request(evidence)) != request_hash(
-        body
-    ):
-        raise ValueError("irrelevance evidence or preserved privacy history changed")
+    if evidence is not None:
+        replay_request(body, source_logical_request(evidence))
     if evidence is None or evidence.error is not None:
         if client is None:
             raise ValueError("complete independent irrelevance evidence is missing")

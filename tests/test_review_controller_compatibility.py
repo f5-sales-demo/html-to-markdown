@@ -100,3 +100,62 @@ def test_registry_rejects_unpinned_or_malformed_controller_pairs(registry):
     registry["previous"][0]["wheel_sha256"] = "not a digest"
     with pytest.raises(ValueError, match="compatibility"):
         compatibility.admission_binding({"binding": binding(OLD_CONTEXT)}, binding(NEW_CONTEXT))
+
+
+def sol_migration(context, version):
+    return {**binding(context), "model_policy_version": version, "reasoning": "high"}
+
+
+def test_registered_sol_policy_two_migration_preserves_complete_binding_and_history(registry):
+    old = sol_migration(OLD_CONTEXT, 2)
+    current = sol_migration(NEW_CONTEXT, 3)
+    record = {
+        "binding": old,
+        "phases": {"privacy": {"request_sha256": "4" * 64}},
+        "privacy_feedback": ["first failure", "second failure"],
+        "privacy_exhausted": True,
+        "disposition": "queued",
+    }
+    original = dict(record)
+    assert compatibility.admission_binding(record, current) == old
+    assert record == original
+    assert record["privacy_exhausted"] and record["disposition"] == "queued"
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("article_sha256", "5" * 64),
+        ("source_article_html_sha256", "6" * 64),
+        ("metadata", {"title": "Changed authored title"}),
+        ("media", [{"sha256": "7" * 64}]),
+        ("capture_provenance", {"http_status": 401}),
+        ("curation_policy_sha256", "8" * 64),
+        ("api_policy_sha256", "9" * 64),
+        ("model_policy_version", 4),
+        ("editor_model", "gpt-6-astra"),
+        ("validator_model", "gpt-6-astra"),
+        ("reasoning", "medium"),
+    ],
+)
+def test_sol_policy_transition_never_waives_other_core_guards(registry, field, value):
+    old = sol_migration(OLD_CONTEXT, 2)
+    current = {**sol_migration(NEW_CONTEXT, 3), field: value}
+    assert compatibility.admission_binding({"binding": old}, current) == current
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"model_policy_version": 1},
+        {"model_policy_version": "2"},
+        {"editor_model": "gpt-6-astra"},
+        {"validator_model": "gpt-6-astra"},
+        {"reasoning": "medium"},
+        {"request_context_sha256": "0" * 64},
+    ],
+)
+def test_unqualified_old_model_contract_cannot_enter_sol_migration(registry, change):
+    old = {**sol_migration(OLD_CONTEXT, 2), **change}
+    current = sol_migration(NEW_CONTEXT, 3)
+    assert compatibility.admission_binding({"binding": old}, current) == current

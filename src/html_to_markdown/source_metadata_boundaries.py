@@ -15,6 +15,7 @@ from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidenc
 from .enrichment.gates import parse_response, request_hash
 from .enrichment.requests import request
 from .private_storage import atomic_write
+from .source_model_policy_replay import replay_request
 
 VERSION = "source-metadata-boundaries/1"
 MARKER = "_source_metadata_boundary_review"
@@ -430,12 +431,14 @@ def validate_metadata_evidence(
     for part, scope in zip(proof.parts, plan["parts"], strict=True):
         if part.analysis.source_boundary is not None or part.validation.source_boundary is not None:
             raise ValueError("source metadata leaf cannot claim aggregate coverage")
-        proposed = metadata_request(body, plan, scope)
+        proposed = replay_request(metadata_request(body, plan, scope), part.analysis.request)
         analysis = parse_response(
             part.analysis, MetadataAnalysis, EDITOR_MODEL, request_hash(proposed)
         )
         check_analysis(analysis, body, scope)
-        checked = metadata_request(body, plan, scope, analysis)
+        checked = replay_request(
+            metadata_request(body, plan, scope, analysis), part.validation.request
+        )
         validation = parse_response(
             part.validation, MetadataValidation, VALIDATOR_MODEL, request_hash(checked)
         )
@@ -443,8 +446,10 @@ def validate_metadata_evidence(
         summaries.append(_summary(part, analysis, validation))
     final = metadata_final(body, plan, summaries)
     if proof.boundary is None:
-        if evidence.request != final or evidence.request_sha256 != request_hash(final):
+        final = replay_request(final, evidence.request)
+        if evidence.request_sha256 != request_hash(final):
             raise ValueError("actual final source metadata request changed or is rebound")
-    elif validate_nested(evidence.model_copy(update={"source_boundary": proof.boundary})) != final:
-        raise ValueError("nested native proof does not cover the complete metadata request")
+    else:
+        nested = validate_nested(evidence.model_copy(update={"source_boundary": proof.boundary}))
+        replay_request(final, nested)
     return body
