@@ -15,6 +15,7 @@ from .baseline_late_validation import (
     reusable_existing_validation,
     validate_existing_baseline,
 )
+from .baseline_proposal_history import ProposalHistoryLookup
 from .baseline_review_renewal import (
     preparation_controller,
     prepare_existing_proposal,
@@ -72,6 +73,7 @@ def prepare_baseline_reviews(
     """Prepare complete archived inputs; this makes no fresh-capture or privacy claim."""
     verified = _verified_baseline(baseline, publication_sha256)
     entries = []
+    lookup = ProposalHistoryLookup(output)
     for article in sorted(set(documents)):
         path = Path(article)
         if (
@@ -133,8 +135,10 @@ def prepare_baseline_reviews(
         if previous.get("binding") != binding:
             if previous:
                 original_bytes = record.read_bytes()
-                atomic_private(output / "history" / (sha(original_bytes) + ".json"), original_bytes)
-            renewed = prepare_existing_proposal(output, previous, binding, _execution_digest())
+                lookup.preserve(original_bytes)
+            renewed = prepare_existing_proposal(
+                output, previous, binding, _execution_digest(), lookup=lookup
+            )
             if renewed is not None:
                 atomic_private(record, json_bytes(renewed))
                 entries.append(
@@ -148,9 +152,7 @@ def prepare_baseline_reviews(
                 else []
             )
             if previous:
-                atomic_private(
-                    output / "history" / (sha(record.read_bytes()) + ".json"), record.read_bytes()
-                )
+                lookup.preserve(record.read_bytes())
             saved = {
                 "binding": binding,
                 "binding_sha256": sha(json_bytes(binding)),
@@ -176,6 +178,7 @@ def prepare_baseline_reviews(
         "baseline_receipt_sha256": publication_sha256,
         "documents": entries,
     }
+    lookup.verify()
     atomic_private(output / "inventory.json", json_bytes(result))
     return result
 

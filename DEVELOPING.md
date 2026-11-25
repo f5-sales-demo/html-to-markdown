@@ -174,6 +174,14 @@ candidate outputs and other threads cannot authorize foreign additions. Registra
 does not grant relevance, privacy or publication approval. Private final failures
 record unexpected roots and history paths without changing the observed custody.
 
+Baseline proposal preparation shares that bounded streaming identity lookup across
+its article cohort. Unrelated historical model/media payloads are never fully
+materialized; only exact local source matches enter the unchanged proposal and
+correction selection. Newly preserved history generations are registered, and
+complete final byte, path and custody verification precedes the prepared inventory.
+Standalone original-proposal recovery retains its own final verification. This
+creates no disk cache, changed policy decision or renewed editorial allowance.
+
 Baseline review batches share a bounded in-memory history lookup. It parses each
 unique digest-verified history once, retaining only five source identity strings.
 Every duplicate copy is still independently hashed before lookup reuse. Every
