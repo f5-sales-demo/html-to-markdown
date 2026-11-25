@@ -81,6 +81,14 @@ def load_priorities(path: Path, *, expected_sha256: str | None = None) -> Review
     digest = sha(payload)
     if expected_sha256 is not None and digest != expected_sha256:
         raise ValueError("review priority input digest mismatch")
+    return parse_priorities(payload)
+
+
+def parse_priorities(payload: bytes) -> ReviewPriorities:
+    """Validate a bounded scheduling payload without writing or changing review evidence."""
+    if len(payload) > 65536:
+        raise ValueError("review priority input exceeds size bound")
+    digest = sha(payload)
     try:
         data = json.loads(payload, object_pairs_hook=_object)
     except (UnicodeDecodeError, json.JSONDecodeError) as failure:
