@@ -466,6 +466,13 @@ any nested native-image proof; missing or changed evidence stays queued.
 Historical native-boundary and source-input-projection version-1 proofs retain
 their original reconstruction.
 
+Registered historical Sol High admissions may retain a policy-2 binding under
+policy 3 when every other captured guard is identical. Replay reconstructs the
+complete original request before comparing its body and digest, including native
+and metadata parts and final decisions. Original evidence and correction budgets
+remain unchanged; the transition grants no approval or extra attempt. All new
+inference uses GPT-6.1-Sol High.
+
 Native executions use attachment representation 3 when encoded images exceed
 8 MiB. Physical PNG files retain every original scanline, pixel, native depth,
 palette and display metadata through lossless IDAT compression. The manifest

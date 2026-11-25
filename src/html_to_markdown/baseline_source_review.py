@@ -28,7 +28,6 @@ from .enrichment.analysis import sha
 from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL
-from .enrichment.gates import request_hash
 from .errors import TransportFailure
 from .history_preservation import history_transaction
 from .media_observation_jobs import confirmed_media_values, prepare_media_observations
@@ -217,9 +216,7 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
         editor = None
         try:
             editor = _execute(attempt / "editor.json", editor_body, client)
-            proposal = parse_response(
-                editor, PrivacyDecision, EDITOR_MODEL, request_hash(editor_body)
-            )
+            proposal = parse_response(editor, PrivacyDecision, EDITOR_MODEL, editor_body)
             saved["phases"]["privacy"] = editor.model_dump(mode="json")
             saved["privacy_feedback"] = feedback
             atomic_private(record, json_bytes(saved))
@@ -232,7 +229,7 @@ def review_baseline_privacy(output: Path, record: Path, client: Any = None) -> d
             )
             validator = _execute(attempt / "validator.json", validator_body, client)
             checked = parse_response(
-                validator, AdmissionValidation, VALIDATOR_MODEL, request_hash(validator_body)
+                validator, AdmissionValidation, VALIDATOR_MODEL, validator_body
             )
             if checked.approved or checked.retirement_valid:
                 raise ValueError(

@@ -12,7 +12,6 @@ from .curation_renewal import proposal_context
 from .curation_renewal_selection import ExistingRenewalRequired, select_renewal_context
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
-from .enrichment.gates import request_hash
 from .media_observation_jobs import confirmed_media_values as _confirmed_media_values
 from .source_boundary_review import parse_source_response as parse_response
 from .source_phase_bindings import privacy_context
@@ -69,7 +68,7 @@ def prepare_renewals(capture: Path, review: Path, output: Path) -> dict[str, Any
                 ResponseEvidence.model_validate(saved["phases"]["relevance"]),
                 RelevanceDecision,
                 EDITOR_MODEL,
-                request_hash(relevance_body),
+                relevance_body,
             )
             if relevance.disposition != "include" or relevance.extraction != "complete":
                 raise ValueError("curation renewal requires complete source relevance")
@@ -93,7 +92,7 @@ def prepare_renewals(capture: Path, review: Path, output: Path) -> dict[str, Any
                 ResponseEvidence.model_validate(saved["phases"]["privacy"]),
                 PrivacyDecision,
                 EDITOR_MODEL,
-                request_hash(privacy_body),
+                privacy_body,
             )
             candidate, candidate_visual, _, files = _compile(
                 capture, review, saved, source, privacy

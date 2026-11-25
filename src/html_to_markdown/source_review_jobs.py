@@ -37,7 +37,6 @@ from .review_priorities import ReviewPriorities, select_records
 from .source_boundary_review import (
     execute_source_phase,
     has_retryable_boundary,
-    source_logical_request,
 )
 from .source_boundary_review import (
     parse_source_response as parse_response,
@@ -649,7 +648,7 @@ def _review_one(
                 ResponseEvidence.model_validate(saved["phases"]["privacy"]),
                 PrivacyDecision,
                 EDITOR_MODEL,
-                request_hash(privacy_body),
+                privacy_body,
             )
             candidate, candidate_visual, projected, files = _compile_admission(
                 capture,
@@ -681,7 +680,7 @@ def _review_one(
                     ResponseEvidence.model_validate(saved["phases"]["validation"]),
                     AdmissionValidation,
                     VALIDATOR_MODEL,
-                    request_hash(body),
+                    body,
                 )
                 if "curation_candidate" in context and not validation.retirement_valid:
                     record_exception(output, candidate["output_sha256"], candidate["metadata"])
@@ -713,12 +712,7 @@ def _review_one(
                 atomic_private(record, json_bytes(saved))
                 return dict(saved)
     existing = saved["phases"].get(phase)
-    if (
-        existing
-        and existing.get("error") is None
-        and request_hash(source_logical_request(ResponseEvidence.model_validate(existing)))
-        == request_hash(body)
-    ):
+    if existing and existing.get("error") is None:
         try:
             schemas: dict[str, type[BaseModel]] = {
                 "relevance": RelevanceDecision,
@@ -729,7 +723,7 @@ def _review_one(
                 ResponseEvidence.model_validate(existing),
                 schemas[phase],
                 body["model"],
-                request_hash(body),
+                body,
             )
             return dict(saved)
         except ValueError:

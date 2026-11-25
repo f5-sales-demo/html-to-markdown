@@ -195,9 +195,7 @@ publication remain separate mandatory checks. Return no selection on any uncerta
 def _decision(
     evidence: ResponseEvidence, body: dict[str, Any], results: list[dict[str, Any]]
 ) -> str:
-    value = parse_source_response(
-        evidence, LedgerResolutionValidation, VALIDATOR_MODEL, request_hash(body)
-    )
+    value = parse_source_response(evidence, LedgerResolutionValidation, VALIDATOR_MODEL, body)
     payload = json.loads(body["input"][0]["content"][0]["text"])
     by_id = {item["record_sha256"]: item for item in results}
     dispositions = {item.record_sha256: item for item in value.dispositions}

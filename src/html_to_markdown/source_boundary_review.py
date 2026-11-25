@@ -42,6 +42,7 @@ from .source_metadata_boundaries import (
     metadata_plan,
     validate_metadata_evidence,
 )
+from .source_model_policy_replay import replay_request
 
 
 class InputProjectionProof(StrictModel):
@@ -205,12 +206,12 @@ def validate_boundary_evidence(evidence: ResponseEvidence) -> dict[str, Any]:
         if actual is None:
             raise ValueError("source projection proof does not contain a projectable request")
         if projected.boundary is None:
-            if evidence.request != actual or evidence.request_sha256 != request_hash(actual):
+            actual = replay_request(actual, evidence.request)
+            if evidence.request_sha256 != request_hash(actual):
                 raise ValueError("actual projected source request changed or is rebound")
         else:
             nested = evidence.model_copy(update={"source_boundary": projected.boundary})
-            if validate_boundary_evidence(nested) != actual:
-                raise ValueError("projected source boundary does not cover the complete request")
+            replay_request(actual, validate_boundary_evidence(nested))
         return projected.logical_request
     proof = BoundaryProof.model_validate(evidence.source_boundary)
     if proof.version != VERSION:
@@ -223,19 +224,21 @@ def validate_boundary_evidence(evidence: ResponseEvidence) -> dict[str, Any]:
     for part, scope in zip(proof.parts, plan["partitions"], strict=True):
         if part.analysis.source_boundary is not None or part.validation.source_boundary is not None:
             raise ValueError("source boundary leaf evidence cannot contain another aggregate")
-        proposal_body = partition_request(body, plan, scope)
+        proposal_body = replay_request(partition_request(body, plan, scope), part.analysis.request)
         analysis = parse_response(
             part.analysis, BoundaryAnalysis, EDITOR_MODEL, request_hash(proposal_body)
         )
         _check_analysis(analysis, plan, scope)
-        validation_body = partition_request(body, plan, scope, analysis)
+        validation_body = replay_request(
+            partition_request(body, plan, scope, analysis), part.validation.request
+        )
         validation = parse_response(
             part.validation, BoundaryValidation, VALIDATOR_MODEL, request_hash(validation_body)
         )
         _check_validation(validation, analysis, plan, scope, body)
         summaries.append(_summary(part, analysis, validation))
-    final = final_request(body, plan, summaries)
-    if evidence.request != final or evidence.request_sha256 != request_hash(final):
+    final = replay_request(final_request(body, plan, summaries), evidence.request)
+    if evidence.request_sha256 != request_hash(final):
         raise ValueError("actual final source boundary request changed or is rebound")
     return body
 
@@ -244,8 +247,11 @@ def parse_source_response(
     evidence: ResponseEvidence,
     schema: type[BaseModel],
     model: str,
-    expected_request_hash: str,
+    expected_request_hash: str | dict[str, Any],
 ) -> Any:
+    if isinstance(expected_request_hash, dict):
+        expected = replay_request(expected_request_hash, source_logical_request(evidence))
+        expected_request_hash = request_hash(expected)
     if evidence.source_boundary is None:
         content = evidence.request.get("input", [{}])[0].get("content", [{}])[0]
         payload = json.loads(content["text"]) if "text" in content else None
@@ -436,10 +442,9 @@ def execute_cached_source(path: Path, body: dict[str, Any], client: Any) -> Resp
         raise ValueError("unsafe source review evidence path")
     if path.exists():
         saved = ResponseEvidence.model_validate_json(path.read_bytes())
-        if source_logical_request(saved) != body:
-            raise ValueError("stale complete source review request")
+        replay_request(body, source_logical_request(saved))
         if not saved.error:
-            value = parse_source_response(saved, _RawDecision, body["model"], request_hash(body))
+            value = parse_source_response(saved, _RawDecision, body["model"], body)
             Draft202012Validator(body["text"]["format"]["schema"]).validate(value.model_dump())
             return saved
     if client is None:
