@@ -4,6 +4,8 @@ import json
 from copy import deepcopy
 
 import pytest
+from test_codex_worker import body as native_body
+from test_codex_worker import client
 
 from html_to_markdown.enrichment.contracts import StrictModel
 from html_to_markdown.enrichment.model_policy import (
@@ -13,6 +15,7 @@ from html_to_markdown.enrichment.model_policy import (
     validation_model,
 )
 from html_to_markdown.enrichment.requests import request
+from html_to_markdown.inference_queue import submit
 
 
 class Validation(StrictModel):
@@ -74,11 +77,6 @@ def test_current_policy_cannot_carry_a_retired_exception():
 
 @pytest.mark.parametrize("change", ["other_model", "non_high", "retired_exception"])
 def test_queue_and_native_executor_reject_before_dispatch(tmp_path, monkeypatch, change):
-    from test_codex_worker import body as native_body
-    from test_codex_worker import client
-
-    from html_to_markdown.inference_queue import submit
-
     value = native_body()
     if change == "other_model":
         value["model"] = "gpt-6-astra"
