@@ -569,6 +569,19 @@ replays selection and whole-corpus curation independently. All kept articles ret
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
 
+
+### Sol-only content inference
+
+Model policy 3 requires GPT-6.1-Sol with high reasoning for every new inference
+request, including proposals, independent validation and difficult cases. Queue
+enqueue, claiming and native Codex execution enforce this policy before spending.
+Editor and validator requests retain separate roles and request digests.
+
+Completed version 1 and 2 decisions retain their original models for immutable
+offline replay. Historical Astra exceptions cannot enqueue or execute new
+inference, and policy 3 cannot propose an Astra exception. Model-policy updates
+preserve exhausted privacy correction allowances and private evidence.
+
 ## One-time refresh execution
 
 The current publication effort is one manually initiated start-to-finish refresh.

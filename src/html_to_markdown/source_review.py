@@ -22,6 +22,7 @@ from .content_policy import load_content_policy
 from .curation import json_bytes, load_curation_policy
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, StrictModel
+from .enrichment.model_policy import POLICY_VERSION
 from .enrichment.requests import request
 from .media_encoding import current_review_encoding, png_bytes
 from .source_binding_context import privacy_context
@@ -445,7 +446,7 @@ def binding_for(
         "api_policy_sha256": load_content_policy().policy_digest,
         "editor_model": EDITOR_MODEL,
         "validator_model": VALIDATOR_MODEL,
-        "model_policy_version": 2,
+        "model_policy_version": int(POLICY_VERSION),
         "reasoning": "high",
     }
     if item["media"]:

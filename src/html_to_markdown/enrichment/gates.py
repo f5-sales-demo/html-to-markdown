@@ -56,7 +56,7 @@ def parse_response(
     if request_hash(evidence.request) != evidence.request_sha256:
         raise ValueError("captured request digest mismatch")
     if (
-        evidence.request.get("metadata", {}).get(POLICY_KEY) == POLICY_VERSION
+        evidence.request.get("metadata", {}).get(POLICY_KEY) in {"2", POLICY_VERSION}
         and evidence.transport != "codex_litellm"
     ):
         raise ValueError("current review model policy requires MacBook Codex through LiteLLM")

@@ -91,7 +91,11 @@ def test_valid_endpoints_keep_original_region_and_digest():
     )
 
 
-def test_version_one_complete_native_evidence_replays_without_new_inference():
+@pytest.mark.parametrize(
+    "version",
+    ["native-media-observation/1", "native-media-observation/2", "native-media-observation/3"],
+)
+def test_versioned_native_evidence_replays_under_original_model_policy(version):
     """Both historical requests and their complete evidence retain exact identity."""
     values = [
         {key: value for key, value in item.items() if key not in {"value_sha256", "guard_kind"}}
@@ -114,6 +118,14 @@ def test_version_one_complete_native_evidence_replays_without_new_inference():
         "unresolved": [],
     }
 
+    def old_request(payload=None):
+        body = observation_request(LEGACY["context"], LEGACY["visual"], payload, version=version)
+        body["metadata"]["content_review_model_policy"] = "2"
+        body["instructions"] = body["instructions"].replace(
+            "Content review model policy 3", "Content review model policy 2"
+        )
+        return body
+
     def evidence(body, value):
         response = {
             "status": "completed",
@@ -125,7 +137,7 @@ def test_version_one_complete_native_evidence_replays_without_new_inference():
             response_sha256=sha(json.dumps(response, sort_keys=True, separators=(",", ":"))),
             model=body["model"],
             reasoning="high",
-            prompt_version="native-media-observation/1",
+            prompt_version=version,
             request=body,
             response=response,
             error=None,
@@ -135,8 +147,8 @@ def test_version_one_complete_native_evidence_replays_without_new_inference():
 
     saved = {
         "phases": {
-            "media_observation": evidence(LEGACY["editor"], proposal),
-            "media_observation_validation": evidence(LEGACY["validator"], validation),
+            "media_observation": evidence(old_request(), proposal),
+            "media_observation_validation": evidence(old_request(LEGACY["payload"]), validation),
         }
     }
     assert (
