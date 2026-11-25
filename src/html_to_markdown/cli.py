@@ -103,6 +103,7 @@ def list_review_queues(
 
 
 @app.command("scheduled-collection")
+@app.command("collect-content")
 def scheduled_collection_command(
     queue_root: Annotated[Path, typer.Option(file_okay=False)],
     source: Annotated[str, typer.Option()] = "all",

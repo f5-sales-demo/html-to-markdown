@@ -18,6 +18,7 @@ from .curation_source_proof import current_source_evidence
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .enrichment.model_policy import compatible_request
 
 
 def _write_once(path: Path, data: bytes) -> None:
@@ -59,6 +60,26 @@ def _original(output: Path, pin: str) -> tuple[Path, dict[str, Any], dict[str, A
     return directory, context, state
 
 
+def _qualified_compilation_failure(decision: Proposal, failure: dict[str, Any]) -> bool:
+    """Only a proved shared-mask compiler failure may recover its existing proposal."""
+    if failure == {"error": "ambiguous or changed renewal span after preceding topic"}:
+        return True
+    if failure != {"error": "retirement masks need one current AppStack or Legacy keep placement"}:
+        return False
+    owners: dict[str, set[str]] = {}
+    for topic in decision.topics:
+        for choice in topic.media:
+            if not choice.masks:
+                continue
+            if (
+                topic.topic not in {"legacy-retired", "appstack-retired"}
+                or choice.disposition != "keep"
+            ):
+                return False
+            owners.setdefault(choice.sha256, set()).add(topic.topic)
+    return any(topics == {"legacy-retired", "appstack-retired"} for topics in owners.values())
+
+
 # Preserve complete old and current bindings alongside the single deterministic projection.
 # pylint: disable-next=too-many-locals
 def validate_existing_curation(
@@ -73,8 +94,18 @@ def validate_existing_curation(
     decision = parse_response(editor, Proposal, EDITOR_MODEL, request_hash(editor.request))
     visual = json.loads((original / "visual.json").read_bytes())
     payload = json.loads(editor.request["input"][0]["content"][0]["text"])
+    feedback = payload["validation_feedback"]
     if (
-        editor.request != review_request(context, visual, feedback=payload["validation_feedback"])
+        not isinstance(feedback, list)
+        or (attempt == 0 and feedback)
+        or state["feedback"][: len(feedback)] != feedback
+    ):
+        raise ValueError("selected original feedback differs from the preserved attempt ledger")
+    expected_editor = compatible_request(
+        review_request(context, visual, feedback=feedback), editor.request
+    )
+    if (
+        editor.request != expected_editor
         or decision.binding_sha256 != original_pin
         or decision.unresolved
     ):
@@ -90,9 +121,9 @@ def validate_existing_curation(
             raise ValueError("selected original candidate or proposal changed")
     else:
         failure_path = previous / "failure.json"
-        if not failure_path.is_file() or json.loads(failure_path.read_bytes()) != {
-            "error": "ambiguous or changed renewal span after preceding topic"
-        }:
+        if not failure_path.is_file() or not _qualified_compilation_failure(
+            decision, json.loads(failure_path.read_bytes())
+        ):
             raise ValueError("missing original candidate or qualified compiler failure evidence")
         failure_sha256 = sha(failure_path.read_bytes())
     origin = {

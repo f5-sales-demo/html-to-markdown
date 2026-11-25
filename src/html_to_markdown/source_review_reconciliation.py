@@ -156,7 +156,7 @@ def replay_classification(
         proposal=proposal,
         version=evidence.prompt_version,
     )
-    classification = parse_response(evidence, FinalClassification, EDITOR_MODEL, request_hash(body))
+    classification = parse_response(evidence, FinalClassification, EDITOR_MODEL, body)
     check_classification(context, candidate, classification)
     return {
         **candidate,
@@ -203,9 +203,7 @@ def review_final_findings(
     if evidence.error:
         raise TransportFailure("final privacy finding transport failed; private evidence preserved")
     try:
-        classification = parse_response(
-            evidence, FinalClassification, EDITOR_MODEL, request_hash(body)
-        )
+        classification = parse_response(evidence, FinalClassification, EDITOR_MODEL, body)
         check_classification(context, candidate, classification)
     except ValueError:
         invalidator = getattr(client, "invalidate", None)

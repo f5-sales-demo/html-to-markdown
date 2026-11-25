@@ -60,6 +60,24 @@ def validate_registry(value: dict[str, Any]) -> None:
         contexts.add(item["request_context_sha256"])
 
 
+def _sol_policy_migration(old: dict[str, Any], current: dict[str, Any]) -> bool:
+    """Only policy 2 to 3 retains the same complete Sol High model contract."""
+    for binding in (old, current):
+        version = binding.get("model_policy_version")
+        if not isinstance(version, int) or isinstance(version, bool):
+            return False
+    return (
+        old["model_policy_version"] == 2
+        and current["model_policy_version"] == 3
+        and all(
+            binding.get("editor_model") == "gpt-6.1-sol"
+            and binding.get("validator_model") == "gpt-6.1-sol"
+            and binding.get("reasoning") == "high"
+            for binding in (old, current)
+        )
+    )
+
+
 def admission_binding(record: dict[str, Any], current: dict[str, Any]) -> dict[str, Any]:
     """Keep a qualified original context only when every captured core guard is identical.
 
@@ -77,8 +95,12 @@ def admission_binding(record: dict[str, Any], current: dict[str, Any]) -> dict[s
         item["request_context_sha256"] for item in registry["previous"]
     }:
         return current
-    key = "request_context_sha256"
-    if {k: v for k, v in old.items() if k != key} != {k: v for k, v in current.items() if k != key}:
+    ignored = {"request_context_sha256"}
+    if _sol_policy_migration(old, current):
+        ignored.add("model_policy_version")
+    if {k: v for k, v in old.items() if k not in ignored} != {
+        k: v for k, v in current.items() if k not in ignored
+    }:
         return current
     return dict(old)
 

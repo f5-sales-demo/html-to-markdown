@@ -26,6 +26,8 @@ from .curation_renewal_worker import advance_renewals
 from .enrichment.analysis import sha
 from .enrichment.generate_v2 import generate_v2
 from .models import utc_now
+from .operation_mode import mac_agent_schedule
+from .planner_priorities import prioritize_dependencies
 from .review_priorities import FILENAME, load_priorities
 from .source_inputs import seal_source
 from .source_review import review_context_digest
@@ -391,6 +393,18 @@ def _advance_renewal_pass(
             # queues from advancing. Full diagnostics remain private.
             _preserve_stage_failure(directory / "curation-renewal-error.json", failure)
             status["curation"] = {"state": "queued", "error_class": type(failure).__name__}
+        try:
+            priority_receipt = prioritize_dependencies(
+                directory / "curation-renewal", transport, host, remote_executable, remote_queue
+            )
+            if priority_receipt is not None:
+                status["curation"]["review_priorities"] = priority_receipt
+        except (ValueError, OSError, subprocess.SubprocessError) as failure:
+            _preserve_stage_failure(directory / "priority-registration-error.json", failure)
+            status["curation"]["review_priorities"] = {
+                "state": "queued",
+                "error_class": type(failure).__name__,
+            }
         source_status["curation"] = status["curation"]
         atomic_private(output / "worker-status.json", json_bytes(status))
 
@@ -571,15 +585,15 @@ def install_launch_agent(
     definition = {
         "Label": label,
         "ProgramArguments": ["/bin/zsh", "-l", "-c", "exec " + shlex.join(command)],
-        "StartInterval": 900,
-        "RunAtLoad": True,
         "ProcessType": "Background",
         "StandardOutPath": str(output / "worker.private.log"),
         "StandardErrorPath": str(output / "worker.private.err"),
         "Umask": 0o077,
     }
     destination = Path.home() / "Library" / "LaunchAgents" / (label + ".plist")
-    atomic_private(destination, plistlib.dumps(definition, sort_keys=True))
+    atomic_private(
+        destination, plistlib.dumps(mac_agent_schedule(output, definition), sort_keys=True)
+    )
     subprocess.run(
         ["/bin/launchctl", "bootstrap", "gui/" + str(os.getuid()), str(destination)],
         check=True,

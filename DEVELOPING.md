@@ -220,6 +220,14 @@ source review use the same selector: explicit prerequisites, previous publicatio
 then URL order. Unselected candidates remain queued. Priority never changes
 discovery origins, capture bytes, admission checks, model inputs or privacy budgets.
 Changing this scheduling file alone does not invalidate bound approvals.
+After each curation pass, actual planner dependency paths are registered on the
+queue-owning Ubuntu host through `register-review-priorities`, including when
+the review remains pending. Registration accepts only the four supported source
+identities, preserves manual priorities and URLs under a shared lock, and
+records the exact dependency-report digest plus the prior and resulting input
+digests privately. Repeated hints reuse immutable evidence. Missing reports do
+nothing; transport or input failures remain private exceptions while other
+sources progress. The next source sweep reads the resulting priority digest.
 Standalone bounded `review-content` can use `--priority-input PATH` together with
 `--priority-sha256 DIGEST`. Missing worker configuration preserves default ordering.
 
@@ -458,6 +466,13 @@ any nested native-image proof; missing or changed evidence stays queued.
 Historical native-boundary and source-input-projection version-1 proofs retain
 their original reconstruction.
 
+Registered historical Sol High admissions may retain a policy-2 binding under
+policy 3 when every other captured guard is identical. Replay reconstructs the
+complete original request before comparing its body and digest, including native
+and metadata parts and final decisions. Original evidence and correction budgets
+remain unchanged; the transition grants no approval or extra attempt. All new
+inference uses GPT-6.1-Sol High.
+
 Native executions use attachment representation 3 when encoded images exceed
 8 MiB. Physical PNG files retain every original scanline, pixel, native depth,
 palette and display metadata through lossless IDAT compression. The manifest
@@ -480,6 +495,24 @@ Keep development, source captures, media processing, review journals, curation,
 enrichment, replay and packaging on Ubuntu. Configure a private absolute inference
 queue for Ubuntu's `processing-worker` or install its user service with
 `install-processing-service`. Ubuntu never invokes a local model.
+
+Ubuntu collection and processing run manually by default. Service installation
+preserves `operation-mode.private.json` in the queue root and disables its timers
+in manual mode. Persistent timer guards also prevent legacy installers from
+dispatching automatic work. Upgrades preserve service definitions and existing
+manual work; switching mode stops owned timers without stopping services.
+
+Use `configure-operation-mode --queue-root /private/queue --mode manual` to stop
+existing collection and processing clocks. Run `collect-content --queue-root
+/private/queue --source all` when new documentation is available; add `--full` for
+a complete reconciliation. `scheduled-collection` remains a compatible alias.
+Start `html-to-markdown-processing.service` explicitly with `systemctl --user
+start` after collection, or invoke `processing-worker` with the configured
+queue, inference queue, output, executable and transport paths.
+
+Automatic clocks require explicit `--mode scheduled` configuration followed by
+service installation. Selecting scheduled mode alone starts no schedules.
+Malformed or unsafe mode inputs fail visibly before installation activates work.
 
 A complete capture import verifies every declared transfer payload before writing
 its members. Local Ubuntu imports reuse the collector's immutable capture store
@@ -542,3 +575,34 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
+
+
+### Sol-only content inference
+
+Model policy 3 requires GPT-6.1-Sol with high reasoning for every new inference
+request, including proposals, independent validation and difficult cases. Queue
+enqueue, claiming and native Codex execution enforce this policy before spending.
+Editor and validator requests retain separate roles and request digests.
+
+Completed version 1 and 2 decisions retain their original models for immutable
+offline replay. Historical Astra exceptions cannot enqueue or execute new
+inference, and policy 3 cannot propose an Astra exception. Model-policy updates
+preserve exhausted privacy correction allowances and private evidence.
+
+## One-time refresh execution
+
+The current publication effort is one manually initiated start-to-finish refresh.
+Ubuntu collection and processing timers remain disabled in manual mode. Mac native
+and legacy review agents also default to manual mode: their definitions have no
+interval, calendar, watch, keepalive, or run-at-load trigger. Agent activation only
+registers an idle worker; an explicit invocation starts the current job.
+
+Persist manual mode in the Mac worker output directory with the same version-1
+operation-mode schema used by Ubuntu. A stale periodic pending definition is
+rejected during activation; stage it again using compatible software. Retire a
+loaded legacy schedule only after its actual worker and inference locks are idle,
+preserving all current source transactions, attempts, and credential routing.
+
+Complete the current job with resumable one-shot workers. At completion, retire
+job-owned registrations and controllers. Keep CI, required review, immutable
+release, and receipt-bound deployment workflows available.

@@ -1,4 +1,4 @@
-"""Versioned routine review models and explicit, evidence-bound escalation."""
+"""Sol High for new inference, with immutable historical model-policy replay."""
 
 import hashlib
 import json
@@ -9,10 +9,11 @@ from jsonschema import Draft202012Validator
 
 ROUTINE_MODEL = "gpt-6.1-sol"
 ASTRA_MODEL = "gpt-6-astra"
-POLICY_VERSION = "2"
+POLICY_VERSION = "3"
 POLICY_KEY = "content_review_model_policy"
 ROLE_KEY = "content_review_role"
-ANNOTATION = "\nContent review model policy 2; role: "
+ANNOTATION = "\nContent review model policy 3; role: "
+LEGACY_ANNOTATION = "\nContent review model policy 2; role: "
 
 
 def _hash(value: Any) -> str:
@@ -22,8 +23,9 @@ def _hash(value: Any) -> str:
 
 
 def apply_policy(body: dict[str, Any], role: str) -> dict[str, Any]:
-    if role not in {"editor", "validator"} or body["model"] != ROUTINE_MODEL:
-        raise ValueError("routine review requires Sol High; Astra needs a verified exception")
+    validate_new_request(body)
+    if role not in {"editor", "validator"}:
+        raise ValueError("content review requires an editor or validator role")
     prompt, marker, version = body["instructions"].rpartition("\nPrompt version: ")
     if not marker:
         raise ValueError("review request lacks prompt version")
@@ -89,6 +91,8 @@ def _failed_validation(evidence: dict[str, Any], routine: dict[str, Any]) -> Non
 def escalate_validation(
     routine: dict[str, Any], reason: str, prior: dict[str, Any]
 ) -> dict[str, Any]:
+    if routine.get("metadata", {}).get(POLICY_KEY) != "2":
+        raise ValueError("Astra escalation is retired; historical policy 2 may replay only")
     if (
         routine.get("metadata", {}).get(ROLE_KEY) != "validator"
         or routine["model"] != ROUTINE_MODEL
@@ -113,14 +117,20 @@ def compatible_request(expected: dict[str, Any], recorded: dict[str, Any]) -> di
     version = recorded.get("metadata", {}).get(POLICY_KEY)
     if version is None:
         body["instructions"] = body["instructions"].replace(ANNOTATION + str(role), "", 1)
+        body["instructions"] = body["instructions"].replace(LEGACY_ANNOTATION + str(role), "", 1)
         body["metadata"].pop(POLICY_KEY, None)
         body["metadata"].pop(ROLE_KEY, None)
         if not body["metadata"]:
             body.pop("metadata")
         body["model"] = ASTRA_MODEL if role == "validator" else ROUTINE_MODEL
-    elif version != POLICY_VERSION or recorded["metadata"].get(ROLE_KEY) != role:
+    elif version not in {"2", POLICY_VERSION} or recorded["metadata"].get(ROLE_KEY) != role:
         raise ValueError("unknown or wrong review model policy/role")
     else:
+        if version == "2":
+            body["instructions"] = body["instructions"].replace(ANNOTATION, LEGACY_ANNOTATION, 1)
+            body["metadata"][POLICY_KEY] = "2"
+        elif "content_review_exception" in recorded["metadata"]:
+            raise ValueError("current model policy rejects retired exceptions")
         exception = _exception(recorded)
         if exception:
             if recorded["metadata"]["content_review_exception"] != _hash(exception):
@@ -137,10 +147,13 @@ def validation_model(request: dict[str, Any]) -> str:
             raise ValueError("historical validation requires its original Astra model")
         return ASTRA_MODEL
     if (
-        request["metadata"].get(POLICY_KEY) != POLICY_VERSION
+        request["metadata"].get(POLICY_KEY) not in {"2", POLICY_VERSION}
         or request["metadata"].get(ROLE_KEY) != "validator"
     ):
         raise ValueError("independent validation has wrong model policy or role")
+    if request["metadata"][POLICY_KEY] == POLICY_VERSION:
+        validate_new_request(request)
+        return ROUTINE_MODEL
     exception = _exception(request)
     if not exception:
         if request["model"] != ROUTINE_MODEL:
@@ -163,15 +176,8 @@ def validation_model(request: dict[str, Any]) -> str:
 
 
 def validate_new_request(request: dict[str, Any]) -> None:
-    """Completed legacy evidence may replay; new Astra spend needs a proved exception."""
-    if request["model"] == ROUTINE_MODEL:
-        return
-    if (
-        request["model"] != ASTRA_MODEL
-        or request.get("metadata", {}).get(POLICY_KEY) != POLICY_VERSION
-    ):
-        raise ValueError(
-            "new inference defaults to Sol High; Astra needs an explicit validated exception"
-        )
-    if validation_model(request) != ASTRA_MODEL:
-        raise ValueError("new Astra inference lacks a validated exception")
+    """Reject all new spend outside Sol High, including retired Astra exceptions."""
+    if request.get("model") != ROUTINE_MODEL or request.get("reasoning") != {"effort": "high"}:
+        raise ValueError("all new inference requires GPT-6.1-Sol High")
+    if "content_review_exception" in request.get("metadata", {}):
+        raise ValueError("new inference rejects retired model exceptions")

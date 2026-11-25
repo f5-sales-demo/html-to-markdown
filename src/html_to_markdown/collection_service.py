@@ -19,6 +19,7 @@ from .content_inventory import atomic_private, collect_content
 from .curation import json_bytes
 from .known_candidates import snapshot_known_candidates
 from .models import utc_now
+from .operation_mode import apply_timer_mode, operation_mode
 from .refresh import _verified_baseline
 from .urls import SOURCE_ROOTS
 
@@ -141,6 +142,7 @@ async def scheduled_collection(root: Path, *, source: str, full: bool) -> dict[s
 def install_collectors(root: Path) -> list[str]:
     if platform.system() != "Linux":
         raise ValueError("collection timers are installed on Ubuntu")
+    operation_mode(root)
     units = Path.home() / ".config" / "systemd" / "user"
     units.mkdir(parents=True, exist_ok=True)
     executable = Path(sys.executable).parent / "html-to-markdown"
@@ -159,10 +161,5 @@ def install_collectors(root: Path) -> list[str]:
         atomic_private(units / (label + ".service"), service.encode())
         atomic_private(units / (label + ".timer"), timer.encode())
         names.append(label + ".timer")
-    subprocess.run(
-        ["/usr/bin/systemctl", "--user", "daemon-reload"], check=True, capture_output=True
-    )  # nosec B603
-    subprocess.run(
-        ["/usr/bin/systemctl", "--user", "enable", "--now", *names], check=True, capture_output=True
-    )  # nosec B603
+    apply_timer_mode(root, names)
     return names

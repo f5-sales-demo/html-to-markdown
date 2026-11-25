@@ -1,8 +1,6 @@
 name: Release content snapshot
 
 on:
-  schedule:
-    - cron: "0 03 * * 0"
   workflow_dispatch:
     inputs:
       baseline-snapshot:
@@ -30,7 +28,7 @@ concurrency:
 
 jobs:
   snapshot:
-    # The existing Sunday clock moves to the private Ubuntu timer at activation.
+    # This entry point is explicitly dispatched; it has no recurring collection trigger.
     if: vars.PRIVATE_CONTENT_QUEUE_ENABLED != 'true'
     name: Build and publish snapshot
     environment: repository-settings

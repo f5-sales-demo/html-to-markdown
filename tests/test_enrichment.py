@@ -137,7 +137,7 @@ def response_for(body: dict[str, Any], output: dict[str, Any]) -> ResponseEviden
         response=response,
         error=None,
         transport="codex_litellm"
-        if body.get("metadata", {}).get("content_review_model_policy") == "2"
+        if body.get("metadata", {}).get("content_review_model_policy") in {"2", "3"}
         else "openai_batch",
         runtime_version="test",
     )
@@ -214,7 +214,7 @@ def test_historical_astra_artifact_replays_under_original_model_policy(tmp_path)
             current = getattr(item, field)
             old_request = copy.deepcopy(current.request)
             old_request["instructions"] = old_request["instructions"].replace(
-                "\nContent review model policy 2; role: " + role, ""
+                "\nContent review model policy 3; role: " + role, ""
             )
             old_request.pop("metadata")
             old_request["model"] = EDITOR_MODEL if role == "editor" else "gpt-6-astra"

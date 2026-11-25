@@ -292,7 +292,7 @@ def validate_existing_baseline(output: Path, record: Path, client: Any = None) -
         raise ValueError("complete existing-proposal validation evidence is unavailable")
     evidence = _execute(path, body, client)
     try:
-        checked = parse_response(evidence, AdmissionValidation, VALIDATOR_MODEL, request_hash(body))
+        checked = parse_response(evidence, AdmissionValidation, VALIDATOR_MODEL, body)
         _verify_independent(checked, context, candidate)
         enforce(candidate["findings"], projected, checked)
     except ValueError:
