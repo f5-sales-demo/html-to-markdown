@@ -616,3 +616,17 @@ preserving all current source transactions, attempts, and credential routing.
 Complete the current job with resumable one-shot workers. At completion, retire
 job-owned registrations and controllers. Keep CI, required review, immutable
 release, and receipt-bound deployment workflows available.
+
+### Repeated source validation provenance
+
+Oversized source-validation requests may use source-provenance-projection/1 to
+supply each repeated replacement-evidence array in full once. Digest-guarded
+references retain every finding-specific placement; sharing evidence does not
+share a finding disposition. Replay reconstructs the entire original logical
+request and separately verifies the actual native request and response.
+
+This representation composes with existing source-field, metadata and native
+media proofs. Bounded requests and historical projection versions keep their
+original behavior. It changes no proposal, correction allowance, credential
+enforcement or source publication decision. Requests that still exceed native
+capacity remain private, preserved exceptions.
