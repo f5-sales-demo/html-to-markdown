@@ -18,6 +18,7 @@ from .curation_source_proof import current_source_evidence
 from .enrichment.analysis import sha
 from .enrichment.contracts import EDITOR_MODEL, ResponseEvidence
 from .enrichment.gates import parse_response, request_hash
+from .enrichment.model_policy import compatible_request
 
 
 def _write_once(path: Path, data: bytes) -> None:
@@ -93,8 +94,18 @@ def validate_existing_curation(
     decision = parse_response(editor, Proposal, EDITOR_MODEL, request_hash(editor.request))
     visual = json.loads((original / "visual.json").read_bytes())
     payload = json.loads(editor.request["input"][0]["content"][0]["text"])
+    feedback = payload["validation_feedback"]
     if (
-        editor.request != review_request(context, visual, feedback=payload["validation_feedback"])
+        not isinstance(feedback, list)
+        or (attempt == 0 and feedback)
+        or state["feedback"][: len(feedback)] != feedback
+    ):
+        raise ValueError("selected original feedback differs from the preserved attempt ledger")
+    expected_editor = compatible_request(
+        review_request(context, visual, feedback=feedback), editor.request
+    )
+    if (
+        editor.request != expected_editor
         or decision.binding_sha256 != original_pin
         or decision.unresolved
     ):
