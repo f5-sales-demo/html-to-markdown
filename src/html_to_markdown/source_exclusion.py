@@ -225,7 +225,10 @@ def review_exclusion(
     raw = saved["phases"].get(PHASE)
     evidence = ResponseEvidence.model_validate(raw) if raw else None
     if evidence is not None:
-        replay_request(body, source_logical_request(evidence))
+        try:
+            replay_request(body, source_logical_request(evidence))
+        except ValueError as error:
+            raise ValueError("irrelevance evidence or preserved privacy history changed") from error
     if evidence is None or evidence.error is not None:
         if client is None:
             raise ValueError("complete independent irrelevance evidence is missing")
