@@ -59,6 +59,26 @@ def _original(output: Path, pin: str) -> tuple[Path, dict[str, Any], dict[str, A
     return directory, context, state
 
 
+def _qualified_compilation_failure(decision: Proposal, failure: dict[str, Any]) -> bool:
+    """Only a proved shared-mask compiler failure may recover its existing proposal."""
+    if failure == {"error": "ambiguous or changed renewal span after preceding topic"}:
+        return True
+    if failure != {"error": "retirement masks need one current AppStack or Legacy keep placement"}:
+        return False
+    owners: dict[str, set[str]] = {}
+    for topic in decision.topics:
+        for choice in topic.media:
+            if not choice.masks:
+                continue
+            if (
+                topic.topic not in {"legacy-retired", "appstack-retired"}
+                or choice.disposition != "keep"
+            ):
+                return False
+            owners.setdefault(choice.sha256, set()).add(topic.topic)
+    return any(topics == {"legacy-retired", "appstack-retired"} for topics in owners.values())
+
+
 # Preserve complete old and current bindings alongside the single deterministic projection.
 # pylint: disable-next=too-many-locals
 def validate_existing_curation(
@@ -90,9 +110,9 @@ def validate_existing_curation(
             raise ValueError("selected original candidate or proposal changed")
     else:
         failure_path = previous / "failure.json"
-        if not failure_path.is_file() or json.loads(failure_path.read_bytes()) != {
-            "error": "ambiguous or changed renewal span after preceding topic"
-        }:
+        if not failure_path.is_file() or not _qualified_compilation_failure(
+            decision, json.loads(failure_path.read_bytes())
+        ):
             raise ValueError("missing original candidate or qualified compiler failure evidence")
         failure_sha256 = sha(failure_path.read_bytes())
     origin = {
