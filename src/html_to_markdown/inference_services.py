@@ -16,6 +16,12 @@ from typing import Any
 
 from .content_inventory import atomic_private
 from .curation import json_bytes
+from .operation_mode import (
+    apply_timer_mode,
+    mac_agent_schedule,
+    operation_mode,
+    validate_mac_agent_schedule,
+)
 
 
 def install_processing_service(
@@ -32,6 +38,7 @@ def install_processing_service(
         raise ValueError("Processing services run on Ubuntu")
     if not all(path.is_absolute() for path in (queue_root, inference_queue, output, transport)):
         raise ValueError("Processing service paths must be absolute")
+    operation_mode(queue_root)
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
     command = [
         str(Path(sys.executable).parent / "html-to-markdown"),
@@ -60,10 +67,7 @@ def install_processing_service(
     timer = "[Unit]\nDescription=Private content processing clock\n[Timer]\nOnBootSec=30\nOnUnitInactiveSec=900\n[Install]\nWantedBy=timers.target\n"
     atomic_private(units / (label + ".service"), service.encode())
     atomic_private(units / (label + ".timer"), timer.encode())
-    subprocess.run(["/usr/bin/systemctl", "--user", "daemon-reload"], check=True)  # nosec B603
-    subprocess.run(
-        ["/usr/bin/systemctl", "--user", "enable", "--now", label + ".timer"], check=True
-    )  # nosec B603
+    apply_timer_mode(queue_root, [label + ".timer"])
     return {"service": label + ".service", "timer": label + ".timer"}
 
 
@@ -91,15 +95,13 @@ def stage_inference_agent(
     definition = {
         "Label": "com.f5-sales-demo.content-review",
         "ProgramArguments": ["/bin/zsh", "-l", "-c", "exec " + shlex.join(command)],
-        "StartInterval": 900,
-        "RunAtLoad": True,
         "ProcessType": "Background",
         "Umask": 0o077,
         "StandardOutPath": str(output / "worker.private.log"),
         "StandardErrorPath": str(output / "worker.private.err"),
     }
     path = output / "agent.pending.plist"
-    atomic_private(path, plistlib.dumps(definition, sort_keys=True))
+    atomic_private(path, plistlib.dumps(mac_agent_schedule(output, definition), sort_keys=True))
     return path
 
 
@@ -134,10 +136,8 @@ def activate_inference_agent(output: Path) -> dict[str, Any]:
         pending = output / "agent.pending.plist"
         data = pending.read_bytes()
         definition = plistlib.loads(data)
-        if (
-            definition.get("StartInterval") != 900
-            or "mac-inference-worker" not in definition["ProgramArguments"][-1]
-        ):
+        mode = validate_mac_agent_schedule(output, definition)
+        if "mac-inference-worker" not in definition["ProgramArguments"][-1]:
             raise ValueError("Pending launch agent is not the bounded inference worker")
         destination = Path.home() / "Library/LaunchAgents/com.f5-sales-demo.content-review.plist"
         if state.returncode == 0:
@@ -154,7 +154,8 @@ def activate_inference_agent(output: Path) -> dict[str, Any]:
         )  # nosec B603
     receipt = {
         "state": "inference_agent_activated",
-        "interval_seconds": 900,
+        "interval_seconds": 900 if mode == "scheduled" else None,
+        "operation_mode": mode,
         "active_inference_interrupted": False,
     }
     atomic_private(output / "agent-activation.private.json", json_bytes(receipt))

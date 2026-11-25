@@ -92,3 +92,12 @@ def test_software_version_and_release_have_one_consistent_stable_semver() -> Non
     assert "-name '*.whl' -o -name '*.tar.gz'" in release
     assert "gh release create" in release
     assert "--latest" in release
+
+
+def test_content_collection_and_release_workflows_require_explicit_dispatch():
+    for name in ("inventory-docs.yml", "release-content.yml"):
+        workflow = yaml.load(
+            (ROOT / ".github/workflows" / name).read_text(encoding="utf-8"),
+            Loader=yaml.BaseLoader,
+        )
+        assert set(workflow["on"]) == {"workflow_dispatch"}
