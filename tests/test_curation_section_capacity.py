@@ -14,6 +14,7 @@ from html_to_markdown.curation_section_validation import (
     _execution_digest,
     _request_characters,
     _scope_request,
+    _section_assignments,
     _source,
 )
 from html_to_markdown.enrichment.analysis import sha
@@ -22,7 +23,7 @@ from html_to_markdown.enrichment.gates import request_hash
 
 def historical_sections(body, directory):
     context, candidate = _source(body)
-    groups = controller.assignments(context)
+    groups = _section_assignments(context)
     selection = {
         "version": controller.VERSION,
         "original_request_sha256": request_hash(body),
