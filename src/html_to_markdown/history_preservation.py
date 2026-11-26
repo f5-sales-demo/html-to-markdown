@@ -9,7 +9,7 @@ from contextvars import ContextVar
 from pathlib import Path
 from typing import Protocol
 
-from .content_inventory import atomic_private
+from .capture_store import preserve_bytes
 
 
 class HistoryObserver(Protocol):
@@ -34,7 +34,7 @@ def history_transaction(observer: HistoryObserver) -> Iterator[None]:
 def preserve_history(output: Path, data: bytes) -> Path:
     """Preserve the exact generation and register it before the writer proceeds."""
     path = output / "history" / (hashlib.sha256(data).hexdigest() + ".json")
-    atomic_private(path, data)
+    preserve_bytes(path, data)
     observer = _ACTIVE.get()
     if observer is not None and observer.output == output:
         observer.remember(path)

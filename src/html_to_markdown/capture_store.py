@@ -9,11 +9,11 @@ import os
 import re
 import tempfile
 from collections.abc import Iterator
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from contextvars import ContextVar
 from pathlib import Path
 
-from .private_storage import atomic_write
+from .private_storage import atomic_write, private_scratch
 from .urls import SOURCE_ROOTS
 
 _DIRECTORY_SYNCS: ContextVar[set[Path] | None] = ContextVar("capture_directory_syncs", default=None)
@@ -144,6 +144,34 @@ def _store(root: Path, destination: Path, expected: str, data: bytes | None) -> 
         else:
             raise ValueError("missing immutable capture source")
         _link(cached, destination, expected)
+    return destination
+
+
+def preserve_bytes(destination: Path, data: bytes) -> Path:
+    """Publish an immutable private generation once without a duplicate payload store.
+
+    Existing bytes are verified on every call. Competing writers can only link a
+    complete staged generation into an absent name; they never replace the winner.
+    Failed staging and durability evidence remain private and cannot grant approval.
+    """
+    _safe(destination)
+    expected = hashlib.sha256(data).hexdigest()
+    if destination.exists():
+        _verify(destination, expected)
+        _flush_directory(destination.parent)
+        return destination
+    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    _safe(destination)
+    with private_scratch(destination.parent) as temporary:
+        staged = temporary / "payload"
+        atomic_write(staged, data)
+        _verify(staged, expected)
+        # Another writer may publish first. Its complete bytes and privacy
+        # guards must pass independently before this call can return.
+        with suppress(FileExistsError):
+            os.link(staged, destination)
+        _verify(destination, expected)
+        _flush_directory(destination.parent)
     return destination
 
 
