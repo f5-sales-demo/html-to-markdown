@@ -57,6 +57,7 @@ def review_context_digest() -> str:
                     "source_phase_bindings.py",
                     "source_binding_context.py",
                     "source_replacements.py",
+                    "source_ocr_edits.py",
                     "source_curation.py",
                     "media_observations.py",
                     "media_encoding.py",

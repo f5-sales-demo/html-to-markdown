@@ -46,6 +46,7 @@ from .source_exclusion import MARKER as EXCLUSION_MARKER
 from .source_exclusion import eligible as exclusion_eligible
 from .source_exclusion import read_relevance, review_exclusion
 from .source_media_references import media_destination_map, rewrite_media_references
+from .source_ocr_edits import compile_text
 from .source_phase_bindings import (
     _privacy_budget,
     invalidate_failed_review,
@@ -63,7 +64,6 @@ from .source_review import (
     RelevanceDecision,
     addressed_spans,
     admission_request,
-    apply_text,
     binding_for,
     enforce,
     preview_media,
@@ -433,7 +433,7 @@ def _compile_encoded(
     if any(choice.disposition == "unresolved" for choice in proposal.findings):
         raise ValueError("privacy finding is unresolved")
     guard_label_quotes(context, proposal)
-    metadata, body = apply_text(context["metadata"], context["body"], proposal)
+    metadata, body, ocr_guards = compile_text(context, proposal)
     changes = {change.source_sha256: change for change in proposal.media_changes}
     if len(changes) != len(proposal.media_changes) or changes.keys() - context["media"].keys():
         raise ValueError("duplicate or unknown media transformation")
@@ -541,6 +541,7 @@ def _compile_encoded(
         "findings": final_findings,
         "finding_decisions": [choice.model_dump() for choice in projected],
         "file_hashes": {path: sha(data) for path, data in sorted(files.items())},
+        **({"ocr_edit_guards": ocr_guards} if ocr_guards is not None else {}),
     }
     payload["output_sha256"] = sha(json_bytes(payload["file_hashes"]))
     payload, projected = _compiled_findings(
