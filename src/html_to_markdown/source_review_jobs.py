@@ -2,18 +2,15 @@
 
 from __future__ import annotations
 
-import base64
 import json
-import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
 from .content_inventory import atomic_private, verify_capture
-from .curation import blocks, json_bytes, load_curation_policy
+from .curation import blocks, json_bytes
 from .enrichment.analysis import sha
 from .enrichment.clients import client_for_host
 from .enrichment.codex_client import CodexClient, is_transient_error
@@ -21,8 +18,7 @@ from .enrichment.contracts import EDITOR_MODEL, VALIDATOR_MODEL, ResponseEvidenc
 from .enrichment.gates import request_hash
 from .enrichment.media import all_frame_inputs
 from .errors import TransportFailure
-from .media_encoding import current_review_encoding, review_media_encoding, source_review_encoding
-from .media_encoding import verify_native_frame as _verify_native_frame
+from .media_encoding import review_media_encoding, source_review_encoding
 from .media_observation_jobs import (
     RequestExecutor,
     prepare_media_observations,
@@ -30,10 +26,10 @@ from .media_observation_jobs import (
 from .media_observation_jobs import (
     confirmed_media_values as _confirmed_media_values,
 )
-from .models import PageMetadata
-from .render import serialize_document, split_document
+from .render import split_document
 from .review_controller_compatibility import admission_binding
 from .review_priorities import ReviewPriorities, select_records
+from .source_admission_requests import source_request as _request
 from .source_boundary_review import (
     execute_source_phase,
     has_retryable_boundary,
@@ -41,18 +37,21 @@ from .source_boundary_review import (
 from .source_boundary_review import (
     parse_source_response as parse_response,
 )
+from .source_candidate import article_html as _article_html
+from .source_candidate import media_context as _candidate_media_context
+from .source_candidate import render_source_proposal as _render_source_proposal
+from .source_candidate import retirement_rules as _retirement_rules
 from .source_curation import CurationRequired, preview_curation, record_exception
 from .source_exclusion import MARKER as EXCLUSION_MARKER
 from .source_exclusion import eligible as exclusion_eligible
 from .source_exclusion import read_relevance, review_exclusion
-from .source_media_references import media_destination_map, rewrite_media_references
+from .source_existing_delivery import replay_existing_source
 from .source_phase_bindings import (
     _privacy_budget,
     invalidate_failed_review,
     pending_privacy_proposal,
     privacy_context,
     privacy_ledger,
-    privacy_request,
     reusable_privacy,
 )
 from .source_review import (
@@ -61,36 +60,29 @@ from .source_review import (
     FindingDecision,
     PrivacyDecision,
     RelevanceDecision,
-    addressed_spans,
-    admission_request,
-    apply_text,
     binding_for,
     enforce,
-    preview_media,
     scan,
     text_fields,
     validate_admission,
 )
 from .source_review_outputs import retire_output as _retire_output
 from .source_review_reconciliation import (
-    guard_label_quotes,
     invalidate_classification,
     replay_classification,
     review_final_findings,
 )
 from .source_review_replay import verify_source_reviews
 
-
-def _article_html(capture: Path, item: dict[str, Any]) -> str:
-    """Scope complete authored source exactly as the admission request does."""
-    source_html = (capture / item["source_html_path"]).read_text()
-    if item["sourceId"] == "community-f5-com":
-        source_html = json.loads(source_html)["post_stream"]["posts"][0]["cooked"]
-        # Discourse cooked is already the complete first post. Nested article
-        # elements are resource cards, not the enclosing authored source.
-        return str(BeautifulSoup(source_html, "html.parser"))
-    soup = BeautifulSoup(source_html, "html.parser")
-    return str(soup.select_one("c-site-article-detail-container, article, main") or soup)
+# Preserve the historical helper import surface after separating implementation.
+__all__ = [
+    "_article_html",
+    "_request",
+    "prepare_reviews",
+    "review_one",
+    "run_reviews",
+    "verify_reviews",
+]
 
 
 def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
@@ -178,53 +170,11 @@ def prepare_reviews(capture: Path, output: Path) -> dict[str, Any]:
 
 
 def _media_context(
-    capture: Path, output: Path, item: dict[str, Any]
+    capture: Path, output: Path, item: dict[str, Any], *, require_cached: bool = False
 ) -> tuple[list[dict[str, Any]], dict[str, str], dict[str, Any]]:
-    visual = []
-    fields: dict[str, str] = {}
-    receipts = {}
-    for media in item["media"]:
-        path = capture / media["path"]
-        if sha(path.read_bytes()) != media["sha256"]:
-            raise ValueError("source media digest changed")
-        # Keep old observations and their exact encoded bytes as immutable
-        # history. The complete SVG geometry and compressed views use a new
-        # cache namespace; a representation change grants no editor allowance.
-        cache_generation = 2 if current_review_encoding() == 1 else 3
-        cache = output / "media" / f"{media['sha256']}-native-{cache_generation}.json"
-        if cache.exists():
-            frames = json.loads(cache.read_bytes())
-        else:
-            frames = all_frame_inputs(path)
-            atomic_private(cache, json_bytes(frames))
-        expected = all_frame_inputs(path, perform_ocr=False)
-        if len(frames) != len(expected):
-            raise ValueError("cached media does not cover complete native frames")
-        for (captured_url, captured_info), (expected_url, expected_info) in zip(
-            frames, expected, strict=True
-        ):
-            _verify_native_frame(captured_url, captured_info, expected_url, expected_info)
-        receipts[media["sha256"]] = {
-            "frame_count": len(frames),
-            "frames": [frame[1] for frame in frames],
-        }
-        for data_url, info in frames:
-            # Decode and verify the visual derivative on every replay as well.
-            if (
-                sha(base64.b64decode(data_url.split(",", 1)[1], validate=True))
-                != info["visual_input_sha256"]
-            ):
-                raise ValueError("cached media visual digest changed")
-            address = "media/" + media["sha256"] + "/" + str(info.get("frame", 0))
-            fields[address + "/ocr"] = info["text"]
-            fields[address + "/metadata"] = json.dumps(info.get("metadata", {}), sort_keys=True)
-            visual.extend(
-                [
-                    {"type": "input_text", "text": address},
-                    {"type": "input_image", "image_url": data_url, "detail": "high"},
-                ]
-            )
-    return visual, fields, receipts
+    return _candidate_media_context(
+        capture, output, item, require_cached=require_cached, frame_inputs=all_frame_inputs
+    )
 
 
 def _context(
@@ -240,24 +190,7 @@ def _context(
     ):
         raise ValueError("stale source policy or admission binding")
     metadata, body = split_document((capture / item["article_path"]).read_text())
-    policy = load_curation_policy().raw
-    policy_keys = {
-        "id",
-        "version",
-        "mode",
-        "retired_identities",
-        "retired_patterns",
-        "retired_urls",
-        "scope_patterns",
-        "dependency_rules",
-        "provider_identities",
-        "provider_aliases",
-        "omit_urls",
-    }
-    rules = [
-        {key: value for key, value in topic.items() if key in policy_keys}
-        for topic in policy["topics"]
-    ]
+    rules = _retirement_rules()
     visual, media_fields, media_receipts = _media_context(capture, output, item)
     fields = {**text_fields(metadata, body), **media_fields}
     context = {
@@ -282,69 +215,6 @@ def _context(
         "media": media_receipts,
     }
     return context, visual
-
-
-def _request(
-    model: str,
-    phase: str,
-    context: dict[str, Any],
-    visual: list[dict[str, Any]],
-    schema: Any,
-    feedback: list[str] | None = None,
-) -> dict[str, Any]:
-    if phase == "privacy":
-        context = privacy_context(context)
-    payload = (
-        {
-            **context,
-            "addressed_spans": addressed_spans(context["fields"]),
-            "validation_feedback": feedback or [],
-        }
-        if phase == "privacy"
-        else context
-    )
-    body = (
-        privacy_request(model, payload, schema)
-        if phase == "privacy"
-        else admission_request(model, phase, payload, schema)
-    )
-    body["input"][0]["content"].extend(visual)
-    properties = body["text"]["format"]["schema"]["properties"]
-    properties["identity"]["enum"] = [context["identity"]]
-    properties["binding_sha256"]["enum"] = [context["binding_sha256"]]
-    if schema is RelevanceDecision:
-        addresses = [block["address"] for block in context["structural_addresses"]]
-        properties["evidence_addresses"]["items"]["enum"] = addresses
-    elif schema is PrivacyDecision:
-        schema_body = body["text"]["format"]["schema"]
-        editable = {"title", "description", "tags", "breadcrumb", "slug"}
-        schema_body["$defs"]["TextChange"]["properties"]["field"]["enum"] = [
-            field
-            for field in context["fields"]
-            if field == "body" or field.split("/")[1:2] in [[key] for key in editable]
-        ]
-        finding_ids = [finding["id"] for finding in context["findings"]]
-        properties["findings"].update(minItems=len(finding_ids), maxItems=len(finding_ids))
-        if finding_ids:
-            schema_body["$defs"]["FindingDecision"]["properties"]["finding_id"]["enum"] = (
-                finding_ids
-            )
-        media_ids = sorted(context["media"])
-        if media_ids:
-            schema_body["$defs"]["MediaChange"]["properties"]["source_sha256"]["enum"] = media_ids
-        else:
-            properties["media_changes"]["maxItems"] = 0
-    elif schema is AdmissionValidation:
-        properties["output_sha256"].update(
-            enum=[context["candidate"]["output_sha256"]],
-            description="Exact source-admission candidate.output_sha256; the later curation_candidate has a separate digest.",
-        )
-        identifiers = [finding["id"] for finding in context["candidate"]["findings"]]
-        if identifiers:
-            properties["approved_safe_findings"]["items"]["enum"] = identifiers
-        else:
-            properties["approved_safe_findings"]["maxItems"] = 0
-    return body
 
 
 def _prepare_media_observations(
@@ -425,138 +295,20 @@ def _compile_encoded(
             if stale
             else "privacy proposal is unresolved: " + "; ".join(proposal.unresolved)
         )
-    addressed = {choice.finding_id for choice in proposal.findings}
-    if len(addressed) != len(proposal.findings) or addressed != {
-        finding["id"] for finding in context["findings"]
-    }:
-        raise ValueError("privacy proposal must classify every finding exactly once")
-    if any(choice.disposition == "unresolved" for choice in proposal.findings):
-        raise ValueError("privacy finding is unresolved")
-    guard_label_quotes(context, proposal)
-    metadata, body = apply_text(context["metadata"], context["body"], proposal)
-    changes = {change.source_sha256: change for change in proposal.media_changes}
-    if len(changes) != len(proposal.media_changes) or changes.keys() - context["media"].keys():
-        raise ValueError("duplicate or unknown media transformation")
-    values = {value.source_sha256: value.replacement for value in proposal.values}
-    files: dict[str, bytes] = {}
-    transforms = {}
-    media = []
-    media_locations = {}
-    media_references: list[tuple[str, str]] = []
-    item = saved["item"]
-    for original in item["media"]:
-        raw = (capture / original["path"]).read_bytes()
-        if original["sha256"] in changes:
-            raw, transform = preview_media(raw, changes[original["sha256"]], values)
-            transforms[original["sha256"]] = transform
-        digest = sha(raw)
-        transformed = digest != original["sha256"]
-        # Consumer assets need a media extension for the Pages MIME contract.
-        from .pipeline import Pipeline  # pylint: disable=import-outside-toplevel
-
-        media_type = (
-            ("image/gif" if raw.startswith(b"GIF") else "image/png")
-            if transformed
-            else original["media_type"]
-        )
-        extension = Pipeline._asset_extension(original["url"], media_type)  # pylint: disable=protected-access
-        relative = str(
-            Path(item.get("published_path", item["article_path"])).parent
-            / "assets"
-            / (digest + extension)
-        )
-        files[relative] = raw
-        before = "assets/" + Path(original["path"]).name
-        after = "assets/" + digest + extension
-        media_references.append((before, after))
-        media_locations[digest] = original["sha256"]
-        media.append({**original, "path": relative, "sha256": digest})
-    body = rewrite_media_references(
-        body,
-        media_destination_map(media_references),
-        {"assets/" + Path(entry["path"]).name for entry in media},
+    candidate, visual, projected, files = _render_source_proposal(
+        capture, output, saved, context, proposal, media_context=_media_context
     )
-    article = serialize_document(PageMetadata.model_validate(metadata), body).encode()
-    files[item.get("published_path", item["article_path"])] = article
-    # Build the exact candidate derivative/OCR privately; keep original media too.
-    with tempfile.TemporaryDirectory(prefix="admission-candidate-") as directory:
-        root = Path(directory)
-        for relative, data in files.items():
-            atomic_private(root / relative, data)
-        visual, media_fields, receipts = _media_context(root, output, {"media": media})
-    final_meta, final_body = split_document(article.decode())
-    fields = {**text_fields(final_meta, final_body), **media_fields}
-    final_findings = scan(fields)
-    # Carry contextual safe findings across deterministic offset changes only.
-    # Identical values in different placements still receive separate final IDs.
-    choices = {choice.finding_id: choice for choice in proposal.findings}
-    safe: dict[tuple[str, str, str], list[FindingDecision]] = {}
-    for finding in context["findings"]:
-        choice = choices[finding["id"]]
-        if choice.disposition in {"documentation_example", "authoritative_attribution"}:
-            key = (finding["location"], finding["kind"], finding["value_sha256"])
-            safe.setdefault(key, []).append(choice)
-    projected = []
-    for finding in final_findings:
-        location = finding["location"]
-        if location.startswith("media/"):
-            parts = location.split("/")
-            parts[1] = media_locations.get(parts[1], parts[1])
-            location = "/".join(parts)
-        key = (location, finding["kind"], finding["value_sha256"])
-        candidates = safe.get(key, [])
-        if not candidates:
-            # Synthetic reserved examples also require independent validation.
-            original = next(
-                (
-                    value
-                    for value in proposal.values
-                    if sha(value.replacement) == finding["value_sha256"]
-                ),
-                None,
-            )
-            if original is not None:
-                projected.append(
-                    FindingDecision(
-                        finding_id=finding["id"],
-                        disposition="documentation_example",
-                        reason="synthetic replacement requires independent contextual validation",
-                    )
-                )
-            else:
-                projected.append(
-                    FindingDecision(
-                        finding_id=finding["id"],
-                        disposition="unresolved",
-                        reason="new or unmatched final finding",
-                    )
-                )
-        else:
-            projected.append(candidates.pop(0).model_copy(update={"finding_id": finding["id"]}))
-    payload = {
-        "metadata": final_meta,
-        "body": final_body,
-        "media": receipts,
-        "media_transforms": transforms,
-        "findings": final_findings,
-        "finding_decisions": [choice.model_dump() for choice in projected],
-        "file_hashes": {path: sha(data) for path, data in sorted(files.items())},
-    }
-    payload["output_sha256"] = sha(json_bytes(payload["file_hashes"]))
-    payload, projected = _compiled_findings(
-        capture, output, saved, context, item, payload, visual, proposal
+    candidate, decisions = _compiled_findings(
+        capture, output, saved, context, candidate, visual, proposal
     )
-    return payload, visual, proposal.model_copy(update={"findings": projected}), files
+    return candidate, visual, proposal.model_copy(update={"findings": decisions}), files
 
 
-# Keep exact proposal data with the complete source and candidate evidence.
-# pylint: disable-next=too-many-arguments
 def _compiled_findings(
     capture: Path,
     output: Path,
     saved: dict[str, Any],
     context: dict[str, Any],
-    item: dict[str, Any],
     candidate: dict[str, Any],
     visual: list[dict[str, Any]],
     proposal: PrivacyDecision,
@@ -564,7 +316,7 @@ def _compiled_findings(
     if "privacy_reconciliation" in saved.get("phases", {}) and not saved["phases"][
         "privacy_reconciliation"
     ].get("error"):
-        original_visual, _, _ = _media_context(capture, output, item)
+        original_visual, _, _ = _media_context(capture, output, saved["item"])
         candidate = replay_classification(
             saved, privacy_context(context), candidate, original_visual + visual, proposal
         )
@@ -617,6 +369,8 @@ def _review_one(
     capture: Path, output: Path, record: Path, phase: str, client: CodexClient | None
 ) -> dict[str, Any]:
     saved = json.loads(record.read_bytes())
+    if saved.get("selected_existing_source"):
+        return replay_existing_source(capture, output, record)
     context, visual = _context(capture, output, saved)
     if phase == "relevance" and not saved.get(EXCLUSION_MARKER):
         body = _request(EDITOR_MODEL, phase, context, visual, RelevanceDecision)
@@ -761,7 +515,11 @@ def _run_record_encoded(
     if json.loads(record.read_bytes()).get("cross_queue_evidence_blocked"):
         raise ValueError("prior source-review evidence requires repair before new privacy attempts")
     saved = json.loads(record.read_bytes())
-    if saved.get("privacy_exhausted") and not saved.get(EXCLUSION_MARKER):
+    if (
+        saved.get("privacy_exhausted")
+        and not saved.get(EXCLUSION_MARKER)
+        and not saved.get("selected_existing_source")
+    ):
         if not saved.get("phases", {}).get("relevance"):
             raise ValueError(
                 "privacy proposal exhausted two corrections; unchanged privacy context remains queued"
@@ -846,8 +604,9 @@ def run_reviews(
     for record in selected:
         saved = json.loads(record.read_bytes())
         try:
-            with review_media_encoding(source_review_encoding(saved)):
-                _media_context(capture, output, saved["item"])
+            if not saved.get("selected_existing_source"):
+                with review_media_encoding(source_review_encoding(saved)):
+                    _media_context(capture, output, saved["item"])
             ready.append(record)
         except Exception as failure:  # pylint: disable=broad-exception-caught
             failures[record.name] = "MediaPreparationError"

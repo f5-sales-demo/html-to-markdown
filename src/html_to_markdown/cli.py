@@ -47,6 +47,7 @@ from .refresh import combine_docs, verify_refresh
 from .render import split_document
 from .review_priorities import load_priorities
 from .safe_reports import sanitize_inventory
+from .source_existing_cli import register_existing_source_commands
 from .source_inputs import seal_source, verify_source
 from .source_review_jobs import run_reviews, verify_reviews
 from .state import StateStore
@@ -56,6 +57,7 @@ from .work_queue import export_queue, list_queues, receive_enrichment, receive_s
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
 register_inference_commands(app)
 register_service_commands(app)
+register_existing_source_commands(app)
 
 
 @app.command("sanitize-inventory")

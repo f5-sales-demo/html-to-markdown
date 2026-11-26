@@ -34,6 +34,8 @@ def parse_response(
             "source-admission/1",
             "source-irrelevance/1",
             "source-privacy/2",
+            "existing-source-validation/1",
+            "existing-source-selection/1",
             "native-media-observation/1",
             "curation-renewal/1",
             "curation-section-validation/1",

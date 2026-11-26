@@ -57,7 +57,12 @@ class HistoryStream:
         return result
 
 
-def binding_from_stream(stream: HistoryStream, *, standard_unicode: bool = False) -> dict[str, Any]:
+def binding_from_stream(
+    stream: HistoryStream,
+    *,
+    standard_unicode: bool = False,
+    source_keys: tuple[str, ...] = SOURCE_KEYS,
+) -> dict[str, Any]:
     """Validate every JSON value, including unrelated payloads, without retaining it."""
     parser = python_backend.basic_parse if standard_unicode else ijson.basic_parse
     depth = 0
@@ -80,7 +85,7 @@ def binding_from_stream(stream: HistoryStream, *, standard_unicode: bool = False
                     binding = {} if event == "start_map" else []
                     in_binding = event == "start_map"
                     binding_key = None
-                elif depth == 2 and in_binding and binding_key in SOURCE_KEYS:
+                elif depth == 2 and in_binding and binding_key in source_keys:
                     binding[binding_key] = {} if event == "start_map" else []
                 depth += 1
             elif event in {"end_map", "end_array"}:
@@ -90,7 +95,7 @@ def binding_from_stream(stream: HistoryStream, *, standard_unicode: bool = False
             elif depth == 1 and top_key == "binding":
                 binding = value
                 in_binding = False
-            elif depth == 2 and in_binding and binding_key in SOURCE_KEYS:
+            elif depth == 2 and in_binding and binding_key in source_keys:
                 binding[binding_key] = value
     except ijson.JSONError as error:
         raise ValueError("invalid retained privacy history JSON") from error
