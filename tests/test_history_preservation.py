@@ -31,14 +31,21 @@ def preserve_in_process(output):
     return generation(preserve_history(Path(output), DATA))
 
 
-def test_repeated_preservation_does_not_replace_verified_generation(tmp_path):
-    output = tmp_path / "review"
-    path = preserve_history(output, DATA)
-    before = generation(path)
-    assert preserve_history(output, DATA) == path
-    assert generation(path) == before
-    assert path.read_bytes() == DATA
-    assert list(path.parent.iterdir()) == [path]
+@pytest.mark.parametrize("mask", [0o022, 0o077])
+def test_repeated_preservation_does_not_replace_verified_generation(tmp_path, mask):
+    previous = os.umask(mask)
+    try:
+        output = tmp_path / "review"
+        path = preserve_history(output, DATA)
+        before = generation(path)
+        assert preserve_history(output, DATA) == path
+        assert generation(path) == before
+        assert path.read_bytes() == DATA
+        assert path.stat().st_mode & 0o777 == 0o600
+        assert path.parent.stat().st_mode & 0o777 == 0o700
+        assert list(path.parent.iterdir()) == [path]
+    finally:
+        os.umask(previous)
 
 
 def test_reuse_does_not_stage_or_write_another_payload(tmp_path, monkeypatch):
