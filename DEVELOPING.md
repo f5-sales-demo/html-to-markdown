@@ -62,6 +62,34 @@ uv run html-to-markdown verify-publication \
 The production docs-control verifier additionally binds the receipt's source
 commit to the exact release tag before mounting the extracted tree read-only.
 
+## Original captured-source proposals
+
+Use `prepare-existing-source` with the current captured article record and every
+consulted history root to seal the strongest original proposal inventory. Preparation
+preserves one necessary current-record snapshot and records digest references to
+existing original model and native-media evidence. It streams unrelated histories,
+retains every correction, and grants no editorial allowance.
+
+`review-existing-source` performs current relevance and independent complete privacy,
+media, extraction, technical preservation and retirement/API validation with Sol High.
+Every strongest original receives an explicit outcome. Distinct validated outputs
+remain ambiguous. The versioned validation request keeps the original proposal binding
+separate from the current execution and policy envelope. Finding classification cannot
+edit the source or approve credentials. Rejected responses remain private history.
+
+Use `review-existing-source --replay` to verify those exact inputs and model receipts
+without inference, OCR regeneration or target repair. Missing or changed histories,
+native bytes, policies, responses, controller code or consumed ledgers reject replay.
+The proof retains private original custody paths; preserve those inputs while the
+selected admission or sealed source depends on them.
+
+`admit-existing-source` independently replays the selection before updating the exact
+prepared current record. It runs on Ubuntu under the owning worker lock. An intervening
+record change rejects promotion. Ordinary source verification replays the selected
+proof into isolated scratch space, and source sealing retains that verified admission
+chain. These commands are manual operations and install no recurring triggers.
+A selected source still requires the complete corpus publication and deployment gates.
+
 ## Daily review evidence
 
 Complete unrelated candidates can use source-irrelevance/1. The original relevance
@@ -597,7 +625,6 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
-
 
 ### Sol-only content inference
 
