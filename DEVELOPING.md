@@ -547,9 +547,10 @@ sync rejects readiness, preserves completed input bytes and resumes through the
 ordinary transfer and cache checks. This changes persistence work, while source
 admission, privacy, retirement and publication continue through their own gates.
 
-On the Mac, `stage-inference-agent` prepares the 15-minute `mac-inference-worker`
-launch definition. `activate-inference-agent` waits for real worker and inference
-quiescence before replacing the legacy full-source worker. The login shell retains
+On the Mac, `stage-inference-agent` prepares a `mac-inference-worker` launch
+definition without recurring triggers in the default manual mode. An explicit
+invocation starts the current job. `activate-inference-agent` waits for real worker
+and inference quiescence before replacing the legacy full-source worker. The login shell retains
 the existing configured Codex/LiteLLM Responses credential route; no credentials
 or provider overrides belong in the launch definition.
 
@@ -565,8 +566,8 @@ that commit before a local future observes its acknowledgment. Owned jobs resume
 under their original owner and executor. After completed work, the monitor remains
 available for up to 15 quiet minutes for Ubuntu's dependent phases, reporting
 `waiting_for_followup`. Empty polls run no inference. An initially empty queue
-returns immediately to the existing 15-minute launch clock. Queue heartbeats
-continue across batches; pending returns stop draining and retain their exact
+returns immediately to its caller; manual mode schedules no subsequent run. Queue
+heartbeats continue across batches; pending returns stop draining and retain their exact
 archives for the next recovery attempt.
 
 Historical evidence migration must verify the complete restored Ubuntu tree and
@@ -593,7 +594,6 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
-
 
 ### Sol-only content inference
 

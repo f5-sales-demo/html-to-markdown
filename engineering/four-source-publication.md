@@ -14,12 +14,14 @@ not yet compose into one replayable publication chain.
   preserving `inventory-docs`. Separate enumeration, capture, review and publication completeness. Journal every
   discovered identity, discovery evidence, dates, capture hashes, media hashes, disposition and reason; preserve
   interruption evidence.
-- Retain authoritative official navigation; enumerate Community categories/tags/sitemaps with first-post scope, refresh
-  published media daily and all eligible/excluded candidates weekly; verify MyF5 final-page pagination and
+- Retain authoritative official navigation; enumerate Community categories/tags/sitemaps with first-post scope;
+  refresh published media and reconcile all eligible/excluded candidates in the manual full scan; verify MyF5 final-page
+  pagination and
   current/legacy search aliases; discover scoped products/solutions from sitemaps and links.
 - Add relevance, privacy, extraction and retirement admission, independent validation, and offline replay. Use
   exclusively MacBook-installed Codex with the configured LiteLLM Responses provider, gpt-6.1-sol proposals and
-  separate gpt-6.1-sol validation at high reasoning, with evidence-bound Astra escalation for difficult exceptions, four concurrent inference jobs, and no tools. Bind decisions to complete
+  separate gpt-6.1-sol validation at high reasoning for every new request, including difficult cases. Use at most four
+  concurrent inference jobs with no tools. Preserve completed historical decisions for offline replay. Bind decisions to complete
   content, metadata, media and policy/request digests. Exact independently checked transformations must retain technical
   relationships and yield zero enforcement findings. Keep raw captures/OCR/responses/transformation evidence private.
 - Add enrichment prompt/schema v2 with structural addresses and digest guards, deterministic source retrieval,
@@ -27,8 +29,9 @@ not yet compose into one replayable publication chain.
   corrections and three transient retries. Preserve every attempt and cache only complete validated responses. Keep v1
   replay compatibility. Failed enrichment retains the complete reviewed source; failed admission retains verified prior
   publication or queues a new candidate.
-- Install a locked resumable Mac launch agent checking the private Ubuntu queue every 15 minutes while awake; keep daily
-  official schedule, add daily other sources and Sunday full reconciliation. Extend repeatable source inputs and
+- Complete one manually initiated refresh with locked resumable Mac inference and Ubuntu collection/processing workers.
+  Keep recurring collection and inference triggers disabled on both hosts; request full reconciliation explicitly.
+  At completion, retire job-owned registrations and controllers. Extend repeatable source inputs and
   digest-pinned admission/enrichment; verify every intermediate stage and final metadata/assets separately under
   manifest v2. Serialize against the latest verified deployed baseline and reject superseded inputs. Prepare linked
   policy/catalog PRs through CI and squash-merge governance.
@@ -45,7 +48,7 @@ not yet compose into one replayable publication chain.
 - Release software and immutable content; deploy the exact receipt and verify
   canonical/search/alias/anchor/media/removed routes, the two supplied official-doc URLs, four observability articles,
   and independent Blindfold/Wingman content. Reconcile every inventory with new/updated/excluded articles, source and
-  enrichment fallbacks, repairs, aliases, savings, capture/published/queue ages, weekly completion and exceptions.
+  enrichment fallbacks, repairs, aliases, savings, capture/published/queue ages, full reconciliation completion and exceptions.
   Resolve all capturable relevant public candidates or independently justify exclusion; authenticated material remains
   visibly queued. Record model usage without a cap, unknown rates explicitly unpriced.
 
@@ -55,7 +58,7 @@ not yet compose into one replayable publication chain.
 - [ ] Automate source admission/privacy/media validation and offline replay.
 - [ ] Implement enrichment v2 and historical replay compatibility.
 - [ ] Compose source refresh and enrichment with upstream/final verification.
-- [ ] Install locked Mac worker and independent daily/weekly collectors.
+- [ ] Complete the locked, resumable manual refresh with recurring collection and inference triggers disabled.
 - [ ] Update governed verifier, loader, builder and immutable pins.
 - [ ] Run complete corpus review/enrichment and deterministic validation.
 - [ ] Deliver linked PRs through governance, release/deploy/route verification.
