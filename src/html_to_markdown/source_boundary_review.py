@@ -43,6 +43,15 @@ from .source_metadata_boundaries import (
     validate_metadata_evidence,
 )
 from .source_model_policy_replay import replay_request
+from .source_provenance_projection import (
+    MARKER as PROVENANCE_MARKER,
+)
+from .source_provenance_projection import (
+    VERSION as PROVENANCE_VERSION,
+)
+from .source_provenance_projection import (
+    project_provenance_request,
+)
 
 
 class InputProjectionProof(StrictModel):
@@ -99,7 +108,7 @@ def source_logical_request(evidence: ResponseEvidence) -> dict[str, Any]:
     if evidence.source_boundary is not None:
         if evidence.source_boundary.get("version") == METADATA_VERSION:
             return MetadataProof.model_validate(evidence.source_boundary).logical_request
-        if evidence.source_boundary.get("version") == INPUT_VERSION:
+        if evidence.source_boundary.get("version") in {INPUT_VERSION, PROVENANCE_VERSION}:
             return InputProjectionProof.model_validate(evidence.source_boundary).logical_request
         proof = BoundaryProof.model_validate(evidence.source_boundary)
         if proof.version != VERSION:
@@ -200,9 +209,17 @@ def validate_boundary_evidence(evidence: ResponseEvidence) -> dict[str, Any]:
     """Reconstruct every leaf request and final actual request; no response is rebound."""
     if evidence.source_boundary and evidence.source_boundary.get("version") == METADATA_VERSION:
         return validate_metadata_evidence(evidence, validate_boundary_evidence)
-    if evidence.source_boundary and evidence.source_boundary.get("version") == INPUT_VERSION:
+    if evidence.source_boundary and evidence.source_boundary.get("version") in {
+        INPUT_VERSION,
+        PROVENANCE_VERSION,
+    }:
         projected = InputProjectionProof.model_validate(evidence.source_boundary)
-        actual = project_source_request(projected.logical_request)
+        project = (
+            project_provenance_request
+            if projected.version == PROVENANCE_VERSION
+            else project_source_request
+        )
+        actual = project(projected.logical_request)
         if actual is None:
             raise ValueError("source projection proof does not contain a projectable request")
         if projected.boundary is None:
@@ -253,12 +270,21 @@ def parse_source_response(
         expected = replay_request(expected_request_hash, source_logical_request(evidence))
         expected_request_hash = request_hash(expected)
     if evidence.source_boundary is None:
-        content = evidence.request.get("input", [{}])[0].get("content", [{}])[0]
-        payload = json.loads(content["text"]) if "text" in content else None
-        if isinstance(payload, dict) and (
-            MARKER in payload or INPUT_MARKER in payload or METADATA_MARKER in payload
-        ):
-            raise ValueError("final source response is missing its complete boundary evidence")
+        for message in evidence.request.get("input", []):
+            for content in message.get("content", []):
+                if content.get("type") != "input_text":
+                    continue
+                try:
+                    payload = json.loads(content["text"])
+                except ValueError:
+                    continue
+                if isinstance(payload, dict) and any(
+                    marker in payload
+                    for marker in (MARKER, INPUT_MARKER, METADATA_MARKER, PROVENANCE_MARKER)
+                ):
+                    raise ValueError(
+                        "final source response is missing its complete boundary evidence"
+                    )
         return parse_response(evidence, schema, model, expected_request_hash)
     logical = validate_boundary_evidence(evidence)
     if request_hash(logical) != expected_request_hash:
@@ -376,10 +402,14 @@ def _check_input_size(body: dict[str, Any], checkpoint: Path) -> None:
 
 
 def execute_source_request(body: dict[str, Any], client: Any, checkpoint: Path) -> ResponseEvidence:
-    projected = project_source_request(body)
+    projected = project_provenance_request(body)
+    projection_version = PROVENANCE_VERSION
+    if projected is None:
+        projected = project_source_request(body)
+        projection_version = INPUT_VERSION
     if projected is None:
         return _execute_native_source_request(body, client, checkpoint)
-    directory = checkpoint / INPUT_VERSION.replace("/", "-")
+    directory = checkpoint / projection_version.replace("/", "-")
     if directory.is_symlink() or any(parent.is_symlink() for parent in directory.parents):
         raise ValueError("unsafe projected source checkpoint path")
     directory.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -390,9 +420,13 @@ def execute_source_request(body: dict[str, Any], client: Any, checkpoint: Path) 
             raise ValueError("preserved projected source request changed")
         if not path.exists():
             atomic_write(path, raw)
-    actual = _execute_native_source_request(projected, client, directory / "native")
+    actual = (
+        execute_source_request(projected, client, directory / "native")
+        if projection_version == PROVENANCE_VERSION
+        else _execute_native_source_request(projected, client, directory / "native")
+    )
     proof = InputProjectionProof(
-        version=INPUT_VERSION, logical_request=body, boundary=actual.source_boundary
+        version=projection_version, logical_request=body, boundary=actual.source_boundary
     )
     result = actual.model_copy(update={"source_boundary": proof.model_dump(mode="json")})
     atomic_write(directory / "final-response.json", json_bytes(result.model_dump(mode="json")))

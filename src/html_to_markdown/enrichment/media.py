@@ -13,8 +13,11 @@ from typing import Any
 from defusedxml import ElementTree
 from PIL import Image
 
-from ..media_encoding import current_review_encoding, png_bytes
+from ..expected_frame_cache import ExpectedFrameCache, FrameInputs
+from ..media_encoding import current_review_encoding, png_bytes, source_review_encoding
 from .analysis import sha
+
+_EXPECTED_FRAMES = ExpectedFrameCache()
 
 
 def validate_svg(raw: bytes) -> None:
@@ -129,6 +132,8 @@ def all_frame_inputs(
     """Supply every animation frame, with its original timing and media digest."""
     if encoding_version is None:
         encoding_version = current_review_encoding()
+    # Validate before lookup: Python's True otherwise aliases encoding version 1.
+    source_review_encoding({"media_encoding_version": encoding_version})
     raw = path.read_bytes()
     if b"<svg" in raw[:4096]:
         return [
@@ -139,6 +144,17 @@ def all_frame_inputs(
                 native_frame_metadata=True,
             )
         ]
+    if perform_ocr:
+        return _raster_frame_inputs(raw, perform_ocr=True, encoding_version=encoding_version)
+    return _EXPECTED_FRAMES.get_or_create(
+        sha(raw),
+        encoding_version,
+        lambda: _raster_frame_inputs(raw, perform_ocr=False, encoding_version=encoding_version),
+    )
+
+
+def _raster_frame_inputs(raw: bytes, *, perform_ocr: bool, encoding_version: int) -> FrameInputs:
+    """Generate complete native frames directly from the exact current source bytes."""
     results = []
     executable = shutil.which("tesseract")
     with Image.open(io.BytesIO(raw)) as source:

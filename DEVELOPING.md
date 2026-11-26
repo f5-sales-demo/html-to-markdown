@@ -101,6 +101,16 @@ The default `png_bytes` API retains version 1 for historical callers; reviewed
 privacy transforms explicitly declare `portable-1` or `portable-2` for replay.
 Unknown encoding markers fail closed. Captured source media is never rewritten.
 
+Complete raster replay reuses successful expected-frame representations in a
+process-local LRU, bounded to 256 MiB of serialized results and 512 entries.
+Every call reads and hashes the current original media bytes; the exact digest
+and validated encoding version select reuse. Results contain every native frame,
+pixel, duration, loop and metadata field, and return fresh mutable metadata.
+Fixed generation locks avoid simultaneous duplicate encoding. Oversized results
+bypass retention; failures, OCR and SVG rendering remain uncached. Independent
+source, frame metadata, pixel and visual-digest verification runs on every replay.
+There is no disk cache, changed admission decision or new editorial allowance.
+
 Complete SVG observations include verified frame geometry and the original XML
 as untrusted metadata. Native review retains the whole rendered frame rather
 than thumbnailing it. Safe unchanged vectors retain their original bytes;
@@ -163,6 +173,14 @@ proposal renewal. Ownership is scoped to the current worker and destination; nes
 candidate outputs and other threads cannot authorize foreign additions. Registration
 does not grant relevance, privacy or publication approval. Private final failures
 record unexpected roots and history paths without changing the observed custody.
+
+Baseline proposal preparation shares that bounded streaming identity lookup across
+its article cohort. Unrelated historical model/media payloads are never fully
+materialized; only exact local source matches enter the unchanged proposal and
+correction selection. Newly preserved history generations are registered, and
+complete final byte, path and custody verification precedes the prepared inventory.
+Standalone original-proposal recovery retains its own final verification. This
+creates no disk cache, changed policy decision or renewed editorial allowance.
 
 Baseline review batches share a bounded in-memory history lookup. It parses each
 unique digest-verified history once, retaining only five source identity strings.
@@ -610,3 +628,17 @@ preserving all current source transactions, attempts, and credential routing.
 Complete the current job with resumable one-shot workers. At completion, retire
 job-owned registrations and controllers. Keep CI, required review, immutable
 release, and receipt-bound deployment workflows available.
+
+### Repeated source validation provenance
+
+Oversized source-validation requests may use source-provenance-projection/1 to
+supply each repeated replacement-evidence array in full once. Digest-guarded
+references retain every finding-specific placement; sharing evidence does not
+share a finding disposition. Replay reconstructs the entire original logical
+request and separately verifies the actual native request and response.
+
+This representation composes with existing source-field, metadata and native
+media proofs. Bounded requests and historical projection versions keep their
+original behavior. It changes no proposal, correction allowance, credential
+enforcement or source publication decision. Requests that still exceed native
+capacity remain private, preserved exceptions.

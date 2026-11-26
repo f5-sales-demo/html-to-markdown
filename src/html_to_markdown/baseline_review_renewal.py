@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .baseline_proposal_history import ProposalHistoryLookup
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import ResponseEvidence
@@ -44,13 +45,20 @@ def _history(output: Path, digest: str) -> dict[str, Any]:
     ):
         raise ValueError("unsafe historical baseline proposal digest")
     path = output / "history" / (digest + ".json")
-    if path.is_symlink() or not path.is_file() or sha(path.read_bytes()) != digest:
+    if path.is_symlink() or not path.is_file():
         raise ValueError("historical baseline proposal record is missing or changed")
-    return dict(json.loads(path.read_bytes()))
+    raw = path.read_bytes()
+    if sha(raw) != digest:
+        raise ValueError("historical baseline proposal record is missing or changed")
+    return dict(json.loads(raw))
 
 
 def original_proposal(
-    output: Path, previous: dict[str, Any], binding: dict[str, Any]
+    output: Path,
+    previous: dict[str, Any],
+    binding: dict[str, Any],
+    *,
+    lookup: ProposalHistoryLookup | None = None,
 ) -> dict[str, Any] | None:
     if not same_source(previous.get("binding", {}), binding):
         return None
@@ -67,33 +75,41 @@ def original_proposal(
         return previous
     best = None
     score = None
-    for path in sorted((output / "history").glob("*.json")):
-        if path.is_symlink():
-            raise ValueError("unsafe historical baseline proposal link")
-        value = json.loads(path.read_bytes())
+    owned_lookup = lookup is None
+    lookup = lookup or ProposalHistoryLookup(output)
+    for path in lookup.paths(binding):
+        value = _history(output, path.stem)
         if not isinstance(value, dict) or not value.get("phases", {}).get("privacy"):
             continue
         if value.get("identity") != previous.get("identity") or not same_source(
             value.get("binding", {}), binding
         ):
             continue
-        if sha(path.read_bytes()) != path.stem:
-            raise ValueError("historical baseline proposal record digest changed")
         rank = (len(value.get("privacy_feedback", [])), path.stat().st_mtime_ns)
         if score is None or rank > score:
             score, best = rank, value
+    if owned_lookup:
+        lookup.verify()
     return best
 
 
 def prepare_existing_proposal(
-    output: Path, previous: dict[str, Any], binding: dict[str, Any], execution: str
+    output: Path,
+    previous: dict[str, Any],
+    binding: dict[str, Any],
+    execution: str,
+    *,
+    lookup: ProposalHistoryLookup | None = None,
 ) -> dict[str, Any] | None:
-    original = original_proposal(output, previous, binding)
+    original = original_proposal(output, previous, binding, lookup=lookup)
     if original is None:
         return None
     data = json_bytes(original)
     digest = sha(data)
-    preserve_history(output, data)
+    if lookup is None:
+        preserve_history(output, data)
+    else:
+        lookup.preserve(data)
     saved = dict(original)
     saved.pop("selected_existing_validation", None)
     saved.pop("candidate", None)
@@ -153,6 +169,9 @@ def preparation_controller() -> str:
             {
                 "baseline": sha(Path(__file__).with_name("baseline_source_review.py").read_bytes()),
                 "renewal": sha(Path(__file__).read_bytes()),
+                "proposal_history": sha(
+                    Path(__file__).with_name("baseline_proposal_history.py").read_bytes()
+                ),
                 "context": sha(Path(__file__).with_name("baseline_source_context.py").read_bytes()),
                 "dispositions": sha(
                     Path(__file__).with_name("baseline_dispositions.py").read_bytes()
