@@ -101,6 +101,14 @@ The default `png_bytes` API retains version 1 for historical callers; reviewed
 privacy transforms explicitly declare `portable-1` or `portable-2` for replay.
 Unknown encoding markers fail closed. Captured source media is never rewritten.
 
+Blocked review context renewals preserve their immutable seed link and exhausted
+privacy allowance on identical source data. The offline seed repair can also recover
+the exact archived renewal performed by qualified v1.14.33: it requires a unique
+digest-guarded pre-renewal record, unchanged source/model guards, and the original
+native-cache conflict chain. Ambiguous, missing or changed custody stays blocked.
+Recovery retains every original attempt and leaves the article queued for ordinary
+admission and independent replay; it does not grant an additional correction.
+
 Complete raster replay reuses successful expected-frame representations in a
 process-local LRU, bounded to 256 MiB of serialized results and 512 entries.
 Every call reads and hashes the current original media bytes; the exact digest
