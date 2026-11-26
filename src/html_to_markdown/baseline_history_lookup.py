@@ -88,11 +88,24 @@ class HistoryLookup:
             return
         with path.open("rb") as source:
             stream = HistoryStream(source)
-            binding = binding_from_stream(stream)
+            try:
+                binding = binding_from_stream(stream)
+            except UnicodeDecodeError:
+                if stream.decoding_failed:
+                    raise
+                # YAJL can emit invalid UTF-8 for a standard-valid isolated low
+                # surrogate. Discard its partial identity; validate the complete
+                # original again through the standard-compatible backend.
+                binding = {}
+                retry_unicode = True
+                partial_unicode_error = True
+            else:
+                retry_unicode = stream.surrogate_escapes
+                partial_unicode_error = False
         parsed = stream.bytes_read
-        if stream.digest.hexdigest() != path.stem:
+        if not partial_unicode_error and stream.digest.hexdigest() != path.stem:
             raise ValueError("retained privacy history digest changed")
-        if stream.surrogate_escapes:
+        if retry_unicode:
             with path.open("rb") as source:
                 stream = HistoryStream(source)
                 binding = binding_from_stream(stream, standard_unicode=True)

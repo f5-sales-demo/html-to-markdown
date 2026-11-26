@@ -201,6 +201,12 @@ never grant approval. Failed final integrity verification queues the whole batch
 saved responses and exhausted allowances remain intact. The private batch report
 records parsing and hashing byte counts separately from article eligibility.
 
+The bounded history reader recognizes real paired Unicode escapes across chunk
+boundaries and parses those records once. Isolated surrogate escapes retain the
+standard-compatible fallback, including native parser decoding failures; invalid
+original byte encodings still fail. Every successful pass verifies original bytes,
+and final complete hashing and custody checks remain required before reuse.
+
 Conflicting strongest baseline histories have a separate private resolution journal.
 Every original proposal, request and consumed correction remains unchanged. Only an
 already completed strongest proposal can undergo current complete source, native
@@ -601,7 +607,6 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
-
 
 ### Sol-only content inference
 

@@ -20,6 +20,16 @@ SOURCE_KEYS = (
 )
 READ_SIZE = 1024 * 1024
 SURROGATE_ESCAPE = re.compile(r"\\u[dD][89a-fA-F][0-9a-fA-F]{2}")
+HIGH_SURROGATE_ESCAPE = re.compile(r"\\u[dD][89aAbB][0-9a-fA-F]{2}")
+LOW_SURROGATE_ESCAPE = re.compile(r"\\u[dD][c-fC-F][0-9a-fA-F]{2}")
+
+
+def _backslash_parity(value: str, end: int, initial: bool) -> bool:
+    """Carry only parity when an escape's backslash run crosses a chunk."""
+    start = end
+    while end and value[end - 1] == "\\":
+        end -= 1
+    return bool((start - end) % 2) ^ (initial if end == 0 else False)
 
 
 class HistoryStream:
@@ -31,16 +41,39 @@ class HistoryStream:
         self.digest = hashlib.sha256(prefix)
         self.bytes_read = len(prefix)
         self.decoder = codecs.getincrementaldecoder(json.detect_encoding(prefix))()
+        self.decoding_failed = False
         self.surrogate_escapes = False
         self.tail = ""
+        self._tail_backslash_odd = False
         self.buffer = self._encode(self.decoder.decode(prefix))
         self.ended = False
 
-    def _encode(self, value: str) -> bytes:
-        # YAJL replaces isolated escaped surrogates. Conservative detection selects
-        # the standard-JSON-compatible Python backend before using any identity.
-        self.surrogate_escapes |= bool(SURROGATE_ESCAPE.search(self.tail + value))
-        self.tail = (self.tail + value)[-5:]
+    def _detect_surrogates(self, value: str, *, final: bool) -> None:
+        """Accept real complete pairs; conservatively retain all other fallbacks."""
+        if self.surrogate_escapes:
+            return
+        text = self.tail + value
+        limit = len(text) if final else max(0, len(text) - 11)
+        position = 0
+        while match := SURROGATE_ESCAPE.search(text, position):
+            if match.start() >= limit:
+                break
+            low = LOW_SURROGATE_ESCAPE.match(text, match.end())
+            real_escape = not _backslash_parity(text, match.start(), self._tail_backslash_odd)
+            if HIGH_SURROGATE_ESCAPE.fullmatch(match.group()) and real_escape and low:
+                position = low.end()
+                limit = max(limit, position)
+            else:
+                self.surrogate_escapes = True
+                self.tail = ""
+                return
+        self._tail_backslash_odd = _backslash_parity(text, limit, self._tail_backslash_odd)
+        self.tail = text[limit:]
+
+    def _encode(self, value: str, *, final: bool = False) -> bytes:
+        # YAJL changes isolated escaped surrogates. Valid real pairs are exact;
+        # an at-most-eleven-character tail preserves pairs across read boundaries.
+        self._detect_surrogates(value, final=final)
         return value.encode("utf-8")
 
     def read(self, size: int = -1) -> bytes:
@@ -52,7 +85,12 @@ class HistoryStream:
             self.digest.update(raw)
             self.bytes_read += len(raw)
             self.ended = not raw
-            self.buffer += self._encode(self.decoder.decode(raw, final=self.ended))
+            try:
+                decoded = self.decoder.decode(raw, final=self.ended)
+            except UnicodeDecodeError:
+                self.decoding_failed = True
+                raise
+            self.buffer += self._encode(decoded, final=self.ended)
         result, self.buffer = self.buffer[:limit], self.buffer[limit:]
         return result
 
