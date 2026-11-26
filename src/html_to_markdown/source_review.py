@@ -341,7 +341,22 @@ def preview_media(
         transform.update(svg_rendering="rsvg-2048/1", svg_rendering_sha256=sha(decoded))
     with Image.open(io.BytesIO(decoded)) as source:
         frames = getattr(source, "n_frames", 1)
-        if not (change.rectangles or change.labels or change.frames or change.strip_metadata):
+        if frames == 1 and change.frames:
+            if (
+                len(change.frames) != 1
+                or change.frames[0].frame != 0
+                or change.rectangles
+                or change.labels
+            ):
+                raise ValueError("static media requires one unambiguous frame zero")
+            frame_change = change.frames[0]
+            transform.update(rectangles=frame_change.rectangles, labels=labels(frame_change.labels))
+        if not (
+            transform["rectangles"]
+            or transform["labels"]
+            or (frames > 1 and change.frames)
+            or change.strip_metadata
+        ):
             for frame in range(frames):
                 source.seek(frame)
                 source.load()
@@ -374,11 +389,10 @@ def preview_media(
                     raise ValueError("duplicate animated privacy frame")
                 output = transform_animation(raw, transform)
         else:
-            if change.frames:
-                raise ValueError("static media cannot have frame changes")
             converted = source.convert(
                 "RGBA"
-                if not change.rectangles and ("A" in source.mode or "transparency" in source.info)
+                if not transform["rectangles"]
+                and ("A" in source.mode or "transparency" in source.info)
                 else "RGB"
             )
             clean = Image.new(converted.mode, converted.size)
