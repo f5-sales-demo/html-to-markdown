@@ -36,6 +36,18 @@ def prepare_dependencies(
     privacy = output / "dependency-privacy"
     prepared = prepare_baseline_reviews(baseline, publication_sha256, documents, privacy)
     records = []
+    replacements = {}
+    if source_inputs:
+        # pylint: disable-next=import-outside-toplevel
+        from .admitted_baseline_sources import prepare_replacements
+
+        articles = [
+            json.loads((privacy / item["path"]).read_bytes())["binding"]["baseline_article"]
+            for item in prepared["documents"]
+        ]
+        replacements = prepare_replacements(
+            baseline, publication_sha256, articles, output, source_inputs
+        )
     for item in prepared["documents"]:
         record = privacy / item["path"]
         saved = json.loads(record.read_bytes())
@@ -44,29 +56,17 @@ def prepare_dependencies(
             "source_privacy_path": record.relative_to(output).as_posix(),
             "reason": "baseline_source_privacy_review_required",
         }
-        if source_inputs:
-            # pylint: disable-next=import-outside-toplevel
-            from .admitted_baseline_sources import (
-                prepare_replacement,  # pylint: disable=import-outside-toplevel
+        replacement = replacements.get(saved["binding"]["baseline_article"])
+        if replacement is not None:
+            pin = replacement["binding_sha256"]
+            entry.update(
+                binding_sha256=pin,
+                context_path=pin + "/context.json",
+                visual_path=pin + "/visual.json",
+                reason="independently_admitted_current_source_dependency",
             )
-
-            replacement = prepare_replacement(
-                baseline,
-                publication_sha256,
-                saved["binding"]["baseline_article"],
-                output,
-                source_inputs,
-            )
-            if replacement is not None:
-                pin = replacement["binding_sha256"]
-                entry.update(
-                    binding_sha256=pin,
-                    context_path=pin + "/context.json",
-                    visual_path=pin + "/visual.json",
-                    reason="independently_admitted_current_source_dependency",
-                )
-                records.append(entry)
-                continue
+            records.append(entry)
+            continue
         if saved["status"] == "source_exclusion_validated":
             entry.update(
                 _prepare_source_exclusion(output, privacy, record, saved, publication_sha256)

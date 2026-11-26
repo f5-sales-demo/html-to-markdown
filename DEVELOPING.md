@@ -182,6 +182,15 @@ complete final byte, path and custody verification precedes the prepared invento
 Standalone original-proposal recovery retains its own final verification. This
 creates no disk cache, changed policy decision or renewed editorial allowance.
 
+Admitted current-source dependency preparation shares complete source replay only
+within one preparation cohort. Every original and copied source passes complete
+verification before use and again at the cohort boundary; article, media and source
+record digests are checked for each candidate. Prepared contexts, copied candidate
+files and retained baseline custody are checked again before returning the cohort.
+The baseline must also remain identical. A failed or interrupted cohort cannot publish a new dependency inventory.
+Later validation and publication independently replay complete source admission.
+No persistent approval cache or new editorial allowance is created.
+
 Baseline review batches share a bounded in-memory history lookup. It parses each
 unique digest-verified history once, retaining only five source identity strings.
 Every duplicate copy is still independently hashed before lookup reuse. Every
@@ -597,7 +606,6 @@ selects verified replacements and exclusions before validating the remaining bas
 replays selection and whole-corpus curation independently. All kept articles retain privacy,
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
-
 
 ### Sol-only content inference
 
