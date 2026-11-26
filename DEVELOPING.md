@@ -598,7 +598,6 @@ replays selection and whole-corpus curation independently. All kept articles ret
 retirement/API and preservation checks. Reviewable dependencies progress while unresolved
 ones remain in the dependency inventory and exception report.
 
-
 ### Sol-only content inference
 
 Model policy 3 requires GPT-6.1-Sol with high reasoning for every new inference
@@ -642,3 +641,17 @@ media proofs. Bounded requests and historical projection versions keep their
 original behavior. It changes no proposal, correction allowance, credential
 enforcement or source publication decision. Requests that still exceed native
 capacity remain private, preserved exceptions.
+
+### Immutable inference checkpoint storage
+
+After validating a returned result, Ubuntu shares storage between the submitted
+request and its returned journal checkpoint when their original bytes, private
+permissions, ownership, filesystem and extended metadata match. Both paths,
+the uploaded archive, raw attempts and receipt remain available. Different JSON
+serialization retains separate files even when the parsed request is equivalent.
+
+Sharing runs inside the existing result-intake lock. Atomic replacement and
+directory synchronization preserve interruption recovery; temporary links stay
+outside the sealed payload so replay sees its original file coverage. Updates
+replace individual paths atomically, and result reads still verify every byte.
+This adds no recurring cleanup job and does not change source admission.

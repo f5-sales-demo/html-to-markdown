@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import errno
 import fcntl
 import hashlib
 import json
 import os
 import re
 import shutil
+import stat
 import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -216,6 +218,58 @@ def _validated(
     return evidence, pins
 
 
+def _share_request_checkpoint(
+    job: Path, payload: Path, evidence: ResponseEvidence, pins: dict[str, str]
+) -> bool:
+    """Share only exact immutable bytes; temporary links stay outside sealed payloads."""
+    source = job / "request.json"
+    name = "journal/" + evidence.request_sha256 + ".request.json"
+    target = payload / name
+    if any(path.is_symlink() for path in (source, target, target.parent, payload)):
+        raise ValueError("Request checkpoint sharing cannot follow symlinks")
+    before, other = source.lstat(), target.lstat()
+    if not stat.S_ISREG(before.st_mode) or not stat.S_ISREG(other.st_mode):
+        raise ValueError("Request checkpoints must be private regular files")
+    if (before.st_mode | other.st_mode) & 0o077:
+        raise ValueError("Request checkpoint permissions are not private")
+    if (before.st_dev, before.st_uid, before.st_gid, before.st_mode) != (
+        other.st_dev,
+        other.st_uid,
+        other.st_gid,
+        other.st_mode,
+    ):
+        return False
+    if sorted(os.listxattr(source)) != sorted(os.listxattr(target)) or any(
+        os.getxattr(source, key) != os.getxattr(target, key) for key in os.listxattr(source)
+    ):
+        return False
+    if _digest(source) != pins[name]:
+        # Equivalent JSON is insufficient: each original serialization is evidence.
+        return False
+    temporary = job / (".request-checkpoint-" + uuid.uuid4().hex)
+    try:
+        try:
+            os.link(source, temporary, follow_symlinks=False)
+        except OSError as error:
+            if error.errno == errno.EXDEV:
+                return False
+            raise
+        if not stat.S_ISREG(temporary.lstat().st_mode) or _digest(temporary) != pins[name]:
+            raise ValueError("Request checkpoint changed during storage sharing")
+        os.replace(temporary, target)
+        for directory in (job, target.parent):
+            descriptor = os.open(directory, os.O_RDONLY | os.O_DIRECTORY)
+            try:
+                os.fsync(descriptor)
+            finally:
+                os.close(descriptor)
+        if not source.samefile(target):
+            raise ValueError("Request checkpoint changed during storage sharing")
+        return True
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
 def receive(
     root: Path, identity: str, owner: str, archive_sha256: str, stream: BinaryIO
 ) -> dict[str, Any]:
@@ -255,6 +309,7 @@ def receive(
             shutil.move(payload, uploads / (archive_sha256 + ".preserved-" + uuid.uuid4().hex))
         unpack_queue(archive, payload)
         evidence, pins = _validated(job, payload, state)
+        shared = _share_request_checkpoint(job, payload, evidence, pins)
         receipt = {
             "job": identity,
             "owner": owner,
@@ -263,6 +318,7 @@ def receive(
             "response_sha256": evidence.response_sha256,
             "evidence_file_sha256": pins,
             "all_evidence_files_verified": True,
+            "request_checkpoint_storage": "shared" if shared else "independent",
             "transport_only": True,
             "article_approved": False,
             "received_at": utc_now(),
