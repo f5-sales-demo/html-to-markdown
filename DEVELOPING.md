@@ -167,6 +167,14 @@ representation with explicit reference-resolution instructions when needed to fi
 the native character limit; all original source values and media remain available.
 Unresolved proposals and consumed correction allowances remain unchanged.
 
+Content-addressed history preservation verifies existing complete bytes, private
+ownership and permissions, and directory durability before reuse. Identical
+generations keep their inode and modification time. New histories publish through
+a complete private staged file and an exclusive link; concurrent writers verify
+the winner rather than replacing it. Failed staging remains private. No duplicate
+payload store or persistent history cache is created. Transaction ownership,
+complete final custody checks and original editorial allowances remain required.
+
 Baseline review transactions register each exact history generation when its owning
 writer preserves it, including intermediate native-media corrections and canonical
 proposal renewal. Ownership is scoped to the current worker and destination; nested

@@ -8,6 +8,7 @@ from test_baseline_source_review import Client
 from html_to_markdown import baseline_late_validation as late
 from html_to_markdown import baseline_source_context as context
 from html_to_markdown import baseline_source_review as source
+from html_to_markdown.content_inventory import atomic_private
 from html_to_markdown.curation import json_bytes
 from html_to_markdown.enrichment.analysis import sha
 
@@ -134,8 +135,7 @@ def test_history_recovers_proposals_from_the_older_reset_envelope(prepared, monk
     reviewed = source.review_baseline_privacy(output, record, Client())
     original = record.read_bytes()
     history = output / "history" / (sha(original) + ".json")
-    history.parent.mkdir(exist_ok=True)
-    history.write_bytes(original)
+    atomic_private(history, original)
     reset = dict(reviewed)
     reset["phases"] = {}
     reset.pop("candidate")

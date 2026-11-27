@@ -36,6 +36,7 @@ def preserved(output, value):
     path = output / "history" / (sha(data) + ".json")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(data)
+    path.chmod(0o600)
     return path
 
 
