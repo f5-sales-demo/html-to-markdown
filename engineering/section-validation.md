@@ -1,8 +1,9 @@
 # Bounded independent curation validation
 
 Large articles use bounded fact responses while every request retains the complete source,
-candidate stages, policy evidence and media. Assignments keep structural sections separate,
-limit each response to 48 facts, and preserve distinct coincident block occurrences. A separate
+candidate stages, policy evidence and media. New selections greedily pack adjacent complete
+section groups within the unchanged 48-fact response limit. Oversized sections keep bounded
+chunks. Every fact retains its original source order and distinct occurrence address. A separate
 final request reviews document-wide coherence, technical relationships, privacy and retirement.
 The controller checks exact complete coverage and source/candidate digest witnesses before
 accepting the combined result. Section approval cannot bypass the final review or upstream
@@ -15,11 +16,19 @@ in the request; indexing removes repeated addresses and digests without changing
 Unknown representations, malformed indices, duplicate witnesses and changed digests fail closed.
 The native input limit remains 1 MiB.
 
-Completed version-1 section requests can be reused only under the exact immutable section
-controller profile with every other execution file, source request, candidate and assignment
-unchanged. Every captured section body must still match its reconstructed request. The separately
-required final request pins the current validation and ledger controllers; historical sections alone
-cannot approve a document.
+Completed and partial version-1 selections keep their original separate-section assignments.
+Reuse requires an explicitly qualified section controller with every other execution file,
+source request, candidate and assignment unchanged. Every captured section body must match
+the complete reconstructed request. A saved indexed final response can replay only when its
+entire request matches the qualified predecessor reconstruction, including the unchanged ledger
+controller. Missing final evidence requires a new final check pinned to the current controllers;
+historical sections alone cannot approve a document. Unknown or changed controller, policy,
+source, candidate or request evidence cannot select these histories.
+
+The guarded strategy for new selections is `adjacent-sections/1`. It changes only fact-response
+packing, never the complete input, independent review scope, editor allowance or publication
+gates. For example, fifteen small section groups containing 113 facts can form three requests
+of 44, 43 and 26 facts, followed by the mandatory final whole-document review.
 
 Incomplete independent validation preserves the completed editor proposal and its correction
 ledger. Interrupted transport resumes completed sections. Every failed response remains private;

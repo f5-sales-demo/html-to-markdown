@@ -294,6 +294,10 @@ privacy approvals remain required, and these private inputs never enter consumer
 archives. Repeated verification shares one scoped replay and checks the inputs
 and final output again before the scope ends.
 
+Curation fact review packs adjacent section groups under the unchanged response
+limit while preserving complete inputs, historical evidence and the final
+whole-document review. See [section validation](engineering/section-validation.md).
+
 ## Documentation build
 
 ### Closed private evidence relocation

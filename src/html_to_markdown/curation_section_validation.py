@@ -26,13 +26,15 @@ VERSION = "curation-section-validation/1"
 FACT_LIMIT = 48
 # Immutable deployed section protocol; only its final ledger representation changes.
 LEGACY_SECTION_SHA256 = "b5cdd24b02e6feff6df7630a7c7d96fcd02e3a9028794b754e76b7251b16506b"
+# Released v1.14.54/v1.14.55 section plan and indexed final request representation.
+PACKING_PREDECESSOR_SHA256 = "b1745d5b4876db5802d8bd2268e0d73c8dc38ac5b19531ce16a941610ca7678e"
 
 
 class IncompleteValidation(ValueError):
     """An unfinished independent response does not authorize another editor proposal."""
 
 
-def assignments(context: dict[str, Any], limit: int = FACT_LIMIT) -> list[list[str]]:
+def _section_assignments(context: dict[str, Any], limit: int = FACT_LIMIT) -> list[list[str]]:
     """Keep sections separate and coincident occurrences distinct, in source order."""
     if limit < 1:
         raise ValueError("fact review limit must be positive")
@@ -52,6 +54,28 @@ def assignments(context: dict[str, Any], limit: int = FACT_LIMIT) -> list[list[s
     if current:
         groups.append(current)
     return groups
+
+
+def assignments(context: dict[str, Any], limit: int = FACT_LIMIT) -> list[list[str]]:
+    """Pack adjacent complete section groups without changing source fact order."""
+    packed: list[list[str]] = []
+    for group in _section_assignments(context, limit):
+        if packed and len(packed[-1]) + len(group) <= limit:
+            packed[-1].extend(group)
+        else:
+            packed.append(group)
+    return packed
+
+
+def _final_controller_digest(section_sha256: str | None = None) -> str:
+    return sha(
+        json_bytes(
+            {
+                "validation": section_sha256 or sha(Path(__file__).read_bytes()),
+                "ledger": sha(Path(__file__).with_name("curation_fact_ledger.py").read_bytes()),
+            }
+        )
+    )
 
 
 def _scope_request(
@@ -211,22 +235,32 @@ def _final_review(
         {
             **selection,
             "final_document_review": True,
-            "final_controller_sha256": sha(
-                json_bytes(
-                    {
-                        "validation": sha(Path(__file__).read_bytes()),
-                        "ledger": sha(
-                            Path(__file__).with_name("curation_fact_ledger.py").read_bytes()
-                        ),
-                    }
-                )
-            ),
+            "final_controller_sha256": _final_controller_digest(),
         },
         facts,
     )
-    checked, final = _verify(
-        directory / "final.json", body, {**context, "blocks": []}, candidate, client
-    )
+    final_path = directory / "final.json"
+    if final_path.is_file() and not final_path.is_symlink():
+        saved = ResponseEvidence.model_validate_json(final_path.read_bytes())
+        compatible_executions = {
+            _execution_digest(section_sha256=PACKING_PREDECESSOR_SHA256),
+            _execution_digest(legacy=True),
+        }
+        if not saved.error and selection["execution_sha256"] in compatible_executions:
+            previous_body = _scope_request(
+                original,
+                [],
+                {
+                    **selection,
+                    "final_document_review": True,
+                    "final_controller_sha256": _final_controller_digest(PACKING_PREDECESSOR_SHA256),
+                },
+                facts,
+            )
+            # Equality is over the complete reconstructed request, never just its hash.
+            if saved.request == previous_body:
+                body = previous_body
+    checked, final = _verify(final_path, body, {**context, "blocks": []}, candidate, client)
     result = {**checked.model_dump(), "facts": facts}
     verify_validation(context, candidate, result)
     receipt = {
@@ -245,13 +279,13 @@ def _final_review(
     return receipt
 
 
-def _execution_digest(*, legacy: bool = False) -> str:
+def _execution_digest(*, legacy: bool = False, section_sha256: str | None = None) -> str:
     root = Path(__file__).parent
     return sha(
         json_bytes(
             {
-                name: LEGACY_SECTION_SHA256
-                if legacy and name == "curation_section_validation.py"
+                name: (LEGACY_SECTION_SHA256 if legacy else section_sha256)
+                if name == "curation_section_validation.py" and (legacy or section_sha256)
                 else sha((root / name).read_bytes())
                 for name in (
                     "curation_section_validation.py",
@@ -269,15 +303,31 @@ def _execution_digest(*, legacy: bool = False) -> str:
     )
 
 
-def _compatible_selection(selection: dict[str, Any], directory: Path) -> dict[str, Any]:
-    legacy_selection = {**selection, "execution_sha256": _execution_digest(legacy=True)}
-    legacy_directory = directory / sha(json_bytes(legacy_selection))
-    legacy_guard = legacy_directory / "selection.json"
-    if legacy_guard.is_file() and not legacy_guard.is_symlink():
-        if legacy_guard.read_bytes() != json_bytes(legacy_selection):
-            raise ValueError("changed historical section selection")
-        selection = legacy_selection
-    return selection
+def _compatible_selection(
+    selection: dict[str, Any], directory: Path, context: dict[str, Any]
+) -> tuple[dict[str, Any], list[list[str]]]:
+    ordered = assignments(context)
+    current_directory = directory / sha(json_bytes(selection))
+    if current_directory.is_symlink() or (current_directory / "selection.json").is_symlink():
+        raise ValueError("unsafe section review selection")
+    if current_directory.exists():
+        return selection, ordered
+    previous_ordered = _section_assignments(context)
+    for digest in (PACKING_PREDECESSOR_SHA256, LEGACY_SECTION_SHA256):
+        previous_selection = {k: v for k, v in selection.items() if k != "assignment_strategy"}
+        previous_selection.update(
+            execution_sha256=_execution_digest(section_sha256=digest),
+            assignments_sha256=sha(json_bytes(previous_ordered)),
+        )
+        previous_directory = directory / sha(json_bytes(previous_selection))
+        guard = previous_directory / "selection.json"
+        if previous_directory.is_symlink() or guard.is_symlink():
+            raise ValueError("unsafe historical section selection")
+        if guard.is_file():
+            if guard.read_bytes() != json_bytes(previous_selection):
+                raise ValueError("changed historical section selection")
+            return previous_selection, previous_ordered
+    return selection, ordered
 
 
 def validate_sections(
@@ -290,13 +340,14 @@ def validate_sections(
     ordered = assignments(context)
     selection = {
         "version": VERSION,
+        "assignment_strategy": "adjacent-sections/1",
         "original_request_sha256": request_hash(original),
         "execution_sha256": _execution_digest(),
         "candidate_sha256": candidate["output_sha256"],
         "assignments_sha256": sha(json_bytes(ordered)),
         "new_editor_proposals": 0,
     }
-    selection = _compatible_selection(selection, directory)
+    selection, ordered = _compatible_selection(selection, directory, context)
     directory = directory / sha(json_bytes(selection))
     guard = directory / "selection.json"
     if guard.exists() and guard.read_bytes() != json_bytes(selection):
@@ -310,16 +361,7 @@ def validate_sections(
             **selection,
             "final_document_review": True,
             "preflight_only": True,
-            "final_controller_sha256": sha(
-                json_bytes(
-                    {
-                        "validation": sha(Path(__file__).read_bytes()),
-                        "ledger": sha(
-                            Path(__file__).with_name("curation_fact_ledger.py").read_bytes()
-                        ),
-                    }
-                )
-            ),
+            "final_controller_sha256": _final_controller_digest(),
         },
         sizing_ledger(context, candidate),
     )
