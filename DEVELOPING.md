@@ -642,3 +642,23 @@ media proofs. Bounded requests and historical projection versions keep their
 original behavior. It changes no proposal, correction allowance, credential
 enforcement or source publication decision. Requests that still exceed native
 capacity remain private, preserved exceptions.
+
+## Interrupted native-cache seeds
+
+Cross-queue seeding preserves every historical media cache under its immutable
+record digest, while promoting only the cache generation used by that original
+record. A conflict in a required generation still blocks reuse.
+
+`repair-review-seed` is an explicit offline operation for a preserved failed seed
+whose original has no completed or pending phases. Supply the source worker, capture,
+review and inference roots, the original record path, and exact current/original
+record SHA-256 pins. Both existing orchestrator locks must be idle and inference
+must be drained. The repair verifies immutable seed custody and matching histories,
+retains the strongest original privacy feedback, and preserves every record/cache
+before its atomic checkpoint. Missing or ambiguous evidence stays blocked.
+Timestamp-only historical wrappers require an independently proven blocked
+record with every other field identical; the proof retains both exact record
+digests. Original attempt and feedback fields remain preserved, and exhaustion
+cannot be reduced by repair.
+The result remains queued for normal admission and independent replay; repair
+grants no approval or editing allowance and installs no recurring trigger.

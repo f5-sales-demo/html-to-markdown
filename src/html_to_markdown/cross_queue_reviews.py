@@ -12,6 +12,7 @@ from .curation import json_bytes
 from .enrichment.analysis import sha
 from .enrichment.contracts import ResponseEvidence
 from .enrichment.gates import request_hash
+from .media_encoding import source_review_encoding
 from .reference_repair_inputs import safe_file
 from .review_controller_compatibility import admission_binding
 from .review_priorities import ReviewPriorities, select_records
@@ -131,6 +132,32 @@ def _snapshot_boundaries(
                 )
 
 
+def _snapshot_media(
+    worker: Path,
+    output: Path,
+    prior_path: Path,
+    previous: dict[str, Any],
+    record_digest: str,
+) -> None:
+    """Preserve every cache; promote only the original request's representation."""
+    required = 2 if source_review_encoding(previous) == 1 else 3
+    digests = {media["sha256"] for media in previous["item"]["media"]}
+    digests.update(previous.get("file_hashes", {}).values())
+    for digest in sorted(digests):
+        if len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            raise ValueError("unsafe cross-queue media digest")
+        for generation in (2, 3):
+            relative = Path("media") / f"{digest}-native-{generation}.json"
+            original = prior_path.parent.parent / relative
+            if not original.exists():
+                continue
+            cache = safe_file(worker, original.relative_to(worker).as_posix())
+            # Unused generations remain immutable evidence, not active inputs.
+            _snapshot(cache, output / "reuse-media" / record_digest / relative, output)
+            if generation == required:
+                _snapshot(cache, output / relative, output)
+
+
 def seed_review_batch(
     capture: Path,
     output: Path,
@@ -169,21 +196,7 @@ def seed_review_batch(
             digest = sha(path.read_bytes())
             evidence = output / "reuse-evidence" / (digest + ".json")
             _snapshot(path, evidence, output)
-            caches = {media["sha256"] for media in previous["item"]["media"]}
-            caches.update(previous.get("file_hashes", {}).values())
-            for cache_digest in sorted(caches):
-                for relative in (
-                    f"media/{cache_digest}-native-2.json",
-                    f"media/{cache_digest}-native-3.json",
-                ):
-                    if (path.parent.parent / relative).exists():
-                        cache = safe_file(
-                            worker, (path.parent.parent / relative).relative_to(worker).as_posix()
-                        )
-                        destination = output / relative
-                        if destination.is_symlink():
-                            raise ValueError("unsafe cross-queue native evidence link")
-                        _snapshot(cache, destination, output)
+            _snapshot_media(worker, output, path, previous, digest)
             _snapshot_boundaries(worker, output, path, previous)
             seeded = dict(previous)
             if seeded["disposition"] in {"accepted", "policy_excluded"}:
