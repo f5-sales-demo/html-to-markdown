@@ -16,6 +16,7 @@ from .capture_store_maintenance import share_capture_storage
 from .combined_sources import combine_sources
 from .content_inventory import collect_content, repair_captured_extraction
 from .content_policy import load_content_policy, migrate_content
+from .cross_queue_repair_cli import register_seed_repair
 from .curation_existing_validation import validate_existing_curation
 from .curation_renewal_inputs import prepare_renewals
 from .curation_renewal_jobs import review_batch
@@ -56,6 +57,7 @@ from .work_queue import export_queue, list_queues, receive_enrichment, receive_s
 app = typer.Typer(no_args_is_help=True, rich_markup_mode=None)
 register_inference_commands(app)
 register_service_commands(app)
+register_seed_repair(app)
 
 
 @app.command("sanitize-inventory")
