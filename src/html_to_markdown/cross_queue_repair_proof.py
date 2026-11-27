@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from .cross_queue_renewal_custody import renewal_snapshot
 from .curation import json_bytes
 from .enrichment.analysis import sha
 from .media_encoding import source_review_encoding
@@ -95,9 +96,20 @@ def original_custody(
     """Follow immutable seed snapshots to the failed transaction, never a weaker branch."""
     identity = current["item"]["identity"]
     chain = []
+    renewals = []
     seen = set()
     selected = current
-    while selected.get("cross_queue_seed"):
+    while True:
+        if not selected.get("cross_queue_seed"):
+            terminal_error = review / "reuse-errors" / (sha(identity) + ".json.json")
+            if terminal_error.exists():
+                break
+            selected, renewal = renewal_snapshot(worker, review, selected)
+            pin = renewal["record_sha256"]
+            if pin in seen:
+                raise ValueError("seed repair custody chain loops")
+            seen.add(pin)
+            renewals.append(renewal)
         seed = selected["cross_queue_seed"]
         pin = digest(seed["record_sha256"])
         if pin in seen:
@@ -139,6 +151,7 @@ def original_custody(
         raise ValueError("seed repair original transaction custody is unavailable")
     return {
         "seed_chain": chain,
+        **({"context_renewals": renewals} if renewals else {}),
         "error_sha256": sha(error.read_bytes()),
         "unused_conflicts": _unused_conflicts(worker, review, original_path, original),
     }
@@ -186,6 +199,66 @@ def _timestamp_aliases(
     return aliases
 
 
+def _seed_wrapper_aliases(
+    records: dict[str, dict[str, Any]],
+    proven: set[str],
+    rows: list[dict[str, Any]],
+    inspected: dict[str, str],
+) -> list[dict[str, Any]]:
+    """Prove an exact pre-reconciliation seed copy using both existing custody paths."""
+    aliases = []
+    for pin in sorted(records.keys() - proven):
+        value = records[pin]
+        seed = value.get("cross_queue_seed", {})
+        if not isinstance(seed, dict) or set(seed) != {"record_sha256", "prior_record"}:
+            continue
+        source_pin = seed["record_sha256"]
+        prior = seed["prior_record"]
+        if source_pin not in proven or source_pin not in records or not isinstance(prior, str):
+            continue
+        path = Path(prior)
+        if path.parent.name != "documents" or path.parent.parent.name != "review":
+            continue
+        if inspected.get(prior) != source_pin:
+            continue
+        if value != {**records[source_pin], "cross_queue_seed": seed}:
+            continue
+        locations = []
+        for row in rows:
+            if row["record_sha256"] != pin:
+                continue
+            root = Path(row["path"]).parent.parent
+            snapshot = (root / "reuse-evidence" / (source_pin + ".json")).as_posix()
+            if inspected.get(snapshot) == source_pin:
+                locations.append(snapshot)
+        if not locations:
+            continue
+        aliases.append(
+            {
+                "historical_sha256": pin,
+                "proven_blocked_sha256": source_pin,
+                "differing_fields": ["cross_queue_seed"],
+                "prior_record": prior,
+                "custody_snapshot": sorted(locations)[0],
+            }
+        )
+    return aliases
+
+
+def _history_aliases(
+    records: dict[str, dict[str, Any]],
+    proven: set[str],
+    rows: list[dict[str, Any]],
+    inspected: dict[str, str],
+) -> dict[str, Any]:
+    seeds = _seed_wrapper_aliases(records, proven, rows, inspected)
+    proven = proven | {row["historical_sha256"] for row in seeds}
+    return {
+        "timestamp_wrapper_aliases": _timestamp_aliases(records, proven),
+        **({"seed_wrapper_aliases": seeds} if seeds else {}),
+    }
+
+
 def strongest_history(
     worker: Path, current: dict[str, Any], original: dict[str, Any], original_path: Path
 ) -> dict[str, Any]:
@@ -231,6 +304,9 @@ def strongest_history(
                     )
                     proven_blocked.add(sha(data))
                     proven_blocked.update(row["record_sha256"] for row in custody["seed_chain"])
+                    proven_blocked.update(
+                        row["record_sha256"] for row in custody.get("context_renewals", [])
+                    )
             feedback = {
                 **_privacy_budget(value, current["binding"]),
                 **privacy_ledger(value, current["binding"]),
@@ -244,7 +320,7 @@ def strongest_history(
                     "feedback_sha256": sha(json_bytes(feedback)),
                 }
             )
-    aliases = _timestamp_aliases(blocked_records, proven_blocked)
+    aliases = _history_aliases(blocked_records, proven_blocked, rows, inspected)
     if not ledgers:
         raise ValueError("seed repair has no complete matching privacy history")
     maximum = max(map(len, ledgers))
@@ -259,7 +335,7 @@ def strongest_history(
     return {
         "history": rows,
         "inspected_files_sha256": inspected,
-        "timestamp_wrapper_aliases": aliases,
+        **aliases,
         "strongest_feedback_entries": maximum,
         "strongest_feedback_sha256": sha(json_bytes(feedback)),
     }

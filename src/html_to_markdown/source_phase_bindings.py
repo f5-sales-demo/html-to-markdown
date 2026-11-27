@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 from typing import Any
 
@@ -62,9 +63,17 @@ def _privacy_budget(previous: dict[str, Any], binding: dict[str, Any]) -> dict[s
     )
     if blocked and previous.get("cross_queue_storage_retryable"):
         blocked["cross_queue_storage_retryable"] = True
+    if blocked and previous.get("cross_queue_seed"):
+        blocked["cross_queue_seed"] = copy.deepcopy(previous["cross_queue_seed"])
+    if blocked and previous.get("privacy_exhausted"):
+        blocked["privacy_exhausted"] = True
     if not feedback:
         return blocked
-    return {**blocked, "privacy_feedback": list(feedback), "privacy_exhausted": len(feedback) >= 2}
+    return {
+        **blocked,
+        "privacy_feedback": list(feedback),
+        "privacy_exhausted": bool(previous.get("privacy_exhausted") or len(feedback) >= 2),
+    }
 
 
 def reusable_privacy(previous: dict[str, Any], current_binding: dict[str, Any]) -> dict[str, Any]:
