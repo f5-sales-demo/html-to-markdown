@@ -1,5 +1,5 @@
 {
-  "controller_sha256": "7f7124ff0ab9b59578692cc9fc2baf67987ed3b921ba399461fd096c15be2475",
+  "controller_sha256": "bead15124c831ad2681529978f74318a116bd33dbb64960b931fa2324114615e",
   "previous": [
     {
       "controller_sha256": "02df33e0a195dfed6570b713c7207c1326d075bb8d448db3acd2acb9d3a17e0b",
@@ -161,6 +161,13 @@
       "software_tag": "v1.14.56",
       "source_commit": "05dabe223e87d60970cbb20c2e108d61b509b7d2",
       "wheel_sha256": "a6cd14d79d1d59fbb8be46264f0378eeb5277ee97596e10049a33d8c6cc02d10"
+    },
+    {
+      "controller_sha256": "7f7124ff0ab9b59578692cc9fc2baf67987ed3b921ba399461fd096c15be2475",
+      "request_context_sha256": "ff26fd8f84a3841ff1e7d45701e1f039f5fcf2711d8ecd135675aed95b2f7e19",
+      "software_tag": "v1.14.57",
+      "source_commit": "6c64acb9e2975a4054e2f87ae0f9494bfa63550f",
+      "wheel_sha256": "8ffe6ca4e44f19d52fcfb56c5ae84d6bfb0d24a9e2279681aa7799e5fa9a9fcb"
     }
   ],
   "schema_version": 1
