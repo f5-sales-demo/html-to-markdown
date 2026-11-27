@@ -5,7 +5,6 @@ from __future__ import annotations
 import fcntl
 import hashlib
 import json
-import os
 import re
 import shutil
 import uuid
@@ -20,6 +19,7 @@ from .enrichment.codex_client import CodexClient
 from .enrichment.contracts import ResponseEvidence
 from .enrichment.gates import request_hash
 from .enrichment.model_policy import validate_new_request
+from .inference_upload import preserve_upload
 from .models import utc_now
 from .work_queue import unpack_queue
 
@@ -216,34 +216,39 @@ def _validated(
     return evidence, pins
 
 
+def _receive_state(job: Path, owner: str) -> dict[str, Any]:
+    state = _read(job / "state.json")
+    if state.get("owner") != owner or state["state"] not in {"claimed", "received"}:
+        raise ValueError("Inference result belongs to another or unclaimed job")
+    if (job / "invalidated.json").exists():
+        raise ValueError("Cannot return an invalidated inference result")
+    return state
+
+
 def receive(
     root: Path, identity: str, owner: str, archive_sha256: str, stream: BinaryIO
 ) -> dict[str, Any]:
-    """Preserve original uploaded bytes and acknowledge only a complete independent replay."""
+    """Stage input outside the broker lock; commit only against unchanged custody."""
     _hex(owner, 32)
     _hex(archive_sha256, 64)
     job = _job(root, identity)
+    binding_keys = ("job", "owner", "executor_sha256", "request_sha256")
     with _lock(root):
-        state = _read(job / "state.json")
-        if state.get("owner") != owner or state["state"] not in {"claimed", "received"}:
-            raise ValueError("Inference result belongs to another or unclaimed job")
+        before = _receive_state(job, owner)
+        binding = {key: before[key] for key in binding_keys}
+        request_digest = _digest(job / "request.json")
         uploads = job / "uploads"
+        if uploads.is_symlink():
+            raise ValueError("Private inference uploads cannot follow symlinks")
         uploads.mkdir(exist_ok=True, mode=0o700)
-        archive = uploads / (archive_sha256 + "-" + uuid.uuid4().hex + ".tar.gz")
-        count, h = 0, hashlib.sha256()
-        with os.fdopen(
-            os.open(archive, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600), "wb"
-        ) as target:
-            while chunk := stream.read(1024 * 1024):
-                count += len(chunk)
-                target.write(chunk)
-                h.update(chunk)
-                if count > MAX_TRANSFER_BYTES:
-                    raise ValueError("Inference evidence transfer exceeds its bounded spool")
-            target.flush()
-            os.fsync(target.fileno())
-        if h.hexdigest() != archive_sha256:
-            raise ValueError("Incomplete or changed inference transfer; bytes preserved")
+    archive = preserve_upload(uploads, archive_sha256, stream, MAX_TRANSFER_BYTES)
+    with _lock(root):
+        job = _job(root, identity)
+        state = _receive_state(job, owner)
+        if {key: state[key] for key in binding_keys} != binding or _digest(
+            job / "request.json"
+        ) != request_digest:
+            raise ValueError("Inference custody changed during upload; bytes preserved")
         if (job / "receipt.json").exists():
             receipt = _read(job / "receipt.json")
             if receipt["archive_sha256"] != archive_sha256:

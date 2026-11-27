@@ -22,6 +22,17 @@ Every changed snapshot dispatches the repository's own Pages workflow. The
 project site receives the exact protected-main content commit from its caller;
 it never resolves a floating release or content branch.
 
+## Inference result transport
+
+Manual Mac result returns stage each private archive outside the global broker lock.
+The CLI pipe fails after 120 seconds without incoming bytes, preserving its partial
+archive and the existing claim. Completed uploads reacquire the lock and verify
+unchanged ownership, executor, request bytes and invalidation state before replay
+and atomic acknowledgment. Concurrent matching retries return the same verified
+receipt. Transport failure never renews a model request or editorial allowance.
+Keep the original Mac spool until the existing worker receives that acknowledgment;
+installed processors still require their compatible release and adoption gates.
+
 ## Local application checks
 
 ```bash
