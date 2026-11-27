@@ -154,5 +154,35 @@
     "source": "docs-cloud-f5-com",
     "document": "content/docs-cloud-f5-com/distributed-apps/how-to/app-mgnt/container-registry/index.md",
     "category": "required_procedure"
+  },
+  {
+    "question_id": "syn-mon",
+    "question": "Which HTTP request customization, TLS report frequency, and DNS record types does Synthetic Monitoring support?",
+    "expected_answer": "`HTTP(s) Synthetic Monitors` allow you to validate the health of HTTP(s) endpoints based on response code, response string, performance, and other application critical metrics. The monitor can adapt to your application needs allowing for custom request headers, request body, and more. Once configured, you are able to visualize and compare response performance and health from any configured source region that your customers may be coming from.\n\nIn addition to performance and health, `HTTP(s) Synthetic Monitors` also generate a `TLS Report` once per day to provide an overall TLS score for your TLS enabled endpoints. The report provides insight into protocols, ciphers, vulnerabilities, and insight into how the score was derived. Quickly download a pdf or copy the report into your clipboard in order to share with teams across your organization that need it the most.\n\n`DNS Synthetic Monitors` allow you to validate the configuration, record response type, as well as health and performance of internet self-hosted DNS nameservers. Record types supported today include A, AAAA, CNAME, MX, NS, PTR, TXT, SOA, and SRV. Once configured, you are able to visualize and compare response performance and health from any configured source region that your customers may be coming from.",
+    "required_evidence": [
+      "`HTTP(s) Synthetic Monitors` allow you to validate the health of HTTP(s) endpoints based on response code, response string, performance, and other application critical metrics. The monitor can adapt to your application needs allowing for custom request headers, request body, and more. Once configured, you are able to visualize and compare response performance and health from any configured source region that your customers may be coming from.",
+      "In addition to performance and health, `HTTP(s) Synthetic Monitors` also generate a `TLS Report` once per day to provide an overall TLS score for your TLS enabled endpoints. The report provides insight into protocols, ciphers, vulnerabilities, and insight into how the score was derived. Quickly download a pdf or copy the report into your clipboard in order to share with teams across your organization that need it the most.",
+      "`DNS Synthetic Monitors` allow you to validate the configuration, record response type, as well as health and performance of internet self-hosted DNS nameservers. Record types supported today include A, AAAA, CNAME, MX, NS, PTR, TXT, SOA, and SRV. Once configured, you are able to visualize and compare response performance and health from any configured source region that your customers may be coming from."
+    ],
+    "source": "docs-cloud-f5-com",
+    "document": "content/docs-cloud-f5-com/observability/services/observability/syn-mon/index.md",
+    "category": "required_procedure"
+  },
+  {
+    "question_id": "wingman-pod-annotations",
+    "question": "What Pod annotations fix the Wingman default 8070 port conflict with hostNetwork, and when can injection be disabled for Kubernetes jobs?",
+    "expected_answer": "Change wingman to use a different port from the default (8070)\n\nThis mostly will happen if you have multiple application running with hostNetwork\n\nAdd the following metadata.annotations of the **POD** (not the deployment, daemonSet etc..)\n\ntemplate:\n        metadata:\n          annotations:\n            ves.io/wingman-port: \"8071\"\n\nDisable wingman, this only work in Kubernetes jobs\n\nves.io/wingman-injection-mode: disable\n\nNote: We do not recommend disabling it unless it causes some issue",
+    "required_evidence": [
+      "Change wingman to use a different port from the default (8070)",
+      "This mostly will happen if you have multiple application running with hostNetwork",
+      "Add the following metadata.annotations of the **POD** (not the deployment, daemonSet etc..)",
+      "template:\n        metadata:\n          annotations:\n            ves.io/wingman-port: \"8071\"",
+      "Disable wingman, this only work in Kubernetes jobs",
+      "ves.io/wingman-injection-mode: disable",
+      "Note: We do not recommend disabling it unless it causes some issue"
+    ],
+    "source": "my-f5-com",
+    "document": "content/my-f5-com/K000147257/index.md",
+    "category": "required_procedure"
   }
 ]

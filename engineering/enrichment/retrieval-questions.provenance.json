@@ -180,6 +180,50 @@
         "article_sha256": "2d3f5735265fa6857029b67db8495c5e76d1ab34c9db567aa70981bed4351974",
         "source_html_sha256": "bda6a3c733eb854b3d02e831013b70e003934493f2961151c2da920ca840c75d"
       }
+    },
+    {
+      "question_id": "syn-mon",
+      "document": "content/docs-cloud-f5-com/observability/services/observability/syn-mon/index.md",
+      "source_snapshot": "capture-20261124T042305Z",
+      "source_article_sha256": "a32dc1da312ee5e329e1005a1e03cdbcf3e4c53f1c55e17c5f155ad07c4b9daf",
+      "source_inventory_sha256": "6ea01b971d7225a3b040da57cc462a3375d53e855a2d624b5982188bfdfb4fd7",
+      "source_url": "https://docs.cloud.f5.com/docs-v2/observability/services/observability/syn-mon",
+      "evidence_sha256": [
+        "156a4b5e0c0324b5310fb45b357c52452c11e08b35fd0d9a6df347c8e5570e3b",
+        "d45b9638d52a23c9f4cec3e7b9f319f6a78ba76e80ffbb12c62f695e2bd39c29",
+        "fb99c549082c5014282f8c7162eab2a69a306ee4fd650ae73383bfd51514a9c0"
+      ],
+      "current_capture": {
+        "captured_at": "2026-11-24T04:27:53Z",
+        "article_sha256": "a32dc1da312ee5e329e1005a1e03cdbcf3e4c53f1c55e17c5f155ad07c4b9daf",
+        "source_html_sha256": "6cbc84d95e41759bf6816d49996251c80a377f276dbe4196d9bf5829e4aa91fa",
+        "source_modified_at": "2026-11-23",
+        "media_sha256": ["9ddada5510d3d8e77577394de159e16aadd72e8309ec7f83b9dc7c3ea8e98391"]
+      }
+    },
+    {
+      "question_id": "wingman-pod-annotations",
+      "document": "content/my-f5-com/K000147257/index.md",
+      "source_snapshot": "capture-20261124T044306Z",
+      "source_article_sha256": "754ed97ad9dd1bc94cfbda580940b6cc9aa11d22850488cfe669aa2fba1ddf47",
+      "source_inventory_sha256": "dc8ee1791229c8f1dd4a35ef0c53a0330e074eef94bd958fbe398fdc0b1d1fb5",
+      "source_url": "https://my.f5.com/manage/s/article/K000147257",
+      "evidence_sha256": [
+        "8b56ef9ca54804d079050e6af8a16cd678b647ab2dd1c567073c123a60c5bb32",
+        "3c9c206914e6ab666c361fd983a5dac6f99f517618cc171ec18b0019fc398f67",
+        "d6c9a0d67423659a37ee448a23992408d9ed614fdca239b1c0b382f15568e2de",
+        "7fb41ed3f3f060164924692edd8ddddf6335e362337852c28bc9d3ed899743b8",
+        "17a230a75457fd89fee24ed05a237161eec19d5c5ff28c2a69cdce6c4072d45c",
+        "ce4d73cf7fc042b30eebd31048739ee15502d4bb5322984bfbed7e5d950ed486",
+        "a156c6ec56a7eb3fe07cac9517384c833819c2f2eef1e473e4ec44effa51744f"
+      ],
+      "current_capture": {
+        "captured_at": "2026-11-24T04:48:15Z",
+        "article_sha256": "754ed97ad9dd1bc94cfbda580940b6cc9aa11d22850488cfe669aa2fba1ddf47",
+        "source_html_sha256": "afa41c285bcd5eb411bbc3a7aff643f7d6f042d1bd2cd1ea7aa50756961fa95c",
+        "source_modified_at": "2024-11-07",
+        "media_sha256": []
+      }
     }
   ]
 }
