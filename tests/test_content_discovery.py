@@ -7,7 +7,7 @@ import pytest
 
 from html_to_markdown.adapters.my_f5 import MyF5Adapter
 from html_to_markdown.adapters.www_f5 import WwwF5Adapter
-from html_to_markdown.errors import AllowlistError, ScrapeError
+from html_to_markdown.errors import AllowlistError, NotFoundError, ScrapeError
 from html_to_markdown.models import FetchResult
 from html_to_markdown.urls import validate_source_url
 
@@ -174,3 +174,69 @@ async def test_sitemap_discovers_solutions_without_fixed_seeds() -> None:
     pages = await WwwF5Adapter().discover(fetcher)
     assert {p.url for p in pages} == {root, solution}
     assert validate_source_url("www-f5-com", solution) == solution
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("failure", ["http404", "soft404", "transport"])
+async def test_missing_sitemap_article_does_not_hide_later_article_links(failure: str) -> None:
+    root = WwwF5Adapter.root_url
+    missing = "https://www.f5.com/solutions/a-missing-article"
+    later = "https://www.f5.com/solutions/z-live-article"
+    linked = "https://www.f5.com/solutions/new-distributed-cloud-integration"
+
+    class Fetcher:
+        def __init__(self) -> None:
+            self._http = self
+            self.events: list[dict[str, object]] = []
+            self.visited: list[str] = []
+
+        async def get(self, url: str, **kwargs: object):
+            return SimpleNamespace(
+                status_code=200,
+                url=url,
+                content=(
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                    f"<url><loc>{root}</loc></url><url><loc>{missing}</loc></url>"
+                    f"<url><loc>{later}</loc></url></urlset>"
+                ).encode(),
+            )
+
+        async def _http_fetch(self, source: str, url: str):
+            self.visited.append(url)
+            if url == missing:
+                if failure == "http404":
+                    raise NotFoundError("HTTP 404")
+                if failure == "transport":
+                    raise ScrapeError("Unresolved transport failure")
+                html = "<title>Page not found</title><main>Page not found</main>"
+            else:
+                html = (
+                    f'<main><a href="{linked}">Integration</a></main>'
+                    if url == later
+                    else "<main></main>"
+                )
+            return FetchResult(url=url, final_url=url, status_code=200, html=html)
+
+        def record_discovery(self, **event: object) -> None:
+            self.events.append(event)
+
+    fetcher = Fetcher()
+    if failure == "transport":
+        with pytest.raises(ScrapeError, match="Unresolved transport"):
+            await WwwF5Adapter().discover(fetcher)
+        assert later not in fetcher.visited
+        assert not any(
+            event.get("disposition") == "unavailable_discovery_reference"
+            for event in fetcher.events
+        )
+        return
+    pages = await WwwF5Adapter().discover(fetcher)
+    assert {page.url for page in pages} == {root, missing, later, linked}
+    assert fetcher.visited.index(later) > fetcher.visited.index(missing)
+    assert any(
+        event.get("origin") == missing
+        and event.get("disposition") == "unavailable_discovery_reference"
+        and event.get("error_class") == "NotFoundError"
+        and event.get("complete") is True
+        for event in fetcher.events
+    )
