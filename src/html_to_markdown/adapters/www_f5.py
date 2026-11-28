@@ -88,14 +88,20 @@ class WwwF5Adapter(SourceAdapter):
                 url = pending.pop(0)
                 try:
                     fetched = await http_fetch(self.source_id, url)
-                except AllowlistError:
+                    self.classify_page(fetched)
+                except (AllowlistError, NotFoundError) as error:
                     if record is not None:
                         record(
                             source=self.source_id,
                             origin=url,
                             urls=[],
                             complete=True,
-                            disposition="outside_discovery_scope",
+                            disposition=(
+                                "outside_discovery_scope"
+                                if isinstance(error, AllowlistError)
+                                else "unavailable_discovery_reference"
+                            ),
+                            error_class=type(error).__name__,
                         )
                     continue
                 main = BeautifulSoup(fetched.html, "html.parser").select_one("main")
